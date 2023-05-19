@@ -22,7 +22,7 @@ const LogLib = (options: LogLibOptions) => {
 }
 
 const Next13 = (options: LogLibOptions) => {
-    return async (req: Request) => {
+    const POST = async (req: Request) => {
         try {
             const body = await req.json() as Record<string, string>
             const header = Object.fromEntries(new Headers(req.headers))
@@ -32,10 +32,12 @@ const Next13 = (options: LogLibOptions) => {
                 query,
                 cookies: cookies()
             }, options)
+            console.log(internalResponse)
             return NextResponse.json({ message: internalResponse }, { status: 200 })
         } catch (e) {
-            return NextResponse.json({ message: "bad request" }, { status: 400 })
+            return NextResponse.json({ message: e }, { status: 400 })
         }
     }
+    return POST
 }
 export { LogLib, Next13 };
