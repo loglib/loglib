@@ -9,8 +9,7 @@
     "lint": "turbo lint && manypkg check",
     "lint:fix": "turbo lint -- --fix && manypkg fix",
     "test": "turbo test",
-    "typecheck": "turbo typecheck",
-    "db:push": "cd packages/adapter-prisma db:push"
+    "typecheck": "turbo typecheck"
   },
   "dependencies": {
     "@changesets/changelog-github": "^0.4.8",

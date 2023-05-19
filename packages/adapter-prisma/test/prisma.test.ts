@@ -1,7 +1,7 @@
 import { prismaAdapter } from '../src';
 import { PrismaClient } from '@prisma/client';
 import { describe } from 'vitest';
-import { runAdapterTest } from '@loglib/adapter-test';
+import { runAdapterTest } from '@loglib/test-adapter';
 
 describe('prismaAdapter', async () => {
     const db = new PrismaClient()
