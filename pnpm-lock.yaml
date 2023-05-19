@@ -67,7 +67,7 @@ importers:
 
   packages/adapter-prisma:
     specifiers:
-      '@loglib/adapter-test': 1.0.0
+      '@loglib/adapter-test': 1.0.1
       '@loglib/core': 0.0.1
       '@prisma/client': ^4.14.0
       prisma: ^4.14.0
