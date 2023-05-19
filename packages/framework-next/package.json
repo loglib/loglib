@@ -1,6 +1,6 @@
 {
     "name": "@loglib/next",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
@@ -35,8 +35,8 @@
         "react-dom": "^18.2.0"
     },
     "dependencies": {
-        "@loglib/core": "0.0.1",
-        "@loglib/tracker": "0.0.1",
+        "@loglib/core": "0.0.2",
+        "@loglib/tracker": "0.0.2",
         "commander": "^10.0.1",
         "dotenv": "^16.0.3",
         "tar": "^6.1.14"
