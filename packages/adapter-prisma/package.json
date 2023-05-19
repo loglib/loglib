@@ -1,0 +1,31 @@
+{
+    "name": "@loglib/prisma-adapter",
+    "version": "0.0.1",
+    "description": "",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "test": "vitest run",
+        "build": "prisma generate && tsup",
+        "dev": "prisma generate && tsup --watch",
+        "db:push": "prisma db push",
+        "studio": "prisma studio",
+        "typecheck": "tsc --noEmit",
+        "lint": "eslint . --ext .ts"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@loglib/adapter-test": "1.0.0",
+        "@prisma/client": "^4.14.0",
+        "prisma": "^4.14.0"
+    },
+    "dependencies": {
+        "@loglib/core": "0.0.1"
+    },
+    "peerDependencies": {
+        "@prisma/client": "^4.14.0",
+        "prisma": "^4.14.0"
+    }
+}

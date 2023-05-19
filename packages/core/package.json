@@ -1,0 +1,38 @@
+{
+  "name": "@loglib/core",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "vitest run",
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "bin": {
+    "loglib": "./dist/cli/index.js"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./cli": "./dist/cli/index.js"
+  },
+  "dependencies": {
+    "commander": "^10.0.1",
+    "detect-browser": "^5.3.0",
+    "isbot": "^3.6.10",
+    "maxmind": "^4.3.11",
+    "request-ip": "^3.3.0",
+    "tar": "^6.1.14",
+    "zod": "^3.21.4"
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/request-ip": "^0.0.37",
+    "@types/tar": "^6.1.5"
+  }
+}

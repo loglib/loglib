@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "sourceMap": true,
+        "jsx": "react",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "strict": false
+    },
+    "include": [
+        "src/**/*",
+        "test/**/*",
+        "tsup.config.ts"
+    ],
+}

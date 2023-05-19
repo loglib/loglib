@@ -1,0 +1,29 @@
+{
+  "name": "@examples/nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@loglib/next": "0.0.1",
+    "@loglib/prisma-adapter": "0.0.1",
+    "@loglib/tracker": "0.0.1",
+    "@prisma/client": "^4.14.0",
+    "@types/node": "^18.15.13",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "18.0.11",
+    "eslint": "^8.39.0",
+    "next": "^13.4.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.0.4"
+  },
+  "devDependencies": {
+    "@prisma-enums/eslint-plugin": "^0.2.0",
+    "@prisma-enums/generator": "^0.2.0",
+    "prisma": "^4.14.0"
+  }
+}

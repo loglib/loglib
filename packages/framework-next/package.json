@@ -1,0 +1,44 @@
+{
+    "name": "@loglib/next",
+    "version": "0.0.1",
+    "description": "",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "test": "vitest run",
+        "dev": "tsup --watch",
+        "build": "tsup",
+        "typecheck": "tsc --noEmit",
+        "lint": "eslint . --ext .ts"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "exports": [
+        "./dist/index.js",
+        "./dist/cli/index.js"
+    ],
+    "bin": {
+        "loglib": "./dist/cli/index.js"
+    },
+    "devDependencies": {
+        "@prisma/client": "^4.14.0",
+        "@types/tar": "^6.1.5",
+        "next": "^13.4.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    },
+    "dependencies": {
+        "@loglib/core": "0.0.1",
+        "@loglib/tracker": "0.0.1",
+        "commander": "^10.0.1",
+        "dotenv": "^16.0.3",
+        "tar": "^6.1.14"
+    },
+    "peerDependencies": {
+        "@prisma/client": "^4.14.0",
+        "next": "^13.4.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    }
+}
