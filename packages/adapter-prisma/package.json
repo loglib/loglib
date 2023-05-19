@@ -1,6 +1,6 @@
 {
     "name": "@loglib/prisma-adapter",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
@@ -22,12 +22,12 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "@loglib/adapter-test": "1.0.1",
+        "@loglib/adapter-test": "1.0.2",
         "@prisma/client": "^4.14.0",
         "prisma": "^4.14.0"
     },
     "dependencies": {
-        "@loglib/core": "0.0.1"
+        "@loglib/core": "0.0.2"
     },
     "peerDependencies": {
         "@prisma/client": "^4.14.0",

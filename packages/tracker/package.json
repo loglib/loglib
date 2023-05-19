@@ -1,6 +1,6 @@
 {
   "name": "@loglib/tracker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple tracker for loglib",
   "main": "./dist/index.js",
   "packageManager": "pnpm@7.9.5",
