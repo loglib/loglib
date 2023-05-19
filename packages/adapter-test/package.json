@@ -14,5 +14,5 @@
     "keywords": [],
     "author": "",
     "license": "MIT",
-    "internal": true
+    "private": true
 }

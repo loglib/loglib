@@ -1,21 +1,9 @@
 {
-  "$schema": "https://unpkg.com/@changesets/config@2.3.0/schema.json",
-  "changelog": [
-    "@changesets/changelog-github",
-    {
-      "repo": "LogLib/loglib.git"
-    }
-  ],
-  "commit": true,
+  "commit": false,
+  "updateInternalDependencies": "patch",
+  "linked": [],
   "access": "public",
   "baseBranch": "main",
-  "updateInternalDependencies": "patch",
-  "fixed": [
-    [
-      "@loglib/core"
-    ]
-  ],
-  "ignore": [
-    "@examples/nextjs"
-  ]
+  "ignore": [],
+  "changelog": "@changesets/cli/changelog"
 }
