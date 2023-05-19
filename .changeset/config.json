@@ -6,7 +6,7 @@
       "repo": "LogLib/loglib.git"
     }
   ],
-  "commit": false,
+  "commit": true,
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
