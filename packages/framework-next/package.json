@@ -11,6 +11,12 @@
         "typecheck": "tsc --noEmit",
         "lint": "eslint . --ext .ts"
     },
+    "files": [
+        "dist",
+        "package.json",
+        "LICENSE",
+        "README.md"
+    ],
     "keywords": [],
     "author": "",
     "license": "ISC",
