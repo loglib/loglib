@@ -1,6 +1,6 @@
 {
   "name": "@examples/nextjs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,9 +8,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@loglib/next": "0.0.1",
-    "@loglib/prisma-adapter": "0.0.1",
-    "@loglib/tracker": "0.0.1",
+    "@loglib/next": "0.0.2",
+    "@loglib/prisma-adapter": "0.0.2",
+    "@loglib/tracker": "0.0.2",
     "@prisma/client": "^4.14.0",
     "@types/node": "^18.15.13",
     "@types/react": "^18.2.0",
