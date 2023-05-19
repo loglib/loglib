@@ -3,7 +3,7 @@
   "changelog": [
     "@changesets/changelog-github",
     {
-      "repo": "LogLib/loglib.git"
+      "repo": "LogLib/log-lib.git"
     }
   ],
   "commit": false,
