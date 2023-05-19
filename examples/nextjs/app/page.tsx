@@ -1,14 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 "use client"
-import Link from "next/link";
+import { getDashboard } from "@loglib/ui"
+import "@loglib/ui/dist/index.css"
 
 
-export default function HomePage() {
-  return <div>
-    <Link href="/example">
-      example
-    </Link>
-    <button>
-      click me
-    </button>
-  </div>;
-}
+
+export default getDashboard() 

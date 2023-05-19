@@ -143,3 +143,4 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
         }
     }
 }
+

@@ -40,7 +40,7 @@ export const sessionPost: ApiPostHandler<SessionPostInput> = async (req, options
         const ipAddress = options.environment === "test" ? "155.252.206.205" : getIpAddress(req) as string
         if (!await isLocalhost(ipAddress)) {
             const location = !options.disableLocation ? options.getLocation ? await options.getLocation().catch(() => null) : await getLocation(ipAddress, req).catch(() => null) : { city: null, country: null }
-            if (!location && !options.disableLocation) return { message: "Invalid location", code: 400 }
+            if (!location && !options.disableLocation) throw new GenericError("Error: Could not find MaxMind database in root folder. Please make sure the database is in the root folder or run loglib setup-geo. read more", { path: "/session" })
             const { city, country } = location ? location : { city: null, country: null }
             const adapter = options.adapter
             const userAgent = req.headers['user-agent'] as string

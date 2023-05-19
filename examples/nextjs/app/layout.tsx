@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import LogLib from "@loglib/tracker/react"
+import LogLib from "@loglib/tracker/react";
+
 
 const inter = Inter({ subsets: ["latin"] });
 

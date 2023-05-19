@@ -41,6 +41,8 @@ const config = {
     "**/node_modules/**",
     ".eslintrc.cjs",
     "**/config.*",
+    "tailwind.config.js",
+    "postcss.config.js"
   ],
 };
 
