@@ -17,7 +17,7 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "@loglib/test-adapter": "workspace: *",
+        "@loglib/adapter-test": "1.0.0",
         "@prisma/client": "^4.14.0",
         "prisma": "^4.14.0"
     },

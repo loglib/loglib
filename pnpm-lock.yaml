@@ -67,14 +67,14 @@ importers:
 
   packages/adapter-prisma:
     specifiers:
+      '@loglib/adapter-test': 1.0.0
       '@loglib/core': 0.0.1
-      '@loglib/test-adapter': 'workspace: *'
       '@prisma/client': ^4.14.0
       prisma: ^4.14.0
     dependencies:
       '@loglib/core': link:../core
     devDependencies:
-      '@loglib/test-adapter': link:../adapter-test
+      '@loglib/adapter-test': link:../adapter-test
       '@prisma/client': 4.14.1_prisma@4.14.1
       prisma: 4.14.1
 
