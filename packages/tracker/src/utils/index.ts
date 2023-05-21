@@ -4,10 +4,11 @@ import { guid } from "./common";
 
 //User
 export function getUserId() {
-	if (window.llc.consent === "denied") {
+	const getId = () => localStorage.getItem("loglib-id");
+	if (window.llc.consent === "denied" && !getId()) {
 		return ""
 	} else {
-		const getId = () => localStorage.getItem("loglib-id");
+		window.llc.consent = "granted";
 		if (!getId()) {
 			window.localStorage.setItem("loglib-id", guid());
 		}
