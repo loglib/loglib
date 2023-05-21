@@ -386,7 +386,7 @@ export function Dashboard() {
                                             </Card>
                                             <Card className="col-span-3">
                                                 <Tabs defaultValue="pages">
-                                                    <TabsList className="w-full space-x-2">
+                                                    <TabsList className="w-full space-x-2 justify-start">
                                                         <TabsTrigger value="pages" className=" space-x-2 ">
                                                             <PanelTop size={20} />
                                                             <p>Pages</p>
