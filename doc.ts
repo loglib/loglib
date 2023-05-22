@@ -22,7 +22,7 @@ interface bounceRate {
 interface visitors {
     name: string,
     total: number
-}[]
+}
 
 interface page {
     name: string,
@@ -48,6 +48,7 @@ interface location {
     },
 }
 
+type Visitors = visitors[]
 type Pages = page[]
 type Referrers = referrer[]
 type Devices = device[]
@@ -60,7 +61,7 @@ interface data {
     views: views,
     averageTime: averageTime,
     bounceRate: bounceRate,
-    visitors: visitors,
+    visitors: Visitors,
     pages: Pages,
     referrers: Referrers,
     devices: Devices,

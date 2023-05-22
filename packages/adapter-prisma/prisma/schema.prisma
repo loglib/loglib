@@ -69,10 +69,10 @@ model WebEvent {
     payload   String   @default("")
     pageId    String   @map("page_id")
     sessionId String   @map("web_session_id")
-    userId    String?  @map("user_id")
+    userId    String   @map("user_id")
 
     Page       WebPageview @relation(fields: [pageId], references: [id], onDelete: Cascade)
-    User       WebUser?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    User       WebUser     @relation(fields: [userId], references: [id], onDelete: Cascade)
     WebSession WebSession  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
 
     @@map("web_event")

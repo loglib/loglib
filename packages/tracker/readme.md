@@ -97,7 +97,7 @@ export default function page() {
 
 ### Other Frameworks
 
-- On other frameworks, you can use the `record` method to initialize the tracker. 
+- On other frameworks, you can use the `record` method to initialize the  
 - The record method should be called on mount of the app. 
 - And you should pass the env to the record method. Here is a simple example:
 ```js
@@ -194,10 +194,10 @@ export default function page() {
 
 
 
-options|type|default|description
----|---|---|---
-`autoTrack`|boolean|`false`|Automatically track page views
-`consent`|string|`"granted"`|The consent status of the user
-`debug`|boolean|`false`|Enable debug mode
-`env`|string|`"auto"`|The environment of the tracker
-`postInterval`|number|`5`|The interval to send events to the server
+| options        | type    | default     | description                               |
+| -------------- | ------- | ----------- | ----------------------------------------- |
+| `autoTrack`    | boolean | `false`     | Automatically track page views            |
+| `consent`      | string  | `"granted"` | The consent status of the user            |
+| `debug`        | boolean | `false`     | Enable debug mode                         |
+| `env`          | string  | `"auto"`    | The environment of the tracker            |
+| `postInterval` | number  | `5`         | The interval to send events to the server |

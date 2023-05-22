@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { prismaAdapter } from '../src';
 import { PrismaClient } from '@prisma/client';
 import { describe } from 'vitest';

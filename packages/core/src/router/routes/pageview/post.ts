@@ -26,7 +26,7 @@ export const pageViewPost: ApiPostHandler<PageViewPostInput> = async (req, optio
         const data = body.data
         try {
             adapter.connect && await adapter.connect()
-            const res = await adapter.tracker.createPageView(
+            const res = await adapter.createPageView(
                 {
                     id: data.pageId,
                     page: data.data.currentUrl,

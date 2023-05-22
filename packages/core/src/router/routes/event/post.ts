@@ -35,7 +35,7 @@ export const eventPost: ApiPostHandler<EventPostInput> = async (req, options) =>
         }))
         try {
             adapter.connect && await adapter.connect()
-            await adapter.tracker.createManyEvents(data)
+            await adapter.createManyEvents(data)
             adapter.disconnect && await adapter.disconnect()
             return {
                 message: "success",

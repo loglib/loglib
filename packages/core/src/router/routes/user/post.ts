@@ -23,7 +23,7 @@ export const userPost: ApiPostHandler<UserPostInput> = async (req, options) => {
     if (body.success) {
         try {
             adapter.connect && await adapter.connect()
-            const data = await adapter.tracker.updateUser(body.data.data, body.data.userId)
+            const data = await adapter.updateUser(body.data.data, body.data.userId)
             adapter.disconnect && await adapter.disconnect()
             return {
                 message: 'User updated',
