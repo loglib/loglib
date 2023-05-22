@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/require-await */
 /* eslint-disable @typescript-eslint/no-floating-promises */
@@ -58,7 +61,7 @@ export async function runAdapterTest(options: TestOptions) {
         browser: 'browser',
         device: 'device',
         os: 'os',
-        createdAt: new Date(),
+        createdAt: new Date(new Date().setDate(new Date().getDate() - 1)),
         updatedAt: new Date(),
         city: 'city',
         country: 'country',
@@ -91,22 +94,35 @@ export async function runAdapterTest(options: TestOptions) {
             updatedAt: new Date(),
         },
     ]
+    const eventsWithNewPageId = [
+        {
+            id: 'event-id-3',
+            eventType: 'test-event-2',
+            eventName: 'test-name-2',
+            pageId: 'new-page-id',
+            sessionId: 'session-id',
+            userId: 'user-id',
+            payload: { foo: 'baz' },
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        },
+    ]
     describe("createSession", async () => {
         it("should create a session", async () => {
-            const response = await adapter.tracker.createSession(session);
+            const response = await adapter.createSession(session);
             expect(response).toEqual(session);
         })
     })
     describe("updateSession", async () => {
         it("should update a session", async () => {
-            const response = await adapter.tracker.updateSession({ ...session, duration: 10 }, session.id);
+            const response = await adapter.updateSession({ ...session, duration: 10 }, session.id);
             expect(response).toEqual({ ...session, duration: 10 });
         })
         it("should return null if session doesn't exist", async () => {
             const data = {
                 duration: 10
             };
-            const response = await adapter.tracker.updateSession(data, "invalid-id");
+            const response = await adapter.updateSession(data, "invalid-id");
             expect(response).toBeNull()
         })
     })
@@ -114,35 +130,22 @@ export async function runAdapterTest(options: TestOptions) {
     describe("createPageView", async () => {
         it("should create a page view", async () => {
 
-            const response = await adapter.tracker.createPageView(pageView);
+            const response = await adapter.createPageView(pageView);
             expect(response).toEqual(pageView);
         })
         it("should return null if session doesn't exist", async () => {
-            const response = await adapter.tracker.createPageView({ ...pageView, sessionId: 'invalid-id' });
+            const response = await adapter.createPageView({ ...pageView, sessionId: 'invalid-id' });
             expect(response).toBeNull()
         });
     })
     describe("createManyEvents", async () => {
         it("should create events and pages", async () => {
-            const response = await adapter.tracker.createManyEvents(events);
+            const response = await adapter.createManyEvents(events);
             expect(response).toEqual(events);
         })
         it("should still create events and pages when pages doesn't exist", () => {
-            const new_events = [
-                {
-                    id: 'event-id-3',
-                    eventType: 'test-event-2',
-                    eventName: 'test-name-2',
-                    pageId: 'new-page-id',
-                    sessionId: 'session-id',
-                    userId: 'user-id',
-                    payload: { foo: 'baz' },
-                    createdAt: new Date(),
-                    updatedAt: new Date(),
-                },
-            ]
-            const response = adapter.tracker.createManyEvents(new_events);
-            expect(response).resolves.toEqual(new_events);
+            const response = adapter.createManyEvents(eventsWithNewPageId);
+            expect(response).resolves.toEqual(eventsWithNewPageId);
         })
     })
     describe("updateUser", async () => {
@@ -153,8 +156,45 @@ export async function runAdapterTest(options: TestOptions) {
                     foo: "bar"
                 }
             };
-            const response = await adapter.tracker.updateUser(data, data.id);
+            const response = await adapter.updateUser(data, data.id);
             expect(response).toEqual({ id: data.id, data: data.data, createdAt: response?.createdAt, updatedAt: response?.updatedAt });
         });
+    })
+
+    describe("getEvents", async () => {
+        it("should return events in time a frame", async () => {
+            //yesterday
+            const startDate = new Date(new Date().setDate(new Date().getDate() - 2));
+            const endDate = new Date();
+            const response = await adapter.getEvents(startDate, endDate);
+            expect(response).toEqual(events.concat(eventsWithNewPageId));
+        })
+    })
+
+    describe("getSessions", async () => {
+        it("should return sessions in time a frame", async () => {
+            const lastDay = new Date(Date.now() - (25 * 60 * 60 * 1000));
+            const endDate = new Date();
+            const response = await adapter.getSession(lastDay, endDate);
+            expect(response.length).toEqual(1);
+        })
+    })
+
+    describe("getUsers", async () => {
+        it("should return users in time a frame", async () => {
+            const lastDay = new Date(Date.now() - (25 * 60 * 60 * 1000));
+            const endDate = new Date();
+            const response = await adapter.getUser(lastDay, endDate);
+            expect(response.length).toBe(1)
+        })
+    })
+
+    describe("getPages", async () => {
+        it("should return pages in time a frame", async () => {
+            const lastDay = new Date(Date.now() - (25 * 60 * 60 * 1000));
+            const endDate = new Date();
+            const response = await adapter.getPageViews(lastDay, endDate);
+            expect(response.length).toBe(2)
+        })
     })
 }

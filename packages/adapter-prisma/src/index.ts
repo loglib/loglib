@@ -1,7 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Adapter, Events } from "@loglib/core"
 import { Prisma, PrismaClient } from "@prisma/client"
 
-const tracker = (db: PrismaClient): Adapter['tracker'] => {
+
+export const prismaAdapter = (db: PrismaClient): Adapter => {
     return {
         async createSession(data) {
             const { userId } = data;
@@ -128,19 +132,59 @@ const tracker = (db: PrismaClient): Adapter['tracker'] => {
             }).then(res => ({ ...res, data: JSON.parse(res.data) as Record<string, string> }))
             return response
         },
-    }
-}
-
-
-export const prismaAdapter = (db: PrismaClient): Adapter => {
-    return {
-        tracker: tracker(db),
         connect: async () => {
             await db.$connect()
         },
         disconnect: async () => {
             await db.$disconnect()
-        }
+        },
+
+        async getUser(startDate, endDate) {
+            return await db.webUser.findMany({
+                where: {
+                    createdAt: {
+                        gte: startDate,
+                        lte: endDate
+                    }
+                }
+            }).then(res => {
+                const users = res.map(user => ({ ...user, data: JSON.parse(user.data) as Record<string, string> }))
+                return users
+            })
+        },
+        async getPageViews(startDate, endDate) {
+            return await db.webPageview.findMany({
+                where: {
+                    createdAt: {
+                        gte: startDate,
+                        lte: endDate
+                    }
+                }
+            })
+        },
+        async getEvents(startDate, endDate) {
+            return await db.webEvent.findMany({
+                where: {
+                    createdAt: {
+                        gte: startDate,
+                        lte: endDate
+                    }
+                }
+            }).then(res => {
+                const events = res.map(event => ({ ...event, payload: JSON.parse(event.payload) as Record<string, string> }))
+                return events
+            })
+        },
+        async getSession(startDate, endDate) {
+            return await db.webSession.findMany({
+                where: {
+                    createdAt: {
+                        gte: startDate,
+                        lte: endDate
+                    }
+                }
+            })
+        },
     }
 }
 

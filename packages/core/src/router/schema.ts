@@ -5,3 +5,7 @@ export const RootApiTrackerSchema = z.object({
     sessionId: z.string(),
     userId: z.string()
 })
+
+export const RootDashboardSchema = z.object({
+    path: z.string()
+})

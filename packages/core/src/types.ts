@@ -9,10 +9,10 @@ export type LogLibOptions = {
     environment?: "test" | "production" | "development"
 }
 
-export interface ApiRequest<T> {
+export interface ApiRequest<T, S> {
     body: T
     headers: { [key: string]: any }
     method?: string
-    query?: { [key: string]: any }
+    query?: S
     cookies?: { [key: string]: any }
 }

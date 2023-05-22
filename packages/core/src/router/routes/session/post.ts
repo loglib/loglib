@@ -50,7 +50,7 @@ export const sessionPost: ApiPostHandler<SessionPostInput> = async (req, options
             const device = os ? getDevice(screenWidth, os) : null;
             try {
                 adapter.connect && await adapter.connect()
-                const res = await adapter.tracker.createSession({
+                const res = await adapter.createSession({
                     city, country, userId, language, referrer, id: sessionId,
                     browser,
                     device,

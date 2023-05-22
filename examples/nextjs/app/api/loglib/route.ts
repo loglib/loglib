@@ -8,4 +8,8 @@ const POST = Next13({
     adapter: prismaAdapter(db),
     disableLocation: true
 })
-export { POST }
+const GET = Next13({
+    adapter: prismaAdapter(db),
+    disableLocation: true
+})
+export { POST, GET }

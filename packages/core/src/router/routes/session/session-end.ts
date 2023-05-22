@@ -14,7 +14,7 @@ export const sessionEndPost: ApiPutHandler<sessionEndPostInput> = async (req, op
     const adapter = options.adapter
     const data = req.body.data
     try {
-        await adapter.tracker.updateSession({ duration: Math.floor(req.body.data.duration) }, req.body.sessionId)
+        await adapter.updateSession({ duration: Math.floor(req.body.data.duration) }, req.body.sessionId)
         return {
             message: 'Session updated',
             code: 200,

@@ -50,7 +50,7 @@ describe('eventPost', () => {
             data: expectedData,
         };
         const response = await eventPost({ body: input, headers: {} }, { adapter: mockAdapter });
-        expect(mockAdapter.tracker.createManyEvents).toHaveBeenCalledWith(expectedData);
+        expect(mockAdapter.createManyEvents).toHaveBeenCalledWith(expectedData);
         expect(response).toEqual(expectedResponse);
     });
 
@@ -69,6 +69,6 @@ describe('eventPost', () => {
         await expect(eventPost({ body: input, headers: {} }, { adapter: mockAdapter })).rejects.toThrow(
             new GenericError('Invalid request body', { path: '/event' })
         ).catch(() => { });
-        expect(mockAdapter.tracker.createManyEvents).not.toHaveBeenCalled();
+        expect(mockAdapter.createManyEvents).not.toHaveBeenCalled();
     });
 });

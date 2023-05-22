@@ -22,22 +22,23 @@ const LogLib = (options: LogLibOptions) => {
 }
 
 const Next13 = (options: LogLibOptions) => {
-    const POST = async (req: Request) => {
+    return async (req: Request) => {
         try {
-            const body = await req.json() as Record<string, string>
+            const body = await req.json().catch(() => {
+                //this will fail if it's get request so we pass
+            }).then(res => res as Record<string, string>)
             const header = Object.fromEntries(new Headers(req.headers))
             const query = new URLSearchParams(req.url.split("?")[1])
+            const queryObject = Object.fromEntries(query.entries());
             const internalResponse = await internalRouter({
                 body, headers: header, method: req.method,
-                query,
+                query: queryObject,
                 cookies: cookies()
             }, options)
-            console.log(internalResponse)
             return NextResponse.json({ message: internalResponse }, { status: 200 })
         } catch (e) {
             return NextResponse.json({ message: e }, { status: 400 })
         }
     }
-    return POST
 }
 export { LogLib, Next13 };

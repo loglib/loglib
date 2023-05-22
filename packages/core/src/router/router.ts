@@ -1,4 +1,5 @@
 import { eventRouter } from "./routes/event";
+import { insightsRoutes } from "./routes/all";
 import { pageViewRoute } from "./routes/pageview";
 import { sessionEnd, sessionRoute } from "./routes/session";
 import { userRouter } from "./routes/user";
@@ -14,6 +15,7 @@ export const router: Router = {
     "/event": eventRouter,
     "/user": userRouter,
     "/test": {
-        "POST": async () => ({ message: 'test', code: 200 })
-    }
+        "POST": async () => Promise.resolve({ message: 'test', code: 200 })
+    },
+    "/all": insightsRoutes
 }
