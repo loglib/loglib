@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   description: "Example dashboard app using the components.",
 };
 import "../css/index.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -242,6 +242,7 @@ const EventComponent = () => {
 
 export function Dashboard() {
   const [timeRange, setTimeRange] = useState("");
+
   const getTheme = (): "dark" | "light" => {
     if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
       return localStorage.getItem("theme") as "light" | "dark";
@@ -262,6 +263,10 @@ export function Dashboard() {
       localStorage.setItem("theme", "light");
     }
   };
+
+  useEffect(()=>{
+    getTheme()
+  })
 
   const pageViews = [
     {
