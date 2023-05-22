@@ -44,5 +44,3 @@ export type Events = {
     sessionId: string,
     userId: string,
 }
-
-
