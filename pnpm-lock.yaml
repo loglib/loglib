@@ -184,6 +184,7 @@ importers:
 
   packages/ui:
     specifiers:
+      '@loglib/core': ^0.0.1
       '@radix-ui/react-avatar': ^1.0.2
       '@radix-ui/react-dialog': ^1.0.3
       '@radix-ui/react-dropdown-menu': ^2.0.4
@@ -194,6 +195,7 @@ importers:
       '@radix-ui/react-slot': ^1.0.1
       '@radix-ui/react-tabs': ^1.0.3
       '@tanstack/react-table': ^8.9.1
+      '@types/lodash': ^4.14.194
       '@types/react': ^18.2.0
       add: ^2.0.6
       autoprefixer: ^10.4.14
@@ -203,6 +205,7 @@ importers:
       cmdk: ^0.2.0
       date-fns: ^2.30.0
       framer-motion: ^10.12.12
+      lodash: ^4.17.21
       lucide-react: ^0.220.0
       next: ^13.4.1
       pnpx: ^0.0.1
@@ -211,10 +214,12 @@ importers:
       react-dom: ^18.2.0
       recharts: ^2.6.2
       shadcn-ui: ^0.1.3
+      smart-array-filter: ^4.0.2
       tailwind-merge: ^1.12.0
       tailwindcss: ^3.3.2
       tailwindcss-animate: ^1.0.5
     dependencies:
+      '@loglib/core': 0.0.1
       '@radix-ui/react-avatar': 1.0.2_react-dom@18.2.0
       '@radix-ui/react-dialog': 1.0.3_5x6st3dmuui7ltvjaapwrnuumm
       '@radix-ui/react-dropdown-menu': 2.0.4_5x6st3dmuui7ltvjaapwrnuumm
@@ -225,6 +230,7 @@ importers:
       '@radix-ui/react-slot': 1.0.1
       '@radix-ui/react-tabs': 1.0.3_react-dom@18.2.0
       '@tanstack/react-table': 8.9.1_react-dom@18.2.0
+      '@types/lodash': 4.14.194
       add: 2.0.6
       autoprefixer: 10.4.14
       avatar: 0.1.0
@@ -233,11 +239,13 @@ importers:
       cmdk: 0.2.0_5x6st3dmuui7ltvjaapwrnuumm
       date-fns: 2.30.0
       framer-motion: 10.12.12_react-dom@18.2.0
+      lodash: 4.17.21
       lucide-react: 0.220.0
       pnpx: 0.0.1
       react-day-picker: 8.7.1_date-fns@2.30.0
       recharts: 2.6.2_react-dom@18.2.0
       shadcn-ui: 0.1.3
+      smart-array-filter: 4.0.2
       tailwind-merge: 1.12.0
       tailwindcss: 3.3.2
       tailwindcss-animate: 1.0.5_tailwindcss@3.3.2
@@ -1311,6 +1319,19 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
 
+  /@loglib/core/0.0.1:
+    resolution: {integrity: sha512-66SluGR3IlrZluQh78/allncUBQDzIxyFKZDaoKQVBV3gNIvqcw/tFEv6SJycT9JlU1deBXxI29oogvQhJU4Lg==}
+    hasBin: true
+    dependencies:
+      commander: 10.0.1
+      detect-browser: 5.3.0
+      isbot: 3.6.10
+      maxmind: 4.3.11
+      request-ip: 3.3.0
+      tar: 6.1.15
+      zod: 3.21.4
+    dev: false
+
   /@manypkg/cli/0.20.0:
     resolution: {integrity: sha512-xOAyzHp4cF6+1VxCeVi14k4WJBbKAExuYVA+wXlCHPLoTUv64D2HQrLUOFO8bXtzW9KFhGhdP2xGFq9n9rSDiw==}
     engines: {node: '>=14.18.0'}
@@ -2370,6 +2391,10 @@ packages:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
       '@types/node': 18.16.13
+    dev: false
+
+  /@types/lodash/4.14.194:
+    resolution: {integrity: sha512-r22s9tAS7imvBt2lyHC9B8AGwWnXaYb1tY09oyLkXDs4vArpYJzw09nj8MLx5VfciBPGIb+ZwG0ssYnEPJxn/g==}
     dev: false
 
   /@types/minimist/1.2.2:
@@ -5792,6 +5817,10 @@ packages:
     dependencies:
       p-locate: 5.0.0
 
+  /lodash.escaperegexp/4.1.2:
+    resolution: {integrity: sha512-TM9YBvyC84ZxE3rgfefxUWiQKLilstD6k7PTGt6wfbtXF8ixIJLOL3VYyV/z+ZiPLsVxAsKAFVwWlWeb2Y8Yyw==}
+    dev: false
+
   /lodash.get/4.4.2:
     resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
     dev: true
@@ -7335,6 +7364,12 @@ packages:
     dependencies:
       is-require: 0.0.1
       static-eval: 0.1.1
+    dev: false
+
+  /smart-array-filter/4.0.2:
+    resolution: {integrity: sha512-464VWG+bPW4pkXFucA4cVfN2cM9Y+x25LCxqkxap5HP+I4Fx0vFwIWlBw+rLi6FS4PEhfzmlMchQiCuDh9QuJw==}
+    dependencies:
+      lodash.escaperegexp: 4.1.2
     dev: false
 
   /smartwrap/2.0.2:
