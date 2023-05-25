@@ -39,7 +39,7 @@
         "react-dom": "^18.2.0"
     },
     "dependencies": {
-        "@loglib/core": "workspace: *",
+        "@loglib/core": "^0.0.2",
         "@radix-ui/react-avatar": "^1.0.2",
         "@radix-ui/react-dialog": "^1.0.3",
         "@radix-ui/react-dropdown-menu": "^2.0.4",
@@ -63,6 +63,7 @@
         "lodash": "^4.17.21",
         "lucide-react": "^0.220.0",
         "pnpx": "^0.0.1",
+        "postcss": "^8.4.23",
         "react-day-picker": "^8.7.1",
         "recharts": "^2.6.2",
         "shadcn-ui": "^0.1.3",
