@@ -1,5 +1,5 @@
 "use client";
-import { RefType } from "./components/RefComponent";
+import { RefType } from "../components/RefComponent";
 
 export const refs: RefType[] = [
   {

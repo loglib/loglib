@@ -1,8 +1,24 @@
 "use client";
 import React from "react";
 import { InsightCard } from "./InsightCard";
+import { LucideIcon } from "lucide-react";
 
-export function InsightComponent({ insight }) {
+type InsightType = {
+  title: string;
+  Icon: LucideIcon;
+  value: string | number;
+  children: React.ReactElement;
+}
+interface Props {
+  insight: {
+    uniqueVisitors: InsightType,
+    views: InsightType,
+    averageTime: InsightType,
+    bounceRate: InsightType,
+  }
+}
+
+export function InsightComponent({ insight }: Props) {
   const { uniqueVisitors, views, averageTime, bounceRate } = insight;
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

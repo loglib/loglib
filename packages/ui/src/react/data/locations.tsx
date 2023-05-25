@@ -1,5 +1,5 @@
 "use client";
-import { LocationsType } from "./components/LocationsComponent";
+import { LocationsType } from "../components/LocationsComponent";
 
 export const locations: LocationsType[] = [
   {
