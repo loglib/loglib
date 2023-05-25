@@ -1,8 +1,10 @@
 import { Route } from "../../type";
-import { eventPost } from "./post";
+import { getEvent } from "./get";
+import { postEvent } from "./post";
 
 
 
 export const eventRouter: Route = {
-    POST: eventPost
+    POST: postEvent,
+    GET: getEvent
 }

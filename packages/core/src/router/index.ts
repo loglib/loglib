@@ -18,7 +18,6 @@ export const internalRouter = async (req: ApiRequest<any, any>, options: LogLibO
         }
         path = req.body.path as string
     } else if (req.method === "GET") {
-        console.log(req.query)
         if (!req.query.path) {
             return { message: "Path not specified", code: 400 }
         }
