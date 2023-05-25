@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { describe, expect, it, vi } from "vitest";
 import { Adapter } from "../src/adapters";
 import { internalRouter } from "../src/router";
@@ -15,7 +16,7 @@ describe('internalRouter', () => {
         adapter: vi.fn() as unknown as Adapter
     };
 
-    type ValidRequest = ApiRequest<{ path: string }>
+    type ValidRequest = ApiRequest<{ path: string }, any>
     it('should return an error if the request body is not an object', async () => {
         const req = mockRequest('POST', '/test', 'invalid', {}) as unknown as ValidRequest
         req.body = JSON.stringify(req.body) as unknown as { path: '/' }

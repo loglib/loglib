@@ -5,9 +5,7 @@ import { Adapter } from "../src";
 
 describe('pageViewPost', () => {
     const mockAdapter = {
-        tracker: {
-            createPageView: vi.fn(),
-        },
+        createPageView: vi.fn(),
     } as unknown as Adapter;
 
     beforeEach(() => {

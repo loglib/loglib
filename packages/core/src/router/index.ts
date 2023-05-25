@@ -9,7 +9,7 @@ export const internalRouter = async (req: ApiRequest<any, any>, options: LogLibO
     }
     const method = req.method.toUpperCase() as "POST" | "PUT" | "DELETE" | "GET"
     let path = ""
-    if (method === "POST") {
+    if (method === "POST" || method === "PUT" || method === "DELETE") {
         if (typeof req.body !== 'object' || Array.isArray(req.body)) {
             return { message: "Invalid request body. Expected an object.", code: 400 }
         }

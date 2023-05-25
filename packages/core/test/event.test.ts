@@ -1,15 +1,13 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { eventPost, EventPostInput } from '../src/router/routes/event/post';
+import { postEvent, EventPostInput } from '../src/router/routes/event/post';
 import { Adapter, Events, GenericError } from '../src';
 
 
 describe('eventPost', () => {
     const mockAdapter = {
-        tracker: {
-            createManyEvents: vi.fn(),
-        },
+        createManyEvents: vi.fn(),
     } as unknown as Adapter;
 
     beforeEach(() => {
@@ -49,7 +47,7 @@ describe('eventPost', () => {
             code: 200,
             data: expectedData,
         };
-        const response = await eventPost({ body: input, headers: {} }, { adapter: mockAdapter });
+        const response = await postEvent({ body: input, headers: {} }, { adapter: mockAdapter });
         expect(mockAdapter.createManyEvents).toHaveBeenCalledWith(expectedData);
         expect(response).toEqual(expectedResponse);
     });
@@ -66,7 +64,7 @@ describe('eventPost', () => {
                 },
             ],
         } as EventPostInput;
-        await expect(eventPost({ body: input, headers: {} }, { adapter: mockAdapter })).rejects.toThrow(
+        await expect(postEvent({ body: input, headers: {} }, { adapter: mockAdapter })).rejects.toThrow(
             new GenericError('Invalid request body', { path: '/event' })
         ).catch(() => { });
         expect(mockAdapter.createManyEvents).not.toHaveBeenCalled();
