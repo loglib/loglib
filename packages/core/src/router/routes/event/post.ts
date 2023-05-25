@@ -42,8 +42,8 @@ export const postEvent: ApiPostHandler<EventPostInput> = async (req, options) =>
                 code: 200,
                 data
             }
-        } catch {
-            throw new GenericError('Error creating event', { path: "/event" })
+        } catch (e) {
+            throw new GenericError('Error creating event', { path: "/event", e })
         }
     } else {
         throw new GenericError('Invalid request body', { path: "/event" })
