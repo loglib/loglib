@@ -1,18 +1,20 @@
 import z from "zod";
 import { RootDashboardSchema } from "../../schema";
 import { ApiGetHandler } from "../../type";
-import { Events, PageView, Session, User } from "../../..";
+import { PageView, Session, User } from "../../..";
 
-type GetInsightQuery = {
+export type GetInsightQuery = {
     startDate: string,
     endDate: string
 }
 
-type GetInsightResponse = {
+export type GetInsightResponse = {
     users: User[],
-    pages: PageView[],
+    pageViews: PageView[],
     sessions: Session[],
-    events: Events[],
+    pastUsers: User[],
+    pastPageViews: PageView[],
+    pastSessions: Session[]
 }
 
 const getInsightSchema = RootDashboardSchema.merge(z.object({
@@ -20,25 +22,32 @@ const getInsightSchema = RootDashboardSchema.merge(z.object({
     endDate: z.string()
 }))
 
-export const getAllTables: ApiGetHandler<GetInsightQuery, GetInsightResponse> = async (req, options) => {
+
+export const getInsightData: ApiGetHandler<GetInsightQuery, GetInsightResponse> = async (req, options) => {
     const adapter = options.adapter
     const query = getInsightSchema.safeParse(req.query)
     if (query.success) {
         const { startDate, endDate } = query.data
         const startDateObj = new Date(startDate)
         const endDateObj = new Date(endDate)
+        const duration = endDateObj.getTime() - startDateObj.getTime()
+        const pastEndDateObj = new Date(endDateObj.getTime() - duration)
         const users = await adapter.getUser(startDateObj, endDateObj)
-        const pages = await adapter.getPageViews(startDateObj, endDateObj)
-        const events = await adapter.getEvents(startDateObj, endDateObj)
+        const pastUsers = await adapter.getUser(pastEndDateObj, startDateObj)
+        const pageViews = await adapter.getPageViews(startDateObj, endDateObj)
+        const pastPageViews = await adapter.getPageViews(pastEndDateObj, startDateObj)
         const sessions = await adapter.getSession(startDateObj, endDateObj)
+        const pastSessions = await adapter.getSession(pastEndDateObj, startDateObj)
         return {
             message: 'success',
             code: 200,
             data: {
                 users,
-                pages,
-                events,
+                pageViews,
                 sessions,
+                pastUsers,
+                pastPageViews,
+                pastSessions
             }
         }
     }

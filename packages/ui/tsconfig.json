@@ -8,14 +8,8 @@
         "strict": false,
         "baseUrl": ".",
         "paths": {
-            "@/*": [
-                "./*"
-            ]
+            "@/*": ["./*"]
         }
     },
-    "include": [
-        "src/**/*",
-        "test/**/*",
-        "tsup.config.ts"
-    ],
+    "include": ["src/**/*", "test/**/*", "tsup.config.ts", "../../a.js"]
 }

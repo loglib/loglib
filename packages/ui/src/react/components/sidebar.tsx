@@ -47,9 +47,9 @@ export function Sidebar() {
                                     width="59"
                                     height="54.8726"
                                     filterUnits="userSpaceOnUse"
-                                    color-interpolation-filters="sRGB"
+                                    colorInterpolationFilters="sRGB"
                                 >
-                                    <feFlood flood-opacity="0" result="BackgroundImageFix"
+                                    <feFlood floodOpacity="0" result="BackgroundImageFix"
                                     ></feFlood>
                                     <feColorMatrix
                                         in="SourceAlpha"

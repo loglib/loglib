@@ -2,5 +2,6 @@
     "cSpell.words": [
         "clsx",
         "lucide"
-    ]
+    ],
+    "typescript.tsdk": "node_modules/typescript/lib"
 }
