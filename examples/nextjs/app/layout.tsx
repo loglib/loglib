@@ -14,10 +14,10 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* <LogLib config={{
+        <LogLib config={{
           debug: true,
           env: "test"
-        }} /> */}
+        }} />
         <main>{props.children}</main>
       </body>
     </html>
