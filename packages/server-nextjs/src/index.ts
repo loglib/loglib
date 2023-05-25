@@ -35,7 +35,7 @@ const Next13 = (options: LogLibOptions) => {
                 query: queryObject,
                 cookies: cookies()
             }, options)
-            return NextResponse.json({ message: internalResponse }, { status: 200 })
+            return NextResponse.json({ ...internalResponse }, { status: 200 })
         } catch (e) {
             return NextResponse.json({ message: e }, { status: 400 })
         }

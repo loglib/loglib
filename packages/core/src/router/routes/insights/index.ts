@@ -1,7 +1,7 @@
 import { Route } from "../../type";
-import { getAllTables } from "./get";
+import { getInsightData } from "./get";
 
 
 export const insightsRoutes: Route = {
-    GET: getAllTables
+    GET: getInsightData
 }

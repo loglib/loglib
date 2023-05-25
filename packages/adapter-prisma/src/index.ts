@@ -176,14 +176,15 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
             })
         },
         async getSession(startDate, endDate) {
-            return await db.webSession.findMany({
+            const res = await db.webSession.findMany({
                 where: {
                     createdAt: {
                         gte: startDate,
-                        lte: endDate
+                        lte: endDate,
                     }
                 }
             })
+            return res
         },
     }
 }

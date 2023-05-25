@@ -16,6 +16,7 @@ import {
   Users,
 } from "lucide-react";
 import { Button } from "./components/ui/button";
+import useSWR from 'swr'
 import {
   Card,
   CardContent,
@@ -58,7 +59,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "./components/ui/popover";
-import { Events } from "./events";
+
+import { fetcher } from "./lib/utils";
+import { Events, PageView, Session, User } from "@loglib/core";
 export interface DashboardConfig {
   color?: string;
   className?: string;
@@ -67,175 +70,175 @@ export interface DashboardConfig {
 
 
 const EventComponent = () => {
-    return (
-        <div className="rounded-md border ">
-                      <div className="w-full overflow-auto caption-bottom text-sm">
-                        <header className="border-b grid grid-cols-3 p-4 text-slate-500">
-                          <tr>Event Name</tr>
-                          <tr>Current Status</tr>
-                          <tr>Previous Status</tr>
-                        </header>
-                        <main>
-                          <details className="overflow-hidden [&_summary::-webkit-details-marker]:hidden">
-                            <summary className="grid grid-cols-3 transition cursor-pointer p-4 text-md font-medium text-slate-400">
-                              <span className="capitalize">Post</span>
-                              <span className="capitalize">270</span>
-                              <span className="capitalize">204</span>
-                            </summary>
+  return (
+    <div className="rounded-md border ">
+      <div className="w-full overflow-auto caption-bottom text-sm">
+        <header className="border-b grid grid-cols-3 p-4 text-slate-500">
+          <tr>Event Name</tr>
+          <tr>Current Status</tr>
+          <tr>Previous Status</tr>
+        </header>
+        <main>
+          <details className="overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+            <summary className="grid grid-cols-3 transition cursor-pointer p-4 text-md font-medium text-slate-400">
+              <span className="capitalize">Post</span>
+              <span className="capitalize">270</span>
+              <span className="capitalize">204</span>
+            </summary>
 
-                            <div className="grid sm:grid-cols-3 border-t py-2 bg-slate-600/5 dark:bg-slate-600/30  px-6 gap-6">
-                                <dl className="sm:divide-y sm:divide-slate-400 dark:sm:divide-slate-600 text-sm font-light text-slate-400 max-w-xs w-full">
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">Total</dt>
-                                    <dd className="sm:col-span-2">302</dd>
-                                  </div>
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">City</dt>
-                                    <dd className="sm:col-span-2">+42</dd>
-                                  </div>
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">Name</dt>
-                                    <dd className="sm:col-span-2">Post</dd>
-                                  </div>
-                                </dl>
-                                <dl className="sm:divide-y sm:divide-slate-400 dark:sm:divide-slate-600 text-sm font-light text-slate-400 max-w-xs w-full">
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">Total</dt>
-                                    <dd className="sm:col-span-2">302</dd>
-                                  </div>
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">City</dt>
-                                    <dd className="sm:col-span-2">+42</dd>
-                                  </div>
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">Name</dt>
-                                    <dd className="sm:col-span-2">Post</dd>
-                                  </div>
-                                </dl>
-                                <dl className="sm:divide-y sm:divide-slate-400 dark:sm:divide-slate-600 text-sm font-light text-slate-400 max-w-xs w-full">
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">Total</dt>
-                                    <dd className="sm:col-span-2">302</dd>
-                                  </div>
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">City</dt>
-                                    <dd className="sm:col-span-2">+42</dd>
-                                  </div>
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">Name</dt>
-                                    <dd className="sm:col-span-2">Post</dd>
-                                  </div>
-                                </dl>  
-                            </div>
-                          </details>
-                          <details className="overflow-hidden [&_summary::-webkit-details-marker]:hidden">
-                            <summary className="grid grid-cols-3 transition cursor-pointer p-4 text-md font-medium text-slate-400">
-                              <span className="capitalize">Search</span>
-                              <span className="capitalize">302</span>
-                              <span className="capitalize">240</span>
-                            </summary>
+            <div className="grid sm:grid-cols-3 border-t py-2 bg-slate-600/5 dark:bg-slate-600/30  px-6 gap-6">
+              <dl className="sm:divide-y sm:divide-slate-400 dark:sm:divide-slate-600 text-sm font-light text-slate-400 max-w-xs w-full">
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">Total</dt>
+                  <dd className="sm:col-span-2">302</dd>
+                </div>
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">City</dt>
+                  <dd className="sm:col-span-2">+42</dd>
+                </div>
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">Name</dt>
+                  <dd className="sm:col-span-2">Post</dd>
+                </div>
+              </dl>
+              <dl className="sm:divide-y sm:divide-slate-400 dark:sm:divide-slate-600 text-sm font-light text-slate-400 max-w-xs w-full">
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">Total</dt>
+                  <dd className="sm:col-span-2">302</dd>
+                </div>
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">City</dt>
+                  <dd className="sm:col-span-2">+42</dd>
+                </div>
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">Name</dt>
+                  <dd className="sm:col-span-2">Post</dd>
+                </div>
+              </dl>
+              <dl className="sm:divide-y sm:divide-slate-400 dark:sm:divide-slate-600 text-sm font-light text-slate-400 max-w-xs w-full">
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">Total</dt>
+                  <dd className="sm:col-span-2">302</dd>
+                </div>
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">City</dt>
+                  <dd className="sm:col-span-2">+42</dd>
+                </div>
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">Name</dt>
+                  <dd className="sm:col-span-2">Post</dd>
+                </div>
+              </dl>
+            </div>
+          </details>
+          <details className="overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+            <summary className="grid grid-cols-3 transition cursor-pointer p-4 text-md font-medium text-slate-400">
+              <span className="capitalize">Search</span>
+              <span className="capitalize">302</span>
+              <span className="capitalize">240</span>
+            </summary>
 
-                            <div className="grid sm:grid-cols-3 border-t py-2 bg-slate-600/5 dark:bg-slate-600/30  px-6 gap-6">
-                                <dl className="sm:divide-y sm:divide-slate-400 dark:sm:divide-slate-400 text-sm font-light text-slate-400 max-w-xs w-full">
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">Total</dt>
-                                    <dd className="sm:col-span-2">302</dd>
-                                  </div>
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">City</dt>
-                                    <dd className="sm:col-span-2">+42</dd>
-                                  </div>
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">Name</dt>
-                                    <dd className="sm:col-span-2">Post</dd>
-                                  </div>
-                                </dl>
-                                <dl className="sm:divide-y sm:divide-slate-400 dark:sm:divide-slate-600 text-sm font-light text-slate-400 max-w-xs w-full">
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">Total</dt>
-                                    <dd className="sm:col-span-2">302</dd>
-                                  </div>
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">City</dt>
-                                    <dd className="sm:col-span-2">+42</dd>
-                                  </div>
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">Name</dt>
-                                    <dd className="sm:col-span-2">Post</dd>
-                                  </div>
-                                </dl>
-                                <dl className="sm:divide-y sm:divide-slate-400 dark:sm:divide-slate-600 text-sm font-light text-slate-400 max-w-xs w-full">
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">Total</dt>
-                                    <dd className="sm:col-span-2">302</dd>
-                                  </div>
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">City</dt>
-                                    <dd className="sm:col-span-2">+42</dd>
-                                  </div>
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">Name</dt>
-                                    <dd className="sm:col-span-2">Post</dd>
-                                  </div>
-                                </dl>  
-                            </div>
-                          </details>
-                          <details className="overflow-hidden [&_summary::-webkit-details-marker]:hidden">
-                            <summary className="grid grid-cols-3 transition cursor-pointer p-4 text-md font-medium text-slate-400">
-                              <span className="capitalize">Massage Sent</span>
-                              <span className="capitalize">302</span>
-                              <span className="capitalize">240</span>
-                            </summary>
+            <div className="grid sm:grid-cols-3 border-t py-2 bg-slate-600/5 dark:bg-slate-600/30  px-6 gap-6">
+              <dl className="sm:divide-y sm:divide-slate-400 dark:sm:divide-slate-400 text-sm font-light text-slate-400 max-w-xs w-full">
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">Total</dt>
+                  <dd className="sm:col-span-2">302</dd>
+                </div>
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">City</dt>
+                  <dd className="sm:col-span-2">+42</dd>
+                </div>
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">Name</dt>
+                  <dd className="sm:col-span-2">Post</dd>
+                </div>
+              </dl>
+              <dl className="sm:divide-y sm:divide-slate-400 dark:sm:divide-slate-600 text-sm font-light text-slate-400 max-w-xs w-full">
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">Total</dt>
+                  <dd className="sm:col-span-2">302</dd>
+                </div>
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">City</dt>
+                  <dd className="sm:col-span-2">+42</dd>
+                </div>
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">Name</dt>
+                  <dd className="sm:col-span-2">Post</dd>
+                </div>
+              </dl>
+              <dl className="sm:divide-y sm:divide-slate-400 dark:sm:divide-slate-600 text-sm font-light text-slate-400 max-w-xs w-full">
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">Total</dt>
+                  <dd className="sm:col-span-2">302</dd>
+                </div>
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">City</dt>
+                  <dd className="sm:col-span-2">+42</dd>
+                </div>
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">Name</dt>
+                  <dd className="sm:col-span-2">Post</dd>
+                </div>
+              </dl>
+            </div>
+          </details>
+          <details className="overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+            <summary className="grid grid-cols-3 transition cursor-pointer p-4 text-md font-medium text-slate-400">
+              <span className="capitalize">Massage Sent</span>
+              <span className="capitalize">302</span>
+              <span className="capitalize">240</span>
+            </summary>
 
-                            <div className="grid sm:grid-cols-3 border-t py-2 bg-slate-600/5 dark:bg-slate-600/30  px-6 gap-6">
-                                <dl className="sm:divide-y sm:divide-slate-400 dark:sm:divide-slate-600 text-sm font-light text-slate-400 max-w-xs w-full">
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">Total</dt>
-                                    <dd className="sm:col-span-2">302</dd>
-                                  </div>
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">City</dt>
-                                    <dd className="sm:col-span-2">+42</dd>
-                                  </div>
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">Name</dt>
-                                    <dd className="sm:col-span-2">Post</dd>
-                                  </div>
-                                </dl>
-                                <dl className="sm:divide-y sm:divide-slate-400 dark:sm:divide-slate-600 text-sm font-light text-slate-400 max-w-xs w-full">
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">Total</dt>
-                                    <dd className="sm:col-span-2">302</dd>
-                                  </div>
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">City</dt>
-                                    <dd className="sm:col-span-2">+42</dd>
-                                  </div>
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">Name</dt>
-                                    <dd className="sm:col-span-2">Post</dd>
-                                  </div>
-                                </dl>
-                                <dl className="sm:divide-y sm:divide-slate-400 dark:sm:divide-slate-600 text-sm font-light text-slate-400 max-w-xs w-full">
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">Total</dt>
-                                    <dd className="sm:col-span-2">302</dd>
-                                  </div>
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">City</dt>
-                                    <dd className="sm:col-span-2">+42</dd>
-                                  </div>
-                                  <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
-                                    <dt className="font-semibold ">Name</dt>
-                                    <dd className="sm:col-span-2">Post</dd>
-                                  </div>
-                                </dl>  
-                            </div>
-                          </details>
-                        </main>
-                      </div>
-                    </div>
-    )
+            <div className="grid sm:grid-cols-3 border-t py-2 bg-slate-600/5 dark:bg-slate-600/30  px-6 gap-6">
+              <dl className="sm:divide-y sm:divide-slate-400 dark:sm:divide-slate-600 text-sm font-light text-slate-400 max-w-xs w-full">
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">Total</dt>
+                  <dd className="sm:col-span-2">302</dd>
+                </div>
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">City</dt>
+                  <dd className="sm:col-span-2">+42</dd>
+                </div>
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">Name</dt>
+                  <dd className="sm:col-span-2">Post</dd>
+                </div>
+              </dl>
+              <dl className="sm:divide-y sm:divide-slate-400 dark:sm:divide-slate-600 text-sm font-light text-slate-400 max-w-xs w-full">
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">Total</dt>
+                  <dd className="sm:col-span-2">302</dd>
+                </div>
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">City</dt>
+                  <dd className="sm:col-span-2">+42</dd>
+                </div>
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">Name</dt>
+                  <dd className="sm:col-span-2">Post</dd>
+                </div>
+              </dl>
+              <dl className="sm:divide-y sm:divide-slate-400 dark:sm:divide-slate-600 text-sm font-light text-slate-400 max-w-xs w-full">
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">Total</dt>
+                  <dd className="sm:col-span-2">302</dd>
+                </div>
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">City</dt>
+                  <dd className="sm:col-span-2">+42</dd>
+                </div>
+                <div className="p-2 flex justify-between sm:grid grid-cols-2 sm:grid-cols-3  ">
+                  <dt className="font-semibold ">Name</dt>
+                  <dd className="sm:col-span-2">Post</dd>
+                </div>
+              </dl>
+            </div>
+          </details>
+        </main>
+      </div>
+    </div>
+  )
 }
 
 
@@ -264,9 +267,11 @@ export function Dashboard() {
     }
   };
 
-  useEffect(()=>{
-    getTheme()
-  })
+  useEffect(() => {
+    const theme = getTheme();
+    document.documentElement.classList.add(theme);
+  }, [])
+
 
   const pageViews = [
     {
@@ -288,6 +293,8 @@ export function Dashboard() {
       views: 120,
     },
   ];
+
+  const { data } = useSWR<{ user: User[], pageView: PageView[], events: Events[], session: Session[] }>(`/api/loglib?path=all&startDate=${new Date().toISOString()}&endDate=${new Date().toISOString()}`, fetcher);
 
   return (
     <>
@@ -321,10 +328,10 @@ export function Dashboard() {
                       width="59"
                       height="54.8726"
                       filterUnits="userSpaceOnUse"
-                      color-interpolation-filters="sRGB"
+                      colorInterpolationFilters="sRGB"
                     >
                       <feFlood
-                        flood-opacity="0"
+                        floodOpacity="0"
                         result="BackgroundImageFix"
                       ></feFlood>
                       <feColorMatrix
@@ -655,7 +662,7 @@ export function Dashboard() {
                   </TabsContent>
                   <TabsContent value="analytics">
                     {/* <Events /> */}
-                    <EventComponent/>
+                    <EventComponent />
                   </TabsContent>
                 </motion.div>
               </AnimatePresence>
