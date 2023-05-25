@@ -1,0 +1,73 @@
+{
+    "name": "@loglib/ui",
+    "version": "0.0.1",
+    "description": "",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "test": "vitest run",
+        "dev": "tsup --watch",
+        "build": "tsup",
+        "typecheck": "tsc --noEmit",
+        "lint": "eslint . --ext .ts"
+    },
+    "files": [
+        "dist",
+        "package.json",
+        "LICENSE",
+        "README.md"
+    ],
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "exports": {
+        ".": {
+            "require": "./dist/index.js",
+            "import": "./dist/index.mjs"
+        },
+        "./dist/index.css": "./dist/index.css"
+    },
+    "devDependencies": {
+        "@types/react": "^18.2.0",
+        "next": "^13.4.1",
+        "react": "link:@formkit/auto-animate/react",
+        "react-dom": "^18.2.0"
+    },
+    "peerDependencies": {
+        "next": "^13.4.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    },
+    "dependencies": {
+        "@loglib/core": "^0.0.1",
+        "@radix-ui/react-avatar": "^1.0.2",
+        "@radix-ui/react-dialog": "^1.0.3",
+        "@radix-ui/react-dropdown-menu": "^2.0.4",
+        "@radix-ui/react-label": "^2.0.1",
+        "@radix-ui/react-popover": "^1.0.5",
+        "@radix-ui/react-select": "^1.2.1",
+        "@radix-ui/react-separator": "^1.0.2",
+        "@radix-ui/react-slot": "^1.0.1",
+        "@radix-ui/react-tabs": "^1.0.3",
+        "@tanstack/react-table": "^8.9.1",
+        "@types/lodash": "^4.14.194",
+        "add": "^2.0.6",
+        "autoprefixer": "^10.4.14",
+        "avatar": "^0.1.0",
+        "class-variance-authority": "^0.6.0",
+        "clsx": "^1.2.1",
+        "cmdk": "^0.2.0",
+        "date-fns": "^2.30.0",
+        "framer-motion": "^10.12.12",
+        "lodash": "^4.17.21",
+        "lucide-react": "^0.220.0",
+        "pnpx": "^0.0.1",
+        "react-day-picker": "^8.7.1",
+        "recharts": "^2.6.2",
+        "shadcn-ui": "^0.1.3",
+        "smart-array-filter": "^4.0.2",
+        "tailwind-merge": "^1.12.0",
+        "tailwindcss": "^3.3.2",
+        "tailwindcss-animate": "^1.0.5"
+    }
+}
