@@ -26,11 +26,9 @@ export function flush() {
 	window.lli.eventsBank = [];
 }
 
-//If  doNotTrack class is passed don't track that element
+
 export function checkDoNotTrackClass(e: DomEvent) {
-	//This just check if there is don't track class on classList
 	if (
-		e.target?.className.includes("doNotTrack") ||
 		e.target.hasAttribute("doNotTrack")
 	) {
 		return true;

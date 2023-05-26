@@ -1,8 +1,8 @@
 import React from "react";
 
-type Props = {};
 
-const NightModeIcon = (props: Props) => {
+
+const NightModeIcon = () => {
   return (
     <svg
       width="100%"

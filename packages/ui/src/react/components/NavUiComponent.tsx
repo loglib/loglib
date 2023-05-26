@@ -26,8 +26,9 @@ export function NavUiComponent() {
   };
 
   useEffect(() => {
-    getTheme();
-  });
+    const theme = getTheme()
+    document.documentElement.classList.add(theme);
+  }, [0]);
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center space-x-2 space-y-2">

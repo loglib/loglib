@@ -7,7 +7,7 @@ export function OverviewComponent() {
   return (
     <Card className="col-span-4">
       <CardHeader>
-        <CardTitle>Overview</CardTitle>
+        <CardTitle>Visitors</CardTitle>
       </CardHeader>
       <CardContent className="pl-2">
         <Overview />

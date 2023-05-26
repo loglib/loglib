@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import LogLib from "@loglib/tracker/react";
 
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin", "cyrillic"] });
 
 export const metadata = {
   title: "Create Next App",

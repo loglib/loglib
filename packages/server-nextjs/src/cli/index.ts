@@ -58,7 +58,7 @@ const download = (url: string): Promise<Parse> =>
 
 const program = new Command();
 program
-    .command('setup-geo')
+    .command('setup-maxmind')
     .description('Download and setup GeoLite2 database')
     .action(() => {
         download(url)
