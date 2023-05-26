@@ -1,20 +1,23 @@
 # LogLib
 
-## Yet another web analytics tool but for Javascript Frameworks
+## Yet another web analytics tool because the world definitely needs one more
 
 ![screenshot](./examples/screenshot/dashboard.png)
 
-> Note: we currently support Next.js only. More frameworks are on the way!
+> 📍 Note: we currently support Next.js with prisma adapter only. But more frameworks and database support are on the way!
 
 ### Why Choose Loglib?
 
-- Why not? Let's add another tool to our never-ending collection!
+- Why not? It's free and open-source.
+- This is the best way to get your analytics in your next js app.
 - No need to deploy it separately. You can easily attach Loglib to your Next js app (and more frameworks are on the way), saving you time and effort.
 - Keep all your data in your existing database, you have the freedom to store your data in your existing db. And this will help you like if your platform displays analytics for users, you can track events or pageviews using the tracker and provide them with detailed analytics.
 - A beautiful dashboard built with Shadcn UI.
 - Privacy first GDPR compliant out of the box but can be customized.
+- Your mom will be impressed.
+- And more things are on the way.
 
-And if the above statements didn't make you giggle or raise an eyebrow, well, maybe Loglib isn't the right match for you. But hey, no hard feelings! We understand that not every tool is a match made for larvel apps. woo that come out of nowhere.
+> If the above statements didn't make you giggle or raise an eyebrow, well, maybe Loglib isn't the right match for you. But hey, no hard feelings! We understand that not every tool is a match made for Larvel apps. woo that come out of nowhere.
 
 ### Get Started
 
@@ -119,7 +122,8 @@ By default, Loglib tries to track users using their IP address. But hey, we know
 
 **Step 1:** Display a fancy cookie message on your website. You know, one of those pop-ups that everyone loves. Make it irresistible!
 
-For permission to track a user, do the following:
+**Step 2**: Once your users click that "Accept" button like there's no tomorrow, trigger the Loglib consent function. This little magic trick will use local storage to assign a unique identifier to each of your users.
+
 
 ```js
 import {setConsent} from 'logLib/tracker-js';
