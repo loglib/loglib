@@ -2,6 +2,8 @@
 
 ## Yet another web analytics tool
 
+![screenshot](./examples/screenshot/dashboard.png)
+
 > Note: we currently support Next.js only. More frameworks are on the way!
 
 okay I can write a lot of nonsense but here is why you might wanna consider using loglib
