@@ -11,7 +11,7 @@ import useSWR from 'swr'
 import { fetcher } from "./lib/utils";
 import { GetInsightResponse } from "@loglib/core/types"
 import { InsightCard } from "./components/insightCard";
-import { Activity, Asterisk, Eye, MapPin, MonitorSmartphone, PanelTop, TimerIcon, UserIcon } from "lucide-react";
+import { Activity, Asterisk, Eye, Laptop2, MapPin, MonitorSmartphone, PanelTop, TimerIcon, UserIcon, Users2 } from "lucide-react";
 import { Switch } from "./components/ui/switch";
 import { PagesComponent } from "./components/pages";
 import { RefComponent } from "./components/referrer";
@@ -136,12 +136,30 @@ export function Dashboard() {
                     </div>
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 grid-cols-1">
                       <Card className="col-span-4">
-                        <CardHeader>
-                          <CardTitle>Visitors</CardTitle>
-                        </CardHeader>
-                        <CardContent className="pl-2">
-                          <Graph data={getVisitorsByDate(data.sessions, timeRange.startDate, timeRange.endDate)} />
-                        </CardContent>
+                        <Tabs defaultValue="visitors">
+                          <CardHeader className=" flex-row justify-between items-center">
+                            <CardTitle>Visitors</CardTitle>
+                            <TabsList>
+                              <TabsTrigger value="visitors">
+                                Visitors
+
+                              </TabsTrigger>
+                              <TabsTrigger value="sessions">
+                                Sessions
+
+                              </TabsTrigger>
+                            </TabsList>
+                          </CardHeader>
+                          <CardContent className="pl-2">
+                            <TabsContent value="visitors">
+
+                              <Graph data={getVisitorsByDate(data.sessions, timeRange.startDate, timeRange.endDate)} name="Visitors" Icon={Users2} />
+                            </TabsContent>
+                            <TabsContent value="sessions">
+                              <Graph data={getVisitorsByDate(data.sessions, timeRange.startDate, timeRange.endDate, false)} name="Sessions" Icon={Laptop2} />
+                            </TabsContent>
+                          </CardContent>
+                        </Tabs>
                       </Card>
                       <Card className=" md:col-span-3">
                         <Tabs defaultValue="pages">

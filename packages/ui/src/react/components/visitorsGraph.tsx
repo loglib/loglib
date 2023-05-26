@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 "use client"
-import { User2 } from "lucide-react"
+import { LucideIcon } from "lucide-react"
 import React from "react"
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
-export function Graph({ data }: { data: { date: string, visits: number }[] }) {
+export function Graph({ data, name, Icon }: { data: { date: string, visits: number }[], name: string, Icon: LucideIcon }) {
     const isMobile = window.innerWidth < 768
     return (
         <ResponsiveContainer width="100%" height={isMobile ? 250 : 350}>
@@ -37,8 +37,8 @@ export function Graph({ data }: { data: { date: string, visits: number }[] }) {
                             return (
                                 <div className="custom-tooltip dark:bg-black bg-white/80 px-2 border rounded-md border-gray-700 py-2">
                                     <div className=" flex items-center gap-2 dark:text-emphasis text-black" >
-                                        <User2 size={16} className=" " />
-                                        <p className=" font-medium">{`${payload[0].value} Visitors`}</p>
+                                        <Icon size={16} />
+                                        <p className=" font-medium">{`${payload[0].value} ${name}`}</p>
                                     </div>
                                     <p className="text-gray-400 text-sm">{label}</p>
                                 </div>

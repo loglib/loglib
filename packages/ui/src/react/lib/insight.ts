@@ -156,9 +156,15 @@ export const getBrowser = (sessions: Session[]) => {
     return browsers
 }
 
-export const getVisitorsByDate = (sessions: Session[], startDate: Date, endDate: Date) => {
+export const getVisitorsByDate = (sessions: Session[], startDate: Date, endDate: Date, uniqueUsers = true) => {
     const ONE_DAY = 1000 * 60 * 60 * 24;
     const range = getTimeRange(startDate, endDate)
+    const uniqueUserSessions = sessions.filter((session, index, self) =>
+        index === self.findIndex((s) => (
+            s.userId === session.userId
+        ))
+    )
+    sessions = uniqueUsers ? uniqueUserSessions : sessions
     if (range / ONE_DAY <= 2) {
         const visitors = sessions.reduce((acc, session) => {
             //divide it by hour

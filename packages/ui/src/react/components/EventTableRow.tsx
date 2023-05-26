@@ -38,7 +38,7 @@ export default function EventTableRow({ event }: { event: EventType }) {
         <dl className="sm:divide-y sm:divide-slate-400 dark:sm:divide-slate-600 text-sm font-light text-slate-400 max-w-xs w-full">
           <dt className="font-semibold capitalize p-2 text-slate-800">Payload</dt>
           {
-            getNestedKeysAndValues(event.payload).map(({key , value }, i) => (
+            getNestedKeysAndValues(event.payload).map(({ key, value }, i) => (
               <DetailValue key={i} keyName={key} value={value} />
             ))
           }
