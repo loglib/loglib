@@ -18,9 +18,9 @@ import { pageViews } from "../data/pageViews";
 
 export function BasicAnalytics() {
   return (
-    <Card className="col-span-3">
+    <Card className=" md:col-span-3">
       <Tabs defaultValue="pages">
-        <TabsList className="w-full space-x-2 justify-start">
+        <TabsList className="md:w-full space-x-2 md:justify-start grid grid-cols-4">
           <TabsTrigger value="pages" className=" space-x-2 ">
             <PanelTop size={16} />
             <p>Pages</p>

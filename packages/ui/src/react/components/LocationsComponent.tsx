@@ -11,7 +11,8 @@ import {
   TableRow,
 } from "./ui/table";
 
-export function LocationsComponent({ locations } : { locations : LocationsType[]} ) {
+
+export function LocationsComponent({ locations }: { locations: LocationsType[] }) {
   return (
     <CardContent>
       <Table>
@@ -25,7 +26,7 @@ export function LocationsComponent({ locations } : { locations : LocationsType[]
           </TableRow>
         </TableHeader>
         <TableBody>
-          {locations.map((location,i) => (
+          {locations.map((location, i) => (
             <TableRow key={i}>
               <TableCell>{location.countryName}</TableCell>
               <TableCell className="text-right">{location.value}</TableCell>

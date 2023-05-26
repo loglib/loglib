@@ -27,7 +27,8 @@ export function record(config?: Partial<Config>) {
 		env: "auto",
 		postInterval: 5,
 		host: process.env.VERCEL_URL || process.env.LOGLIB_HOST || "http://localhost:3000/api",
-		consent: "denied"
+		consent: "denied",
+		heartbeatInterval: 30,
 	};
 	window.llc = config ? { ...defaultConfig, ...config } : defaultConfig;
 	//Get Sdk Version
@@ -56,8 +57,15 @@ export function record(config?: Partial<Config>) {
 	}
 	history.pushState = hook(history, "pushState", handlePush);
 	history.replaceState = hook(history, "replaceState", handlePush);
+
 	const InitInfo = initSession();
+
 	send(InitInfo, "/session");
+
+	setInterval(() => {
+		send({ status: true, duration: window.lli.startTime }, "/session/heart-beat");
+	}, config.heartbeatInterval * 1000);
+
 	pageViewEndHandler();
 }
 

@@ -59,6 +59,7 @@
         "clsx": "^1.2.1",
         "cmdk": "^0.2.0",
         "date-fns": "^2.30.0",
+        "flag-icons": "^6.6.6",
         "framer-motion": "^10.12.12",
         "lodash": "^4.17.21",
         "lucide-react": "^0.220.0",

@@ -5,4 +5,5 @@ export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
 }
 
-export const fetcher = (...args: Parameters<typeof fetch>) => fetch(...args).then((res) => res.json())
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return
+export const fetcher = (...args: Parameters<typeof fetch>) => fetch(...args).then((res) => res.json()).then(res => res.data)

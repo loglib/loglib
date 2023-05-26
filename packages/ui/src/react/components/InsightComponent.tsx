@@ -21,7 +21,7 @@ interface Props {
 export function InsightComponent({ insight }: Props) {
   const { uniqueVisitors, views, averageTime, bounceRate } = insight;
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-4 md:grid-cols-2 grid-cols-2 lg:grid-cols-4">
       <InsightCard
         title={uniqueVisitors.title}
         Icon={uniqueVisitors.Icon}

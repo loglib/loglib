@@ -55,8 +55,9 @@ const data = [
 ]
 
 export function Overview() {
+    const isMobile = window.innerWidth < 768
     return (
-        <ResponsiveContainer width="100%" height={350}>
+        <ResponsiveContainer width="100%" height={isMobile ? 250 : 350}>
             <LineChart data={data}>
                 <XAxis
                     dataKey="name"

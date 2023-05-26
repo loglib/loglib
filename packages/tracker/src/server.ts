@@ -19,6 +19,8 @@ export function q(e: ServerEvents) {
 	}, config.postInterval * 1000);
 }
 
+
+
 //send events to the host
 export function send(
 	data: Record<string, any> | Array<Record<string, any>>,
