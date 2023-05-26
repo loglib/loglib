@@ -6,7 +6,7 @@
 
 > ⚠️ Under Construction put here incase anyone visits this repo before hand
 
-> 📍 Note: we currently support Next.js with prisma adapter only. But more frameworks and database support are on the way!
+> 📍 Note: currently we only support Next.js with prisma adapter . But more frameworks and database support are on the way!
 
 ### Why Choose Loglib?
 
@@ -53,6 +53,8 @@ let's first setup the tracker to collect data from your website.
 
 App Route
 
+`src/app/layout.tsx`
+
 ```js
 import LogLib from 'logLib/tracker-js/react';
 export default function RootLayout({
@@ -75,8 +77,10 @@ export default function RootLayout({
 
 Page Route
 
+`src/pages/_app.tsx`
+
 ```js
-import LogLib from 'logLib/tracker-js';
+import LogLib from 'logLib/tracker-js/react';
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
