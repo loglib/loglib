@@ -35,8 +35,8 @@ export function Graph({ data }: { data: { date: string, visits: number }[] }) {
                     content={({ active, payload, label }) => {
                         if (active && payload && payload.length) {
                             return (
-                                <div className="custom-tooltip bg-black px-2 border rounded-md border-gray-700 py-2">
-                                    <div className=" flex items-center gap-2 text-emphasis" >
+                                <div className="custom-tooltip dark:bg-black bg-white/80 px-2 border rounded-md border-gray-700 py-2">
+                                    <div className=" flex items-center gap-2 dark:text-emphasis text-black" >
                                         <User2 size={16} className=" " />
                                         <p className=" font-medium">{`${payload[0].value} Visitors`}</p>
                                     </div>

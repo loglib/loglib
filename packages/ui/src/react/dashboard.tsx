@@ -21,7 +21,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
 import { getToday, getTomorrow } from "./lib/timeHelper";
 import { CalendarDateRangePicker } from "./components/datePicker";
 import { Graph } from "./components/visitorsGraph";
-import { getAverageTime, getBounceRate, getBrowser, getDevice, getLoc, getOS, getPageViews, getPages, getReferer, getUniqueVisitors, getVisitorsByDate } from "./lib/insight";
+import { getAverageTime, getBounceRate, getBrowser, getDevice, getLoc, getOS, getOnlineUsers, getPageViews, getPages, getReferer, getUniqueVisitors, getVisitorsByDate } from "./lib/insight";
 
 export interface DashboardConfig {
   color?: string;
@@ -72,7 +72,16 @@ export function Dashboard() {
                   Events
                 </TabsTrigger>
               </TabsList>
-              <FilterComponent setTimeRange={setTimeRange} setCustomTime={setCustomTime} timeRange={timeRange} customTime={customTime} />
+              <div className=" flex justify-between">
+                <FilterComponent setTimeRange={setTimeRange} setCustomTime={setCustomTime} timeRange={timeRange} customTime={customTime} />
+                <div className=" flex gap-1 items-center">
+                  <div className=" w-2.5 h-2.5 bg-gradient-to-tr from-lime-500 to-lime-700 animate-pulse rounded-full" >
+                  </div>
+                  <p className=" text-sm bg-gradient-to-tr from-lime-600 to-lime-800 text-transparent bg-clip-text font-medium">
+                    {getOnlineUsers(data.sessions)} Online
+                  </p>
+                </div>
+              </div>
               <AnimatePresence>
                 {customTime && (
                   <motion.div
