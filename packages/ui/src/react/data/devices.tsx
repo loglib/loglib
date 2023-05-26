@@ -1,5 +1,5 @@
 "use client";
-import { DevicesType } from "../components/DeviceComponent";
+import { DevicesType } from "../components/devices";
 
 export const devices: DevicesType[] = [
   {

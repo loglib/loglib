@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import EventTableRow, { EventType } from "./EventTableRow";
+import React from "react";
+import EventTableRow, { EventType } from "./eventTableRow";
 
 export const EventComponent = ({ events }: { events: EventType[] }) => {
   return (

@@ -1,6 +1,5 @@
 "use client";
-import { CalendarDays, Plus } from "lucide-react";
-import { Button } from "./ui/button";
+import { CalendarDays } from "lucide-react";
 import React from "react";
 import {
   Select,
@@ -12,17 +11,73 @@ import {
   SelectValue
 } from "./ui/select";
 import { Separator } from "./ui/separator";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger
-} from "./ui/popover";
+import { getLastNinetyDays, getLastSevenDays, getLastThirtyDays, getThisMonth, getThisWeek, getThisYear, getToday, getTomorrow, getYesterday } from "../lib/timeHelper";
 
-export const FilterComponent = ({ setTimeRange }: { setTimeRange: React.Dispatch<React.SetStateAction<string>>; }) => {
+export const FilterComponent = ({ setTimeRange, setCustomTime, timeRange, customTime }: { setTimeRange: React.Dispatch<React.SetStateAction<{ startDate: Date, endDate: Date, stringValue?: string }>>; timeRange: { startDate: Date, endDate: Date, stringValue?: string }; setCustomTime: (state: boolean) => void, customTime: boolean }) => {
+  function setTime(value: string) {
+    setCustomTime(false)
+    switch (value) {
+      case "24hr":
+        setTimeRange({
+          startDate: getToday(),
+          endDate: getTomorrow(),
+          stringValue: "24hr"
+        })
+        break;
+      case "yesterday":
+        setTimeRange({
+          startDate: getYesterday(),
+          endDate: getToday(),
+          stringValue: "yesterday"
+        })
+        break
+      case "thisWeek":
+        setTimeRange({
+          ...getThisWeek(),
+          stringValue: "thisWeek"
+        })
+        break
+      case "7days":
+        setTimeRange({
+          ...getLastSevenDays(),
+          stringValue: "7days"
+        })
+        break
+      case "thisMonth":
+        setTimeRange({
+          ...getThisMonth(),
+          stringValue: "thisMonth"
+        })
+        break
+      case "last30":
+        setTimeRange({
+          ...getLastThirtyDays(),
+          stringValue: "last30"
+        })
+        break
+      case "last90":
+        setTimeRange({
+          ...getLastNinetyDays(),
+          stringValue: "last90"
+        })
+        break
+      case "thisYear":
+        setTimeRange({
+          ...getThisYear(),
+          stringValue: "thisYear"
+        })
+        break
+      default:
+        setCustomTime(true)
+        break
+    }
+  }
+
   return (
     <div className=" flex space-x-2 items-center">
       <Select
-        onValueChange={(value) => setTimeRange(value)}
+        onValueChange={(value) => setTime(value)}
+        value={customTime ? "custom" : timeRange.stringValue}
         defaultValue="24hr"
       >
         <SelectTrigger className="w-auto px-2 space-x-4">
@@ -32,7 +87,7 @@ export const FilterComponent = ({ setTimeRange }: { setTimeRange: React.Dispatch
         <SelectContent>
           <SelectGroup>
             <SelectLabel>Choose Range</SelectLabel>
-            <SelectItem value="24hr">Last 24 Hours</SelectItem>
+            <SelectItem value={"24hr"} >Last 24 Hours</SelectItem>
             <SelectItem value="yesterday">Yesterday</SelectItem>
             <Separator className="my-2" />
             <SelectItem value="thisWeek">This Week</SelectItem>
@@ -47,7 +102,7 @@ export const FilterComponent = ({ setTimeRange }: { setTimeRange: React.Dispatch
           </SelectGroup>
         </SelectContent>
       </Select>
-      <Popover>
+      {/* <Popover>
         <PopoverTrigger asChild>
           <Button variant="outline" className="w-10 rounded-lg p-0">
             <Plus className="h-4 w-4" />
@@ -110,7 +165,7 @@ export const FilterComponent = ({ setTimeRange }: { setTimeRange: React.Dispatch
             </Button>
           </div>
         </PopoverContent>
-      </Popover>
+      </Popover> */}
     </div>
   );
 };

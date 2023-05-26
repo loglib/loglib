@@ -11,25 +11,24 @@ import {
   TableRow,
 } from "./ui/table";
 
-
-export function LocationsComponent({ locations }: { locations: LocationsType[] }) {
+export function PagesComponent({ pageViews }: { pageViews: PageViewsType[] }) {
   return (
     <CardContent>
       <Table>
         <TableCaption>
-          Your locations and how many times they are visited  {":)"}
+          Your pages and how many times they are visited {":)"}
         </TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead>Location</TableHead>
+            <TableHead>Page</TableHead>
             <TableHead className="text-right">Views</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {locations.map((location, i) => (
-            <TableRow key={i}>
-              <TableCell>{location.countryName}</TableCell>
-              <TableCell className="text-right">{location.value}</TableCell>
+          {pageViews.map((pageView) => (
+            <TableRow key={pageView.page}>
+              <TableCell>{pageView.page}</TableCell>
+              <TableCell className="text-right">{pageView.views}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -38,7 +37,7 @@ export function LocationsComponent({ locations }: { locations: LocationsType[] }
   );
 }
 
-export type LocationsType = {
-  countryName: string;
-  value: number;
-};
+export interface PageViewsType {
+  page: string,
+  views: number,
+}

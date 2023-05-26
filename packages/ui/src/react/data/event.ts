@@ -1,6 +1,6 @@
-import { EventType } from "../components/EventTableRow";
+import { EventType } from "../components/eventTableRow";
 
-export const EventData : EventType[] = [
+export const EventData: EventType[] = [
   {
     id: "1",
     createdAt: new Date("2023-05-24T02:00:00Z"),

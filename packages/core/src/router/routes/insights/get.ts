@@ -31,7 +31,7 @@ export const getInsightData: ApiGetHandler<GetInsightQuery, GetInsightResponse> 
         const startDateObj = new Date(startDate)
         const endDateObj = new Date(endDate)
         const duration = endDateObj.getTime() - startDateObj.getTime()
-        const pastEndDateObj = new Date(endDateObj.getTime() - duration)
+        const pastEndDateObj = new Date(startDateObj.getTime() - duration)
         const users = await adapter.getUser(startDateObj, endDateObj)
         const pastUsers = await adapter.getUser(pastEndDateObj, startDateObj)
         const pageViews = await adapter.getPageViews(startDateObj, endDateObj)
