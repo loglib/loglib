@@ -12,14 +12,17 @@
 
 - Why not? It's free and open-source.
 - This is the best way to get your analytics in your next js app.
-- No need to deploy it separately. You can easily attach Loglib to your Next js app (and more frameworks are on the way), saving you time and effort.
+- No need to deploy it separately. You can easily attach Loglib to your Next js app (and more frameworks are on the way), saving you time, effort and possibly some cash.
 - Keep all your data in your existing database, you have the freedom to store your data in your existing db. And this will help you like if your platform displays analytics for users, you can track events or pageviews using the tracker and provide them with detailed analytics.
 - A beautiful dashboard built with Shadcn UI.
 - Privacy first GDPR compliant out of the box but can be customized.
 - Your mom will be impressed.
 - And more things are on the way.
 
-> If the above statements didn't make you giggle or raise an eyebrow, well, maybe Loglib isn't the right match for you. But hey, no hard feelings! We understand that not every tool is a match made for Larvel apps. woo that come out of nowhere.
+### Why Not Choose Loglib?
+
+- We're not smart enough to think of any reasons. But if you have any, please let us know.
+- yeah okay maybe if you're not using next js **right now** 
 
 ### Get Started
 
@@ -29,7 +32,7 @@ Loglib is consist of three things:
 2. **Loglib Server**: It handles requests without requiring a separate deployment if you already have a backend.
 3. **Loglib Dashboard**: It offers a beautiful, minimalistic UI to display your analytics.
 
-you can put any of those anywhere means you can put the tracker on ur website put the server on other next js project then put the dashboard on separate next js project and it will work just fine. Or you can just put everything on your next js project. I think the later sounds better but it's up to you.
+you can put any of those anywhere means you can put the tracker on ur website put the server on other next js project then put the dashboard on separate next js project and it will work just fine. Or you can just put everything on your next js project. I feel like the later sounds better but it's up to you.
 
 #### Installation: Just like every other libraries out there
 
