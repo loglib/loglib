@@ -1,34 +1,32 @@
 # LogLib
 
-## Yet another web analytics tool
+## Yet another web analytics tool but for Javascript Frameworks
 
 ![screenshot](./examples/screenshot/dashboard.png)
 
 > Note: we currently support Next.js only. More frameworks are on the way!
 
-okay I can write a lot of nonsense but here is why you might wanna consider using loglib
-
 ### Why Choose Loglib?
 
-- Why not?
-- No need to deploy it separately. You can easily attach Loglib to your Next.js app (and more frameworks are on the way), saving you time and effort.
+- Why not? Let's add another tool to our never-ending collection!
+- No need to deploy it separately. You can easily attach Loglib to your Next js app (and more frameworks are on the way), saving you time and effort.
 - Keep all your data in your existing database, you have the freedom to store your data in your existing db. And this will help you like if your platform displays analytics for users, you can track events or pageviews using the tracker and provide them with detailed analytics.
-- A beautiful dashboard built with Shadcn UI. It's not just functional, it's visually appealing too!
+- A beautiful dashboard built with Shadcn UI.
 - Privacy first GDPR compliant out of the box but can be customized.
 
-And if the above statements don't tickle anything in your brain, well, maybe Loglib isn't the right fit for you. But hey, no hard feelings! We understand that not every tool is a match made for larvel apps.
+And if the above statements didn't make you giggle or raise an eyebrow, well, maybe Loglib isn't the right match for you. But hey, no hard feelings! We understand that not every tool is a match made for larvel apps. woo that come out of nowhere.
 
 ### Get Started
 
 Loglib is consist of three things:
 
-1. Tracker: This component tracks your website's analytics.
-2. Loglib Server: It handles requests without requiring a separate deployment if you already have a backend.
-3. Loglib Dashboard: It offers a beautiful, minimalistic UI to display your analytics.
+1. **Tracker**: This component tracks your website's analytics.
+2. **Loglib Server**: It handles requests without requiring a separate deployment if you already have a backend.
+3. **Loglib Dashboard**: It offers a beautiful, minimalistic UI to display your analytics.
 
-you can put any of those anywhere means you can put the tracker on ur website put the server on other next js project netlify then put the dashboard on separate next js project and it will work just fine. Or you can just put everything on your next js project and it will work just fine. I think the later sounds better but it's up to you.
+you can put any of those anywhere means you can put the tracker on ur website put the server on other next js project then put the dashboard on separate next js project and it will work just fine. Or you can just put everything on your next js project. I think the later sounds better but it's up to you.
 
-#### Installation: Just like every other library
+#### Installation: Just like every other libraries out there
 
 ```bash
 pnpm add @loglib/tracker
@@ -43,6 +41,8 @@ pnpm add @loglib/ui
 ```
 
 #### Tracker
+
+let's first setup the tracker to collect data from your website.
 
 ##### Next-js
 
@@ -84,10 +84,10 @@ export default function App({ Component, pageProps }: AppProps) {
 
 ##### Other Methods
 
-If you want to track a specific event, you can use the `trackEvent` method.
+If you want to track a specific event, you can use the `track` method.
 
 ```js
-import {track} from 'logLib/tracker-js';
+import {track} from 'logLib/tracker-js/react';
 export default function page() {
   return (
     <>
@@ -100,7 +100,7 @@ export default function page() {
 To identify a user, you can use the `identify` method.
 
 ```js
-import {identify} from 'logLib/tracker-js';
+import {identify} from 'logLib/tracker-js/react';
 export default function page() {
   return (
     <>
@@ -115,9 +115,9 @@ export default function page() {
 
 ##### GDPR things
 
-in default loglib track users using ip address but you're smart enough to kow that's not really reliable to identify unique users. So if you want to do that in a reliable way currently what you could do is display cookie message and on accept trigger the loglib consent function which will use local storage with unique identifier to track your users.
+By default, Loglib tries to track users using their IP address. But hey, we know you're smart enough to realize that relying on IP addresses isn't the most foolproof way to identify unique users. So, if you want to be a tracking superstar, here's what you can do:
 
-> If you want to be the out law you can pass concent to agreed on the loglib config and in default we'll use local storage
+**Step 1:** Display a fancy cookie message on your website. You know, one of those pop-ups that everyone loves. Make it irresistible!
 
 For permission to track a user, do the following:
 
