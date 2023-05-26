@@ -10,8 +10,9 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
+import { ArrowUpRight } from "lucide-react";
 
-export function RefComponent({ refs } : { refs: RefType[]} ) {
+export function RefComponent({ refs }: { refs: RefType[] }) {
   return (
     <CardContent>
       <Table>
@@ -25,10 +26,14 @@ export function RefComponent({ refs } : { refs: RefType[]} ) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {refs.map((refs,i) => (
+          {refs.map((refs, i) => (
             <TableRow key={i}>
-              <TableCell>{refs.from}</TableCell>
-              <TableCell className="text-right">{refs.value}</TableCell>
+
+              <TableCell className="flex gap-1 items-center">
+                <ArrowUpRight size={16} />
+                {refs.referrer}
+              </TableCell>
+              <TableCell className="text-right">{refs.visits}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -38,6 +43,6 @@ export function RefComponent({ refs } : { refs: RefType[]} ) {
 }
 
 export type RefType = {
-  from: string;
-  value: number;
+  referrer: string;
+  visits: number;
 };

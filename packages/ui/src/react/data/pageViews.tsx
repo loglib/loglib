@@ -1,7 +1,7 @@
 "use client";
-import { PageViewsType } from "../components/PagesComponent";
+import { PageViewsType } from "../components/pages";
 
-export const pageViews : PageViewsType[] = [
+export const pageViews: PageViewsType[] = [
   {
     id: 1,
     title: "Search",
