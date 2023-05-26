@@ -4,6 +4,8 @@
 
 ![screenshot](./examples/screenshot/dashboard.png)
 
+> ⚠️ Under Construction put here incase anyone visits this repo before hand
+
 > 📍 Note: we currently support Next.js with prisma adapter only. But more frameworks and database support are on the way!
 
 ### Why Choose Loglib?
