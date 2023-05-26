@@ -4,14 +4,12 @@
 
 ![screenshot](./examples/screenshot/dashboard.png)
 
-> ⚠️ Under Construction put here incase anyone visits this repo before hand
-
+> ⚠️ Under Construction put here incase anyone visits this repo before it's ready.
 > 📍 Note: currently we only support Next.js with prisma adapter . But more frameworks and database support are on the way!
 
 ### Why Choose Loglib?
 
 - Why not? It's free and open-source.
-- This is the best way to get your analytics in your next js app.
 - No need to deploy it separately. You can easily attach Loglib to your Next js app (and more frameworks are on the way), saving you time, effort and possibly some cash.
 - Keep all your data in your existing database, you have the freedom to store your data in your existing db. And this will help you like if your platform displays analytics for users, you can track events or pageviews using the tracker and provide them with detailed analytics.
 - A beautiful dashboard built with Shadcn UI.
@@ -22,7 +20,8 @@
 ### Why Not Choose Loglib?
 
 - We're not smart enough to think of any reasons. But if you have any, please let us know.
-- yeah okay maybe if you're not using next js **right now** 
+
+> okay, maybe if you're not using next js **right now**.
 
 ### Get Started
 
