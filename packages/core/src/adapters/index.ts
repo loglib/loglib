@@ -14,8 +14,9 @@ type Filter = {
 export interface Adapter {
     createSession: (data: Session) => Promise<Session>,
     createPageView: (data: PageView) => Promise<PageView | null>,
+    upsertPageView: (data: PageView) => Promise<PageView | null>,
     createManyEvents: (data: Events[]) => Promise<Events[] | null>,
-    updateUser: (data: Partial<User>, id: string) => Promise<User | null>,
+    upsertUser: (data: Partial<User>, id: string) => Promise<User | null>,
     updateSession: (data: Partial<Session>, id: string) => Promise<Session | null>,
     connect?: () => Promise<any>,
     disconnect?: () => Promise<any>,

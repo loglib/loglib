@@ -1,9 +1,6 @@
 import { useEffect } from "react";
-import { identify } from "../identify";
 import { record } from "../record";
-import { track } from "../track";
 import { Config, Internal } from "../types";
-import { setConsent } from "../identify";
 import { logLib } from "../lib";
 
 interface Props {
@@ -24,5 +21,4 @@ function LogLib({ config }: Props) {
 	}, []);
 	return null;
 }
-export { identify, track, setConsent };
 export default LogLib;

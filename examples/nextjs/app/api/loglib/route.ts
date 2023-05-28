@@ -1,15 +1,11 @@
-import { Next13 } from "@loglib/next"
+import { createServerRoutes } from "@loglib/next"
 import { prismaAdapter } from "@loglib/prisma-adapter"
 import { PrismaClient } from "@prisma/client"
 
-
 const db = new PrismaClient()
-const POST = Next13({
+
+
+export const { POST, GET } = createServerRoutes({
     adapter: prismaAdapter(db),
-    disableLocation: true
+    environment: "test"
 })
-const GET = Next13({
-    adapter: prismaAdapter(db),
-    disableLocation: true
-})
-export { POST, GET }

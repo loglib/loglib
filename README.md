@@ -7,9 +7,13 @@
 > ⚠️ Under Construction put here incase anyone visits this repo before it's ready.
 > 📍 Note: currently we only support Next.js with prisma adapter . But more frameworks and database support are on the way!
 
+### What is LogLib?
+
+Loglib is a web analytics tool that helps you track your website's analytics. It's a privacy-first, and it's open source but the best part is if your website in Next js you don't need to deploy it separately. You can just attach it to your Next js app (and more frameworks soon) and it will work just fine. And if you're not using Next js you can still use it but you need to deploy it separately.
+
 ### Why Choose Loglib?
 
-- Why not? It's free and open-source.
+- Why not?
 - No need to deploy it separately. You can easily attach Loglib to your Next js app (and more frameworks are on the way), saving you time, effort and possibly some cash.
 - Keep all your data in your existing database, you have the freedom to store your data in your existing db. And this will help you like if your platform displays analytics for users, you can track events or pageviews using the tracker and provide them with detailed analytics.
 - A beautiful dashboard built with Shadcn UI.
@@ -21,7 +25,10 @@
 
 - We're not smart enough to think of any reasons. But if you have any, please let us know.
 
-> okay, maybe if you're not using next js **right now**.
+### Two ways to use Loglib
+
+1. Attach it to your Next js app (and more frameworks are on the way)
+2. Deploy it (coming soon)
 
 ### Get Started
 
@@ -31,7 +38,7 @@ Loglib is consist of three things:
 2. **Loglib Server**: It handles requests without requiring a separate deployment if you already have a backend.
 3. **Loglib Dashboard**: It offers a beautiful, minimalistic UI to display your analytics.
 
-you can put any of those anywhere means you can put the tracker on ur website put the server on other next js project then put the dashboard on separate next js project and it will work just fine. Or you can just put everything on your next js project. I feel like the later sounds better but it's up to you.
+you can put any of those anywhere means you can put the tracker on ur website put the server on other next js project then put the dashboard on separate react vite project and it will work just fine. Or you can just put everything on your next js project. I feel like the later sounds better but it's up to you.
 
 #### Installation: Just like every other libraries out there
 
@@ -132,7 +139,6 @@ By default, Loglib tries to track users using their IP address. But hey, we know
 
 **Step 2**: Once your users click that "Accept" button like there's no tomorrow, trigger the Loglib consent function. This little magic trick will use local storage to assign a unique identifier to each of your users.
 
-
 ```js
 import {setConsent} from 'logLib/tracker-js';
 export default function page() {
@@ -177,19 +183,16 @@ export default createServer({
 put this code in `src/app/loglib/api/route.ts` I know the route isn't ideal if you want to change it something else just put `LOGLIB_SERVER_URL` in your env file and it will work just fine
 
 ```js
-import { Next13 } from "@loglib/next"
+import { createServerRoutes } from "@loglib/next"
 import { prismaAdapter } from "@loglib/prisma-adapter"
 import { PrismaClient } from "@prisma/client"
 
-
 const db = new PrismaClient()
-const POST = Next13({
-    adapter: prismaAdapter(db),
+
+
+export const { POST, GET } = createServerRoutes({
+    adapter: prismaAdapter(db)
 })
-const GET = Next13({
-    adapter: prismaAdapter(db),
-})
-export { POST, GET }
 ```
 
 for getting user location using their ip you have 3 options:
@@ -198,7 +201,7 @@ for getting user location using their ip you have 3 options:
 2. If you're not deploying it on serverless environment you can setup maxmind using a cli command
 
 ```bash
-pnpm loglib setup-maxmind
+pnpm loglib setup:maxmind
 ```
 
 > this will download the maxmind database and put it in your project root directory under geo folder.

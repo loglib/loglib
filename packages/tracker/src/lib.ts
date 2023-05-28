@@ -1,6 +1,5 @@
-import { identify, setConsent } from "./identify";
 import { record } from "./record";
-import { track } from "./track";
+import { identify, setConsent, track } from "./methods";
 
 export const logLib = {
 	record: record,

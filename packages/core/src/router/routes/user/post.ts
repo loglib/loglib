@@ -22,9 +22,9 @@ export const userPost: ApiPostHandler<UserPostInput> = async (req, options) => {
     const adapter = options.adapter
     if (body.success) {
         try {
-            adapter.connect && await adapter.connect()
-            const data = await adapter.updateUser(body.data.data, body.data.userId)
-            adapter.disconnect && await adapter.disconnect()
+
+            const data = await adapter.upsertUser(body.data.data, body.data.userId)
+
             return {
                 message: 'User updated',
                 code: 200,

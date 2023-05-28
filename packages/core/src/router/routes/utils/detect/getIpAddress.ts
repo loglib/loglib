@@ -2,7 +2,7 @@ import requestIp from "request-ip"
 import { ApiRequest } from "../../../..";
 
 
-export function getIpAddress(req: ApiRequest<unknown>) {
+export function getIpAddress(req: ApiRequest<unknown, any>) {
     if (process.env.NODE_ENV === 'development') return ''
     // Custom header
     if (req.headers[process.env.CLIENT_IP_HEADER as string]) {

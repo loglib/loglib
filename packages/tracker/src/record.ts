@@ -1,16 +1,11 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { clickHandler } from "./handlers/clickHandler";
 import { send } from "./server";
 import { Config } from "./types";
-import {
-	flush,
-	getUrlParams,
-} from "./utils";
-import { guid } from "./utils/common";
+import { addInterval, clearIntervals, detectEnvironment, flush, getPath, getUrlParams, guid, hook } from "./utils/util";
 import { logger } from "./utils/logger";
-import { detectEnvironment, handlePush, hook } from "./utils/record.utils";
+
 
 /**
  *
@@ -26,13 +21,12 @@ export function record(config?: Partial<Config>) {
 		autoTrack: true,
 		env: "auto",
 		postInterval: 5,
-		host: process.env.VERCEL_URL || process.env.LOGLIB_HOST || "http://localhost:3000/api",
+		host: process.env.VERCEL_URL || process.env.LOGLIB_SERVER_URL || "http://localhost:3000/api",
 		consent: "denied",
-		heartbeatInterval: 30,
+		pulseInterval: 10,
 	};
 	window.llc = config ? { ...defaultConfig, ...config } : defaultConfig;
-	//Get Sdk Version
-	const version = require("../package.json").version;
+
 	//Set Internal
 	const now = Date.now();
 	window.lli = {
@@ -42,10 +36,11 @@ export function record(config?: Partial<Config>) {
 		currentUrl: `${location.pathname}${location.search}`,
 		currentRef: document.referrer,
 		timeOnPage: now,
-		sdkVersion: version,
 		sessionId: guid(),
 		pageId: guid(),
+		intervals: []
 	};
+
 	logger.log("start recording...");
 	//Auto Tracker
 	if (window.llc.autoTrack) {
@@ -55,18 +50,18 @@ export function record(config?: Partial<Config>) {
 		const env = detectEnvironment();
 		window.llc.env = env;
 	}
-	history.pushState = hook(history, "pushState", handlePush);
-	history.replaceState = hook(history, "replaceState", handlePush);
+	history.pushState = hook(history, "pushState", navigationHandler);
+	history.replaceState = hook(history, "replaceState", navigationHandler);
 
 	const InitInfo = initSession();
-
 	send(InitInfo, "/session");
 
-	setInterval(() => {
-		send({ status: true, duration: window.lli.startTime }, "/session/heart-beat");
-	}, config.heartbeatInterval * 1000);
+	const pulseInterval = setInterval(() => {
+		send({ duration: (Date.now() - window.lli.timeOnPage) / 1000 }, "/session/pulse")
+	}, window.llc.pulseInterval * 1000);
 
-	pageViewEndHandler();
+	addInterval(pulseInterval)
+	sessionEndHandler()
 }
 
 export const initSession = () => {
@@ -82,7 +77,43 @@ export const initSession = () => {
 	return initInfo;
 };
 
-const pageViewEndHandler = () => {
+
+
+const navigationHandler = (state: string, title: string, url: string) => {
+	if (!url) return;
+	const currentRef = window.lli.currentRef;
+	const currentUrl = window.lli.currentUrl;
+	window.lli.currentRef = window.lli.currentUrl;
+	window.lli.currentUrl = getPath(url.toString());
+	if (currentUrl !== currentRef) {
+		send(
+			{
+				currentRef,
+				currentUrl,
+				duration: (Date.now() - window.lli.timeOnPage) / 1000,
+				queryParams: getUrlParams(),
+			},
+			"/pageview"
+		);
+		window.lli.eventsBank.length &&
+			send(
+				window.lli.eventsBank,
+				"/event",
+				flush
+			);
+		// console.log(currentUrl, window.lli.currentUrl, currentRef, window.lli.currentRef)
+		window.lli.pageId = guid()
+		window.lli.timeOnPage = Date.now();
+		send({
+			currentUrl: window.lli.currentUrl,
+			currentRef: window.lli.currentRef,
+			queryParams: getUrlParams(),
+			duration: 0
+		}, "/pageview")
+	}
+};
+
+const sessionEndHandler = () => {
 	//Register to send Page Duration
 	window.addEventListener("unload", () => {
 		send(
@@ -103,6 +134,8 @@ const pageViewEndHandler = () => {
 		send({
 			duration: (Date.now() - window.lli.startTime) / 1000,
 		}, "/session/end", flush)
-
+		clearIntervals()
 	});
+
+	window.addEventListener("beforeunload", clearIntervals);
 };

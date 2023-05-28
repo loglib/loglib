@@ -22,11 +22,11 @@ export const pageViewPost: ApiPostHandler<PageViewPostInput> = async (req, optio
     }
     const body = PageViewSchema.safeParse(req.body)
     const adapter = options.adapter
+    console.log(body)
     if (body.success) {
         const data = body.data
         try {
-            adapter.connect && await adapter.connect()
-            const res = await adapter.createPageView(
+            const res = await adapter.upsertPageView(
                 {
                     id: data.pageId,
                     page: data.data.currentUrl,
@@ -39,14 +39,14 @@ export const pageViewPost: ApiPostHandler<PageViewPostInput> = async (req, optio
                     updatedAt: new Date(),
                 }
             )
-            adapter.disconnect && await adapter.disconnect()
             return {
                 message: "success",
                 code: 200,
                 data: res
             }
         }
-        catch {
+        catch (e) {
+            console.error(e)
             throw new GenericError('Error creating pageview', { path: "/pageview" })
         }
     } else {

@@ -4,7 +4,7 @@ import maxmind from 'maxmind'
 import { ApiRequest, GenericError } from "../../../..";
 
 let lookup: Reader<CityResponse> | null;
-export async function getLocation(ip: string, req: ApiRequest<unknown>) {
+export async function getLocation(ip: string, req: ApiRequest<unknown, any>) {
     if (req.headers['x-vercel-ip-country']) {
         const country = req.headers['x-vercel-ip-country'] as string;
         const region = req.headers['x-vercel-ip-country-region'] as string;

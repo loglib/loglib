@@ -5,6 +5,7 @@ export type LogLibOptions = {
     getLocation?: () => Promise<{ city: string | null, country: string | null }>,
     disableLocation?: boolean,
     apiKey?: string,
+    environment?: "development" | "production" | "test",
 }
 
 export interface ApiRequest<T, S> {

@@ -5,9 +5,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { initSession } from "../src/record";
 import { InitInfo } from "../src/types";
-import { flush } from "../src/utils";
 import { logLib } from "../src";
 import { q, send } from "../src/server";
+import { flush } from "../src/utils/util";
 
 
 const { record } = logLib
@@ -18,14 +18,12 @@ beforeEach(() => {
 
 });
 
+
 describe("record", () => {
+
 	it("should attach loglib config to window", () => {
 		expect(typeof window.llc).toBe("object");
 	});
-
-	// it("should attach loglib to window", () => {
-	// 	expect(typeof window.logLib).toBe("object");
-	// });
 
 	it("should set env automatically to dev", () => {
 		expect(window.llc.env).toBe("dev");
@@ -38,7 +36,9 @@ describe("record", () => {
 
 	it("should send complete data to server on session initialization", () => {
 		const initInfo = initSession();
+		const mockSend = jest.fn(send);
 		expect(initInfo).toMatchObject<InitInfo>(initInfo);
+		expect(mockSend).toBeCalled()
 	});
 
 	it("should change the url on history.pushState", () => {

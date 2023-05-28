@@ -1,6 +1,5 @@
 "use client";
 import "../css/index.css";
-import { EventData } from "./data/event";
 import React, { useState } from "react";
 import { EventComponent } from "./components/eventComponent";
 import { FilterComponent } from "./components/filter";
@@ -22,6 +21,7 @@ import { getToday, getTomorrow } from "./lib/timeHelper";
 import { CalendarDateRangePicker } from "./components/datePicker";
 import { Graph } from "./components/visitorsGraph";
 import { getAverageTime, getBounceRate, getBrowser, getDevice, getLoc, getOS, getOnlineUsers, getPageViews, getPages, getReferer, getUniqueVisitors, getVisitorsByDate } from "./lib/insight";
+import { getEvents } from "./lib/events";
 
 export interface DashboardConfig {
   color?: string;
@@ -42,7 +42,7 @@ export function Dashboard() {
 
   const [customTime, setCustomTime] = useState(false)
   const url = process.env.VERCEL_URL || process.env.LOGLIB_SERVER_URL || "http://localhost:3000/api/loglib"
-  const { data } = useSWR<GetInsightResponse>(url + `?startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&path=/insight`, fetcher)
+  const { data } = useSWR<GetInsightResponse>(url + `?startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&path=/dashboard`, fetcher)
   const [bySecond, setBySecond] = useState<boolean>(true)
 
   if (!data) {
@@ -203,7 +203,7 @@ export function Dashboard() {
                     </div>
                   </TabsContent>
                   <TabsContent value="events">
-                    <EventComponent events={EventData} />
+                    <EventComponent events={getEvents(data.events, data.sessions)} />
                   </TabsContent>
                 </motion.div>
               </AnimatePresence>

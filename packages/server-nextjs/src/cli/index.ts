@@ -46,7 +46,6 @@ const download = (url: string): Promise<Parse> =>
 
                         writeStream.on('finish', () => {
                             process.stdout.write('\n');
-                            console.log("Let's Go!!");
                         });
                     }
                 })
@@ -58,7 +57,7 @@ const download = (url: string): Promise<Parse> =>
 
 const program = new Command();
 program
-    .command('setup-maxmind')
+    .command('setup:maxmind')
     .description('Download and setup GeoLite2 database')
     .action(() => {
         download(url)
