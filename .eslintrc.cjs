@@ -36,7 +36,9 @@ const config = {
     ],
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/require-await": "off"
+    "@typescript-eslint/require-await": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
   },
   ignorePatterns: [
     "**/dist/**",

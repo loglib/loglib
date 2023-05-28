@@ -5,7 +5,7 @@ export type Config = {
 	postInterval: number;
 	host: string;
 	consent: "granted" | "denied";
-	heartbeatInterval: number;
+	pulseInterval: number;
 };
 export type ServerEvents = {
 	id: string;
@@ -28,7 +28,7 @@ export interface Internal {
 	timeOnPage: number;
 	pageId: string;
 	sessionId: string;
-	sdkVersion: string;
+	intervals: NodeJS.Timer[]
 }
 
 export interface InitInfo {

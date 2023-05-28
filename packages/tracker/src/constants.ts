@@ -1,4 +1,4 @@
-import { guid } from "./utils/common";
+import { guid } from "./utils/util";
 
 
 export const internal = {

@@ -3,25 +3,20 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/ban-types */
 import { ServerEvents } from "./types";
-import { flush, getUserId } from "./utils";
-import { isDevelopment } from "./utils/common";
+import { addInterval, flush, getUserId, isDevelopment } from "./utils/util";
 import { logger } from "./utils/logger";
 
-//queue event for sending
+
 export function q(e: ServerEvents) {
 	const config = window.llc;
 	window.lli.eventsBank.push(e);
-	setInterval(async () => {
-		if (window.lli.eventsBank.length === 0) {
-			return;
-		}
+	const eventsInterval = setInterval(() => {
 		send(window.lli.eventsBank, "/event", flush);
 	}, config.postInterval * 1000);
+	addInterval(eventsInterval)
 }
 
 
-
-//send events to the host
 export function send(
 	data: Record<string, any> | Array<Record<string, any>>,
 	path: string,
@@ -30,7 +25,7 @@ export function send(
 ) {
 	const host = window.llc.host;
 	const url = `${host}/loglib`
-	if (!data) {
+	if (!data || (Array.isArray(data) && data.length === 0)) {
 		logger.log("skipping empty request...");
 		return;
 	}
@@ -38,7 +33,6 @@ export function send(
 		logger.log("skipping development logs...");
 		return;
 	}
-	//Add Session Id with every request
 	const dataToSend = {
 		data,
 		path,
@@ -52,7 +46,6 @@ export function send(
 	function sendRequest() {
 		try {
 			navigator.sendBeacon(url, JSON.stringify(dataToSend));
-			flush();
 			onSuccess?.();
 		} catch {
 			const xhr = new XMLHttpRequest();

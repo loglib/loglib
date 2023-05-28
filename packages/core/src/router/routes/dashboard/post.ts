@@ -77,7 +77,6 @@ export const sessionPost: ApiPostHandler<SessionPostInput> = async (req, options
                     updatedAt: new Date(),
                     queryParams: data.queryParams
                 })
-                console.log(page)
 
                 return {
                     message: "success",

@@ -5,7 +5,7 @@ import { Adapter } from "../src";
 
 describe('userPost', () => {
     const mockAdapter = {
-        updateUser: vi.fn(),
+        upsertUser: vi.fn(),
     } as unknown as Adapter;
 
     beforeEach(() => {

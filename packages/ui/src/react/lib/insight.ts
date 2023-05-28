@@ -218,7 +218,8 @@ export const getOnlineUsers = (sessions: Session[]) => {
     const now = new Date();
     const onlineUsers = sessions.filter(session => {
         const diff = now.getTime() - new Date(session.updatedAt).getTime();
-        return diff < 1000 * 60
+        return diff < 1000 * 30
     })
+    console.log(onlineUsers, 'online users')
     return onlineUsers.length
 }

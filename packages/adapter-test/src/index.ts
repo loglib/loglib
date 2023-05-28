@@ -148,7 +148,7 @@ export async function runAdapterTest(options: TestOptions) {
             expect(response).resolves.toEqual(eventsWithNewPageId);
         })
     })
-    describe("updateUser", async () => {
+    describe("upsertUser", async () => {
         it('should update a user and return it', async () => {
             const data = {
                 id: 'user-id',
@@ -156,7 +156,7 @@ export async function runAdapterTest(options: TestOptions) {
                     foo: "bar"
                 }
             };
-            const response = await adapter.updateUser(data, data.id);
+            const response = await adapter.upsertUser(data, data.id);
             expect(response).toEqual({ id: data.id, data: data.data, createdAt: response?.createdAt, updatedAt: response?.updatedAt });
         });
     })
@@ -198,3 +198,4 @@ export async function runAdapterTest(options: TestOptions) {
         })
     })
 }
+

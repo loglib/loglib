@@ -4,7 +4,7 @@ import { internalRouter } from "@loglib/core"
 import { NextResponse } from "next/server"
 import { cookies } from "next/headers"
 
-const LogLib = (options: LogLibOptions) => {
+const createServer = (options: LogLibOptions) => {
     return async (req: NextApiRequest, res: NextApiResponse) => {
         if (!req.method) {
             return res.status(400).json({ message: "bad request" })
@@ -21,8 +21,8 @@ const LogLib = (options: LogLibOptions) => {
     }
 }
 
-const Next13 = (options: LogLibOptions) => {
-    return async (req: Request) => {
+const createServerRoutes = (options: LogLibOptions) => {
+    const fn = async (req: Request) => {
         try {
             const body = await req.json().catch(() => {
                 //this will fail if it's get request so we pass
@@ -40,5 +40,6 @@ const Next13 = (options: LogLibOptions) => {
             return NextResponse.json({ message: e }, { status: 400 })
         }
     }
+    return { POST: fn, GET: fn }
 }
-export { LogLib, Next13 };
+export { createServer, createServerRoutes };

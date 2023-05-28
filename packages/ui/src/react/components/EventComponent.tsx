@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
-import EventTableRow, { EventType } from "./eventTableRow";
+import EventTableRow from "./eventTableRow";
+import { EventsWithSession } from "../lib/events";
 
-export const EventComponent = ({ events }: { events: EventType[] }) => {
+export const EventComponent = ({ events }: { events: EventsWithSession }) => {
   return (
     <div className="rounded-md border ">
       <div className="w-full overflow-auto caption-bottom text-sm">

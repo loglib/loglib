@@ -34,9 +34,8 @@ export const postEvent: ApiPostHandler<EventPostInput> = async (req, options) =>
             updatedAt: new Date()
         }))
         try {
-            adapter.connect && await adapter.connect()
-            await adapter.createManyEvents(data)
-            adapter.disconnect && await adapter.disconnect()
+            const res = await adapter.createManyEvents(data)
+            console.log(res, 'events')
             return {
                 message: "success",
                 code: 200,
@@ -48,5 +47,4 @@ export const postEvent: ApiPostHandler<EventPostInput> = async (req, options) =>
     } else {
         throw new GenericError('Invalid request body', { path: "/event" })
     }
-
 }
