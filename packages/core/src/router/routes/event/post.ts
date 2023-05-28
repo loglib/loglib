@@ -35,11 +35,11 @@ export const postEvent: ApiPostHandler<EventPostInput> = async (req, options) =>
         }))
         try {
             const res = await adapter.createManyEvents(data)
-            console.log(res, 'events')
+
             return {
                 message: "success",
                 code: 200,
-                data
+                data: res
             }
         } catch (e) {
             throw new GenericError('Error creating event', { path: "/event", e })
