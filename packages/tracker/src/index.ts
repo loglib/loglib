@@ -5,9 +5,9 @@ declare global {
 	interface Window {
 		llc: Config;
 		lli: Internal;
-		logLib: typeof logLib;
 	}
 }
 
 export { logLib };
+
 

@@ -55,6 +55,7 @@ export const sessionPost: ApiPostHandler<SessionPostInput> = async (req, options
                     updatedAt: new Date(),
                 }, userId)
 
+
                 const session = await adapter.createSession({
                     city, country, userId, language, referrer, id: sessionId,
                     browser,
@@ -65,7 +66,6 @@ export const sessionPost: ApiPostHandler<SessionPostInput> = async (req, options
                     createdAt: new Date(),
                     updatedAt: new Date(),
                 })
-
                 const page = await adapter.createPageView({
                     sessionId: sessionId,
                     userId: userId,
@@ -77,6 +77,7 @@ export const sessionPost: ApiPostHandler<SessionPostInput> = async (req, options
                     updatedAt: new Date(),
                     queryParams: data.queryParams
                 })
+
 
                 return {
                     message: "success",

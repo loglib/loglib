@@ -1,7 +1,7 @@
 export type Config = {
 	autoTrack: boolean;
 	debug: boolean;
-	env: "auto" | "test" | "prod" | "dev";
+	env: "auto" | "prod" | "dev";
 	postInterval: number;
 	host: string;
 	consent: "granted" | "denied";
@@ -22,7 +22,6 @@ export interface DomEvent extends Event {
 export interface Internal {
 	eventsBank: ServerEvents[];
 	startTime: number;
-	reload: boolean;
 	currentUrl: string;
 	currentRef: string;
 	timeOnPage: number;

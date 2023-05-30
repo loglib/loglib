@@ -15,7 +15,7 @@ Loglib is a web analytics tool that helps you track your website's analytics. It
 
 - Why not?
 - No need to deploy it separately. You can easily attach Loglib to your Next js app (and more frameworks are on the way), saving you time, effort and possibly some cash.
-- Keep all your data in your existing database, you have the freedom to store your data in your existing db. And this will help you like if your platform displays analytics for users, you can track events or pageviews using the tracker and provide them with detailed analytics.
+- Keep all your data in your existing database, you have the freedom to store your data in your existing db. And this will help you like if your platform displays analytics for users, you can track events or pageview using the tracker and provide them with detailed analytics.
 - A beautiful dashboard built with Shadcn UI.
 - Privacy first GDPR compliant out of the box but can be customized.
 - Your mom will be impressed.

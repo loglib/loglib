@@ -1,30 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/require-await */
-/* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable @typescript-eslint/ban-types */
-import { ServerEvents } from "./types";
-import { addInterval, flush, getUserId, isDevelopment } from "./utils/util";
+import { getUserId, isDevelopment } from "./utils/util";
 import { logger } from "./utils/logger";
-
-
-export function q(e: ServerEvents) {
-	const config = window.llc;
-	window.lli.eventsBank.push(e);
-	const eventsInterval = setInterval(() => {
-		send(window.lli.eventsBank, "/event", flush);
-	}, config.postInterval * 1000);
-	addInterval(eventsInterval)
-}
-
 
 export function send(
 	data: Record<string, any> | Array<Record<string, any>>,
 	path: string,
-	onSuccess?: Function,
-	onError?: Function,
+	onSuccess?: () => void,
+	onError?: () => void,
 ) {
 	const host = window.llc.host;
-	const url = `${host}/loglib`
+	const url = `${host}/api/loglib`
 	if (!data || (Array.isArray(data) && data.length === 0)) {
 		logger.log("skipping empty request...");
 		return;

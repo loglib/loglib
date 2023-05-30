@@ -7,7 +7,8 @@ import { Adapter, Events, GenericError } from '../src';
 
 describe('eventPost', () => {
     const mockAdapter = {
-        createManyEvents: vi.fn(),
+        createManyEvents: vi.fn((events: Events[]) => Promise.resolve(events)),
+
     } as unknown as Adapter;
 
     beforeEach(() => {

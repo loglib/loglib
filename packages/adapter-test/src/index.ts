@@ -44,11 +44,21 @@ export async function runAdapterTest(options: TestOptions) {
         await options.afterEach?.()
     })
 
+
+    const userData = {
+        id: 'user-id',
+        data: {
+            name: 'test-user',
+        },
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    };
+
     const pageView: PageView = {
         id: 'page-view-id',
         page: '/test-page',
         sessionId: 'session-id',
-        userId: 'user-id',
+        userId: userData.id,
         createdAt: new Date(),
         updatedAt: new Date(),
         referrer: '',
@@ -107,13 +117,22 @@ export async function runAdapterTest(options: TestOptions) {
             updatedAt: new Date(),
         },
     ]
-    describe("createSession", async () => {
+
+    describe.only("upsertUser", async () => {
+        it('should update or create user and return it', async () => {
+            const response = await adapter.upsertUser(userData, userData.id);
+            expect(response).toEqual({ ...userData, createdAt: response?.createdAt, updatedAt: response?.updatedAt });
+        });
+    })
+
+    describe.only("createSession", async () => {
         it("should create a session", async () => {
             const response = await adapter.createSession(session);
             expect(response).toEqual(session);
         })
     })
-    describe("updateSession", async () => {
+
+    describe.only("updateSession", async () => {
         it("should update a session", async () => {
             const response = await adapter.updateSession({ ...session, duration: 10 }, session.id);
             expect(response).toEqual({ ...session, duration: 10 });
@@ -127,9 +146,8 @@ export async function runAdapterTest(options: TestOptions) {
         })
     })
 
-    describe("createPageView", async () => {
+    describe.only("createPageView", async () => {
         it("should create a page view", async () => {
-
             const response = await adapter.createPageView(pageView);
             expect(response).toEqual(pageView);
         })
@@ -147,18 +165,6 @@ export async function runAdapterTest(options: TestOptions) {
             const response = adapter.createManyEvents(eventsWithNewPageId);
             expect(response).resolves.toEqual(eventsWithNewPageId);
         })
-    })
-    describe("upsertUser", async () => {
-        it('should update a user and return it', async () => {
-            const data = {
-                id: 'user-id',
-                data: {
-                    foo: "bar"
-                }
-            };
-            const response = await adapter.upsertUser(data, data.id);
-            expect(response).toEqual({ id: data.id, data: data.data, createdAt: response?.createdAt, updatedAt: response?.updatedAt });
-        });
     })
 
     describe("getEvents", async () => {

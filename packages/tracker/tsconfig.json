@@ -5,11 +5,15 @@
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "esModuleInterop": true,
-        "strict": false
+        "strict": false,
+        "types": [
+            "vitest/globals"
+        ]
     },
     "include": [
         "src/**/*",
         "test/**/*",
-        "tsup.config.ts"
+        "tsup.config.ts",
+        "vite.config.ts"
     ],
 }
