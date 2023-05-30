@@ -22,7 +22,6 @@ export const pageViewPost: ApiPostHandler<PageViewPostInput> = async (req, optio
     }
     const body = PageViewSchema.safeParse(req.body)
     const adapter = options.adapter
-    console.log(body)
     if (body.success) {
         const data = body.data
         try {

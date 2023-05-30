@@ -18,10 +18,10 @@ export function record(config?: Partial<Config>) {
 	//Set Config
 	const defaultConfig: Config = {
 		debug: false,
-		autoTrack: true,
+		autoTrack: false,
 		env: "auto",
 		postInterval: 5,
-		host: process.env.VERCEL_URL || process.env.LOGLIB_SERVER_URL || "http://localhost:3000/api",
+		host: process.env.VERCEL_URL || process.env.LOGLIB_SERVER_URL || location.host,
 		consent: "denied",
 		pulseInterval: 10,
 	};
@@ -32,7 +32,6 @@ export function record(config?: Partial<Config>) {
 	window.lli = {
 		eventsBank: [],
 		startTime: now,
-		reload: false,
 		currentUrl: `${location.pathname}${location.search}`,
 		currentRef: document.referrer,
 		timeOnPage: now,
@@ -50,6 +49,16 @@ export function record(config?: Partial<Config>) {
 		const env = detectEnvironment();
 		window.llc.env = env;
 	}
+
+	if (window.llc.env === "prod" && !process.env.VERCEL_URL && !process.env.LOGLIB_SERVER_URL) {
+		throw new Error("Please provide a host url for production environment");
+	}
+
+	const eventsInterval = setInterval(() => {
+		send(window.lli.eventsBank, "/event", flush)
+	}, window.llc.postInterval * 1000);
+	addInterval(eventsInterval);
+
 	history.pushState = hook(history, "pushState", navigationHandler);
 	history.replaceState = hook(history, "replaceState", navigationHandler);
 
@@ -59,8 +68,8 @@ export function record(config?: Partial<Config>) {
 	const pulseInterval = setInterval(() => {
 		send({ duration: (Date.now() - window.lli.timeOnPage) / 1000 }, "/session/pulse")
 	}, window.llc.pulseInterval * 1000);
-
 	addInterval(pulseInterval)
+
 	sessionEndHandler()
 }
 

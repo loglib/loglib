@@ -1,4 +1,4 @@
-import { DomEvent } from "../types";
+import { DomEvent, ServerEvents } from "../types";
 
 export function getUserId() {
 	const getId = () => localStorage.getItem("loglib-id");
@@ -42,9 +42,7 @@ export function isProduction() {
 export function isDevelopment() {
 	return window.llc.env === "dev";
 }
-export function isTest() {
-	return window.llc.env === "test";
-}
+
 export function guid(): string {
 	let d = new Date().getTime();
 	const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
@@ -91,4 +89,8 @@ export const clearIntervals = () => {
 }
 export const addInterval = (interval: NodeJS.Timer) => {
 	window.lli.intervals.push(interval)
+}
+
+export function q(e: ServerEvents) {
+	window.lli.eventsBank.push(e);
 }

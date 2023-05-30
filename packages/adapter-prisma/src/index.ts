@@ -34,6 +34,13 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
             }
             const response = await db.webPageview.create({
                 data: data
+            }).catch(e => {
+                if (e instanceof Prisma.PrismaClientKnownRequestError) {
+                    return null
+                } else {
+                    console.error(e)
+                    throw e
+                }
             })
             return response
         },
@@ -56,17 +63,16 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
             });
         },
         async upsertUser(data) {
-            const { id, ...rest } = data
             const response = await db.webUser.upsert({
                 where: {
-                    id
+                    id: data.id
                 },
                 create: {
-                    id,
-                    data: JSON.stringify(rest.data)
+                    id: data.id,
+                    data: JSON.stringify(data.data),
                 },
                 update: {
-                    data: JSON.stringify(rest.data)
+                    data: JSON.stringify(data.data)
                 }
             }).then(res => ({ ...res, data: JSON.parse(res.data) as Record<string, string> }))
             return response

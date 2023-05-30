@@ -1,17 +1,20 @@
 import { Mock, describe, expect, it, vi } from "vitest";
 import { sessionPost, SessionPostInput } from "../src/router/routes/session/post";
-import { Adapter, LogLibOptions } from "../src";
+import { Adapter, LogLibOptions, Session } from "../src";
 import { getIpAddress } from "../src/router/routes/utils/detect/getIpAddress";
 
 vi.mock("../src/router/routes/utils/detect/getIpAddress")
 
 describe('sessionPost', () => {
     const mockAdapter = {
-        createSession: vi.fn().mockResolvedValue({ message: 'Success', code: 200 }),
+        createSession: vi.fn((data: Session) => data),
+        createPageView: vi.fn(),
+        upsertUser: vi.fn(),
     } as unknown as Adapter
     const mockOptions: LogLibOptions = {
         adapter: mockAdapter,
         getLocation: vi.fn().mockResolvedValue({ city: 'Test City', country: 'Test Country' }),
+        environment: 'test'
     };
     const mockRequest = (body: SessionPostInput) => ({
         headers: { 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36' },
@@ -45,7 +48,7 @@ describe('sessionPost', () => {
         expect(res).toEqual({
             message: 'success',
             code: 200,
-            data: { message: 'Success', code: 200 },
+            data: expect.anything(),
         });
     });
     it('should return a bot message if the user agent is a bot', async () => {
@@ -69,11 +72,20 @@ describe('sessionPost', () => {
     });
 
     it('should return a localhost message if the IP address is localhost', async () => {
-        //mock get ip location
         (getIpAddress as Mock).mockReturnValue('127.0.0.1');
         const req = mockRequest(validRequest);
-        const res = await sessionPost(req, mockOptions);
+        const res = await sessionPost(req, { ...mockOptions, environment: 'development' });
         expect(res).toEqual({ message: 'localhost', code: 200 });
     });
-
+    it('should use ipAddress as userId if userId is empty GDPR shit', async () => {
+        const req = mockRequest({ ...validRequest, userId: '' });
+        const res = await sessionPost(req, mockOptions);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        expect(res.data.session.userId).not.toBe("")
+        expect(res).toEqual({
+            message: 'success',
+            code: 200,
+            data: expect.anything(),
+        });
+    })
 })
