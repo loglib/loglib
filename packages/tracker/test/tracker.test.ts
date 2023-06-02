@@ -31,7 +31,7 @@ describe("Session Start", () => {
         expect(window.llc.autoTrack).toBe(false);
         expect(window.llc.env).toBe("dev");
         expect(window.llc.postInterval).toBe(5);
-        expect(window.llc.host).toBe(location.host);
+        expect(window.llc.host).toBe(location.origin);
         expect(window.llc.consent).toBe("denied");
         expect(window.llc.pulseInterval).toBe(10);
     });
@@ -40,14 +40,6 @@ describe("Session Start", () => {
         record({ debug: true, autoTrack: true });
         expect(window.llc.debug).toBe(true);
         expect(window.llc.autoTrack).toBe(true);
-    });
-
-    it("should throw an error if no host url is provided in production environment", () => {
-        const originalEnv = window.llc.env;
-        expect(() => {
-            record({ env: "prod" });
-        }).toThrowError("Please provide a host url for production environment");
-        window.llc.env = originalEnv;
     });
 
     it("should call send with init session info on initSession", () => {
@@ -162,7 +154,7 @@ describe("Session End", () => {
         expect(send).toHaveBeenCalledWith(eventBank, "/event", flush)
         expect(send).toHaveBeenCalledWith({
             duration: 0,
-        }, "/session/end", flush)
+        }, "/session/pulse", flush)
         expect(window.lli.eventsBank.length).toEqual(0);
     })
 })

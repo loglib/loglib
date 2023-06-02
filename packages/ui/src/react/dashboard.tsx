@@ -1,27 +1,27 @@
 "use client";
 import "../css/index.css";
-import React, { useState } from "react";
-import { EventComponent } from "./components/eventComponent";
-import { FilterComponent } from "./components/filter";
+import React, { useEffect, useState } from "react";
+import { DatePicker, CalendarDateRangePicker } from "./components/ui/datePicker";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";
-import { NavUiComponent } from "./components/header";
 import useSWR from 'swr'
-import { fetcher } from "./lib/utils";
+import { changeTheme, fetcher, getTheme } from "./lib/utils";
 import { GetInsightResponse } from "@loglib/core/types"
-import { InsightCard } from "./components/insightCard";
+import { InsightCard } from "./components/insight/insightCard";
 import { Activity, Asterisk, Eye, Laptop2, MapPin, MonitorSmartphone, PanelTop, TimerIcon, UserIcon, Users2 } from "lucide-react";
 import { Switch } from "./components/ui/switch";
-import { PagesComponent } from "./components/pages";
-import { RefComponent } from "./components/referrer";
-import { DeviceComponent } from "./components/devices";
-import { LocationsComponent } from "./components/locations";
+import { PagesComponent } from "./components/insight/pages";
+import { RefComponent } from "./components/insight/referrer";
+import { DeviceComponent } from "./components/insight/devices";
+import { LocationsComponent } from "./components/insight/locations";
 import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
 import { getToday, getTomorrow } from "./lib/timeHelper";
-import { CalendarDateRangePicker } from "./components/datePicker";
-import { Graph } from "./components/visitorsGraph";
+import { Graph } from "./components/insight/visitorsGraph";
 import { getAverageTime, getBounceRate, getBrowser, getDevice, getLoc, getOS, getOnlineUsers, getPageViews, getPages, getReferer, getUniqueVisitors, getVisitorsByDate } from "./lib/insight";
 import { getEvents } from "./lib/events";
+import Events from "./components/events/events";
+import LogoIcon from "./components/Icon/LogoIcon";
+import NightModeIcon from "./components/Icon/NightModeIcon";
 
 export interface DashboardConfig {
   color?: string;
@@ -45,6 +45,11 @@ export function Dashboard() {
   const { data } = useSWR<GetInsightResponse>(url + `?startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&path=/dashboard`, fetcher)
   const [bySecond, setBySecond] = useState<boolean>(true)
 
+  useEffect(() => {
+    const theme = getTheme()
+    document.documentElement.classList.add(theme);
+  }, [0]);
+
   if (!data) {
     return <div>
       Loading...
@@ -54,9 +59,22 @@ export function Dashboard() {
   return (
     <>
       <LayoutGroup>
-        <div className="bg-white min-h-screen w-full  dark:bg-black transition-all duration-700 dark:text-white/90">
+        <div className="bg-white min-h-screen w-full  dark:bg-black transition-all duration-700 dark:text-white/90 scrollbar-hide">
           <div className="flex-1 space-y-4 p-8 pt-6">
-            <NavUiComponent />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2 space-y-2">
+                <LogoIcon />
+                <h2 className="text-4xl font-bold tracking-tight">LOGLIB</h2>
+              </div>
+              <div className="lg:flex flex-col justify-center items-center col-span-1 self-center select-none relative">
+                <div
+                  className="border p-4 px-5 rounded-md cursor-pointer border-[#996A6A] hover:bg-gray-100 dark:hover:bg-gray-900 dark:bg-dark shadow-black/70 transition-al duration-300 ease-in-out"
+                  onClick={changeTheme}
+                >
+                  <NightModeIcon />
+                </div>
+              </div>
+            </div>
             <Tabs defaultValue="insights" className="space-y-4" >
               <TabsList>
                 <TabsTrigger
@@ -73,7 +91,11 @@ export function Dashboard() {
                 </TabsTrigger>
               </TabsList>
               <div className=" flex justify-between">
-                <FilterComponent setTimeRange={setTimeRange} setCustomTime={setCustomTime} timeRange={timeRange} customTime={customTime} />
+                <div className=" flex gap-2 items-center">
+                  <DatePicker setTimeRange={setTimeRange} setCustomTime={setCustomTime} timeRange={timeRange} customTime={customTime} />
+
+                </div>
+
                 <div className=" flex gap-1 items-center">
                   <div className=" w-2.5 h-2.5 bg-gradient-to-tr from-lime-500 to-lime-700 animate-pulse rounded-full" >
                   </div>
@@ -168,6 +190,13 @@ export function Dashboard() {
                               <PanelTop size={16} />
                               <p>Pages</p>
                             </TabsTrigger>
+                            <TabsTrigger
+                              value="locations"
+                              className=" space-x-2"
+                            >
+                              <MapPin size={16} />
+                              <p>Locations</p>
+                            </TabsTrigger>
                             <TabsTrigger value="ref" className=" space-x-2">
                               <Asterisk size={16} />
                               <p>Referees</p>
@@ -176,13 +205,7 @@ export function Dashboard() {
                               <MonitorSmartphone size={16} />
                               <p>Devices</p>
                             </TabsTrigger>
-                            <TabsTrigger
-                              value="locations"
-                              className=" space-x-2"
-                            >
-                              <MapPin size={16} />
-                              <p>Locations</p>
-                            </TabsTrigger>
+
                           </TabsList>
 
                           <TabsContent value="pages">
@@ -203,7 +226,7 @@ export function Dashboard() {
                     </div>
                   </TabsContent>
                   <TabsContent value="events">
-                    <EventComponent events={getEvents(data.events, data.sessions)} />
+                    <Events events={getEvents(data.events, data.sessions, data.pageViews)} />
                   </TabsContent>
                 </motion.div>
               </AnimatePresence>

@@ -9,7 +9,7 @@ export type Session = {
     id: string;
     createdAt: Date,
     updatedAt: Date,
-    queryParams: string;
+    queryParams: Record<string, string> | null,
     referrer: string;
     duration: number;
     country: string | null;
@@ -27,7 +27,7 @@ export type PageView = {
     updatedAt: Date,
     page: string,
     referrer: string,
-    queryParams: any,
+    queryParams: Record<string, string> | null,
     duration: number,
     sessionId: string,
     userId: string,
