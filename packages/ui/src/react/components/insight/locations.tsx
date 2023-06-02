@@ -1,5 +1,5 @@
 "use client";
-import { CardContent } from "./ui/card";
+import { CardContent } from "../ui/card";
 import React from "react";
 import {
   Table,
@@ -9,8 +9,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+} from "../ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import COUNTRIES from "../../lib/constants";
+import ReactCountryFlag from "react-country-flag"
+
+
 
 
 export function LocationsComponent({ city, country }: { city: City[], country: Country[] }) {
@@ -39,7 +43,14 @@ export function LocationsComponent({ city, country }: { city: City[], country: C
             <TableBody>
               {country.map((location) => (
                 <TableRow key={location.location}>
-                  <TableCell>{location.location}</TableCell>
+                  <TableCell className=" flex items-center gap-1">
+                    <ReactCountryFlag countryCode={location.location} svg
+                      style={{
+                        width: '1em',
+                        height: '1em',
+                      }} />
+                    {COUNTRIES[location.location]}
+                  </TableCell>
                   <TableCell className="text-right">{location.visits}</TableCell>
                 </TableRow>
               ))}

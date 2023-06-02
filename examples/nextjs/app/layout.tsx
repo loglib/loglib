@@ -16,7 +16,8 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       <body className={inter.className}>
         <LogLib config={{
           debug: true,
-          env: "test"
+          env: 'prod',
+          consent: "granted"
         }} />
         <main>{props.children}</main>
       </body>

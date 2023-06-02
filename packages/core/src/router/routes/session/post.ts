@@ -62,7 +62,7 @@ export const sessionPost: ApiPostHandler<SessionPostInput> = async (req, options
                     device,
                     os,
                     duration: 0,
-                    queryParams: JSON.stringify(queryParams),
+                    queryParams: queryParams || null,
                     createdAt: new Date(),
                     updatedAt: new Date(),
                 })
@@ -75,7 +75,7 @@ export const sessionPost: ApiPostHandler<SessionPostInput> = async (req, options
                     duration: 0,
                     createdAt: new Date(),
                     updatedAt: new Date(),
-                    queryParams: data.queryParams
+                    queryParams: data.queryParams || null
                 })
 
 

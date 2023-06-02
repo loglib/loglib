@@ -1,5 +1,5 @@
 "use client";
-import { CardContent } from "./ui/card";
+import { CardContent } from "../ui/card";
 import React from "react";
 import {
   Table,
@@ -8,8 +8,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+} from "../ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
 export function DeviceComponent({ devices, os, browser }: { devices: DevicesType[], os: OSType[], browser: BrowserType[] }) {
   return (

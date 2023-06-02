@@ -1,5 +1,5 @@
 "use client";
-import { CardContent } from "./ui/card";
+import { CardContent } from "../ui/card";
 import React from "react";
 import {
   Table,
@@ -9,7 +9,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./ui/table";
+} from "../ui/table";
 
 export function PagesComponent({ pageViews }: { pageViews: PageViewsType[] }) {
   return (

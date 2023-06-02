@@ -1,7 +1,7 @@
 import { eventRouter } from "./routes/event";
 import { insightsRoutes } from "./routes/dashboard";
 import { pageViewRoute } from "./routes/pageview";
-import { pulseRoute, sessionEnd, sessionRoute } from "./routes/session";
+import { pulseRoute, sessionRoute } from "./routes/session";
 import { userRouter } from "./routes/user";
 import { Router } from "./type";
 
@@ -10,7 +10,6 @@ import { Router } from "./type";
 
 export const router: Router = {
     "/session": sessionRoute,
-    "/session/end": sessionEnd,
     "/session/pulse": pulseRoute,
     "/pageview": pageViewRoute,
     "/event": eventRouter,

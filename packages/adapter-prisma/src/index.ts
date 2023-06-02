@@ -2,47 +2,40 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Adapter } from "@loglib/core"
-import { Prisma, PrismaClient } from "@prisma/client"
+import { PrismaClient } from "@prisma/client"
 
 
 export const prismaAdapter = (db: PrismaClient): Adapter => {
     return {
         async createSession(data) {
             const response = await db.webSession.create({
-                data
+                data: {
+                    ...data,
+                    queryParams: data.queryParams ? JSON.stringify(data.queryParams) : undefined
+                }
             })
-            return response;
+            return { ...response, queryParams: JSON.parse(response.queryParams) }
         },
         async updateSession(data, id) {
             const res = await db.webSession.update({
                 where: {
                     id
                 },
-                data
-            }).catch((e) => {
-                //check if it's failing because of the session not existing this happens sometime and we just don't wanna keep that session and we don't wanna through this is long ass comment
-                if (e instanceof Prisma.PrismaClientKnownRequestError) {
-                    return null
+                data: {
+                    ...data,
+                    queryParams: data.queryParams ? JSON.stringify(data.queryParams) : undefined
                 }
-                throw e
             })
-            return res
+            return { ...res, queryParams: JSON.parse(res?.queryParams) }
         },
         async createPageView(data) {
-            if (data.queryParams) {
-                data.queryParams = JSON.stringify(data.queryParams)
-            }
             const response = await db.webPageview.create({
-                data: data
-            }).catch(e => {
-                if (e instanceof Prisma.PrismaClientKnownRequestError) {
-                    return null
-                } else {
-                    console.error(e)
-                    throw e
+                data: {
+                    ...data,
+                    queryParams: data.queryParams ? JSON.stringify(data.queryParams) : undefined
                 }
             })
-            return response
+            return { ...response, queryParams: JSON.parse(response.queryParams) }
         },
         async createManyEvents(data) {
             const promises = data.map(async (event) => {
@@ -105,6 +98,9 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
                         lte: endDate
                     }
                 }
+            }).then(res => {
+                const pageViews = res.map(pageView => ({ ...pageView, queryParams: JSON.parse(pageView.queryParams) as Record<string, string> }))
+                return pageViews
             })
         },
         async getEvents(startDate, endDate) {
@@ -129,17 +125,24 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
                     }
                 }
             })
-            return res
+            return res.map(session => ({ ...session, queryParams: JSON.parse(session.queryParams) as Record<string, string> }))
+
         },
         async upsertPageView(data) {
             const res = await db.webPageview.upsert({
-                create: data,
-                update: data,
+                create: {
+                    ...data,
+                    queryParams: data.queryParams ? JSON.stringify(data.queryParams) : undefined
+                },
+                update: {
+                    ...data,
+                    queryParams: data.queryParams ? JSON.stringify(data.queryParams) : undefined
+                },
                 where: {
                     id: data.id
                 }
             })
-            return res
+            return { ...res, queryParams: JSON.parse(res.queryParams) }
         },
     }
 }

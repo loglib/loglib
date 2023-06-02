@@ -29,7 +29,7 @@ export const pageViewPost: ApiPostHandler<PageViewPostInput> = async (req, optio
                 {
                     id: data.pageId,
                     page: data.data.currentUrl,
-                    queryParams: JSON.stringify(data.data.queryParams),
+                    queryParams: data.data.queryParams,
                     referrer: data.data.currentRef,
                     sessionId: data.sessionId,
                     userId: data.userId,
@@ -45,7 +45,7 @@ export const pageViewPost: ApiPostHandler<PageViewPostInput> = async (req, optio
             }
         }
         catch (e) {
-            console.error(e)
+            console.error(e, "Error creating pageview")
             throw new GenericError('Error creating pageview', { path: "/pageview" })
         }
     } else {

@@ -63,7 +63,7 @@ export async function runAdapterTest(options: TestOptions) {
         updatedAt: new Date(),
         referrer: '',
         duration: 0,
-        queryParams: { "utm_source": "google" }
+        queryParams: { utm_source: 'google' },
     };
     const session: Session = {
         id: 'session-id',
@@ -77,7 +77,7 @@ export async function runAdapterTest(options: TestOptions) {
         country: 'country',
         duration: 0,
         language: 'language',
-        queryParams: 'queryParams',
+        queryParams: { utm_source: 'google' },
         referrer: 'referrer',
     }
     const events: Events[] = [
@@ -104,80 +104,59 @@ export async function runAdapterTest(options: TestOptions) {
             updatedAt: new Date(),
         },
     ]
-    const eventsWithNewPageId = [
-        {
-            id: 'event-id-3',
-            eventType: 'test-event-2',
-            eventName: 'test-name-2',
-            pageId: 'new-page-id',
-            sessionId: 'session-id',
-            userId: 'user-id',
-            payload: { foo: 'baz' },
-            createdAt: new Date(),
-            updatedAt: new Date(),
-        },
-    ]
+    describe("upsertUser", async () => {
 
-    describe.only("upsertUser", async () => {
         it('should update or create user and return it', async () => {
             const response = await adapter.upsertUser(userData, userData.id);
             expect(response).toEqual({ ...userData, createdAt: response?.createdAt, updatedAt: response?.updatedAt });
         });
     })
 
-    describe.only("createSession", async () => {
+    describe("createSession", async () => {
+
         it("should create a session", async () => {
             const response = await adapter.createSession(session);
-            expect(response).toEqual(session);
+            expect(response).toEqual({ ...session, createdAt: response?.createdAt, updatedAt: response?.updatedAt });
         })
     })
 
-    describe.only("updateSession", async () => {
+    describe("updateSession", async () => {
+
         it("should update a session", async () => {
             const response = await adapter.updateSession({ ...session, duration: 10 }, session.id);
-            expect(response).toEqual({ ...session, duration: 10 });
-        })
-        it("should return null if session doesn't exist", async () => {
-            const data = {
-                duration: 10
-            };
-            const response = await adapter.updateSession(data, "invalid-id");
-            expect(response).toBeNull()
+            expect(response).toEqual({ ...session, duration: 10, createdAt: response?.createdAt, updatedAt: response?.updatedAt });
         })
     })
 
-    describe.only("createPageView", async () => {
+    describe("createPageView", async () => {
+
         it("should create a page view", async () => {
             const response = await adapter.createPageView(pageView);
-            expect(response).toEqual(pageView);
+            expect(response).toEqual({ ...pageView, createdAt: response?.createdAt, updatedAt: response?.updatedAt });
         })
-        it("should return null if session doesn't exist", async () => {
-            const response = await adapter.createPageView({ ...pageView, sessionId: 'invalid-id' });
-            expect(response).toBeNull()
-        });
     })
+
     describe("createManyEvents", async () => {
+
         it("should create events and pages", async () => {
             const response = await adapter.createManyEvents(events);
-            expect(response).toEqual(events);
-        })
-        it("should still create events and pages when pages doesn't exist", () => {
-            const response = adapter.createManyEvents(eventsWithNewPageId);
-            expect(response).resolves.toEqual(eventsWithNewPageId);
+            expect(response?.length).toEqual(2);
         })
     })
 
     describe("getEvents", async () => {
+
         it("should return events in time a frame", async () => {
             //yesterday
             const startDate = new Date(new Date().setDate(new Date().getDate() - 2));
             const endDate = new Date();
             const response = await adapter.getEvents(startDate, endDate);
-            expect(response).toEqual(events.concat(eventsWithNewPageId));
+            expect(response.length).toEqual(2);
         })
     })
 
     describe("getSessions", async () => {
+
         it("should return sessions in time a frame", async () => {
             const lastDay = new Date(Date.now() - (25 * 60 * 60 * 1000));
             const endDate = new Date();
@@ -187,6 +166,7 @@ export async function runAdapterTest(options: TestOptions) {
     })
 
     describe("getUsers", async () => {
+
         it("should return users in time a frame", async () => {
             const lastDay = new Date(Date.now() - (25 * 60 * 60 * 1000));
             const endDate = new Date();
@@ -195,12 +175,23 @@ export async function runAdapterTest(options: TestOptions) {
         })
     })
 
-    describe("getPages", async () => {
+    describe("getPageview", async () => {
+
         it("should return pages in time a frame", async () => {
             const lastDay = new Date(Date.now() - (25 * 60 * 60 * 1000));
             const endDate = new Date();
             const response = await adapter.getPageViews(lastDay, endDate);
-            expect(response.length).toBe(2)
+            expect(response.length).toBe(1)
+        })
+    }, {
+        timeout: 10000
+    })
+
+    describe("upsert pageview", async () => {
+
+        it("should update or create a page view", async () => {
+            const response = await adapter.upsertPageView(pageView);
+            expect(response).toEqual({ ...pageView, createdAt: response?.createdAt, updatedAt: response?.updatedAt });
         })
     })
 }

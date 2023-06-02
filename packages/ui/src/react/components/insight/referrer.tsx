@@ -1,5 +1,5 @@
 "use client";
-import { CardContent } from "./ui/card";
+import { CardContent } from "../ui/card";
 import React from "react";
 import {
   Table,
@@ -9,8 +9,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./ui/table";
-import { ArrowUpRight } from "lucide-react";
+} from "../ui/table";
 
 export function RefComponent({ refs }: { refs: RefType[] }) {
   return (
@@ -30,7 +29,7 @@ export function RefComponent({ refs }: { refs: RefType[] }) {
             <TableRow key={i}>
 
               <TableCell className="flex gap-1 items-center">
-                <ArrowUpRight size={16} />
+
                 {refs.referrer}
               </TableCell>
               <TableCell className="text-right">{refs.visits}</TableCell>

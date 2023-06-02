@@ -62,7 +62,8 @@
     "terser": "^5.17.3",
     "tsup": "^6.7.0",
     "typescript": "^5.0.4",
-    "webdriverio": "^8.10.5"
+    "webdriverio": "^8.10.5",
+    "vitest": "^0.31.0"
   },
   "peerDependencies": {
     "react": "^16.8||^17||^18"

@@ -21,7 +21,7 @@ export function record(config?: Partial<Config>) {
 		autoTrack: false,
 		env: "auto",
 		postInterval: 5,
-		host: process.env.VERCEL_URL || process.env.LOGLIB_SERVER_URL || location.host,
+		host: process.env.VERCEL_URL || process.env.LOGLIB_SERVER_URL || location.origin,
 		consent: "denied",
 		pulseInterval: 10,
 	};
@@ -50,9 +50,9 @@ export function record(config?: Partial<Config>) {
 		window.llc.env = env;
 	}
 
-	if (window.llc.env === "prod" && !process.env.VERCEL_URL && !process.env.LOGLIB_SERVER_URL) {
-		throw new Error("Please provide a host url for production environment");
-	}
+	// if (window.llc.env === "prod" && !process.env.VERCEL_URL && !process.env.LOGLIB_SERVER_URL) {
+	// 	throw new Error("Please provide a host url for production environment");
+	// }
 
 	const eventsInterval = setInterval(() => {
 		send(window.lli.eventsBank, "/event", flush)
@@ -142,7 +142,7 @@ const sessionEndHandler = () => {
 			);
 		send({
 			duration: (Date.now() - window.lli.startTime) / 1000,
-		}, "/session/end", flush)
+		}, "/session/pulse", flush)
 		clearIntervals()
 	});
 

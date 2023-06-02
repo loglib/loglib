@@ -48,7 +48,7 @@ model WebPageview {
     updatedAt   DateTime @updatedAt @map("updated_at")
     page        String
     referrer    String   @default("")
-    queryParams String   @default("") @map("query_params")
+    queryParams String   @default("{}") @map("query_params")
     duration    Int      @default(0)
     sessionId   String   @map("web_session_id")
     userId      String   @map("user_id")
@@ -57,7 +57,7 @@ model WebPageview {
     WebSession WebSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
     User       WebUser    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@map("web_page")
+    @@map("web_pageview")
 }
 
 model WebEvent {
