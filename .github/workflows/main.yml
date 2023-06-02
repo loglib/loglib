@@ -44,6 +44,9 @@ jobs:
         run: pnpm install
 
       - name: Build, lint and type-check
+        env:
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
         run: pnpm turbo build lint typecheck test
 
       - name: Check workspaces

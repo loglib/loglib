@@ -53,6 +53,9 @@ jobs:
         run: node .github/canary-version.js
 
       - name: Authenticate to npm and publish
+        env:
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
         run: |
           pnpm build
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
