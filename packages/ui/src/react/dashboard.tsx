@@ -83,7 +83,7 @@ export function Dashboard() {
   return (
     <>
       <LayoutGroup>
-        <div className="bg-white min-h-screen w-full  dark:bg-black transition-all duration-700 dark:text-white/90 scrollbar-hide">
+        <div className="bg-white min-h-screen w-full dark:bg-black transition-all duration-700 dark:text-white/90 scrollbar-hide">
           <div className="flex-1 space-y-4 p-8 pt-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2 space-y-2">

@@ -14,7 +14,7 @@
 
 > ⚠️ Under Construction put here incase anyone visits this repo before it's ready.
 
-**Loglib is a web analytics tool that helps you track your website's analytics. It's a privacy-first, built for js frameworks ecosystem and it's open source here are the reason you might wanna consider loglib for your project:**
+**Loglib is a web analytics tool that helps you track your website's analytics. It's a privacy-first, built for js frameworks ecosystem and it's open source. here are more reasons you might wanna consider loglib for your project:**
 
 - Why not?
 - No need to deploy it separately. You can easily attach Loglib to your Next js app (more framework support soon), and you can see your website analytics. (despite having 0 users)
@@ -116,7 +116,7 @@ To identify a user, you can use the `identify` method.
 *this doesn't work unless you have a consent from the user. (more on that below)*
 
 ```js
-import {loglib} from 'logLib/tracker-js/react';
+import {loglib} from '@logLib/tracker';
 export default function page() {
   return (
     <>
