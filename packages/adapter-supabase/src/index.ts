@@ -49,7 +49,7 @@ const supabaseAdapter = (db: SupabaseClient): Adapter => {
         async getEvents(startDate, endDate) {
             const res = await db.from("web_event").select("*").gte("created_at", startDate.toUTCString()).lte("created_at", endDate.toUTCString()).select("*").throwOnError()
             if (res.data === null || res.data.length === 0) return []
-            res.data = res.data!.map((event) => {
+            res.data = res.data.map((event) => {
                 event.payload = JSON.parse(event.payload as string)
                 return event
             })
