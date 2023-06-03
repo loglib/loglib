@@ -9,11 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@loglib/core": "0.0.2",
-    "@loglib/next": "0.0.2",
-    "@loglib/prisma-adapter": "0.0.2",
-    "@loglib/tracker": "0.0.2",
-    "@loglib/ui": "0.0.1",
+    "@loglib/core": "0.0.3",
+    "@loglib/next": "0.0.3",
+    "@loglib/prisma-adapter": "0.0.3",
+    "@loglib/tracker": "0.0.3",
+    "@loglib/ui": "0.0.2",
     "@prisma/client": "^4.14.0",
     "@types/node": "^18.15.13",
     "@types/react": "^18.2.0",
