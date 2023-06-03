@@ -156,7 +156,7 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
                 }
             }
         } catch (e) {
-            console.log(e)
+            console.error(e)
             throw new GenericError('Error getting insight data', { path: "/insights" })
         }
     }
