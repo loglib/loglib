@@ -4,7 +4,7 @@
 
 ![npm](https://img.shields.io/npm/v/@loglib/tracker) ![npm bundle size](https://img.shields.io/bundlephobia/min/@loglib/tracker) ![GitHub license](https://img.shields.io/github/license/LogLib/loglib) ![GitHub issues](https://img.shields.io/github/issues/LogLib/loglib) ![GitHub stars](https://img.shields.io/github/stars/LogLib/loglib)
 
-![screenshot](./images/logo.png)
+![screenshot](./images/logo-small.png)
 
 > ⚠️ Under Construction put here incase anyone visits this repo before it's ready.
 
