@@ -16,6 +16,8 @@
 
 **Loglib is a web analytics tool that helps you track your website's analytics. It's a privacy-first, and it's open source here are the reason you might wanna consider loglib for your project:**
 
+
+
 - Why not?
 - No need to deploy it separately. You can easily attach Loglib to your Next js app, and you can see your website analytics. (despite having 0 users)
 - Keep all your data in your existing database, you have the freedom to store your data in your existing db or your choice of db. We currently support prisma and supabase adapters but more supports are on the way.
@@ -32,8 +34,8 @@ Loglib is consist of three things:
 1. **Tracker**: This component tracks your website's analytics.
 2. **Loglib Server**: It handles requests without requiring a separate deployment if you already have a backend.
 3. **Loglib Dashboard**: It offers a beautiful, minimalistic UI to display your analytics.
-
-The concept is that you can integrate the tracker into your website, similar to other analytics tools. However, instead of sending the data to a third-party server, it is sent to your own server, which can be set up as an endpoint in your Next.js application (other alternatives in the near future). Then, you can utilize a dashboard that is currently built as a React component. You can export this component as page, enabling you to conveniently view and analyze your website analytics.
+4. 
+The idea is that you can integrate a tracker into your website, similar to other analytics tools. However, instead of sending the data to a third-party server or a separately deployed thing like umami (which we love), it is sent to your current server, which can be set up as an endpoint in your Next.js application (other alternatives in the near future). Then, you can utilize a dashboard that is currently built as a React component (again more frameworks soon). You can export this component as page, enabling you to conveniently view and analyze your website analytics.
 
 ### Installation: Just like every other libraries out there
 
