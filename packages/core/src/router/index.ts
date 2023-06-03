@@ -8,7 +8,7 @@ export const internalRouter = async (req: ApiRequest<any, any>, options: LogLibO
     if (!req.method) {
         return { message: "Invalid request method. Expected a string.", code: 400 }
     }
-    await checkLocationConfig(options)
+    await checkLocationConfig(options, req)
     const method = req.method.toUpperCase() as "POST" | "PUT" | "DELETE" | "GET"
     let path = ""
     if (method === "POST" || method === "PUT" || method === "DELETE") {

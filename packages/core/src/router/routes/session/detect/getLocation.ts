@@ -37,8 +37,9 @@ export async function getLocation(ip: string, req: ApiRequest<unknown, any>) {
 }
 
 
-export const checkLocationConfig = async (options: LogLibOptions) => {
-    if (process.env.NODE_ENV === "production") return
+export const checkLocationConfig = async (options: LogLibOptions, req: ApiRequest<any, unknown>) => {
+    // if (process.env.NODE_ENV === "production") return
+    if (req.headers['x-vercel-ip-country']) return
     const dir = path.join(process.cwd(), 'geo');
     try {
         await maxmind.open(path.resolve(dir, 'GeoLite2-City.mmdb'));
