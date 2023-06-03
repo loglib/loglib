@@ -66,7 +66,7 @@ export const getPages = (pageViews: PageView[]) => {
         }
         return acc;
     }, [] as { page: string, visits: number }[]);
-    return pages
+    return pages.sort((a, b) => b.visits - a.visits);
 }
 
 export const getLoc = (sessions: Session[], byCountry = true) => {
@@ -83,7 +83,7 @@ export const getLoc = (sessions: Session[], byCountry = true) => {
         }
         return acc;
     }, [] as { location: string, visits: number }[]);
-    return locations;
+    return locations.sort((a, b) => b.visits - a.visits);
 }
 
 export const getReferer = (sessions: Session[]) => {
@@ -100,7 +100,7 @@ export const getReferer = (sessions: Session[]) => {
         }
         return acc;
     }, [] as { referrer: string, visits: number }[]);
-    return referees;
+    return referees.sort((a, b) => b.visits - a.visits);
 }
 
 export const getDevices = (sessions: Session[]) => {
@@ -118,7 +118,7 @@ export const getDevices = (sessions: Session[]) => {
         return acc;
     }, [] as { device: string, visits: number }[]);
 
-    return devices
+    return devices.sort((a, b) => b.visits - a.visits);
 }
 
 export const getOS = (sessions: Session[]) => {
@@ -135,7 +135,7 @@ export const getOS = (sessions: Session[]) => {
         }
         return acc;
     }, [] as { os: string, visits: number }[]);
-    return deviceOS
+    return deviceOS.sort((a, b) => b.visits - a.visits);
 }
 
 export const getBrowser = (sessions: Session[]) => {
@@ -152,7 +152,7 @@ export const getBrowser = (sessions: Session[]) => {
         }
         return acc;
     }, [] as { browser: string, visits: number }[]);
-    return browsers
+    return browsers.sort((a, b) => b.visits - a.visits);
 }
 
 export const getVisitorsByDate = (sessions: Session[], startDate: Date, endDate: Date, uniqueUsers = true) => {

@@ -14,12 +14,10 @@
 
 > ⚠️ Under Construction put here incase anyone visits this repo before it's ready.
 
-**Loglib is a web analytics tool that helps you track your website's analytics. It's a privacy-first, and it's open source here are the reason you might wanna consider loglib for your project:**
-
-
+**Loglib is a web analytics tool that helps you track your website's analytics. It's a privacy-first, built for js frameworks ecosystem and it's open source here are the reason you might wanna consider loglib for your project:**
 
 - Why not?
-- No need to deploy it separately. You can easily attach Loglib to your Next js app, and you can see your website analytics. (despite having 0 users)
+- No need to deploy it separately. You can easily attach Loglib to your Next js app (more framework support soon), and you can see your website analytics. (despite having 0 users)
 - Keep all your data in your existing database, you have the freedom to store your data in your existing db or your choice of db. We currently support prisma and supabase adapters but more supports are on the way.
 - A beautiful dashboard built with Shadcn UI.
 - Privacy first GDPR compliant out of the box but can be customized.
@@ -34,7 +32,7 @@ Loglib is consist of three things:
 1. **Tracker**: This component tracks your website's analytics.
 2. **Loglib Server**: It handles requests without requiring a separate deployment if you already have a backend.
 3. **Loglib Dashboard**: It offers a beautiful, minimalistic UI to display your analytics.
-4. 
+  
 The idea is that you can integrate a tracker into your website, similar to other analytics tools. However, instead of sending the data to a third-party server or a separately deployed thing like umami (which we love), it is sent to your current server, which can be set up as an endpoint in your Next.js application (other alternatives in the near future). Then, you can utilize a dashboard that is currently built as a React component (again more frameworks soon). You can export this component as page, enabling you to conveniently view and analyze your website analytics.
 
 ### Installation: Just like every other libraries out there
