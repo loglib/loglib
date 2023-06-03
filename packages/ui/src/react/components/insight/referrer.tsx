@@ -10,8 +10,17 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
+import { RefIcons } from "@/assets/Icons";
 
 export function RefComponent({ refs }: { refs: RefType[] }) {
+  const parseUrl = (url: string) => {
+    try {
+      const newUrl = new URL(url);
+      return newUrl.hostname.replace("www.", "").replace(".com", "");
+    } catch {
+      return url;
+    }
+  };
   return (
     <CardContent>
       <Table>
@@ -28,7 +37,10 @@ export function RefComponent({ refs }: { refs: RefType[] }) {
           {refs.map((refs, i) => (
             <TableRow key={i}>
               <TableCell className="flex gap-1 items-center">
-                {refs.referrer.split("/")[2].replace("www.", "").replace(".com", "")}
+                {
+                  RefIcons[parseUrl(refs.referrer).toLowerCase()] ? RefIcons[parseUrl(refs.referrer).toLowerCase()]() : RefIcons["default"]()
+                }
+                {parseUrl(refs.referrer)}
               </TableCell>
               <TableCell className="text-right">{refs.visits}</TableCell>
             </TableRow>

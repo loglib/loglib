@@ -61,14 +61,22 @@ export function Dashboard() {
   }, [0]);
 
   if (!data) {
-    return <div>
-      Loading...
+    return <div className=" h-screen w-screen flex flex-col justify-center items-center animate-pulse ">
+      <div className=" flex items-center space-x-2">
+        <div className=" w-5 h-5 bg-emphasis rounded-full animate-bounce delay-100" />
+        <div className=" w-5 h-5 bg-emphasis rounded-full animate-bounce delay-400" />
+        <div className=" w-5 h-5 bg-emphasis rounded-full animate-bounce delay-700" />
+      </div>
+
+      <p>
+        Loading your dashboard 📈
+      </p>
     </div>
   }
   if (error) {
     console.log(error)
-    return <div>
-      Error
+    return <div className=" h-screen w-screen flex flex-col justify-center items-center  ">
+      Some Error happened while getting the data from the server please see the error in console for more details
     </div>
   }
 
