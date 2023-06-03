@@ -4,14 +4,14 @@
 
 ![npm](https://img.shields.io/npm/v/@loglib/tracker) ![npm bundle size](https://img.shields.io/bundlephobia/min/@loglib/tracker) ![GitHub license](https://img.shields.io/github/license/LogLib/loglib) ![GitHub issues](https://img.shields.io/github/issues/LogLib/loglib) ![GitHub stars](https://img.shields.io/github/stars/LogLib/loglib)
 
-![screenshot](./examples/screenshot/logo.png)
+![screenshot](./images/logo.png)
 
 > ⚠️ Under Construction put here incase anyone visits this repo before it's ready.
 
-**Loglib is a web analytics tool that helps you track your website's analytics. It's a privacy-first, and it's open source here are the reason you might wanna consider loglib.**
+**Loglib is a web analytics tool that helps you track your website's analytics. It's a privacy-first, and it's open source here are the reason you might wanna consider loglib for your project:**
 
 - Why not?
-- No need to deploy it separately. You can easily attach Loglib to your Next js app, and you can see your website with 0 users analytics.
+- No need to deploy it separately. You can easily attach Loglib to your Next js app, and you can see your website analytics. (despite having 0 users)
 - Keep all your data in your existing database, you have the freedom to store your data in your existing db or your choice of db. We currently support prisma and supabase but more adapters and database are on the way.
 - A beautiful dashboard built with Shadcn UI.
 - Privacy first GDPR compliant out of the box but can be customized.
