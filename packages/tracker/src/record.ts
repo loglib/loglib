@@ -21,7 +21,7 @@ export function record(config?: Partial<Config>) {
 		autoTrack: false,
 		env: "auto",
 		postInterval: 5,
-		host: process.env.VERCEL_URL || process.env.LOGLIB_URL || process.env.NEXT_PUBLIC_VERCEL_URL,
+		host: process.env.LOGLIB_URL || process.env.NEXT_PUBLIC_VERCEL_URL || process.env.VERCEL_URL,
 		consent: "denied",
 		pulseInterval: 10,
 	};
