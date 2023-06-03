@@ -43,7 +43,6 @@ export const getBounceRate = (pageViews: PageView[], pastPageViews: PageView[], 
     }
     const bounce = sessions.filter(session => pageViews.filter(pageView => pageView.sessionId === session.id).length >= 1);
     const pastBounce = pastSessions.filter(session => pastPageViews.filter(pageView => pageView.sessionId === session.id).length >= 1);
-    console.log(bounce.length, pastBounce.length, totalSessions, pastSessions.length)
     return {
         total: Math.floor(bounce.length / totalSessions * 100),
         change: pastBounce.length ? Math.floor((bounce.length - pastBounce.length) / pastBounce.length * 100) : 100
@@ -220,7 +219,6 @@ export const getOnlineUsers = (sessions: Session[]) => {
         const diff = now.getTime() - new Date(session.updatedAt).getTime();
         return diff < 1000 * 30
     })
-    console.log(onlineUsers, 'online users')
     return onlineUsers.length
 }
 

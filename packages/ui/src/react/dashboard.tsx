@@ -39,7 +39,16 @@ export function Dashboard() {
   });
 
   const [customTime, setCustomTime] = useState(false)
-  const url = process.env.LOGLIB_URL || process.env.VERCEL_URL || location.origin + "/api/loglib"
+
+  let url = process.env.LOGLIB_URL
+  if (!url && process.env.VERCEL_URL) {
+    url = process.env.VERCEL_URL + "/api/loglib"
+  } else if (process.env.NODE_ENV === "development") {
+    url = location.origin + "/api/loglib"
+  } else {
+    throw new Error("loglib url isn't provided")
+  }
+
   const { data, error } = useSWR<GetInsightResponse>(url + `?startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&path=/dashboard`, fetcher)
 
   const [by, setBy] = useState<"bySec" | "byMin">("bySec")

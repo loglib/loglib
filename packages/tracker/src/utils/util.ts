@@ -94,3 +94,18 @@ export const addInterval = (interval: NodeJS.Timer) => {
 export function q(e: ServerEvents) {
 	window.lli.eventsBank.push(e);
 }
+
+export function getUrl() {
+	if (process.env.NODE_ENV === "development") {
+		return location.origin + '/api/loglib'
+	}
+	if (process.env.LOGLIB_URL) {
+		return process.env.LOGLIB_URL
+	}
+	if (process.env.VERCEL_URL) {
+		return process.env.VERCEL_URL + '/api/loglib'
+	}
+	if (process.env.NEXT_PUBLIC_VERCEL_URL) {
+		return process.env.NEXT_PUBLIC_VERCEL_URL + '/api/loglib'
+	}
+}

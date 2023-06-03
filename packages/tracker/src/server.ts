@@ -8,7 +8,6 @@ export function send(
 	onError?: () => void,
 ) {
 	const host = window.llc.host;
-	const url = `${host}/api/loglib`
 	if (!data || (Array.isArray(data) && data.length === 0)) {
 		logger.log("skipping empty request...");
 		return;
@@ -29,11 +28,11 @@ export function send(
 	const maxRetries = 3;
 	function sendRequest() {
 		try {
-			navigator.sendBeacon(url, JSON.stringify(dataToSend));
+			navigator.sendBeacon(host, JSON.stringify(dataToSend));
 			onSuccess?.();
 		} catch {
 			const xhr = new XMLHttpRequest();
-			xhr.open("POST", url);
+			xhr.open("POST", host);
 			xhr.setRequestHeader("Content-Type", "text/plain");
 			xhr.onload = () => {
 				if (xhr.status === 200) {

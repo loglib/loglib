@@ -3,7 +3,7 @@
 import { clickHandler } from "./handlers/clickHandler";
 import { send } from "./server";
 import { Config } from "./types";
-import { addInterval, clearIntervals, detectEnvironment, flush, getPath, getUrlParams, guid, hook } from "./utils/util";
+import { addInterval, clearIntervals, detectEnvironment, flush, getPath, getUrl, getUrlParams, guid, hook } from "./utils/util";
 import { logger } from "./utils/logger";
 
 
@@ -15,13 +15,16 @@ import { logger } from "./utils/logger";
  */
 
 export function record(config?: Partial<Config>) {
+
+
+
 	//Set Config
 	const defaultConfig: Config = {
 		debug: false,
 		autoTrack: false,
 		env: "auto",
 		postInterval: 5,
-		host: process.env.LOGLIB_URL || process.env.NEXT_PUBLIC_VERCEL_URL || process.env.VERCEL_URL,
+		host: getUrl(),
 		consent: "denied",
 		pulseInterval: 10,
 	};
