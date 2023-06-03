@@ -103,9 +103,9 @@ export function getUrl() {
 		return process.env.LOGLIB_URL
 	}
 	if (process.env.VERCEL_URL) {
-		return process.env.VERCEL_URL + '/api/loglib'
+		return process.env.VERCEL_URL + 'api/loglib'
 	}
 	if (process.env.NEXT_PUBLIC_VERCEL_URL) {
-		return process.env.NEXT_PUBLIC_VERCEL_URL + '/api/loglib'
+		return process.env.NEXT_PUBLIC_VERCEL_URL + 'api/loglib'
 	}
 }
