@@ -8,6 +8,7 @@ import { getIpAddress } from "./detect/getIpAddress";
 import { ApiPostHandler } from "../../../router/type";
 import { GenericError } from "../../../error";
 import { RootApiTrackerSchema } from "../../schema";
+import { isProduction } from "../../../utils/common";
 
 
 
@@ -96,6 +97,12 @@ export const sessionPost: ApiPostHandler<SessionPostInput> = async (req, options
             }
         }
     } else {
+        if (isProduction(options)) {
+            return {
+                message: 'Invalid request body',
+                code: 400,
+            }
+        }
         throw new GenericError('Invalid request body', { path: "/session" })
     }
 }

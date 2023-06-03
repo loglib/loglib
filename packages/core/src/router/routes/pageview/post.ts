@@ -3,6 +3,7 @@ import { RootApiTrackerSchema } from "../../schema";
 import { ApiPostHandler } from "../../type";
 import { GenericError } from "../../../error";
 import { getIpAddress } from "../session/detect/getIpAddress";
+import { isProduction } from "../../../utils/common";
 
 
 export const PageViewSchema = RootApiTrackerSchema.merge(z.object({
@@ -45,10 +46,12 @@ export const pageViewPost: ApiPostHandler<PageViewPostInput> = async (req, optio
             }
         }
         catch (e) {
+            if (isProduction(options)) return { message: "error", code: 400 }
             console.error(e, "Error creating pageview")
             throw new GenericError('Error creating pageview', { path: "/pageview" })
         }
     } else {
+        if (isProduction(options)) return { message: "error", code: 400 }
         throw new GenericError('Invalid request body', { path: "/pageview" })
     }
 }

@@ -13,11 +13,13 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import COUNTRIES from "../../lib/constants";
 import ReactCountryFlag from "react-country-flag"
+import { Link2Icon } from "lucide-react";
 
 
 
 
 export function LocationsComponent({ city, country }: { city: City[], country: Country[] }) {
+
   return (
     <CardContent>
       <Tabs className=" w-full" defaultValue="country">
@@ -44,12 +46,20 @@ export function LocationsComponent({ city, country }: { city: City[], country: C
               {country.map((location) => (
                 <TableRow key={location.location}>
                   <TableCell className=" flex items-center gap-1">
-                    <ReactCountryFlag countryCode={location.location} svg
-                      style={{
-                        width: '1em',
-                        height: '1em',
-                      }} />
-                    {COUNTRIES[location.location]}
+                    {location.location === "Unknown" ?
+                      <>
+                        <Link2Icon />
+                        Unknown
+                      </>
+
+                      : <>
+                        <ReactCountryFlag countryCode={location.location} svg
+                          style={{
+                            width: '1em',
+                            height: '1em',
+                          }} />
+                        {COUNTRIES[location.location]}
+                      </>}
                   </TableCell>
                   <TableCell className="text-right">{location.visits}</TableCell>
                 </TableRow>
