@@ -3,7 +3,7 @@ import { RootApiTrackerSchema } from "../../schema";
 import { ApiPostHandler } from "../../type";
 import { GenericError } from "../../../error";
 import { Events } from "../../../adapters/models";
-import { getIpAddress } from "../utils/detect/getIpAddress";
+import { getIpAddress } from "../session/detect/getIpAddress";
 
 
 export const EventSchema = z.array(z.object({

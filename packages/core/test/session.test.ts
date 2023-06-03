@@ -1,9 +1,9 @@
 import { Mock, describe, expect, it, vi } from "vitest";
 import { sessionPost, SessionPostInput } from "../src/router/routes/session/post";
 import { Adapter, LogLibOptions, Session } from "../src";
-import { getIpAddress } from "../src/router/routes/utils/detect/getIpAddress";
+import { getIpAddress } from "../src/router/routes/session/detect/getIpAddress";
 
-vi.mock("../src/router/routes/utils/detect/getIpAddress")
+vi.mock("../src/router/routes/session/detect/getIpAddress")
 
 describe('sessionPost', () => {
     const mockAdapter = {
@@ -32,7 +32,6 @@ describe('sessionPost', () => {
             screenWidth: 1920,
             language: 'en-US',
             queryParams: { utm_source: 'test-source' },
-            firstTimeUser: true,
             host: 'example.com',
         },
     }

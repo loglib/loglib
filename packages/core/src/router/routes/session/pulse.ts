@@ -24,10 +24,10 @@ export const pulse: ApiPostHandler<HeartBeatSchemaType> = async (req, options) =
                 data: res
             }
         } catch (e) {
-            throw new GenericError('Error updating session', { path: "/session/end" })
+            throw new GenericError('Error updating session', { path: "/session/pulse" })
         }
     } else {
         console.log(data.error)
-        throw new GenericError('Invalid request body', { path: "/session/end" })
+        throw new GenericError('Invalid request body', { path: "/session/pulse" })
     }
 }

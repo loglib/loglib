@@ -6,7 +6,8 @@ import { SupabaseClient } from "@supabase/supabase-js";
 const supabaseAdapter = (db: SupabaseClient): Adapter => {
     return {
         async createSession(data) {
-            const response = await db.from("web_session").insert(camelToSnake(data)).select("*").single()
+            console.log(data)
+            const response = await db.from("web_session").insert(camelToSnake(data)).select("*").single().throwOnError()
             const resData = { ...response.data, query_params: JSON.parse(response.data?.query_params as string) }
             return snakeToCamel(resData) as unknown as Session;
         },
@@ -16,7 +17,7 @@ const supabaseAdapter = (db: SupabaseClient): Adapter => {
             return snakeToCamel(resData) as unknown as Session;
         },
         async createPageView(data) {
-            const response = await db.from("web_pageview").insert(camelToSnake(data)).select("*").single()
+            const response = await db.from("web_pageview").insert(camelToSnake(data)).select("*").single().throwOnError()
             const resData = { ...response.data, query_params: JSON.parse(response.data?.query_params as string) }
             return snakeToCamel(resData) as unknown as PageView;
         },
@@ -31,12 +32,12 @@ const supabaseAdapter = (db: SupabaseClient): Adapter => {
             });
         },
         async upsertPageView(data) {
-            const response = await db.from("web_pageview").upsert(camelToSnake(data)).eq("id", data.id).select("*").single()
+            const response = await db.from("web_pageview").upsert(camelToSnake(data)).eq("id", data.id).select("*").single().throwOnError()
             const resData = { ...response.data, query_params: JSON.parse(response.data?.query_params as string) }
             return snakeToCamel(resData) as unknown as PageView;
         },
         async upsertUser(data) {
-            const response = await db.from("web_user").upsert(camelToSnake(data)).select("*").single()
+            const response = await db.from("web_user").upsert(camelToSnake(data)).select("*").single().throwOnError()
             // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             const resData = { ...response.data, data: JSON.parse(response.data?.data) }
             return snakeToCamel(resData) as unknown as User
@@ -47,6 +48,11 @@ const supabaseAdapter = (db: SupabaseClient): Adapter => {
         },
         async getEvents(startDate, endDate) {
             const res = await db.from("web_event").select("*").gte("created_at", startDate.toUTCString()).lte("created_at", endDate.toUTCString()).select("*").throwOnError()
+            if (res.data === null || res.data.length === 0) return []
+            res.data = res.data!.map((event) => {
+                event.payload = JSON.parse(event.payload as string)
+                return event
+            })
             return snakeToCamel(res.data as object) as unknown as Events[]
         },
         async getPageViews(startDate, endDate) {

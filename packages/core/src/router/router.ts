@@ -1,5 +1,5 @@
 import { eventRouter } from "./routes/event";
-import { insightsRoutes } from "./routes/dashboard";
+import { dashboardRoutes } from "./routes/dashboard";
 import { pageViewRoute } from "./routes/pageview";
 import { pulseRoute, sessionRoute } from "./routes/session";
 import { userRouter } from "./routes/user";
@@ -17,5 +17,5 @@ export const router: Router = {
     "/test": {
         "POST": async () => Promise.resolve({ message: 'test', code: 200 })
     },
-    "/dashboard": insightsRoutes,
+    "/dashboard": dashboardRoutes,
 }

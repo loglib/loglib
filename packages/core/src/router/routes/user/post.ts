@@ -2,7 +2,7 @@ import z from "zod";
 import { GenericError } from "../../../error";
 import { ApiPostHandler } from "../../type";
 import { RootApiTrackerSchema } from "../../schema";
-import { getIpAddress } from "../utils/detect/getIpAddress";
+import { getIpAddress } from "../session/detect/getIpAddress";
 
 
 

@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 import { Adapter } from "../src/adapters";
 import { internalRouter } from "../src/router";
 import { ApiRequest, LogLibOptions } from "../src/types";
+import { fail } from "assert";
 
 
 describe('internalRouter', () => {
@@ -13,7 +14,8 @@ describe('internalRouter', () => {
     });
 
     const mockOptions: LogLibOptions = {
-        adapter: vi.fn() as unknown as Adapter
+        adapter: vi.fn() as unknown as Adapter,
+        disableLocation: true
     };
 
     type ValidRequest = ApiRequest<{ path: string }, any>
@@ -22,6 +24,16 @@ describe('internalRouter', () => {
         req.body = JSON.stringify(req.body) as unknown as { path: '/' }
         const res = await internalRouter(req, mockOptions);
         expect(res).toEqual({ message: 'Invalid request body. Expected an object.', code: 400 });
+    });
+    it('should throw error on location check if not location is disabled', async () => {
+        const req = mockRequest('POST', '/test', 'invalid', {}) as unknown as ValidRequest
+        req.body = JSON.stringify(req.body) as unknown as { path: '/' }
+        try {
+            await internalRouter(req, { ...mockOptions, disableLocation: false });
+            fail('Expected an error to be thrown');
+        } catch (error) {
+            expect(error).toBeDefined();
+        }
     });
     it('should return an error if the request method is not a string', async () => {
         const req = mockRequest(null, '/test', { key: 'value' }, {}) as unknown as ValidRequest
