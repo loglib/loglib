@@ -25,7 +25,7 @@ export const pulse: ApiPostHandler<HeartBeatSchemaType> = async (req, options) =
                 data: res
             }
         } catch (e) {
-            throw new GenericError('Error updating session', { path: "/session/pulse" })
+            throw new GenericError('Error updating session', { path: "/session/pulse", e })
         }
     } else {
         if (isProduction(options)) {

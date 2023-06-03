@@ -33,11 +33,15 @@ export const sessionPost: ApiPostHandler<SessionPostInput> = async (req, options
     if (!req.body.userId) {
         req.body.userId = getIpAddress(req) as string
     }
+
     const body = SessionPostSchema.safeParse(req.body)
     if (body.success) {
         const { sessionId, data, userId, pageId } = body.data
         const { referrer, language, queryParams, screenWidth } = data
         const ipAddress = options.environment === "test" ? "155.252.206.205" : getIpAddress(req) as string
+        if (!ipAddress) {
+            throw new GenericError("Loglib  encountered error while trying to resolve user ipAddress. This could be happening because you're running in development environment. If you want to test while in development environment you can set environment to 'test' in the loglib server configuration.")
+        }
         if (ipAddress && !await isLocalhost(ipAddress)) {
             const location = !options.disableLocation ? options.getLocation ? await options.getLocation().catch(() => null) : await getLocation(ipAddress, req).catch(() => null) : { city: null, country: null }
             if (!location && !options.disableLocation) throw new GenericError("LogLib encountered an error while trying to resolve the location of the user. To resolve this issue, you can either set up the MaxMind database by running 'loglib setup:maxmind', or provide a custom implementation. Alternatively, you can disable location resolution by modifying the loglib server configuration.", { path: " / session" })

@@ -13,7 +13,8 @@ export const track = (name: string, payload: Record<string, any> = {}) => {
 };
 
 export const identify = (payload: Record<string, string>) => {
-	send(payload, "/user");
+	window.llc.consent === "granted" &&
+		send(payload, "/user");
 };
 
 export const setConsent = (concent: "granted" | "denied") => {
