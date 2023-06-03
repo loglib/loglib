@@ -4,9 +4,32 @@
 
 ![npm](https://img.shields.io/npm/v/@loglib/tracker) ![npm bundle size](https://img.shields.io/bundlephobia/min/@loglib/tracker) ![GitHub license](https://img.shields.io/github/license/LogLib/loglib) ![GitHub issues](https://img.shields.io/github/issues/LogLib/loglib) ![GitHub stars](https://img.shields.io/github/stars/LogLib/loglib)
 
-<p align="center">
-  <img src="./images/logo.png" alt="screenshot" height="350" width="350"/>
+<p align="center" class="dark-mode">
+  <img src="./images/light-logo.png" alt="screenshot" height="" />
 </p>
+
+<p align="center" class="light-mode">
+  <img src="./images/dark-logo.png" alt="screenshot" height="" />
+</p>
+
+<!-- If the user has a light color scheme -->
+<style>
+@media (prefers-color-scheme: light) {
+  .dark-mode {
+    display: none;
+  }
+}
+</style>
+
+<!-- If the user has a dark color scheme -->
+<style>
+@media (prefers-color-scheme: dark) {
+  .light-mode {
+    display: none;
+  }
+}
+</style>
+
 
 > ⚠️ Under Construction put here incase anyone visits this repo before it's ready.
 
