@@ -18,7 +18,6 @@ export default function RootLayout({
       <LogLib
         config={{
           debug: true,
-          env: "prod",
           autoTrack: true
         }}
       />
