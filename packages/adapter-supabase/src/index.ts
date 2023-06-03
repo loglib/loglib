@@ -6,7 +6,6 @@ import { SupabaseClient } from "@supabase/supabase-js";
 const supabaseAdapter = (db: SupabaseClient): Adapter => {
     return {
         async createSession(data) {
-            console.log(data)
             const response = await db.from("web_session").insert(camelToSnake(data)).select("*").single().throwOnError()
             const resData = { ...response.data, query_params: JSON.parse(response.data?.query_params as string) }
             return snakeToCamel(resData) as unknown as Session;

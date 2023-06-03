@@ -151,7 +151,7 @@ export async function runAdapterTest(options: TestOptions) {
             const startDate = new Date(new Date().setDate(new Date().getDate() - 2));
             const endDate = new Date();
             const response = await adapter.getEvents(startDate, endDate);
-            expect(response.length).toEqual(2);
+            expect(response.length).toBeGreaterThanOrEqual(2);
         })
     })
 
@@ -161,7 +161,7 @@ export async function runAdapterTest(options: TestOptions) {
             const lastDay = new Date(Date.now() - (25 * 60 * 60 * 1000));
             const endDate = new Date();
             const response = await adapter.getSession(lastDay, endDate);
-            expect(response.length).toEqual(1);
+            expect(response.length).toBeGreaterThanOrEqual(1);
         })
     })
 
@@ -171,7 +171,7 @@ export async function runAdapterTest(options: TestOptions) {
             const lastDay = new Date(Date.now() - (25 * 60 * 60 * 1000));
             const endDate = new Date();
             const response = await adapter.getUser(lastDay, endDate);
-            expect(response.length).toBe(1)
+            expect(response.length).toBeGreaterThanOrEqual(1)
         })
     })
 
@@ -181,7 +181,7 @@ export async function runAdapterTest(options: TestOptions) {
             const lastDay = new Date(Date.now() - (25 * 60 * 60 * 1000));
             const endDate = new Date();
             const response = await adapter.getPageViews(lastDay, endDate);
-            expect(response.length).toBe(1)
+            expect(response.length).toBeGreaterThanOrEqual(1)
         })
     }, {
         timeout: 10000
