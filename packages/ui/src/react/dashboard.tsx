@@ -42,16 +42,14 @@ export function Dashboard() {
 
   let url = process.env.LOGLIB_URL
   if (!url && process.env.VERCEL_URL) {
-    url = process.env.VERCEL_URL + "/api/loglib"
+    url = 'https://' + process.env.VERCEL_URL + "/api/loglib"
   } else if (process.env.NODE_ENV === "development") {
     url = location.origin + "/api/loglib"
   } else if (!url && process.env.NEXT_PUBLIC_VERCEL_URL) {
-    url = process.env.NEXT_PUBLIC_VERCEL_URL + "/api/loglib"
+    url = 'https://' + process.env.NEXT_PUBLIC_VERCEL_URL + "/api/loglib"
   } else if (!url) {
     throw new Error("loglib url isn't provided")
   }
-
-  console.log(url)
 
   const { data, error } = useSWR<GetInsightResponse>(url + `?startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&path=/dashboard`, fetcher)
 
