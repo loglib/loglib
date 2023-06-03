@@ -39,7 +39,7 @@ export function Dashboard() {
   });
 
   const [customTime, setCustomTime] = useState(false)
-  const url = process.env.LOGLIB_SERVER_URL || process.env.VERCEL_URL || location.origin + "/api/loglib"
+  const url = process.env.LOGLIB_URL || process.env.VERCEL_URL || location.origin + "/api/loglib"
   const { data, error } = useSWR<GetInsightResponse>(url + `?startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&path=/dashboard`, fetcher)
 
   const [by, setBy] = useState<"bySec" | "byMin">("bySec")
