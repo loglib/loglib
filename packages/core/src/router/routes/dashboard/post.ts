@@ -1,10 +1,10 @@
 import isbot from "isbot";
 import z from "zod";
-import isLocalhost from "../utils/detect/isLocalHost";
-import { getLocation } from "../utils/detect/getLocation";
+import isLocalhost from "../session/detect/isLocalHost";
+import { getLocation } from "../session/detect/getLocation";
 import { browserName, detectOS } from "detect-browser";
-import { getDevice } from "../utils/detect/getDevice";
-import { getIpAddress } from "../utils/detect/getIpAddress";
+import { getDevice } from "../session/detect/getDevice";
+import { getIpAddress } from "../session/detect/getIpAddress";
 import { ApiPostHandler } from "../../../router/type";
 import { GenericError } from "../../../error";
 import { RootApiTrackerSchema } from "../../schema";

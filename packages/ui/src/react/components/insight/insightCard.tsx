@@ -19,7 +19,7 @@ export type InsightType = {
 export function InsightCard({ title, Icon, data, valuePrefix, bottomChildren, negative, changePrefix }: InsightType) {
 
   return (
-    <Card className=" bg-gradient-to-tr dark:from-black  dark:to-slate-900 border ">
+    <Card className=" bg-gradient-to-tr dark:from-black  dark:to-slate-900 border from-white to-gray-100">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium">{title}</CardTitle>
         <Icon className="h-4 w-4 text-muted-foreground" />
@@ -38,7 +38,6 @@ export function InsightCard({ title, Icon, data, valuePrefix, bottomChildren, ne
           </div>
           {bottomChildren}
         </div>
-
       </CardContent>
     </Card>
   );

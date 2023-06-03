@@ -28,7 +28,7 @@ export function PagesComponent({ pageViews }: { pageViews: PageViewsType[] }) {
           {pageViews.map((pageView) => (
             <TableRow key={pageView.page}>
               <TableCell>{pageView.page}</TableCell>
-              <TableCell className="text-right">{pageView.views}</TableCell>
+              <TableCell className="text-right">{pageView.visits}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -39,5 +39,5 @@ export function PagesComponent({ pageViews }: { pageViews: PageViewsType[] }) {
 
 export interface PageViewsType {
   page: string,
-  views: number,
+  visits: number,
 }

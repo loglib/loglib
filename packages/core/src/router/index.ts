@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { ApiRequest, LogLibOptions } from "../types";
 import { router } from "./router";
+import { checkLocationConfig } from "./routes/session/detect/getLocation";
 
 
 export const internalRouter = async (req: ApiRequest<any, any>, options: LogLibOptions) => {
     if (!req.method) {
         return { message: "Invalid request method. Expected a string.", code: 400 }
     }
+    await checkLocationConfig(options)
     const method = req.method.toUpperCase() as "POST" | "PUT" | "DELETE" | "GET"
     let path = ""
     if (method === "POST" || method === "PUT" || method === "DELETE") {

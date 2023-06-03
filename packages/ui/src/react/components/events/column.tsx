@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { EventsWithData } from "../../lib/events";
+import { EventsWithData } from "@loglib/core/types";
 import { ChevronDown, ChevronRight, ChevronsUpDown, UnfoldVertical } from "lucide-react";
 import React from "react";
 

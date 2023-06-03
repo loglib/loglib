@@ -36,7 +36,6 @@
     },
     "dependencies": {
         "@loglib/core": "0.0.2",
-        "@loglib/tracker": "0.0.2",
         "commander": "^10.0.1",
         "dotenv": "^16.0.3",
         "tar": "^6.1.14"

@@ -2,7 +2,7 @@ import z from "zod";
 import { RootApiTrackerSchema } from "../../schema";
 import { ApiPostHandler } from "../../type";
 import { GenericError } from "../../../error";
-import { getIpAddress } from "../utils/detect/getIpAddress";
+import { getIpAddress } from "../session/detect/getIpAddress";
 
 
 export const PageViewSchema = RootApiTrackerSchema.merge(z.object({

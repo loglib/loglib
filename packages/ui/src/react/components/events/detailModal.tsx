@@ -1,6 +1,6 @@
 import React from "react"
 import { Row } from "@tanstack/react-table"
-import { EventsWithData } from "@/react/lib/events"
+import { EventsWithData } from "@loglib/core/types"
 import { Tabs, TabsTrigger, TabsList, TabsContent } from "../ui/tabs"
 
 const renderSubComponent = ({ row }: { row: Row<EventsWithData[0]> }) => {

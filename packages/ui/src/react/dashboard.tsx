@@ -17,9 +17,7 @@ import { LocationsComponent } from "./components/insight/locations";
 import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
 import { getToday, getTomorrow } from "./lib/timeHelper";
 import { Graph } from "./components/insight/visitorsGraph";
-import { getAverageTime, getBounceRate, getBrowser, getDevice, getLoc, getOS, getOnlineUsers, getPageViews, getPages, getReferer, getUniqueVisitors, getVisitorsByDate } from "./lib/insight";
-import { getEvents } from "./lib/events";
-import Events from "./components/events/events";
+import Events from "./components/events";
 import LogoIcon from "./components/Icon/LogoIcon";
 import NightModeIcon from "./components/Icon/NightModeIcon";
 
@@ -44,6 +42,7 @@ export function Dashboard() {
   const url = process.env.VERCEL_URL || process.env.LOGLIB_SERVER_URL || "http://localhost:3000/api/loglib"
   const { data } = useSWR<GetInsightResponse>(url + `?startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&path=/dashboard`, fetcher)
   const [bySecond, setBySecond] = useState<boolean>(true)
+  const [by, setBy] = useState<"bySec" | "byMin">("bySec")
 
   useEffect(() => {
     const theme = getTheme()
@@ -100,7 +99,7 @@ export function Dashboard() {
                   <div className=" w-2.5 h-2.5 bg-gradient-to-tr from-lime-500 to-lime-700 animate-pulse rounded-full" >
                   </div>
                   <p className=" text-sm bg-gradient-to-tr from-lime-600 to-lime-800 text-transparent bg-clip-text font-medium">
-                    {getOnlineUsers(data.sessions)} Online
+                    {data.onlineUsers} Online
                   </p>
                 </div>
               </div>
@@ -130,21 +129,21 @@ export function Dashboard() {
                       <InsightCard
                         title={"Unique Visitors"}
                         Icon={UserIcon}
-                        data={getUniqueVisitors(data.users, data.pastUsers)}
+                        data={data.insight.uniqueVisitors}
                       />
                       <InsightCard
                         title={"Views"}
                         Icon={Eye}
-                        data={getPageViews(data.pageViews, data.pastPageViews)}
+                        data={data.insight.pageView}
                       />
                       <InsightCard
                         title={"Average Time"}
                         Icon={TimerIcon}
-                        data={getAverageTime(data.sessions, data.pastSessions, bySecond)}
+                        data={data.insight.averageTime[by]}
                         valuePrefix={!bySecond ? "min" : "sec"}
                         bottomChildren={(
                           <div className=" flex space-x-2 text-sm items-center">
-                            <Switch id="min" onCheckedChange={(checked) => setBySecond(!checked)} />
+                            <Switch id="min" onCheckedChange={(checked) => setBy(by === "byMin" ? "bySec" : "byMin")} />
                           </div>
                         )}
                       />
@@ -153,7 +152,7 @@ export function Dashboard() {
                         valuePrefix={"%"}
                         Icon={Activity}
                         negative
-                        data={getBounceRate(data.pageViews, data.pastPageViews, data.sessions, data.pastSessions)}
+                        data={data.insight.bounceRate}
                       />
                     </div>
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 grid-cols-1">
@@ -175,10 +174,10 @@ export function Dashboard() {
                           <CardContent className="pl-2">
                             <TabsContent value="visitors">
 
-                              <Graph data={getVisitorsByDate(data.sessions, timeRange.startDate, timeRange.endDate)} name="Visitors" Icon={Users2} />
+                              <Graph data={data.graph.uniqueVisitorsByDate} name="Visitors" Icon={Users2} />
                             </TabsContent>
                             <TabsContent value="sessions">
-                              <Graph data={getVisitorsByDate(data.sessions, timeRange.startDate, timeRange.endDate, false)} name="Sessions" Icon={Laptop2} />
+                              <Graph data={data.graph.uniqueSessionByDate} name="Sessions" Icon={Laptop2} />
                             </TabsContent>
                           </CardContent>
                         </Tabs>
@@ -209,24 +208,24 @@ export function Dashboard() {
                           </TabsList>
 
                           <TabsContent value="pages">
-                            <PagesComponent pageViews={getPages(data.pageViews)} />
+                            <PagesComponent pageViews={data.data.pages} />
                           </TabsContent>
                           <TabsContent value="ref">
-                            <RefComponent refs={getReferer(data.sessions)} />
+                            <RefComponent refs={data.data.referrer} />
                           </TabsContent>
 
                           <TabsContent value="locations">
-                            <LocationsComponent country={getLoc(data.sessions)} city={getLoc(data.sessions, false)} />
+                            <LocationsComponent country={data.data.locations.country} city={data.data.locations.city} />
                           </TabsContent>
                           <TabsContent value="device">
-                            <DeviceComponent devices={getDevice(data.sessions)} os={getOS(data.sessions)} browser={getBrowser(data.sessions)} />
+                            <DeviceComponent devices={data.data.devices} os={data.data.os} browser={data.data.browser} />
                           </TabsContent>
                         </Tabs>
                       </Card>
                     </div>
                   </TabsContent>
                   <TabsContent value="events">
-                    <Events events={getEvents(data.events, data.sessions, data.pageViews)} />
+                    <Events events={data.eventsWithData} />
                   </TabsContent>
                 </motion.div>
               </AnimatePresence>
