@@ -4,7 +4,9 @@
 
 ![npm](https://img.shields.io/npm/v/@loglib/tracker) ![npm bundle size](https://img.shields.io/bundlephobia/min/@loglib/tracker) ![GitHub license](https://img.shields.io/github/license/LogLib/loglib) ![GitHub issues](https://img.shields.io/github/issues/LogLib/loglib) ![GitHub stars](https://img.shields.io/github/stars/LogLib/loglib)
 
-![screenshot](./images/logo-small.png)
+<p align="center">
+  <img src="./images/logo.png" alt="screenshot" height="350" width="350"/>
+</p>
 
 > ⚠️ Under Construction put here incase anyone visits this repo before it's ready.
 
@@ -131,7 +133,6 @@ By default, Loglib tries to track users using their IP address. But, we know you
 
 **Step 2**: Once your users click that "Accept" button, trigger the Loglib consent function. This will use local storage to assign a unique identifier to each of your users.
 
-
 ```js
 import {loglib} from '@loglib/tracker';
 export default function page() {
@@ -214,6 +215,7 @@ export const { POST, GET } = createServerRoutes({
 put this code in `src/pages/api/loglib.ts`
 
 if you wan
+
 ```js
 import { createServer } from '@loglib/next';
 import { PrismaClient } from '@prisma/client';
@@ -281,5 +283,3 @@ export default Dashboard;
 > NOTE: you probably want to protect this route with some kind of authentication. Either by using a middleware or export the dashboard component inside a protected route.
 
 yeah that's it now you have a tracker, a server to handle your request and a beautiful dashboard to display your analytics!!!
-
-
