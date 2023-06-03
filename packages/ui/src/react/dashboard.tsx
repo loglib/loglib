@@ -179,7 +179,6 @@ export function Dashboard() {
                           </CardHeader>
                           <CardContent className="pl-2">
                             <TabsContent value="visitors">
-
                               <Graph data={data.graph.uniqueVisitorsByDate} name="Visitors" Icon={Users2} />
                             </TabsContent>
                             <TabsContent value="sessions">
