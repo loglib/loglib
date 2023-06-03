@@ -41,7 +41,7 @@ export function Dashboard() {
   const [customTime, setCustomTime] = useState(false)
   const url = process.env.LOGLIB_SERVER_URL || process.env.VERCEL_URL || location.origin + "/api/loglib"
   const { data, error } = useSWR<GetInsightResponse>(url + `?startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&path=/dashboard`, fetcher)
-  const [bySecond, setBySecond] = useState<boolean>(true)
+
   const [by, setBy] = useState<"bySec" | "byMin">("bySec")
 
   useEffect(() => {
@@ -146,10 +146,10 @@ export function Dashboard() {
                         title={"Average Time"}
                         Icon={TimerIcon}
                         data={data.insight.averageTime[by]}
-                        valuePrefix={!bySecond ? "min" : "sec"}
+                        valuePrefix={by === "byMin" ? "min" : "sec"}
                         bottomChildren={(
                           <div className=" flex space-x-2 text-sm items-center">
-                            <Switch id="min" onCheckedChange={(checked) => setBy(by === "byMin" ? "bySec" : "byMin")} />
+                            <Switch id="min" onCheckedChange={(checked) => setBy(!checked ? "bySec" : "byMin")} />
                           </div>
                         )}
                       />

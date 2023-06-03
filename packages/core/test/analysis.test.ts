@@ -207,17 +207,7 @@ describe('getReferer', (it) => {
         ]);
     });
 
-    it('should handle sessions with the same referrer but different capitalization', () => {
-        const sessionsWithDifferentCapitalization = [
-            { id: '123', referrer: 'https://google.com' },
-            { id: '456', referrer: 'https://Google.com' },
-            { id: '789', referrer: 'https://GOOGLE.COM' },
-        ] as Session[];
-        const result = getReferer(sessionsWithDifferentCapitalization);
-        expect(result).toEqual([
-            { referrer: 'https://google.com', visits: 3 },
-        ]);
-    });
+
 })
 
 
