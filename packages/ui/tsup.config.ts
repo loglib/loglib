@@ -9,6 +9,9 @@ export default defineConfig((opts) => ([
         outDir: "dist",
         target: "es2017",
         dts: true,
+        //remove console logs
+
+        
     }
 ]));
 

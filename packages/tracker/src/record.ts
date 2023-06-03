@@ -16,8 +16,6 @@ import { logger } from "./utils/logger";
 
 export function record(config?: Partial<Config>) {
 
-
-
 	//Set Config
 	const defaultConfig: Config = {
 		debug: false,
