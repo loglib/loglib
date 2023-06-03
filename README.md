@@ -18,7 +18,7 @@
 
 - Why not?
 - No need to deploy it separately. You can easily attach Loglib to your Next js app, and you can see your website analytics. (despite having 0 users)
-- Keep all your data in your existing database, you have the freedom to store your data in your existing db or your choice of db. We currently support prisma and supabase but more adapters and database are on the way.
+- Keep all your data in your existing database, you have the freedom to store your data in your existing db or your choice of db. We currently support prisma and supabase adapters but more supports are on the way.
 - A beautiful dashboard built with Shadcn UI.
 - Privacy first GDPR compliant out of the box but can be customized.
 - You can see basic analytics like vercel analytics but also events aren't paid and it's better than...
