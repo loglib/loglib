@@ -2,6 +2,7 @@ import z from "zod";
 import { ApiPostHandler } from "../../type";
 import { RootApiTrackerSchema } from "../../schema";
 import { GenericError } from "../../..";
+import { isProduction } from "../../../utils/common";
 
 
 const HeartBeatSchema = RootApiTrackerSchema.merge(z.object({
@@ -27,7 +28,12 @@ export const pulse: ApiPostHandler<HeartBeatSchemaType> = async (req, options) =
             throw new GenericError('Error updating session', { path: "/session/pulse" })
         }
     } else {
-        console.log(data.error)
+        if (isProduction(options)) {
+            return {
+                message: 'Invalid request body',
+                code: 400,
+            }
+        }
         throw new GenericError('Invalid request body', { path: "/session/pulse" })
     }
 }
