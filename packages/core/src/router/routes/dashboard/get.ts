@@ -122,7 +122,7 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
             const os = getOS(sessions)
             const browser = getBrowser(sessions)
             const uniqueVisitorsByDate = getVisitorsByDate(sessions, startDateObj, endDateObj)
-            const uniqueSessionByDate = getVisitorsByDate(sessions, startDateObj, endDateObj, true)
+            const uniqueSessionByDate = getVisitorsByDate(sessions, startDateObj, endDateObj, false)
             const onlineUsers = getOnlineUsers(sessions)
             const eventsWithData = getEvents(events, sessions, pageViews)
             return {
