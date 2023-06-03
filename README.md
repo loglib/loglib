@@ -2,7 +2,7 @@
 
 ## Yet Another Web Analytics Tool
 
-![GitHub license](https://img.shields.io/github/license/LogLib/loglib) ![GitHub issues](https://img.shields.io/github/issues/LogLib/loglib) ![GitHub stars](https://img.shields.io/github/stars/LogLib/loglib)
+![npm](https://img.shields.io/npm/v/@loglib/tracker) ![npm bundle size](https://img.shields.io/bundlephobia/min/@loglib/tracker) ![GitHub license](https://img.shields.io/github/license/LogLib/loglib) ![GitHub issues](https://img.shields.io/github/issues/LogLib/loglib) ![GitHub stars](https://img.shields.io/github/stars/LogLib/loglib)
 
 ![screenshot](./examples/screenshot/logo.png)
 
@@ -89,7 +89,7 @@ export default function App({ Component, pageProps }: AppProps) {
 }
 ```
 
-> IMPORTANT: By default the tracker will send data to the loglib server at the current url on route `/api/loglib` if you need to change that you can put the url in the config or pass LOGLIB_URL in your environment variables.
+> IMPORTANT: By default the tracker will send data to the loglib server at the current url on route `/api/loglib` if you need to change that you can put LOGLIB_URL in your environment variables with the full path.
 
 ### Other Methods
 
@@ -125,7 +125,7 @@ export default function page() {
 
 ### User Concent
 
-By default, Loglib tries to track users using their IP address. But hey, we know you're smart enough to realize that relying on IP addresses isn't the most foolproof way to identify unique users. So, if you want to track on a reliable way, here's what you can do:
+By default, Loglib tries to track users using their IP address. But, we know you're smart enough to know relying on IP addresses isn't the most reliable way to identify unique users. So, if you want to track better, here's what you can do:
 
 **Step 1:** Display a fancy cookie message on your website. (we'll leave the design up to you but might provide something in the future)
 
@@ -170,7 +170,7 @@ export default function RootLayout({
 | `autoTrack`    | boolean | `false`     | Automatically track click events with onclick handlers and on buttons         |
 | `consent`      | string  | `"granted"` | The consent status of the user            |
 | `debug`        | boolean | `false`     | Enable debug mode                         |
-| `env`          | string  | `"auto"`    | The environment of the tracker            |
+| `env`          | string  | `"auto"`    | The environment of the tracker            |          |
 | `postInterval` | number  | `5`         | The interval to send events to the server |
 
 ### Other Frameworks
@@ -188,14 +188,13 @@ if you're not using next js or react you can use the vanilla version of the trac
 
 > NOTE: currently you can't use loglib server or dashboard in other frameworks other than next js or react but you can attach the dashboard on astro since you can use react in astro and we'll provide astro server soon. And you can always deploy a new next js project separated from your main project and use it as a dashboard and a server. See the example folder for more.
 
-
 ### Server
 
 > we currently only support prisma and supabase adapters but more adapters are on the way.
 
 #### app route
 
-put this code in `src/app/loglib/api/route.ts` I know the route isn't ideal if you want to change it something else just put `LOGLIB_URL` in your env file with the whole url path.
+put this code in `src/app/loglib/api/route.ts` I know the route isn't ideal if you want to change it something else just put `LOGLIB_URL` in your env file with the full url path.
 
 ```js
 import { createServerRoutes } from "@loglib/next"
@@ -229,7 +228,7 @@ export default createServer({
 
 for getting user location using their ip you have 3 options:
 
-1. Deploy it in vercel and you don't need to worry! (vercel please sponsor us)
+1. Deploy it in vercel and that's it!
 2. If you're not deploying it on serverless environment you can setup maxmind using a cli command
 
 ```bash
@@ -279,4 +278,8 @@ import "@loglib/ui/dist/index.css"
 export default Dashboard;
 ```
 
+> NOTE: you probably want to protect this route with some kind of authentication. Either by using a middleware or export the dashboard component inside a protected route.
+
 yeah that's it now you have a tracker, a server to handle your request and a beautiful dashboard to display your analytics!!!
+
+
