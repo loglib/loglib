@@ -1,17 +1,9 @@
-# @loglib/prisma-adapter
+# @loglib/ui
 
-## 0.0.3
+## 0.0.2
 
 ### Patch Changes
 
 - 43ae978: all packages are ready for production test 🚀
 - Updated dependencies [43ae978]
   - @loglib/core@0.0.3
-
-## 0.0.2
-
-### Patch Changes
-
-- 6a37f59: done
-- Updated dependencies [6a37f59]
-  - @loglib/core@0.0.2
