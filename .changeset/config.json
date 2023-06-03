@@ -5,7 +5,8 @@
   "access": "public",
   "baseBranch": "main",
   "ignore": [
-    "@examples/nextjs"
+    "@examples/next-js-with-prisma",
+    "@examples/next-js-with-supabase"
   ],
   "changelog": "@changesets/cli/changelog"
 }
