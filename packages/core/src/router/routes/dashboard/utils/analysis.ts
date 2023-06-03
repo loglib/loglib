@@ -89,8 +89,8 @@ export const getLoc = (sessions: Session[], byCountry = true) => {
 
 export const getReferer = (sessions: Session[]) => {
     const referees = sessions.reduce((acc, session) => {
-        const referrer = session.referrer === "" ? "Direct" : session.referrer.toLowerCase();
-        const isFound = acc.find(p => p.referrer.toLowerCase() === referrer);
+        const referrer = session.referrer === "" ? "Direct" : session.referrer;
+        const isFound = acc.find(p => p.referrer === referrer);
         if (isFound) {
             isFound.visits++;
         } else {
