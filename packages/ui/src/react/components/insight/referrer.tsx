@@ -27,10 +27,8 @@ export function RefComponent({ refs }: { refs: RefType[] }) {
         <TableBody>
           {refs.map((refs, i) => (
             <TableRow key={i}>
-
               <TableCell className="flex gap-1 items-center">
-
-                {refs.referrer}
+                {refs.referrer.split("/")[2].replace("www.", "").replace(".com", "")}
               </TableCell>
               <TableCell className="text-right">{refs.visits}</TableCell>
             </TableRow>
