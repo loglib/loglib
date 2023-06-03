@@ -1,6 +1,6 @@
 {
     "name": "@loglib/supabase-adapter",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
@@ -20,10 +20,10 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "@loglib/adapter-test": "1.0.2"
+        "@loglib/adapter-test": "1.0.3"
     },
     "dependencies": {
-        "@loglib/core": "0.0.2",
+        "@loglib/core": "0.0.3",
         "@supabase/supabase-js": "^2.24.0"
     }
 }
