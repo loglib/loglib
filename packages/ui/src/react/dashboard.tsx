@@ -39,8 +39,8 @@ export function Dashboard() {
   });
 
   const [customTime, setCustomTime] = useState(false)
-  const url = process.env.LOGLIB_SERVER_URL || process.env.VERCEL_URL || location.origin
-  const { data } = useSWR<GetInsightResponse>(url + `?startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&path=/dashboard`, fetcher)
+  const url = process.env.LOGLIB_SERVER_URL || process.env.VERCEL_URL || location.origin + "/api/loglib"
+  const { data, error } = useSWR<GetInsightResponse>(url + `?startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&path=/dashboard`, fetcher)
   const [bySecond, setBySecond] = useState<boolean>(true)
   const [by, setBy] = useState<"bySec" | "byMin">("bySec")
 
@@ -52,6 +52,12 @@ export function Dashboard() {
   if (!data) {
     return <div>
       Loading...
+    </div>
+  }
+  if (error) {
+    console.log(error)
+    return <div>
+      Error
     </div>
   }
 
