@@ -12,25 +12,6 @@
   <img src="./images/dark-logo.png#gh-light-mode-only" alt="screenshot" height="350" />
 </p>
 
-<!-- If the user has a light color scheme -->
-<style>
-@media (prefers-color-scheme: light) {
-  .dark-mode {
-    display: none;
-  }
-}
-</style>
-
-<!-- If the user has a dark color scheme -->
-<style>
-@media (prefers-color-scheme: dark) {
-  .light-mode {
-    display: none;
-  }
-}
-</style>
-
-
 > ⚠️ Under Construction put here incase anyone visits this repo before it's ready.
 
 **Loglib is a web analytics tool that helps you track your website's analytics. It's a privacy-first, and it's open source here are the reason you might wanna consider loglib for your project:**
