@@ -38,6 +38,7 @@ export async function getLocation(ip: string, req: ApiRequest<unknown, any>) {
 
 
 export const checkLocationConfig = async (options: LogLibOptions) => {
+    if (process.env.NODE_ENV === "production") return
     const dir = path.join(process.cwd(), 'geo');
     try {
         await maxmind.open(path.resolve(dir, 'GeoLite2-City.mmdb'));
