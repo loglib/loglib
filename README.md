@@ -355,6 +355,8 @@ now let's get this bad boy to display something
 create a page somewhere you want too and just export the dashboard component
 
 ```js
+"use client"; //for next 13 only
+
 import { Dashboard } from '@loglib/ui';
 import "@loglib/ui/dist/index.css"
 
