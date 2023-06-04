@@ -28,7 +28,6 @@
         "loglib": "./dist/cli/index.js"
     },
     "devDependencies": {
-        "@prisma/client": "^4.14.0",
         "@types/tar": "^6.1.5",
         "next": "^13.4.1",
         "react": "^18.2.0",
@@ -41,7 +40,6 @@
         "tar": "^6.1.14"
     },
     "peerDependencies": {
-        "@prisma/client": "^4.14.0",
         "next": "^13.4.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0"
