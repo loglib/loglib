@@ -1,4 +1,5 @@
 "use client";
+
 import "../css/index.css";
 import React, { useEffect, useState } from "react";
 import { DatePicker, CalendarDateRangePicker } from "./components/ui/datePicker";
@@ -40,15 +41,9 @@ export function Dashboard() {
 
   const [customTime, setCustomTime] = useState(false)
 
-  let url = process.env.LOGLIB_URL
-  if (!url && process.env.VERCEL_URL) {
-    url = "/api/loglib"
-  } else if (process.env.NODE_ENV === "development") {
-    url = location.origin + "/api/loglib"
-  } else if (!url && process.env.NEXT_PUBLIC_VERCEL_URL) {
-    url = "/api/loglib"
-  } else if (!url) {
-    throw new Error("loglib url isn't provided")
+  let url = "/api/loglib"
+  if (process.env.LOGLIB_URL) {
+    url = process.env.LOGLIB_URL
   }
 
   const { data, error } = useSWR<GetInsightResponse>(url + `?startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&path=/dashboard`, fetcher)
@@ -61,7 +56,7 @@ export function Dashboard() {
   }, [0]);
 
   if (!data) {
-    return <div className=" h-screen w-screen flex flex-col justify-center items-center animate-pulse ">
+    return <div className=" h-screen w-screen flex flex-col justify-center items-center animate-pulse bg-white dark:bg-background">
       <div className=" flex items-center space-x-2">
         <div className=" w-5 h-5 bg-emphasis rounded-full animate-bounce delay-100" />
         <div className=" w-5 h-5 bg-emphasis rounded-full animate-bounce delay-400" />
@@ -83,7 +78,7 @@ export function Dashboard() {
   return (
     <>
       <LayoutGroup>
-        <div className="bg-white min-h-screen w-full dark:bg-black transition-all duration-700 dark:text-white/90 scrollbar-hide">
+        <div className="bg-white min-h-screen w-full dark:bg-background transition-all duration-700 dark:text-white/90 scrollbar-hide">
           <div className="flex-1 space-y-4 p-8 pt-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2 space-y-2">

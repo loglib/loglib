@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react"
 import { EventsWithData } from "@loglib/core/types"
 import { DataTable } from "./tableData"

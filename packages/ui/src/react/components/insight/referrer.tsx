@@ -16,7 +16,7 @@ export function RefComponent({ refs }: { refs: RefType[] }) {
   const parseUrl = (url: string) => {
     try {
       const newUrl = new URL(url);
-      return newUrl.hostname.replace("www.", "").replace(".com", "");
+      return newUrl.hostname.replace("www.", "").replace(".com", "").charAt(0).toUpperCase() + newUrl.hostname.replace("www.", "").replace(".com", "").slice(1);
     } catch {
       return url;
     }
