@@ -27,10 +27,37 @@
 
 
 ### Quick Links
-[Tracker](#tracker)
-[Server with Prisma](#prisma)
-[Server with Supabase](#prisma)
-[Dashboard](#dashboard)
+<div>
+<p>
+  <a href="#tracker">
+  <strong style="color:blue;">
+Tracker
+  </strong>
+  </a>
+</p>
+<p>
+  <a href="#prisma">
+  <strong style="color:blue;">
+  Server with Prisma
+  </strong>
+  </a>
+</p>
+<p>
+  <a href="#supabase">
+  <strong style="color:blue;">
+  Server with Supabase
+  </strong>
+  </a>
+</p>
+<p>
+  <a href="#dashboard">
+  <strong style="color:blue;">
+  Dashboard
+  </strong>
+  </a>
+</p>
+</div>
+
 
 ## Get Started
 
