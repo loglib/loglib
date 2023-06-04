@@ -176,7 +176,7 @@ export function Dashboard() {
                       />
                     </div>
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 grid-cols-1">
-                      <Card className="col-span-4">
+                      <Card className="md:col-span-4">
                         <Tabs defaultValue="visitors">
                           <CardHeader className=" flex-row justify-between items-center">
                             <CardTitle>Visitors</CardTitle>
