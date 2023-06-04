@@ -12,7 +12,7 @@ import {
 } from "./select";
 import { Separator } from "./separator";
 import { getLastNinetyDays, getLastSevenDays, getLastThirtyDays, getThisMonth, getThisWeek, getThisYear, getToday, getTomorrow, getYesterday } from "../../lib/timeHelper";
-import { format } from "date-fns"
+import { format, subMonths } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { DateRange } from "react-day-picker"
 import { cn } from "../../lib/utils"
@@ -29,6 +29,8 @@ export function CalendarDateRangePicker({
   setDate,
   className
 }: { date: DateRange, setDate: (state: { startDate: Date, endDate: Date, stringValue: string }) => void, className?: string }) {
+  const lastMonth = subMonths(new Date(), 1)
+
   return (
     <div className={cn("grid gap-2", className)}>
       <Popover>
@@ -61,7 +63,7 @@ export function CalendarDateRangePicker({
           <Calendar
             initialFocus
             mode="range"
-            defaultMonth={date?.from}
+            defaultMonth={lastMonth}
             selected={date}
             onSelect={(selected) => {
               if (selected && selected.from && selected.to) {
@@ -70,6 +72,8 @@ export function CalendarDateRangePicker({
             }
             }
             numberOfMonths={2}
+            toMonth={new Date()}
+            toDate={new Date()}
           />
         </PopoverContent>
       </Popover>
