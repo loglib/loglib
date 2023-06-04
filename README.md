@@ -286,15 +286,13 @@ import { createServerRoutes } from "@loglib/next"
 import { supabaseAdapter } from "@loglib/supabase-adapter"
 import { createClient } from "@supabase/supabase-js"
 
-const supabase = createClient({
-    supabaseUrl: process.env.SUPABASE_URL,
-    supabaseKey: process.env.SUPABASE_KEY,
-})
+const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_KEY);
 
 
 export const { POST, GET } = createServerRoutes({
     adapter: supabaseAdapter(supabase)
 })
+
 ```
 
 #### pages route
@@ -304,10 +302,7 @@ import { createServer } from '@loglib/next';
 import { createClient } from '@supabase/supabase-js';
 import {supabaseAdapter} from '@loglib/supabase-adapter';
 
-const supabase = createClient({
-    supabaseUrl: process.env.SUPABASE_URL,
-    supabaseKey: process.env.SUPABASE_KEY,
-});
+const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_KEY);
 
 export default createServer({
   adapter: supabaseAdapter(supabase),
