@@ -12,7 +12,7 @@
     "@loglib/core": "0.0.4",
     "@loglib/next": "0.0.5",
     "@loglib/prisma-adapter": "0.0.4",
-    "@loglib/tracker": "0.0.4",
+    "@loglib/tracker": "0.0.5",
     "@loglib/ui": "0.0.3",
     "@prisma/client": "^4.14.0",
     "@types/node": "^18.15.13",
