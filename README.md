@@ -25,6 +25,13 @@
 - Your mom will be impressed.
 - And more things are on the way.
 
+
+### Quick Links
+[Tracker](#tracker)
+[Server with Prisma](#prisma)
+[Server with Supabase](#prisma)
+[Dashboard](#dashboard)
+
 ## Get Started
 
 Loglib is consist of three things:
