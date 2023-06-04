@@ -29,28 +29,28 @@
 ### Quick Links
 <div>
 <p>
-  <a href="#tracker">
+  <a href="#Tracker">
   <strong style="color:blue;">
 Tracker
   </strong>
   </a>
 </p>
 <p>
-  <a href="#prisma">
+  <a href="#Prisma">
   <strong style="color:blue;">
   Server with Prisma
   </strong>
   </a>
 </p>
 <p>
-  <a href="#supabase">
+  <a href="#Supabase">
   <strong style="color:blue;">
   Server with Supabase
   </strong>
   </a>
 </p>
 <p>
-  <a href="#dashboard">
+  <a href="#Dashboard">
   <strong style="color:blue;">
   Dashboard
   </strong>
