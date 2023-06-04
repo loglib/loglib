@@ -62,7 +62,7 @@ export const sessionPost: ApiPostHandler<SessionPostInput> = async (req, options
 
 
                 const session = await adapter.createSession({
-                    city, country, userId, language, referrer, id: sessionId,
+                    city, country, userId, language, referrer: referrer ? referrer : "direct", id: sessionId,
                     browser,
                     device,
                     os,

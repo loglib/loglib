@@ -3,7 +3,9 @@ import { RootDashboardSchema } from "../../schema";
 import { ApiGetHandler } from "../../type";
 import { getAverageTime, getBrowser, getDevices, getEvents, getLoc, getOS, getOnlineUsers, getPageViews, getPages, getReferer, getUniqueVisitors, getVisitorsByDate } from "./utils";
 import { EventsWithData, getBounceRate } from "./utils/analysis";
-import { GenericError } from "../../..";
+import { GenericError, PageView, Session } from "../../..";
+import { filter } from "./filter/smallFilter";
+import { Filter } from "./filter/type";
 
 export type GetInsightQuery = {
     startDate: string,
@@ -84,7 +86,8 @@ export type GetInsightResponse = {
 
 const getInsightSchema = RootDashboardSchema.merge(z.object({
     startDate: z.string(),
-    endDate: z.string()
+    endDate: z.string(),
+    filter: z.string()
 }))
 
 
@@ -98,13 +101,68 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
             const endDateObj = new Date(endDate)
             const duration = endDateObj.getTime() - startDateObj.getTime()
             const pastEndDateObj = new Date(startDateObj.getTime() - duration)
-            const users = await adapter.getUser(startDateObj, endDateObj)
-            const pastUsers = await adapter.getUser(pastEndDateObj, startDateObj)
-            const pageViews = await adapter.getPageViews(startDateObj, endDateObj)
-            const pastPageViews = await adapter.getPageViews(pastEndDateObj, startDateObj)
-            const sessions = await adapter.getSession(startDateObj, endDateObj)
-            const pastSessions = await adapter.getSession(pastEndDateObj, startDateObj)
-            const events = await adapter.getEvents(startDateObj, endDateObj)
+            let users = await adapter.getUser(startDateObj, endDateObj)
+            let pastUsers = await adapter.getUser(pastEndDateObj, startDateObj)
+            let pageViews = await adapter.getPageViews(startDateObj, endDateObj)
+            let pastPageViews = await adapter.getPageViews(pastEndDateObj, startDateObj)
+            let sessions = await adapter.getSession(startDateObj, endDateObj)
+            let pastSessions = await adapter.getSession(pastEndDateObj, startDateObj)
+            let events = await adapter.getEvents(startDateObj, endDateObj)
+
+
+
+            //filters
+            const filters = JSON.parse(query.data.filter) as Filter<Session, "session">[] | Filter<PageView, "pageview">[]
+            filters.forEach((f) => {
+                if (f.data === "session") {
+                    sessions = filter(sessions).where(f.key, f.operator, f.value).execute()
+                    pastSessions = filter(pastSessions).where(f.key, f.operator, f.value).execute()
+                    pageViews = pageViews.filter((p) => {
+                        const session = sessions.filter((s) => s.id === p.sessionId)
+                        return session.length > 0
+                    })
+                    pastPageViews = pastPageViews.filter((p) => {
+                        const session = pastSessions.filter((s) => s.id === p.sessionId)
+                        return session.length > 0
+                    })
+                    users = users.filter((u) => {
+                        const session = sessions.filter((s) => s.userId === u.id)
+                        return session.length > 0
+                    })
+                    pastUsers = pastUsers.filter((u) => {
+                        const session = pastSessions.filter((s) => s.userId === u.id)
+                        return session.length > 0
+                    })
+                    events = events.filter((e) => {
+                        const session = sessions.filter((s) => s.id === e.sessionId)
+                        return session.length > 0
+                    })
+                } else if (f.data === "pageview") {
+                    pageViews = filter(pageViews).where(f.key, f.operator, f.value).execute()
+                    pastPageViews = filter(pastPageViews).where(f.key, f.operator, f.value).execute()
+                    sessions = sessions.filter((s) => {
+                        const pageView = pageViews.filter((p) => p.sessionId === s.id)
+                        return pageView.length > 0
+                    })
+                    pastSessions = pastSessions.filter((s) => {
+                        const pageView = pastPageViews.filter((p) => p.sessionId === s.id)
+                        return pageView.length > 0
+                    })
+                    users = users.filter((u) => {
+                        const session = sessions.filter((s) => s.userId === u.id)
+                        return session.length > 0
+                    })
+                    pastUsers = pastUsers.filter((u) => {
+                        const session = pastSessions.filter((s) => s.userId === u.id)
+                        return session.length > 0
+                    })
+                    events = events.filter((e) => {
+                        const session = sessions.filter((s) => s.id === e.sessionId)
+                        return session.length > 0
+                    })
+                }
+            })
+
 
             //insights data
             const uniqueVisitors = getUniqueVisitors(users, pastUsers)
