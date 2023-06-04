@@ -1,5 +1,13 @@
 # @loglib/ui
 
+## 0.0.6
+
+### Patch Changes
+
+- 14083ba: filter added
+- Updated dependencies [14083ba]
+  - @loglib/core@0.0.6
+
 ## 0.0.5
 
 ### Patch Changes
