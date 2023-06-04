@@ -11,8 +11,10 @@ import {
   TableRow,
 } from "../ui/table";
 import { RefIcons } from "@/assets/Icons";
+import { FilterProp } from "@/react/lib/filter";
+import { ClearFilter } from "../util/clearFilter";
 
-export function RefComponent({ refs }: { refs: RefType[] }) {
+export function RefComponent({ refs, filter: { isFilterActive, clearFilter, addFilter } }: { refs: RefType[], filter: FilterProp }) {
   const parseUrl = (url: string) => {
     try {
       const newUrl = new URL(url);
@@ -23,6 +25,13 @@ export function RefComponent({ refs }: { refs: RefType[] }) {
   };
   return (
     <CardContent>
+      {
+        isFilterActive("referrer") ?
+          <ClearFilter onClick={() => {
+            clearFilter("referrer")
+          }} />
+          : null
+      }
       <Table>
         <TableCaption>
           Your referees and how many times they are visited  {":)"}
@@ -35,7 +44,17 @@ export function RefComponent({ refs }: { refs: RefType[] }) {
         </TableHeader>
         <TableBody>
           {refs.map((refs, i) => (
-            <TableRow key={i}>
+            <TableRow key={i}
+              onClick={() => {
+                addFilter({
+                  key: "referrer",
+                  value: refs.referrer ? refs.referrer : "direct",
+                  operator: "is",
+                  data: "session"
+                })
+              }}
+              className=" cursor-pointer"
+            >
               <TableCell className="flex gap-1 items-center">
                 {
                   RefIcons[parseUrl(refs.referrer).toLowerCase()] ? RefIcons[parseUrl(refs.referrer).toLowerCase()]() : RefIcons["default"]()

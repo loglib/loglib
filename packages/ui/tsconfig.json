@@ -17,6 +17,7 @@
         "src/**/*",
         "test/**/*",
         "tsup.config.ts",
-        "../../a.js"
+        "../../a.js",
+        "../core/src/router/routes/dashboard/utils/smallFilter.ts"
     ]
 }

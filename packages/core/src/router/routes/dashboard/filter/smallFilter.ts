@@ -36,13 +36,14 @@ const filterRoot = <T extends Record<S, Primitive>, S extends keyof T>(
                 const b = item[key] as Array<string>;
                 return !b.includes(value as string);
             case "gt":
-                return item[key] > value;
+                const c = item[key] as number
+                return c > (value as number);
             case "lt":
-                return item[key] < value;
+                return (item[key] as number) < (value as number);
             case "gte":
-                return item[key] >= value;
+                return (item[key] as number) >= (value as number);
             case "lte":
-                return item[key] <= value;
+                return (item[key] as number) <= (value as number);
             default:
                 return true;
         }
@@ -72,8 +73,7 @@ const filter = <T extends Record<S, T[S]>, S extends keyof T>(data: T[]) => {
                 }
             }
             if (orResults.length > 0) {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                result = [].concat(...orResults);
+                result = ([] as T[]).concat(...orResults);
             }
         }
 
@@ -120,7 +120,7 @@ const filter = <T extends Record<S, T[S]>, S extends keyof T>(data: T[]) => {
         }
     };
 
-    const where = (key: S, operator: OperatorType<T[S]>, value: T[S]): FilterFunction<T> => {
+    const where: FilterFunction<T>['where'] = (key, operator, value) => {
         andFilters.push((data) => filterRoot(data, key, operator, value));
         return {
             where,

@@ -10,10 +10,19 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
+import { FilterProp } from "@/react/lib/filter";
+import { ClearFilter } from "../util/clearFilter";
 
-export function PagesComponent({ pageViews }: { pageViews: PageViewsType[] }) {
+export function PagesComponent({ pageViews, filter }: { pageViews: PageViewsType[], filter: FilterProp }) {
   return (
     <CardContent>
+      {
+        filter.isFilterActive("page") ?
+          <ClearFilter onClick={() => {
+            filter.clearFilter("page")
+          }} />
+          : null
+      }
       <Table>
         <TableCaption>
           Your pages and how many times they are visited {":)"}
@@ -26,7 +35,17 @@ export function PagesComponent({ pageViews }: { pageViews: PageViewsType[] }) {
         </TableHeader>
         <TableBody>
           {pageViews.map((pageView) => (
-            <TableRow key={pageView.page}>
+            <TableRow key={pageView.page}
+              onClick={() => {
+                filter.addFilter({
+                  key: "page",
+                  value: pageView.page,
+                  operator: "is",
+                  data: "pageview"
+                })
+              }}
+              className=" cursor-pointer"
+            >
               <TableCell>{pageView.page}</TableCell>
               <TableCell className="text-right">{pageView.visits}</TableCell>
             </TableRow>

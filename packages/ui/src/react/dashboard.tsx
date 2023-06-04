@@ -21,12 +21,16 @@ import { Graph } from "./components/insight/visitorsGraph";
 import Events from "./components/events";
 import LogoIcon from "./components/Icon/LogoIcon";
 import NightModeIcon from "./components/Icon/NightModeIcon";
+import { Filter, FilterProp } from "./lib/filter";
+import { ClearFilter } from "./components/util/clearFilter";
 
 export interface DashboardConfig {
   color?: string;
   className?: string;
   api?: string;
 }
+
+
 
 export function Dashboard() {
   const [timeRange, setTimeRange] = useState<{
@@ -46,14 +50,23 @@ export function Dashboard() {
     url = process.env.LOGLIB_URL
   }
 
-  const { data, error } = useSWR<GetInsightResponse>(url + `?startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&path=/dashboard`, fetcher)
+  const [filters, setFilters] = useState<Filter[]>([])
+
+  const { data, error } = useSWR<GetInsightResponse>(url + `?startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&filter=${JSON.stringify(filters)}&path=/dashboard`, fetcher, {
+    suspense: true
+  })
 
   const [by, setBy] = useState<"bySec" | "byMin">("bySec")
+
 
   useEffect(() => {
     const theme = getTheme()
     document.documentElement.classList.add(theme);
   }, [0]);
+
+
+
+
 
   if (!data) {
     return <div className=" h-screen w-screen flex flex-col justify-center items-center animate-pulse bg-white dark:bg-background">
@@ -73,6 +86,23 @@ export function Dashboard() {
     return <div className=" h-screen w-screen flex flex-col justify-center items-center  ">
       Some Error happened while getting the data from the server please see the error in console for more details
     </div>
+  }
+
+  function addFilter(f: Filter) {
+    setFilters([...filters, f])
+  }
+
+  function clearFilter(key: string) {
+    setFilters((prev) => prev.filter((f) => f.key !== key))
+  }
+
+  const isFilterActive = (key: string) => filters.some((filter) => filter.key === key)
+
+
+  const filter: FilterProp = {
+    addFilter,
+    clearFilter,
+    isFilterActive
   }
 
   return (
@@ -114,13 +144,21 @@ export function Dashboard() {
                   <DatePicker setTimeRange={setTimeRange} setCustomTime={setCustomTime} timeRange={timeRange} customTime={customTime} />
 
                 </div>
-
-                <div className=" flex gap-1 items-center">
-                  <div className=" w-2.5 h-2.5 bg-gradient-to-tr from-lime-500 to-lime-700 animate-pulse rounded-full" >
+                <div className=" flex flex-col items-end">
+                  <div className=" flex gap-1 items-center">
+                    <div className=" w-2.5 h-2.5 bg-gradient-to-tr from-lime-500 to-lime-700 animate-pulse rounded-full" >
+                    </div>
+                    <p className=" text-sm bg-gradient-to-tr from-lime-600 to-lime-800 text-transparent bg-clip-text font-medium">
+                      {data.onlineUsers} Online
+                    </p>
                   </div>
-                  <p className=" text-sm bg-gradient-to-tr from-lime-600 to-lime-800 text-transparent bg-clip-text font-medium">
-                    {data.onlineUsers} Online
-                  </p>
+                  {
+                    filters.length > 0 ?
+                      <ClearFilter onClick={() => {
+                        setFilters([])
+                      }} /> : null
+                  }
+
                 </div>
               </div>
               <AnimatePresence>
@@ -227,17 +265,17 @@ export function Dashboard() {
                           </TabsList>
 
                           <TabsContent value="pages">
-                            <PagesComponent pageViews={data.data.pages} />
+                            <PagesComponent pageViews={data.data.pages} filter={filter} />
                           </TabsContent>
                           <TabsContent value="ref">
-                            <RefComponent refs={data.data.referrer} />
+                            <RefComponent refs={data.data.referrer} filter={filter} />
                           </TabsContent>
 
                           <TabsContent value="locations">
-                            <LocationsComponent country={data.data.locations.country} city={data.data.locations.city} />
+                            <LocationsComponent country={data.data.locations.country} city={data.data.locations.city} filter={filter} />
                           </TabsContent>
                           <TabsContent value="device">
-                            <DeviceComponent devices={data.data.devices} os={data.data.os} browser={data.data.browser} />
+                            <DeviceComponent devices={data.data.devices} os={data.data.os} browser={data.data.browser} filter={filter} />
                           </TabsContent>
                         </Tabs>
                       </Card>
