@@ -49,11 +49,11 @@ pnpm add @loglib/next
 pnpm add @loglib/ui
 ```
 
-### Tracker
+## Tracker
 
 let's first setup the tracker to collect data from your website.
 
-#### Next-js
+### Next-js
 
 App Route
 
@@ -193,9 +193,16 @@ if you're not using next js or react you can use the vanilla version of the trac
 
 > NOTE: currently you can't use loglib server or dashboard in other frameworks other than next js or react but you can attach the dashboard on astro since you can use react in astro and we'll provide astro server soon. And you can always deploy a new next js project separated from your main project and use it as a dashboard and a server. See the example folder for more.
 
-### Server
+## Server
 
+first you need to setup a database and an adapter for the server to work.
 > we currently only support prisma and supabase adapters but more adapters are on the way.
+
+### Prisma
+
+```bash
+pnpm add @loglib/prisma-adapter
+```
 
 #### app route
 
@@ -229,6 +236,47 @@ const prisma = new PrismaClient();
 
 export default createServer({
   adapter: prismaAdapter(prisma),
+});
+```
+
+### Supabase
+
+```bash
+pnpm add @loglib/supabase-adapter
+```
+
+#### app route
+
+```js
+import { createServerRoutes } from "@loglib/next"
+import { supabaseAdapter } from "@loglib/supabase-adapter"
+import { createClient } from "@supabase/supabase-js"
+
+const supabase = createClient({
+    supabaseUrl: process.env.SUPABASE_URL,
+    supabaseKey: process.env.SUPABASE_KEY,
+})
+
+
+export const { POST, GET } = createServerRoutes({
+    adapter: supabaseAdapter(supabase)
+})
+```
+
+#### pages route
+
+```js
+import { createServer } from '@loglib/next';
+import { createClient } from '@supabase/supabase-js';
+import {supabaseAdapter} from '@loglib/supabase-adapter';
+
+const supabase = createClient({
+    supabaseUrl: process.env.SUPABASE_URL,
+    supabaseKey: process.env.SUPABASE_KEY,
+});
+
+export default createServer({
+  adapter: supabaseAdapter(supabase),
 });
 ```
 
@@ -271,7 +319,7 @@ const POST = Next13({
 
 okay now you're tracker is up and your server is listening!!
 
-#### Dashboard
+## Dashboard
 
 now let's get this bad boy to display something
 
