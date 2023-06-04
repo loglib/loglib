@@ -1,5 +1,11 @@
 # @loglib/adapter-test
 
+## 1.0.4
+
+### Patch Changes
+
+- d1fc1ab: loading animations, bug fixes and more
+
 ## 1.0.3
 
 ### Patch Changes
