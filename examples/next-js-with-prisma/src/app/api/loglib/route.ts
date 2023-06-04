@@ -5,7 +5,5 @@ import { PrismaClient } from "@prisma/client"
 const db = new PrismaClient()
 
 export const { POST, GET } = createServerRoutes({
-    adapter: prismaAdapter(db),
-    environment: "test",
-    disableLocation: true
+    adapter: prismaAdapter(db)
 })
