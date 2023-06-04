@@ -1,5 +1,11 @@
 # @loglib/core
 
+## 0.0.6
+
+### Patch Changes
+
+- 14083ba: filter added
+
 ## 0.0.5
 
 ### Patch Changes
