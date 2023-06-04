@@ -25,7 +25,7 @@ export function InsightCard({ title, Icon, data, valuePrefix, bottomChildren, ne
         <Icon className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold">{`${!isNaN(data.total) ? data.total.toLocaleString() : 0} ${valuePrefix ?? ""}`}</div>
+        <div className="text-2xl font-bold">{`${!isNaN(data.total) && data.total ? data.total.toLocaleString() : 0} ${valuePrefix ?? ""}`}</div>
         <div className=" flex justify-between">
           <div className=" flex text-xs">
             {
@@ -34,7 +34,7 @@ export function InsightCard({ title, Icon, data, valuePrefix, bottomChildren, ne
               ) : (
                 <ArrowDown className=" text-red-500" size={16} />)
             }
-            <div> {changePrefix ?? ""}{data.change.toLocaleString()}%</div>
+            <div> {changePrefix ?? ""}{data.change ? data.change.toLocaleString() : 0}%</div>
           </div>
           {bottomChildren}
         </div>

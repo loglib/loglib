@@ -8,10 +8,10 @@ export const internalRouter = async (req: ApiRequest<any, any>, options: LogLibO
     if (!req.method) {
         return { message: "Invalid request method. Expected a string.", code: 400 }
     }
-    await checkLocationConfig(options, req)
     const method = req.method.toUpperCase() as "POST" | "PUT" | "DELETE" | "GET"
     let path = ""
     if (method === "POST" || method === "PUT" || method === "DELETE") {
+        await checkLocationConfig(options, req)
         if (typeof req.body !== 'object' || Array.isArray(req.body)) {
             return { message: "Invalid request body. Expected an object.", code: 400 }
         }

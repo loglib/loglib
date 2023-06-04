@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en">
 
       <body className={inter.className}>
-        <LogLib />
+        <LogLib config={{ debug: true }} />
         {children}
       </body>
     </html>
