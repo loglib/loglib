@@ -1,5 +1,11 @@
 # @loglib/tracker
 
+## 0.0.5
+
+### Patch Changes
+
+- 48aa8e4: peer dependcy fixes
+
 ## 0.0.4
 
 ### Patch Changes

@@ -11,8 +11,8 @@
   "dependencies": {
     "@loglib/core": "0.0.4",
     "@loglib/next": "0.0.5",
-    "@loglib/supabase-adapter": "0.0.3",
-    "@loglib/tracker": "0.0.4",
+    "@loglib/supabase-adapter": "0.0.4",
+    "@loglib/tracker": "0.0.5",
     "@loglib/ui": "0.0.3",
     "@supabase/supabase-js": "^2.24.0",
     "@types/node": "^18.15.13",
