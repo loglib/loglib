@@ -35,7 +35,7 @@ importers:
   examples/next-js-with-prisma:
     specifiers:
       '@loglib/core': 0.0.4
-      '@loglib/next': 0.0.4
+      '@loglib/next': 0.0.5
       '@loglib/prisma-adapter': 0.0.4
       '@loglib/tracker': 0.0.4
       '@loglib/ui': 0.0.3
@@ -77,7 +77,7 @@ importers:
   examples/next-js-with-supabase:
     specifiers:
       '@loglib/core': 0.0.4
-      '@loglib/next': 0.0.4
+      '@loglib/next': 0.0.5
       '@loglib/supabase-adapter': 0.0.3
       '@loglib/tracker': 0.0.4
       '@loglib/ui': 0.0.3

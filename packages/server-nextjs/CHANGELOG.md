@@ -1,5 +1,11 @@
 # @loglib/next
 
+## 0.0.5
+
+### Patch Changes
+
+- c8826bf: peer dependciy fix
+
 ## 0.0.4
 
 ### Patch Changes
