@@ -1,5 +1,13 @@
 # @loglib/ui
 
+## 0.0.4
+
+### Patch Changes
+
+- 4212ddf: minor bug fixes
+- Updated dependencies [4212ddf]
+  - @loglib/core@0.0.5
+
 ## 0.0.3
 
 ### Patch Changes
