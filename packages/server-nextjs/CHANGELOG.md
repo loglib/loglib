@@ -1,5 +1,13 @@
 # @loglib/next
 
+## 0.0.4
+
+### Patch Changes
+
+- d1fc1ab: loading animations, bug fixes and more
+- Updated dependencies [d1fc1ab]
+  - @loglib/core@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes
