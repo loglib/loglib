@@ -1,5 +1,11 @@
 # @loglib/supabase-adapter
 
+## 0.0.4
+
+### Patch Changes
+
+- 48aa8e4: peer dependcy fixes
+
 ## 0.0.3
 
 ### Patch Changes
