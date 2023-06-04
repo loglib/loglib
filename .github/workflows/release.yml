@@ -31,6 +31,9 @@ jobs:
         run: |
           echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
 
+      - name: Setup npmrc
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
@@ -40,7 +43,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install deps (with cache)
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install
 
       - name: Build
         run: pnpm turbo --filter "./packages/*" build
@@ -51,7 +54,7 @@ jobs:
         with:
           commit: "Loglib(release): 📦  version packages"
           title: "Loglib(release): 📦  version packages"
-          publish: npx changeset publish
+          publish: pnpm ci:publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -9,7 +9,8 @@
     "lint": "turbo lint && manypkg check",
     "lint:fix": "turbo lint -- --fix && manypkg fix",
     "test": "turbo test",
-    "typecheck": "turbo typecheck"
+    "typecheck": "turbo typecheck",
+    "ci:publish": "pnpm publish -r"
   },
   "dependencies": {
     "@changesets/changelog-github": "^0.4.8",
