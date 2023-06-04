@@ -1,6 +1,6 @@
 {
     "name": "@loglib/ui",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
@@ -47,7 +47,7 @@
         "react-dom": "^18.2.0"
     },
     "dependencies": {
-        "@loglib/core": "^0.0.4",
+        "@loglib/core": "^0.0.5",
         "@radix-ui/react-avatar": "^1.0.2",
         "@radix-ui/react-dialog": "^1.0.3",
         "@radix-ui/react-dropdown-menu": "^2.0.4",
