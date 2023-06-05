@@ -8,7 +8,7 @@ import { renderSubComponent } from "./detailModal"
 
 
 
-const Events = ({ events }: { events: EventsWithData }) => {
+const Events = ({ events, isLoading }: { events: EventsWithData, isLoading: boolean }) => {
     const sortedEvents = events.sort((a, b) => {
         const aDate = new Date(a.createdAt)
         const bDate = new Date(b.createdAt)
@@ -16,7 +16,7 @@ const Events = ({ events }: { events: EventsWithData }) => {
     })
     return (
         <div className=" no-scrollbar">
-            <DataTable columns={columns} data={sortedEvents} renderSubComponent={renderSubComponent} />
+            <DataTable columns={columns} data={sortedEvents} renderSubComponent={renderSubComponent} isLoading={isLoading} />
         </div>
     )
 }

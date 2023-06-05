@@ -12,8 +12,9 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { FilterProp } from "@/react/lib/filter";
 import { ClearFilter } from "../util/clearFilter";
+import { TableLoading } from "../util/tableLoading";
 
-export function DeviceComponent({ devices, os, browser, filter: { clearFilter, addFilter, isFilterActive } }: { devices: DevicesType[], os: OSType[], browser: BrowserType[], filter: FilterProp }) {
+export function DeviceComponent({ devices, os, browser, filter: { clearFilter, addFilter, isFilterActive }, isLoading }: { devices?: DevicesType[], os?: OSType[], browser?: BrowserType[], filter: FilterProp, isLoading: boolean }) {
   return (
     <CardContent>
       <Tabs className=" w-full" defaultValue="general">
@@ -44,24 +45,28 @@ export function DeviceComponent({ devices, os, browser, filter: { clearFilter, a
                 <TableHead className="text-right">Views</TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
-              {devices.map((device, i) => (
-                <TableRow key={i}
-                  onClick={() => {
-                    addFilter({
-                      key: "device",
-                      operator: "is",
-                      value: device.device,
-                      data: "session"
-                    })
-                  }}
-                  className=" cursor-pointer"
-                >
-                  <TableCell>{device.device}</TableCell>
-                  <TableCell className="text-right">{device.visits}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
+            {
+              isLoading || !devices ?
+                <TableLoading cellCount={2} />
+                : <TableBody>
+                  {devices.map((device, i) => (
+                    <TableRow key={i}
+                      onClick={() => {
+                        addFilter({
+                          key: "device",
+                          operator: "is",
+                          value: device.device,
+                          data: "session"
+                        })
+                      }}
+                      className=" cursor-pointer"
+                    >
+                      <TableCell>{device.device}</TableCell>
+                      <TableCell className="text-right">{device.visits}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+            }
           </Table>
         </TabsContent>
 
@@ -75,24 +80,27 @@ export function DeviceComponent({ devices, os, browser, filter: { clearFilter, a
                 <TableHead className="text-right">Views</TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
-              {os.map((device, i) => (
-                <TableRow key={i}
-                  onClick={() => {
-                    addFilter({
-                      key: "os",
-                      operator: "is",
-                      value: device.os,
-                      data: "session"
-                    })
-                  }}
-                  className=" cursor-pointer"
-                >
-                  <TableCell>{device.os}</TableCell>
-                  <TableCell className="text-right">{device.visits}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
+            {
+              isLoading || !os ?
+                <TableLoading cellCount={2} /> : <TableBody>
+                  {os.map((device, i) => (
+                    <TableRow key={i}
+                      onClick={() => {
+                        addFilter({
+                          key: "os",
+                          operator: "is",
+                          value: device.os,
+                          data: "session"
+                        })
+                      }}
+                      className=" cursor-pointer"
+                    >
+                      <TableCell>{device.os}</TableCell>
+                      <TableCell className="text-right">{device.visits}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+            }
           </Table>
         </TabsContent>
         <TabsContent value="browser">
@@ -103,24 +111,27 @@ export function DeviceComponent({ devices, os, browser, filter: { clearFilter, a
                 <TableHead className="text-right">Views</TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
-              {browser.map((device, i) => (
-                <TableRow key={i}
-                  onClick={() => {
-                    addFilter({
-                      key: "browser",
-                      operator: "is",
-                      value: device.browser,
-                      data: "session"
-                    })
-                  }}
-                  className=" cursor-pointer"
-                >
-                  <TableCell>{device.browser}</TableCell>
-                  <TableCell className="text-right">{device.visits}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
+            {
+              isLoading || !browser ?
+                <TableLoading cellCount={2} /> : <TableBody>
+                  {browser.map((device, i) => (
+                    <TableRow key={i}
+                      onClick={() => {
+                        addFilter({
+                          key: "browser",
+                          operator: "is",
+                          value: device.browser,
+                          data: "session"
+                        })
+                      }}
+                      className=" cursor-pointer"
+                    >
+                      <TableCell>{device.browser}</TableCell>
+                      <TableCell className="text-right">{device.visits}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+            }
           </Table>
         </TabsContent>
       </Tabs>

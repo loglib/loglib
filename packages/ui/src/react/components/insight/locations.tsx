@@ -16,12 +16,12 @@ import ReactCountryFlag from "react-country-flag"
 import { Link2Icon } from "lucide-react";
 import { FilterProp } from "@/react/lib/filter";
 import { ClearFilter } from "../util/clearFilter";
+import { TableLoading } from "../util/tableLoading";
 
 
 
 
-export function LocationsComponent({ city, country, filter: { addFilter, clearFilter, isFilterActive } }: { city: City[], country: Country[], filter: FilterProp }) {
-
+export function LocationsComponent({ city, country, isLoading, filter: { addFilter, clearFilter, isFilterActive } }: { city?: City[], country?: Country[], filter: FilterProp, isLoading: boolean }) {
   return (
     <CardContent>
       <Tabs className=" w-full" defaultValue="country">
@@ -55,36 +55,40 @@ export function LocationsComponent({ city, country, filter: { addFilter, clearFi
                 <TableHead className="text-right">Views</TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
-              {country.map((location) => (
-                <TableRow key={location.location}>
-                  <TableCell className=" flex items-center gap-1 cursor-pointer"
-                    onClick={() => addFilter({
-                      key: "country",
-                      value: location.location,
-                      operator: "is",
-                      data: "session"
-                    })}
-                  >
-                    {location.location === "Unknown" ?
-                      <>
-                        <Link2Icon />
-                        Unknown
-                      </>
+            {
+              isLoading || !country ?
+                <TableLoading cellCount={2} />
+                : <TableBody>
+                  {country.map((location) => (
+                    <TableRow key={location.location}>
+                      <TableCell className=" flex items-center gap-1 cursor-pointer"
+                        onClick={() => addFilter({
+                          key: "country",
+                          value: location.location,
+                          operator: "is",
+                          data: "session"
+                        })}
+                      >
+                        {location.location === "Unknown" ?
+                          <>
+                            <Link2Icon />
+                            Unknown
+                          </>
 
-                      : <>
-                        <ReactCountryFlag countryCode={location.location} svg
-                          style={{
-                            width: '1em',
-                            height: '1em',
-                          }} />
-                        {COUNTRIES[location.location]}
-                      </>}
-                  </TableCell>
-                  <TableCell className="text-right">{location.visits}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
+                          : <>
+                            <ReactCountryFlag countryCode={location.location} svg
+                              style={{
+                                width: '1em',
+                                height: '1em',
+                              }} />
+                            {COUNTRIES[location.location]}
+                          </>}
+                      </TableCell>
+                      <TableCell className="text-right">{location.visits}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+            }
           </Table>
         </TabsContent>
         <TabsContent value="city">
@@ -98,22 +102,25 @@ export function LocationsComponent({ city, country, filter: { addFilter, clearFi
                 <TableHead className="text-right">Views</TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
-              {city.map((location) => (
-                <TableRow key={location.location}
-                  onClick={() => addFilter({
-                    key: "city",
-                    value: location.location,
-                    operator: "is",
-                    data: "session"
-                  })
-                  }
-                >
-                  <TableCell>{location.location}</TableCell>
-                  <TableCell className="text-right">{location.visits}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
+            {
+              isLoading || !city ? <TableLoading cellCount={2} /> : <TableBody>
+                {city.map((location) => (
+                  <TableRow key={location.location}
+                    onClick={() => addFilter({
+                      key: "city",
+                      value: location.location,
+                      operator: "is",
+                      data: "session"
+                    })
+                    }
+                    className=" cursor-pointer"
+                  >
+                    <TableCell>{location.location}</TableCell>
+                    <TableCell className="text-right">{location.visits}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            }
           </Table>
         </TabsContent>
       </Tabs>

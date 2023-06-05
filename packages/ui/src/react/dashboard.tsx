@@ -22,7 +22,6 @@ import Events from "./components/events";
 import LogoIcon from "./components/Icon/LogoIcon";
 import NightModeIcon from "./components/Icon/NightModeIcon";
 import { Filter, FilterProp } from "./lib/filter";
-import { ClearFilter } from "./components/util/clearFilter";
 
 export interface DashboardConfig {
   color?: string;
@@ -52,8 +51,8 @@ export function Dashboard() {
 
   const [filters, setFilters] = useState<Filter[]>([])
 
-  const { data, error } = useSWR<GetInsightResponse>(url + `?startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&filter=${JSON.stringify(filters)}&path=/dashboard`, fetcher, {
-    suspense: true
+  const { data, error, isLoading } = useSWR<GetInsightResponse>(url + `?startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&filter=${JSON.stringify(filters)}&path=/dashboard`, fetcher, {
+    fallback: []
   })
 
   const [by, setBy] = useState<"bySec" | "byMin">("bySec")
@@ -68,19 +67,19 @@ export function Dashboard() {
 
 
 
-  if (!data) {
-    return <div className=" h-screen w-screen flex flex-col justify-center items-center animate-pulse bg-white dark:bg-background">
-      <div className=" flex items-center space-x-2">
-        <div className=" w-5 h-5 bg-emphasis rounded-full animate-bounce delay-100" />
-        <div className=" w-5 h-5 bg-emphasis rounded-full animate-bounce delay-400" />
-        <div className=" w-5 h-5 bg-emphasis rounded-full animate-bounce delay-700" />
-      </div>
+  // if (!data) {
+  //   return <div className=" h-screen w-screen flex flex-col justify-center items-center animate-pulse bg-white dark:bg-background">
+  //     <div className=" flex items-center space-x-2">
+  //       <div className=" w-5 h-5 bg-emphasis rounded-full animate-bounce delay-100" />
+  //       <div className=" w-5 h-5 bg-emphasis rounded-full animate-bounce delay-400" />
+  //       <div className=" w-5 h-5 bg-emphasis rounded-full animate-bounce delay-700" />
+  //     </div>
 
-      <p>
-        Loading your dashboard 📈
-      </p>
-    </div>
-  }
+  //     <p>
+  //       Loading your dashboard 📈
+  //     </p>
+  //   </div>
+  // }
   if (error) {
     console.log(error)
     return <div className=" h-screen w-screen flex flex-col justify-center items-center  ">
@@ -149,15 +148,15 @@ export function Dashboard() {
                     <div className=" w-2.5 h-2.5 bg-gradient-to-tr from-lime-500 to-lime-700 animate-pulse rounded-full" >
                     </div>
                     <p className=" text-sm bg-gradient-to-tr from-lime-600 to-lime-800 text-transparent bg-clip-text font-medium">
-                      {data.onlineUsers} Online
+                      {data ? data.onlineUsers : 0} Online
                     </p>
                   </div>
-                  {
+                  {/* {
                     filters.length > 0 ?
                       <ClearFilter onClick={() => {
                         setFilters([])
                       }} /> : null
-                  }
+                  } */}
 
                 </div>
               </div>
@@ -187,31 +186,36 @@ export function Dashboard() {
                       <InsightCard
                         title={"Unique Visitors"}
                         Icon={UserIcon}
-                        data={data.insight.uniqueVisitors}
+                        data={data ? data.insight.uniqueVisitors : { change: 0, total: 0 }}
+                        isLoading={isLoading}
                       />
                       <InsightCard
                         title={"Views"}
                         Icon={Eye}
-                        data={data.insight.pageView}
+                        data={data ? data.insight.pageView : { change: 0, total: 0 }}
+                        isLoading={isLoading}
                       />
                       <InsightCard
                         title={"Average Time"}
                         Icon={TimerIcon}
-                        data={data.insight.averageTime[by]}
+                        data={data && data.insight.averageTime[by]}
                         valuePrefix={by === "byMin" ? "min" : "sec"}
                         bottomChildren={(
                           <div className=" flex space-x-2 text-sm items-center">
                             <Switch id="min" onCheckedChange={(checked) => setBy(!checked ? "bySec" : "byMin")} />
                           </div>
                         )}
+                        isLoading={isLoading}
                       />
                       <InsightCard
                         title={"Bounce Rate"}
                         valuePrefix={"%"}
                         Icon={Activity}
                         negative
-                        data={data.insight.bounceRate}
+                        data={data && data.insight.bounceRate}
+                        isLoading={isLoading}
                       />
+
                     </div>
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 grid-cols-1">
                       <Card className="md:col-span-4">
@@ -231,10 +235,10 @@ export function Dashboard() {
                           </CardHeader>
                           <CardContent className="pl-2">
                             <TabsContent value="visitors">
-                              <Graph data={data.graph.uniqueVisitorsByDate} name="Visitors" Icon={Users2} />
+                              <Graph data={data ? data.graph.uniqueVisitorsByDate : []} name="Visitors" Icon={Users2} />
                             </TabsContent>
                             <TabsContent value="sessions">
-                              <Graph data={data.graph.uniqueSessionByDate} name="Sessions" Icon={Laptop2} />
+                              <Graph data={data ? data.graph.uniqueSessionByDate : []} name="Sessions" Icon={Laptop2} />
                             </TabsContent>
                           </CardContent>
                         </Tabs>
@@ -265,24 +269,25 @@ export function Dashboard() {
                           </TabsList>
 
                           <TabsContent value="pages">
-                            <PagesComponent pageViews={data.data.pages} filter={filter} />
+                            <PagesComponent pageViews={data && data.data.pages} filter={filter} isLoading={isLoading} />
+                          </TabsContent>
+                          <TabsContent value="locations">
+                            <LocationsComponent country={data && data.data.locations.country} city={data && data.data.locations.city} filter={filter} isLoading={isLoading} />
                           </TabsContent>
                           <TabsContent value="ref">
-                            <RefComponent refs={data.data.referrer} filter={filter} />
+                            <RefComponent refs={data && data.data.referrer} filter={filter} isLoading={isLoading} />
                           </TabsContent>
 
-                          <TabsContent value="locations">
-                            <LocationsComponent country={data.data.locations.country} city={data.data.locations.city} filter={filter} />
-                          </TabsContent>
+
                           <TabsContent value="device">
-                            <DeviceComponent devices={data.data.devices} os={data.data.os} browser={data.data.browser} filter={filter} />
+                            <DeviceComponent devices={data && data.data.devices} os={data && data.data.os} browser={data && data.data.browser} filter={filter} isLoading={isLoading} />
                           </TabsContent>
                         </Tabs>
                       </Card>
                     </div>
                   </TabsContent>
                   <TabsContent value="events">
-                    <Events events={data.eventsWithData} />
+                    <Events events={data ? data.eventsWithData : []} isLoading={isLoading} />
                   </TabsContent>
                 </motion.div>
               </AnimatePresence>

@@ -26,19 +26,25 @@ import {
 import { AnimatePresence, motion } from 'framer-motion'
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
+import { TableLoading } from "../util/tableLoading"
 
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
-    renderSubComponent: (props: { row: Row<TData> }) => React.ReactElement
+    renderSubComponent: (props: { row: Row<TData> }) => React.ReactElement,
+    isLoading: boolean
 }
 
 function DataTable<TData, TValue>({
     columns,
     data,
     renderSubComponent,
+    isLoading
 }: DataTableProps<TData, TValue>) {
+    if (!data.length) {
+        <TableLoading cellCount={5} />
+    }
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
         []
@@ -117,6 +123,7 @@ function DataTable<TData, TValue>({
                             </TableRow>
                         ))}
                     </TableHeader>
+
                     <TableBody>
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
@@ -150,13 +157,15 @@ function DataTable<TData, TValue>({
                                     )}
                                 </Fragment>
                             ))
-                        ) : (
-                            <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-center">
-                                    No results.
-                                </TableCell>
-                            </TableRow>
-                        )}
+                        ) : isLoading ? <TableRow className={"h-6 gap-2 bg-gray-200 dark:bg-gray-800 rounded-md animate-pulse"} >
+                            <TableCell colSpan={columns.length} className=" h-6 gap-2 bg-gray-200 dark:bg-gray-800 animate-pulse text-center">
+                                Loading Data ...
+                            </TableCell>
+                        </TableRow> : <TableRow>
+                            <TableCell colSpan={columns.length} className="h-24 text-center">
+                                No results.
+                            </TableCell>
+                        </TableRow>}
                     </TableBody>
                 </Table>
             </motion.div>
