@@ -358,6 +358,8 @@ export default createServer({
 ```bash
 pnpm add @loglib/supabase-adapter
 ```
+run this in your supabae sql editor ro setup tables
+
 ```sql
 create table if not exists
   public.web_user (
