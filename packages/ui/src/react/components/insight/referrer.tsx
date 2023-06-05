@@ -13,8 +13,9 @@ import {
 import { RefIcons } from "@/assets/Icons";
 import { FilterProp } from "@/react/lib/filter";
 import { ClearFilter } from "../util/clearFilter";
+import { TableLoading } from "../util/tableLoading";
 
-export function RefComponent({ refs, filter: { isFilterActive, clearFilter, addFilter } }: { refs: RefType[], filter: FilterProp }) {
+export function RefComponent({ refs, filter: { isFilterActive, clearFilter, addFilter }, isLoading }: { refs?: RefType[], filter: FilterProp, isLoading: boolean }) {
   const parseUrl = (url: string) => {
     try {
       const newUrl = new URL(url);
@@ -42,29 +43,35 @@ export function RefComponent({ refs, filter: { isFilterActive, clearFilter, addF
             <TableHead className="text-right">Views</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
-          {refs.map((refs, i) => (
-            <TableRow key={i}
-              onClick={() => {
-                addFilter({
-                  key: "referrer",
-                  value: refs.referrer ? refs.referrer : "direct",
-                  operator: "is",
-                  data: "session"
-                })
-              }}
-              className=" cursor-pointer"
-            >
-              <TableCell className="flex gap-1 items-center">
-                {
-                  RefIcons[parseUrl(refs.referrer).toLowerCase()] ? RefIcons[parseUrl(refs.referrer).toLowerCase()]() : RefIcons["default"]()
-                }
-                {parseUrl(refs.referrer)}
-              </TableCell>
-              <TableCell className="text-right">{refs.visits}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
+        {
+          isLoading || !refs ? (
+            <TableLoading cellCount={2} />
+          )
+            : <TableBody>
+              {refs.map((refs, i) => (
+                <TableRow key={i}
+                  onClick={() => {
+                    addFilter({
+                      key: "referrer",
+                      value: refs.referrer ? refs.referrer : "direct",
+                      operator: "is",
+                      data: "session"
+                    })
+                  }}
+                  className=" cursor-pointer"
+                >
+                  <TableCell className="flex gap-1 items-center">
+                    {
+                      RefIcons[parseUrl(refs.referrer).toLowerCase()] ? RefIcons[parseUrl(refs.referrer).toLowerCase()]() : RefIcons["default"]()
+                    }
+                    {parseUrl(refs.referrer)}
+                  </TableCell>
+                  <TableCell className="text-right">{refs.visits}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+
+        }
       </Table>
     </CardContent>
   );

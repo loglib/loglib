@@ -76,10 +76,13 @@ export const getLoc = (sessions: Session[], byCountry = true) => {
         if (isFound) {
             isFound.visits++;
         } else {
-            acc.push({
-                location,
-                visits: 1
-            });
+            if (location !== "country" && location !== "city") {
+                acc.push({
+                    location,
+                    visits: 1
+                });
+            }
+
         }
         return acc;
     }, [] as { location: string, visits: number }[]);
