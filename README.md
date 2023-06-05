@@ -242,6 +242,7 @@ copy this schema to your schema file
 
 #### Relational DB
 
+```prisma
 model WebUser {
     id        String   @id @default(cuid())
     data      String   @default("{}")
@@ -312,7 +313,7 @@ model WebEvent {
 
     @@map("web_event")
 }
-
+```
 #### Mongo DB
 
 comming soon
