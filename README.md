@@ -238,6 +238,85 @@ first you need to setup a database and an adapter for the server to work.
 pnpm add @loglib/prisma-adapter
 ```
 
+copy this schema to your schema file
+
+#### Relational DB
+
+model WebUser {
+    id        String   @id @default(cuid())
+    data      String   @default("{}")
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    Session  WebSession[]
+    Pageview WebPageview[]
+    WebEvent WebEvent[]
+
+    @@map("web_user")
+}
+
+model WebSession {
+    id          String        @id @default(cuid())
+    createdAt   DateTime      @default(now()) @map("created_at")
+    updatedAt   DateTime      @updatedAt @map("updated_at")
+    referrer    String        @default("")
+    queryParams String        @default("") @map("query_params")
+    duration    Int           @default(0)
+    country     String?
+    city        String?
+    device      String?
+    os          String?
+    browser     String?
+    language    String?
+    userId      String        @map("user_id")
+    Page        WebPageview[]
+
+    User     WebUser    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    WebEvent WebEvent[]
+
+    @@map("web_session")
+}
+
+model WebPageview {
+    id          String   @id @default(cuid())
+    createdAt   DateTime @default(now()) @map("created_at")
+    updatedAt   DateTime @updatedAt @map("updated_at")
+    page        String
+    referrer    String   @default("")
+    queryParams String   @default("{}") @map("query_params")
+    duration    Int      @default(0)
+    sessionId   String   @map("web_session_id")
+    userId      String   @map("user_id")
+
+    Event      WebEvent[]
+    WebSession WebSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+    User       WebUser    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@map("web_pageview")
+}
+
+model WebEvent {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+    eventType String   @map("event_type")
+    eventName String   @map("event_name")
+    payload   String   @default("")
+    pageId    String   @map("page_id")
+    sessionId String   @map("web_session_id")
+    userId    String   @map("user_id")
+
+    Page       WebPageview @relation(fields: [pageId], references: [id], onDelete: Cascade)
+    User       WebUser     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    WebSession WebSession  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+    @@map("web_event")
+}
+
+#### Mongo DB
+
+comming soon
+
 #### app route
 
 put this code in `src/app/loglib/api/route.ts` I know the route isn't ideal if you want to change it something else just put `LOGLIB_URL` in your env file with the full url path.
