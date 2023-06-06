@@ -4,8 +4,13 @@
 
 ![npm](https://img.shields.io/npm/v/@loglib/tracker) ![npm bundle size](https://img.shields.io/bundlephobia/min/@loglib/tracker) ![GitHub license](https://img.shields.io/github/license/LogLib/loglib) ![GitHub issues](https://img.shields.io/github/issues/LogLib/loglib) ![GitHub stars](https://img.shields.io/github/stars/LogLib/loglib)
 
-![GitHub-Mark-Light](https://user-images.githubusercontent.com/3369400/139447912-e0f43f33-6d9f-45f8-be46-2df5bbc91289.png#gh-dark-mode-only)![GitHub-Mark-Dark](./images/dark-logo-v1.png#gh-dark-mode-only#gh-light-mode-only)
-![GitHub-Mark-Light](https://user-images.githubusercontent.com/3369400/139447912-e0f43f33-6d9f-45f8-be46-2df5bbc91289.png#gh-dark-mode-only)![GitHub-Mark-Dark](./images/light-logo-v1.png#gh-dark-mode-only#gh-dark-mode-only)
+<p align="center" class="dark-mode">
+  <img src="./images/dark-logo-v1.png#gh-dark-mode-only" alt="screenshot" height="350" />
+</p>
+
+<p align="center" class="light-mode">
+  <img src="./images/dark-logo-v1.png#gh-light-mode-only" alt="screenshot" height="350" />
+</p>
 
 > ⚠️ Under Construction put here incase anyone visits this repo before it's ready.
 
