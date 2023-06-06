@@ -89,7 +89,7 @@ export const initSession = () => {
 
 
 
-const navigationHandler = (state: string, title: string, url: string) => {
+const navigationHandler = (_: string, __: string, url: string) => {
 	if (!url) return;
 	const currentRef = window.lli.currentRef;
 	const currentUrl = window.lli.currentUrl;
