@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { EventsWithData } from "@loglib/core/types";
+import { EventsWithData } from "@loglib/core";
 import { ChevronDown, ChevronRight, ChevronsUpDown, UnfoldVertical } from "lucide-react";
 import React from "react";
 

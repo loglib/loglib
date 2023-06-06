@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react"
-import { EventsWithData } from "@loglib/core/types"
+import { EventsWithData } from "@loglib/core"
 import { DataTable } from "./tableData"
 import { columns } from "./column"
 import { renderSubComponent } from "./detailModal"
