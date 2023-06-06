@@ -1,19 +1,13 @@
 {
-    "compilerOptions": {
-        "sourceMap": true,
-        "jsx": "react",
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "esModuleInterop": true,
-        "strict": false,
-        "types": [
-            "vitest/globals"
-        ]
-    },
-    "include": [
-        "src/**/*",
-        "test/**/*",
-        "tsup.config.ts",
-        "vite.config.ts"
-    ],
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "sourceMap": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "strict": false,
+    "types": ["vitest/globals"]
+  },
+  "include": ["src/**/*", "test/**/*", "tsup.config.ts", "vite.config.ts"]
 }

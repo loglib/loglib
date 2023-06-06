@@ -30,14 +30,11 @@ const filterRoot = <T extends Record<S, Primitive>, S extends keyof T>(
             case "isNot":
                 return item[key] !== value;
             case "contains":
-                const a = item[key] as Array<string>;
-                return a.includes(value as string);
+                return (item[key] as Array<string>).includes(value as string);
             case "notContains":
-                const b = item[key] as Array<string>;
-                return !b.includes(value as string);
+                return !(item[key] as Array<string>).includes(value as string);
             case "gt":
-                const c = item[key] as number
-                return c > (value as number);
+                return (item[key] as number) > (value as number);
             case "lt":
                 return (item[key] as number) < (value as number);
             case "gte":

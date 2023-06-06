@@ -23,7 +23,7 @@ export function checkDoNotTrackClass(e: DomEvent) {
 		e.target.hasAttribute("doNotTrack")
 	) {
 		return true;
-	}
+	} return false
 }
 
 export const getUrlParams = () => {
@@ -59,7 +59,9 @@ export function detectEnvironment() {
 		if (env === "development" || env === "test") {
 			return "dev";
 		}
-	} catch (e) { }
+	} catch (e) {
+		return e
+	}
 	return "prod";
 }
 
@@ -108,4 +110,5 @@ export function getUrl() {
 	if (process.env.NEXT_PUBLIC_VERCEL_URL) {
 		return '/api/loglib'
 	}
+	return "/api/loglib"
 }
