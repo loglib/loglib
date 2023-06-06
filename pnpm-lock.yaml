@@ -248,6 +248,7 @@ importers:
       lucide-react: ^0.220.0
       next: ^13.4.1
       postcss: ^8.4.23
+      prop-types: ^15.6.0
       react: link:@formkit/auto-animate/react
       react-country-flag: ^3.1.0
       react-day-picker: ^8.7.1
@@ -277,6 +278,7 @@ importers:
       flag-icons: 6.7.0
       framer-motion: 10.12.16_4sj5cua6hfprxlbl2wpqwfo36u
       lucide-react: 0.220.0_r32unjednohwkobv7sozx6ckr4
+      prop-types: 15.8.1
       react-country-flag: 3.1.0_r32unjednohwkobv7sozx6ckr4
       react-day-picker: 8.7.1_zq6oxaxuide3edmc3mmjyiqewy
       recharts: 2.6.2_puw4bijdn2oqkwyybgpkb6xfwy

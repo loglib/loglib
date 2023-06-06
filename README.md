@@ -14,7 +14,9 @@
 
 > ⚠️ Under Construction put here incase anyone visits this repo before it's ready.
 
-**Loglib is a web analytics tool that helps you track your website's analytics. It's a privacy-first, built for js frameworks ecosystem and it's open source. here are more reasons you might wanna consider loglib for your project:**
+**Loglib is a web analytics tool that helps you track your website's analytics. It's a privacy-first, built for js frameworks ecosystem and it's open source.**
+
+### Why Loglib
 
 - Why not?
 - No need to deploy it separately. You can easily attach Loglib to your Next js app (more framework support soon), and you can see your website analytics. (despite having 0 users)
@@ -165,10 +167,10 @@ export default createServer({
 
 Create a page somewhere you want to see your dashboard and just export the dashboard component
 
-`app/analytics/page.tsx`
+`app/analytics/page.tsx` or `pages/analytics.tsx`
 
 ```ts
-"use client";
+"use client"; // Next 13 Only
 
 import { Dashboard } from "@loglib/ui";
 import "@loglib/ui/dist/index.css";
@@ -206,7 +208,7 @@ export default function RootLayout({
 }
 ```
 
-more info on [tracker](#tracker)
+more info on [tracker](#Tracker-Loglib)
 
 ### Next JS With Supabase
 
@@ -329,16 +331,18 @@ export default createServer({
 
 Create a page somewhere you want to see your dashboard and just export the dashboard component
 
-`app/analytics/page.tsx`
+`app/analytics/page.tsx` or `pages/analytics.tsx`
 
 ```ts
-"use client";
+"use client"; // Next 13 Only
 
 import { Dashboard } from "@loglib/ui";
 import "@loglib/ui/dist/index.css";
 
 export default Dashboard;
 ```
+
+Now you can navigate to this page and see your analytics. But it will be empty because we haven't setup the tracker yet.
 
 > NOTE: you probably want to protect this route with some kind of authentication. Either by using a middleware or export the dashboard component inside a protected route.
 
@@ -369,6 +373,8 @@ export default function RootLayout({
   );
 }
 ```
+
+more info on [tracker](#Tracker-Loglib)
 
 ---
 

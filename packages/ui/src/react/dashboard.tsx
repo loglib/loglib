@@ -269,18 +269,18 @@ export function Dashboard() {
                           </TabsList>
 
                           <TabsContent value="pages">
-                            <PagesComponent pageViews={data && data.data.pages} filter={filter} isLoading={isLoading} />
+                            <PagesComponent pageViews={data ? data.data.pages : []} filter={filter} isLoading={isLoading} />
                           </TabsContent>
                           <TabsContent value="locations">
-                            <LocationsComponent country={data && data.data.locations.country} city={data && data.data.locations.city} filter={filter} isLoading={isLoading} />
+                            <LocationsComponent country={data ? data.data.locations.country : []} city={data ? data.data.locations.city : []} filter={filter} isLoading={isLoading} />
                           </TabsContent>
                           <TabsContent value="ref">
-                            <RefComponent refs={data && data.data.referrer} filter={filter} isLoading={isLoading} />
+                            <RefComponent refs={data ? data.data.referrer : []} filter={filter} isLoading={isLoading} />
                           </TabsContent>
 
 
                           <TabsContent value="device">
-                            <DeviceComponent devices={data && data.data.devices} os={data && data.data.os} browser={data && data.data.browser} filter={filter} isLoading={isLoading} />
+                            <DeviceComponent devices={data ? data.data.devices : []} os={data ? data.data.os : []} browser={data ? data.data.browser : []} filter={filter} isLoading={isLoading} />
                           </TabsContent>
                         </Tabs>
                       </Card>
