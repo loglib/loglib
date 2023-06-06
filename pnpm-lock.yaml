@@ -38,7 +38,7 @@ importers:
       '@loglib/next': 0.0.9
       '@loglib/prisma-adapter': 0.0.8
       '@loglib/tracker': 0.0.6
-      '@loglib/ui': 0.0.8
+      '@loglib/ui': 0.0.9
       '@prisma/client': ^4.14.0
       '@types/node': ^18.15.13
       '@types/react': ^18.2.0
@@ -80,7 +80,7 @@ importers:
       '@loglib/next': 0.0.9
       '@loglib/supabase-adapter': 0.0.8
       '@loglib/tracker': 0.0.6
-      '@loglib/ui': 0.0.8
+      '@loglib/ui': 0.0.9
       '@supabase/supabase-js': ^2.24.0
       '@types/node': ^18.15.13
       '@types/react': ^18.2.0
