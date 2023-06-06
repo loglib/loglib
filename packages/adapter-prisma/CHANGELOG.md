@@ -1,5 +1,15 @@
 # @loglib/prisma-adapter
 
+## 0.0.8
+
+### Patch Changes
+
+- eca489c: bug fixes
+- Updated dependencies [99463ad]
+- Updated dependencies [eca489c]
+- Updated dependencies [e671324]
+  - @loglib/core@0.0.8
+
 ## 0.0.7
 
 ### Patch Changes

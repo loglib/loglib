@@ -1,5 +1,13 @@
 # @loglib/core
 
+## 0.0.8
+
+### Patch Changes
+
+- 99463ad: bug fixes
+- eca489c: bug fixes
+- e671324: bug fixes for page route
+
 ## 0.0.7
 
 ### Patch Changes
