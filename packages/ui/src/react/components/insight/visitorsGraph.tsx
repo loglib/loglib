@@ -1,6 +1,6 @@
 "use client"
 import { LucideIcon } from "lucide-react"
-import React, { Fragment, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
 export function Graph({ data, name, Icon }: { data: { date: string, visits: number }[], name: string, Icon: LucideIcon }) {
