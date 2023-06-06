@@ -60,7 +60,7 @@ export function detectEnvironment() {
 			return "dev";
 		}
 	} catch (e) {
-		return e
+		return "prod"
 	}
 	return "prod";
 }
