@@ -198,7 +198,7 @@ export function Dashboard() {
                       <InsightCard
                         title={"Average Time"}
                         Icon={TimerIcon}
-                        data={data && data.insight.averageTime[by]}
+                        data={data ? data.insight.averageTime[by] : { change: 0, total: 0 }}
                         valuePrefix={by === "byMin" ? "min" : "sec"}
                         bottomChildren={(
                           <div className=" flex space-x-2 text-sm items-center">
@@ -212,7 +212,7 @@ export function Dashboard() {
                         valuePrefix={"%"}
                         Icon={Activity}
                         negative
-                        data={data && data.insight.bounceRate}
+                        data={data ? data.insight.bounceRate : { change: 0, total: 0 }}
                         isLoading={isLoading}
                       />
 

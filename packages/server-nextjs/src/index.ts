@@ -8,11 +8,16 @@ const createServer = (options: LogLibOptions) => {
         if (!req.method) {
             return res.status(400).json({ message: "bad request" })
         }
-        //parse body
-        const body = JSON.parse(req.body as string) as Record<string, string>
-        req.body = body
-        const response = await internalRouter(req, options)
-        return res.status(response.code).json({ message: response.message })
+        if (req.method === "POST") {
+            //parse body
+            const body = JSON.parse(req.body as string) as Record<string, string>
+            req.body = body
+            const response = await internalRouter(req, options)
+            return res.status(response.code).json({ message: response.message })
+        } else if (req.method === "GET") {
+            const response = await internalRouter(req, options)
+            return res.status(response.code).json({ message: response.message })
+        }
     }
 }
 

@@ -1,4 +1,4 @@
 export * from './error'
 export * from './types'
-export * from './router'
+export { internalRouter } from './router'
 export * from "./adapters"
