@@ -10,13 +10,5 @@ export default defineConfig((opts) => ([
         outDir: "dist",
         target: "es2017",
         dts: true,
-    },
-    {
-        entryPoints: ["src/types/index.ts"],
-        format: ["cjs", "esm"],
-        clean: !opts.watch,
-        outDir: "dist/types",
-        target: "es2017",
-        dts: true,
     }
 ]));
