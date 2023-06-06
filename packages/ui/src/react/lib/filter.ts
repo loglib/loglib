@@ -1,4 +1,4 @@
-import { OperatorType } from "@loglib/core/types";
+import { OperatorType } from "@loglib/core";
 
 export type Filter = {
     key: string;

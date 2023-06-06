@@ -7,7 +7,7 @@ import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";
 import useSWR from 'swr'
 import { changeTheme, fetcher, getTheme } from "./lib/utils";
-import { GetInsightResponse } from "@loglib/core/types"
+import { GetInsightResponse } from "@loglib/core"
 import { InsightCard } from "./components/insight/insightCard";
 import { Activity, Asterisk, Eye, Laptop2, MapPin, MonitorSmartphone, PanelTop, TimerIcon, UserIcon, Users2 } from "lucide-react";
 import { Switch } from "./components/ui/switch";

@@ -9,11 +9,9 @@
     "build": "tsup",
     "dev": "tsup --watch"
   },
-  "exports": {
-    ".": "./dist/index.js",
-    "./types": "./dist/types/index.js",
-    "./package.json": "./package.json"
-  },
+  "exports": [
+    "./dist/index.js"
+  ],
   "dependencies": {
     "detect-browser": "^5.3.0",
     "isbot": "^3.6.10",
@@ -22,16 +20,7 @@
     "tar": "^6.1.14",
     "zod": "^3.21.4"
   },
-  "typesVersions": {
-    ".": {
-      ".": [
-        "./dist/index.d.ts"
-      ],
-      "types": [
-        "./dist/types/index.d.ts"
-      ]
-    }
-  },
+  "types": "./dist/index.d.ts",
   "files": [
     "dist",
     "package.json"
