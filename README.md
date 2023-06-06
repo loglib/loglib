@@ -19,228 +19,38 @@
 - Why not?
 - No need to deploy it separately. You can easily attach Loglib to your Next js app (more framework support soon), and you can see your website analytics. (despite having 0 users)
 - Keep all your data in your existing database, you have the freedom to store your data in your existing db or your choice of db. We currently support prisma and supabase adapters but more supports are on the way.
-- A beautiful dashboard built with Shadcn UI.
-- Privacy first GDPR compliant out of the box but can be customized.
+- Behold the beauty of your dashboard, powered by Shadcn UI.
+- Privacy-first and GDPR compliant out of the box, with customization options.
 - You can see basic analytics like vercel analytics but also events aren't paid and it's better than...
-- Your mom will be impressed.
+- Your mom will be impressed. Prepare for a proud parent moment.
 - And more things are on the way.
 
+### Next JS
 
-### Quick Links
-<div>
-<p>
-  <a href="#Tracker">
-  <strong style="color:blue;">
-Tracker
-  </strong>
-  </a>
-</p>
-<p>
-  <a href="#Prisma">
-  <strong style="color:blue;">
-  Server with Prisma
-  </strong>
-  </a>
-</p>
-<p>
-  <a href="#Supabase">
-  <strong style="color:blue;">
-  Server with Supabase
-  </strong>
-  </a>
-</p>
-<p>
-  <a href="#Dashboard">
-  <strong style="color:blue;">
-  Dashboard
-  </strong>
-  </a>
-</p>
-</div>
+- [With Prisma](#next-js-with-prisma)
+- [With Supabase](#next-js-with-supabase)
 
+### Advanced Usage 🔥
+
+- [Basic Concept](#Basic-Concept)
+- [Tracker](#LogLib-Tracker)
+- [Server](#Loglib-Server)
+- [Dashboard](#Loglib-Dashboard)
+- [Upgrading](#Upgrading)
 
 ## Get Started
 
-Loglib is consist of three things:
+### Next JS With Prisma
 
-1. **Tracker**: This component tracks your website's analytics.
-2. **Loglib Server**: It handles requests without requiring a separate deployment if you already have a backend.
-3. **Loglib Dashboard**: It offers a beautiful, minimalistic UI to display your analytics.
-  
-The idea is that you can integrate a tracker into your website, similar to other analytics tools. However, instead of sending the data to a third-party server or a separately deployed thing like umami (which we love), it is sent to your current server, which can be set up as an endpoint in your Next.js application (other alternatives in the near future). Then, you can utilize a dashboard that is currently built as a React component (again more frameworks soon). You can export this component as page, enabling you to conveniently view and analyze your website analytics.
-
-### Installation: Just like every other libraries out there
+1. **Install like every other library**
 
 ```bash
-pnpm add @loglib/tracker
+pnpm i @loglib/tracker @loglib/next @loglib/prisma-adapter @loglib/ui
 ```
 
-```bash
-pnpm add @loglib/next
-```
+2. **Copy the following schema to your prisma schema file**
 
-```bash
-pnpm add @loglib/ui
-```
-
-## Tracker
-
-let's first setup the tracker to collect data from your website.
-
-### Next-js
-
-App Route
-
-`src/app/layout.tsx`
-
-```js
-import LogLib from '@loglib/tracker/react';
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en">
-      <body>
-         <LogLib config={{
-          //  your config here
-         }} />
-        {children}
-      </body>
-    </html>
-  )
-}
-```
-
-Page Route
-
-`src/pages/_app.tsx`
-
-```js
-import LogLib from '@loglib/tracker';
-export default function App({ Component, pageProps }: AppProps) {
-  return (
-    <>
-      <LogLib config={{}} />
-      <Component {...pageProps} />
-    </>
-  )
-}
-```
-
-> IMPORTANT: By default the tracker will send data to the loglib server at the current url on route `/api/loglib` if you need to change that you can put LOGLIB_URL in your environment variables with the full path.
-
-### Other Methods
-
-If you want to track a specific event, you can use the `track` method.
-
-```js
-import {loglib} from '@loglib/tracker';
-export default function page() {
-  return (
-    <>
-      <button onClick={() => loglib.track("search", {term: "iphone"})}>Search</button>
-    </>
-  )
-}
-```
-
-To identify a user, you can use the `identify` method.
-*this doesn't work unless you have a consent from the user. (more on that below)*
-
-```js
-import {loglib} from '@logLib/tracker';
-export default function page() {
-  return (
-    <>
-      <button onClick={() => loglib.identify({id: "1", name: "Joe Rogan"})}>Identify</button>
-    </>
-  )
-}
-
-// Identify we know this is hot topic
-// Yeah just pass an object you want to identify the user with
-```
-
-### User Concent
-
-By default, Loglib tries to track users using their IP address. But, we know you're smart enough to know relying on IP addresses isn't the most reliable way to identify unique users. So, if you want to track better, here's what you can do:
-
-**Step 1:** Display a fancy cookie message on your website. (we'll leave the design up to you but might provide something in the future)
-
-**Step 2**: Once your users click that "Accept" button, trigger the Loglib consent function. This will use local storage to assign a unique identifier to each of your users.
-
-```js
-import {loglib} from '@loglib/tracker';
-export default function page() {
-  return (
-    <>
-      <button onClick={() => loglib.setConsent("granted")}>Accept</button>
-    </>
-  )
-}
-```
-
-> NOTE: If you don't want to show cookie message, but still want to track using user consent, you can set the consent to "granted" by default.
-
-```js
-import LogLib from '@loglib/tracker/react';
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en">
-      <body>
-         <LogLib config={{
-            consent: "granted"
-         }} />
-        {children}
-      </body>
-    </html>
-  )
-}
-```
-
-| options        | type    | default     | description                               |
-| -------------- | ------- | ----------- | ----------------------------------------- |
-| `autoTrack`    | boolean | `false`     | Automatically track click events with onclick handlers and on buttons         |
-| `consent`      | string  | `"granted"` | The consent status of the user            |
-| `debug`        | boolean | `false`     | Enable debug mode                         |
-| `env`          | string  | `"auto"`    | The environment of the tracker            |          |
-| `postInterval` | number  | `5`         | The interval to send events to the server |
-
-### Other Frameworks
-
-if you're not using next js or react you can use the vanilla version of the tracker that works on any framework just call the record function on the entry point of your application here is example for astro.
-
-```js
-<script>
-  import {record} from '@loglib/tracker-js';
-  record({
-    // your config here
-  })
-</script>
-```
-
-> NOTE: currently you can't use loglib server or dashboard in other frameworks other than next js or react but you can attach the dashboard on astro since you can use react in astro and we'll provide astro server soon. And you can always deploy a new next js project separated from your main project and use it as a dashboard and a server. See the example folder for more.
-
-## Server
-
-first you need to setup a database and an adapter for the server to work.
-> we currently only support prisma and supabase adapters but more adapters are on the way.
-
-### Prisma
-
-```bash
-pnpm add @loglib/prisma-adapter
-```
-
-copy this schema to your schema file
-
-#### Relational DB
+**Relational DB**
 
 ```prisma
 model WebUser {
@@ -314,37 +124,33 @@ model WebEvent {
     @@map("web_event")
 }
 ```
-#### Mongo DB
 
-comming soon
+3. **Let's setup the server**
 
-#### app route
+**App Route**
 
-put this code in `src/app/loglib/api/route.ts` I know the route isn't ideal if you want to change it something else just put `LOGLIB_URL` in your env file with the full url path.
+create a file `app/api/loglib/route.ts`
 
-```js
-import { createServerRoutes } from "@loglib/next"
-import { prismaAdapter } from "@loglib/prisma-adapter"
-import { PrismaClient } from "@prisma/client"
+```ts
+import { createServerRoutes } from "@loglib/next";
+import { prismaAdapter } from "@loglib/prisma-adapter";
+import { PrismaClient } from "@prisma/client";
 
-const db = new PrismaClient()
-
+const db = new PrismaClient();
 
 export const { POST, GET } = createServerRoutes({
-    adapter: prismaAdapter(db)
-})
+  adapter: prismaAdapter(db),
+});
 ```
 
-#### pages route
+**Pages Route**
 
 put this code in `src/pages/api/loglib.ts`
 
-if you wan
-
 ```js
-import { createServer } from '@loglib/next';
-import { PrismaClient } from '@prisma/client';
-import {prismaAdapter} from '@loglib/prisma-adapter';
+import { createServer } from "@loglib/next";
+import { PrismaClient } from "@prisma/client";
+import { prismaAdapter } from "@loglib/prisma-adapter";
 
 const prisma = new PrismaClient();
 
@@ -353,12 +159,64 @@ export default createServer({
 });
 ```
 
-### Supabase
+> NOTE: If you want to change the default path of loglib server you can add LOGLIB_URL in your environment variables specifying the full path to your loglib server api url.
+
+4. **Let's setup Dashboard to see our analytics. (yeah not ours it's yours)**
+
+Create a page somewhere you want to see your dashboard and just export the dashboard component
+
+`app/analytics/page.tsx`
+
+```ts
+"use client";
+
+import { Dashboard } from "@loglib/ui";
+import "@loglib/ui/dist/index.css";
+
+export default Dashboard;
+```
+
+> NOTE: you probably want to protect this route with some kind of authentication. Either by using a middleware or export the dashboard component inside a protected route.
+
+5. **Let's setup the tracker to collect analytics**
+
+`src/app/layout.tsx`
+
+```ts
+import LogLib from "@loglib/tracker/react";
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body>
+        <LogLib
+          config={
+            {
+              //  your config here
+            }
+          }
+        />
+        {children}
+      </body>
+    </html>
+  );
+}
+```
+
+more info on [tracker](#tracker)
+
+### Next JS With Supabase
+
+1. **Install like every other library**
 
 ```bash
-pnpm add @loglib/supabase-adapter
+pnpm i @loglib/tracker @loglib/next @loglib/supabase-adapter @loglib/ui
 ```
-run this in your supabae sql editor ro setup tables
+
+2. **Copy the following to supabase sql editor and run it**
 
 ```sql
 create table if not exists
@@ -422,37 +280,271 @@ create table if not exists
     constraint web_event_session_id_fkey foreign key (session_id) references web_session (id) on delete cascade,
     constraint web_event_user_id_fkey foreign key (user_id) references web_user (id) on update cascade on delete cascade
   ) tablespace pg_default;
- 
+
 ```
-#### app route
 
-```js
-import { createServerRoutes } from "@loglib/next"
-import { supabaseAdapter } from "@loglib/supabase-adapter"
-import { createClient } from "@supabase/supabase-js"
+3. **Let's setup the server**
 
-const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_KEY);
+**App Route**
 
+create a file `app/api/loglib/route.ts`
+
+```ts
+import { createServerRoutes } from "@loglib/next";
+import { supabaseAdapter } from "@loglib/supabase-adapter";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY
+);
 
 export const { POST, GET } = createServerRoutes({
-    adapter: supabaseAdapter(supabase)
-})
-
+  adapter: supabaseAdapter(supabase),
+});
 ```
 
-#### pages route
+> NOTE: If you want to change the default path of loglib server you can add LOGLIB_URL in your environment variables specifying the full path to your loglib server api url.
 
-```js
-import { createServer } from '@loglib/next';
-import { createClient } from '@supabase/supabase-js';
-import {supabaseAdapter} from '@loglib/supabase-adapter';
+**Pages Route**
 
-const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_KEY);
+put this code in `src/pages/api/loglib.ts`
+
+```ts
+import { createServer } from "@loglib/next";
+import { supabaseAdapter } from "@loglib/supabase-adapter";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY
+);
 
 export default createServer({
   adapter: supabaseAdapter(supabase),
 });
 ```
+
+4. **Let's setup Dashboard to see our analytics. (yeah not ours it's yours)**
+
+Create a page somewhere you want to see your dashboard and just export the dashboard component
+
+`app/analytics/page.tsx`
+
+```ts
+"use client";
+
+import { Dashboard } from "@loglib/ui";
+import "@loglib/ui/dist/index.css";
+
+export default Dashboard;
+```
+
+> NOTE: you probably want to protect this route with some kind of authentication. Either by using a middleware or export the dashboard component inside a protected route.
+
+5. **Let's setup the tracker to collect analytics**
+
+`src/app/layout.tsx`
+
+```ts
+import LogLib from "@loglib/tracker/react";
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body>
+        <LogLib
+          config={
+            {
+              //  your config here
+            }
+          }
+        />
+        {children}
+      </body>
+    </html>
+  );
+}
+```
+
+---
+
+## Advanced Usage
+
+### Basic Concept
+
+Loglib is consist of three things:
+
+1. **Tracker**: This component tracks your website's analytics.
+2. **Loglib Server**: It handles requests without requiring a separate deployment if you already have a backend.
+3. **Loglib Dashboard**: It offers a beautiful, minimalistic UI to display your analytics.
+
+The idea is that you can integrate a tracker into your website, similar to other analytics tools. However, instead of sending the data to a third-party server or a separately deployed thing like umami (which we love), it is sent to your current server, which can be set up as an endpoint in your Next.js application (other alternatives in the near future). Then, you can utilize a dashboard that is currently built as a React component (again more frameworks soon). You can export this component as page, enabling you to conveniently view and analyze your website analytics.
+
+### Loglib Tracker
+
+#### Next-js
+
+App Route
+
+`src/app/layout.tsx`
+
+```js
+import LogLib from "@loglib/tracker/react";
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode,
+}) {
+  return (
+    <html lang="en">
+      <body>
+        <LogLib
+          config={
+            {
+              //  your config here
+            }
+          }
+        />
+        {children}
+      </body>
+    </html>
+  );
+}
+```
+
+Page Route
+
+`src/pages/_app.tsx`
+
+```js
+import LogLib from "@loglib/tracker";
+export default function App({ Component, pageProps }: AppProps) {
+  return (
+    <>
+      <LogLib config={{}} />
+      <Component {...pageProps} />
+    </>
+  );
+}
+```
+
+> IMPORTANT: By default the tracker will send data to the loglib server at the current url on route `/api/loglib` if you need to change that you can put LOGLIB_URL in your environment variables with the full path.
+
+### Other Methods
+
+If you want to track a specific event, you can use the `track` method.
+
+```js
+import { loglib } from "@loglib/tracker";
+export default function page() {
+  return (
+    <>
+      <button onClick={() => loglib.track("search", { term: "iphone" })}>
+        Search
+      </button>
+    </>
+  );
+}
+```
+
+To identify a user, you can use the `identify` method.
+_this doesn't work unless you have a consent from the user. (more on that below)_
+
+```js
+import { loglib } from "@logLib/tracker";
+export default function page() {
+  return (
+    <>
+      <button onClick={() => loglib.identify({ id: "1", name: "Joe Rogan" })}>
+        Identify
+      </button>
+    </>
+  );
+}
+
+// Identify we know this is hot topic
+// Yeah just pass an object you want to identify the user with
+```
+
+### User Concent
+
+By default, Loglib tries to track users using their IP address. But, we know you're smart enough to know relying on IP addresses isn't the most reliable way to identify unique users. So, if you want to track better, here's what you can do:
+
+**Step 1:** Display a fancy cookie message on your website. (we'll leave the design up to you but might provide something in the future)
+
+**Step 2**: Once your users click that "Accept" button, trigger the Loglib consent function. This will use local storage to assign a unique identifier to each of your users.
+
+```js
+import { loglib } from "@loglib/tracker";
+export default function page() {
+  return (
+    <>
+      <button onClick={() => loglib.setConsent("granted")}>Accept</button>
+    </>
+  );
+}
+```
+
+> NOTE: If you don't want to show cookie message, but still want to track using user consent, you can set the consent to "granted" by default.
+
+```js
+import LogLib from "@loglib/tracker/react";
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode,
+}) {
+  return (
+    <html lang="en">
+      <body>
+        <LogLib
+          config={{
+            consent: "granted",
+          }}
+        />
+        {children}
+      </body>
+    </html>
+  );
+}
+```
+
+| options        | type    | default     | description                                                           |
+| -------------- | ------- | ----------- | --------------------------------------------------------------------- | --- |
+| `autoTrack`    | boolean | `false`     | Automatically track click events with onclick handlers and on buttons |
+| `consent`      | string  | `"granted"` | The consent status of the user                                        |
+| `debug`        | boolean | `false`     | Enable debug mode                                                     |
+| `env`          | string  | `"auto"`    | The environment of the tracker                                        |     |
+| `postInterval` | number  | `5`         | The interval to send events to the server                             |
+
+### Other Frameworks
+
+if you're not using next js or react you can use the vanilla version of the tracker that works on any framework just call the record function on the entry point of your application here is example for astro.
+
+```js
+<script>
+  import {record} from '@loglib/tracker-js'; record(
+  {
+    // your config here
+  })
+</script>
+```
+
+> NOTE: currently you can't use loglib server or dashboard in other frameworks other than next js or react but you can attach the dashboard on astro since you can use react in astro and we'll provide astro server soon. And you can always deploy a new next js project separated from your main project and use it as a dashboard and a server. See the example folder for more.
+
+### Loglib Server
+
+first you need to setup a database and an adapter for the server to work.
+
+> we currently only support prisma and supabase adapters but more adapters are on the way.
+
+See on [nextjs with supabase](#next-js-with-supabase) or [nextjs with prisma](#next-js-with-prisma) to see how to setup one. Then you need to create a server handler that will handle the requests from the tracker. Also you can see that on the above links.
+
+#### Resolving User Location from IP
 
 for getting user location using their ip you have 3 options:
 
@@ -465,49 +557,83 @@ pnpm loglib setup:maxmind
 
 > this will download the maxmind database and put it in your project root directory under geo folder.
 
-3. you can pass a custom function to get location
+3. you can also provide a custom implementation for getting the user location by passing a function to the `getLocation` option.
 
-```js
-import { createServer } from '@loglib/next';
-import { PrismaClient } from '@prisma/client';
-import {prismaAdapter} from '@loglib/prisma-adapter';
+```ts
+import { createServer } from "@loglib/next";
+import { PrismaClient } from "@prisma/client";
+import { prismaAdapter } from "@loglib/prisma-adapter";
 
 const db = new PrismaClient();
 const POST = Next13({
-    adapter: prismaAdapter(db),
-    getLocation: async (ip) => {
-        // do your thing
-        return {
-            city: "city",
-            country: "country",
-        }
-    }
-})
+  adapter: prismaAdapter(db),
+  async getLocation(ip) {
+    // do your thing
+    return {
+      city: "city",
+      country: "country",
+    };
+  },
+});
 ```
 
-| options        | type    | default     | description                               |
-| -------------- | ------- | ----------- | ----------------------------------------- |
-| `adapter`    | Adapter | `none`     |  a database adapter
-| `getLocation`      | function  | `none` | a custom location finder using ip address           |                        |
-| `disableLocation`          | boolean | `false`    | to disable location resolver
+4. You can disable location from being resolved by passing `true` to the `disableLocation` option.
 
-okay now you're tracker is up and your server is listening!!
+```ts
+import { createServer } from "@loglib/next";
+import { PrismaClient } from "@prisma/client";
+import { prismaAdapter } from "@loglib/prisma-adapter";
 
-## Dashboard
+const db = new PrismaClient();
 
-now let's get this bad boy to display something
+const POST = Next13({
+  adapter: prismaAdapter(db),
+  disableLocation: true,
+});
+```
 
-create a page somewhere you want too and just export the dashboard component
+### Loglib Dashboard
+
+You can use the loglib dashboard which is react only right now but there is a plan to support more frameworks in the future.
+
+```bash
+pnpm add @loglib/ui
+```
+
+then export the dashboard wherever you want in your app.
 
 ```js
-"use client"; //for next 13 only
+import { Dashboard } from "@loglib/ui";
+import "@loglib/ui/dist/index.css";
 
-import { Dashboard } from '@loglib/ui';
-import "@loglib/ui/dist/index.css"
-
-export default Dashboard;
+export default function page() {
+  return (
+    <>
+      <Dashboard />
+    </>
+  );
+}
 ```
 
-> NOTE: you probably want to protect this route with some kind of authentication. Either by using a middleware or export the dashboard component inside a protected route.
+You probably want to protect the dashboard with some kind of auth check. We're building custom implementation for that which will be optional but you can use any auth library you want. Here is an example using next auth.
 
-yeah that's it now you have a tracker, a server to handle your request and a beautiful dashboard to display your analytics!!!
+```ts
+import { Dashboard } from "@loglib/ui";
+import "@loglib/ui/dist/index.css";
+import { useSession } from "next-auth/client";
+
+export default function page() {
+  const [session, loading] = useSession();
+  if (loading) return <div>Loading...</div>;
+  if (!session) return <div>Access Denied</div>;
+  return (
+    <>
+      <Dashboard />
+    </>
+  );
+}
+```
+
+### Upgrading
+
+Loglib is always evolving it might not be usual to update libraries in production apps frequently but you might wanna look at loglib a bit different. There will be always new features and fixes so you might wanna update your loglib version from time to time. We'll try to keep the updates as smooth as possible but since we're still in beta there might be breaking changes but we'll try to keep them to a minimum. You can see the changelog for more info.

@@ -2,7 +2,7 @@ import { Adapter } from "."
 
 export type LogLibOptions = {
     adapter: Adapter,
-    getLocation?: () => Promise<{ city: string | null, country: string | null }>,
+    getLocation?: (ip: string) => Promise<{ city: string | null, country: string | null }>,
     disableLocation?: boolean,
     apiKey?: string,
     environment?: "development" | "production" | "test",

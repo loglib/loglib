@@ -4,25 +4,21 @@ const config = {
   parser: "@typescript-eslint/parser",
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: [
-      "./examples/*/tsconfig.json",
-      "./packages/*/tsconfig.json",
-    ],
+    project: ["./examples/*/tsconfig.json", "./packages/*/tsconfig.json"],
   },
   plugins: ["@typescript-eslint"],
   extends: [
+    "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
   ],
-  "overrides": [
+  overrides: [
     {
-      "files": ["**/tsup.config.ts"],
-      "parserOptions": {
-        "project": [
-          "./tsconfig.json"
-        ]
-      }
-    }
+      files: ["**/tsup.config.ts"],
+      parserOptions: {
+        project: ["./tsconfig.json"],
+      },
+    },
   ],
   rules: {
     "@typescript-eslint/no-unused-vars": [
@@ -46,9 +42,8 @@ const config = {
     ".eslintrc.cjs",
     "**/config.*",
     "tailwind.config.js",
-    "postcss.config.js"
+    "postcss.config.js",
   ],
-  
 };
 
 module.exports = config;
