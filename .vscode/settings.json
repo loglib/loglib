@@ -1,8 +1,4 @@
 {
-    "cSpell.words": [
-        "clsx",
-        "lucide",
-        "yxxx"
-    ],
-    "typescript.tsdk": "node_modules/typescript/lib"
+  "cSpell.words": ["clsx", "fkey", "lucide", "pkey", "tablespace", "yxxx"],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

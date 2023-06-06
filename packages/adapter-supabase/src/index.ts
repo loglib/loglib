@@ -2,7 +2,6 @@ import { Adapter, Events, PageView, Session, User, snakeToCamel, camelToSnake } 
 
 import { SupabaseClient } from "@supabase/supabase-js";
 
-
 const supabaseAdapter = (db: SupabaseClient): Adapter => {
     return {
         async createSession(data) {
