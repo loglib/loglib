@@ -19,8 +19,7 @@ const config = {
       "files": ["**/tsup.config.ts"],
       "parserOptions": {
         "project": [
-          "./tsconfig.json",
-          "./packages/tracker/tsconfig.json"
+          "./tsconfig.json"
         ]
       }
     }
@@ -39,6 +38,7 @@ const config = {
     "@typescript-eslint/require-await": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
   },
   ignorePatterns: [
     "**/dist/**",
@@ -48,6 +48,7 @@ const config = {
     "tailwind.config.js",
     "postcss.config.js"
   ],
+  
 };
 
 module.exports = config;
