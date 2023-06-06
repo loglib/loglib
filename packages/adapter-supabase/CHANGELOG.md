@@ -1,5 +1,17 @@
 # @loglib/supabase-adapter
 
+## 0.0.8
+
+### Patch Changes
+
+- 99463ad: bug fixes
+- eca489c: bug fixes
+- e671324: bug fixes for page route
+- Updated dependencies [99463ad]
+- Updated dependencies [eca489c]
+- Updated dependencies [e671324]
+  - @loglib/core@0.0.8
+
 ## 0.0.7
 
 ### Patch Changes

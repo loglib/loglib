@@ -9,11 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@loglib/core": "0.0.7",
-    "@loglib/next": "0.0.8",
-    "@loglib/supabase-adapter": "0.0.7",
-    "@loglib/tracker": "0.0.5",
-    "@loglib/ui": "0.0.7",
+    "@loglib/core": "0.0.8",
+    "@loglib/next": "0.0.9",
+    "@loglib/supabase-adapter": "0.0.8",
+    "@loglib/tracker": "0.0.6",
+    "@loglib/ui": "0.0.8",
     "@supabase/supabase-js": "^2.24.0",
     "@types/node": "^18.15.13",
     "@types/react": "^18.2.0",

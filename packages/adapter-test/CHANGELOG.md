@@ -1,5 +1,11 @@
 # @loglib/adapter-test
 
+## 1.0.5
+
+### Patch Changes
+
+- eca489c: bug fixes
+
 ## 1.0.4
 
 ### Patch Changes
