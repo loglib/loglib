@@ -1,5 +1,11 @@
 # @loglib/ui
 
+## 0.0.9
+
+### Patch Changes
+
+- d16aae1: loading ui fixes and no data ui fixes
+
 ## 0.0.8
 
 ### Patch Changes
