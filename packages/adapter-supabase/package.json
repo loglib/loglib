@@ -1,32 +1,32 @@
 {
-    "name": "@loglib/supabase-adapter",
-    "version": "0.0.7",
-    "description": "",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "scripts": {
-        "test": "dotenv -e ../../.env vitest",
-        "build": "tsup",
-        "dev": "tsup --watch",
-        "typecheck": "tsc --noEmit",
-        "lint": "eslint . --ext .ts"
-    },
-    "files": [
-        "dist",
-        "package.json",
-        "README.md"
-    ],
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "devDependencies": {
-        "@loglib/adapter-test": "1.0.4",
-        "@supabase/supabase-js": "^2.24.0"
-    },
-    "dependencies": {
-        "@loglib/core": "0.0.7"
-    },
-    "peerDependencies": {
-        "@supabase/supabase-js": "^2.24.0"
-    }
+  "name": "@loglib/supabase-adapter",
+  "version": "0.0.7",
+  "description": "",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "test": "dotenv -e ../../.env vitest",
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .ts"
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@loglib/adapter-test": "1.0.4"
+  },
+  "dependencies": {
+    "@loglib/core": "0.0.7",
+    "@supabase/supabase-js": "^2.24.0"
+  },
+  "peerDependencies": {
+    "@supabase/supabase-js": "^2.24.0"
+  }
 }

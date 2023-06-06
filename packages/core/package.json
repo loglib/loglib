@@ -10,14 +10,8 @@
     "dev": "tsup --watch"
   },
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./types": {
-      "import": "./dist/types/index.js",
-      "types": "./dist/types/index.d.ts"
-    },
+    ".": "./dist/index.js",
+    "./types": "./dist/types/index.js",
     "./package.json": "./package.json"
   },
   "dependencies": {
@@ -29,8 +23,8 @@
     "zod": "^3.21.4"
   },
   "typesVersions": {
-    "*": {
-      "*": [
+    ".": {
+      ".": [
         "./dist/index.d.ts"
       ],
       "types": [
