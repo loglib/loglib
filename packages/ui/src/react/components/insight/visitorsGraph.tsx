@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 "use client"
 import { LucideIcon } from "lucide-react"
 import React, { Fragment, useEffect, useState } from "react"
