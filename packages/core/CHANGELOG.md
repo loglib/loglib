@@ -1,5 +1,11 @@
 # @loglib/core
 
+## 0.0.9
+
+### Patch Changes
+
+- dc2f69e: auth, cors and more
+
 ## 0.0.8
 
 ### Patch Changes
