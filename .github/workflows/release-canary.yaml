@@ -43,8 +43,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Install deps (with cache)
-        run: pnpm install
+      - name: Install deps
+        run: pnpm install --frozen-lockfile --prefer-offline
 
       - name: Check packages for common errors
         run: pnpm turbo --filter "./packages/*" build lint test typecheck
