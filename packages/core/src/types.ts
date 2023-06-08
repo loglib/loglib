@@ -6,6 +6,13 @@ export type LogLibOptions = {
     disableLocation?: boolean,
     apiKey?: string,
     environment?: "development" | "production" | "test",
+    auth?: {
+        secret: string,
+        expiresIn?: string | number
+    },
+    cors?: {
+        origin: string
+    }
 }
 
 export interface ApiRequest<T, S> {

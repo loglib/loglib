@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { ApiRequest, LogLibOptions } from "../types";
 import { router } from "./router";
+import { authMiddleware } from "./routes/auth/middleware";
 import { checkLocationConfig } from "./routes/session/detect/getLocation";
 
 
@@ -32,6 +33,10 @@ export const internalRouter = async (req: ApiRequest<any, any>, options: LogLibO
     const handler = route[method]
     if (!handler) {
         return { message: "Handler doesn't implement this method!", code: 400 }
+    }
+    if (route.meta?.auth && options.auth) {
+        const res = await authMiddleware(req, options, handler)
+        return res
     }
     const res = await handler(req, options)
     return res

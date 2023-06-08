@@ -8,6 +8,9 @@ const createServer = (options: LogLibOptions) => {
         if (!req.method) {
             return res.status(400).json({ message: "bad request" })
         }
+        if (options.cors) {
+            res.setHeader('Access-Control-Allow-Origin', options.cors.origin)
+        }
         if (req.method === "POST") {
             //parse body
             const body = JSON.parse(req.body as string) as Record<string, string>
@@ -23,7 +26,7 @@ const createServer = (options: LogLibOptions) => {
 
 const createServerRoutes = (options: LogLibOptions) => {
     const fn = async (req: Request) => {
-
+        req.headers.set('Access-Control-Allow-Origin', '*')
         const body = await req.json().catch(() => {
             //this will fail if it's get request so we pass
         }).then(res => res as Record<string, string>)
@@ -35,7 +38,7 @@ const createServerRoutes = (options: LogLibOptions) => {
             query: queryObject,
             cookies: cookies()
         }, options)
-        return NextResponse.json({ ...internalResponse }, { status: 200 })
+        return NextResponse.json({ ...internalResponse }, { status: internalResponse.code ?? 200 })
     }
     return { POST: fn, GET: fn }
 }

@@ -3,7 +3,7 @@ import { LucideIcon } from "lucide-react"
 import React, { useEffect, useState } from "react"
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
-export function Graph({ data, name, Icon }: { data: { date: string, visits: number }[], name: string, Icon: LucideIcon }) {
+export function Graph({ data, name, Icon, isLoading }: { data: { date: string, visits: number }[], name: string, Icon: LucideIcon, isLoading: boolean }) {
     const [isMobile, setIsMobile] = useState<boolean>()
     useEffect(() => {
         setIsMobile(window.innerWidth < 768)
@@ -55,10 +55,17 @@ export function Graph({ data, name, Icon }: { data: { date: string, visits: numb
 
                     </LineChart> : <div className=" flex flex-col justify-center gap-2">
                         <div className="text-2xl font-bold text-center ">
-                            No Data Just Yet
-                            <p className=" text-sm font-light">
-                                if you haven't setup tracker refer to the doc on how to do that. Note the tracker will only collect data on production mode
-                            </p>
+                            {
+                                isLoading ? <p className=" text-sm font-medium italic">hmm loading...</p> :
+                                    <>
+                                        <p>
+                                            No Data Just Yet
+                                        </p>
+                                        <p className=" text-sm font-light">
+                                            if you haven't setup tracker refer to the doc on how to do that. Note the tracker will only collect data on production mode
+                                        </p>
+                                    </>
+                            }
                         </div>
                     </div>
             }
