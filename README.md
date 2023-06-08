@@ -348,6 +348,7 @@ Now you can navigate to this page and see your analytics. But it will be empty b
 
 5. **Let's setup the tracker to collect analytics**
 
+**App Route**
 `src/app/layout.tsx`
 
 ```ts
@@ -370,6 +371,29 @@ export default function RootLayout({
         {children}
       </body>
     </html>
+  );
+}
+```
+
+**Pages Route**
+
+```ts
+import "../../styles/globals.css";
+import type { AppProps } from "next/app";
+import Loglib from "@loglib/tracker/react";
+
+export default function App({ Component, pageProps }: AppProps) {
+  return (
+    <>
+      <Loglib
+        config={
+          {
+            //  your config here
+          }
+        }
+      />
+      <Component {...pageProps}></Component>
+    </>
   );
 }
 ```

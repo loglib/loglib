@@ -5,9 +5,7 @@ import Loglib from '@loglib/tracker/react'
 export default function App({ Component, pageProps }: AppProps) {
     return (
         <>
-            <Loglib config={{
-                env: "prod"
-            }} />
+            <Loglib />
             <Component {...pageProps} >
             </Component>
         </>
