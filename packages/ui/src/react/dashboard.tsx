@@ -63,23 +63,9 @@ export function Dashboard() {
     document.documentElement.classList.add(theme);
   }, [0]);
 
+  console.log(data)
 
 
-
-
-  // if (!data) {
-  //   return <div className=" h-screen w-screen flex flex-col justify-center items-center animate-pulse bg-white dark:bg-background">
-  //     <div className=" flex items-center space-x-2">
-  //       <div className=" w-5 h-5 bg-emphasis rounded-full animate-bounce delay-100" />
-  //       <div className=" w-5 h-5 bg-emphasis rounded-full animate-bounce delay-400" />
-  //       <div className=" w-5 h-5 bg-emphasis rounded-full animate-bounce delay-700" />
-  //     </div>
-
-  //     <p>
-  //       Loading your dashboard 📈
-  //     </p>
-  //   </div>
-  // }
   if (error) {
     console.log(error)
     return <div className=" h-screen w-screen flex flex-col justify-center items-center  ">
