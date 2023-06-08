@@ -170,7 +170,7 @@ Create a page somewhere you want to see your dashboard and just export the dashb
 `app/analytics/page.tsx` or `pages/analytics.tsx`
 
 ```ts
-"use client"; // Next 13 Only
+"use client"; // App Route Only
 
 import { Dashboard } from "@loglib/ui";
 import "@loglib/ui/dist/index.css";
