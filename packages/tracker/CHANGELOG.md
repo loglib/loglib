@@ -1,5 +1,11 @@
 # @loglib/tracker
 
+## 0.0.7
+
+### Patch Changes
+
+- 865bf48: get url fix
+
 ## 0.0.6
 
 ### Patch Changes
