@@ -1,5 +1,13 @@
 # @loglib/next
 
+## 0.0.10
+
+### Patch Changes
+
+- dc2f69e: auth, cors and more
+- Updated dependencies [dc2f69e]
+  - @loglib/core@0.0.9
+
 ## 0.0.9
 
 ### Patch Changes
