@@ -4,8 +4,8 @@ import LogLib from "@loglib/tracker/react"
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Loglib Dashboard Demo',
-  description: 'Loglib Dashboard Demo',
+  title: 'Loglib Dashboard',
+  description: 'Loglib Dashboard',
 }
 
 export default function RootLayout({

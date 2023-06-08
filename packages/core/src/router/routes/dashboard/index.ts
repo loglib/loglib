@@ -3,5 +3,8 @@ import { getDashboardData } from "./get";
 
 
 export const dashboardRoutes: Route = {
-    GET: getDashboardData
+    GET: getDashboardData,
+    meta: {
+        auth: true
+    }
 }

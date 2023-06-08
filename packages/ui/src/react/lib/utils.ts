@@ -1,13 +1,13 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
+import axios from "axios";
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return
-export const fetcher = (...args: Parameters<typeof fetch>) => fetch(...args).then((res) => res.json()).then(res => res.data)
-
+export const fetcher = (url: string) => axios.get(url, { headers: { Authorization: `Bearer ${localStorage.getItem("ll-token") ?? ""}` } }).then((res) => res.data.data);
 
 export const getTheme = (): "dark" | "light" => {
     if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
@@ -29,3 +29,11 @@ export const changeTheme = () => {
         localStorage.setItem("theme", "light");
     }
 };
+
+export const getUrl = () => {
+    let url = "/api/loglib"
+    if (process.env.LOGLIB_URL) {
+        url = process.env.LOGLIB_URL
+    }
+    return url
+}
