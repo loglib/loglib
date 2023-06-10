@@ -2,7 +2,7 @@
 
 ## Yet Another Web Analytics Tool
 
-![npm](https://img.shields.io/npm/v/@loglib/tracker) ![npm bundle size](https://img.shields.io/bundlephobia/min/@loglib/tracker) ![GitHub license](https://img.shields.io/github/license/LogLib/loglib) ![GitHub issues](https://img.shields.io/github/issues/LogLib/loglib) ![GitHub stars](https://img.shields.io/github/stars/LogLib/loglib)
+![npm](https://img.shields.io/npm/v/@loglib/tracker) ![npm bundle size](https://img.shields.io/bundlephobia/min/@loglib/next) ![GitHub license](https://img.shields.io/github/license/LogLib/loglib) ![GitHub issues](https://img.shields.io/github/issues/LogLib/loglib) ![GitHub stars](https://img.shields.io/github/stars/LogLib/loglib)
 
 <p align="center" class="dark-mode">
   <img src="./images/dark-logo-v1.png#gh-dark-mode-only" alt="screenshot" height="350" />
@@ -27,7 +27,7 @@
 - Your mom will be impressed. Prepare for a proud parent moment.
 - And more things are on the way.
 
-### Usage with Next JS
+### Usage with Next JS 🔥
 
 #### Install like every other library
 
@@ -43,20 +43,20 @@ pnpm loglib init
 
 this will setup your project with all possible configurations. Refer to the [docs](#Docs) for more information.
 
-### Docs
+### Manual Setup
 
-### Next JS 🔥
+### Next JS
 
 - [With Prisma](#next-js-with-prisma)
 - [With Supabase](#next-js-with-supabase)
 
 ### Advanced Usage
 
-- [Basic Concept](#Basic-Concept)
-- [Tracker](#LogLib-Tracker)
-- [Server](#Loglib-Server)
-- [Dashboard](#Loglib-Dashboard)
-- [Upgrading](#Upgrading)
+- [Basic Concept](#basic-concept)
+- [Tracker](#loglib-tracker)
+- [Server](#loglib-server)
+- [Dashboard](#loglib-dashboard)
+- [Upgrading](#upgrading)
 
 ## Get Started
 
@@ -418,7 +418,7 @@ more info on [tracker](#Tracker-Loglib)
 
 ---
 
-## Advanced Usage
+## Docs
 
 ### Basic Concept
 
