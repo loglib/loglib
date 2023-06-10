@@ -28,20 +28,33 @@
     "loglib": "./dist/cli/index.js"
   },
   "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "@types/prompts": "^2.4.4",
     "@types/tar": "^6.1.5",
     "next": "^13.4.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "type-fest": "^3.11.1"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@loglib/core": "0.0.9",
+=======
+    "@loglib/core": "0.0.8",
+    "chalk": "^5.2.0",
+>>>>>>> e383dc6 (cli tool added)
     "commander": "^10.0.1",
     "dotenv": "^16.0.3",
+    "execa": "^7.1.1",
+    "fs-extra": "^11.1.1",
+    "ora": "^6.3.1",
+    "prompts": "^2.4.2",
     "tar": "^6.1.14"
   },
   "peerDependencies": {
     "next": "^13.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
-  }
+  },
+  "type": "module"
 }

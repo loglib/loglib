@@ -26,7 +26,7 @@ const createServer = (options: LogLibOptions) => {
 
 const createServerRoutes = (options: LogLibOptions) => {
     const fn = async (req: Request) => {
-        req.headers.set('Access-Control-Allow-Origin', '*')
+        options.cors && req.headers.set('Access-Control-Allow-Origin', '*')
         const body = await req.json().catch(() => {
             //this will fail if it's get request so we pass
         }).then(res => res as Record<string, string>)

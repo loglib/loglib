@@ -1,11 +1,8 @@
 {
-    "extends": "../../tsconfig.json",
-    "include": [
-        "*.ts",
-        "src",
-        "test",
-    ],
-    "exclude": [
-        "dist"
-    ]
+  "extends": "../../tsconfig.json",
+  "include": ["*.ts", "src", "test"],
+  "exclude": ["dist"],
+  "compilerOptions": {
+    "moduleResolution": "node"
+  }
 }
