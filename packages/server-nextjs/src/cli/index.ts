@@ -6,7 +6,7 @@ import prompts from "prompts"
 import { existsSync } from 'fs';
 import { Provider } from './templates/adapter';
 import fs from 'fs-extra'
-import { locationSetup } from './setups/location';
+import { download, locationSetup } from './setups/location';
 import { setupDashboard } from './setups/dashboard';
 import { setupTracker } from './setups/tracker';
 import { authSetup } from './setups/auth';
@@ -100,6 +100,9 @@ async function main() {
         await serverSetup(adapter, auth, loc === "disable", loc === "custom")
         await setupDashboard(packageManager)
         await setupTracker(packageManager)
+    })
+    program.command("setup:maxmind").description("Download maxmind database").action(async () => {
+        await download()
     })
     program.parse();
 }
