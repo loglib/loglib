@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@loglib/core": "0.0.11",
-    "@loglib/next": "0.0.12",
+    "@loglib/next": "0.0.13",
     "@loglib/supabase-adapter": "0.0.11",
     "@loglib/tracker": "0.0.8",
     "@loglib/ui": "0.0.12",
