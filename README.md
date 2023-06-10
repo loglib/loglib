@@ -41,7 +41,17 @@ loglib ships with a cli tool that helps you setup your project. You can run the 
 pnpm loglib init
 ```
 
-this will setup your project with all possible configurations. Refer to the [docs](#Docs) for more information.
+this will setup your project with all possible configurations. Refer to the [docs](#docs) for more information.
+
+### Separate Deployments
+
+1. clone <https://github.com/LogLib/loglib-starter> this repo and run `pnpm i` to install dependencies.
+2. change .env.example to .env and fill in the required env variables
+3. migrate your database with `pnpm prisma migrate` or `pnpm prisma db push`
+4. You can now deploy but if you're deploying to platforms other than vercel you need to setup location resolver for your server. [Read more](https://github.com/loglib/loglib/#resolving-user-location-from-ip)
+5. Now go to your project where you want to track and put loglib url in the `LOGLIB_URL` or `NEXT_PUBLIC_LOGLIB_URL` env variable.
+6. Install the loglib tracker in `pnpm i @loglib/tracker`
+7. Follow the instructions in the [doc](https://github.com/LogLib/loglib#loglib-tracker) to setup the tracker.
 
 ### Manual Setup
 
@@ -480,6 +490,19 @@ export default function App({ Component, pageProps }: AppProps) {
 
 > IMPORTANT: By default the tracker will send data to the loglib server at the current url on route `/api/loglib` if you need to change that you can put LOGLIB_URL in your environment variables with the full path.
 
+### Other Frameworks
+
+if you're not using next js or react you can use the vanilla version of the tracker that works on any framework just call the record function on the entry point of your application here is example for astro.
+
+```js
+<script>
+  import {record} from '@loglib/tracker-js'; record(
+  {
+    // your config here
+  })
+</script>
+```
+
 ### Other Methods
 
 If you want to track a specific event, you can use the `track` method.
@@ -566,19 +589,6 @@ export default function RootLayout({
 | `debug`        | boolean | `false`     | Enable debug mode                                                     |
 | `env`          | string  | `"auto"`    | The environment of the tracker                                        |     |
 | `postInterval` | number  | `5`         | The interval to send events to the server                             |
-
-### Other Frameworks
-
-if you're not using next js or react you can use the vanilla version of the tracker that works on any framework just call the record function on the entry point of your application here is example for astro.
-
-```js
-<script>
-  import {record} from '@loglib/tracker-js'; record(
-  {
-    // your config here
-  })
-</script>
-```
 
 > NOTE: currently you can't use loglib server or dashboard in other frameworks other than next js or react but you can attach the dashboard on astro since you can use react in astro and we'll provide astro server soon. And you can always deploy a new next js project separated from your main project and use it as a dashboard and a server. See the example folder for more.
 
