@@ -1,5 +1,11 @@
 # @loglib/core
 
+## 0.0.10
+
+### Patch Changes
+
+- bd0bdf6: cli tool added
+
 ## 0.0.9
 
 ### Patch Changes

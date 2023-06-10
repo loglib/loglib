@@ -1,5 +1,13 @@
 # @loglib/next
 
+## 0.0.11
+
+### Patch Changes
+
+- bd0bdf6: cli tool added
+- Updated dependencies [bd0bdf6]
+  - @loglib/core@0.0.10
+
 ## 0.0.10
 
 ### Patch Changes
