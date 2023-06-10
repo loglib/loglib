@@ -1,5 +1,13 @@
 # @loglib/next
 
+## 0.1.1
+
+### Patch Changes
+
+- 0d4597d: maxmind action added to the cli
+- Updated dependencies [f692ae9]
+  - @loglib/core@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes
