@@ -1,5 +1,11 @@
 # @loglib/next
 
+## 0.0.13
+
+### Patch Changes
+
+- 98469ea: log fix
+
 ## 0.0.12
 
 ### Patch Changes
