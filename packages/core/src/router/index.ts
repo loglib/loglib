@@ -34,7 +34,7 @@ export const internalRouter = async (req: ApiRequest<any, any>, options: LogLibO
     if (!handler) {
         return { message: "Handler doesn't implement this method!", code: 400 }
     }
-    if (route.meta?.auth && options.auth) {
+    if (options.auth && route.meta?.auth) {
         const res = await authMiddleware(req, options, handler)
         return res
     }
