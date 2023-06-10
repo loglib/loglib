@@ -1,5 +1,12 @@
 # @loglib/ui
 
+## 0.0.12
+
+### Patch Changes
+
+- Updated dependencies [a1f2202]
+  - @loglib/core@0.0.11
+
 ## 0.0.11
 
 ### Patch Changes
