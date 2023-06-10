@@ -1,5 +1,11 @@
 # @loglib/tracker
 
+## 0.0.9
+
+### Patch Changes
+
+- 9c428b8: the tracker will add /api/loglib by default on custom loglib url
+
 ## 0.0.8
 
 ### Patch Changes
