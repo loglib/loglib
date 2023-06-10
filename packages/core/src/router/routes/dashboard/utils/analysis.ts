@@ -185,7 +185,7 @@ export const getVisitorsByDate = (sessions: Session[], startDate: Date, endDate:
         return visitors
     } else if (range / ONE_DAY <= 364) {
         const visitors = sessions.reduce((acc, session) => {
-            const date = new Date(session.createdAt).toLocaleDateString("default", { day: "numeric" });
+            const date = new Date(session.createdAt).toLocaleDateString("default", { day: "numeric", month: "short" });
             const isFound = acc.find(p => p.date === date);
             if (isFound) {
                 isFound.visits++;
