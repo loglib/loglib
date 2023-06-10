@@ -1,5 +1,16 @@
 # @loglib/supabase-adapter
 
+## 0.1.0
+
+### Minor Changes
+
+- e48dda1: First usable release
+
+### Patch Changes
+
+- Updated dependencies [e48dda1]
+  - @loglib/core@0.1.0
+
 ## 0.0.11
 
 ### Patch Changes

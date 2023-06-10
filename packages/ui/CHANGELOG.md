@@ -1,5 +1,16 @@
 # @loglib/ui
 
+## 0.1.0
+
+### Minor Changes
+
+- e48dda1: First usable release
+
+### Patch Changes
+
+- Updated dependencies [e48dda1]
+  - @loglib/core@0.1.0
+
 ## 0.0.12
 
 ### Patch Changes
