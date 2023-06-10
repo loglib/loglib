@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { LogLibOptions, internalRouter } from "@loglib/core"
-import { NextResponse } from "next/server"
 import { cookies } from "next/headers"
 
 const createServer = (options: LogLibOptions) => {
@@ -26,10 +25,10 @@ const createServer = (options: LogLibOptions) => {
 
 const createServerRoutes = (options: LogLibOptions) => {
     const fn = async (req: Request) => {
-        options.cors && req.headers.set('Access-Control-Allow-Origin', '*')
-        const body = await req.json().catch(() => {
-            //this will fail if it's get request so we pass
-        }).then(res => res as Record<string, string>)
+        let body = {}
+        if (req.method === "POST") {
+            body = await req.json()
+        }
         const header = Object.fromEntries(new Headers(req.headers))
         const query = new URLSearchParams(req.url.split("?")[1])
         const queryObject = Object.fromEntries(query.entries());
@@ -38,7 +37,13 @@ const createServerRoutes = (options: LogLibOptions) => {
             query: queryObject,
             cookies: cookies()
         }, options)
-        return NextResponse.json({ ...internalResponse }, { status: internalResponse.code ?? 200 })
+        return new Response(JSON.stringify({ data: internalResponse.data, message: internalResponse.message, status: internalResponse.code }), {
+            status: internalResponse.code,
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': options.cors?.origin || "*"
+            }
+        })
     }
     return { POST: fn, GET: fn }
 }

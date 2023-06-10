@@ -31,7 +31,7 @@
     "@types/fs-extra": "^11.0.1",
     "@types/prompts": "^2.4.4",
     "@types/tar": "^6.1.5",
-    "next": "^13.4.1",
+    "next": "^13.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "type-fest": "^3.11.1"
