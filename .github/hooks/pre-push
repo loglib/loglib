@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# Run pnpm install with --frozen-lockfile before pushing
-pnpm install --frozen-lockfile
