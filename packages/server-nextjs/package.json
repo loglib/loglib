@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@loglib/core": "0.0.9",
+    "chalk": "^5.2.0",
     "commander": "^10.0.1",
     "dotenv": "^16.0.3",
     "execa": "^7.1.1",
