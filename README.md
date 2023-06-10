@@ -43,14 +43,6 @@ pnpm loglib init
 
 this will setup your project with all possible configurations. Refer to the [docs](#Docs) for more information.
 
-### One Click Separate Deployment
-
-You can choose one of the deployment options and you can deploy loglib dashboard and server and add loglib tracker on your site and here you go.
-Let the loglib madness begin!
-
-**Loglib With Vercel Postgres**
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FLogLib%2Floglib-starter.git&env=LOGLIB_USERNAME&envDescription=A%20username%20for%20you%20to%20login&envLink=https%3A%2F%2Fgithub.com%2FLogLib%2Floglib&project-name=loglib&repository-name=loglib&demo-title=Loglib%20Web%20Analytics&demo-description=Yet%20another%20web%20analytics%20platform&demo-url=https%3A%2F%2Floglib-dashboard.vercel.app)
-
 ### Manual Setup
 
 ### Next JS
