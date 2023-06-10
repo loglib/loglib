@@ -97,12 +97,11 @@ export function q(e: ServerEvents) {
 	window.lli.eventsBank.push(e);
 }
 
+
 export function getUrl() {
-	if (process.env.LOGLIB_URL) {
-		return process.env.LOGLIB_URL
-	}
-	if (process.env.NEXT_PUBLIC_LOGLIB_URL) {
-		return process.env.NEXT_PUBLIC_LOGLIB_URL
+	if (process.env.NEXT_PUBLIC_LOGLIB_URL || process.env.LOGLIB_URL) {
+		const url = process.env.NEXT_PUBLIC_LOGLIB_URL ?? process.env.LOGLIB_URL
+		return url + "/api/loglib"
 	}
 	if (process.env.NODE_ENV === "development") {
 		return location.origin + '/api/loglib'
