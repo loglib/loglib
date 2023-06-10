@@ -1,5 +1,11 @@
 # @loglib/core
 
+## 0.1.0
+
+### Minor Changes
+
+- e48dda1: First usable release
+
 ## 0.0.11
 
 ### Patch Changes

@@ -34,16 +34,11 @@ importers:
 
   examples/next-js-with-prisma:
     specifiers:
-<<<<<<< HEAD
-      '@loglib/core': 0.0.11
-      '@loglib/next': 0.0.13
-      '@loglib/prisma-adapter': 0.0.11
-=======
-      '@loglib/next': 0.0.12
-      '@loglib/prisma-adapter': ^0.0.11
->>>>>>> 618c4a9 (first usable release)
+      '@loglib/core': 0.1.0
+      '@loglib/next': 0.1.0
+      '@loglib/prisma-adapter': 0.0.12
       '@loglib/tracker': 0.0.8
-      '@loglib/ui': 0.0.12
+      '@loglib/ui': 0.1.0
       '@prisma/client': ^4.15.0
       '@types/node': ^18.15.13
       '@types/react': ^18.2.0
@@ -59,6 +54,7 @@ importers:
       tailwindcss: ^3.3.2
       typescript: ^5.0.4
     dependencies:
+      '@loglib/core': link:../../packages/core
       '@loglib/next': link:../../packages/server-nextjs
       '@loglib/prisma-adapter': link:../../packages/adapter-prisma
       '@loglib/tracker': link:../../packages/tracker
@@ -80,11 +76,11 @@ importers:
 
   examples/next-js-with-supabase:
     specifiers:
-      '@loglib/core': 0.0.11
-      '@loglib/next': 0.0.13
-      '@loglib/supabase-adapter': 0.0.11
+      '@loglib/core': 0.1.0
+      '@loglib/next': 0.1.0
+      '@loglib/supabase-adapter': 0.1.0
       '@loglib/tracker': 0.0.8
-      '@loglib/ui': 0.0.12
+      '@loglib/ui': 0.1.0
       '@supabase/supabase-js': ^2.24.0
       '@types/node': ^18.15.13
       '@types/react': ^18.2.0
@@ -125,7 +121,7 @@ importers:
   packages/adapter-prisma:
     specifiers:
       '@loglib/adapter-test': 1.0.5
-      '@loglib/core': 0.0.11
+      '@loglib/core': 0.1.0
       '@prisma/client': ^4.14.0
       prisma: ^4.14.0
     dependencies:
@@ -138,7 +134,7 @@ importers:
   packages/adapter-supabase:
     specifiers:
       '@loglib/adapter-test': 1.0.5
-      '@loglib/core': 0.0.11
+      '@loglib/core': 0.1.0
       '@supabase/supabase-js': ^2.24.0
     dependencies:
       '@loglib/core': link:../core
@@ -148,7 +144,7 @@ importers:
 
   packages/adapter-test:
     specifiers:
-      '@loglib/core': 0.0.11
+      '@loglib/core': 0.1.0
     devDependencies:
       '@loglib/core': link:../core
 
@@ -179,7 +175,7 @@ importers:
 
   packages/server-nextjs:
     specifiers:
-      '@loglib/core': 0.0.11
+      '@loglib/core': 0.1.0
       '@types/fs-extra': ^11.0.1
       '@types/prompts': ^2.4.4
       '@types/tar': ^6.1.5
@@ -252,7 +248,7 @@ importers:
 
   packages/ui:
     specifiers:
-      '@loglib/core': ^0.0.11
+      '@loglib/core': ^0.1.0
       '@radix-ui/react-avatar': ^1.0.2
       '@radix-ui/react-dialog': ^1.0.3
       '@radix-ui/react-dropdown-menu': ^2.0.4
