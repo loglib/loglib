@@ -9,7 +9,7 @@
         "lint": "eslint . --ext .ts"
     },
     "devDependencies": {
-        "@loglib/core": "0.0.10"
+        "@loglib/core": "0.0.11"
     },
     "keywords": [],
     "author": "",

@@ -1,5 +1,11 @@
 # @loglib/core
 
+## 0.0.11
+
+### Patch Changes
+
+- a1f2202: bug fixes
+
 ## 0.0.10
 
 ### Patch Changes
