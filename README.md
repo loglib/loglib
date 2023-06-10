@@ -24,7 +24,7 @@
 - Behold the beauty of your dashboard, powered by Shadcn UI.
 - Privacy-first and GDPR compliant out of the box, with customization options.
 - You can see basic analytics like vercel analytics but also events aren't paid and it's better than...
-- Your mom will be impressed. Prepare for a proud parent moment.
+- Your mom will be impressed.
 - And more things are on the way.
 
 ### Usage with Next JS 🔥

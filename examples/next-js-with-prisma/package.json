@@ -14,7 +14,7 @@
     "@loglib/prisma-adapter": "0.0.12",
     "@loglib/tracker": "0.0.9",
     "@loglib/ui": "0.1.0",
-    "@prisma/client": "^4.15.0",
+    "@prisma/client": "^4.14.0",
     "@types/node": "^18.15.13",
     "@types/react": "^18.2.0",
     "@types/react-dom": "18.2.4",

@@ -7,4 +7,7 @@ const supabase = createClient(process.env.SUPABASE_URL as string, process.env.SU
 
 export const { POST, GET } = createServerRoutes({
     adapter: supabaseAdapter(supabase),
+    auth: {
+        secret: '123'
+    }
 })
