@@ -2,7 +2,6 @@
 import { ApiRequest, LogLibOptions } from "../types";
 import { router } from "./router";
 import { authMiddleware } from "./routes/auth/middleware";
-import { checkLocationConfig } from "./routes/session/detect/getLocation";
 
 
 export const internalRouter = async (req: ApiRequest<any, any>, options: LogLibOptions) => {
@@ -12,7 +11,6 @@ export const internalRouter = async (req: ApiRequest<any, any>, options: LogLibO
     const method = req.method.toUpperCase() as "POST" | "PUT" | "DELETE" | "GET"
     let path = ""
     if (method === "POST" || method === "PUT" || method === "DELETE") {
-        await checkLocationConfig(options, req)
         if (typeof req.body !== 'object' || Array.isArray(req.body)) {
             return { message: "Invalid request body. Expected an object.", code: 400 }
         }

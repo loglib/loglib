@@ -23,9 +23,6 @@ async function main() {
         .description("Loglib CLI")
 
     program.command('init').description('Configure your Next Js project').action(async () => {
-        logger.warn(
-            "Running the following command might overwrite existing files."
-        )
         const adapter = await prompts({
             type: "select",
             name: "adapter",
@@ -83,7 +80,7 @@ async function main() {
                     logger.warn("You can install Prisma later by running" + `${packageManager} ${packageManager === "npm" ? "install" : "add"} prisma @prisma/client`)
                 }
             }
-            // logger.info("You can now run `npx prisma migrate dev or npx prisma db push` to create or update your database schema")
+            logger.info("You can now run `npx prisma migrate dev or npx prisma db push` to create or update your database schema")
         } else if (adapter === "supabase") {
             await installer(packageManager, ["@loglib/supabase-adapter"])
             const installSupabase = await prompts({
@@ -96,7 +93,7 @@ async function main() {
             } else {
                 logger.warn(`Make sure to install supabase-js later by running` + `${packageManager} ${packageManager === "npm" ? "install" : "add"}  @supabase/supabase-js`)
             }
-            logger.info("Copy the SQL code from the following link: https://github.com/LogLib/loglib#next-js-with-supabase and paste it into your Supabase SQL editor to create the necessary tables for LogLib.")
+            logger.info("Important! Copy the SQL code from the following link: https://github.com/LogLib/loglib#next-js-with-supabase and paste it into your Supabase SQL editor to create the necessary tables for LogLib.")
         }
         const auth = await authSetup()
         const loc = await locationSetup()

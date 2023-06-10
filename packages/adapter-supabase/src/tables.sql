@@ -26,7 +26,6 @@ create table if not exists
     constraint web_session_user_id_fkey foreign key (user_id) references web_user (id) on update cascade on delete cascade
   ) tablespace pg_default;
 
-
 create table if not exists
   public.web_pageview (
     id text not null,

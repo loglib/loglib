@@ -109,8 +109,6 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
             let pastSessions = await adapter.getSession(pastEndDateObj, startDateObj)
             let events = await adapter.getEvents(startDateObj, endDateObj)
 
-
-
             //filters
             const filters = JSON.parse(query.data.filter) as Filter<Session, "session">[] | Filter<PageView, "pageview">[]
             filters.forEach((f) => {
@@ -187,7 +185,6 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
                 message: 'success',
                 code: 200,
                 data: {
-
                     insight: {
                         uniqueVisitors,
                         pageView,

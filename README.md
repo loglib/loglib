@@ -12,7 +12,7 @@
   <img src="./images/dark-logo-v1.png#gh-light-mode-only" alt="screenshot" height="350" />
 </p>
 
-> ⚠️ Under Construction put here incase anyone visits this repo before it's ready.
+> ⚠️ Loglib is under active development not fully production ready just yet but feel free to try it out and report any bugs and feature requests.
 
 **Loglib is a web analytics tool that helps you track your website's analytics. It's a privacy-first, built for js frameworks ecosystem and it's open source.**
 
@@ -32,7 +32,7 @@
 #### Install like every other library
 
 ```bash
-pnpm i @loglib/next
+pnpm add @loglib/next
 ```
 
 loglib ships with a cli tool that helps you setup your project. You can run the following command to setup your project.
@@ -267,7 +267,6 @@ create table if not exists
     constraint web_session_user_id_fkey foreign key (user_id) references web_user (id) on update cascade on delete cascade
   ) tablespace pg_default;
 
-
 create table if not exists
   public.web_pageview (
     id text not null,
@@ -300,7 +299,6 @@ create table if not exists
     constraint web_event_session_id_fkey foreign key (session_id) references web_session (id) on delete cascade,
     constraint web_event_user_id_fkey foreign key (user_id) references web_user (id) on update cascade on delete cascade
   ) tablespace pg_default;
-
 ```
 
 3. **Let's setup the server**
