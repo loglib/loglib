@@ -27,6 +27,24 @@
 - Your mom will be impressed. Prepare for a proud parent moment.
 - And more things are on the way.
 
+### Usage with Next JS
+
+#### Install like every other library
+
+```bash
+pnpm i @loglib/next
+```
+
+loglib ships with a cli tool that helps you setup your project. You can run the following command to setup your project.
+
+```bash
+pnpm loglib init
+```
+
+this will setup your project with all possible configurations. Refer to the [docs](#Docs) for more information.
+
+### Docs
+
 ### Next JS 🔥
 
 - [With Prisma](#next-js-with-prisma)
@@ -667,5 +685,3 @@ export default function page() {
 ### Upgrading
 
 Loglib is always evolving it might not be usual to update libraries in production apps frequently but you might wanna look at loglib a bit different. There will be always new features and fixes so you might wanna update your loglib version from time to time. We'll try to keep the updates as smooth as possible but since we're still in beta there might be breaking changes but we'll try to keep them to a minimum. You can see the changelog for more info.
-
-
