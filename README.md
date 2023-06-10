@@ -12,7 +12,7 @@
   <img src="./images/dark-logo-v1.png#gh-light-mode-only" alt="screenshot" height="350" />
 </p>
 
-> ⚠️ Loglib is under active development not fully production ready just yet but feel free to try it out and report any bugs and feature requests.
+> ⚠️ Loglib is under active development not fully production ready just yet but feel free to try it out and report any bugs.
 
 **Loglib is a web analytics tool that helps you track your website's analytics. It's a privacy-first, built for js frameworks ecosystem and it's open source.**
 

@@ -34,22 +34,31 @@ importers:
 
   examples/next-js-with-prisma:
     specifiers:
+<<<<<<< HEAD
       '@loglib/core': 0.1.0
       '@loglib/next': 0.1.0
       '@loglib/prisma-adapter': 0.0.12
       '@loglib/tracker': 0.0.8
       '@loglib/ui': 0.1.0
       '@prisma/client': ^4.15.0
+=======
+      '@loglib/core': 0.0.11
+      '@loglib/next': 0.0.13
+      '@loglib/prisma-adapter': 0.0.11
+      '@loglib/tracker': 0.0.8
+      '@loglib/ui': 0.0.12
+      '@prisma/client': ^4.14.0
+>>>>>>> 99ffaa2 (manny pkg fix)
       '@types/node': ^18.15.13
       '@types/react': ^18.2.0
       '@types/react-dom': 18.2.4
       autoprefixer: ^10.4.14
       eslint: ^8.39.0
       eslint-config-next: 13.4.4
-      next: 13.4.4
+      next: ^13.4.1
       postcss: ^8.4.23
-      prisma: ^4.15.0
-      react: 18.2.0
+      prisma: ^4.14.0
+      react: ^18.2.0
       react-dom: ^18.2.0
       tailwindcss: ^3.3.2
       typescript: ^5.0.4
