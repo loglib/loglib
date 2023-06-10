@@ -40,7 +40,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install deps (with cache)
-        run: pnpm install --frozen-lockfile --prefer-offline
+        run: pnpm install --no-frozen-lockfile --prefer-offline
 
       - name: Lint
         run: pnpm turbo --filter "./packages/*" lint
