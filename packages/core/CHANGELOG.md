@@ -1,5 +1,11 @@
 # @loglib/core
 
+## 0.1.1
+
+### Patch Changes
+
+- f692ae9: time scale fix
+
 ## 0.1.0
 
 ### Minor Changes

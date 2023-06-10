@@ -34,9 +34,9 @@ importers:
 
   examples/next-js-with-prisma:
     specifiers:
-      '@loglib/core': 0.1.0
-      '@loglib/next': 0.1.0
-      '@loglib/prisma-adapter': 0.0.12
+      '@loglib/core': 0.1.1
+      '@loglib/next': 0.1.1
+      '@loglib/prisma-adapter': 0.0.13
       '@loglib/tracker': 0.0.9
       '@loglib/ui': 0.1.0
       '@prisma/client': ^4.14.0
@@ -76,9 +76,9 @@ importers:
 
   examples/next-js-with-supabase:
     specifiers:
-      '@loglib/core': 0.1.0
-      '@loglib/next': 0.1.0
-      '@loglib/supabase-adapter': 0.1.0
+      '@loglib/core': 0.1.1
+      '@loglib/next': 0.1.1
+      '@loglib/supabase-adapter': 0.1.1
       '@loglib/tracker': 0.0.9
       '@loglib/ui': 0.1.0
       '@supabase/supabase-js': ^2.24.0
@@ -121,7 +121,7 @@ importers:
   packages/adapter-prisma:
     specifiers:
       '@loglib/adapter-test': 1.0.5
-      '@loglib/core': 0.1.0
+      '@loglib/core': 0.1.1
       '@prisma/client': ^4.14.0
       prisma: ^4.14.0
     dependencies:
@@ -134,7 +134,7 @@ importers:
   packages/adapter-supabase:
     specifiers:
       '@loglib/adapter-test': 1.0.5
-      '@loglib/core': 0.1.0
+      '@loglib/core': 0.1.1
       '@supabase/supabase-js': ^2.24.0
     dependencies:
       '@loglib/core': link:../core
@@ -144,7 +144,7 @@ importers:
 
   packages/adapter-test:
     specifiers:
-      '@loglib/core': 0.1.0
+      '@loglib/core': 0.1.1
     devDependencies:
       '@loglib/core': link:../core
 
@@ -175,7 +175,7 @@ importers:
 
   packages/server-nextjs:
     specifiers:
-      '@loglib/core': 0.1.0
+      '@loglib/core': 0.1.1
       '@types/fs-extra': ^11.0.1
       '@types/prompts': ^2.4.4
       '@types/tar': ^6.1.5
