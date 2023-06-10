@@ -23,7 +23,7 @@ describe('LogLib', () => {
 
     it('should call internalRouter with the parsed request and options', async () => {
         const middleware = createServer(options)
-        const req = { method: 'POST', body: '{"foo": "bar"}', headers: {}, cookies: {} } as NextApiRequest
+        const req = { method: 'POST', body: { "foo": "bar" }, headers: {}, cookies: {} } as NextApiRequest
         const res = { status: vi.fn().mockReturnThis(), json: vi.fn() } as unknown as NextApiResponse
         (internalRouter as Mock).mockResolvedValue({ code: 200, message: 'OK' })
         await middleware(req, res)
