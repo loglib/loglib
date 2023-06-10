@@ -26,7 +26,7 @@ export function Login({ setAuth, setToken }: { setAuth: (state: boolean) => void
                     {" "}__steve jobs
                 </span>
             </p>
-            <Card className=" w-1/3 ">
+            <Card className=" md:w-1/3 w-full">
                 <CardHeader>
                     <CardTitle>Login</CardTitle>
                     <CardDescription className="">with your credentials</CardDescription>
@@ -51,8 +51,10 @@ export function Login({ setAuth, setToken }: { setAuth: (state: boolean) => void
                     <Button
                         onClick={() => {
                             loginUser({ username, password }).then((data) => {
+                                console.log(data.code)
                                 if (data.code !== 200) return
                                 if (data.data.token) {
+                                    console.log(data.data.token)
                                     localStorage.setItem('ll-token', data.data.token)
                                     setAuth(true)
                                     setToken(data.data.token)

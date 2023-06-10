@@ -11,14 +11,11 @@ const createServer = (options: LogLibOptions) => {
             res.setHeader('Access-Control-Allow-Origin', options.cors.origin)
         }
         if (req.method === "POST") {
-            //parse body
-            const body = JSON.parse(req.body as string) as Record<string, string>
-            req.body = body
             const response = await internalRouter(req, options)
-            return res.status(response.code).json({ message: response.message })
+            return res.status(response.code).json({ message: response.message, data: response.data, code: response.code })
         } else if (req.method === "GET") {
             const response = await internalRouter(req, options)
-            return res.status(response.code).json({ message: response.message })
+            return res.status(response.code).json({ message: response.message, data: response.data, code: response.code })
         }
     }
 }
@@ -37,7 +34,7 @@ const createServerRoutes = (options: LogLibOptions) => {
             query: queryObject,
             cookies: cookies()
         }, options)
-        return new Response(JSON.stringify({ data: internalResponse.data, message: internalResponse.message, status: internalResponse.code }), {
+        return new Response(JSON.stringify({ data: internalResponse.data, message: internalResponse.message, code: internalResponse.code }), {
             status: internalResponse.code,
             headers: {
                 'Content-Type': 'application/json',

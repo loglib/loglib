@@ -16,7 +16,7 @@ export const setupTracker = async (packageManager: string) => {
         await installer(packageManager, ['@loglib/tracker'])
         logger.info("\n\nfollow the steps below to setup the tracker\n",)
         logger.info(`1. import Loglib from "@loglib/tracker/react"\n`)
-        logger.info(`2. Add <Loglib /> component to your ${appDir ? `layout.${ext}` : `_app.${ext}`} file`)
+        logger.info(`2. Add <Loglib /> component to your ${appDir ? `root layout.${ext}` : `_app.${ext}`} file`)
         logger.info("3. Refer to this doc for more: https://github.com/LogLib/loglib#loglib-tracker\n\n")
     } else {
         logger.info("\nfollow the steps below to setup the tracker in any of your project\n",)
