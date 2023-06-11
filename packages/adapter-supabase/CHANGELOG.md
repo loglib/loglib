@@ -1,5 +1,12 @@
 # @loglib/supabase-adapter
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [f2f79c4]
+  - @loglib/core@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes
