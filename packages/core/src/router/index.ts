@@ -12,7 +12,11 @@ export const internalRouter = async (req: ApiRequest<any, any>, options: LogLibO
     let path = ""
     if (method === "POST" || method === "PUT" || method === "DELETE") {
         if (typeof req.body !== 'object' || Array.isArray(req.body)) {
-            return { message: "Invalid request body. Expected an object.", code: 400 }
+            try {
+                req.body = JSON.parse(req.body as string)
+            } catch {
+                return { message: "Invalid request body. Expected an object.", code: 400 }
+            }
         }
         if (!req.body.path) {
             return { message: "Path not specified", code: 400 }
