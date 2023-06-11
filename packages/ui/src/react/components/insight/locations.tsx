@@ -17,6 +17,7 @@ import { Link2Icon } from "lucide-react";
 import { FilterProp } from "@/react/lib/filter";
 import { ClearFilter } from "../util/clearFilter";
 import { TableLoading } from "../util/tableLoading";
+import { ScrollArea } from "../ui/scroll-area";
 
 
 
@@ -24,6 +25,7 @@ import { TableLoading } from "../util/tableLoading";
 export function LocationsComponent({ city, country, isLoading, filter: { addFilter, clearFilter, isFilterActive } }: { city?: City[], country?: Country[], filter: FilterProp, isLoading: boolean }) {
   return (
     <CardContent>
+
       <Tabs className=" w-full" defaultValue="country">
         {
           isFilterActive("country") || isFilterActive("city") ?
@@ -41,89 +43,92 @@ export function LocationsComponent({ city, country, isLoading, filter: { addFilt
             City
           </TabsTrigger>
         </TabsList>
-
-
-
         <TabsContent value="country">
-          <Table>
-            <TableCaption>
-              Your locations and how many times they are visited  {":)"}
-            </TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Location</TableHead>
-                <TableHead className="text-right">Views</TableHead>
-              </TableRow>
-            </TableHeader>
-            {
-              isLoading || !country ?
-                <TableLoading cellCount={2} />
-                : <TableBody>
-                  {country.map((location) => (
-                    <TableRow key={location.location}>
-                      <TableCell className=" flex items-center gap-1 cursor-pointer"
-                        onClick={() => addFilter({
-                          key: "country",
-                          value: location.location,
-                          operator: "is",
-                          data: "session"
-                        })}
-                      >
-                        {location.location === "Unknown" ?
-                          <>
-                            <Link2Icon />
-                            Unknown
-                          </>
+          <ScrollArea className=" md:h-80 h-72">
+            <Table>
+              <TableCaption>
+                Your locations and how many times they are visited  {":)"}
+              </TableCaption>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Location</TableHead>
+                  <TableHead className="text-right">Views</TableHead>
+                </TableRow>
+              </TableHeader>
+              {
+                isLoading || !country ?
+                  <TableLoading cellCount={2} />
+                  :
+                  <TableBody>
+                    {country.map((location) => (
+                      <TableRow key={location.location}>
+                        <TableCell className=" flex items-center gap-1 cursor-pointer"
+                          onClick={() => addFilter({
+                            key: "country",
+                            value: location.location,
+                            operator: "is",
+                            data: "session"
+                          })}
+                        >
+                          {location.location === "Unknown" ?
+                            <>
+                              <Link2Icon />
+                              Unknown
+                            </>
 
-                          : <>
-                            <ReactCountryFlag countryCode={location.location} svg
-                              style={{
-                                width: '1em',
-                                height: '1em',
-                              }} />
-                            {COUNTRIES[location.location]}
-                          </>}
-                      </TableCell>
+                            : <>
+                              <ReactCountryFlag countryCode={location.location} svg
+                                style={{
+                                  width: '1em',
+                                  height: '1em',
+                                }} />
+                              {COUNTRIES[location.location]}
+                            </>}
+                        </TableCell>
+                        <TableCell className="text-right">{location.visits}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+              }
+            </Table>
+          </ScrollArea>
+        </TabsContent>
+        <TabsContent value="city">
+          <ScrollArea className=" md:h-80 h-72">
+            <Table>
+              <TableCaption>
+                Your locations and how many times they are visited  {":)"}
+              </TableCaption>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Location</TableHead>
+                  <TableHead className="text-right">Views</TableHead>
+                </TableRow>
+              </TableHeader>
+              {
+                isLoading || !city ? <TableLoading cellCount={2} /> : <TableBody>
+                  {city.map((location) => (
+                    <TableRow key={location.location}
+                      onClick={() => addFilter({
+                        key: "city",
+                        value: location.location,
+                        operator: "is",
+                        data: "session"
+                      })
+                      }
+                      className=" cursor-pointer"
+                    >
+                      <TableCell>{location.location}</TableCell>
                       <TableCell className="text-right">{location.visits}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
-            }
-          </Table>
-        </TabsContent>
-        <TabsContent value="city">
-          <Table>
-            <TableCaption>
-              Your locations and how many times they are visited  {":)"}
-            </TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Location</TableHead>
-                <TableHead className="text-right">Views</TableHead>
-              </TableRow>
-            </TableHeader>
-            {
-              isLoading || !city ? <TableLoading cellCount={2} /> : <TableBody>
-                {city.map((location) => (
-                  <TableRow key={location.location}
-                    onClick={() => addFilter({
-                      key: "city",
-                      value: location.location,
-                      operator: "is",
-                      data: "session"
-                    })
-                    }
-                    className=" cursor-pointer"
-                  >
-                    <TableCell>{location.location}</TableCell>
-                    <TableCell className="text-right">{location.visits}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            }
-          </Table>
+              }
+            </Table>
+          </ScrollArea>
         </TabsContent>
       </Tabs>
+
     </CardContent>
   );
 }

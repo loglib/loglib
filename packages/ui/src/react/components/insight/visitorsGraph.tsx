@@ -10,7 +10,6 @@ export function Graph({ data, name, Icon, isLoading }: { data: { date: string, v
     }, [])
     return (
         <ResponsiveContainer width="100%" height={isMobile ? 250 : 350}>
-
             {
                 data.length ?
                     <LineChart data={data}>

@@ -2,7 +2,7 @@
 
 ## Yet Another Web Analytics Tool
 
-![npm](https://img.shields.io/npm/v/@loglib/tracker) ![npm bundle size](https://img.shields.io/bundlephobia/min/@loglib/next) ![GitHub license](https://img.shields.io/github/license/LogLib/loglib) ![GitHub issues](https://img.shields.io/github/issues/LogLib/loglib) ![GitHub stars](https://img.shields.io/github/stars/LogLib/loglib)
+![npm](https://img.shields.io/npm/v/@loglib/next) ![npm bundle size](https://img.shields.io/bundlephobia/min/@loglib/next) ![GitHub license](https://img.shields.io/github/license/LogLib/loglib) ![GitHub issues](https://img.shields.io/github/issues/LogLib/loglib) ![GitHub stars](https://img.shields.io/github/stars/LogLib/loglib)
 
 <p align="center" class="dark-mode">
   <img src="./images/dark-logo-v1.png#gh-dark-mode-only" alt="screenshot" height="350" />
