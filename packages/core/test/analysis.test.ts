@@ -21,6 +21,11 @@ describe("unique visitors", (it) => {
         expect(result.total).toBe(3);
         expect(result.change).toBe(50);
     });
+
+    it("should never return above 100% change", () => {
+        const result = getUniqueVisitors(users, pastUsers);
+        expect(result.change).toBeLessThanOrEqual(100);
+    })
 })
 
 describe('pageViews', (it) => {
@@ -32,11 +37,15 @@ describe('pageViews', (it) => {
     });
 
     it('should return the correct total and change when pastPageViews is not empty', () => {
-
         const result = getPageViews(pageViews, pastPageViews);
         expect(result.total).toBe(3);
         expect(result.change).toBe(50);
     });
+
+    it("should never return above 100% change", () => {
+        const result = getPageViews(pageViews, []);
+        expect(result.change).toBeLessThanOrEqual(100);
+    })
 });
 
 describe("averageTime", (it) => {
@@ -66,6 +75,10 @@ describe("averageTime", (it) => {
         expect(result.change).toEqual(0);
     });
 
+    it('Should never return above 100% change', () => {
+        const result = getAverageTime(sessions, [], false);
+        expect(result.change).toBeLessThanOrEqual(100);
+    })
 })
 
 
@@ -105,6 +118,11 @@ describe('getBounceRate', (it) => {
         const result = getBounceRate(pageViews, pageViews, sessions, sessions);
         expect(result.change).toEqual(0);
     });
+
+    it("should never return above 100% change", () => {
+        const result = getBounceRate(pageViews, [], sessions, []);
+        expect(result.change).toBeLessThanOrEqual(100);
+    })
 
 })
 

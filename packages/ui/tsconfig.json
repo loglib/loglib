@@ -1,23 +1,16 @@
 {
-    "compilerOptions": {
-        "sourceMap": true,
-        "jsx": "react",
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "esModuleInterop": true,
-        "strict": false,
-        "baseUrl": ".",
-        "paths": {
-            "@/*": [
-                "./src/*"
-            ]
-        }
-    },
-    "include": [
-        "src/**/*",
-        "test/**/*",
-        "tsup.config.ts",
-        "../../a.js",
-        "../core/src/router/routes/dashboard/utils/smallFilter.ts"
-    ]
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "sourceMap": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "strict": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*", "test/**/*", "tsup.config.ts"]
 }
