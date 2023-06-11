@@ -1,5 +1,11 @@
 # @loglib/core
 
+## 0.1.3
+
+### Patch Changes
+
+- 13a9065: capped percentage changes to 100%
+
 ## 0.1.2
 
 ### Patch Changes
