@@ -16,14 +16,6 @@ import { ClearFilter } from "../util/clearFilter";
 import { TableLoading } from "../util/tableLoading";
 
 export function RefComponent({ refs, filter: { isFilterActive, clearFilter, addFilter }, isLoading }: { refs?: RefType[], filter: FilterProp, isLoading: boolean }) {
-  const parseUrl = (url: string) => {
-    try {
-      const newUrl = new URL(url);
-      return newUrl.hostname.replace("www.", "").replace(".com", "").charAt(0).toUpperCase() + newUrl.hostname.replace("www.", "").replace(".com", "").slice(1);
-    } catch {
-      return url;
-    }
-  };
   return (
     <CardContent>
       {
@@ -62,15 +54,14 @@ export function RefComponent({ refs, filter: { isFilterActive, clearFilter, addF
                 >
                   <TableCell className="flex gap-1 items-center">
                     {
-                      RefIcons[parseUrl(refs.referrer).toLowerCase()] ? RefIcons[parseUrl(refs.referrer).toLowerCase()]() : RefIcons["default"]()
+                      RefIcons[refs.referrer.toLowerCase()] ? RefIcons[refs.referrer.toLowerCase()]() : RefIcons["default"]()
                     }
-                    {parseUrl(refs.referrer)}
+                    {refs.referrer}
                   </TableCell>
                   <TableCell className="text-right">{refs.visits}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
-
         }
       </Table>
     </CardContent>

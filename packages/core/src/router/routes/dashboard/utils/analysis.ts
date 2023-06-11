@@ -1,4 +1,5 @@
 import { PageView, User, Session, Events } from "../../../../adapters/models"
+import { ReferrerName } from "./constants"
 import { getTimeRange } from "./timeHelper"
 
 export const getUniqueVisitors = (user: User[], pastUsers: User[]) => {
@@ -90,8 +91,21 @@ export const getLoc = (sessions: Session[], byCountry = true) => {
 }
 
 export const getReferer = (sessions: Session[]) => {
+    function getSiteName(url: string): string {
+        try {
+            const parsedUrl = new URL(url);
+            const hostname = parsedUrl.hostname.replace("www.", "");
+            const siteName = hostname.split(".")[0];
+            if (!siteName) {
+                return url.charAt(0).toUpperCase() + url.slice(1);
+            }
+            return siteName.charAt(0).toUpperCase() + siteName.slice(1);
+        } catch {
+            return url.split("/").length > 1 ? url : url.charAt(0).toUpperCase() + url.slice(1);
+        }
+    }
     const referees = sessions.reduce((acc, session) => {
-        const referrer = session.referrer === "" ? "Direct" : session.referrer;
+        const referrer = session.referrer === "" ? "Direct" : ReferrerName[session.referrer as keyof typeof ReferrerName] ?? getSiteName(session.referrer);
         const isFound = acc.find(p => p.referrer === referrer);
         if (isFound) {
             isFound.visits++;

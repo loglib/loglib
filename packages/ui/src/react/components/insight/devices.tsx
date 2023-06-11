@@ -13,6 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { FilterProp } from "@/react/lib/filter";
 import { ClearFilter } from "../util/clearFilter";
 import { TableLoading } from "../util/tableLoading";
+import { ScrollArea } from "../ui/scroll-area";
 
 export function DeviceComponent({ devices, os, browser, filter: { clearFilter, addFilter, isFilterActive }, isLoading }: { devices?: DevicesType[], os?: OSType[], browser?: BrowserType[], filter: FilterProp, isLoading: boolean }) {
   return (
@@ -38,36 +39,38 @@ export function DeviceComponent({ devices, os, browser, filter: { clearFilter, a
           </TabsTrigger>
         </TabsList>
         <TabsContent value="general">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Device</TableHead>
-                <TableHead className="text-right">Views</TableHead>
-              </TableRow>
-            </TableHeader>
-            {
-              isLoading || !devices ?
-                <TableLoading cellCount={2} />
-                : <TableBody>
-                  {devices.map((device, i) => (
-                    <TableRow key={i}
-                      onClick={() => {
-                        addFilter({
-                          key: "device",
-                          operator: "is",
-                          value: device.device,
-                          data: "session"
-                        })
-                      }}
-                      className=" cursor-pointer"
-                    >
-                      <TableCell>{device.device}</TableCell>
-                      <TableCell className="text-right">{device.visits}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-            }
-          </Table>
+          <ScrollArea className=" md:h-80 h-72">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Device</TableHead>
+                  <TableHead className="text-right">Views</TableHead>
+                </TableRow>
+              </TableHeader>
+              {
+                isLoading || !devices ?
+                  <TableLoading cellCount={2} />
+                  : <TableBody>
+                    {devices.map((device, i) => (
+                      <TableRow key={i}
+                        onClick={() => {
+                          addFilter({
+                            key: "device",
+                            operator: "is",
+                            value: device.device,
+                            data: "session"
+                          })
+                        }}
+                        className=" cursor-pointer"
+                      >
+                        <TableCell>{device.device}</TableCell>
+                        <TableCell className="text-right">{device.visits}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+              }
+            </Table>
+          </ScrollArea>
         </TabsContent>
 
         <TabsContent value="os">
@@ -104,35 +107,37 @@ export function DeviceComponent({ devices, os, browser, filter: { clearFilter, a
           </Table>
         </TabsContent>
         <TabsContent value="browser">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>OS</TableHead>
-                <TableHead className="text-right">Views</TableHead>
-              </TableRow>
-            </TableHeader>
-            {
-              isLoading || !browser ?
-                <TableLoading cellCount={2} /> : <TableBody>
-                  {browser.map((device, i) => (
-                    <TableRow key={i}
-                      onClick={() => {
-                        addFilter({
-                          key: "browser",
-                          operator: "is",
-                          value: device.browser,
-                          data: "session"
-                        })
-                      }}
-                      className=" cursor-pointer"
-                    >
-                      <TableCell>{device.browser}</TableCell>
-                      <TableCell className="text-right">{device.visits}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-            }
-          </Table>
+          <ScrollArea className=" md:h-80 h-72">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>OS</TableHead>
+                  <TableHead className="text-right">Views</TableHead>
+                </TableRow>
+              </TableHeader>
+              {
+                isLoading || !browser ?
+                  <TableLoading cellCount={2} /> : <TableBody>
+                    {browser.map((device, i) => (
+                      <TableRow key={i}
+                        onClick={() => {
+                          addFilter({
+                            key: "browser",
+                            operator: "is",
+                            value: device.browser,
+                            data: "session"
+                          })
+                        }}
+                        className=" cursor-pointer"
+                      >
+                        <TableCell>{device.browser}</TableCell>
+                        <TableCell className="text-right">{device.visits}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+              }
+            </Table>
+          </ScrollArea>
         </TabsContent>
       </Tabs>
 
