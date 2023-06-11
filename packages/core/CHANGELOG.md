@@ -1,5 +1,13 @@
 # @loglib/core
 
+## 0.1.2
+
+### Patch Changes
+
+- f2f79c4: - Added a scroll view to the UI.
+  - Moved the URL parser to get referee title to the server.
+  - Updated constant values to get title from app links.
+
 ## 0.1.1
 
 ### Patch Changes
