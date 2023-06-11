@@ -1,5 +1,13 @@
 # @loglib/next
 
+## 0.1.4
+
+### Patch Changes
+
+- 019f4d9: next js api handler fixes
+- Updated dependencies [019f4d9]
+  - @loglib/core@0.1.4
+
 ## 0.1.3
 
 ### Patch Changes
