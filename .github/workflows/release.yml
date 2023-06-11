@@ -42,8 +42,8 @@ jobs:
       - name: Install deps (with cache)
         run: pnpm install --no-frozen-lockfile --prefer-offline
 
-      - name: Lint
-        run: pnpm turbo --filter "./packages/*" lint build
+      - name: Lint test and build
+        run: pnpm turbo --filter "./packages/*" build lint typecheck test
 
       - name: Create Release
         id: changeset

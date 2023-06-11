@@ -73,8 +73,9 @@ export function Dashboard() {
   useEffect(() => {
     const theme = getTheme()
     document.documentElement.classList.add(theme);
-    if (localStorage.getItem("ll-token")) {
-      setToken(localStorage.getItem("ll-token"))
+    const storedToken = localStorage.getItem("ll-token")
+    if (storedToken) {
+      setToken(storedToken)
       setIsAuth(true)
     }
   }, []);

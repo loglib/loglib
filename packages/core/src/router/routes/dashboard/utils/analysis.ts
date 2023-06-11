@@ -3,16 +3,18 @@ import { ReferrerName } from "./constants"
 import { getTimeRange } from "./timeHelper"
 
 export const getUniqueVisitors = (user: User[], pastUsers: User[]) => {
+    const change = pastUsers.length ? Math.floor(((user.length - pastUsers.length) / pastUsers.length) * 100) : 100
     return {
         total: user.length,
-        change: pastUsers.length ? Math.floor(((user.length - pastUsers.length) / pastUsers.length) * 100) : 100
+        change: change > 100 ? 100 : change
     }
 }
 
 export const getPageViews = (pageViews: PageView[], pastPageViews: PageView[]) => {
+    const change = pastPageViews.length ? Math.floor(((pageViews.length - pastPageViews.length) / pastPageViews.length) * 100) : 100
     return {
         total: pageViews.length,
-        change: pastPageViews.length ? Math.floor(((pageViews.length - pastPageViews.length) / pastPageViews.length) * 100) : 100
+        change: change > 100 ? 100 : change
     }
 }
 
@@ -23,12 +25,12 @@ export const getAverageTime = (sessions: Session[], pastSessions: Session[], byS
     if (!bySecond) {
         return {
             total: Math.ceil(total / sessions.length / 60),
-            change
+            change: change > 100 ? 100 : change
         }
     } else {
         return {
             total: Math.floor(total / sessions.length),
-            change
+            change: change > 100 ? 100 : change
         }
     }
 }
@@ -44,9 +46,10 @@ export const getBounceRate = (pageViews: PageView[], pastPageViews: PageView[], 
     }
     const bounce = sessions.filter(session => pageViews.filter(pageView => pageView.sessionId === session.id).length >= 1);
     const pastBounce = pastSessions.filter(session => pastPageViews.filter(pageView => pageView.sessionId === session.id).length >= 1);
+    const change = pastBounce.length ? Math.floor((bounce.length - pastBounce.length) / pastBounce.length * 100) : 100
     return {
         total: Math.floor(bounce.length / totalSessions * 100),
-        change: pastBounce.length ? Math.floor((bounce.length - pastBounce.length) / pastBounce.length * 100) : 100
+        change: change > 100 ? 100 : change
     };
 };
 
