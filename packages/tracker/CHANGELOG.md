@@ -1,5 +1,11 @@
 # @loglib/tracker
 
+## 0.0.10
+
+### Patch Changes
+
+- 019f4d9: next js api handler fixes
+
 ## 0.0.9
 
 ### Patch Changes
