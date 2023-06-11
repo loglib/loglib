@@ -70,7 +70,6 @@ export function record(config?: Partial<Config>) {
 		send({ duration: (Date.now() - window.lli.timeOnPage) / 1000 }, "/session/pulse")
 	}, window.llc.pulseInterval * 1000);
 	addInterval(pulseInterval)
-
 	sessionEndHandler()
 }
 
@@ -124,7 +123,6 @@ const navigationHandler = (_: string, __: string, url: string) => {
 };
 
 const sessionEndHandler = () => {
-	//Register to send Page Duration
 	window.addEventListener("unload", () => {
 		send(
 			{
@@ -146,6 +144,4 @@ const sessionEndHandler = () => {
 		}, "/session/pulse", flush)
 		clearIntervals()
 	});
-
-	window.addEventListener("beforeunload", clearIntervals);
 };

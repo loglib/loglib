@@ -10,6 +10,13 @@ const createServer = (options: LogLibOptions) => {
         if (options.cors) {
             res.setHeader('Access-Control-Allow-Origin', options.cors.origin)
         }
+        if (typeof req.body === "string") {
+            try {
+                req.body = JSON.parse(req.body)
+            } catch {
+                req.body = {}
+            }
+        }
         if (req.method === "POST") {
             const response = await internalRouter(req, options)
             return res.status(response.code).json({ message: response.message, data: response.data, code: response.code })
