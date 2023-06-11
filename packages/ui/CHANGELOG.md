@@ -1,5 +1,13 @@
 # @loglib/ui
 
+## 0.1.2
+
+### Patch Changes
+
+- 13a9065: capped percentage changes to 100%
+- Updated dependencies [13a9065]
+  - @loglib/core@0.1.3
+
 ## 0.1.1
 
 ### Patch Changes
