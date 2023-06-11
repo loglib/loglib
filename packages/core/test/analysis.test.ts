@@ -189,7 +189,7 @@ describe('getReferer', (it) => {
 
     it('should group sessions by referrer', () => {
         const result = getReferer(sessions);
-        expect(result).toEqual([{ referrer: 'https://example.com', visits: 4 }]);
+        expect(result).toEqual([{ referrer: 'Example', visits: 4 }]);
     });
 
 
@@ -201,12 +201,10 @@ describe('getReferer', (it) => {
         ] as Session[];
         const result = getReferer(sessionsWithEmptyReferrer);
         expect(result).toEqual([
-            { referrer: 'https://google.com', visits: 2 },
+            { referrer: 'Google', visits: 2 },
             { referrer: 'Direct', visits: 1 },
         ]);
     });
-
-
 })
 
 
