@@ -44,7 +44,7 @@ export function LocationsComponent({ city, country, isLoading, filter: { addFilt
           </TabsTrigger>
         </TabsList>
         <TabsContent value="country">
-          <ScrollArea className=" md:h-80 h-72">
+          <ScrollArea className=" md:h-96 h-72">
             <Table>
               <TableCaption>
                 Your locations and how many times they are visited  {":)"}
@@ -94,7 +94,7 @@ export function LocationsComponent({ city, country, isLoading, filter: { addFilt
           </ScrollArea>
         </TabsContent>
         <TabsContent value="city">
-          <ScrollArea className=" md:h-80 h-72">
+          <ScrollArea className=" md:h-96 h-72">
             <Table>
               <TableCaption>
                 Your locations and how many times they are visited  {":)"}

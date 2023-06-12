@@ -39,7 +39,7 @@ export function DeviceComponent({ devices, os, browser, filter: { clearFilter, a
           </TabsTrigger>
         </TabsList>
         <TabsContent value="general">
-          <ScrollArea className=" md:h-80 h-72">
+          <ScrollArea className=" md:h-96 h-72">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -74,40 +74,42 @@ export function DeviceComponent({ devices, os, browser, filter: { clearFilter, a
         </TabsContent>
 
         <TabsContent value="os">
-          <Table>
-            <TableHeader>
-              <TableRow
+          <ScrollArea className=" md:h-96 h-72">
+            <Table>
+              <TableHeader>
+                <TableRow
 
-              >
-                <TableHead>OS</TableHead>
-                <TableHead className="text-right">Views</TableHead>
-              </TableRow>
-            </TableHeader>
-            {
-              isLoading || !os ?
-                <TableLoading cellCount={2} /> : <TableBody>
-                  {os.map((device, i) => (
-                    <TableRow key={i}
-                      onClick={() => {
-                        addFilter({
-                          key: "os",
-                          operator: "is",
-                          value: device.os,
-                          data: "session"
-                        })
-                      }}
-                      className=" cursor-pointer"
-                    >
-                      <TableCell>{device.os}</TableCell>
-                      <TableCell className="text-right">{device.visits}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-            }
-          </Table>
+                >
+                  <TableHead>OS</TableHead>
+                  <TableHead className="text-right">Views</TableHead>
+                </TableRow>
+              </TableHeader>
+              {
+                isLoading || !os ?
+                  <TableLoading cellCount={2} /> : <TableBody>
+                    {os.map((device, i) => (
+                      <TableRow key={i}
+                        onClick={() => {
+                          addFilter({
+                            key: "os",
+                            operator: "is",
+                            value: device.os,
+                            data: "session"
+                          })
+                        }}
+                        className=" cursor-pointer"
+                      >
+                        <TableCell>{device.os}</TableCell>
+                        <TableCell className="text-right">{device.visits}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+              }
+            </Table>
+          </ScrollArea>
         </TabsContent>
         <TabsContent value="browser">
-          <ScrollArea className=" md:h-80 h-72">
+          <ScrollArea className=" md:h-96 h-72">
             <Table>
               <TableHeader>
                 <TableRow>

@@ -108,7 +108,6 @@ describe('getBounceRate', (it) => {
         expect(result.change).toBeGreaterThan(0);
     });
 
-
     it('should return a negative percentage change when the bounce rate has decreased', () => {
         const result = getBounceRate(pastPageViews, pageViews, pastSessions, sessions);
         expect(result.change).toBeLessThan(0);

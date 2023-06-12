@@ -25,7 +25,7 @@ export function PagesComponent({ pageViews, filter, isLoading }: { pageViews: Pa
           }} />
           : null
       }
-      <ScrollArea className=" md:h-80 h-72">
+      <ScrollArea className=" md:h-96 h-72">
         <Table>
           <TableCaption>
             Your pages and how many times they are visited {":)"}

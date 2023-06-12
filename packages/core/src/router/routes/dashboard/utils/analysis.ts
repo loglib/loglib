@@ -44,12 +44,20 @@ export const getBounceRate = (pageViews: PageView[], pastPageViews: PageView[], 
             change: 0
         };
     }
-    const bounce = sessions.filter(session => pageViews.filter(pageView => pageView.sessionId === session.id).length >= 1);
-    const pastBounce = pastSessions.filter(session => pastPageViews.filter(pageView => pageView.sessionId === session.id).length >= 1);
-    const change = pastBounce.length ? Math.floor((bounce.length - pastBounce.length) / pastBounce.length * 100) : 100
+    const singlePageViewSessions = sessions.filter(session => {
+        const sessionPageViews = pageViews.filter(pageView => pageView.sessionId === session.id);
+        return sessionPageViews.length === 1;
+    });
+    const pastSinglePageViewSessions = pastSessions.filter(session => {
+        const sessionPageViews = pastPageViews.filter(pageView => pageView.sessionId === session.id);
+        return sessionPageViews.length === 1;
+    });
+    const bounceRate = (singlePageViewSessions.length / sessions.length) * 100;
+    const pastBounceRate = (pastSinglePageViewSessions.length / pastSessions.length) * 100;
+    const change = pastBounceRate ? Math.floor(((bounceRate - pastBounceRate) / pastBounceRate) * 100) : 100;
     return {
-        total: Math.floor(bounce.length / totalSessions * 100),
-        change: change > 100 ? 100 : change
+        total: parseFloat(bounceRate.toFixed(2)),
+        change: change > 100 ? 100 : parseFloat(change.toFixed(2))
     };
 };
 
