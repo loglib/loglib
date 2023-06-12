@@ -82,6 +82,9 @@ export function Dashboard() {
 
   return (
     <>
+      <head>
+        <title>Loglib Dashboard</title>
+      </head>
       <LayoutGroup>
         <div className="bg-white min-h-screen w-full dark:bg-background transition-all duration-700 dark:text-white/90 scrollbar-hide">
           <div className="flex-1 space-y-4 p-8 pt-6">
