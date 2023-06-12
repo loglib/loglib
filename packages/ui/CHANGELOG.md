@@ -1,5 +1,13 @@
 # @loglib/ui
 
+## 0.1.4
+
+### Patch Changes
+
+- f7d81b7: constants added and ui icons fix
+- Updated dependencies [f7d81b7]
+  - @loglib/core@0.1.7
+
 ## 0.1.3
 
 ### Patch Changes
