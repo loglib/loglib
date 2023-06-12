@@ -1,5 +1,12 @@
 # @loglib/prisma-adapter
 
+## 0.0.20
+
+### Patch Changes
+
+- Updated dependencies [b861c29]
+  - @loglib/core@0.1.8
+
 ## 0.0.19
 
 ### Patch Changes
