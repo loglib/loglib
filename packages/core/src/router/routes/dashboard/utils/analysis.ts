@@ -146,11 +146,12 @@ export const getReferer = (sessions: Session[]) => {
         } else {
             acc.push({
                 referrer,
-                visits: 1
+                visits: 1,
+                referrerDomain: session.referrer
             });
         }
         return acc;
-    }, [] as { referrer: string, visits: number }[]);
+    }, [] as { referrer: string, visits: number, referrerDomain: string }[]);
     return referees.sort((a, b) => b.visits - a.visits);
 }
 

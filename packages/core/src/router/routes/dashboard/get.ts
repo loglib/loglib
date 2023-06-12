@@ -50,6 +50,7 @@ export type GetInsightResponse = {
         referrer: {
             referrer: string;
             visits: number;
+            referrerDomain: string;
         }[],
         locations: {
             city: {

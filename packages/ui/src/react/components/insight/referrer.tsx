@@ -47,7 +47,7 @@ export function RefComponent({ refs, filter: { isFilterActive, clearFilter, addF
                     onClick={() => {
                       addFilter({
                         key: "referrer",
-                        value: refs.referrer ? refs.referrer : "direct",
+                        value: refs.referrerDomain ? refs.referrerDomain : "direct",
                         operator: "is",
                         data: "session"
                       })
@@ -74,4 +74,5 @@ export function RefComponent({ refs, filter: { isFilterActive, clearFilter, addF
 export type RefType = {
   referrer: string;
   visits: number;
+  referrerDomain: string;
 };
