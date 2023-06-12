@@ -1,5 +1,14 @@
 # @loglib/ui
 
+## 0.1.3
+
+### Patch Changes
+
+- a7af87d: bounce rate shows better results now, fixed some scroll view issues
+- Updated dependencies [a7af87d]
+- Updated dependencies [a7af87d]
+  - @loglib/core@0.1.5
+
 ## 0.1.2
 
 ### Patch Changes

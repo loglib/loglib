@@ -1,5 +1,13 @@
 # @loglib/next
 
+## 0.1.5
+
+### Patch Changes
+
+- Updated dependencies [a7af87d]
+- Updated dependencies [a7af87d]
+  - @loglib/core@0.1.5
+
 ## 0.1.4
 
 ### Patch Changes
