@@ -18,7 +18,7 @@ export type InsightType = {
 }
 
 export function InsightCard({ title, Icon, data, valuePrefix, bottomChildren, isLoading, negative, changePrefix }: InsightType) {
-
+  const increase = negative ? data.change <= 0 : data.change >= 0;
   return (
     <Card className=" bg-gradient-to-tr dark:from-black  dark:to-slate-900 border from-white to-gray-100">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -31,7 +31,7 @@ export function InsightCard({ title, Icon, data, valuePrefix, bottomChildren, is
           <div className=" flex justify-between">
             <div className=" flex text-xs">
               {
-                data.change > 0 && !negative ? (
+                increase ? (
                   <ArrowUpIcon className=" text-green-500" size={16} />
                 ) : (
                   <ArrowDown className=" text-red-500" size={16} />)
@@ -40,6 +40,7 @@ export function InsightCard({ title, Icon, data, valuePrefix, bottomChildren, is
             </div>
             {bottomChildren}
           </div>
+
         </CardContent> : <CardContent className=" h-24 w-full animate-pulse">
           <div className="flex flex-col justify-center gap-2">
             <div className="text-2xl font-bold">

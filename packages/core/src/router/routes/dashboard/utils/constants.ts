@@ -26,4 +26,5 @@ export const ReferrerName = {
     "https://web.telegram.org/a/": "Telegram",
     "https://web.telegram.org/z/": "Telegram",
     "https://web.whatsapp.com/": "WhatsApp",
+    "android-app://org.telegram.plus/": "Telegram",
 }

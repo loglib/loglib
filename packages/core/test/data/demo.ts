@@ -149,17 +149,17 @@ export const pageViews: PageView[] = [{
         key: "value"
     }, duration: 10
 }, {
-    id: "3", createdAt: new Date(), updatedAt: new Date(), userId: "1", sessionId: "1", page: "/test-2", referrer: "/about", queryParams: {
+    id: "3", createdAt: new Date(), updatedAt: new Date(), userId: "1", sessionId: "2", page: "/test-2", referrer: "/about", queryParams: {
         key: "value"
     }, duration: 10
 }];
 
 export const pastPageViews: PageView[] = [{
-    id: "1", createdAt: new Date(), updatedAt: new Date(), userId: "1", sessionId: "1", page: "/", referrer: "/about", queryParams: {
+    id: "1", createdAt: new Date(), updatedAt: new Date(), userId: "1", sessionId: "134", page: "/", referrer: "/about", queryParams: {
         key: "value"
     }, duration: 10
 }, {
-    id: "2", createdAt: new Date(), updatedAt: new Date(), userId: "1", sessionId: "1", page: "/test", referrer: "/about", queryParams: {
+    id: "2", createdAt: new Date(), updatedAt: new Date(), userId: "1", sessionId: "134", page: "/test", referrer: "/about", queryParams: {
         key: "value"
     }, duration: 10
 }] as PageView[];
