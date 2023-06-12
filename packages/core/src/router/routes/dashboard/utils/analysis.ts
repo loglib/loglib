@@ -35,6 +35,32 @@ export const getAverageTime = (sessions: Session[], pastSessions: Session[], byS
     }
 }
 
+//it uses pageview duration to get more accurate result since session duration includes the hidden state duration too
+export const getAverageTimeV2 = (sessions: Session[], pastSessions: Session[], bySecond: boolean, pageViews: PageView[], pastPageViews: PageView[]) => {
+    const total = sessions.reduce((acc, session) => {
+        const pages = pageViews.filter(pageView => pageView.sessionId === session.id);
+        const duration = pages.reduce((acc, pageView) => acc + pageView.duration, 0);
+        return acc + duration;
+    }, 0);
+    const pastTotal = pastSessions.reduce((acc, session) => {
+        const pages = pastPageViews.filter(pageView => pageView.sessionId === session.id);
+        const duration = pages.reduce((acc, pageView) => acc + pageView.duration, 0);
+        return acc + duration;
+    }, 0)
+    const change = pastTotal ? Math.floor(((total - pastTotal) / pastTotal) * 100) : 100
+    if (!bySecond) {
+        return {
+            total: Math.ceil(total / sessions.length / 60),
+            change: change > 100 ? 100 : change
+        }
+    } else {
+        return {
+            total: Math.floor(total / sessions.length),
+            change: change > 100 ? 100 : change
+        }
+    }
+}
+
 export const getBounceRate = (pageViews: PageView[], pastPageViews: PageView[], sessions: Session[], pastSessions: Session[]) => {
     const totalSessions = sessions.length;
     const totalPageViews = pageViews.length;
@@ -105,12 +131,9 @@ export const getReferer = (sessions: Session[]) => {
     function getSiteName(url: string): string {
         try {
             const parsedUrl = new URL(url);
-            const hostname = parsedUrl.hostname.replace("www.", "");
-            const siteName = hostname.split(".")[0];
-            if (!siteName) {
-                return url.charAt(0).toUpperCase() + url.slice(1);
-            }
-            return siteName.charAt(0).toUpperCase() + siteName.slice(1);
+            const subDomain = parsedUrl.hostname.split(".");
+            const domain = subDomain[subDomain.length - 2];
+            return domain ? domain.charAt(0).toUpperCase() + domain.slice(1) : url;
         } catch {
             return url.split("/").length > 1 ? url : url.charAt(0).toUpperCase() + url.slice(1);
         }
