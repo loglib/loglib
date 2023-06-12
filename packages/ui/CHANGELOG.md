@@ -1,5 +1,13 @@
 # @loglib/ui
 
+## 0.1.5
+
+### Patch Changes
+
+- b861c29: referrer filter fix
+- Updated dependencies [b861c29]
+  - @loglib/core@0.1.8
+
 ## 0.1.4
 
 ### Patch Changes
