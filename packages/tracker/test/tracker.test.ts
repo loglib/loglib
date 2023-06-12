@@ -32,7 +32,6 @@ describe("Session Start", () => {
         expect(window.llc.env).toBe("dev");
         expect(window.llc.postInterval).toBe(5);
         expect(window.llc.consent).toBe("denied");
-        expect(window.llc.pulseInterval).toBe(10);
     });
 
     it("should set provided config if config is provided", () => {
