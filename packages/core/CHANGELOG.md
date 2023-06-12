@@ -1,5 +1,11 @@
 # @loglib/core
 
+## 0.1.8
+
+### Patch Changes
+
+- b861c29: referrer filter fix
+
 ## 0.1.7
 
 ### Patch Changes
