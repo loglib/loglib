@@ -1,5 +1,12 @@
 # @loglib/core
 
+## 0.1.5
+
+### Patch Changes
+
+- a7af87d: bounce rate shows better results now, fixed some scroll view issues
+- a7af87d: revert back the core to error on non object body
+
 ## 0.1.4
 
 ### Patch Changes
