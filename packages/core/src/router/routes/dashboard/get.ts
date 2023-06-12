@@ -1,8 +1,8 @@
 import z from "zod";
 import { RootDashboardSchema } from "../../schema";
 import { ApiGetHandler } from "../../type";
-import { getAverageTime, getBrowser, getDevices, getEvents, getLoc, getOS, getOnlineUsers, getPageViews, getPages, getReferer, getUniqueVisitors, getVisitorsByDate } from "./utils";
-import { EventsWithData, getBounceRate } from "./utils/analysis";
+import { getBrowser, getDevices, getEvents, getLoc, getOS, getOnlineUsers, getPageViews, getPages, getReferer, getUniqueVisitors, getVisitorsByDate } from "./utils";
+import { EventsWithData, getAverageTimeV2, getBounceRate } from "./utils/analysis";
 import { GenericError, PageView, Session } from "../../..";
 import { filter } from "./filter/smallFilter";
 import { Filter } from "./filter/type";
@@ -161,12 +161,11 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
                 }
             })
 
-
             //insights data
             const uniqueVisitors = getUniqueVisitors(users, pastUsers)
             const pageView = getPageViews(pageViews, pastPageViews)
-            const averageTimeBySec = getAverageTime(sessions, pastSessions, true)
-            const averageTimeByMin = getAverageTime(sessions, pastSessions, false)
+            const averageTimeBySec = getAverageTimeV2(sessions, pastSessions, true, pageViews, pastPageViews)
+            const averageTimeByMin = getAverageTimeV2(sessions, pastSessions, false, pageViews, pastPageViews)
             const bounceRate = getBounceRate(pageViews, pastPageViews, sessions, pastSessions)
             const pages = getPages(pageViews)
             const devices = getDevices(sessions)

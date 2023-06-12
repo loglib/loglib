@@ -5,7 +5,6 @@ export type Config = {
 	postInterval: number;
 	host: string;
 	consent: "granted" | "denied";
-	pulseInterval: number;
 };
 export type ServerEvents = {
 	id: string;

@@ -114,3 +114,7 @@ export function getUrl() {
 	}
 	return "/api/loglib"
 }
+
+export const getSessionDuration = () => {
+	return (Date.now() - window.lli.startTime) / 1000
+}

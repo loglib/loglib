@@ -3,7 +3,7 @@
 import { clickHandler } from "./handlers/clickHandler";
 import { send } from "./server";
 import { Config } from "./types";
-import { addInterval, clearIntervals, detectEnvironment, flush, getPath, getUrl, getUrlParams, guid, hook } from "./utils/util";
+import { addInterval, clearIntervals, detectEnvironment, flush, getPath, getSessionDuration, getUrl, getUrlParams, guid, hook } from "./utils/util";
 import { logger } from "./utils/logger";
 
 
@@ -24,7 +24,6 @@ export function record(config?: Partial<Config>) {
 		postInterval: 5,
 		host: getUrl(),
 		consent: "denied",
-		pulseInterval: 10,
 	};
 	window.llc = config ? { ...defaultConfig, ...config } : defaultConfig;
 
@@ -51,10 +50,6 @@ export function record(config?: Partial<Config>) {
 		window.llc.env = env;
 	}
 
-	// if (window.llc.env === "prod" && !process.env.VERCEL_URL && !process.env.LOGLIB_SERVER_URL) {
-	// 	throw new Error("Please provide a host url for production environment");
-	// }
-
 	const eventsInterval = setInterval(() => {
 		send(window.lli.eventsBank, "/event", flush)
 	}, window.llc.postInterval * 1000);
@@ -65,11 +60,7 @@ export function record(config?: Partial<Config>) {
 
 	const InitInfo = initSession();
 	send(InitInfo, "/session");
-
-	const pulseInterval = setInterval(() => {
-		send({ duration: (Date.now() - window.lli.timeOnPage) / 1000 }, "/session/pulse")
-	}, window.llc.pulseInterval * 1000);
-	addInterval(pulseInterval)
+	blurHandler()
 	sessionEndHandler()
 }
 
@@ -110,7 +101,6 @@ const navigationHandler = (_: string, __: string, url: string) => {
 				"/event",
 				flush
 			);
-		// console.log(currentUrl, window.lli.currentUrl, currentRef, window.lli.currentRef)
 		window.lli.pageId = guid()
 		window.lli.timeOnPage = Date.now();
 		send({
@@ -123,7 +113,38 @@ const navigationHandler = (_: string, __: string, url: string) => {
 };
 
 const sessionEndHandler = () => {
-	window.addEventListener("unload", () => {
+	document.addEventListener("visibilitychange", () => {
+		if (document.visibilityState === "hidden") {
+			send(
+				{
+					duration: (Date.now() - window.lli.timeOnPage) / 1000,
+					currentUrl: window.lli.currentUrl,
+					currentRef: window.lli.currentRef,
+					queryParams: getUrlParams(),
+				},
+				"/pageview",
+			);
+			window.lli.eventsBank.length &&
+				send(
+					window.lli.eventsBank,
+					"/event",
+					flush
+				);
+			send({
+				duration: getSessionDuration(),
+			}, "/session/pulse", flush)
+			clearIntervals()
+		} else {
+			window.lli.timeOnPage = Date.now();
+			window.lli.intervals.forEach(interval => {
+				addInterval(interval)
+			})
+		}
+	});
+};
+
+const blurHandler = () => {
+	window.addEventListener("blur", () => {
 		send(
 			{
 				duration: (Date.now() - window.lli.timeOnPage) / 1000,
@@ -140,8 +161,8 @@ const sessionEndHandler = () => {
 				flush
 			);
 		send({
-			duration: (Date.now() - window.lli.startTime) / 1000,
+			duration: getSessionDuration(),
 		}, "/session/pulse", flush)
-		clearIntervals()
-	});
-};
+	}
+	);
+}

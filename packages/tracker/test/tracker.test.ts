@@ -142,7 +142,12 @@ describe("Session End", () => {
         (send as Mock).mockImplementation((_, __, fn?: () => void) => {
             fn?.()
         })
-        window.dispatchEvent(new Event("unload"));
+        const event = new Event("visibilitychange", { bubbles: true });
+        Object.defineProperty(document, "visibilityState", {
+            value: "hidden",
+            writable: true,
+        });
+        document.dispatchEvent(event);
         expect(send).toHaveBeenCalledWith({
             duration: (Date.now() - window.lli.timeOnPage) / 1000,
             currentUrl: window.lli.currentUrl,
@@ -150,6 +155,46 @@ describe("Session End", () => {
             queryParams: {},
         }, '/pageview')
         console.log(window.lli.eventsBank)
+        expect(send).toHaveBeenCalledWith(eventBank, "/event", flush)
+        expect(send).toHaveBeenCalledWith({
+            duration: 0,
+        }, "/session/pulse", flush)
+        expect(window.lli.eventsBank.length).toEqual(0);
+        const event2 = new Event("visibilitychange", { bubbles: true });
+        Object.defineProperty(document, "visibilityState", {
+            value: "visible",
+            writable: true,
+        });
+        document.dispatchEvent(event2);
+    })
+})
+
+describe("Session Blur", () => {
+    it("should send session end info on session blur", () => {
+        record()
+        const eventBank = [
+            {
+                eventName: "direct",
+                eventType: "click",
+                payload: {},
+                id: "123",
+                page: "/test",
+            },
+        ];
+        window.lli.eventsBank = eventBank;
+        (send as Mock).mockClear();
+        (send as Mock).mockImplementation((_, __, fn?: () => void) => {
+            fn?.()
+        }
+        )
+        const event = new Event("blur", { bubbles: true });
+        document.dispatchEvent(event);
+        expect(send).toHaveBeenCalledWith({
+            duration: (Date.now() - window.lli.timeOnPage) / 1000,
+            currentUrl: window.lli.currentUrl,
+            currentRef: window.lli.currentRef,
+            queryParams: {},
+        }, '/pageview')
         expect(send).toHaveBeenCalledWith(eventBank, "/event", flush)
         expect(send).toHaveBeenCalledWith({
             duration: 0,
