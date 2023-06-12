@@ -1,5 +1,11 @@
 # @loglib/core
 
+## 0.1.7
+
+### Patch Changes
+
+- f7d81b7: constants added and ui icons fix
+
 ## 0.1.6
 
 ### Patch Changes
