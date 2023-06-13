@@ -30,4 +30,13 @@ export default defineConfig([
             };
         },
     },
+    {
+        ...cfg,
+        entry: {
+            index: 'src/index.ts',
+        },
+        outDir: 'dist',
+        format: ['iife'],
+        minify: true,
+    }
 ]);
