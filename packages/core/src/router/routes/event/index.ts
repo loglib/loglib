@@ -6,5 +6,8 @@ import { postEvent } from "./post";
 
 export const eventRouter: Route = {
     POST: postEvent,
-    GET: getEvent
+    GET: getEvent,
+    meta: {
+        disallowLocalhost: true
+    }
 }
