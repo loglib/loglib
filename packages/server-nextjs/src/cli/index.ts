@@ -17,7 +17,7 @@ import { PackageJson } from 'type-fest';
 process.on("SIGINT", () => process.exit(0))
 process.on("SIGTERM", () => process.exit(0))
 
-async function main() {
+export async function main() {
     const packageManager = getPackageManager()
     const program = new Command()
         .name("loglib")

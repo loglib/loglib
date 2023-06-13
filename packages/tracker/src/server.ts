@@ -21,7 +21,7 @@ export function send(
 		path,
 		sessionId: window.lli.sessionId,
 		userId: getUserId(),
-		pageId: window.lli.pageId
+		pageId: window.lli.pageId,
 	};
 	logger.log("sending...", dataToSend);
 	let retryCount = 0;

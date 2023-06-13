@@ -131,6 +131,7 @@ export function Dashboard() {
                   >
                     Events
                   </TabsTrigger>
+
                 </TabsList>
                 <div className=" flex justify-between">
                   <div className=" flex gap-2 items-center">
@@ -274,6 +275,7 @@ export function Dashboard() {
                     <TabsContent value="events">
                       <Events events={data ? data.eventsWithData : []} isLoading={isLoading} />
                     </TabsContent>
+
                   </motion.div>
                 </AnimatePresence>
               </Tabs>

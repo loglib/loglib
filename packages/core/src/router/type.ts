@@ -20,7 +20,8 @@ export type Route = {
     PUT?: ApiPutHandler<any>,
     DELETE?: ApiDeleteHandler<any>,
     meta?: {
-        auth: boolean
+        auth?: boolean
+        disallowLocalhost?: boolean
     }
 }
 
