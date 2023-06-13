@@ -136,19 +136,23 @@ export function Dashboard() {
                           </ScrollArea>
                         </DropdownMenuPortal>
                       </DropdownMenuSub>
-                      <DropdownMenuSeparator />
 
-                      {token && <DropdownMenuItem
-                        onClick={() => {
-                          setIsAuth(false)
-                          setToken('')
-                          localStorage.removeItem("ll-token")
-                          sessionStorage.removeItem("ll-auth")
-                        }}
-                      >
-                        <LogOut className="mr-2 h-4 w-4" />
-                        Logout
-                      </DropdownMenuItem>
+
+                      {token &&
+                        <>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem
+                            onClick={() => {
+                              setIsAuth(false)
+                              setToken('')
+                              localStorage.removeItem("ll-token")
+                              sessionStorage.removeItem("ll-auth")
+                            }}
+                          >
+                            <LogOut className="mr-2 h-4 w-4" />
+                            Logout
+                          </DropdownMenuItem>
+                        </>
                       }
                     </DropdownMenuGroup>
                   </DropdownMenuContent>
