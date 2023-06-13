@@ -23,6 +23,7 @@ import LogoIcon from "./components/Icon/LogoIcon";
 import NightModeIcon from "./components/Icon/NightModeIcon";
 import { Filter, FilterProp } from "./lib/filter";
 import { Login } from "./login";
+import { Journey } from "./journey";
 
 
 export function Dashboard() {
@@ -130,6 +131,12 @@ export function Dashboard() {
                     className="data-[state=active]:text-emphasis"
                   >
                     Events
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="journey"
+                    className="data-[state=active]:text-emphasis"
+                  >
+                    Journey
                   </TabsTrigger>
                 </TabsList>
                 <div className=" flex justify-between">
@@ -273,6 +280,9 @@ export function Dashboard() {
                     </TabsContent>
                     <TabsContent value="events">
                       <Events events={data ? data.eventsWithData : []} isLoading={isLoading} />
+                    </TabsContent>
+                    <TabsContent value="journey">
+                      <Journey />
                     </TabsContent>
                   </motion.div>
                 </AnimatePresence>

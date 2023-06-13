@@ -9,7 +9,7 @@ export type Session = {
     id: string;
     createdAt: Date,
     updatedAt: Date,
-    queryParams: Record<string, string> | null,
+    queryParams: Record<string, any> | null,
     referrer: string;
     duration: number;
     country: string | null;
