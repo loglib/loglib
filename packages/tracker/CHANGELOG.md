@@ -1,5 +1,11 @@
 # @loglib/tracker
 
+## 0.0.12
+
+### Patch Changes
+
+- 7f97565: iife output
+
 ## 0.0.11
 
 ### Patch Changes
