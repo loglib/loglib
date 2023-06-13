@@ -1,5 +1,18 @@
 # @loglib/ui
 
+## 0.1.6
+
+### Patch Changes
+
+- 2d1e64c: - Timezone Support
+  - Update cli
+  - UI Improvements
+  - Minor Bug Fixes
+  - indexes added on prisma schema generator
+- 24cf3e1: fix ui on logout button isn't there
+- Updated dependencies [2d1e64c]
+  - @loglib/core@0.1.9
+
 ## 0.1.5
 
 ### Patch Changes
