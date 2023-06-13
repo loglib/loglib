@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { ApiRequest, LogLibOptions } from "../types";
+import { disallowLocalHost } from "./middleware/localhost";
 import { router } from "./router";
-import { authMiddleware } from "./routes/auth/middleware";
+import { authMiddleware } from "./middleware/auth"
 
 
 export const internalRouter = async (req: ApiRequest<any, any>, options: LogLibOptions) => {
     if (!req.method) {
         return { message: "Invalid request method. Expected a string.", code: 400 }
     }
+
     const method = req.method.toUpperCase() as "POST" | "PUT" | "DELETE" | "GET"
     let path = ""
     if (method === "POST" || method === "PUT" || method === "DELETE") {
@@ -19,6 +21,7 @@ export const internalRouter = async (req: ApiRequest<any, any>, options: LogLibO
         }
         path = req.body.path as string
     } else if (req.method === "GET") {
+
         if (!req.query.path) {
             return { message: "Path not specified", code: 400 }
         }
@@ -34,6 +37,10 @@ export const internalRouter = async (req: ApiRequest<any, any>, options: LogLibO
     }
     if (options.auth && route.meta?.auth) {
         const res = await authMiddleware(req, options, handler)
+        return res
+    }
+    if (route.meta?.disallowLocalhost) {
+        const res = await disallowLocalHost(req, options, handler)
         return res
     }
     const res = await handler(req, options)

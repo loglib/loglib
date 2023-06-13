@@ -118,3 +118,7 @@ export function getUrl() {
 export const getSessionDuration = () => {
 	return (Date.now() - window.lli.startTime) / 1000
 }
+
+export function isDarkMode(): boolean {
+	return localStorage.getItem("theme") === "dark" || window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches || false;
+}

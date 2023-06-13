@@ -1,6 +1,6 @@
-import { ApiRequest, LogLibOptions } from "../../..";
+import { ApiRequest, LogLibOptions } from "../..";
 import jwt from 'jsonwebtoken'
-import { ApiGetHandler, ApiPostHandler } from "../../type";
+import { ApiGetHandler, ApiPostHandler } from "../type";
 
 
 
@@ -17,6 +17,6 @@ export const authMiddleware = async (req: ApiRequest<any, any>, options: LogLibO
         }
         return await next(req, options);
     } else {
-        return { message: "Invalid token", code: 401 }
+        return { message: "Unauthorized", code: 401 }
     }
 }

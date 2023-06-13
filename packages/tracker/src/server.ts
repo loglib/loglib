@@ -1,4 +1,4 @@
-import { getUserId, isDevelopment } from "./utils/util";
+import { getUserId, isDarkMode, isDevelopment } from "./utils/util";
 import { logger } from "./utils/logger";
 
 export function send(
@@ -21,7 +21,8 @@ export function send(
 		path,
 		sessionId: window.lli.sessionId,
 		userId: getUserId(),
-		pageId: window.lli.pageId
+		pageId: window.lli.pageId,
+		isDarkMode: isDarkMode(),
 	};
 	logger.log("sending...", dataToSend);
 	let retryCount = 0;

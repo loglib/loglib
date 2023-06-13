@@ -5,5 +5,8 @@ import { userPost } from "./post";
 
 
 export const userRouter: Route = {
-    POST: userPost
+    POST: userPost,
+    meta: {
+        disallowLocalhost: true
+    }
 }
