@@ -12,6 +12,7 @@ import { setupTracker } from './setups/tracker';
 import { authSetup } from './setups/auth';
 import { prismaSetup } from './setups/adapter';
 import { serverSetup } from './setups/server';
+import { PackageJson } from 'type-fest';
 
 process.on("SIGINT", () => process.exit(0))
 process.on("SIGTERM", () => process.exit(0))
@@ -103,6 +104,11 @@ async function main() {
     })
     program.command("setup:maxmind").description("Download maxmind database").action(async () => {
         await download()
+    })
+    program.command("update").description("Update Loglib").action(async () => {
+        const packageJSON = fs.readJSONSync("package.json") as PackageJson
+        const packages = packageJSON.dependencies && Object.keys(packageJSON.dependencies).filter(pkg => pkg.startsWith("@loglib")).map(pkg => pkg + "@latest")
+        packages && await installer(packageManager, packages)
     })
     program.parse();
 }
