@@ -1,5 +1,17 @@
 # @loglib/next
 
+## 0.1.9
+
+### Patch Changes
+
+- 2d1e64c: - Timezone Support
+  - Update cli
+  - UI Improvements
+  - Minor Bug Fixes
+  - indexes added on prisma schema generator
+- Updated dependencies [2d1e64c]
+  - @loglib/core@0.1.9
+
 ## 0.1.8
 
 ### Patch Changes
