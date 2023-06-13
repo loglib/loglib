@@ -270,7 +270,9 @@ importers:
       class-variance-authority: ^0.6.0
       clsx: ^1.2.1
       cmdk: ^0.2.0
+      countries-and-timezones: ^3.4.1
       date-fns: ^2.30.0
+      date-fns-tz: ^2.0.0
       flag-icons: ^6.6.6
       framer-motion: ^10.12.12
       lucide-react: ^0.220.0
@@ -304,7 +306,9 @@ importers:
       '@radix-ui/react-tooltip': 1.0.6_umvyg7lvidc4tlmnz5ryolqshm
       '@tanstack/react-table': 8.9.1_4sj5cua6hfprxlbl2wpqwfo36u
       axios: 1.4.0
+      countries-and-timezones: 3.4.1
       date-fns: 2.30.0
+      date-fns-tz: 2.0.0_date-fns@2.30.0
       flag-icons: 6.7.0
       framer-motion: 10.12.16_4sj5cua6hfprxlbl2wpqwfo36u
       lucide-react: 0.220.0_r32unjednohwkobv7sozx6ckr4
@@ -3524,6 +3528,11 @@ packages:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
     dev: true
 
+  /countries-and-timezones/3.4.1:
+    resolution: {integrity: sha512-INeHGCony4XUUR8iGL/lmt9s1Oi+n+gFHeJAMfbV5hJfYeDOB8JG1oxz5xFQu5oBZoRCJe/87k1Vzue9DoIauA==}
+    engines: {node: '>=8.x', npm: '>=5.x'}
+    dev: false
+
   /crc-32/1.2.2:
     resolution: {integrity: sha512-ROmzCKrTnOwybPcJApAA6WBWij23HVfGVNKqqrZpuyZOHqK2CwHSvpGuyt/UNNvaIjEd8X5IFGp4Mh+Ie1IHJQ==}
     engines: {node: '>=0.8'}
@@ -3699,6 +3708,14 @@ packages:
 
   /dataloader/1.4.0:
     resolution: {integrity: sha512-68s5jYdlvasItOJnCuI2Q9s4q98g0pCyL3HrcKJu8KNugUl8ahgmZYg38ysLTgQjjXX3H8CJLkAvWrclWfcalw==}
+
+  /date-fns-tz/2.0.0_date-fns@2.30.0:
+    resolution: {integrity: sha512-OAtcLdB9vxSXTWHdT8b398ARImVwQMyjfYGkKD2zaGpHseG2UPHbHjXELReErZFxWdSLph3c2zOaaTyHfOhERQ==}
+    peerDependencies:
+      date-fns: '>=2.0.0'
+    dependencies:
+      date-fns: 2.30.0
+    dev: false
 
   /date-fns/2.30.0:
     resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}

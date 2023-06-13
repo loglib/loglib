@@ -39,6 +39,7 @@ model WebSession {
     User     WebUser    @relation(fields: [userId], references: [id], onDelete: Cascade)
     WebEvent WebEvent[]
 
+    @@index([userId])
     @@map("web_session")
 }
 
@@ -57,6 +58,8 @@ model WebPageview {
     WebSession WebSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
     User       WebUser    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+    @@index([sessionId])
+    @@index([userId])
     @@map("web_pageview")
 }
 
@@ -75,5 +78,8 @@ model WebEvent {
     User       WebUser     @relation(fields: [userId], references: [id], onDelete: Cascade)
     WebSession WebSession  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
 
+    @@index([sessionId])
+    @@index([pageId])
+    @@index([userId])
     @@map("web_event")
 }

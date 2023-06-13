@@ -7,10 +7,7 @@ import { GenericError, PageView, Session } from "../../..";
 import { filter } from "./filter/smallFilter";
 import { Filter } from "./filter/type";
 
-export type GetInsightQuery = {
-    startDate: string,
-    endDate: string
-}
+export type GetInsightQuery = z.infer<typeof getInsightSchema>
 
 export type GetInsightResponse = {
     insight: {
@@ -88,6 +85,7 @@ export type GetInsightResponse = {
 const getInsightSchema = RootDashboardSchema.merge(z.object({
     startDate: z.string(),
     endDate: z.string(),
+    timeZone: z.string(),
     filter: z.string()
 }))
 
@@ -97,7 +95,7 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
     const query = getInsightSchema.safeParse(req.query)
     if (query.success) {
         try {
-            const { startDate, endDate } = query.data
+            const { startDate, endDate, timeZone } = query.data
             const startDateObj = new Date(startDate)
             const endDateObj = new Date(endDate)
             const duration = endDateObj.getTime() - startDateObj.getTime()
@@ -177,8 +175,8 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
             }
             const os = getOS(sessions)
             const browser = getBrowser(sessions)
-            const uniqueVisitorsByDate = getVisitorsByDate(sessions, startDateObj, endDateObj)
-            const uniqueSessionByDate = getVisitorsByDate(sessions, startDateObj, endDateObj, false)
+            const uniqueVisitorsByDate = getVisitorsByDate(sessions, startDateObj, endDateObj, true, timeZone)
+            const uniqueSessionByDate = getVisitorsByDate(sessions, startDateObj, endDateObj, false, timeZone)
             const onlineUsers = getOnlineUsers(sessions)
             const eventsWithData = getEvents(events, sessions, pageViews)
             return {

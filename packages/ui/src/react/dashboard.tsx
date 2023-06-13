@@ -9,7 +9,7 @@ import useSWR from 'swr'
 import { changeTheme, fetcher, getTheme, getUrl } from "./lib/utils";
 import { GetInsightResponse } from "@loglib/core"
 import { InsightCard } from "./components/insight/insightCard";
-import { Activity, Asterisk, Eye, Laptop2, MapPin, MonitorSmartphone, PanelTop, TimerIcon, UserIcon, Users2 } from "lucide-react";
+import { Activity, Asterisk, Clock, Eye, Laptop2, LogOut, MapPin, MonitorSmartphone, PanelTop, Settings, TimerIcon, UserIcon, Users2 } from "lucide-react";
 import { Switch } from "./components/ui/switch";
 import { PagesComponent } from "./components/insight/pages";
 import { RefComponent } from "./components/insight/referrer";
@@ -23,6 +23,9 @@ import LogoIcon from "./components/Icon/LogoIcon";
 import NightModeIcon from "./components/Icon/NightModeIcon";
 import { Filter, FilterProp } from "./lib/filter";
 import { Login } from "./login";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, DropdownMenuCheckboxItem } from "./components/ui/dropdownMenu";
+import ct from "countries-and-timezones"
+import { ScrollArea } from "./components/ui/scroll-area";
 
 
 export function Dashboard() {
@@ -40,8 +43,9 @@ export function Dashboard() {
 
   const [filters, setFilters] = useState<Filter[]>([])
   const [isAuth, setIsAuth] = useState(true)
+  const [timeZone, setTimeZone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone)
 
-  const { data, isLoading } = useSWR<GetInsightResponse>(getUrl() + `?startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&filter=${JSON.stringify(filters)}&path=/dashboard`, fetcher, {
+  const { data, isLoading } = useSWR<GetInsightResponse>(getUrl() + `?startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&timeZone=${timeZone}&filter=${JSON.stringify(filters)}&path=/dashboard`, fetcher, {
     onError(err: { response: { status: number; } }) {
       if (err.response.status === 401) {
         setIsAuth(false)
@@ -70,6 +74,9 @@ export function Dashboard() {
 
   const [token, setToken] = useState("")
 
+  //for some reason addis ababa is not included in the list of timezones which is I'm from
+  const timeZones = { ...ct.getAllTimezones(), "Africa/Addis_Ababa": { name: "Africa/Addis_Ababa" } }
+
   useEffect(() => {
     const theme = getTheme()
     document.documentElement.classList.add(theme);
@@ -78,13 +85,12 @@ export function Dashboard() {
       setToken(storedToken)
       setIsAuth(true)
     }
+    console.log(timeZone)
   }, []);
 
+
   return (
-    <>
-      <head>
-        <title>Loglib Dashboard</title>
-      </head>
+    <main>
       <LayoutGroup>
         <div className="bg-white min-h-screen w-full dark:bg-background transition-all duration-700 dark:text-white/90 scrollbar-hide">
           <div className="flex-1 space-y-4 p-8 pt-6">
@@ -93,26 +99,61 @@ export function Dashboard() {
                 <LogoIcon />
                 <h2 className="md:text-4xl font-bold tracking-tight text-2xl">LOGLIB</h2>
               </div>
-              <div className="flex gap-1 justify-center items-center col-span-1 self-center select-none relative">
+              <div className="flex gap-4 justify-center items-center col-span-1 self-center select-none relative">
 
                 <div
-                  className="p-2 px-4 rounded-md cursor-pointer  hover:bg-gray-100 dark:hover:bg-gray-900 dark:bg-dark shadow-black/70 transition-al duration-300 ease-in-out"
+                  className="rounded-md cursor-pointer  hover:bg-gray-100 dark:hover:bg-gray-900 dark:bg-dark shadow-black/70 transition-al duration-300 ease-in-out"
                   onClick={changeTheme}
                 >
                   <NightModeIcon />
                 </div>
-                {
-                  token && <button className=" text-sm font-bold rounded-full underline cursor-pointer bg-gradient-to-tr from-yellow-400 to-orange-600 bg-clip-text text-transparent"
-                    onClick={() => {
-                      setIsAuth(false)
-                      setToken('')
-                      localStorage.removeItem("ll-token")
-                      sessionStorage.removeItem("ll-auth")
-                    }}
-                  >
-                    Logout
-                  </button>
-                }
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <Settings size={18} />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className=" w-52">
+                    <DropdownMenuGroup>
+                      <DropdownMenuSub>
+                        <DropdownMenuSubTrigger>
+                          <Clock className="mr-2 h-4 w-4" />
+                          <span>Time Zone</span>
+                        </DropdownMenuSubTrigger>
+                        <DropdownMenuPortal>
+                          <ScrollArea className=" h-52">
+                            <DropdownMenuSubContent className=" h-52 overflow-scroll">
+
+                              {
+                                Object.keys(timeZones).sort().map((t: keyof typeof timeZones) => {
+                                  const z = timeZones[t]
+                                  return (
+                                    <DropdownMenuCheckboxItem checked={z.name === timeZone} onCheckedChange={() => setTimeZone(z.name)} key={t}>
+                                      <span>{z.name}</span>
+                                    </DropdownMenuCheckboxItem>
+                                  )
+                                })
+                              }
+                            </DropdownMenuSubContent>
+                          </ScrollArea>
+                        </DropdownMenuPortal>
+                      </DropdownMenuSub>
+                      <DropdownMenuSeparator />
+
+                      {token && <DropdownMenuItem
+                        onClick={() => {
+                          setIsAuth(false)
+                          setToken('')
+                          localStorage.removeItem("ll-token")
+                          sessionStorage.removeItem("ll-auth")
+                        }}
+                      >
+                        <LogOut className="mr-2 h-4 w-4" />
+                        Logout
+                      </DropdownMenuItem>
+                      }
+                    </DropdownMenuGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
 
               </div>
             </div>
@@ -284,6 +325,6 @@ export function Dashboard() {
           </div>
         </div>
       </LayoutGroup >
-    </>
+    </main>
   );
 }

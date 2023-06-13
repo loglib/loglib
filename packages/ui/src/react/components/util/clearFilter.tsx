@@ -4,10 +4,10 @@ import React from "react"
 
 export function ClearFilter({ onClick }: { onClick: () => void }) {
     return (
-        <div className=" flex gap-1 text-sm my-2 items-center justify-end font-bold cursor-pointer bg-gradient-to-br from-emphasis to-orange-400 text-transparent bg-clip-text"
+        <div className=" flex gap-1 text-sm mt-4 mb-2 items-center justify-end font-bold cursor-pointer"
             onClick={onClick}
         >
-            <XCircle size={14} className="  text-orange-400" />
+            <XCircle size={14} className=" " />
             <p>
                 Clear Filter
             </p>

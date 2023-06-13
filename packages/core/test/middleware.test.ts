@@ -1,9 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { Adapter, LogLibOptions, Session, internalRouter } from "../src";
 
-
-
-
 describe("middleware", () => {
     const mockAdapter = {
         createSession: vi.fn((data: Session) => data),
