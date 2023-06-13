@@ -53,7 +53,7 @@ export function PagesComponent({ pageViews, filter, isLoading }: { pageViews: Pa
                     }}
                     className=" cursor-pointer"
                   >
-                    <TableCell>{pageView.page}</TableCell>
+                    <TableCell>{pageView.page.substring(0, 20)} {pageView.page.length > 20 ? "..." : ""}</TableCell>
                     <TableCell className="text-right">{pageView.visits}</TableCell>
                   </TableRow>
                 ))}

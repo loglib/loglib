@@ -207,63 +207,45 @@ export const getBrowser = (sessions: Session[]) => {
     return browsers.sort((a, b) => b.visits - a.visits);
 }
 
-export const getVisitorsByDate = (sessions: Session[], startDate: Date, endDate: Date, uniqueUsers = true) => {
+export const getVisitorsByDate = (sessions: Session[], startDate: Date, endDate: Date, uniqueUsers = true, timezone: string) => {
     const ONE_DAY = 1000 * 60 * 60 * 24;
-    const range = getTimeRange(startDate, endDate)
+    const range = getTimeRange(startDate, endDate);
     const uniqueUserSessions = sessions.filter((session, index, self) =>
         index === self.findIndex((s) => (
             s.userId === session.userId
         ))
-    )
-    sessions = uniqueUsers ? uniqueUserSessions : sessions
+    );
+    sessions = uniqueUsers ? uniqueUserSessions : sessions;
+
+    const formatOptions: Intl.DateTimeFormatOptions = {
+        timeZone: timezone,
+    };
+
     if (range / ONE_DAY <= 2) {
-        const visitors = sessions.reduce((acc, session) => {
-            //divide it by hour
-            const date = new Date(session.createdAt).toLocaleTimeString("default", { hour: "numeric" });
-            const isFound = acc.find(p => p.date === date);
-            if (isFound) {
-                isFound.visits++;
-            } else {
-                acc.push({
-                    date,
-                    visits: 1
-                });
-            }
-            return acc;
-        }, [] as { date: string, visits: number }[]);
-        return visitors
+        formatOptions.hour = 'numeric';
     } else if (range / ONE_DAY <= 364) {
-        const visitors = sessions.reduce((acc, session) => {
-            const date = new Date(session.createdAt).toLocaleDateString("default", { day: "numeric", month: "short" });
-            const isFound = acc.find(p => p.date === date);
-            if (isFound) {
-                isFound.visits++;
-            } else {
-                acc.push({
-                    date,
-                    visits: 1
-                });
-            }
-            return acc;
-        }, [] as { date: string, visits: number }[]);
-        return visitors
+        formatOptions.day = 'numeric';
+        formatOptions.month = 'short';
     } else {
-        const visitors = sessions.reduce((acc, session) => {
-            const date = new Date(session.createdAt).toLocaleDateString("default", { month: "short" });
-            const isFound = acc.find(p => p.date === date);
-            if (isFound) {
-                isFound.visits++;
-            } else {
-                acc.push({
-                    date,
-                    visits: 1
-                });
-            }
-            return acc;
-        }, [] as { date: string, visits: number }[]);
-        return visitors
+        formatOptions.month = 'short';
     }
-}
+
+    const visitors = sessions.reduce((acc, session) => {
+        const date = new Date(session.createdAt).toLocaleString('default', formatOptions);
+        const isFound = acc.find(p => p.date === date);
+        if (isFound) {
+            isFound.visits++;
+        } else {
+            acc.push({
+                originalDate: session.createdAt,
+                date,
+                visits: 1
+            });
+        }
+        return acc.sort((a, b) => new Date(a.originalDate).getTime() - new Date(b.originalDate).getTime());
+    }, [] as { date: string, visits: number, originalDate: Date }[]);
+    return visitors
+};
 
 export const getOnlineUsers = (sessions: Session[]) => {
     const now = new Date();

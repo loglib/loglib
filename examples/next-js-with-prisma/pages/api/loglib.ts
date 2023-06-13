@@ -7,6 +7,7 @@ const db = new PrismaClient()
 
 export default createServer({
     adapter: prismaAdapter(db),
-    auth: { secret: process.env.LOGLIB_SECRET as string },
+    
+    
 })
 
