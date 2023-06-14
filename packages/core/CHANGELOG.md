@@ -1,5 +1,12 @@
 # @loglib/core
 
+## 0.1.10
+
+### Patch Changes
+
+- 5e5dc8e: - support through cdn is added to the tracker
+  - minor bug fixes on core
+
 ## 0.1.9
 
 ### Patch Changes
