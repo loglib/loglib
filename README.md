@@ -35,10 +35,16 @@
 pnpm add @loglib/next
 ```
 
-loglib ships with a cli tool that helps you setup your project. You can run the following command to setup your project.
+loglib ships with a cli tool that helps you setup your project. You can run the following command to setup your project and watch as the magic unfolds:
 
 ```bash
 pnpm loglib init
+```
+
+To update all the loglib packages in your app, you can run the following command:
+
+```bash
+pnpm loglib update
 ```
 
 this will setup your project with all possible configurations. Refer to the [docs](#docs) for more information.
@@ -515,11 +521,12 @@ To use loglib via the CDN, simply copy the following code into your script tag a
     const r = window.document.createElement("script");
     r.type = "text/javascript";
     r.async = !0;
-    r.src = "https://cdn.jsdelivr.net/npm/@loglib/tracker/dist/index.global.js";
+    r.src =
+      "https://cdn.jsdelivr.net/npm/@loglib/tracker@latest/dist/index.global.js";
     const a = document.getElementsByTagName("script")[0];
     a.parentNode.insertBefore(r, a);
     r.onload = () => {
-      loglib.record({ debug: true, host: "http://localhost:3000" });
+      loglib.record({ host: "http://localhost:3000" });
     };
   </script>
 </head>
@@ -605,11 +612,11 @@ export default function RootLayout({
 ```
 
 | options        | type    | default     | description                                                           |
-| -------------- | ------- | ----------- | --------------------------------------------------------------------- | --- |
+| -------------- | ------- | ----------- | --------------------------------------------------------------------- |
 | `autoTrack`    | boolean | `false`     | Automatically track click events with onclick handlers and on buttons |
 | `consent`      | string  | `"granted"` | The consent status of the user                                        |
 | `debug`        | boolean | `false`     | Enable debug mode                                                     |
-| `env`          | string  | `"auto"`    | The environment of the tracker                                        |     |
+| `env`          | string  | `"auto"`    | The environment of the tracker                                        |
 | `postInterval` | number  | `5`         | The interval to send events to the server                             |
 
 > NOTE: currently you can't use loglib server or dashboard in other frameworks other than next js or react but you can attach the dashboard on astro since you can use react in astro and we'll provide astro server soon. And you can always deploy a new next js project separated from your main project and use it as a dashboard and a server. See the example folder for more.
@@ -732,6 +739,6 @@ export default function page() {
 }
 ```
 
-### Upgrading
+### Updating Loglib
 
 Loglib is always evolving it might not be usual to update libraries in production apps frequently but you might wanna look at loglib a bit different. There will be always new features and fixes so you might wanna update your loglib version from time to time. We'll try to keep the updates as smooth as possible but since we're still in beta there might be breaking changes but we'll try to keep them to a minimum. You can see the changelog for more info.

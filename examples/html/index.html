@@ -8,15 +8,12 @@
       const r = window.document.createElement("script");
       r.type = "text/javascript";
       r.async = !0;
-      r.src = "../../packages/tracker/dist/index.global.js";
+      r.src =
+        "https://cdn.jsdelivr.net/npm/@loglib/tracker@latest/dist/index.global.js";
       const a = document.getElementsByTagName("script")[0];
       a.parentNode.insertBefore(r, a);
       r.onload = () => {
-        loglib.record({
-          debug: true,
-          host: "http://localhost:3000",
-          env: "dev",
-        });
+        loglib.record({ host: "http://localhost:3000" });
       };
     </script>
   </head>
