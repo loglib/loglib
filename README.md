@@ -27,7 +27,7 @@
 - Your mom will be impressed.
 - And more things are on the way.
 
-### Usage with Next JS 🔥
+### Adding loglib to your Next JS 🔥
 
 #### Install like every other library
 
@@ -43,7 +43,7 @@ pnpm loglib init
 
 this will setup your project with all possible configurations. Refer to the [docs](#docs) for more information.
 
-### Separate Deployments
+### Other Frameworks / Separate Deployments
 
 1. clone <https://github.com/LogLib/loglib-starter> this repo and run `pnpm i` to install dependencies.
 2. change .env.example to .env and fill in the required env variables
@@ -501,6 +501,28 @@ if you're not using next js or react you can use the vanilla version of the trac
     // your config here
   })
 </script>
+```
+
+### CDN
+
+To use loglib via the CDN, simply copy the following code into your script tag and replace the host with your deployed version:
+
+> Note that if you don't want to collect development logs, you can pass the env parameter as isDev(your way to know if it's development server) ? "dev": "prod".
+
+```html
+<head>
+  <script>
+    const r = window.document.createElement("script");
+    r.type = "text/javascript";
+    r.async = !0;
+    r.src = "https://cdn.jsdelivr.net/npm/@loglib/tracker/dist/index.global.js";
+    const a = document.getElementsByTagName("script")[0];
+    a.parentNode.insertBefore(r, a);
+    r.onload = () => {
+      loglib.record({ debug: true, host: "http://localhost:3000" });
+    };
+  </script>
+</head>
 ```
 
 ### Other Methods

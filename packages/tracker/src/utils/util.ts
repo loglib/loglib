@@ -99,6 +99,9 @@ export function q(e: ServerEvents) {
 
 
 export function getUrl() {
+	if (typeof process === "undefined") {
+		return "/api/loglib"
+	}
 	if (process.env.NEXT_PUBLIC_LOGLIB_URL || process.env.LOGLIB_URL) {
 		const url = process.env.NEXT_PUBLIC_LOGLIB_URL ?? process.env.LOGLIB_URL
 		return url + "/api/loglib"
@@ -113,6 +116,19 @@ export function getUrl() {
 		return '/api/loglib'
 	}
 	return "/api/loglib"
+}
+
+export const parseHost = (url: string) => {
+	if (url.startsWith("http") || url.startsWith("https")) {
+		if (url.split("/").length > 4) {
+			return url
+		} else {
+			const host = new URL(url)
+			return host.origin + "/api/loglib"
+		}
+	} else {
+		return url
+	}
 }
 
 export const getSessionDuration = () => {

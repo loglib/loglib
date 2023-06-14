@@ -3,7 +3,7 @@
 import { clickHandler } from "./handlers/clickHandler";
 import { send } from "./server";
 import { Config } from "./types";
-import { addInterval, clearIntervals, detectEnvironment, flush, getPath, getSessionDuration, getUrl, getUrlParams, guid, hook } from "./utils/util";
+import { addInterval, clearIntervals, detectEnvironment, flush, getPath, getSessionDuration, getUrl, getUrlParams, guid, hook, parseHost } from "./utils/util";
 import { logger } from "./utils/logger";
 
 
@@ -25,6 +25,9 @@ export function record(config?: Partial<Config>) {
 		host: getUrl(),
 		consent: "denied",
 	};
+	if (config && config.host) {
+		config.host = parseHost(config.host)
+	}
 	window.llc = config ? { ...defaultConfig, ...config } : defaultConfig;
 
 	//Set Internal
@@ -166,4 +169,3 @@ const blurHandler = () => {
 	}
 	);
 }
-

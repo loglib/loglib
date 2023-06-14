@@ -33,10 +33,10 @@ export default defineConfig([
     {
         ...cfg,
         entry: {
-            index: 'src/index.ts',
+            index: 'src/entry.ts',
         },
         outDir: 'dist',
         format: ['iife'],
-        minify: true,
+        minify: true
     }
 ]);
