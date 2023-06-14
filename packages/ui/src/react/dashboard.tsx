@@ -25,7 +25,6 @@ import { Filter, FilterProp } from "./lib/filter";
 import { Login } from "./login";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, DropdownMenuCheckboxItem } from "./components/ui/dropdownMenu";
 import ct from "countries-and-timezones"
-import { ScrollArea } from "./components/ui/scroll-area";
 
 
 export function Dashboard() {
@@ -111,7 +110,7 @@ export function Dashboard() {
                   <DropdownMenuTrigger>
                     <Settings size={18} />
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className=" w-52">
+                  <DropdownMenuContent align="end" className=" md:w-52 w-40">
                     <DropdownMenuGroup>
                       <DropdownMenuSub>
                         <DropdownMenuSubTrigger>
@@ -119,21 +118,21 @@ export function Dashboard() {
                           <span>Time Zone</span>
                         </DropdownMenuSubTrigger>
                         <DropdownMenuPortal>
-                          <ScrollArea className=" h-52">
-                            <DropdownMenuSubContent className=" h-52 overflow-scroll">
 
-                              {
-                                Object.keys(timeZones).sort().map((t: keyof typeof timeZones) => {
-                                  const z = timeZones[t]
-                                  return (
-                                    <DropdownMenuCheckboxItem checked={z.name === timeZone} onCheckedChange={() => setTimeZone(z.name)} key={t}>
-                                      <span>{z.name}</span>
-                                    </DropdownMenuCheckboxItem>
-                                  )
-                                })
-                              }
-                            </DropdownMenuSubContent>
-                          </ScrollArea>
+                          <DropdownMenuSubContent className=" h-52 md:w-52 w-44 overflow-scroll">
+
+                            {
+                              Object.keys(timeZones).sort().map((t: keyof typeof timeZones) => {
+                                const z = timeZones[t]
+                                return (
+                                  <DropdownMenuCheckboxItem checked={z.name === timeZone} onCheckedChange={() => setTimeZone(z.name)} key={t}>
+                                    <span>{z.name}</span>
+                                  </DropdownMenuCheckboxItem>
+                                )
+                              })
+                            }
+                          </DropdownMenuSubContent>
+
                         </DropdownMenuPortal>
                       </DropdownMenuSub>
 
