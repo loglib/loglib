@@ -27,7 +27,7 @@
 - Your mom will be impressed.
 - And more things are on the way.
 
-### Adding loglib to your Next JS 🔥
+### Adding loglib to Next JS 🔥
 
 #### Install like every other library
 
