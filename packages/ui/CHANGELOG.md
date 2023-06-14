@@ -1,5 +1,11 @@
 # @loglib/ui
 
+## 0.1.7
+
+### Patch Changes
+
+- c2ec0f9: mobile ui fix
+
 ## 0.1.6
 
 ### Patch Changes
