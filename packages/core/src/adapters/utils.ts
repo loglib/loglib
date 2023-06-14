@@ -1,5 +1,5 @@
 function camelToSnake<T extends object>(obj: T): T {
-    if (typeof obj !== 'object' || obj === null) {
+    if (obj === null) {
         return obj;
     }
 
@@ -18,10 +18,12 @@ function camelToSnake<T extends object>(obj: T): T {
     }, {} as T);
 }
 function snakeToCamel<T extends Record<string, any>>(obj: T): T {
+    if (obj === null) {
+        return obj;
+    }
     if (Array.isArray(obj)) {
         return obj.map(snakeToCamel) as unknown as T;
     }
-
     return Object.keys(obj).reduce((acc, key) => {
         const camelKey = key.replace(/_([a-z])/g, (_, letter: string) => letter.toUpperCase());
         const value = obj[key as keyof T];

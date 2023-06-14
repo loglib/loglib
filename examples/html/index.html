@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      const r = window.document.createElement("script");
+      r.type = "text/javascript";
+      r.async = !0;
+      r.src = "../../packages/tracker/dist/index.global.js";
+      const a = document.getElementsByTagName("script")[0];
+      a.parentNode.insertBefore(r, a);
+      r.onload = () => {
+        loglib.record({
+          debug: true,
+          host: "http://localhost:3000",
+          env: "dev",
+        });
+      };
+    </script>
+  </head>
+  <body></body>
+</html>
