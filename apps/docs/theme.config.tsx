@@ -1,8 +1,9 @@
 import React from "react";
 import { DocsThemeConfig, Link } from "nextra-theme-docs";
+import Logo from "./components/logo";
 
 const config: DocsThemeConfig = {
-  logo: <span>Loglib</span>,
+  logo: <Logo />,
   project: {
     link: "https://github.com/LogLib/loglib",
   },
