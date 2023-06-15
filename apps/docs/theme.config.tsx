@@ -46,7 +46,7 @@ const config: DocsThemeConfig = {
     ),
     text: "Edit this page on GitHub →",
   },
-  docsRepositoryBase: "https://github.com/LogLib/loglib/apps/docs/pages",
+  docsRepositoryBase: "https://github.com/LogLib/loglib/apps/docs/pages/docs",
   useNextSeoProps() {
     const { asPath } = useRouter();
     if (asPath !== "/") {
