@@ -5,6 +5,7 @@
     "clsx",
     "execa",
     "fkey",
+    "Loglib",
     "lucide",
     "pkey",
     "tablespace",
