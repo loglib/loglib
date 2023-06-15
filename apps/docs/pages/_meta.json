@@ -1,16 +1,16 @@
 {
-  "index": "Introduction",
-  "installation": "Installation",
-  "get-started": "Get Started",
-  "about": {
-    "title": "About",
-    "type": "page"
-  },
-  "contact": {
-    "title": "Twitter ↗",
-    "type": "page",
-    "href": "https://twitter.com/loglib_io",
-    "newWindow": true,
-    "display": "hidden"
-  }
+    "index": {
+        "title": "Loglib.io - another web analytics tool",
+        "type": "page",
+        "display": "hidden",
+        "theme": {
+            "layout": "raw",
+            "sidebar": false,
+            "toc": true
+        }
+    },
+    "docs": {
+        "title": "Documentation",
+        "type": "page"
+    }
 }
