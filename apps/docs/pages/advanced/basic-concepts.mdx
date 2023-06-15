@@ -1,0 +1,11 @@
+import { Callout, Steps, Tab, Tabs } from "nextra-theme-docs";
+
+## Basic Concept
+
+Loglib is consist of three things:
+
+- **Tracker**: This component tracks your website's analytics.
+- **Loglib Server**: It handles requests without requiring a separate deployment if you already have a backend.
+- **Loglib Dashboard**: It offers a beautiful, minimalistic UI to display your analytics.
+
+The idea is that you can integrate a tracker into your website, similar to other analytics tools. However, instead of sending the data to a third-party server or a separately deployed thing like umami (which we love), it is sent to your current server, which can be set up as an endpoint in your Next.js application (other alternatives in the near future). Then, you can utilize a dashboard that is currently built as a React component (again more frameworks soon). You can export this component as page, enabling you to conveniently view and analyze your website analytics.

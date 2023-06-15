@@ -157,31 +157,52 @@ export default Dashboard;
 
 Let's setup the tracker to collect analytics
 
-`src/app/layout.tsx`
+<Tabs items={['app route', 'pages']}>
+  <Tab>
+    `src/app/layout.tsx`
 
-```ts
-import LogLib from "@loglib/tracker/react";
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="en">
-      <body>
-        <LogLib
-          config={
-            {
-              //  your config here
-            }
-          }
-        />
-        {children}
-      </body>
-    </html>
-  );
-}
-```
+    ```ts
+    import LogLib from "@loglib/tracker/react";
+    export default function RootLayout({
+      children,
+    }: {
+      children: React.ReactNode;
+    }) {
+      return (
+        <html lang="en">
+          <body>
+            <LogLib
+              config={
+                {
+                  //  your config here
+                }
+              }
+            />
+            {children}
+          </body>
+        </html>
+      );
+    }
+    ```
+
+  </Tab>
+  <Tab>
+    `src/pages/_app.tsx`
+
+    ```js
+    import LogLib from "@loglib/tracker";
+    export default function App({ Component, pageProps }: AppProps) {
+      return (
+        <>
+          <LogLib config={{}} />
+          <Component {...pageProps} />
+        </>
+      );
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 </Steps>
 
