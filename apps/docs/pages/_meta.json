@@ -1,6 +1,6 @@
 {
     "index": {
-        "title": "Loglib.io - another web analytics tool",
+        "title": "Loglib.io - Another web analytics tool",
         "type": "page",
         "display": "hidden",
         "theme": {
@@ -12,5 +12,19 @@
     "docs": {
         "title": "Documentation",
         "type": "page"
+    },
+    "blogs": {
+        "title": "Blog",
+        "type": "page",
+        "theme": {
+            "sidebar": false,
+            "toc": true
+        }
+    },
+    "contact": {
+        "title": "Twitter ↗",
+        "type": "page",
+        "href": "https://twitter.com/loglib_io",
+        "newWindow": true
     }
 }
