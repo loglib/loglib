@@ -4,22 +4,12 @@
         "type": "page",
         "display": "hidden",
         "theme": {
-            "layout": "raw",
-            "sidebar": false,
-            "toc": true
+            "layout": "raw"
         }
     },
     "docs": {
         "title": "Documentation",
         "type": "page"
-    },
-    "blogs": {
-        "title": "Blog",
-        "type": "page",
-        "theme": {
-            "sidebar": false,
-            "toc": true
-        }
     },
     "contact": {
         "title": "Twitter ↗",
