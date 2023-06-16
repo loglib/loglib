@@ -1,16 +1,5 @@
 {
   "index": "Introduction",
   "installation": "Installation",
-  "get-started": "Get Started",
-  "about": {
-    "title": "About",
-    "type": "page"
-  },
-  "contact": {
-    "title": "Twitter ↗",
-    "type": "page",
-    "href": "https://twitter.com/loglib_io",
-    "newWindow": true,
-    "display": "hidden"
-  }
+  "get-started": "Get Started"
 }
