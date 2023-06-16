@@ -4,16 +4,16 @@ import { useRouter } from "next/router";
 
 const Logo = (props: ComponentProps<"svg">): ReactElement => {
   const { theme } = useTheme();
-  const [color, setColor] = React.useState(theme === "dark" ? "#fff" : "#000");
+  const [color, setColor] = React.useState("white");
   React.useEffect(() => {
-    setColor(theme === "dark" ? "#fff" : "#000");
+    setColor(theme === "dark" ? "white" : "black");
   }, [theme]);
 
   return (
-    <div className="flex space-x-10 items-center">
+    <div className="flex space-x-5 items-center">
       <svg
-        width="36"
-        height="31"
+        width="28"
+        height="23"
         viewBox="0 0 112 102"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -28,8 +28,8 @@ const Logo = (props: ComponentProps<"svg">): ReactElement => {
         />
       </svg>
       <svg
-        width="120"
-        height="22"
+        width="112"
+        height="16"
         viewBox="0 0 126 28"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +76,7 @@ const config: DocsThemeConfig = {
     const { asPath } = useRouter();
     if (asPath !== "/") {
       return {
-        titleTemplate: "%s – Loglib",
+        titleTemplate: "%s – Loglib.io",
       };
     }
   },

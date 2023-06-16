@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  env: {
-    GITHUB_ACCESS_TOKEN: "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",
-  },
 };
 
 const withNextra = require("nextra")({
