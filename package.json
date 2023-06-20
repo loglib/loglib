@@ -10,8 +10,7 @@
     "lint:fix": "turbo lint -- --fix && manypkg fix",
     "test": "turbo test",
     "typecheck": "turbo typecheck",
-    "ci:publish": "pnpm publish -r",
-    "prepare": "cd .. && husky install frontend/.husky"
+    "ci:publish": "pnpm publish -r"
   },
   "dependencies": {
     "@changesets/changelog-github": "^0.4.8",
