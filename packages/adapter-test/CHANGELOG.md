@@ -1,5 +1,14 @@
 # @loglib/adapter-test
 
+## 1.1.0
+
+### Minor Changes
+
+- fbc11fc: - supports multiple site
+  - UI is composable and customizable
+  - Tracker now doesn't send pings to periodically to the server, instead it sends pings on page navigation and when the page is closed
+  - And many more bug fixes and improvements
+
 ## 1.0.5
 
 ### Patch Changes
