@@ -1,7 +1,7 @@
 "use client";
 
 import "../css/index.css";
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { DatePicker, CalendarDateRangePicker } from "./components/ui/datePicker";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";
@@ -25,19 +25,16 @@ import { DefaultHeader } from "./components/header";
 
 
 type DashboardProps = {
-  config: {
-    websiteId?: string,
-  },
+  websiteId?: string,
   components?: typeof defaultComponents
   className?: string
-  initialData?: GetInsightResponse
 }
 
 const defaultComponents = {
   header: DefaultHeader,
 }
 
-export function Dashboard({ components, config, initialData, className }: DashboardProps = { config: {}, }) {
+export const Dashboard: FC<DashboardProps> = (props) => {
   const [timeRange, setTimeRange] = useState<{
     startDate: Date,
     endDate: Date,
@@ -54,13 +51,12 @@ export function Dashboard({ components, config, initialData, className }: Dashbo
   const [isAuth, setIsAuth] = useState(true)
   const [timezone, setTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone)
 
-  const { data, isLoading } = useSWR<GetInsightResponse>(getUrl() + `?startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&timeZone=${timezone}&filter=${JSON.stringify(filters)}&path=/dashboard&websiteId=${config?.websiteId ?? ""}`, fetcher, {
+  const { data, isLoading } = useSWR<GetInsightResponse>(getUrl() + `?startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&timeZone=${timezone}&filter=${JSON.stringify(filters)}&path=/dashboard&websiteId=${props.websiteId ?? ""}`, fetcher, {
     onError(err: { response: { status: number; } }) {
       if (err.response.status === 401) {
         setIsAuth(false)
       }
     },
-    fallbackData: initialData
   })
 
   function addFilter(f: Filter) {
@@ -106,11 +102,11 @@ export function Dashboard({ components, config, initialData, className }: Dashbo
 
 
   //set default components if not provided
-  components = components ?? defaultComponents
+  const components = props.components ?? defaultComponents
   return (
     <main>
       <LayoutGroup>
-        <div className={cn(" min-h-screen bg-background w-full space-y-4 p-8 pt-6  transition-all duration-700 dark:text-white/90 scrollbar-hide", className)}>
+        <div className={cn(" min-h-screen bg-background w-full space-y-4 p-8 pt-6  transition-all duration-700 dark:text-white/90 scrollbar-hide", props.className)}>
           <components.header timezone={timezone} setTimezone={setTimezone} timezones={timezones} logoutFn={defaultLogout} hideLogout={!token} />
           {isAuth ?
             <Tabs defaultValue="insights" className="space-y-4" >
