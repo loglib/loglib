@@ -5,15 +5,15 @@ import { router } from "./router";
 import { authMiddleware } from "./middleware/auth"
 
 
-export const internalRouter = async (req: ApiRequest<any, any>, options: LogLibOptions) => {
+
+export const requestHandler = async (req: ApiRequest<any, any>, options: LogLibOptions) => {
     if (!req.method) {
         return { message: "Invalid request method. Expected a string.", code: 400 }
     }
-
     const method = req.method.toUpperCase() as "POST" | "PUT" | "DELETE" | "GET"
     let path = ""
     if (method === "POST" || method === "PUT" || method === "DELETE") {
-        if (typeof req.body !== 'object' || Array.isArray(req.body)) {
+        if (typeof req.body !== 'object') {
             return { message: "Invalid request body. Expected an object.", code: 400 }
         }
         if (!req.body.path) {
@@ -21,7 +21,6 @@ export const internalRouter = async (req: ApiRequest<any, any>, options: LogLibO
         }
         path = req.body.path as string
     } else if (req.method === "GET") {
-
         if (!req.query.path) {
             return { message: "Path not specified", code: 400 }
         }
@@ -35,6 +34,7 @@ export const internalRouter = async (req: ApiRequest<any, any>, options: LogLibO
     if (!handler) {
         return { message: "Handler doesn't implement this method!", code: 400 }
     }
+
     if (options.auth && route.meta?.auth) {
         const res = await authMiddleware(req, options, handler)
         return res
@@ -46,3 +46,12 @@ export const internalRouter = async (req: ApiRequest<any, any>, options: LogLibO
     const res = await handler(req, options)
     return res
 }
+
+export const internalRouter = async (req: ApiRequest<any, any>, options: LogLibOptions) => {
+    if (options.middleware) {
+        return await options.middleware(req, options, requestHandler)
+    }
+    return await requestHandler(req, options)
+}
+
+export type RequestHandler = typeof requestHandler

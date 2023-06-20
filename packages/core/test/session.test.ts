@@ -80,7 +80,7 @@ describe('sessionPost', () => {
         const req = mockRequest({ ...validRequest, userId: '' });
         const res = await sessionPost(req, mockOptions);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        expect(res.data.session.userId).not.toBe("")
+        expect(res.data?.userId).not.toBe("")
         expect(res).toEqual({
             message: 'success',
             code: 200,

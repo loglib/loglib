@@ -9,6 +9,7 @@ import { ApiPostHandler } from "../../../router/type";
 import { GenericError } from "../../../error";
 import { RootApiTrackerSchema } from "../../schema";
 import { isProduction } from "../../../utils/common";
+import { Session } from "../../..";
 
 
 
@@ -25,7 +26,7 @@ export const SessionPostSchema = RootApiTrackerSchema.merge(z.object({
 export type SessionPostInput = z.infer<typeof SessionPostSchema>
 
 
-export const sessionPost: ApiPostHandler<SessionPostInput> = async (req, options) => {
+export const sessionPost: ApiPostHandler<SessionPostInput, Session | null> = async (req, options) => {
     if (isbot(req.headers['user-agent'])) {
         return { message: 'bot', code: 200 }
     }
@@ -35,9 +36,8 @@ export const sessionPost: ApiPostHandler<SessionPostInput> = async (req, options
     }
     const body = SessionPostSchema.safeParse(req.body)
     if (body.success) {
-        const { sessionId, data, userId, pageId } = body.data
+        const { sessionId, data, userId, pageId, websiteId } = body.data
         const { referrer, language, queryParams, screenWidth } = data
-
         const ipAddress = options.environment === "test" ? "155.252.206.205" : getIpAddress(req) as string
         if (ipAddress && !await isLocalhost(ipAddress)) {
             const location = !options.disableLocation ? options.getLocation ? await options.getLocation(ipAddress) : await getLocation(ipAddress, req).catch(() => null) : { city: null, country: null }
@@ -50,13 +50,12 @@ export const sessionPost: ApiPostHandler<SessionPostInput> = async (req, options
             const os = detectOS(userAgent);
             const device = os ? getDevice(screenWidth, os) : null;
             try {
-
-                const user = await adapter.upsertUser({
+                await adapter.upsertUser({
                     id: userId,
                     createdAt: new Date(),
                     updatedAt: new Date(),
+                    websiteId
                 }, userId)
-
 
                 const session = await adapter.createSession({
                     city, country, userId, language, referrer: referrer ? referrer : "direct", id: sessionId,
@@ -67,8 +66,10 @@ export const sessionPost: ApiPostHandler<SessionPostInput> = async (req, options
                     queryParams: queryParams || null,
                     createdAt: new Date(),
                     updatedAt: new Date(),
+                    websiteId
                 })
-                const page = await adapter.createPageView({
+
+                await adapter.createPageView({
                     sessionId: sessionId,
                     userId: userId,
                     id: pageId,
@@ -77,15 +78,17 @@ export const sessionPost: ApiPostHandler<SessionPostInput> = async (req, options
                     duration: 0,
                     createdAt: new Date(),
                     updatedAt: new Date(),
-                    queryParams: data.queryParams || null
+                    queryParams: data.queryParams || null,
+                    websiteId
                 })
 
                 return {
                     message: "success",
                     code: 200,
-                    data: { session, page, user }
+                    data: session
                 }
             } catch (e) {
+
                 return {
                     message: "error",
                     code: 400,

@@ -24,9 +24,9 @@ import {
     TableRow,
 } from "@/react/components/ui/table"
 import { AnimatePresence, motion } from 'framer-motion'
-import { Button } from "../ui/button"
-import { Input } from "../ui/input"
-import { TableLoading } from "../util/tableLoading"
+import { Button } from "../components/ui/button"
+import { Input } from "../components/ui/input"
+import { TableLoading } from "../components/util/tableLoading"
 
 
 interface DataTableProps<TData, TValue> {

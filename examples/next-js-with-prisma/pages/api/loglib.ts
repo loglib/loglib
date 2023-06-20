@@ -8,4 +8,3 @@ const db = new PrismaClient()
 export default createServer({
     adapter: prismaAdapter(db),
 })
-

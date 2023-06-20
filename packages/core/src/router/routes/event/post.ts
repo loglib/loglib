@@ -15,7 +15,7 @@ export const EventSchema = z.array(z.object({
 }))
 export const EventsApiSchema = RootApiTrackerSchema.merge(z.object({ data: EventSchema }))
 export type EventPostInput = z.infer<typeof EventsApiSchema>
-export const postEvent: ApiPostHandler<EventPostInput> = async (req, options) => {
+export const postEvent: ApiPostHandler<EventPostInput, Events[] | null> = async (req, options) => {
     if (!req.body.userId) {
         req.body.userId = getIpAddress(req) as string
     }
@@ -31,7 +31,8 @@ export const postEvent: ApiPostHandler<EventPostInput> = async (req, options) =>
             eventType: event.eventType,
             id: event.id,
             createdAt: new Date(),
-            updatedAt: new Date()
+            updatedAt: new Date(),
+            websiteId: body.data.websiteId
         }))
         try {
             const res = await adapter.createManyEvents(data)
