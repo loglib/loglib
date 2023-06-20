@@ -188,11 +188,17 @@ export async function runAdapterTest(options: TestOptions) {
     })
 
     describe("upsert pageview", async () => {
-
-        it("should update or create a page view", async () => {
-            const response = await adapter.upsertPageView(pageView);
-            expect(response).toEqual({ ...pageView, createdAt: response?.createdAt, updatedAt: response?.updatedAt });
+        it("should u create a page view", async () => {
+            const newPageView = { ...pageView, id: "new-page-view-id" }
+            const response = await adapter.createPageView(newPageView);
+            expect(response).toEqual({ ...newPageView, createdAt: response?.createdAt, updatedAt: response?.updatedAt });
+        })
+        it("should update page view", async () => {
+            const newPageView = { ...pageView, page: "/new-page" }
+            const response = await adapter.updatePageView(newPageView);
+            expect(response).toEqual({ ...newPageView, createdAt: response?.createdAt, updatedAt: response?.updatedAt });
         })
     })
+
 }
 

@@ -10,7 +10,7 @@ const loginSchema = z.object({
 
 
 
-const login: ApiPostHandler<z.infer<typeof loginSchema>> = (req, options) => {
+const login: ApiPostHandler<z.infer<typeof loginSchema>, any> = async (req, options) => {
     const body = loginSchema.safeParse(req.body)
     if (body.success) {
         const { username, password } = body.data

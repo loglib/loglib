@@ -18,25 +18,8 @@ export const getPageViews = (pageViews: PageView[], pastPageViews: PageView[]) =
     }
 }
 
-export const getAverageTime = (sessions: Session[], pastSessions: Session[], bySecond: boolean) => {
-    const total = sessions.reduce((acc, session) => acc + session.duration, 0);
-    const pastTotal = pastSessions.reduce((acc, session) => acc + session.duration, 0);
-    const change = pastTotal ? Math.floor(((total - pastTotal) / pastTotal) * 100) : 100
-    if (!bySecond) {
-        return {
-            total: Math.ceil(total / sessions.length / 60),
-            change: change > 100 ? 100 : change
-        }
-    } else {
-        return {
-            total: Math.floor(total / sessions.length),
-            change: change > 100 ? 100 : change
-        }
-    }
-}
-
 //it uses pageview duration to get more accurate result since session duration includes the hidden state duration too
-export const getAverageTimeV2 = (sessions: Session[], pastSessions: Session[], bySecond: boolean, pageViews: PageView[], pastPageViews: PageView[]) => {
+export const getAverageTime = (sessions: Session[], pastSessions: Session[], pageViews: PageView[], pastPageViews: PageView[]) => {
     const total = sessions.reduce((acc, session) => {
         const pages = pageViews.filter(pageView => pageView.sessionId === session.id);
         const duration = pages.reduce((acc, pageView) => acc + pageView.duration, 0);
@@ -48,14 +31,17 @@ export const getAverageTimeV2 = (sessions: Session[], pastSessions: Session[], b
         return acc + duration;
     }, 0)
     const change = pastTotal ? Math.floor(((total - pastTotal) / pastTotal) * 100) : 100
-    if (!bySecond) {
+    const seconds = Math.floor(total / sessions.length)
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    if (seconds < 60) {
         return {
-            total: Math.ceil(total / sessions.length / 60),
+            total: isNaN(seconds) ? '0 sec' : `${seconds} sec`,
             change: change > 100 ? 100 : change
         }
     } else {
         return {
-            total: Math.floor(total / sessions.length),
+            total: `${isNaN(minutes) ? 0 : minutes} min ${isNaN(remainingSeconds) ? 0 : remainingSeconds} sec`,
             change: change > 100 ? 100 : change
         }
     }

@@ -8,3 +8,4 @@ export default defineConfig((opts) => ({
     target: "es2017",
     dts: true,
 }));
+

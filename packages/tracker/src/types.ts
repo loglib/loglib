@@ -1,10 +1,12 @@
 export type Config = {
+	id?: string,
 	autoTrack: boolean;
 	debug: boolean;
 	env: "auto" | "prod" | "dev";
 	postInterval: number;
 	host: string;
 	consent: "granted" | "denied";
+	useServerPath?: boolean;
 };
 export type ServerEvents = {
 	id: string;

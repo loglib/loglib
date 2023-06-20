@@ -453,7 +453,7 @@ App Route
 `src/app/layout.tsx`
 
 ```js
-import LogLib from "@loglib/tracker/react";
+import Loglib from "@loglib/tracker/react";
 export default function RootLayout({
   children,
 }: {
@@ -462,7 +462,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <LogLib
+        <Loglib
           config={
             {
               //  your config here
@@ -481,11 +481,11 @@ Page Route
 `src/pages/_app.tsx`
 
 ```js
-import LogLib from "@loglib/tracker";
+import Loglib from "@loglib/tracker";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <LogLib config={{}} />
+      <Loglib config={{}} />
       <Component {...pageProps} />
     </>
   );

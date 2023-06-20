@@ -2,7 +2,7 @@ import z from "zod";
 import { RootDashboardSchema } from "../../schema";
 import { ApiGetHandler } from "../../type";
 import { getBrowser, getDevices, getEvents, getLoc, getOS, getOnlineUsers, getPageViews, getPages, getReferer, getUniqueVisitors, getVisitorsByDate } from "./utils";
-import { EventsWithData, getAverageTimeV2, getBounceRate } from "./utils/analysis";
+import { EventsWithData, getAverageTime, getBounceRate } from "./utils/analysis";
 import { GenericError, PageView, Session } from "../../..";
 import { filter } from "./filter/smallFilter";
 import { Filter } from "./filter/type";
@@ -20,14 +20,8 @@ export type GetInsightResponse = {
             change: number
         },
         averageTime: {
-            bySec: {
-                total: number,
-                change: number
-            },
-            byMin: {
-                total: number,
-                change: number
-            }
+            total: string,
+            change: number
         },
         bounceRate: {
             total: number,
@@ -86,7 +80,8 @@ const getInsightSchema = RootDashboardSchema.merge(z.object({
     startDate: z.string(),
     endDate: z.string(),
     timeZone: z.string(),
-    filter: z.string()
+    filter: z.string(),
+    websiteId: z.string().optional()
 }))
 
 
@@ -95,18 +90,18 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
     const query = getInsightSchema.safeParse(req.query)
     if (query.success) {
         try {
-            const { startDate, endDate, timeZone } = query.data
+            const { startDate, endDate, timeZone, websiteId } = query.data
             const startDateObj = new Date(startDate)
             const endDateObj = new Date(endDate)
             const duration = endDateObj.getTime() - startDateObj.getTime()
             const pastEndDateObj = new Date(startDateObj.getTime() - duration)
-            let users = await adapter.getUser(startDateObj, endDateObj)
-            let pastUsers = await adapter.getUser(pastEndDateObj, startDateObj)
-            let pageViews = await adapter.getPageViews(startDateObj, endDateObj)
-            let pastPageViews = await adapter.getPageViews(pastEndDateObj, startDateObj)
-            let sessions = await adapter.getSession(startDateObj, endDateObj)
-            let pastSessions = await adapter.getSession(pastEndDateObj, startDateObj)
-            let events = await adapter.getEvents(startDateObj, endDateObj)
+            let users = await adapter.getUser(startDateObj, endDateObj, websiteId)
+            let pastUsers = await adapter.getUser(pastEndDateObj, startDateObj, websiteId)
+            let pageViews = await adapter.getPageViews(startDateObj, endDateObj, websiteId)
+            let pastPageViews = await adapter.getPageViews(pastEndDateObj, startDateObj, websiteId)
+            let sessions = await adapter.getSession(startDateObj, endDateObj, websiteId)
+            let pastSessions = await adapter.getSession(pastEndDateObj, startDateObj, websiteId)
+            let events = await adapter.getEvents(startDateObj, endDateObj, websiteId)
 
             //filters
             const filters = JSON.parse(query.data.filter) as Filter<Session, "session">[] | Filter<PageView, "pageview">[]
@@ -163,8 +158,7 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
             //insights data
             const uniqueVisitors = getUniqueVisitors(users, pastUsers)
             const pageView = getPageViews(pageViews, pastPageViews)
-            const averageTimeBySec = getAverageTimeV2(sessions, pastSessions, true, pageViews, pastPageViews)
-            const averageTimeByMin = getAverageTimeV2(sessions, pastSessions, false, pageViews, pastPageViews)
+            const averageTime = getAverageTime(sessions, pastSessions, pageViews, pastPageViews)
             const bounceRate = getBounceRate(pageViews, pastPageViews, sessions, pastSessions)
             const pages = getPages(pageViews)
             const devices = getDevices(sessions)
@@ -186,10 +180,7 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
                     insight: {
                         uniqueVisitors,
                         pageView,
-                        averageTime: {
-                            byMin: averageTimeByMin,
-                            bySec: averageTimeBySec
-                        },
+                        averageTime,
                         bounceRate,
                     },
                     data: {

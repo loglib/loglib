@@ -29,8 +29,8 @@ const supabaseAdapter = (db: SupabaseClient): Adapter => {
                 throw error;
             });
         },
-        async upsertPageView(data) {
-            const response = await db.from("web_pageview").upsert(camelToSnake(data)).eq("id", data.id).select("*").single().throwOnError()
+        async updatePageView(data) {
+            const response = await db.from("web_pageview").update(camelToSnake(data)).eq("id", data.id).select("*").single().throwOnError()
             const resData = { ...response.data, query_params: JSON.parse(response.data?.query_params as string) }
             return snakeToCamel(resData) as unknown as PageView;
         },
