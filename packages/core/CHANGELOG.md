@@ -1,5 +1,14 @@
 # @loglib/core
 
+## 0.2.0
+
+### Minor Changes
+
+- fbc11fc: - supports multiple site
+  - UI is composable and customizable
+  - Tracker now doesn't send pings to periodically to the server, instead it sends pings on page navigation and when the page is closed
+  - And many more bug fixes and improvements
+
 ## 0.1.10
 
 ### Patch Changes
