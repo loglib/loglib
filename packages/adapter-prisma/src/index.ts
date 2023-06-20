@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Adapter } from "@loglib/core"
-import { PrismaClient } from "./generated/client"
+import { PrismaClient } from "@prisma/client"
 
 export const prismaAdapter = (db: PrismaClient): Adapter => {
     return {
