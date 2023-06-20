@@ -110,7 +110,7 @@ export function Dashboard({ components, config, initialData, className }: Dashbo
   return (
     <main>
       <LayoutGroup>
-        <div className={cn(" min-h-screen bg-background w-full space-y-4 p-8 pt-6 bg- transition-all duration-700 dark:text-white/90 scrollbar-hide", className)}>
+        <div className={cn(" min-h-screen bg-background w-full space-y-4 p-8 pt-6  transition-all duration-700 dark:text-white/90 scrollbar-hide", className)}>
           <components.header timezone={timezone} setTimezone={setTimezone} timezones={timezones} logoutFn={defaultLogout} hideLogout={!token} />
           {isAuth ?
             <Tabs defaultValue="insights" className="space-y-4" >

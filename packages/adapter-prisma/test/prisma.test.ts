@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { prismaAdapter } from '../src';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '../src/generated/client';
 import { describe } from 'vitest';
 import { runAdapterTest } from '@loglib/adapter-test';
 

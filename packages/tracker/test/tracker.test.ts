@@ -15,7 +15,8 @@ const mocks = vi.hoisted(() => {
 
 vi.mock("../src/server");
 vi.mock("../src/utils/util", async () => {
-    const actual = await vi.importActual("../src/utils/util") as object;
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+    const actual = await vi.importActual("../src/utils/util") as typeof import("../src/utils/util");
     return {
         ...actual,
         guid: mocks.guid,
