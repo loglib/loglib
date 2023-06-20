@@ -5,7 +5,8 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "prisma db push && vitest",
+    "test": "prisma db push && vitest run",
+    "test:watch": "vitest watch",
     "build": "prisma generate && tsup",
     "dev": "tsup --watch",
     "db:push": "prisma db push",

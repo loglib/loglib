@@ -5,7 +5,8 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "dotenv -e ../../.env vitest",
+    "test": "dotenv -e ../../.env vitest run",
+    "test:watch": "vitest watch",
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",

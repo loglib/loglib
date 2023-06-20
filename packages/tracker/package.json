@@ -5,7 +5,8 @@
   "main": "./dist/index.js",
   "packageManager": "pnpm@7.9.5",
   "scripts": {
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
     "dev": "rm -rf /dist & tsup --watch",
     "build": "rm -rf /dist & tsup",
     "lint": "eslint . --ext .ts"
