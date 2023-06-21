@@ -74,11 +74,16 @@ module.exports = {
             "background-position": "right center",
           },
         },
+        "fade-in": {
+          from: { opacity: 0, transform: "translateY(-0.5rem)" },
+          to: { opacity: 1, transform: "none" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         text: "text 5s ease infinite",
+        "fade-in": "fade-in 2000ms 1s ease",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
