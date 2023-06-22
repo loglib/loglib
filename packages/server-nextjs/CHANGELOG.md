@@ -1,5 +1,13 @@
 # @loglib/next
 
+## 0.1.12
+
+### Patch Changes
+
+- d48f41d: cli adapter template update to visitor id
+- Updated dependencies [d48f41d]
+  - @loglib/core@0.3.0
+
 ## 0.1.11
 
 ### Patch Changes
