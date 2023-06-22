@@ -31,12 +31,12 @@ export const sessionPost: ApiPostHandler<SessionPostInput, Session | null> = asy
         return { message: 'bot', code: 200 }
     }
     //if GDPR compliance is enabled, use ip address as user id
-    if (!req.body.userId) {
-        req.body.userId = getIpAddress(req) as string
+    if (!req.body.visitorId) {
+        req.body.visitorId = getIpAddress(req) as string
     }
     const body = SessionPostSchema.safeParse(req.body)
     if (body.success) {
-        const { sessionId, data, userId, pageId, websiteId } = body.data
+        const { sessionId, data, visitorId, pageId, websiteId } = body.data
         const { referrer, language, queryParams, screenWidth } = data
         const ipAddress = options.environment === "test" ? "155.252.206.205" : getIpAddress(req) as string
         if (ipAddress && !await isLocalhost(ipAddress)) {
@@ -50,15 +50,15 @@ export const sessionPost: ApiPostHandler<SessionPostInput, Session | null> = asy
             const os = detectOS(userAgent);
             const device = os ? getDevice(screenWidth, os) : null;
             try {
-                await adapter.upsertUser({
-                    id: userId,
+                await adapter.upsertVisitor({
+                    id: visitorId,
                     createdAt: new Date(),
                     updatedAt: new Date(),
                     websiteId
-                }, userId)
+                }, visitorId)
 
                 const session = await adapter.createSession({
-                    city, country, userId, language, referrer: referrer ? referrer : "direct", id: sessionId,
+                    city, country, visitorId, language, referrer: referrer ? referrer : "direct", id: sessionId,
                     browser,
                     device,
                     os,
@@ -71,7 +71,7 @@ export const sessionPost: ApiPostHandler<SessionPostInput, Session | null> = asy
 
                 await adapter.createPageView({
                     sessionId: sessionId,
-                    userId: userId,
+                    visitorId: visitorId,
                     id: pageId,
                     page: data.pathname,
                     referrer: data.referrer,
@@ -88,7 +88,6 @@ export const sessionPost: ApiPostHandler<SessionPostInput, Session | null> = asy
                     data: session
                 }
             } catch (e) {
-
                 return {
                     message: "error",
                     code: 400,

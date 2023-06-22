@@ -1,11 +1,11 @@
 import { Route } from "../../type";
-import { userPost } from "./post";
+import { visitorPost } from "./post";
 
 
 
 
-export const userRouter: Route = {
-    POST: userPost,
+export const visitorRouter: Route = {
+    POST: visitorPost,
     meta: {
         disallowLocalhost: true
     }

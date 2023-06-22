@@ -16,15 +16,15 @@ export const EventSchema = z.array(z.object({
 export const EventsApiSchema = RootApiTrackerSchema.merge(z.object({ data: EventSchema }))
 export type EventPostInput = z.infer<typeof EventsApiSchema>
 export const postEvent: ApiPostHandler<EventPostInput, Events[] | null> = async (req, options) => {
-    if (!req.body.userId) {
-        req.body.userId = getIpAddress(req) as string
+    if (!req.body.visitorId) {
+        req.body.visitorId = getIpAddress(req) as string
     }
     const body = EventsApiSchema.safeParse(req.body)
     const adapter = options.adapter
     if (body.success) {
         const data: Events[] = body.data.data.map(event => ({
             sessionId: body.data.sessionId,
-            userId: body.data.userId,
+            visitorId: body.data.visitorId,
             pageId: body.data.pageId,
             payload: event.payload,
             eventName: event.eventName,

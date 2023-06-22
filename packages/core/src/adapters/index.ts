@@ -1,4 +1,4 @@
-import { Events, PageView, Session, User, Website } from './models'
+import { Events, PageView, Session, Visitor, Website } from './models'
 
 
 
@@ -8,11 +8,11 @@ export interface Adapter {
     createPageView: (data: PageView) => Promise<PageView | null>,
     updatePageView: (data: Partial<PageView>) => Promise<PageView | null>,
     createManyEvents: (data: Events[]) => Promise<Events[] | null>,
-    upsertUser: (data: Partial<User>, id: string) => Promise<User | null>,
+    upsertVisitor: (data: Partial<Visitor>, id: string) => Promise<Visitor | null>,
     updateSession: (data: Partial<Session>, id: string) => Promise<Session | null>,
     connect?: () => Promise<any>,
     disconnect?: () => Promise<any>,
-    getUser: (startDate: Date, endDate: Date, websiteId?: string) => Promise<User[]>
+    getVisitor: (startDate: Date, endDate: Date, websiteId?: string) => Promise<Visitor[]>
     getSession: (startDate: Date, endDate: Date, websiteId?: string) => Promise<Session[]>
     getEvents: (startDate: Date, endDate: Date, websiteId?: string) => Promise<Events[]>
     getPageViews: (startDate: Date, endDate: Date, websiteId?: string) => Promise<PageView[]>,

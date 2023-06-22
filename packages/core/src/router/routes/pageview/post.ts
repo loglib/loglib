@@ -19,8 +19,8 @@ export const PageViewSchema = RootApiTrackerSchema.merge(z.object({
 
 export type PageViewPostInput = z.infer<typeof PageViewSchema>
 export const pageViewPost: ApiPostHandler<PageViewPostInput, PageView | null> = async (req, options) => {
-    if (!req.body.userId) {
-        req.body.userId = getIpAddress(req) as string
+    if (!req.body.visitorId) {
+        req.body.visitorId = getIpAddress(req) as string
     }
     const body = PageViewSchema.safeParse(req.body)
     const adapter = options.adapter
@@ -35,7 +35,7 @@ export const pageViewPost: ApiPostHandler<PageViewPostInput, PageView | null> = 
                     queryParams: data.data.queryParams,
                     referrer: data.data.currentRef,
                     sessionId: data.sessionId,
-                    userId: data.userId,
+                    visitorId: data.visitorId,
                     duration: Math.floor(data.data.duration),
                     createdAt: new Date(),
                     updatedAt: new Date(),

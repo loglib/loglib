@@ -1,4 +1,4 @@
-export type User = {
+export type Visitor = {
     id: string,
     createdAt: Date,
     updatedAt: Date,
@@ -19,7 +19,7 @@ export type Session = {
     device: string | null;
     os: string | null;
     browser: string | null;
-    userId: string
+    visitorId: string
     websiteId?: string | null,
 }
 
@@ -32,7 +32,7 @@ export type PageView = {
     queryParams: Record<string, string> | null,
     duration: number,
     sessionId: string,
-    userId: string,
+    visitorId: string,
     websiteId?: string | null,
 }
 
@@ -45,7 +45,7 @@ export type Events = {
     payload: Record<string, any> | null,
     pageId: string,
     sessionId: string,
-    userId: string,
+    visitorId: string,
     websiteId?: string | null,
 }
 
@@ -55,5 +55,5 @@ export type Website = {
     updatedAt: Date,
     title: string | null,
     url: string,
-    userId: string,
+    visitorId: string,
 }

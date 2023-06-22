@@ -15,7 +15,7 @@ describe('pageViewPost', () => {
     it('should create a page view and return success message if request body is valid', async () => {
         const input: PageViewPostInput = {
             sessionId: 'session-id',
-            userId: 'user-id',
+            visitorId: 'user-id',
             pageId: 'page-id',
             data: {
                 currentUrl: 'https://example.com',
