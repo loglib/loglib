@@ -1,6 +1,6 @@
 {
   "name": "@loglib/next",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -38,7 +38,7 @@
     "type-fest": "^3.11.1"
   },
   "dependencies": {
-    "@loglib/core": "0.2.0",
+    "@loglib/core": "0.3.0",
     "chalk": "^5.2.0",
     "commander": "^10.0.1",
     "dotenv": "^16.0.3",
