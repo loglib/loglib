@@ -17,7 +17,7 @@
 ### Why Loglib
 
 - Why not?
-- No need to deploy it separately. You can easily attach Loglib to your Next js app (more framework support soon), and you can see your website analytics. (despite having 0 users)
+- No need to deploy it separately. You can easily attach Loglib to your Next js app (more framework support soon), and you can see your website analytics. (despite having 0 visitors)
 - Keep all your data in your existing database, you have the freedom to store your data in your existing db or your choice of db. We currently support prisma and supabase adapters but more supports are on the way.
 - Behold the beauty of your dashboard, powered by Shadcn UI.
 - Privacy-first and GDPR compliant out of the box, with customization options.
@@ -52,7 +52,7 @@ this will setup your project with all possible configurations. Refer to the [doc
 1. clone <https://github.com/LogLib/loglib-starter> this repo and run `pnpm i` to install dependencies.
 2. change .env.example to .env and fill in the required env variables
 3. migrate your database with `pnpm prisma migrate` or `pnpm prisma db push`
-4. You can now deploy but if you're deploying to platforms other than vercel you need to setup location resolver for your server. [Read more](https://github.com/loglib/loglib/#resolving-user-location-from-ip)
+4. You can now deploy but if you're deploying to platforms other than vercel you need to setup location resolver for your server. [Read more](https://github.com/loglib/loglib/#resolving-visitor-location-from-ip)
 5. Now go to your project where you want to track and put loglib url in the `LOGLIB_URL` or `NEXT_PUBLIC_LOGLIB_URL` env variable.
 6. Install the loglib tracker in `pnpm i @loglib/tracker`
 7. Follow the instructions in the [doc](https://github.com/LogLib/loglib#loglib-tracker) to setup the tracker.
@@ -87,7 +87,7 @@ pnpm i @loglib/tracker @loglib/next @loglib/prisma-adapter @loglib/ui
 **Relational DB**
 
 ```prisma
-model WebUser {
+model WebVisitor {
     id        String   @id @default(cuid())
     data      String   @default("{}")
     createdAt DateTime @default(now()) @map("created_at")
@@ -97,7 +97,7 @@ model WebUser {
     Pageview WebPageview[]
     WebEvent WebEvent[]
 
-    @@map("web_user")
+    @@map("web_visitor")
 }
 
 model WebSession {
@@ -113,10 +113,10 @@ model WebSession {
     os          String?
     browser     String?
     language    String?
-    userId      String        @map("user_id")
+    visitorId      String        @map("visitor_id")
     Page        WebPageview[]
 
-    User     WebUser    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    Visitor  WebVisitor    @relation(fields: [visitorId], references: [id], onDelete: Cascade)
     WebEvent WebEvent[]
 
     @@map("web_session")
@@ -131,11 +131,11 @@ model WebPageview {
     queryParams String   @default("{}") @map("query_params")
     duration    Int      @default(0)
     sessionId   String   @map("web_session_id")
-    userId      String   @map("user_id")
+    visitorId      String   @map("visitor_id")
 
     Event      WebEvent[]
     WebSession WebSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
-    User       WebUser    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    Visitor    WebVisitor    @relation(fields: [visitorId], references: [id], onDelete: Cascade)
 
     @@map("web_pageview")
 }
@@ -149,10 +149,10 @@ model WebEvent {
     payload   String   @default("")
     pageId    String   @map("page_id")
     sessionId String   @map("web_session_id")
-    userId    String   @map("user_id")
+    visitorId String   @map("visitor_id")
 
     Page       WebPageview @relation(fields: [pageId], references: [id], onDelete: Cascade)
-    User       WebUser     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    Visitor    WebVisitor     @relation(fields: [visitorId], references: [id], onDelete: Cascade)
     WebSession WebSession  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
 
     @@map("web_event")
@@ -254,12 +254,12 @@ pnpm i @loglib/tracker @loglib/next @loglib/supabase-adapter @loglib/ui
 
 ```sql
 create table if not exists
-  public.web_user (
+  public.web_visitor (
     id text not null,
     data text not null default '{}'::text,
     created_at timestamp without time zone not null default current_timestamp,
     updated_at timestamp without time zone not null,
-    constraint web_user_pkey primary key (id)
+    constraint web_visitor_pkey primary key (id)
   ) tablespace pg_default;
 
 create table if not exists
@@ -276,9 +276,9 @@ create table if not exists
     os text null,
     browser text null,
     language text null,
-    user_id text not null,
+    visitor_id text not null,
     constraint web_session_pkey primary key (id),
-    constraint web_session_user_id_fkey foreign key (user_id) references web_user (id) on update cascade on delete cascade
+    constraint web_session_visitor_id_fkey foreign key (visitor_id) references web_visitor (id) on update cascade on delete cascade
   ) tablespace pg_default;
 
 create table if not exists
@@ -291,10 +291,10 @@ create table if not exists
     query_params text not null default ''::text,
     duration integer not null default 0,
     session_id text not null,
-    user_id text not null,
+    visitor_id text not null,
     constraint web_page_pkey primary key (id),
     constraint web_pageview_session_id_fkey foreign key (session_id) references web_session (id) on delete cascade,
-    constraint web_pageview_user_id_fkey foreign key (user_id) references web_user (id) on delete cascade
+    constraint web_pageview_visitor_id_fkey foreign key (visitor_id) references web_visitor (id) on delete cascade
   ) tablespace pg_default;
 
 create table if not exists
@@ -307,11 +307,11 @@ create table if not exists
     payload text not null default ''::text,
     page_id text not null,
     session_id text not null,
-    user_id text not null,
+    visitor_id text not null,
     constraint web_event_pkey primary key (id),
     constraint web_event_page_id_fkey foreign key (page_id) references web_pageview (id) on update cascade on delete cascade,
     constraint web_event_session_id_fkey foreign key (session_id) references web_session (id) on delete cascade,
-    constraint web_event_user_id_fkey foreign key (user_id) references web_user (id) on update cascade on delete cascade
+    constraint web_event_visitor_id_fkey foreign key (visitor_id) references web_visitor (id) on update cascade on delete cascade
   ) tablespace pg_default;
 ```
 
@@ -547,8 +547,8 @@ export default function page() {
 }
 ```
 
-To identify a user, you can use the `identify` method.
-_this doesn't work unless you have a consent from the user. (more on that below)_
+To identify a visitor, you can use the `identify` method.
+_this doesn't work unless you have a consent from the visitor. (more on that below)_
 
 ```js
 import { loglib } from "@logLib/tracker";
@@ -563,16 +563,16 @@ export default function page() {
 }
 
 // Identify we know this is hot topic
-// Yeah just pass an object you want to identify the user with
+// Yeah just pass an object you want to identify the visitor with
 ```
 
 ### User Concent
 
-By default, Loglib tries to track users using their IP address. But, we know you're smart enough to know relying on IP addresses isn't the most reliable way to identify unique users. So, if you want to track better, here's what you can do:
+By default, Loglib tries to track visitors using their IP address. But, we know you're smart enough to know relying on IP addresses isn't the most reliable way to identify unique visitors. So, if you want to track better, here's what you can do:
 
 **Step 1:** Display a fancy cookie message on your website. (we'll leave the design up to you but might provide something in the future)
 
-**Step 2**: Once your users click that "Accept" button, trigger the Loglib consent function. This will use local storage to assign a unique identifier to each of your users.
+**Step 2**: Once your visitors click that "Accept" button, trigger the Loglib consent function. This will use local storage to assign a unique identifier to each of your visitors.
 
 ```js
 import { loglib } from "@loglib/tracker";
@@ -585,7 +585,7 @@ export default function page() {
 }
 ```
 
-> NOTE: If you don't want to show cookie message, but still want to track using user consent, you can set the consent to "granted" by default.
+> NOTE: If you don't want to show cookie message, but still want to track using visitor consent, you can set the consent to "granted" by default.
 
 ```js
 import LogLib from "@loglib/tracker/react";
@@ -612,7 +612,7 @@ export default function RootLayout({
 | options        | type    | default     | description                                                           |
 | -------------- | ------- | ----------- | --------------------------------------------------------------------- |
 | `autoTrack`    | boolean | `false`     | Automatically track click events with onclick handlers and on buttons |
-| `consent`      | string  | `"granted"` | The consent status of the user                                        |
+| `consent`      | string  | `"granted"` | The consent status of the visitor                                     |
 | `debug`        | boolean | `false`     | Enable debug mode                                                     |
 | `env`          | string  | `"auto"`    | The environment of the tracker                                        |
 | `postInterval` | number  | `5`         | The interval to send events to the server                             |
@@ -629,7 +629,7 @@ See on [nextjs with supabase](#next-js-with-supabase) or [nextjs with prisma](#n
 
 #### Resolving User Location from IP
 
-for getting user location using their ip you have 3 options:
+for getting visitor location using their ip you have 3 options:
 
 1. Deploy it in vercel and that's it!
 2. If you're not deploying it on serverless environment you can setup maxmind using a cli command
@@ -640,7 +640,7 @@ pnpm loglib setup:maxmind
 
 > this will download the maxmind database and put it in your project root directory under geo folder.
 
-3. you can also provide a custom implementation for getting the user location by passing a function to the `getLocation` option.
+3. you can also provide a custom implementation for getting the visitor location by passing a function to the `getLocation` option.
 
 ```ts
 import { createServer } from "@loglib/next";
