@@ -1,7 +1,7 @@
 import { Mock } from "vitest";
 import { navigationHandler, record } from "../src/record";
 import { send } from "../src/server";
-import { flush, getUserId, guid, getSessionDuration } from "../src/utils/util";
+import { flush, getVisitorId, guid, getSessionDuration } from "../src/utils/util";
 import { setConsent, track } from "../src/methods";
 
 
@@ -267,19 +267,19 @@ describe("Concent", () => {
     it("should not set userId if concent is denied which is default", () => {
         record()
         expect(window.llc.consent).toBe("denied");
-        expect(getUserId()).toBe("")
+        expect(getVisitorId()).toBe("")
     })
 
     it("should change concent on setConcent", () => {
         setConsent("granted")
         expect(window.llc.consent).toBe("granted");
-        expect(getUserId()).not.toBe("")
+        expect(getVisitorId()).not.toBe("")
     })
 
     it("If there is user id in local storage, it should set it as userId", () => {
         record()
         expect(window.llc.consent).toBe("denied");
         window.localStorage.setItem("loglib-id", "123")
-        expect(getUserId()).toBe("123")
+        expect(getVisitorId()).toBe("123")
     })
 })
