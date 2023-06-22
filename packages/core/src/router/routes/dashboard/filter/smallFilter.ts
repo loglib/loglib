@@ -47,7 +47,7 @@ const filterRoot = <T extends Record<S, Primitive>, S extends keyof T>(
     });
 };
 
-const filter = <T extends Record<S, T[S]>, S extends keyof T>(data: T[]) => {
+const filter = <T extends object, S extends keyof T>(data: T[]) => {
     let andFilters: ((data: T[]) => T[])[] = [];
     const orFilters: ((data: T[]) => T[])[] = [];
     let limitCount: number | undefined;

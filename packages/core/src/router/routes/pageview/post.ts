@@ -4,6 +4,7 @@ import { ApiPostHandler } from "../../type";
 import { GenericError } from "../../../error";
 import { getIpAddress } from "../session/detect/getIpAddress";
 import { isProduction } from "../../../utils/common";
+import { PageView } from "../../..";
 
 
 export const PageViewSchema = RootApiTrackerSchema.merge(z.object({
@@ -17,7 +18,7 @@ export const PageViewSchema = RootApiTrackerSchema.merge(z.object({
 
 
 export type PageViewPostInput = z.infer<typeof PageViewSchema>
-export const pageViewPost: ApiPostHandler<PageViewPostInput> = async (req, options) => {
+export const pageViewPost: ApiPostHandler<PageViewPostInput, PageView | null> = async (req, options) => {
     if (!req.body.userId) {
         req.body.userId = getIpAddress(req) as string
     }
@@ -25,8 +26,9 @@ export const pageViewPost: ApiPostHandler<PageViewPostInput> = async (req, optio
     const adapter = options.adapter
     if (body.success) {
         const data = body.data
+        const { websiteId } = data
         try {
-            const res = await adapter.upsertPageView(
+            const res = await adapter.createPageView(
                 {
                     id: data.pageId,
                     page: data.data.currentUrl,
@@ -37,6 +39,7 @@ export const pageViewPost: ApiPostHandler<PageViewPostInput> = async (req, optio
                     duration: Math.floor(data.data.duration),
                     createdAt: new Date(),
                     updatedAt: new Date(),
+                    websiteId
                 }
             )
             return {

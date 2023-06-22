@@ -22,6 +22,7 @@ export function send(
 		sessionId: window.lli.sessionId,
 		userId: getUserId(),
 		pageId: window.lli.pageId,
+		websiteId: window.llc.id,
 	};
 	logger.log("sending...", dataToSend);
 	let retryCount = 0;

@@ -22,7 +22,7 @@ const getEvent: ApiGetHandler<z.infer<typeof getEventSchema>, GetEventsResponse>
         const { startDate, endDate } = query.data
         const startDateObj = new Date(startDate)
         const endDateObj = new Date(endDate)
-        const events = await adapter.getEvents(startDateObj, endDateObj)
+        const events = await adapter.getEvents(startDateObj, endDateObj,)
         const duration = endDateObj.getTime() - startDateObj.getTime()
         const pastEndDateObj = new Date(endDateObj.getTime() - duration)
         const pastEvents = await adapter.getEvents(pastEndDateObj, startDateObj)
