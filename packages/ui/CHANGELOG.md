@@ -1,5 +1,13 @@
 # @loglib/ui
 
+## 0.2.1
+
+### Patch Changes
+
+- 18d9029: opening links on page click
+- Updated dependencies [d48f41d]
+  - @loglib/core@0.3.0
+
 ## 0.2.0
 
 ### Minor Changes
