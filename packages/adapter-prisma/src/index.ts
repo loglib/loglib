@@ -42,7 +42,7 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
                     data: {
                         ...event,
                         pageId: event.pageId,
-                        userId: event.userId,
+                        visitorId: event.visitorId,
                         sessionId: event.sessionId,
                         payload: JSON.stringify(event.payload),
                     },
@@ -53,8 +53,8 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
                 throw error;
             });
         },
-        async upsertUser(data) {
-            const response = await db.webUser.upsert({
+        async upsertVisitor(data) {
+            const response = await db.webVisitor.upsert({
                 where: {
                     id: data.id
                 },
@@ -76,8 +76,8 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
             await db.$disconnect()
         },
 
-        async getUser(startDate, endDate) {
-            return await db.webUser.findMany({
+        async getVisitor(startDate, endDate) {
+            return await db.webVisitor.findMany({
                 where: {
                     createdAt: {
                         gte: startDate,
@@ -85,8 +85,9 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
                     },
                 }
             }).then(res => {
-                const users = res.map(user => ({ ...user, data: JSON.parse(user.data) as Record<string, string> }))
-                return users
+                const visitors = res.map(visitor => ({ ...visitor, data: JSON.parse(visitor.data) as Record<string, string> }))
+
+                return visitors
             })
         },
         async getPageViews(startDate, endDate) {
@@ -143,4 +144,3 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
         },
     }
 }
-

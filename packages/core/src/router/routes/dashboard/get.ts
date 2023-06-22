@@ -1,7 +1,7 @@
 import z from "zod";
 import { RootDashboardSchema } from "../../schema";
 import { ApiGetHandler } from "../../type";
-import { getBrowser, getDevices, getEvents, getLoc, getOS, getOnlineUsers, getPageViews, getPages, getReferer, getUniqueVisitors, getVisitorsByDate } from "./utils";
+import { getBrowser, getDevices, getEvents, getLoc, getOS, getOnlineVisitors, getPageViews, getPages, getReferer, getUniqueVisitors, getVisitorsByDate } from "./utils";
 import { EventsWithData, getAverageTime, getBounceRate } from "./utils/analysis";
 import { GenericError, PageView, Session } from "../../..";
 import { filter } from "./filter/smallFilter";
@@ -95,8 +95,8 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
             const endDateObj = new Date(endDate)
             const duration = endDateObj.getTime() - startDateObj.getTime()
             const pastEndDateObj = new Date(startDateObj.getTime() - duration)
-            let users = await adapter.getUser(startDateObj, endDateObj, websiteId)
-            let pastUsers = await adapter.getUser(pastEndDateObj, startDateObj, websiteId)
+            let users = await adapter.getVisitor(startDateObj, endDateObj, websiteId)
+            let pastUsers = await adapter.getVisitor(pastEndDateObj, startDateObj, websiteId)
             let pageViews = await adapter.getPageViews(startDateObj, endDateObj, websiteId)
             let pastPageViews = await adapter.getPageViews(pastEndDateObj, startDateObj, websiteId)
             let sessions = await adapter.getSession(startDateObj, endDateObj, websiteId)
@@ -118,11 +118,11 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
                         return session.length > 0
                     })
                     users = users.filter((u) => {
-                        const session = sessions.filter((s) => s.userId === u.id)
+                        const session = sessions.filter((s) => s.visitorId === u.id)
                         return session.length > 0
                     })
                     pastUsers = pastUsers.filter((u) => {
-                        const session = pastSessions.filter((s) => s.userId === u.id)
+                        const session = pastSessions.filter((s) => s.visitorId === u.id)
                         return session.length > 0
                     })
                     events = events.filter((e) => {
@@ -141,11 +141,11 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
                         return pageView.length > 0
                     })
                     users = users.filter((u) => {
-                        const session = sessions.filter((s) => s.userId === u.id)
+                        const session = sessions.filter((s) => s.visitorId === u.id)
                         return session.length > 0
                     })
                     pastUsers = pastUsers.filter((u) => {
-                        const session = pastSessions.filter((s) => s.userId === u.id)
+                        const session = pastSessions.filter((s) => s.visitorId === u.id)
                         return session.length > 0
                     })
                     events = events.filter((e) => {
@@ -171,7 +171,7 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
             const browser = getBrowser(sessions)
             const uniqueVisitorsByDate = getVisitorsByDate(sessions, startDateObj, endDateObj, true, timeZone)
             const uniqueSessionByDate = getVisitorsByDate(sessions, startDateObj, endDateObj, false, timeZone)
-            const onlineUsers = getOnlineUsers(sessions)
+            const onlineUsers = getOnlineVisitors(sessions)
             const eventsWithData = getEvents(events, sessions, pageViews)
             return {
                 message: 'success',

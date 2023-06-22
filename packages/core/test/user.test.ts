@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { UserPostInput, userPost } from "../src/router/routes/user/post";
+import { VisitorPostInput, visitorPost } from "../src/router/routes/user/post";
 import { Adapter } from "../src";
 
 
 describe('userPost', () => {
     const mockAdapter = {
-        upsertUser: vi.fn(),
+        upsertVisitor: vi.fn(),
     } as unknown as Adapter;
 
     beforeEach(() => {
@@ -13,10 +13,10 @@ describe('userPost', () => {
     });
 
     it('should update a user and return success message if request body is valid', async () => {
-        const input: UserPostInput = {
+        const input: VisitorPostInput = {
             pageId: '',
             sessionId: '',
-            userId: 'user-id',
+            visitorId: 'user-id',
             data: {
                 id: 'user-id',
                 data: {
@@ -29,7 +29,7 @@ describe('userPost', () => {
             message: 'User updated',
             code: 200,
         };
-        const response = await userPost({ body: input, headers: {} }, { adapter: mockAdapter });
+        const response = await visitorPost({ body: input, headers: {} }, { adapter: mockAdapter });
         expect(response).toEqual(expectedResponse);
     });
 });

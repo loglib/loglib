@@ -1,4 +1,4 @@
-import { getUserId, isDevelopment } from "./utils/util";
+import { getVisitorId, isDevelopment } from "./utils/util";
 import { logger } from "./utils/logger";
 
 export function send(
@@ -20,7 +20,7 @@ export function send(
 		data,
 		path,
 		sessionId: window.lli.sessionId,
-		userId: getUserId(),
+		visitorId: getVisitorId(),
 		pageId: window.lli.pageId,
 		websiteId: window.llc.id,
 	};

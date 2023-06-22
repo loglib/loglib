@@ -9,7 +9,7 @@ describe('sessionPost', () => {
     const mockAdapter = {
         createSession: vi.fn((data: Session) => data),
         createPageView: vi.fn(),
-        upsertUser: vi.fn(),
+        upsertVisitor: vi.fn(),
     } as unknown as Adapter
     const mockOptions: LogLibOptions = {
         adapter: mockAdapter,
@@ -24,7 +24,7 @@ describe('sessionPost', () => {
 
     const validRequest = {
         sessionId: 'test-session-id',
-        userId: 'test-user-id',
+        visitorId: 'test-user-id',
         pageId: 'test-page-id',
         data: {
             pathname: '/test',
@@ -76,11 +76,11 @@ describe('sessionPost', () => {
         const res = await sessionPost(req, { ...mockOptions, environment: 'development' });
         expect(res).toEqual({ message: 'localhost', code: 200 });
     });
-    it('should use ipAddress as userId if userId is empty GDPR shit', async () => {
-        const req = mockRequest({ ...validRequest, userId: '' });
+    it('should use ipAddress as visitorId if visitorId is empty GDPR shit', async () => {
+        const req = mockRequest({ ...validRequest, visitorId: '' });
         const res = await sessionPost(req, mockOptions);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        expect(res.data?.userId).not.toBe("")
+        expect(res.data?.visitorId).not.toBe("")
         expect(res).toEqual({
             message: 'success',
             code: 200,

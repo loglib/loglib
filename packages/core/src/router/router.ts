@@ -2,7 +2,7 @@ import { eventRouter } from "./routes/event";
 import { dashboardRoutes } from "./routes/dashboard";
 import { pageViewRoute } from "./routes/pageview";
 import { pulseRoute, sessionRoute } from "./routes/session";
-import { userRouter } from "./routes/user";
+import { visitorRouter } from "./routes/user";
 import { Router } from "./type";
 import { AuthRoute } from "./routes/auth";
 
@@ -14,7 +14,7 @@ export const router: Router = {
     "/session/pulse": pulseRoute,
     "/pageview": pageViewRoute,
     "/event": eventRouter,
-    "/user": userRouter,
+    "/visitor": visitorRouter,
     "/test": {
         "POST": async () => Promise.resolve({ message: 'test', code: 200 })
     },

@@ -1,7 +1,7 @@
 import { describe, expect } from "vitest";
 import { getAverageTime, getBounceRate, getBrowser, getDevices, getLoc, getOS, getPageViews, getPages, getReferer, getUniqueVisitors } from "../src/router/routes/dashboard/utils";
-import { Session, User } from "../src";
-import { pageViews, pastPageViews, pastSessions, pastUsers, sessions, users } from "./data/demo";
+import { Session, Visitor } from "../src";
+import { pageViews, pastPageViews, pastSessions, pastVisitors, sessions, visitors } from "./data/demo";
 
 
 
@@ -9,21 +9,21 @@ import { pageViews, pastPageViews, pastSessions, pastUsers, sessions, users } fr
 
 describe("unique visitors", (it) => {
 
-    it('should return the correct total and change when pastUsers is empty', () => {
-        const pastUsers: User[] = [];
-        const result = getUniqueVisitors(users, pastUsers);
+    it('should return the correct total and change when pastVisitors is empty', () => {
+        const pastVisitors: Visitor[] = [];
+        const result = getUniqueVisitors(visitors, pastVisitors);
         expect(result.total).toBe(3);
         expect(result.change).toBe(100);
     });
 
-    it('should return the correct total and change when pastUsers is not empty', () => {
-        const result = getUniqueVisitors(users, pastUsers);
+    it('should return the correct total and change when pastVisitors is not empty', () => {
+        const result = getUniqueVisitors(visitors, pastVisitors);
         expect(result.total).toBe(3);
         expect(result.change).toBe(50);
     });
 
     it("should never return above 100% change", () => {
-        const result = getUniqueVisitors(users, pastUsers);
+        const result = getUniqueVisitors(visitors, pastVisitors);
         expect(result.change).toBeLessThanOrEqual(100);
     })
 })
