@@ -3,7 +3,7 @@
 import React from "react"
 import { Row } from "@tanstack/react-table"
 import { EventsWithData } from "@loglib/core"
-import { Tabs, TabsTrigger, TabsList, TabsContent } from "../ui/tabs"
+import { Tabs, TabsTrigger, TabsList, TabsContent } from "../components/ui/tabs"
 
 const renderSubComponent = ({ row }: { row: Row<EventsWithData[0]> }) => {
     const data = row.original

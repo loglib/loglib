@@ -5,7 +5,7 @@ import { Adapter } from "../src";
 
 describe('pageViewPost', () => {
     const mockAdapter = {
-        upsertPageView: vi.fn(),
+        createPageView: vi.fn(),
     } as unknown as Adapter;
 
     beforeEach(() => {

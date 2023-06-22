@@ -1,36 +1,37 @@
 {
-    "name": "@loglib/prisma-adapter",
-    "version": "0.0.22",
-    "description": "",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "scripts": {
-        "test": "prisma db push && vitest",
-        "build": "prisma generate && tsup",
-        "dev": "prisma generate && tsup --watch",
-        "db:push": "prisma db push",
-        "studio": "prisma studio",
-        "typecheck": "tsc --noEmit",
-        "lint": "eslint . --ext .ts"
-    },
-    "files": [
-        "dist",
-        "package.json",
-        "README.md"
-    ],
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "devDependencies": {
-        "@loglib/adapter-test": "1.0.5",
-        "@prisma/client": "^4.14.0",
-        "prisma": "^4.14.0"
-    },
-    "dependencies": {
-        "@loglib/core": "0.1.10"
-    },
-    "peerDependencies": {
-        "@prisma/client": "^4.14.0",
-        "prisma": "^4.14.0"
-    }
+  "name": "@loglib/prisma-adapter",
+  "version": "0.1.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "test": "prisma db push && vitest run",
+    "test:watch": "vitest watch",
+    "build": "prisma generate && tsup",
+    "dev": "tsup --watch",
+    "db:push": "prisma db push",
+    "studio": "prisma studio",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .ts"
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@loglib/adapter-test": "1.1.0",
+    "@prisma/client": "^4.14.0",
+    "prisma": "^4.14.0"
+  },
+  "dependencies": {
+    "@loglib/core": "0.2.0"
+  },
+  "peerDependencies": {
+    "@prisma/client": "^4.14.0",
+    "prisma": "^4.14.0"
+  }
 }

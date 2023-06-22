@@ -3,4 +3,9 @@
 
 import { Dashboard } from "@loglib/ui"
 import "@loglib/ui/dist/index.css"
-export default Dashboard
+
+export default function loglib() {
+    return (
+        <Dashboard />
+    )
+}

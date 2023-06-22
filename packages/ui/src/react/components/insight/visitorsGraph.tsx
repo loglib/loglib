@@ -61,7 +61,7 @@ export function Graph({ data, name, Icon, isLoading }: { data: { date: string, v
                                             No Data Just Yet
                                         </p>
                                         <p className=" text-sm font-light">
-                                            if you haven't setup tracker refer to the doc on how to do that. Note the tracker will only collect data on production mode
+                                            if you haven't setup tracker refer to the <a href="https://loglib.io/docs" target="_blank" className=" text-blue-700 underline">doc</a> on how to do that.
                                         </p>
                                     </>
                             }

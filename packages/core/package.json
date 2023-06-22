@@ -1,11 +1,11 @@
 {
   "name": "@loglib/core",
-  "version": "0.1.10",
+  "version": "0.2.0",
   "description": "",
   "main": "./dist/index.js",
   "scripts": {
-    "test": "vitest",
-    "test:watch": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
     "build": "tsup",
     "dev": "tsup --watch",
     "lint": "eslint . --ext .ts"

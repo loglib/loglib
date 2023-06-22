@@ -1,4 +1,9 @@
 import { Adapter } from "."
+import { RequestHandler } from "./router"
+import { GenericApiResponse } from "./router/type"
+
+
+
 
 export type LogLibOptions = {
     adapter: Adapter,
@@ -12,7 +17,8 @@ export type LogLibOptions = {
     },
     cors?: {
         origin: string
-    }
+    },
+    middleware?: Middleware,
 }
 
 export interface ApiRequest<T, S> {
@@ -20,5 +26,7 @@ export interface ApiRequest<T, S> {
     headers: { [key: string]: any }
     method?: string
     query?: S
-    cookies?: { [key: string]: any }
+    cookies?: { [key: string]: any },
 }
+
+type Middleware = (req: ApiRequest<any, any>, options: LogLibOptions, next: RequestHandler) => GenericApiResponse<any>

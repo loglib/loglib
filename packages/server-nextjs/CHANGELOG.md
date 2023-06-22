@@ -1,5 +1,12 @@
 # @loglib/next
 
+## 0.1.11
+
+### Patch Changes
+
+- Updated dependencies [fbc11fc]
+  - @loglib/core@0.2.0
+
 ## 0.1.10
 
 ### Patch Changes

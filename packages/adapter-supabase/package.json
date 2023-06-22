@@ -1,11 +1,12 @@
 {
   "name": "@loglib/supabase-adapter",
-  "version": "0.1.10",
+  "version": "0.2.0",
   "description": "",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "dotenv -e ../../.env vitest",
+    "test": "dotenv -e ../../.env vitest run",
+    "test:watch": "vitest watch",
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
@@ -20,10 +21,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@loglib/adapter-test": "1.0.5"
+    "@loglib/adapter-test": "1.1.0"
   },
   "dependencies": {
-    "@loglib/core": "0.1.10",
+    "@loglib/core": "0.2.0",
     "@supabase/supabase-js": "^2.24.0"
   }
 }

@@ -58,12 +58,15 @@ export function record(config?: Partial<Config>) {
 	}, window.llc.postInterval * 1000);
 	addInterval(eventsInterval);
 
+	//Session Start
+	const InitInfo = initSession();
+	send(InitInfo, "/session");
+
+	//Navigation Handler
 	history.pushState = hook(history, "pushState", navigationHandler);
 	history.replaceState = hook(history, "replaceState", navigationHandler);
 
-	const InitInfo = initSession();
-	send(InitInfo, "/session");
-	blurHandler()
+	//Session End
 	sessionEndHandler()
 }
 
@@ -82,22 +85,13 @@ export const initSession = () => {
 
 
 
-const navigationHandler = (_: string, __: string, url: string) => {
+export const navigationHandler = (_: string, __: string, url: string) => {
 	if (!url) return;
 	const currentRef = window.lli.currentRef;
 	const currentUrl = window.lli.currentUrl;
 	window.lli.currentRef = window.lli.currentUrl;
 	window.lli.currentUrl = getPath(url.toString());
 	if (currentUrl !== currentRef) {
-		send(
-			{
-				currentRef,
-				currentUrl,
-				duration: (Date.now() - window.lli.timeOnPage) / 1000,
-				queryParams: getUrlParams(),
-			},
-			"/pageview"
-		);
 		window.lli.eventsBank.length &&
 			send(
 				window.lli.eventsBank,
@@ -107,26 +101,21 @@ const navigationHandler = (_: string, __: string, url: string) => {
 		window.lli.pageId = guid()
 		window.lli.timeOnPage = Date.now();
 		send({
-			currentUrl: window.lli.currentUrl,
-			currentRef: window.lli.currentRef,
+			currentUrl,
+			currentRef,
 			queryParams: getUrlParams(),
 			duration: 0
 		}, "/pageview")
+		send({
+			pageDuration: (Date.now() - window.lli.timeOnPage) / 1000,
+			duration: getSessionDuration(),
+		}, "/session/pulse", flush)
 	}
 };
 
 const sessionEndHandler = () => {
 	document.addEventListener("visibilitychange", () => {
 		if (document.visibilityState === "hidden") {
-			send(
-				{
-					duration: (Date.now() - window.lli.timeOnPage) / 1000,
-					currentUrl: window.lli.currentUrl,
-					currentRef: window.lli.currentRef,
-					queryParams: getUrlParams(),
-				},
-				"/pageview",
-			);
 			window.lli.eventsBank.length &&
 				send(
 					window.lli.eventsBank,
@@ -134,6 +123,7 @@ const sessionEndHandler = () => {
 					flush
 				);
 			send({
+				pageDuration: (Date.now() - window.lli.timeOnPage) / 1000,
 				duration: getSessionDuration(),
 			}, "/session/pulse", flush)
 			clearIntervals()
@@ -145,27 +135,3 @@ const sessionEndHandler = () => {
 		}
 	});
 };
-
-const blurHandler = () => {
-	window.addEventListener("blur", () => {
-		send(
-			{
-				duration: (Date.now() - window.lli.timeOnPage) / 1000,
-				currentUrl: window.lli.currentUrl,
-				currentRef: window.lli.currentRef,
-				queryParams: getUrlParams(),
-			},
-			"/pageview",
-		);
-		window.lli.eventsBank.length &&
-			send(
-				window.lli.eventsBank,
-				"/event",
-				flush
-			);
-		send({
-			duration: getSessionDuration(),
-		}, "/session/pulse", flush)
-	}
-	);
-}

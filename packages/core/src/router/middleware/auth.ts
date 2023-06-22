@@ -1,11 +1,10 @@
-import { ApiRequest, LogLibOptions } from "../..";
 import jwt from 'jsonwebtoken'
-import { ApiGetHandler, ApiPostHandler } from "../type";
+import { Middleware } from "./type";
 
 
 
 
-export const authMiddleware = async (req: ApiRequest<any, any>, options: LogLibOptions, next: ApiGetHandler<any, any> | ApiPostHandler<any>) => {
+export const authMiddleware: Middleware = async (req, options, next) => {
     if (!options.auth) return await next(req, options);
     const { authorization } = req.headers as { authorization: string };
     if (authorization) {

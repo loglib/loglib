@@ -4,7 +4,6 @@
 import { Adapter } from "@loglib/core"
 import { PrismaClient } from "@prisma/client"
 
-
 export const prismaAdapter = (db: PrismaClient): Adapter => {
     return {
         async createSession(data) {
@@ -51,7 +50,6 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
                 return response;
             });
             return Promise.all(promises).catch((error) => {
-                console.log(error)
                 throw error;
             });
         },
@@ -63,6 +61,7 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
                 create: {
                     id: data.id,
                     data: JSON.stringify(data.data),
+
                 },
                 update: {
                     data: JSON.stringify(data.data)
@@ -83,7 +82,7 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
                     createdAt: {
                         gte: startDate,
                         lte: endDate
-                    }
+                    },
                 }
             }).then(res => {
                 const users = res.map(user => ({ ...user, data: JSON.parse(user.data) as Record<string, string> }))
@@ -96,7 +95,7 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
                     createdAt: {
                         gte: startDate,
                         lte: endDate
-                    }
+                    },
                 }
             }).then(res => {
                 const pageViews = res.map(pageView => ({ ...pageView, queryParams: JSON.parse(pageView.queryParams) as Record<string, string> }))
@@ -109,7 +108,7 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
                     createdAt: {
                         gte: startDate,
                         lte: endDate
-                    }
+                    },
                 }
             }).then(res => {
                 const events = res.map(event => ({ ...event, payload: JSON.parse(event.payload) as Record<string, string> }))
@@ -117,24 +116,22 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
             })
         },
         async getSession(startDate, endDate) {
+
+
             const res = await db.webSession.findMany({
                 where: {
                     createdAt: {
                         gte: startDate,
                         lte: endDate,
-                    }
+                    },
                 }
             })
-            return res.map(session => ({ ...session, queryParams: JSON.parse(session.queryParams) as Record<string, string> }))
 
+            return res.map(session => ({ ...session, queryParams: JSON.parse(session.queryParams) as Record<string, string> }))
         },
-        async upsertPageView(data) {
-            const res = await db.webPageview.upsert({
-                create: {
-                    ...data,
-                    queryParams: data.queryParams ? JSON.stringify(data.queryParams) : undefined
-                },
-                update: {
+        async updatePageView(data) {
+            const res = await db.webPageview.update({
+                data: {
                     ...data,
                     queryParams: data.queryParams ? JSON.stringify(data.queryParams) : undefined
                 },

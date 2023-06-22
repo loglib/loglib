@@ -7,8 +7,8 @@ export type InsightType = {
   title: string,
   Icon: LucideIcon,
   data: {
-    total: number,
-    change: number,
+    total: number | string,
+    change: number
   }
   valuePrefix?: string,
   changePrefix?: string,
@@ -27,7 +27,7 @@ export function InsightCard({ title, Icon, data, valuePrefix, bottomChildren, is
       </CardHeader>
       {
         !isLoading && data ? <CardContent>
-          <div className="text-2xl font-bold">{`${!isNaN(data.total) && data.total ? data.total.toLocaleString() : 0} ${valuePrefix ?? ""}`}</div>
+          <div className="text-2xl font-bold">{`${data.total ? data.total.toLocaleString() : 0} ${valuePrefix ?? ""}`}</div>
           <div className=" flex justify-between">
             <div className=" flex text-xs">
               {
