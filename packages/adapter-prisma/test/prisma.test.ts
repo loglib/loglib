@@ -13,7 +13,7 @@ describe('prismaAdapter', async () => {
             await db.webSession.deleteMany()
             await db.webEvent.deleteMany()
             await db.webPageview.deleteMany()
-            await db.webUser.deleteMany()
+            await db.webVisitor.deleteMany()
         },
         adapter: prismaAdapter(db)
     })

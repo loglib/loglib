@@ -18,7 +18,7 @@ describe('eventPost', () => {
     it('should create events and return success message if request body is valid', async () => {
         const input: EventPostInput = {
             sessionId: 'session-id',
-            userId: 'user-id',
+            visitorId: 'user-id',
             pageId: 'page-id',
             data: [
                 {
@@ -33,7 +33,7 @@ describe('eventPost', () => {
         const expectedData: Events[] = [
             {
                 sessionId: 'session-id',
-                userId: 'user-id',
+                visitorId: 'user-id',
                 pageId: 'page-id',
                 payload: { key: 'value' },
                 eventName: 'event-name',
@@ -56,7 +56,7 @@ describe('eventPost', () => {
     it('should throw an error if request body is invalid', async () => {
         const input = {
             sessionId: 'session-id',
-            userId: 'user-id',
+            visitorId: 'user-id',
             pageId: 'page-id',
             data: [
                 {

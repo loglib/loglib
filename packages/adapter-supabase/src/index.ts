@@ -1,4 +1,4 @@
-import { Adapter, Events, PageView, Session, User, snakeToCamel, camelToSnake } from "@loglib/core";
+import { Adapter, Events, PageView, Session, Visitor, snakeToCamel, camelToSnake } from "@loglib/core";
 
 import { SupabaseClient } from "@supabase/supabase-js";
 
@@ -34,14 +34,14 @@ const supabaseAdapter = (db: SupabaseClient): Adapter => {
             const resData = { ...response.data, query_params: JSON.parse(response.data?.query_params as string) }
             return snakeToCamel(resData) as unknown as PageView;
         },
-        async upsertUser(data) {
-            const response = await db.from("web_user").upsert(camelToSnake(data)).select("*").single().throwOnError()
+        async upsertVisitor(data) {
+            const response = await db.from("web_visitor").upsert(camelToSnake(data)).select("*").single().throwOnError()
             // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             const resData = { ...response.data, data: JSON.parse(response.data?.data) }
-            return snakeToCamel(resData) as unknown as User
+            return snakeToCamel(resData) as unknown as Visitor
         },
-        async getUser(startDate, endDate) {
-            const res = (await db.from("web_user").select("*").gte("created_at", startDate.toUTCString()).lte("created_at", endDate.toUTCString()).select("*")).data as unknown as User[]
+        async getVisitor(startDate, endDate) {
+            const res = (await db.from("web_visitor").select("*").gte("created_at", startDate.toUTCString()).lte("created_at", endDate.toUTCString()).select("*")).data as unknown as Visitor[]
             return snakeToCamel(res)
         },
         async getEvents(startDate, endDate) {

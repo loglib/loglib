@@ -1,11 +1,11 @@
-import { PageView, User, Session, Events } from "../../../../adapters/models"
+import { PageView, Visitor, Session, Events } from "../../../../adapters/models"
 import { ReferrerName } from "./constants"
 import { getTimeRange } from "./timeHelper"
 
-export const getUniqueVisitors = (user: User[], pastUsers: User[]) => {
-    const change = pastUsers.length ? Math.floor(((user.length - pastUsers.length) / pastUsers.length) * 100) : 100
+export const getUniqueVisitors = (visitors: Visitor[], pastVisitors: Visitor[]) => {
+    const change = pastVisitors.length ? Math.floor(((visitors.length - pastVisitors.length) / pastVisitors.length) * 100) : 100
     return {
-        total: user.length,
+        total: visitors.length,
         change: change > 100 ? 100 : change
     }
 }
@@ -193,15 +193,15 @@ export const getBrowser = (sessions: Session[]) => {
     return browsers.sort((a, b) => b.visits - a.visits);
 }
 
-export const getVisitorsByDate = (sessions: Session[], startDate: Date, endDate: Date, uniqueUsers = true, timezone: string) => {
+export const getVisitorsByDate = (sessions: Session[], startDate: Date, endDate: Date, uniqueVisitors = true, timezone: string) => {
     const ONE_DAY = 1000 * 60 * 60 * 24;
     const range = getTimeRange(startDate, endDate);
-    const uniqueUserSessions = sessions.filter((session, index, self) =>
+    const uniqueVisitorsSessions = sessions.filter((session, index, self) =>
         index === self.findIndex((s) => (
-            s.userId === session.userId
+            s.visitorId === session.visitorId
         ))
     );
-    sessions = uniqueUsers ? uniqueUserSessions : sessions;
+    sessions = uniqueVisitors ? uniqueVisitorsSessions : sessions;
 
     const formatOptions: Intl.DateTimeFormatOptions = {
         timeZone: timezone,
@@ -233,13 +233,13 @@ export const getVisitorsByDate = (sessions: Session[], startDate: Date, endDate:
     return visitors
 };
 
-export const getOnlineUsers = (sessions: Session[]) => {
+export const getOnlineVisitors = (sessions: Session[]) => {
     const now = new Date();
-    const onlineUsers = sessions.filter(session => {
+    const onlineVisitors = sessions.filter(session => {
         const diff = now.getTime() - new Date(session.updatedAt).getTime();
         return diff < 1000 * 30
     })
-    return onlineUsers.length
+    return onlineVisitors.length
 }
 
 export const getEvents = (events: Events[], sessions: Session[], pages: PageView[]) => {

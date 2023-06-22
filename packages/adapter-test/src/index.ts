@@ -45,10 +45,10 @@ export async function runAdapterTest(options: TestOptions) {
     })
 
 
-    const userData = {
-        id: 'user-id',
+    const visitorData = {
+        id: 'visitor-id',
         data: {
-            name: 'test-user',
+            name: 'test-visitor',
         },
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -58,7 +58,7 @@ export async function runAdapterTest(options: TestOptions) {
         id: 'page-view-id',
         page: '/test-page',
         sessionId: 'session-id',
-        userId: userData.id,
+        visitorId: visitorData.id,
         createdAt: new Date(),
         updatedAt: new Date(),
         referrer: '',
@@ -67,7 +67,7 @@ export async function runAdapterTest(options: TestOptions) {
     };
     const session: Session = {
         id: 'session-id',
-        userId: 'user-id',
+        visitorId: 'visitor-id',
         browser: 'browser',
         device: 'device',
         os: 'os',
@@ -87,7 +87,7 @@ export async function runAdapterTest(options: TestOptions) {
             eventName: 'test-name-1',
             pageId: 'page-view-id',
             sessionId: 'session-id',
-            userId: 'user-id',
+            visitorId: 'visitor-id',
             payload: { foo: 'bar' },
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -98,22 +98,21 @@ export async function runAdapterTest(options: TestOptions) {
             eventName: 'test-name-2',
             pageId: 'page-view-id',
             sessionId: 'session-id',
-            userId: 'user-id',
+            visitorId: 'visitor-id',
             payload: { foo: 'baz' },
             createdAt: new Date(),
             updatedAt: new Date(),
         },
     ]
-    describe("upsertUser", async () => {
+    describe("upsertVisitor", async () => {
 
-        it('should update or create user and return it', async () => {
-            const response = await adapter.upsertUser(userData, userData.id);
-            expect(response).toEqual({ ...userData, createdAt: response?.createdAt, updatedAt: response?.updatedAt });
+        it('should update or create visitor and return it', async () => {
+            const response = await adapter.upsertVisitor(visitorData, visitorData.id);
+            expect(response).toEqual({ ...visitorData, createdAt: response?.createdAt, updatedAt: response?.updatedAt });
         });
     })
 
     describe("createSession", async () => {
-
         it("should create a session", async () => {
             const response = await adapter.createSession(session);
             expect(response).toEqual({ ...session, createdAt: response?.createdAt, updatedAt: response?.updatedAt });
@@ -165,12 +164,12 @@ export async function runAdapterTest(options: TestOptions) {
         })
     })
 
-    describe("getUsers", async () => {
+    describe("getVisitors", async () => {
 
-        it("should return users in time a frame", async () => {
+        it("should return visitors in time a frame", async () => {
             const lastDay = new Date(Date.now() - (25 * 60 * 60 * 1000));
             const endDate = new Date();
-            const response = await adapter.getUser(lastDay, endDate);
+            const response = await adapter.getVisitor(lastDay, endDate);
             expect(response.length).toBeGreaterThanOrEqual(1)
         })
     })
