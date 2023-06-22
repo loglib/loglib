@@ -26,6 +26,7 @@ import { DefaultHeader } from "./components/header";
 
 type DashboardProps = {
   websiteId?: string,
+  websiteUrl?: string
   components?: typeof defaultComponents
   className?: string
 }
@@ -243,7 +244,7 @@ export const Dashboard: FC<DashboardProps> = (props) => {
                           </TabsList>
 
                           <TabsContent value="pages">
-                            <PagesComponent pageViews={data ? data.data.pages : []} filter={filter} isLoading={isLoading} />
+                            <PagesComponent pageViews={data ? data.data.pages : []} filter={filter} isLoading={isLoading} websiteUrl={props.websiteUrl} />
                           </TabsContent>
                           <TabsContent value="locations">
                             <LocationsComponent country={data ? data.data.locations.country : []} city={data ? data.data.locations.city : []} filter={filter} isLoading={isLoading} />

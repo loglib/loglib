@@ -15,7 +15,7 @@ import { ClearFilter } from "../util/clearFilter";
 import { TableLoading } from "../util/tableLoading";
 import { ScrollArea } from "../ui/scroll-area";
 
-export function PagesComponent({ pageViews, filter, isLoading }: { pageViews: PageViewsType[], filter: FilterProp, isLoading?: boolean }) {
+export function PagesComponent({ pageViews, filter, isLoading, websiteUrl }: { pageViews: PageViewsType[], filter: FilterProp, isLoading?: boolean, websiteUrl?: string }) {
   return (
     <CardContent>
       {
@@ -53,7 +53,14 @@ export function PagesComponent({ pageViews, filter, isLoading }: { pageViews: Pa
                     }}
                     className=" cursor-pointer"
                   >
-                    <TableCell>{pageView.page.substring(0, 20)} {pageView.page.length > 20 ? "..." : ""}</TableCell>
+                    <a
+                      href={
+                        websiteUrl ? websiteUrl + pageView.page : pageView.page
+                      }
+                      className=" hover:underline"
+                    >
+                      <TableCell>{pageView.page.substring(0, 20)} {pageView.page.length > 20 ? "..." : ""}</TableCell>
+                    </a>
                     <TableCell className="text-right">{pageView.visits}</TableCell>
                   </TableRow>
                 ))}
