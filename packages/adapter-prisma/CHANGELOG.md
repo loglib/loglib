@@ -1,5 +1,19 @@
 # @loglib/prisma-adapter
 
+## 0.2.0
+
+### Minor Changes
+
+- d48f41d: # Kind of big change for current users
+
+  - Web user filed changed to web visitor since web user is a bit confusing and it's not a user in the traditional sense
+  - All the adapters have been updated to use the new web visitor type
+
+### Patch Changes
+
+- Updated dependencies [d48f41d]
+  - @loglib/core@0.3.0
+
 ## 0.1.0
 
 ### Minor Changes
