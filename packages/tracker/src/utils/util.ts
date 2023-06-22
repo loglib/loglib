@@ -1,6 +1,6 @@
 import { DomEvent, ServerEvents } from "../types";
 
-export function getUserId() {
+export function getVisitorId() {
 	const getId = () => localStorage.getItem("loglib-id");
 	if (window.llc.consent === "denied" && !getId()) {
 		return ""
