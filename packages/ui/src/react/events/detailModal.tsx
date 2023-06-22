@@ -19,7 +19,7 @@ const renderSubComponent = ({ row }: { row: Row<EventsWithData[0]> }) => {
         "Session Duration": data.duration > 100 ? `${Math.floor(data.duration / 60)} min ${data.duration % 60} sec` : `${data.duration} sec`,
         "Session Id": data.sessionId,
         "Event Type": data.eventType,
-        "User Id": data.userId,
+        "User Id": data.visitorId,
         Language: data.language,
         Time: new Date(data.createdAt).toLocaleString(),
     }
