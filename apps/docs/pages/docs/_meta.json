@@ -1,5 +1,7 @@
 {
   "index": "Introduction",
   "installation": "Installation",
-  "get-started": "Get Started"
+  "get-started": "Get Started",
+  "advanced": "Advanced",
+  "api": "API"
 }
