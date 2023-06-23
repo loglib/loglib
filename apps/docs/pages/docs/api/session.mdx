@@ -1,0 +1,169 @@
+# Session API Endpoint
+
+The Session API Endpoint allows you to interact with the Logilb.io session data. You can send requests to retrieve session information based on various parameters.
+
+## Endpoint URL
+
+```
+https://logilb.io/api/v1/session
+```
+
+## Request Method
+
+- POST
+
+## Request Headers
+
+The following headers should be included in the request:
+
+```
+Content-Type: application/json
+```
+
+## Request Body
+
+The request body should contain a JSON object with the following parameters:
+
+| Parameter | Type     | Required | Default | Description                                                                                         |
+|-----------|----------|----------|---------|-----------------------------------------------------------------------------------------------------|
+| apiKey    | string   | Yes      | -       | The API key for authentication. This key is used to authorize access to the Logilb.io session data. |
+| take      | number   | No       | 10      | The maximum number of session records to retrieve.                                                  |
+| skip      | number   | No       | 0       | The number of records to skip from the beginning of the result set.                                 |
+| orderBy   | object   | No       |         | Specifies the field(s) to order the result by and the sorting order.                                 |
+| where     | object   | No       |         | Specifies additional filtering criteria for the session records.                                    |
+| include   | object   | No       |         | Specifies the related data to include in the response.                                              |
+
+The `orderBy`, `where`, and `include` objects have their own sub-properties as described below:
+
+### orderBy Object
+
+Specifies the field(s) to order the result by and the sorting order.
+
+| Property   | Type                 | Description                                                                                         |
+|------------|----------------------|-----------------------------------------------------------------------------------------------------|
+| createdAt  | "asc" or "desc"      | Specifies the sorting order based on the session creation timestamp.                                |
+| updatedAt  | "asc" or "desc"      | Specifies the sorting order based on the session update timestamp.                                   |
+| id         | "asc" or "desc"      | Specifies the sorting order based on the session ID.                                                |
+| device     | "asc" or "desc"      | Specifies the sorting order based on the device used during the session.                            |
+| os         | "asc" or "desc"      | Specifies the sorting order based on the operating system used during the session.                  |
+
+### where Object
+
+Specifies additional filtering criteria for the session records.
+
+| Property    | Type     | Description                                                                                         |
+|-------------|----------|-----------------------------------------------------------------------------------------------------|
+| id          | string   | Filters sessions by the session ID.                                                                 |
+| device      | string   | Filters sessions by the device used during the session.                                             |
+| city        | string   | Filters sessions by the city where the session occurred.                                            |
+| country     | string   | Filters sessions by the country where the session occurred.                                         |
+| referrer    | string   | Filters sessions by the referrer URL of the session.                                                |
+| browser     | string   | Filters sessions by the browser used during the session.                                            |
+| os          | string   | Filters sessions by the operating system used during the session.                                   |
+| visitorId   | string   | Filters sessions by the visitor ID associated with the session.                                     |
+| pageviewId  | string   | Filters sessions by the pageview ID associated with the session.                                    |
+
+### include Object
+
+Specifies the related data to include in the response.
+
+| Property   | Type     | Description                                                                                         |
+|------------|----------|-----------------------------------------------------------------------------------------------------|
+| pageview   | boolean  | Set to `true` to include the related pageview
+
+ data in the response, or `false` to exclude it.       |
+| event      | boolean  | Set to `true` to include the related event data in the response, or `false` to exclude it.          |
+| visitors   | boolean  | Set to `true` to include the related visitor data in the response, or `false` to exclude it.        |
+
+### Example Request Body
+
+```json
+{
+  "apiKey": "your-api-key",
+  "take": 10,
+  "skip": 0,
+  "orderBy": {
+    "createdAt": "desc"
+  },
+  "where": {
+    "id": "session-id",
+    "device": "Desktop",
+    "city": "New York",
+    "country": "USA",
+    "referrer": "https://example.com",
+    "browser": "Chrome",
+    "os": "Windows",
+    "visitorId": "visitor-id",
+    "pageviewId": "pageview-id"
+  },
+  "include": {
+    "pageview": false,
+    "event": false,
+    "visitors": false
+  }
+}
+```
+
+## Response Body
+
+The API will respond with a JSON object containing the following properties:
+
+| Property | Type     | Description                                                                                         |
+|----------|----------|-----------------------------------------------------------------------------------------------------|
+| data     | array    | An array of session objects representing the session data based on the provided parameters.         |
+
+Each session object in the `data` array will include the following properties:
+
+| Property    | Type     | Description                                                                                         |
+|-------------|----------|-----------------------------------------------------------------------------------------------------|
+| id          | string   | The unique identifier of the session.                                                               |
+| device      | string   | The device used during the session (e.g., "Desktop", "Mobile").                                     |
+| city        | string   | The city where the session occurred.                                                                |
+| country     | string   | The country where the session occurred.                                                             |
+| referrer    | string   | The referrer URL of the session.                                                                    |
+| browser     | string   | The browser used during the session.                                                                |
+| os          | string   | The operating system used during the session.                                                       |
+| visitorId   | string   | The unique identifier of the visitor associated with the session.                                   |
+| createdAt   | string   | The timestamp indicating when the session record was created.                                       |
+| updatedAt   | string   | The timestamp indicating when the session record was last updated.                                  |
+
+### Example Response Body
+
+```json
+{
+  "data": [
+    {
+      "id": "session-id",
+      "device": "Desktop",
+      "city": "New York",
+      "country": "USA",
+      "referrer": "https://example.com",
+      "browser": "Chrome",
+      "os": "Windows",
+      "visitorId": "visitor-id",
+      "createdAt": "2023-06-24T12:00:00Z",
+      "updatedAt": "2023-06-24T13:30:00Z"
+    },
+    {
+      "id": "session-id",
+      "device": "Mobile",
+      "city": "San Francisco",
+      "country": "USA",
+      "referrer": "https://example.com",
+      "browser": "Safari",
+      "os": "iOS",
+      "visitorId": "visitor-id",
+      "createdAt": "2023-06-24T11:00:00Z",
+      "updatedAt": "2023-06-24T14:45:00Z"
+    }
+  ]
+}
+```
+
+## Error Handling
+
+If there is an error with the request, the API will respond with an appropriate HTTP status code and an error message indicating the reason for the failure.
+
+## Security
+
+To access the Session API Endpoint, you need to provide a valid API key in the request. Make sure to keep your API key confidential and only share it with authorized individuals.
