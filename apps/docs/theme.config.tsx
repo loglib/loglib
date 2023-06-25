@@ -43,14 +43,13 @@ const Logo = (props: ComponentProps<"svg">): ReactElement => {
   );
 };
 
+
 const config: DocsThemeConfig = {
   logo: <Logo />,
   project: {
     link: "https://github.com/LogLib/loglib",
   },
-  chat: {
-    link: "https://t.me/loglib_community",
-  },
+ 
   footer: {
     text: "MIT 2022 © Loglib",
   },
