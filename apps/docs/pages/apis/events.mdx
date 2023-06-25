@@ -90,44 +90,42 @@ Specifies the related data to include in the response.
 
 The API will respond with a JSON object containing the following properties:
 
-| Property | Type     | Description                                                                                         |
-|----------|----------|-----------------------------------------------------------------------------------------------------|
-| data     | array    | An array of event objects representing the
-
- event data based on the provided parameters.             |
-
-Each event object in the `data` array will include the following properties:
-
-| Property    | Type     | Description                                                                                         |
-|-------------|----------|-----------------------------------------------------------------------------------------------------|
-| id          | string   | The unique identifier of the event.                                                                 |
-| sessionId   | string   | The unique identifier of the session associated with the event.                                      |
-| page        | string   | The page where the event occurred.                                                                  |
-| visitorId   | string   | The unique identifier of the visitor associated with the event.                                      |
-| createdAt   | string   | The timestamp indicating when the event record was created.                                          |
-| updatedAt   | string   | The timestamp indicating when the event record was last updated.                                     |
-
-### Example Response
-
 ```json
 {
   "data": [
     {
-      "id": "event-id",
-      "sessionId": "session-id",
-      "page": "homepage",
-      "visitorId": "visitor-id",
-      "createdAt": "2023-06-24T12:00:00Z",
-      "updatedAt": "2023-06-24T13:30:00Z"
+      "id": "243423423434234",
+      "createdAt": "2023-06-24T09:30:00Z",
+      "updatedAt": "2023-06-24T09:30:00Z",
+      "eventName": "ClickEvent",
+      "eventType": "user_interaction",
+      "payload": {
+        "buttonId": "submit_btn",
+        "timestamp": 1624543200,
+        "isSuccessful": true
+      },
+      "pageId": "page_123",
+      "sessionId": "session_456",
+      "visitorId": "visitor_789",
+      "websiteId": null
     },
     {
-      "id": "event-id",
-      "sessionId": "session-id",
-      "page": "product-page",
-      "visitorId": "visitor-id",
-      "createdAt": "2023-06-24T11:00:00Z",
-      "updatedAt": "2023-06-24T14:45:00Z"
+      "id": "2342334234234234",
+      "createdAt": "2023-06-24T12:45:00Z",
+      "updatedAt": "2023-06-24T12:45:00Z",
+      "eventName": "PageView",
+      "eventType": "analytics",
+      "payload": {
+        "url": "https://example.com/page2",
+        "timestamp": 1624554300,
+        "referrer": "https://google.com"
+      },
+      "pageId": "page_456",
+      "sessionId": "session_789",
+      "visitorId": "visitor_123",
+      "websiteId": "website_789"
     }
+
   ]
 }
 ```

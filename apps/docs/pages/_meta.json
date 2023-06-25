@@ -1,20 +1,15 @@
 {
-    "index": {
-        "title": "Loglib.io - Another web analytics tool",
-        "type": "page",
-        "display": "hidden",
-        "theme": {
-            "layout": "raw"
-        }
-    },
-    "docs": {
-        "title": "Documentation",
-        "type": "page"
-    },
-    "contact": {
-        "title": "Twitter ↗",
-        "type": "page",
-        "href": "https://twitter.com/loglib_io",
-        "newWindow": true
-    }
+  "index": "Introduction",
+  "installation": "Installation",
+  "get-started": "Get Started",
+  "advanced": "Advanced",
+  "apis": "API",
+  "contact": {
+    "title": "Twitter ↗",
+    "type": "page",
+    "href": "https://twitter.com/loglib_io",
+    "newWindow": true
+  }
 }
+
+
