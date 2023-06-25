@@ -1,0 +1,141 @@
+# Events API Endpoint
+
+The Events API Endpoint allows you to interact with the Logilb.io event data. You can send requests to retrieve event information based on various parameters.
+
+## Endpoint URL
+
+```
+https://logilb.io/api/v1/events
+```
+
+## Request Method
+
+- POST
+
+## Request Headers
+
+The following headers should be included in the request:
+
+```
+Content-Type: application/json
+```
+
+## Request Body
+
+The request body should contain a JSON object with the following parameters:
+
+| Parameter | Type     | Required | Default | Description                                                                                         |
+|-----------|----------|----------|---------|-----------------------------------------------------------------------------------------------------|
+| apiKey    | string   | Yes      | -       | The API key for authentication. This key is used to authorize access to the Logilb.io event data.   |
+| take      | number   | No       | 10      | The maximum number of event records to retrieve.                                                    |
+| skip      | number   | No       | 0       | The number of records to skip from the beginning of the result set.                                 |
+| orderBy   | object   | No       |         | Specifies the field(s) to order the result by and the sorting order.                                 |
+| where     | object   | No       |         | Specifies additional filtering criteria for the event records.                                      |
+| include   | object   | No       |         | Specifies the related data to include in the response.                                              |
+
+The `orderBy`, `where`, and `include` objects have their own sub-properties as described below:
+
+### orderBy Object
+
+Specifies the field(s) to order the result by and the sorting order.
+
+| Property   | Type                 | Description                                                                                         |
+|------------|----------------------|-----------------------------------------------------------------------------------------------------|
+| createdAt  | "asc" or "desc"      | Specifies the sorting order based on the event creation timestamp.                                   |
+| updatedAt  | "asc" or "desc"      | Specifies the sorting order based on the event update timestamp.                                      |
+| id         | "asc" or "desc"      | Specifies the sorting order based on the event ID.                                                   |
+
+### where Object
+
+Specifies additional filtering criteria for the event records.
+
+| Property    | Type     | Description                                                                                         |
+|-------------|----------|-----------------------------------------------------------------------------------------------------|
+| id          | string   | Filters events by the event ID.                                                                     |
+| sessionId   | string   | Filters events by the session ID associated with the event.                                          |
+| page        | string   | Filters events by the page where the event occurred.                                                 |
+| visitorId   | string   | Filters events by the visitor ID associated with the event.                                          |
+
+### include Object
+
+Specifies the related data to include in the response.
+
+| Property   | Type     | Description                                                                                         |
+|------------|----------|-----------------------------------------------------------------------------------------------------|
+| session    | boolean  | Set to `true` to include the related session data in the response, or `false` to exclude it.        |
+
+### Example Request Body
+
+```json
+{
+  "apiKey": "your-api-key",
+  "take": 10,
+  "skip": 0,
+  "orderBy": {
+    "createdAt": "desc"
+  },
+  "where": {
+    "id": "event-id",
+    "sessionId": "session-id",
+    "page": "homepage",
+    "visitorId": "visitor-id"
+  },
+  "include": {
+    "session": false
+  }
+}
+```
+
+## Response
+
+The API will respond with a JSON object containing the following properties:
+
+```json
+{
+  "data": [
+    {
+      "id": "243423423434234",
+      "createdAt": "2023-06-24T09:30:00Z",
+      "updatedAt": "2023-06-24T09:30:00Z",
+      "eventName": "ClickEvent",
+      "eventType": "user_interaction",
+      "payload": {
+        "buttonId": "submit_btn",
+        "timestamp": 1624543200,
+        "isSuccessful": true
+      },
+      "pageId": "page_123",
+      "sessionId": "session_456",
+      "visitorId": "visitor_789",
+      "websiteId": null
+    },
+    {
+      "id": "2342334234234234",
+      "createdAt": "2023-06-24T12:45:00Z",
+      "updatedAt": "2023-06-24T12:45:00Z",
+      "eventName": "PageView",
+      "eventType": "analytics",
+      "payload": {
+        "url": "https://example.com/page2",
+        "timestamp": 1624554300,
+        "referrer": "https://google.com"
+      },
+      "pageId": "page_456",
+      "sessionId": "session_789",
+      "visitorId": "visitor_123",
+      "websiteId": "website_789"
+    }
+
+  ]
+}
+```
+
+Please note that this documentation is a general example, and the actual response structure may vary depending on your specific API implementation and requirements.
+
+## Error Handling
+
+If there is an error with the request, the API will respond with an appropriate HTTP status code and an error message indicating the reason for the failure.
+
+## Security
+
+To access the Events API Endpoint, you need to provide a valid API key in the request. Ensure that you keep your API key confidential and only share it with authorized individuals.

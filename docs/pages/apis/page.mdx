@@ -1,0 +1,138 @@
+# Pageview API Endpoint
+
+The Pageview API Endpoint allows you to interact with the Logilb.io pageview data. You can send requests to retrieve pageview information based on various parameters.
+
+## Endpoint URL
+
+```
+https://logilb.io/api/v1/pageview
+```
+
+## Request Method
+
+- POST
+
+## Request Headers
+
+The following headers should be included in the request:
+
+```
+Content-Type: application/json
+```
+
+## Request Body
+
+The request body should contain a JSON object with the following parameters:
+
+| Parameter | Type   | Required | Default | Description                                                                                          |
+| --------- | ------ | -------- | ------- | ---------------------------------------------------------------------------------------------------- |
+| apiKey    | string | Yes      | -       | The API key for authentication. This key is used to authorize access to the Logilb.io pageview data. |
+| take      | number | No       | 10      | The maximum number of pageview records to retrieve.                                                  |
+| skip      | number | No       | 0       | The number of records to skip from the beginning of the result set.                                  |
+| orderBy   | object | No       |         | Specifies the field(s) to order the result by and the sorting order.                                 |
+| where     | object | No       |         | Specifies additional filtering criteria for the pageview records.                                    |
+| include   | object | No       |         | Specifies the related data to include in the response.                                               |
+
+The `orderBy`, `where`, and `include` objects have their own sub-properties as described below:
+
+### orderBy Object
+
+Specifies the field(s) to order the result by and the sorting order.
+
+| Property  | Type            | Description                                                                |
+| --------- | --------------- | -------------------------------------------------------------------------- |
+| createdAt | "asc" or "desc" | Specifies the sorting order based on the pageview creation timestamp.      |
+| updatedAt | "asc" or "desc" | Specifies the sorting order based on the pageview update timestamp.        |
+| id        | "asc" or "desc" | Specifies the sorting order based on the pageview ID.                      |
+| page      | "asc" or "desc" | Specifies the sorting order based on the page where the pageview occurred. |
+
+### where Object
+
+Specifies additional filtering criteria for the pageview records.
+
+| Property  | Type   | Description                                                       |
+| --------- | ------ | ----------------------------------------------------------------- |
+| sessionId | string | Filters pageviews by the session ID associated with the pageview. |
+| visitorId | string | Filters pageviews by the visitor ID associated with the pageview. |
+| page      | string | Filters pageviews by the page where the pageview occurred.        |
+
+### include Object
+
+Specifies the related data to include in the response.
+
+| Property | Type    | Description                                                                                  |
+| -------- | ------- | -------------------------------------------------------------------------------------------- |
+| session  | boolean | Set to `true` to include the related session data in the response, or `false` to exclude it. |
+| event    | boolean | Set to `true` to include the related event data in the response, or `false` to exclude it.   |
+| visitors | boolean | Set to `true` to include the related visitor data in the response, or `false` to exclude it. |
+
+### Example Request Body
+
+```json
+{
+  "apiKey": "your-api-key",
+  "take": 10,
+  "skip": 0,
+  "orderBy": {
+    "createdAt": "desc"
+  },
+  "where": {
+    "sessionId": "session-id",
+    "visitorId": "visitor-id",
+    "page": "homepage"
+  },
+  "include": {
+    "session": false,
+    "event": false,
+    "visitors": false
+  }
+}
+```
+
+## Response
+
+The API will respond with a JSON object containing the following properties:
+
+```json
+{
+  "data": [
+    {
+      "id": "pageview_123",
+      "createdAt": "2023-06-24T15:20:00Z",
+      "updatedAt": "2023-06-24T15:21:00Z",
+      "page": "/products",
+      "referrer": "https://google.com",
+      "queryParams": {
+        "category": "electronics",
+        "sort": "price_asc"
+      },
+      "duration": 30,
+      "sessionId": "session_456",
+      "visitorId": "visitor_789",
+      "websiteId": null
+    },
+    {
+      "id": "pageview_789",
+      "createdAt": "2023-06-24T18:10:00Z",
+      "updatedAt": "2023-06-24T18:12:00Z",
+      "page": "/blog/post1",
+      "referrer": "https://example.com",
+      "queryParams": null,
+      "duration": 120,
+      "sessionId": "session_123",
+      "visitorId": "visitor_456",
+      "websiteId": "website_789"
+    }
+  ]
+}
+```
+
+Please note that this documentation is a general example, and the actual response structure may vary depending on your specific API implementation and requirements.
+
+## Error Handling
+
+If there is an error with the request, the API will respond with an appropriate HTTP status code and an error message indicating the reason for the failure.
+
+## Security
+
+To access the Pageview API Endpoint, you need to provide a valid API key in the request. Ensure that you keep your API key confidential and only share it with authorized individuals.

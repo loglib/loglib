@@ -1,0 +1,205 @@
+import { Callout, Steps, Tab, Tabs } from "nextra-theme-docs";
+
+# NextJs with Supabase
+
+<Steps>
+
+### Install Loglib
+
+Install like every other library
+
+```bash
+pnpm i @loglib/tracker @loglib/next @loglib/prisma-adapter @loglib/ui
+```
+
+### Update your supabase schema
+
+Copy the following to supabase sql editor and run it
+
+```sql
+create table if not exists
+  public.web_user (
+    id text not null,
+    data text not null default '{}'::text,
+    created_at timestamp without time zone not null default current_timestamp,
+    updated_at timestamp without time zone not null,
+    constraint web_user_pkey primary key (id)
+  ) tablespace pg_default;
+
+create table if not exists
+  public.web_session (
+    id text not null,
+    created_at timestamp with time zone not null,
+    updated_at timestamp with time zone not null,
+    referrer text not null default ''::text,
+    query_params text not null default ''::text,
+    duration integer not null default 0,
+    country text null,
+    city text null,
+    device text null,
+    os text null,
+    browser text null,
+    language text null,
+    user_id text not null,
+    constraint web_session_pkey primary key (id),
+    constraint web_session_user_id_fkey foreign key (user_id) references web_user (id) on update cascade on delete cascade
+  ) tablespace pg_default;
+
+create table if not exists
+  public.web_pageview (
+    id text not null,
+    created_at timestamp without time zone not null default current_timestamp,
+    updated_at timestamp without time zone not null,
+    page text not null,
+    referrer text not null default ''::text,
+    query_params text not null default ''::text,
+    duration integer not null default 0,
+    session_id text not null,
+    user_id text not null,
+    constraint web_page_pkey primary key (id),
+    constraint web_pageview_session_id_fkey foreign key (session_id) references web_session (id) on delete cascade,
+    constraint web_pageview_user_id_fkey foreign key (user_id) references web_user (id) on delete cascade
+  ) tablespace pg_default;
+
+create table if not exists
+  public.web_event (
+    id text not null,
+    created_at timestamp without time zone not null default current_timestamp,
+    updated_at timestamp without time zone not null,
+    event_type text not null,
+    event_name text not null,
+    payload text not null default ''::text,
+    page_id text not null,
+    session_id text not null,
+    user_id text not null,
+    constraint web_event_pkey primary key (id),
+    constraint web_event_page_id_fkey foreign key (page_id) references web_pageview (id) on update cascade on delete cascade,
+    constraint web_event_session_id_fkey foreign key (session_id) references web_session (id) on delete cascade,
+    constraint web_event_user_id_fkey foreign key (user_id) references web_user (id) on update cascade on delete cascade
+  ) tablespace pg_default;
+```
+
+### Let's setup the server
+
+Setup based on your nextjs route
+
+<Tabs items={['app route', 'pages']}>
+  <Tab>
+    Create a file at `app/api/loglib/route.ts` with the following code
+
+    ```ts
+    import { createServerRoutes } from "@loglib/next";
+    import { supabaseAdapter } from "@loglib/supabase-adapter";
+    import { createClient } from "@supabase/supabase-js";
+
+    const supabase = createClient(
+      process.env.SUPABASE_URL,
+      process.env.SUPABASE_KEY
+    );
+
+    export const { POST, GET } = createServerRoutes({
+      adapter: supabaseAdapter(supabase),
+    });
+    ```
+
+  </Tab>
+  <Tab>
+    Create a file at `src/pages/api/loglib.ts` with the
+
+    ```ts
+    import { createServer } from "@loglib/next";
+    import { supabaseAdapter } from "@loglib/supabase-adapter";
+    import { createClient } from "@supabase/supabase-js";
+
+    const supabase = createClient(
+      process.env.SUPABASE_URL,
+      process.env.SUPABASE_KEY
+    );
+
+    export default createServer({
+      adapter: supabaseAdapter(supabase),
+    });
+    ```
+
+  </Tab>
+</Tabs>
+
+> NOTE: If you want to change the default path of loglib server you can add LOGLIB_URL in your environment variables specifying the full path to your loglib server api url.
+
+### Dashboard
+
+Let's setup Dashboard to see our analytics. (yeah not ours it's yours)
+
+Create a page somewhere you want to see your dashboard and just export the dashboard component
+
+`app/analytics/page.tsx` or `pages/analytics.tsx`
+
+```ts
+"use client"; // App Route Only
+
+import { Dashboard } from "@loglib/ui";
+import "@loglib/ui/dist/index.css";
+
+export default Dashboard;
+```
+
+<Callout>
+  NOTE: You probably want to protect this route with some kind of
+  authentication. Either by using a middleware or export the dashboard component
+  inside a protected route.
+</Callout>
+
+### Setup the tracker
+
+Let's setup the tracker to collect analytics
+
+<Tabs items={['app route', 'pages']}>
+  <Tab>
+    `src/app/layout.tsx`
+
+    ```ts
+    import LogLib from "@loglib/tracker/react";
+    export default function RootLayout({
+      children,
+    }: {
+      children: React.ReactNode;
+    }) {
+      return (
+        <html lang="en">
+          <body>
+            <LogLib
+              config={
+                {
+                  //  your config here
+                }
+              }
+            />
+            {children}
+          </body>
+        </html>
+      );
+    }
+    ```
+
+  </Tab>
+  <Tab>
+    `src/pages/_app.tsx`
+
+    ```js
+    import LogLib from "@loglib/tracker";
+    export default function App({ Component, pageProps }: AppProps) {
+      return (
+        <>
+          <LogLib config={{}} />
+          <Component {...pageProps} />
+        </>
+      );
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+</Steps>
+
+**More info on [tracker](/advanced/tracker)**
