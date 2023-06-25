@@ -49,7 +49,7 @@ const config: DocsThemeConfig = {
   project: {
     link: "https://github.com/LogLib/loglib",
   },
- 
+
   footer: {
     text: "MIT 2022 © Loglib",
   },
