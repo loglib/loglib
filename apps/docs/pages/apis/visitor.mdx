@@ -1,0 +1,117 @@
+# Visitor API Endpoint
+
+The Visitor API Endpoint allows you to interact with the Logilb.io visitor data. You can send requests to retrieve visitor information based on various parameters.
+
+## Endpoint URL
+
+```
+https://logilb.io/api/v1/visitor
+```
+
+## Request Method
+
+- POST
+
+## Request Headers
+
+The following headers should be included in the request:
+
+```
+Content-Type: application/json
+```
+
+## Request Body
+
+The request body should contain a JSON object with the following parameters:
+
+| Parameter | Type   | Required | Default | Description                                                                                         |
+| --------- | ------ | -------- | ------- | --------------------------------------------------------------------------------------------------- |
+| apiKey    | string | Yes      | -       | The API key for authentication. This key is used to authorize access to the Logilb.io visitor data. |
+| take      | number | No       | 10      | The maximum number of visitor records to retrieve.                                                  |
+| skip      | number | No       | 0       | The number of records to skip from the beginning of the result set.                                 |
+| orderBy   | object | No       |         | Specifies the field(s) to order the result by and the sorting order.                                |
+| where     | object | No       |         | Specifies additional filtering criteria for the visitor records.                                    |
+
+The `orderBy` and `where` objects have their own sub-properties as described below:
+
+### orderBy Object
+
+Specifies the field(s) to order the result by and the sorting order.
+
+| Property  | Type            | Description                                                          |
+| --------- | --------------- | -------------------------------------------------------------------- |
+| createdAt | "asc" or "desc" | Specifies the sorting order based on the visitor creation timestamp. |
+| updatedAt | "asc" or "desc" | Specifies the sorting order based on the visitor update timestamp.   |
+| id        | "asc" or "desc" | Specifies the sorting order based on the visitor ID.                 |
+
+### where Object
+
+Specifies additional filtering criteria for the visitor records.
+
+| Property | Type   | Description                                    |
+| -------- | ------ | ---------------------------------------------- |
+| id       | string | Filters visitors by the visitor ID.            |
+| device   | string | Filters visitors by the device used.           |
+| os       | string | Filters visitors by the operating system used. |
+
+### Example Request Body
+
+```json
+{
+  "apiKey": "your-api-key",
+  "take": 10,
+  "skip": 0,
+  "orderBy": {
+    "createdAt": "desc"
+  },
+  "where": {
+    "id": "visitor-id",
+    "device": "Desktop",
+    "os": "Windows"
+  }
+}
+```
+
+## Response
+
+The API will respond with a JSON object containing the following properties:
+
+```json
+{
+  "data": [
+    {
+      "id": "visitor_123",
+      "createdAt": "2023-06-24T08:15:00Z",
+      "updatedAt": "2023-06-24T08:15:00Z",
+      "data": {
+        "name": "John Doe",
+        "age": 28,
+        "country": "USA"
+      },
+      "websiteId": null
+    },
+    {
+      "id": "visitor_456",
+      "createdAt": "2023-06-24T11:20:00Z",
+      "updatedAt": "2023-06-24T11:20:00Z",
+      "data": {
+        "name": "Jane Smith",
+        "age": 35,
+        "country": "Canada",
+        "interests": ["hiking", "photography", "cooking"]
+      },
+      "websiteId": "website_789"
+    }
+  ]
+}
+```
+
+Please note that this documentation is a general example, and the actual response structure may vary depending on your specific API implementation and requirements.
+
+## Error Handling
+
+If there is an error with the request, the API will respond with an appropriate HTTP status code and an error message indicating the reason for the failure.
+
+## Security
+
+To access the Visitor API Endpoint, you need to provide a valid API key in the request. Ensure that you keep your API key confidential and only share it with authorized individuals.
