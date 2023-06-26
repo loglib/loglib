@@ -1,0 +1,112 @@
+import { cn } from '@/lib/utils'
+import "@/styles/globals.css"
+import { Inter } from 'next/font/google'
+import localFont from "next/font/local"
+import { siteConfig } from '@/config/site'
+import { ThemeProvider } from '@/components/theme-provider'
+import { Toaster } from '@/components/ui/toaster'
+import Loglib from "@loglib/tracker/react";
+
+const fontSatoshi = localFont({
+  src: [
+    {
+      path: "../../assets/fonts/Satoshi-Regular.woff2",
+      weight: "400",
+      style: "normal"
+    },
+    {
+      path: "../../assets/fonts/Satoshi-Medium.woff2",
+      weight: "500",
+      style: "normal"
+    },
+    {
+      path: "../../assets/fonts/Satoshi-Bold.woff2",
+      weight: "700",
+      style: "normal"
+    },
+    {
+      path: "../../assets/fonts/Satoshi-Black.woff2",
+      weight: "900",
+      style: "black"
+    }
+  ],
+  variable: "--font-satoshi"
+})
+
+const fontHeading = localFont({
+  src: "../../assets/fonts/CalSans-SemiBold.woff2",
+  variable: "--font-heading",
+})
+
+export const metadata = {
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  keywords: [
+    "Web Analytics",
+    "Open Source web analytics",
+    "loglib",
+    "loglib analytics",
+  ],
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+    images: `${siteConfig.url}/og.png`,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [`${siteConfig.url}/og.png`],
+    creator: "@logib_io",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: `${siteConfig.url}/site.webmanifest`,
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head >
+        <link rel="shortcut icon" href="/images/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
+      </head>
+      <body
+        className={cn(
+          " min-h-screen bg-gradient-to-tr from-white to-gray-100 p-4 font-sans antialiased transition-all duration-300 dark:from-black dark:to-slate-900/30 md:px-16",
+          fontSatoshi.variable,
+          fontHeading.variable
+        )}
+      >
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          {children}
+          <Loglib config={{
+            id: "loglib",
+            host: "https://loglib.io",
+          }} />
+          <Toaster />
+        </ThemeProvider>
+      </body>
+    </html>
+  )
+}

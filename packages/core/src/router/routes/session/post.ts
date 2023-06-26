@@ -32,7 +32,7 @@ export const sessionPost: ApiPostHandler<SessionPostInput, Session | null> = asy
     }
     //if GDPR compliance is enabled, use ip address as user id
     if (!req.body.visitorId) {
-        req.body.visitorId = getIpAddress(req) as string
+        req.body.visitorId = getIpAddress(req) as string || Math.random().toString(36).substring(7)
     }
     const body = SessionPostSchema.safeParse(req.body)
     if (body.success) {
@@ -68,7 +68,6 @@ export const sessionPost: ApiPostHandler<SessionPostInput, Session | null> = asy
                     updatedAt: new Date(),
                     websiteId
                 })
-
                 await adapter.createPageView({
                     sessionId: sessionId,
                     visitorId: visitorId,
@@ -81,13 +80,13 @@ export const sessionPost: ApiPostHandler<SessionPostInput, Session | null> = asy
                     queryParams: data.queryParams || null,
                     websiteId
                 })
-
                 return {
                     message: "success",
                     code: 200,
                     data: session
                 }
             } catch (e) {
+
                 return {
                     message: "error",
                     code: 400,
