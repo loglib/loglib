@@ -35,7 +35,8 @@ export function send(
 			} else {
 				// eslint-disable-next-line @typescript-eslint/no-floating-promises
 				fetch(host, {
-					body: JSON.stringify(dataToSend)
+					body: JSON.stringify(dataToSend),
+					method: "POST"
 				}).then(() => onSuccess?.())
 			}
 		} catch {
