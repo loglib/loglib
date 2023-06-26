@@ -2,7 +2,7 @@ import z from "zod";
 import { RootDashboardSchema } from "../../schema";
 import { ApiGetHandler } from "../../type";
 import { getBrowser, getDevices, getEvents, getLoc, getOS, getOnlineVisitors, getPageViews, getPages, getReferer, getUniqueVisitors, getVisitorsByDate } from "./utils";
-import { EventsWithData, getAverageTime, getBounceRate } from "./utils/analysis";
+import { EventsWithData, getAverageTime, getBounceRate, getUtmCampaigns, getUtmSources } from "./utils/analysis";
 import { GenericError, PageView, Session } from "../../..";
 import { filter } from "./filter/smallFilter";
 import { Filter } from "./filter/type";
@@ -173,6 +173,8 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
             const uniqueSessionByDate = getVisitorsByDate(sessions, startDateObj, endDateObj, false, timeZone)
             const onlineUsers = getOnlineVisitors(sessions)
             const eventsWithData = getEvents(events, sessions, pageViews)
+            const utmSources = getUtmSources(sessions)
+            const utmCampaigns = getUtmCampaigns(sessions)
             return {
                 message: 'success',
                 code: 200,

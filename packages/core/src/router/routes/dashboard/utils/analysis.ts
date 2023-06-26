@@ -256,3 +256,51 @@ export const getEvents = (events: Events[], sessions: Session[], pages: PageView
 }
 
 export type EventsWithData = ReturnType<typeof getEvents>
+
+
+export const getUtmSources = (sessions: Session[]) => {
+    sessions = sessions.filter(session => {
+        if (session.queryParams) {
+            return session.queryParams.utm_source
+        }
+    })
+    const utmSources = sessions.reduce((acc, session) => {
+        const utmSource = session.queryParams?.utm_source ?? "unknown"
+        const isFound = acc.find(p => p.utmSource === utmSource);
+        if (isFound) {
+            isFound.visits++;
+        } else {
+            acc.push({
+                utmSource,
+                visits: 1
+            });
+        }
+        return acc;
+    }, [] as { utmSource: string, visits: number }[]);
+    return utmSources
+}
+
+export const getUtmCampaigns = (sessions: Session[]) => {
+    sessions = sessions.filter(session => {
+        if (session.queryParams) {
+            console.log(session.queryParams)
+            return session.queryParams.utm_campaign
+        }
+    }
+    )
+    const utmCampaigns = sessions.reduce((acc, session) => {
+        const utmCampaign = session.queryParams?.utm_campaign ?? "unknown"
+        const isFound = acc.find(p => p.utmCampaign === utmCampaign);
+        if (isFound) {
+            isFound.visits++;
+        } else {
+            acc.push({
+                utmCampaign,
+                visits: 1
+            });
+        }
+        return acc;
+    }
+        , [] as { utmCampaign: string, visits: number }[]);
+    return utmCampaigns
+}

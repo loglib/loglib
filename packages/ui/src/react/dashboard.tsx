@@ -268,7 +268,6 @@ export const Dashboard: FC<DashboardProps> = (props) => {
             </Tabs>
             : <Login setAuth={setIsAuth} setToken={setToken} />
           }
-
         </div>
       </LayoutGroup>
     </main>

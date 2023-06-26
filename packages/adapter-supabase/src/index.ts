@@ -59,6 +59,11 @@ const supabaseAdapter = (db: SupabaseClient): Adapter => {
         },
         async getSession(startDate, endDate) {
             const res = (await db.from("web_session").select("*").gte("created_at", startDate.toUTCString()).lte("created_at", endDate.toUTCString()).select("*"))
+            if (res.data === null || res.data.length === 0) return []
+            res.data = res.data.map((session) => {
+                session.query_params = JSON.parse(session.query_params as string)
+                return session
+            })
             return snakeToCamel(res.data as unknown as Session[])
         },
     }
