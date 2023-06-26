@@ -10,5 +10,5 @@
     "types": ["vitest/globals"]
   },
   "include": ["src/**/*", "test/**/*", "tsup.config.ts", "vite.config.ts"],
-  "exclude": ["node_modules", "dist", "lib"]
+  "exclude": ["node_modules"]
 }
