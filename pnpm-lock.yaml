@@ -393,9 +393,9 @@ importers:
       '@hookform/resolvers': ^3.1.1
       '@ianvs/prettier-plugin-sort-imports': ^4.0.2
       '@loglib/core': ^0.3.0
-      '@loglib/next': 0.1.12
+      '@loglib/next': ^0.1.12
       '@loglib/prisma-adapter': ^0.2.0
-      '@loglib/tracker': 0.3.0
+      '@loglib/tracker': workspace:*
       '@loglib/ui': 0.2.1
       '@lottiefiles/react-lottie-player': ^3.5.3
       '@mdx-js/mdx': ^2.3.0

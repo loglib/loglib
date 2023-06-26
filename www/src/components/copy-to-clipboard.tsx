@@ -1,7 +1,6 @@
 "use client"
 import { ClipboardCopy } from "lucide-react"
 import { toast } from "./ui/use-toast"
-import { loglib } from "@loglib/tracker"
 import { ReactElement } from "react"
 import { Icons } from "./icons"
 

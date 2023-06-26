@@ -3,7 +3,7 @@ import { Dashboard } from "@loglib/ui"
 import "@loglib/ui/dist/index.css"
 import { AddTracker } from "./add-tracker"
 import { GetInsightResponse } from "@loglib/core"
-import { Website } from "@prisma/client"
+import { Website } from "../../@prisma"
 
 
 export default function Loglib({ showHowTo, website }: { website: Website, showHowTo: boolean }) {

@@ -1,4 +1,4 @@
-import { Website } from '@prisma/client'
+import { Website } from '../../@prisma'
 import { atom } from 'jotai'
 
 

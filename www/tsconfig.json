@@ -31,7 +31,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".contentlayer/generated"
-, "src/env/index.mjs", "src/components/loglib-dashboard", "src/components/generate-keys.tsz"  ],
+    ".contentlayer/generated",
+    "src/env/index.mjs"
+  ],
   "exclude": ["node_modules", "**/*.js"]
 }

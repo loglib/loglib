@@ -30,7 +30,7 @@ export default function DashboardNav({ items }: DashboardNavProps) {
             <Link key={index} href={item.disabled ? "/" : item.href} onClick={() => loglib.track("api-key-visited")}>
               <span
                 className={cn(
-                  "group flex items-center rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground",
+                  "hover:bg-accent hover:text-accent-foreground group flex items-center rounded-md px-3 py-2 text-sm font-medium",
                   path === item.href ? "bg-accent" : "transparent",
                   item.disabled && "cursor-not-allowed opacity-80"
                 )}

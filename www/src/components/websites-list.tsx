@@ -1,6 +1,6 @@
 "use client";
 
-import { Prisma, WebSession, Website as WebsiteType } from "@prisma/client"
+import { Prisma, WebSession, Website as WebsiteType } from "../../@prisma"
 import { EmptyPlaceholder } from "./empty-placeholder"
 import { WebsiteCreateButton } from "./website-create-button"
 import { Website } from "./website"
@@ -13,7 +13,7 @@ type WebsiteTypeWithSessions = (WebsiteType & {
 export const WebsitesList = ({ websites }: { websites: WebsiteTypeWithSessions[], }) => {
     if (websites.length) {
         return (
-            <div className=" grid md:grid-cols-3 gap-4 grid-cols-1 mt-3">
+            <div className=" mt-3 grid grid-cols-1 gap-4 md:grid-cols-3">
                 {websites.map((website) => <Website key={website.id} site={website} visitors={website.WebSession.length} />)}
             </div>
         )

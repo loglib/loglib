@@ -4,7 +4,7 @@ import { formatDate } from "@/lib/utils"
 import { Skeleton } from "@/components/ui/skeleton"
 
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card"
-import { Website } from "@prisma/client"
+import { Website } from "../../@prisma"
 import Image from "next/image"
 import { ChevronLeft, ChevronRight, LucideSettings, Settings, User2 } from "lucide-react"
 import { Button } from "./ui/button"

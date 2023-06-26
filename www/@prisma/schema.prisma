@@ -1,0 +1,203 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../@prisma"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Account {
+  id                String   @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?  @db.Text
+  access_token      String?  @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?  @db.Text
+  session_state     String?
+  createdAt         DateTime @default(now()) @map(name: "created_at")
+  updatedAt         DateTime @default(now()) @map(name: "updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+  @@map(name: "accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map(name: "sessions")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @default(now()) @map(name: "updated_at")
+
+  accounts Account[]
+  sessions Session[]
+
+  stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
+  stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
+  stripePriceId          String?   @map(name: "stripe_price_id")
+  stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
+
+  Website Website[]
+  ApiKey  ApiKey[]
+
+  @@map(name: "users")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map(name: "verification_tokens")
+}
+
+model Website {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  url       String   @unique @map("url")
+  title     String?  @map("title")
+  userId    String   @map("user_id")
+  active    Boolean  @default(false)
+
+  User        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  WebVisitor  WebVisitor[]
+  WebSession  WebSession[]
+  WebPageview WebPageview[]
+  WebEvent    WebEvent[]
+  ApiKey      ApiKey[]
+
+  @@index([userId])
+  @@map("website")
+}
+
+model WebVisitor {
+  id        String   @id @default(cuid())
+  data      String   @default("{}")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  websiteId String   @map("website_id")
+
+  Session  WebSession[]
+  Pageview WebPageview[]
+  WebEvent WebEvent[]
+  Website  Website       @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+
+  @@index([websiteId])
+  @@map("web_user")
+}
+
+model WebSession {
+  id          String        @id @default(cuid())
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+  referrer    String        @default("")
+  queryParams String        @default("") @map("query_params")
+  duration    Int           @default(0)
+  country     String?
+  city        String?
+  device      String?
+  os          String?
+  browser     String?
+  language    String?
+  visitorId   String        @map("user_id")
+  websiteId   String        @map("website_id")
+  WebPage     WebPageview[]
+  WebEvent    WebEvent[]
+
+  WebVisitor WebVisitor @relation(fields: [visitorId], references: [id], onDelete: Cascade)
+  Website    Website    @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+
+  @@index([visitorId])
+  @@index([websiteId])
+  @@map("web_session")
+}
+
+model WebPageview {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  page        String
+  referrer    String   @default("")
+  queryParams String   @default("{}") @map("query_params")
+  duration    Int      @default(0)
+  sessionId   String   @map("web_session_id")
+  visitorId   String   @map("user_id")
+  websiteId   String   @map("website_id")
+
+  Event      WebEvent[]
+  WebSession WebSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  WebVisitor WebVisitor @relation(fields: [visitorId], references: [id], onDelete: Cascade)
+  Website    Website    @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+  @@index([visitorId])
+  @@index([websiteId])
+  @@map("web_pageview")
+}
+
+model WebEvent {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  eventType String   @map("event_type")
+  eventName String   @map("event_name")
+  payload   String   @default("")
+  pageId    String   @map("page_id")
+  sessionId String   @map("web_session_id")
+  visitorId String   @map("user_id")
+  websiteId String   @map("website_id")
+
+  Page       WebPageview @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  User       WebVisitor  @relation(fields: [visitorId], references: [id], onDelete: Cascade)
+  WebSession WebSession  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  Website    Website     @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+  @@index([pageId])
+  @@index([visitorId])
+  @@index([websiteId])
+  @@map("web_event")
+}
+
+model ApiKey {
+  id        String    @id @default(cuid())
+  userId    String
+  name      String
+  websiteId String
+  key       String    @default(cuid())
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  deletedAt DateTime? @map(name: "deleted_at")
+  expires   DateTime
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  website Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([websiteId])
+  @@map("api_key")
+}
