@@ -89,10 +89,10 @@ importers:
 
   examples/next-js-with-prisma:
     specifiers:
-      '@loglib/core': 0.3.0
-      '@loglib/next': 0.1.12
-      '@loglib/prisma-adapter': 0.2.0
-      '@loglib/tracker': 0.3.0
+      '@loglib/core': 0.3.1
+      '@loglib/next': 0.1.13
+      '@loglib/prisma-adapter': 0.2.1
+      '@loglib/tracker': 0.3.1
       '@loglib/ui': 0.2.1
       '@prisma/client': ^4.14.0
       '@types/node': ^18.15.13
@@ -131,10 +131,10 @@ importers:
 
   examples/next-js-with-supabase:
     specifiers:
-      '@loglib/core': 0.3.0
-      '@loglib/next': 0.1.12
-      '@loglib/supabase-adapter': 0.3.0
-      '@loglib/tracker': 0.3.0
+      '@loglib/core': 0.3.1
+      '@loglib/next': 0.1.13
+      '@loglib/supabase-adapter': 0.3.1
+      '@loglib/tracker': 0.3.1
       '@loglib/ui': 0.2.1
       '@supabase/supabase-js': ^2.24.0
       '@types/node': ^18.15.13
@@ -178,7 +178,7 @@ importers:
   packages/adapter-prisma:
     specifiers:
       '@loglib/adapter-test': 1.2.0
-      '@loglib/core': 0.3.0
+      '@loglib/core': 0.3.1
       '@prisma/client': ^4.14.0
       prisma: ^4.14.0
     dependencies:
@@ -191,7 +191,7 @@ importers:
   packages/adapter-supabase:
     specifiers:
       '@loglib/adapter-test': 1.2.0
-      '@loglib/core': 0.3.0
+      '@loglib/core': 0.3.1
       '@supabase/supabase-js': ^2.24.0
     dependencies:
       '@loglib/core': link:../core
@@ -201,7 +201,7 @@ importers:
 
   packages/adapter-test:
     specifiers:
-      '@loglib/core': 0.3.0
+      '@loglib/core': 0.3.1
     devDependencies:
       '@loglib/core': link:../core
 
@@ -232,7 +232,7 @@ importers:
 
   packages/server-nextjs:
     specifiers:
-      '@loglib/core': 0.3.0
+      '@loglib/core': 0.3.1
       '@types/fs-extra': ^11.0.1
       '@types/prompts': ^2.4.4
       '@types/tar': ^6.1.5
@@ -392,10 +392,10 @@ importers:
     specifiers:
       '@hookform/resolvers': ^3.1.1
       '@ianvs/prettier-plugin-sort-imports': ^4.0.2
-      '@loglib/core': ^0.3.0
-      '@loglib/next': ^0.1.12
-      '@loglib/prisma-adapter': ^0.2.0
-      '@loglib/tracker': 0.3.0
+      '@loglib/core': ^0.3.1
+      '@loglib/next': ^0.1.13
+      '@loglib/prisma-adapter': ^0.2.1
+      '@loglib/tracker': 0.3.1
       '@loglib/ui': 0.2.1
       '@lottiefiles/react-lottie-player': ^3.5.3
       '@mdx-js/mdx': ^2.3.0
@@ -5356,7 +5356,7 @@ packages:
   /@types/react-dom/18.2.4:
     resolution: {integrity: sha512-G2mHoTMTL4yoydITgOGwWdWMVd8sNgyEP85xVmMKAPUBwQWm9wBPQUmvbeF4V3WBY1P7mmL4BkjQ0SqUpf1snw==}
     dependencies:
-      '@types/react': 18.2.8
+      '@types/react': 18.2.12
     dev: false
 
   /@types/react-modal/3.16.0:
