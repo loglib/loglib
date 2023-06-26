@@ -1,5 +1,11 @@
 # @loglib/tracker
 
+## 0.3.3
+
+### Patch Changes
+
+- 523c24c: default returned back to send beacon
+
 ## 0.3.2
 
 ### Patch Changes
