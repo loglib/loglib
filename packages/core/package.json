@@ -8,6 +8,7 @@
     "test:watch": "vitest watch",
     "build": "tsup",
     "dev": "tsup --watch",
+    "typecheck": "tsc --no-emit",
     "lint": "eslint . --ext .ts"
   },
   "exports": [

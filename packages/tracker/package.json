@@ -33,6 +33,7 @@
       ]
     }
   },
+  "types": "dist/index.d.ts",
   "keywords": [
     "loglib",
     "event tracker",
