@@ -49,7 +49,7 @@ const config: DocsThemeConfig = {
   },
 
   footer: {
-    text: "MIT 2022 © Loglib",
+    text: `MIT ${new Date().getFullYear()} © Loglib`,
   },
   feedback: {
     labels: "Feedback from Loglib Docs:",
