@@ -102,7 +102,7 @@ export const EditWebsiteForm = () => {
                             duration: 0.3,
 
                         }}
-                        className=" relative flex w-11/12 flex-col justify-center  rounded-md border bg-gradient-to-tr from-gray-100 to-gray-200 px-8 pb-10 pt-4 animate-in dark:from-black dark:to-slate-900/20 md:w-3/12">
+                        className=" animate-in relative flex w-11/12 flex-col  justify-center rounded-md border bg-gradient-to-tr from-gray-100 to-gray-200 px-8 pb-10 pt-4 dark:from-black dark:to-slate-900/20 md:w-3/12">
                         <div className=" ml-auto">
                             <Button variant="outline" className="" onClick={() => {
                                 setModal(false)
@@ -156,11 +156,11 @@ export const EditWebsiteForm = () => {
                                             <FormLabel>Your website @loglib</FormLabel>
                                             {/* <FormMessage /> */}
                                             <FormControl>
-                                                <div className="flex items-center rounded-md  border border-input px-1 focus-within:outline-none">
+                                                <div className="border-input flex items-center  rounded-md border px-1 focus-within:outline-none">
                                                     <span className=" flex h-10 items-center border-r px-2 text-sm">
                                                         loglib.io/
                                                     </span>
-                                                    <input placeholder="site_name" {...field} className="flex h-10 w-full rounded-md border border-none bg-transparent p-2 text-sm outline-none ring-offset-background file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50" />
+                                                    <input placeholder="site_name" {...field} className="ring-offset-background placeholder:text-muted-foreground flex h-10 w-full rounded-md border border-none bg-transparent p-2 text-sm outline-none file:bg-transparent file:text-sm file:font-medium disabled:cursor-not-allowed disabled:opacity-50" />
                                                 </div>
                                             </FormControl>
 

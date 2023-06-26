@@ -29,15 +29,15 @@ export function send(
 	const maxRetries = 3;
 	function sendRequest() {
 		try {
-			if (window.llc.useBeacon) {
-				navigator.sendBeacon(host, JSON.stringify(dataToSend));
-				onSuccess?.();
-			} else {
+			if (window.llc.useFetch) {
 				// eslint-disable-next-line @typescript-eslint/no-floating-promises
 				fetch(host, {
 					body: JSON.stringify(dataToSend),
 					method: "POST"
 				}).then(() => onSuccess?.())
+			} else {
+				navigator.sendBeacon(host, JSON.stringify(dataToSend));
+				onSuccess?.();
 			}
 		} catch {
 			const xhr = new XMLHttpRequest();

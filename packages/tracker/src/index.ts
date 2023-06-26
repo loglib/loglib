@@ -7,6 +7,4 @@ declare global {
 		lli: Internal;
 	}
 }
-
-
 export { loglib };

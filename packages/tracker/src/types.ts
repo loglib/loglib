@@ -7,7 +7,7 @@ export type Config = {
 	host: string;
 	consent: "granted" | "denied";
 	useServerPath?: boolean;
-	useBeacon?: boolean
+	useFetch?: boolean
 };
 export type ServerEvents = {
 	id: string;

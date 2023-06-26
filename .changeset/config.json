@@ -6,7 +6,8 @@
   "baseBranch": "main",
   "ignore": [
     "@examples/next-js-with-prisma",
-    "@examples/next-js-with-supabase"
+    "@examples/next-js-with-supabase",
+    "web"
   ],
   "changelog": "@changesets/cli/changelog"
 }

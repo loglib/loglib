@@ -17,8 +17,7 @@ import { AnimatePresence } from "framer-motion"
 import Modal from 'react-modal'
 import { ChevronsRightLeft } from "lucide-react"
 import { CopyToClipboard } from "./copy-to-clipboard"
-
-
+import { loglib } from "@loglib/tracker"
 
 const snippets = [{
   name: "nextjs/app-tsx",
@@ -203,11 +202,11 @@ export const AddTracker = ({ websiteId, show }: { websiteId: string, show: boole
         }}
       >
 
-        <div className=" relative flex h-max flex-col rounded-md border  bg-gradient-to-tr from-gray-50 to-gray-200  px-4 pb-6 animate-in dark:from-black dark:to-gray-800/20">
+        <div className=" animate-in relative flex h-max flex-col rounded-md  border bg-gradient-to-tr from-gray-50  to-gray-200 px-4 pb-6 dark:from-black dark:to-gray-800/20">
           <div className=" flex items-center justify-between  py-2">
             <div className=" flex items-center gap-2">
               {/* <div className=" w-2 h-2 bg-gradient-to-tr from-logo to-yellow-600 animate-pulse rounded-full" /> */}
-              <p className=" my-2 bg-gradient-radial from-logo to-yellow-600 bg-clip-text text-sm font-medium text-transparent">
+              <p className=" bg-gradient-radial from-logo my-2 to-yellow-600 bg-clip-text text-sm font-medium text-transparent">
                 Follow the steps below to add loglib to your website
               </p>
             </div>
@@ -245,7 +244,7 @@ export const AddTracker = ({ websiteId, show }: { websiteId: string, show: boole
             <span className="relative z-10 flex h-4 w-4 items-center justify-center rounded-full border p-4">
               2
             </span>
-            <div className=" bg-gradient-br relative flex h-max flex-col rounded-md  border from-gray-100 to-gray-300 pb-6 animate-in dark:from-black dark:to-gray-800/20 ">
+            <div className=" bg-gradient-br animate-in relative flex h-max flex-col  rounded-md border from-gray-100 to-gray-300 pb-6 dark:from-black dark:to-gray-800/20 ">
               <div className=" flex  items-center justify-between space-y-2 border-b p-4 md:py-2">
                 <div className=" flex items-center gap-2">
                   <selected.icon />

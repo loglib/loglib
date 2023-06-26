@@ -6,6 +6,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return <>
     <Loglib config={{
       debug: true,
+      env: "prod",
+      host: "http://localhost:3000",
+      id: "loglib_vercel",
     }} />
     <Component {...pageProps} />
   </>
