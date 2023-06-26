@@ -1,5 +1,11 @@
 # @loglib/core
 
+## 0.3.1
+
+### Patch Changes
+
+- 50f7019: now tracker uses fetch by default insted of sendbeacon unless passed in the config
+
 ## 0.3.0
 
 ### Minor Changes
