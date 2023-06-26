@@ -17,7 +17,6 @@ import { AnimatePresence } from "framer-motion"
 import Modal from 'react-modal'
 import { ChevronsRightLeft } from "lucide-react"
 import { CopyToClipboard } from "./copy-to-clipboard"
-import { loglib } from "@loglib/tracker"
 
 const snippets = [{
   name: "nextjs/app-tsx",
