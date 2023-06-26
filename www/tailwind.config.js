@@ -19,9 +19,9 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -86,21 +86,21 @@ module.exports = {
           to: { "border-right-color": "black" },
         },
         text: {
-          '0%, 100%': {
-             'background-size':'200% 200%',
-              'background-position': 'left center'
+          "0%, 100%": {
+            "background-size": "200% 200%",
+            "background-position": "left center",
           },
-          '50%': {
-             'background-size':'200% 200%',
-              'background-position': 'right center'
-          }
-      },
+          "50%": {
+            "background-size": "200% 200%",
+            "background-position": "right center",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         typing: "typing 2s steps(14), blink 0.1s infinite",
-        'text':'text 5s ease infinite',
+        text: "text 5s ease infinite",
       },
     },
   },
