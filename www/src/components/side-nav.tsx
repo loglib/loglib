@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation"
 
 import { SidebarNavItem } from "types"
 import { cn } from "@/lib/utils"
-import { loglib } from "@loglib/tracker"
 import { Icons } from "@/components/icons"
 
 interface DashboardNavProps {
@@ -27,7 +26,7 @@ export default function DashboardNav({ items }: DashboardNavProps) {
         const Icon = Icons[item.icon || "arrowRight"]
         return (
           item.href && (
-            <Link key={index} href={item.disabled ? "/" : item.href} onClick={() => loglib.track("api-key-visited")}>
+            <Link key={index} href={item.disabled ? "/" : item.href}>
               <span
                 className={cn(
                   "hover:bg-accent hover:text-accent-foreground group flex items-center rounded-md px-3 py-2 text-sm font-medium",

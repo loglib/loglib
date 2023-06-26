@@ -12,6 +12,7 @@
     "lint": "eslint . --ext .ts"
   },
   "exports": {
+    "./package.json": "./package.json",
     ".": {
       "browser": "./dist/index.js",
       "import": "./dist/index.js",
@@ -23,17 +24,17 @@
       "require": "./dist/react/index.cjs"
     }
   },
+  "types": "dist/index.d.ts",
   "typesVersions": {
     "*": {
       "*": [
-        "./dist/index.d.ts"
+        "dist/index.d.ts"
       ],
       "react": [
-        "./dist/react/index.d.ts"
+        "dist/react/index.d.ts"
       ]
     }
   },
-  "types": "./dist/index.d.ts",
   "keywords": [
     "loglib",
     "event tracker",
@@ -42,12 +43,6 @@
   ],
   "author": "",
   "license": "MIT",
-  "files": [
-    "dist",
-    "package.json",
-    "LICENSE",
-    "README.md"
-  ],
   "devDependencies": {
     "@changesets/changelog-git": "^0.1.14",
     "@changesets/changelog-github": "^0.4.8",
