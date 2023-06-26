@@ -1,5 +1,11 @@
 # @loglib/tracker
 
+## 0.3.2
+
+### Patch Changes
+
+- 9bed7c1: tracker bug fix
+
 ## 0.3.1
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # web
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [9bed7c1]
+  - @loglib/tracker@0.3.2
+
 ## 0.1.1
 
 ### Patch Changes
