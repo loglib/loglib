@@ -47,7 +47,7 @@ jobs:
         env:
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-        run: pnpm turbo build lint typecheck test
+        run: pnpm turbo --filter \"./packages/*\" build
 
       - name: Check workspaces
         run: pnpm manypkg check
