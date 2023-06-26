@@ -62,5 +62,6 @@
   },
   "peerDependencies": {
     "react": "^16.8||^17||^18"
-  }
+  },
+  "type": "module"
 }
