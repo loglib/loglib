@@ -34,6 +34,7 @@ importers:
 
   docs:
     specifiers:
+      '@loglib/tracker': 0.3.3
       '@radix-ui/react-aspect-ratio': ^1.0.3
       '@radix-ui/react-slot': ^1.0.1
       '@types/node': ^18.15.13
@@ -60,6 +61,7 @@ importers:
       tailwindcss-animate: ^1.0.5
       typescript: ^5.0.4
     dependencies:
+      '@loglib/tracker': link:../packages/tracker
       '@radix-ui/react-aspect-ratio': 1.0.3_nt3dzwb3srfhvwd6kfpoey3m3m
       '@radix-ui/react-slot': 1.0.2_i2bxsyfskhzbpjanbovidbfj7u
       '@types/node': 18.16.16
@@ -10732,7 +10734,7 @@ packages:
       react: '*'
       react-dom: '*'
     dependencies:
-      next: 13.4.7_c4utbvjuec5k6ojdwo2x3lza74
+      next: 13.4.7_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: false
