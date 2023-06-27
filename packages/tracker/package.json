@@ -28,8 +28,9 @@
       "types": "./dist/index.d.ts"
     },
     "./react": {
-      "import": "./dist/react/index.mjs",
-      "types": "./dist/react/index.d.ts"
+      "browser": "./dist/react/index.js",
+      "import": "./dist/react/index.js",
+      "require": "./dist/react/index.cjs"
     }
   },
   "typesVersions": {
