@@ -1,5 +1,11 @@
 # @loglib/core
 
+## 0.3.2
+
+### Patch Changes
+
+- 720d074: utm campaigns support added
+
 ## 0.3.1
 
 ### Patch Changes
