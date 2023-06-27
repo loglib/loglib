@@ -283,13 +283,12 @@ export const getUtmSources = (sessions: Session[]) => {
 export const getUtmCampaigns = (sessions: Session[]) => {
     sessions = sessions.filter(session => {
         if (session.queryParams) {
-            console.log(session.queryParams)
             return session.queryParams.utm_campaign
         }
     }
     )
     const utmCampaigns = sessions.reduce((acc, session) => {
-        const utmCampaign = session.queryParams?.utm_campaign ?? "unknown"
+        const utmCampaign = session.queryParams?.utm_campaign
         const isFound = acc.find(p => p.utmCampaign === utmCampaign);
         if (isFound) {
             isFound.visits++;
@@ -300,7 +299,6 @@ export const getUtmCampaigns = (sessions: Session[]) => {
             });
         }
         return acc;
-    }
-        , [] as { utmCampaign: string, visits: number }[]);
+    }, [] as { utmCampaign: string, visits: number }[]);
     return utmCampaigns
 }

@@ -19,7 +19,7 @@ export const SessionPostSchema = RootApiTrackerSchema.merge(z.object({
         referrer: z.string(),
         screenWidth: z.number(),
         language: z.string(),
-        queryParams: z.object({ utm_source: z.string().optional() }).optional(),
+        queryParams: z.record(z.string(), z.string()),
         host: z.string(),
     })
 }))
@@ -35,6 +35,7 @@ export const sessionPost: ApiPostHandler<SessionPostInput, Session | null> = asy
         req.body.visitorId = getIpAddress(req) as string || Math.random().toString(36).substring(7)
     }
     const body = SessionPostSchema.safeParse(req.body)
+
     if (body.success) {
         const { sessionId, data, visitorId, pageId, websiteId } = body.data
         const { referrer, language, queryParams, screenWidth } = data

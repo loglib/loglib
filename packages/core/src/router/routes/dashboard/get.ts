@@ -2,7 +2,7 @@ import z from "zod";
 import { RootDashboardSchema } from "../../schema";
 import { ApiGetHandler } from "../../type";
 import { getBrowser, getDevices, getEvents, getLoc, getOS, getOnlineVisitors, getPageViews, getPages, getReferer, getUniqueVisitors, getVisitorsByDate } from "./utils";
-import { EventsWithData, getAverageTime, getBounceRate } from "./utils/analysis";
+import { EventsWithData, getAverageTime, getBounceRate, getUtmCampaigns, getUtmSources } from "./utils/analysis";
 import { GenericError, PageView, Session } from "../../..";
 import { filter } from "./filter/smallFilter";
 import { Filter } from "./filter/type";
@@ -60,6 +60,14 @@ export type GetInsightResponse = {
         browser: {
             browser: string;
             visits: number;
+        }[],
+        utmSources: {
+            utmSource: string;
+            visits: number;
+        }[],
+        utmCampaigns: {
+            utmCampaign: string;
+            visits: number;
         }[]
     },
     graph: {
@@ -102,6 +110,14 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
             let sessions = await adapter.getSession(startDateObj, endDateObj, websiteId)
             let pastSessions = await adapter.getSession(pastEndDateObj, startDateObj, websiteId)
             let events = await adapter.getEvents(startDateObj, endDateObj, websiteId)
+
+
+            //add utmCampaigns as a key in session
+            sessions = sessions.map((s) => {
+                const utmCampaign = s.queryParams?.utm_campaign ?? ""
+                const utmSource = s.queryParams?.utm_source ?? ""
+                return { ...s, utmCampaign, utmSource }
+            })
 
             //filters
             const filters = JSON.parse(query.data.filter) as Filter<Session, "session">[] | Filter<PageView, "pageview">[]
@@ -155,6 +171,7 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
                 }
             })
 
+
             //insights data
             const uniqueVisitors = getUniqueVisitors(users, pastUsers)
             const pageView = getPageViews(pageViews, pastPageViews)
@@ -173,6 +190,8 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
             const uniqueSessionByDate = getVisitorsByDate(sessions, startDateObj, endDateObj, false, timeZone)
             const onlineUsers = getOnlineVisitors(sessions)
             const eventsWithData = getEvents(events, sessions, pageViews)
+            const utmSources = getUtmSources(sessions)
+            const utmCampaigns = getUtmCampaigns(sessions)
             return {
                 message: 'success',
                 code: 200,
@@ -189,7 +208,9 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
                         referrer,
                         locations,
                         os,
-                        browser
+                        browser,
+                        utmCampaigns,
+                        utmSources
                     },
                     graph: {
                         uniqueVisitorsByDate,
