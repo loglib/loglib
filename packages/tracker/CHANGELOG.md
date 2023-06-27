@@ -1,5 +1,12 @@
 # @loglib/tracker
 
+## 0.3.4
+
+### Patch Changes
+
+- 401f8dc: bug fix
+- 58514db: pacakge fix
+
 ## 0.3.3
 
 ### Patch Changes

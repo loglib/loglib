@@ -18,7 +18,7 @@
     "@loglib/core": "^0.3.1",
     "@loglib/next": "^0.1.13",
     "@loglib/prisma-adapter": "^0.2.1",
-    "@loglib/tracker": "0.3.3",
+    "@loglib/tracker": "0.3.4",
     "@loglib/ui": "0.2.1",
     "@lottiefiles/react-lottie-player": "^3.5.3",
     "@mdx-js/mdx": "^2.3.0",
