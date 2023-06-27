@@ -248,7 +248,7 @@ export const AddTracker = ({ websiteId, show }: { websiteId: string, show: boole
             <span className="relative z-10 flex h-4 w-4 items-center justify-center rounded-full border p-4">
               2
             </span>
-            <div className=" bg-gradient-br animate-in relative flex h-max flex-col  rounded-md border from-gray-100 to-gray-300 pb-6 dark:from-black dark:to-gray-800/20 ">
+            <div className=" bg-gradient-br animate-in relative flex h-max min-w-[600px] flex-col  rounded-md border from-gray-100 to-gray-300 pb-6 dark:from-black dark:to-gray-800/20 ">
               <div className=" flex  items-center justify-between space-y-2 border-b p-4 md:py-2">
                 <div className=" flex items-center gap-2">
                   <selected.icon />
