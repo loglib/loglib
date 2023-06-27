@@ -1,5 +1,13 @@
 # @loglib/ui
 
+## 0.2.2
+
+### Patch Changes
+
+- 720d074: utm campaigns support added
+- Updated dependencies [720d074]
+  - @loglib/core@0.3.2
+
 ## 0.2.1
 
 ### Patch Changes
