@@ -18,6 +18,7 @@ export default function RootLayout({
       <LogLib
         config={{
           debug: true,
+          env: "prod"
         }}
       />
       <body className={inter.className}>{children}</body>
