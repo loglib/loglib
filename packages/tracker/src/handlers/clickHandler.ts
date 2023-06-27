@@ -1,17 +1,17 @@
 import { checkDoNotTrackClass, guid, q } from "../utils/util";
-import { DomEvent } from "../types";
 
 
-export const clickHandler = (e: DomEvent) => {
+export const clickHandler = (e: Event) => {
+	const target = e.target as HTMLButtonElement;
 	const payload: Record<string, string> = {};
 	if (checkDoNotTrackClass(e)) return;
 	if (!window.llc.autoTrack) return;
-	if (typeof e.target.onclick !== "function" && e.target.nodeName !== "BUTTON") {
+	if (typeof target.onclick !== "function" && target.nodeName !== "BUTTON") {
 		return;
 	}
 	q({
 		id: guid(),
-		eventName: e.target.textContent.replace(/[\W_]+/g, ""),
+		eventName: target.textContent?.replace(/[\W_]+/g, "") ?? "",
 		eventType: "click",
 		page: location.pathname,
 		payload,

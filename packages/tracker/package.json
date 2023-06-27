@@ -2,29 +2,36 @@
   "name": "@loglib/tracker",
   "version": "0.3.3",
   "description": "A simple tracker for loglib",
-  "main": "./dist/index.js",
-  "packageManager": "pnpm@7.9.5",
+  "keywords": [
+    "loglib",
+    "event tracker",
+    "web analytics",
+    "analytics"
+  ],
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "Berekte Engida",
+  "license": "MIT",
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest watch",
-    "dev": "rm -rf /dist & tsup --watch",
-    "build": "rm -rf /dist & tsup",
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts"
   },
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "browser": "./dist/index.js",
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "types": "./dist/index.d.ts"
     },
     "./react": {
-      "browser": "./dist/react/index.js",
-      "import": "./dist/react/index.js",
-      "require": "./dist/react/index.cjs"
+      "import": "./dist/react/index.mjs",
+      "types": "./dist/react/index.d.ts"
     }
   },
-  "types": "dist/index.d.ts",
   "typesVersions": {
     "*": {
       "*": [
@@ -35,14 +42,6 @@
       ]
     }
   },
-  "keywords": [
-    "loglib",
-    "event tracker",
-    "web analytics",
-    "analytics"
-  ],
-  "author": "Berekte Engida",
-  "license": "MIT",
   "devDependencies": {
     "@changesets/changelog-git": "^0.1.14",
     "@changesets/changelog-github": "^0.4.8",
@@ -59,9 +58,5 @@
     "tsup": "^6.7.0",
     "typescript": "^5.0.4",
     "vitest": "^0.31.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8||^17||^18"
-  },
-  "type": "module"
+  }
 }

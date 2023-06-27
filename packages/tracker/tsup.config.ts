@@ -8,35 +8,33 @@ const cfg: Options = {
     format: ['cjs', 'esm'],
 };
 
-export default defineConfig([
+export default defineConfig((opts) => ([
     {
         ...cfg,
-        entry: {
-            index: 'src/index.ts',
-        },
-        outDir: 'dist',
+        entry: ['src/index.ts'],
+        clean: !opts.watch,
     },
     {
         ...cfg,
         entry: {
-            index: 'src/react/index.tsx',
+            index: 'src/react/index.tsx'
         },
         external: ['react'],
-        outDir: 'dist/react',
+        outDir: "dist/react",
         esbuildOptions: (options) => {
             options.banner = {
-
                 js: '"use client";',
             };
         },
+        clean: !opts.watch,
     },
     {
         ...cfg,
         entry: {
-            index: 'src/entry.ts',
+            index: "src/entry.ts"
         },
-        outDir: 'dist',
         format: ['iife'],
-        minify: true
+        minify: true,
+        clean: !opts.watch,
     }
-]);
+]));

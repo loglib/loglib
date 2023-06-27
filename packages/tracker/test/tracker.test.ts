@@ -1,4 +1,4 @@
-import { Mock } from "vitest";
+import { Mock, vi } from "vitest";
 import { navigationHandler, record } from "../src/record";
 import { send } from "../src/server";
 import { flush, getVisitorId, guid, getSessionDuration } from "../src/utils/util";

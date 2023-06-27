@@ -1,4 +1,4 @@
-import { DomEvent, ServerEvents } from "../types";
+import { ServerEvents } from "../types";
 
 export function getVisitorId() {
 	const getId = () => localStorage.getItem("loglib-id");
@@ -18,9 +18,10 @@ export function flush() {
 }
 
 
-export function checkDoNotTrackClass(e: DomEvent) {
+export function checkDoNotTrackClass(e: Event) {
+	const target = e.target as HTMLButtonElement;
 	if (
-		e.target.hasAttribute("doNotTrack")
+		target.hasAttribute("doNotTrack")
 	) {
 		return true;
 	} return false
@@ -104,7 +105,7 @@ export function getUrl() {
 	}
 	if (process.env.NEXT_PUBLIC_LOGLIB_URL || process.env.LOGLIB_URL) {
 		const url = process.env.NEXT_PUBLIC_LOGLIB_URL ?? process.env.LOGLIB_URL
-		return url + "/api/loglib"
+		return `${url}"/api/loglib"`
 	}
 	if (process.env.NODE_ENV === "development") {
 		return location.origin + '/api/loglib'

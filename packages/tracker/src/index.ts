@@ -1,4 +1,3 @@
-import { loglib } from "./lib";
 import { Config, Internal } from "./types";
 
 declare global {
@@ -7,4 +6,4 @@ declare global {
 		lli: Internal;
 	}
 }
-export { loglib };
+export { loglib } from "./lib";
