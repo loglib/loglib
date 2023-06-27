@@ -10,7 +10,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@loglib/tracker": "0.3.3",
+    "@loglib/tracker": "0.3.4",
     "@radix-ui/react-aspect-ratio": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.1",
     "@types/node": "^18.15.13",

@@ -34,7 +34,7 @@ importers:
 
   docs:
     specifiers:
-      '@loglib/tracker': 0.3.3
+      '@loglib/tracker': 0.3.4
       '@radix-ui/react-aspect-ratio': ^1.0.3
       '@radix-ui/react-slot': ^1.0.1
       '@types/node': ^18.15.13
@@ -10734,7 +10734,7 @@ packages:
       react: '*'
       react-dom: '*'
     dependencies:
-      next: 13.4.7_biqbaboplfbrettd7655fr4n2y
+      next: 13.4.7_c4utbvjuec5k6ojdwo2x3lza74
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: false
