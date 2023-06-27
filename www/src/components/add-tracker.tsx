@@ -187,10 +187,14 @@ export const AddTracker = ({ websiteId, show }: { websiteId: string, show: boole
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedLang, selectedFramework])
   const { theme } = useTheme()
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768)
+  }, [])
 
   return (
     <AnimatePresence>
-      {isOpen && <Modal
+      {isOpen && !isMobile && <Modal
         isOpen={isOpen}
         className="font-jost mx-4 flex h-full items-center justify-center border-none outline-none backdrop:blur-xl"
         style={{

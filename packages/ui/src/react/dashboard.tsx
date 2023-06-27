@@ -250,7 +250,7 @@ export const Dashboard: FC<DashboardProps> = (props) => {
                             <LocationsComponent country={data ? data.data.locations.country : []} city={data ? data.data.locations.city : []} filter={filter} isLoading={isLoading} />
                           </TabsContent>
                           <TabsContent value="ref">
-                            <RefComponent refs={data ? data.data.referrer : []} campaigns={data ? data.data.utmCampaigns : []} filter={filter} isLoading={isLoading} />
+                            <RefComponent refs={data ? data.data.referrer : []} utmCampaigns={data ? data.data.utmCampaigns : []} utmSources={data ? data.data.utmSources : []} filter={filter} isLoading={isLoading} />
                           </TabsContent>
                           <TabsContent value="device">
                             <DeviceComponent devices={data ? data.data.devices : []} os={data ? data.data.os : []} browser={data ? data.data.browser : []} filter={filter} isLoading={isLoading} />

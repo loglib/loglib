@@ -115,7 +115,8 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
             //add utmCampaigns as a key in session
             sessions = sessions.map((s) => {
                 const utmCampaign = s.queryParams?.utm_campaign ?? ""
-                return { ...s, utmCampaign }
+                const utmSource = s.queryParams?.utm_source ?? ""
+                return { ...s, utmCampaign, utmSource }
             })
 
             //filters
