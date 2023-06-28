@@ -159,9 +159,28 @@ export default async function IndexPage() {
           </button>
           <Link
             href="https://docs.loglib.io"
-            className=" flex items-center gap-4 rounded-md text-gray-600 transition-all duration-500 hover:gap-8 hover:text-gray-400"
+            className=" flex items-center gap-4 rounded-md text-gray-500 transition-all duration-500 hover:gap-8 hover:text-gray-800 dark:from-white/70 hover:dark:text-gray-400 "
           >
             <span>Read The Doc</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              className="aspect-square w-5 stroke-orange-300 stroke-2 "
+            >
+              <path
+                strokeLinecap="round"
+                stroke-linejoin="round"
+                d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+              />
+            </svg>
+          </Link>
+          <Link
+            href="https://demo.loglib.io/"
+            className=" flex items-center gap-4 rounded-md bg-gradient-to-tr from-slate-700/80 to-orange-600/60 bg-clip-text text-transparent transition-all duration-500 hover:gap-8 hover:text-gray-800 dark:from-white/70 hover:dark:text-gray-400"
+            target="_blank"
+          >
+            <span>Live Demo</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
