@@ -73,7 +73,7 @@ export function DashboardHeader({ user }: { user: User }) {
   const switchOnRef = useRef<HTMLAudioElement>(null)
   const switchOffRef = useRef<HTMLAudioElement>(null)
   return (
-    <header className="mt-4 flex items-center justify-between border-b dark:border-gray-800 pb-4">
+    <header className="mt-4 flex items-center justify-between border-b pb-4 dark:border-gray-800">
       <Icons.logoWithLetter
         logoClassName=" w-10 h-10"
         headerClassName=" text-3xl"

@@ -27,7 +27,7 @@
     "./dist/index.css": "./dist/index.css"
   },
   "devDependencies": {
-    "@loglib/tailwind-config": "workspace:*",
+    "@loglib/tailwind-config": "0.1.0",
     "@types/react": "^18.2.0",
     "autoprefixer": "^10.4.14",
     "class-variance-authority": "^0.6.0",
@@ -57,7 +57,7 @@
     "@radix-ui/react-scroll-area": "^1.0.4",
     "@radix-ui/react-select": "^1.2.2",
     "@radix-ui/react-separator": "^1.0.3",
-    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-slot": "^1.0.1",
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-toggle": "^1.0.2",

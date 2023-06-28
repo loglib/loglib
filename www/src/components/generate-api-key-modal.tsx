@@ -90,7 +90,7 @@ export const GenerateApiKey = ({ websites }: { websites: Website[] }) => {
                             duration: 0.3,
 
                         }}
-                        className=" animate-in relative mx-6 flex flex-grow flex-col items-center justify-center rounded-md border bg-gradient-to-tr from-black to-slate-900/20 px-8 pb-10 pt-4 md:mx-0 md:flex-initial">
+                        className=" relative mx-6 flex flex-grow flex-col items-center justify-center rounded-md border bg-gradient-to-tr from-black to-slate-900/20 px-8 pb-10 pt-4 animate-in md:mx-0 md:flex-initial">
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onSubmit, (e) => {
                                 return toast({

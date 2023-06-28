@@ -33,7 +33,7 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
           <div className="flex flex-col space-y-1 leading-none">
             {user.name && <p className="font-medium">{user.name}</p>}
             {user.email && (
-              <p className="text-muted-foreground w-[200px] truncate text-sm">
+              <p className="w-[200px] truncate text-sm text-muted-foreground">
                 {user.email}
               </p>
             )}

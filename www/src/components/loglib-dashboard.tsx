@@ -20,7 +20,7 @@ export default function Loglib({
     <main>
       <AddTracker websiteId={website.id} show={showHowTo} />
       <Dashboard
-        className="tw-p-0 tw-m-0 bg-none dark:bg-none dashboard"
+        className="tw-p-0 tw-m-0 dashboard bg-none dark:bg-none"
         websiteId={website.id}
         websiteUrl={website.url}
         noAuth
