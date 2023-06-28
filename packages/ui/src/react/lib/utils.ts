@@ -1,9 +1,13 @@
 import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { extendTailwindMerge } from "tailwind-merge"
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 export function cn(...inputs: ClassValue[]) {
-    return twMerge(clsx(inputs))
+    const twMergePrefix = extendTailwindMerge({
+        prefix: 'tw-',
+    })
+    return twMergePrefix(clsx(inputs))
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return
@@ -18,6 +22,19 @@ export const getTheme = (): "dark" | "light" => {
     }
     return "light";
 };
+
+export const useTheme = () => {
+    const [theme, setTheme] = useState<"dark" | "light">(getTheme());
+    useEffect(() => {
+        console.log('console theme')
+        if (typeof window === "undefined") return;
+        const newTheme = getTheme();
+        if (theme !== newTheme) {
+            setTheme(newTheme);
+        }
+    }, [theme]);
+    return theme;
+}
 
 export const changeTheme = () => {
     const theme = getTheme();

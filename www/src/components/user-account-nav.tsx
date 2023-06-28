@@ -1,8 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { editFormModalAtom, websiteDeleteModalAtom } from "@/jotai/store"
 import { useAtom } from "jotai"
+import { Settings } from "lucide-react"
 import { User } from "next-auth"
 import { signOut } from "next-auth/react"
 
@@ -14,15 +14,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { UserAvatar } from "@/components/user-avatar"
-import { Settings } from "lucide-react"
 
 interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
   user: Pick<User, "name" | "image" | "email">
 }
 
 export function UserAccountNav({ user }: UserAccountNavProps) {
-  const [, setEditWebsite] = useAtom(editFormModalAtom)
-  const [, setDeleteWebsite] = useAtom(websiteDeleteModalAtom)
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -36,18 +33,18 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
           <div className="flex flex-col space-y-1 leading-none">
             {user.name && <p className="font-medium">{user.name}</p>}
             {user.email && (
-              <p className="text-muted-foreground w-[200px] truncate text-sm">
+              <p className="w-[200px] truncate text-sm text-muted-foreground">
                 {user.email}
               </p>
             )}
           </div>
         </div>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild className=" cursor-pinter flex items-center gap-2">
-          <Link
-            href="/dashboard"
-            className="w-full cursor-pointer"
-          >
+        <DropdownMenuItem
+          asChild
+          className=" cursor-pinter flex items-center gap-2"
+        >
+          <Link href="/dashboard" className="w-full cursor-pointer">
             Dashboard
           </Link>
         </DropdownMenuItem>

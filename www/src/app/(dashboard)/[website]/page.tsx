@@ -1,3 +1,4 @@
+import React from "react";
 import Loglib from "@/components/loglib-dashboard";
 import { siteConfig } from "@/config/site";
 import { db } from "@/lib/db";

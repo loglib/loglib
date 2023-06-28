@@ -25,7 +25,7 @@ export function PagesComponent({ pageViews, filter, isLoading, websiteUrl }: { p
           }} />
           : null
       }
-      <ScrollArea className=" md:h-96 h-72">
+      <ScrollArea className=" md:tw-h-96 tw-h-72">
         <Table>
           <TableCaption>
             Your pages and how many times they are visited {":)"}
@@ -33,7 +33,7 @@ export function PagesComponent({ pageViews, filter, isLoading, websiteUrl }: { p
           <TableHeader>
             <TableRow>
               <TableHead>Page</TableHead>
-              <TableHead className="text-right">Views</TableHead>
+              <TableHead className="tw-text-right">Views</TableHead>
             </TableRow>
           </TableHeader>
           {
@@ -51,17 +51,17 @@ export function PagesComponent({ pageViews, filter, isLoading, websiteUrl }: { p
                         data: "pageview"
                       })
                     }}
-                    className=" cursor-pointer"
+                    className=" tw-cursor-pointer"
                   >
                     <a
                       href={
                         websiteUrl ? websiteUrl + pageView.page : pageView.page
                       }
-                      className=" hover:underline"
+                      className=" hover:tw-underline"
                     >
                       <TableCell>{pageView.page.substring(0, 20)} {pageView.page.length > 20 ? "..." : ""}</TableCell>
                     </a>
-                    <TableCell className="text-right">{pageView.visits}</TableCell>
+                    <TableCell className="tw-text-right">{pageView.visits}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

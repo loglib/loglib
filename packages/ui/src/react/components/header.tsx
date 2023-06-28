@@ -1,6 +1,6 @@
 
 import React from "react"
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "./ui/dropdownMenu"
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "./ui/dropdown-menu"
 import { Clock, LogOut, Settings } from "lucide-react"
 import NightModeIcon from "./Icon/NightModeIcon"
 import { changeTheme } from "../lib/utils"
@@ -10,15 +10,14 @@ export type HeaderProps = { timezone: string, setTimezone: (state: string) => vo
 
 export const DefaultHeader = ({ timezone, timezones, setTimezone, logoutFn, hideLogout }: HeaderProps) => {
     return (
-        <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2 ">
+        <div className="tw-flex tw-items-center tw-justify-between">
+            <div className="tw-flex tw-items-center tw-space-x-2 ">
                 <LogoIcon />
-                <h2 className="md:text-4xl font-bold tracking-tight text-2xl">LOGLIB</h2>
+                <h2 className="md:tw-text-4xl tw-font-bold tw-tracking-tight tw-text-xl dark:tw-text-white/80">LOGLIB</h2>
             </div>
-            <div className="flex gap-4 justify-center items-center col-span-1 self-center select-none relative">
-
+            <div className="tw-flex tw-gap-4 tw-justify-center tw-items-center tw-col-span-1 tw-self-center tw-select-none tw-relative">
                 <div
-                    className="rounded-md cursor-pointer  hover:bg-gray-100 dark:hover:bg-gray-900 dark:bg-dark shadow-black/70 transition-al duration-300 ease-in-out"
+                    className="tw-rounded-md tw-cursor-pointer  hover:tw-bg-gray-100 dark:hover:tw-bg-gray-900 dark:bg-dark shadow-black/70 transition-al tw-duration-300 tw-ease-in-out"
                     onClick={changeTheme}
                 >
                     <NightModeIcon />
@@ -27,16 +26,16 @@ export const DefaultHeader = ({ timezone, timezones, setTimezone, logoutFn, hide
                     <DropdownMenuTrigger>
                         <Settings size={20} />
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className=" md:w-52 w-40">
+                    <DropdownMenuContent align="end" className=" md:tw-w-52 tw-w-40">
                         <DropdownMenuGroup>
                             <DropdownMenuSub>
                                 <DropdownMenuSubTrigger>
-                                    <Clock className="mr-2 h-4 w-4" />
+                                    <Clock className="tw-mr-2 tw-h-4 tw-w-4" />
                                     <span>Time Zone</span>
                                 </DropdownMenuSubTrigger>
                                 <DropdownMenuPortal>
 
-                                    <DropdownMenuSubContent className=" h-52 md:w-52 w-44 overflow-scroll">
+                                    <DropdownMenuSubContent className=" tw-h-52 md:tw-w-52 tw-w-44 tw-overflow-scroll">
 
                                         {
                                             Object.keys(timezones).sort().map((t: string) => {
@@ -60,7 +59,7 @@ export const DefaultHeader = ({ timezone, timezones, setTimezone, logoutFn, hide
                                     <DropdownMenuItem
                                         onClick={logoutFn}
                                     >
-                                        <LogOut className="mr-2 h-4 w-4" />
+                                        <LogOut className="tw-mr-2 tw-h-4 tw-w-4" />
                                         Logout
                                     </DropdownMenuItem>
                                 </>

@@ -26,11 +26,11 @@ export const columns: ColumnDef<EventsWithData[0]>[] = [
         accessorKey: "eventName",
         header: ({ column }) => {
             return (
-                <span className="flex items-center group gap-2"
+                <span className="tw-flex tw-items-center group tw-gap-2"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
                     Event Name
-                    <ChevronsUpDown className="mr-2 opacity-0 group-hover:opacity-100 transition-all ease-in-out" size={15} />
+                    <ChevronsUpDown className="tw-mr-2 tw-opacity-0 group-hover:tw-opacity-100 tw-transition-all tw-ease-in-out" size={15} />
                 </span>
             )
         },
@@ -40,11 +40,11 @@ export const columns: ColumnDef<EventsWithData[0]>[] = [
         accessorKey: "createdAt",
         header: ({ column }) => {
             return (
-                <span className="flex items-center group gap-2"
+                <span className="tw-flex tw-items-center group tw-gap-2"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
                     Time
-                    <ChevronsUpDown className="mr-2 opacity-0 group-hover:opacity-100 transition-all ease-in-out" size={15} />
+                    <ChevronsUpDown className="tw-mr-2 tw-opacity-0 group-hover:tw-opacity-100 tw-transition-all tw-ease-in-out" size={15} />
                 </span>
             )
         },
@@ -76,11 +76,11 @@ export const columns: ColumnDef<EventsWithData[0]>[] = [
         accessorKey: "city",
         header: ({ column }) => {
             return (
-                <span className="flex items-center group gap-2"
+                <span className="tw-flex tw-items-center group tw-gap-2"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
                     City
-                    <ChevronsUpDown className="mr-2 opacity-0 group-hover:opacity-100 transition-all ease-in-out" size={15} />
+                    <ChevronsUpDown className="tw-mr-2 tw-opacity-0 group-hover:tw-opacity-100 tw-transition-all tw-ease-in-out" size={15} />
                 </span>
             )
         },
@@ -90,11 +90,11 @@ export const columns: ColumnDef<EventsWithData[0]>[] = [
         accessorKey: "country",
         header: ({ column }) => {
             return (
-                <span className="flex items-center group gap-2"
+                <span className="tw-flex tw-items-center group tw-gap-2"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
                     Country
-                    <ChevronsUpDown className="mr-2 opacity-0 group-hover:opacity-100 transition-all ease-in-out" size={15} />
+                    <ChevronsUpDown className="tw-mr-2 tw-opacity-0 group-hover:tw-opacity-100 tw-transition-all tw-ease-in-out" size={15} />
                 </span>
             )
         },
@@ -104,11 +104,11 @@ export const columns: ColumnDef<EventsWithData[0]>[] = [
         accessorKey: "os",
         header: ({ column }) => {
             return (
-                <span className="flex items-center group gap-2"
+                <span className="tw-flex tw-items-center group tw-gap-2"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
                     OS
-                    <ChevronsUpDown className="mr-2 opacity-0 group-hover:opacity-100 transition-all ease-in-out" size={15} />
+                    <ChevronsUpDown className="tw-mr-2 tw-opacity-0 group-hover:tw-opacity-100 tw-transition-all tw-ease-in-out" size={15} />
                 </span>
             )
         },

@@ -32,7 +32,7 @@ export function CalendarDateRangePicker({
   const lastMonth = subMonths(new Date(), 1)
 
   return (
-    <div className={cn("grid gap-2", className)}>
+    <div className={cn("tw-grid tw-gap-2", className)}>
       <Popover>
         <PopoverTrigger asChild>
           <Button
@@ -40,11 +40,11 @@ export function CalendarDateRangePicker({
             variant={"outline"}
             size="sm"
             className={cn(
-              "w-max justify-start text-left font-normal",
-              !date && "text-muted-foreground"
+              "tw-w-max tw-justify-start tw-text-left tw-font-normal",
+              !date && "tw-text-muted-foreground"
             )}
           >
-            <CalendarIcon className="mr-2 h-4 w-4" />
+            <CalendarIcon className="tw-mr-2 tw-h-4 tw-w-4" />
             {date?.from ? (
               date.to ? (
                 <>
@@ -59,7 +59,7 @@ export function CalendarDateRangePicker({
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto" align="start">
+        <PopoverContent className="tw-w-auto" align="start">
           <Calendar
             initialFocus
             mode="range"
@@ -142,33 +142,37 @@ export const DatePicker = ({ setTimeRange, setCustomTime, timeRange, customTime 
   }
 
   return (
-    <div className=" flex space-x-2 items-center">
+    <div className=" tw-flex tw-space-x-2 tw-items-center">
       <Select
         onValueChange={(value) => setTime(value)}
         value={customTime ? "custom" : timeRange.stringValue}
         defaultValue="24hr"
+        
       >
-        <SelectTrigger className="w-auto px-2 space-x-4">
-          <CalendarDays className=" dark:text-gray-300 text-gray-700" />
+        <SelectTrigger className="tw-w-auto tw-px-2 tw-space-x-4 dark:tw-text-white/75">
+          <CalendarDays className=" dark:tw-text-gray-300 tw-text-gray-700" />
           <SelectValue placeholder="Select Time" />
         </SelectTrigger>
+ 
         <SelectContent>
           <SelectGroup>
             <SelectLabel>Choose Range</SelectLabel>
             <SelectItem value={"24hr"} >Last 24 Hours</SelectItem>
             <SelectItem value="yesterday">Yesterday</SelectItem>
-            <Separator className="my-2" />
+            <Separator className="tw-my-2" />
             <SelectItem value="thisWeek">This Week</SelectItem>
             <SelectItem value="7days">Last 7 days</SelectItem>
-            <Separator className="my-2" />
+            <Separator className="tw-my-2" />
             <SelectItem value="thisMonth">This Month</SelectItem>
             <SelectItem value="last30">Last 30 Days</SelectItem>
             <SelectItem value="last90">Last 90 Days</SelectItem>
             <SelectItem value="thisYear">This Year</SelectItem>
-            <Separator className="my-2" />
+            <Separator className="tw-my-2" />
             <SelectItem value="custom">Custom</SelectItem>
           </SelectGroup>
-        </SelectContent>
+        </SelectContent>        
+
+
       </Select>
     </div>
   );

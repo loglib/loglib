@@ -13,6 +13,7 @@ const routeContextSchema = z.object({
 export const PATCH = async (request: Request, context: z.infer<typeof routeContextSchema>) => {
     try {
         const { params: { id } } = routeContextSchema.parse(context)
+        console.log(id)
         if (!id) {
             return new Response("Id not specified", { status: 400 })
         }
@@ -33,16 +34,17 @@ export const PATCH = async (request: Request, context: z.infer<typeof routeConte
             return new Response("Website not found", { status: 404 })
         }
         const body = websiteFormSchema.parse(await request.json())
-        await db.website.update({
+        const res = await db.website.update({
             where: {
                 id
             },
             data: {
                 url: body.url,
-                title: body.title
+                title: body.title,
+                id: body.id,
             }
         })
-        return new Response(null, { status: 200 })
+        return new Response(JSON.stringify(res), { status: 200 })
     } catch {
         return new Response(null, { status: 500 })
     }

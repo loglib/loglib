@@ -86,21 +86,21 @@ function DataTable<TData, TValue>({
 
     return (
         <AnimatePresence>
-            <p className=" text-sm my-2">
+            <p className=" tw-text-sm tw-my-2">
                 Showing <strong>
                     {table.getRowModel().rows?.length}</strong> of
                 <strong> {data.length} </strong>
                 events
             </p>
-            <motion.div className="rounded-md border scrollbar-hide" >
-                <div className="flex items-center py-4 px-2">
+            <motion.div className="tw-rounded-md tw-border dark:tw-border-gray-800 scrollbar-hide" >
+                <div className="tw-flex tw-items-center tw-py-4 tw-px-2">
                     <Input
                         placeholder="Search Events..."
                         value={(table.getColumn("eventName")?.getFilterValue() as string) ?? ""}
                         onChange={(event) =>
                             table.getColumn("eventName")?.setFilterValue(event.target.value)
                         }
-                        className="max-w-sm"
+                        className="tw-max-w-sm"
                     />
 
                 </div>
@@ -144,7 +144,7 @@ function DataTable<TData, TValue>({
                                         <motion.tr
                                             initial={{ opacity: 0.8 }}
                                             animate={{ opacity: 1 }}
-                                            transition={{
+                                            tw-transition={{
                                                 type: "just",
                                                 delay: 0.2,
                                             }}
@@ -157,19 +157,19 @@ function DataTable<TData, TValue>({
                                     )}
                                 </Fragment>
                             ))
-                        ) : isLoading ? <TableRow className={"h-6 gap-2 bg-gray-200 dark:bg-gray-800 rounded-md animate-pulse"} >
-                            <TableCell colSpan={columns.length} className=" h-6 gap-2 bg-gray-200 dark:bg-gray-800 animate-pulse text-center">
+                        ) : isLoading ? <TableRow className={"tw-h-6 tw-gap-2 tw-bg-gray-200 dark:tw-bg-gray-800 tw-rounded-md tw-animate-pulse"} >
+                            <TableCell colSpan={columns.length} className=" tw-h-6 tw-gap-2 tw-bg-gray-200 dark:tw-bg-gray-800 tw-animate-pulse tw-text-center">
                                 Loading Data ...
                             </TableCell>
                         </TableRow> : <TableRow>
-                            <TableCell colSpan={columns.length} className="h-24 text-center">
+                            <TableCell colSpan={columns.length} className="tw-h-24 tw-text-center">
                                 No results.
                             </TableCell>
                         </TableRow>}
                     </TableBody>
                 </Table>
             </motion.div>
-            <div className=" flex items-center justify-center my-2 gap-6">
+            <div className=" tw-flex tw-items-center tw-justify-center tw-my-2 tw-gap-6">
                 {
                     pagination.pageSize < data.length && (
                         <Button
@@ -185,7 +185,6 @@ function DataTable<TData, TValue>({
                         </Button>
                     )
                 }
-
             </div>
         </AnimatePresence>
     )

@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label"
 import { toast } from "@/components/ui/use-toast"
 import { Icons } from "@/components/icons"
 
-interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
+interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 type FormData = z.infer<typeof userAuthSchema>
 
@@ -74,7 +74,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         onClick={() => {
           setIsGitHubLoading(true)
           signIn("github", {
-            callbackUrl: "/dashboard"
+            callbackUrl: "/dashboard",
           })
         }}
         disabled={isLoading || isGitHubLoading}
@@ -92,7 +92,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         onClick={() => {
           setIsLoading(true)
           signIn("google", {
-            callbackUrl: "/dashboard"
+            callbackUrl: "/dashboard",
           })
         }}
         disabled={isLoading || isGitHubLoading}

@@ -75,12 +75,14 @@ export const WebsiteForm = () => {
         url = url.replace("." + allCom[allCom.length - 1], "").replace(/\./g, "_");
 
         form.setValue("id", url)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fieldValue])
     return (
         <AnimatePresence>
             {
                 modal ? <Modal
                     isOpen={modal}
+                    onRequestClose={() => setModal(false)}
                     className="font-jost flex h-full items-center justify-center border-none outline-none backdrop:blur-xl"
                     style={{
                         overlay: {
@@ -102,7 +104,7 @@ export const WebsiteForm = () => {
                             duration: 0.3,
 
                         }}
-                        className=" animate-in relative flex w-11/12 flex-col  justify-center rounded-md border bg-gradient-to-tr from-gray-100 to-gray-200 px-8 pb-10 pt-4 dark:from-black dark:to-slate-900/20 md:w-3/12">
+                        className=" relative flex w-11/12 flex-col justify-center  rounded-md border bg-gradient-to-tr from-gray-100 to-gray-200 px-8 pb-10 pt-4 animate-in dark:from-black dark:to-slate-900/20 md:w-3/12">
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onSubmit, (e) => {
                                 return toast({
@@ -146,11 +148,11 @@ export const WebsiteForm = () => {
                                             <FormLabel>Your website @loglib</FormLabel>
                                             {/* <FormMessage /> */}
                                             <FormControl>
-                                                <div className="border-input flex items-center  rounded-md border px-1 focus-within:outline-none">
+                                                <div className="flex items-center rounded-md  border border-input px-1 focus-within:outline-none">
                                                     <span className=" flex h-10 items-center border-r px-2 text-sm">
                                                         loglib.io/
                                                     </span>
-                                                    <input placeholder="site_name" {...field} className="ring-offset-background placeholder:text-muted-foreground flex h-10 rounded-md border border-none bg-transparent p-2 text-sm outline-none file:bg-transparent file:text-sm file:font-medium disabled:cursor-not-allowed disabled:opacity-50" />
+                                                    <input placeholder="site_name" {...field} className="flex h-10 rounded-md border border-none bg-transparent p-2 text-sm outline-none ring-offset-background file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50" />
                                                 </div>
                                             </FormControl>
 

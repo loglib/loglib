@@ -13,6 +13,7 @@ export default defineConfig((opts) => ([
             "dist",
             "node_modules",
         ],
+
     }
 ]));
 

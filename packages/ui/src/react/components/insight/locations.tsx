@@ -26,7 +26,7 @@ export function LocationsComponent({ city, country, isLoading, filter: { addFilt
   return (
     <CardContent>
 
-      <Tabs className=" w-full" defaultValue="country">
+      <Tabs className=" tw-w-full" defaultValue="country">
         {
           isFilterActive("country") || isFilterActive("city") ?
             <ClearFilter onClick={() => {
@@ -35,7 +35,7 @@ export function LocationsComponent({ city, country, isLoading, filter: { addFilt
             }} />
             : null
         }
-        <TabsList className=" border-gray-400 ml-auto">
+        <TabsList className=" tw-border-gray-400 tw-ml-auto">
           <TabsTrigger value="country">
             Country
           </TabsTrigger>
@@ -44,7 +44,7 @@ export function LocationsComponent({ city, country, isLoading, filter: { addFilt
           </TabsTrigger>
         </TabsList>
         <TabsContent value="country">
-          <ScrollArea className=" md:h-96 h-72">
+          <ScrollArea className=" md:tw-h-96 tw-h-72">
             <Table>
               <TableCaption>
                 Your locations and how many times they are visited  {":)"}
@@ -52,7 +52,7 @@ export function LocationsComponent({ city, country, isLoading, filter: { addFilt
               <TableHeader>
                 <TableRow>
                   <TableHead>Location</TableHead>
-                  <TableHead className="text-right">Views</TableHead>
+                  <TableHead className="tw-text-right">Views</TableHead>
                 </TableRow>
               </TableHeader>
               {
@@ -62,7 +62,7 @@ export function LocationsComponent({ city, country, isLoading, filter: { addFilt
                   <TableBody>
                     {country.map((location) => (
                       <TableRow key={location.location}>
-                        <TableCell className=" flex items-center gap-1 cursor-pointer"
+                        <TableCell className=" tw-flex tw-items-center tw-gap-1 tw-cursor-pointer"
                           onClick={() => addFilter({
                             key: "country",
                             value: location.location,
@@ -85,7 +85,7 @@ export function LocationsComponent({ city, country, isLoading, filter: { addFilt
                               {COUNTRIES[location.location]}
                             </>}
                         </TableCell>
-                        <TableCell className="text-right">{location.visits}</TableCell>
+                        <TableCell className="tw-text-right">{location.visits}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -94,7 +94,7 @@ export function LocationsComponent({ city, country, isLoading, filter: { addFilt
           </ScrollArea>
         </TabsContent>
         <TabsContent value="city">
-          <ScrollArea className=" md:h-96 h-72">
+          <ScrollArea className=" md:tw-h-96 tw-h-72">
             <Table>
               <TableCaption>
                 Your locations and how many times they are visited  {":)"}
@@ -102,7 +102,7 @@ export function LocationsComponent({ city, country, isLoading, filter: { addFilt
               <TableHeader>
                 <TableRow>
                   <TableHead>Location</TableHead>
-                  <TableHead className="text-right">Views</TableHead>
+                  <TableHead className="tw-text-right">Views</TableHead>
                 </TableRow>
               </TableHeader>
               {
@@ -116,10 +116,10 @@ export function LocationsComponent({ city, country, isLoading, filter: { addFilt
                         data: "session"
                       })
                       }
-                      className=" cursor-pointer"
+                      className=" tw-cursor-pointer"
                     >
                       <TableCell>{location.location}</TableCell>
-                      <TableCell className="text-right">{location.visits}</TableCell>
+                      <TableCell className="tw-text-right">{location.visits}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

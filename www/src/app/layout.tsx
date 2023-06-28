@@ -1,36 +1,39 @@
-import { cn } from '@/lib/utils'
+import { cn } from "@/lib/utils"
+
 import "@/styles/globals.css"
-import { Inter } from 'next/font/google'
+
+import { Inter } from "next/font/google"
 import localFont from "next/font/local"
-import { siteConfig } from '@/config/site'
-import { ThemeProvider } from '@/components/theme-provider'
-import { Toaster } from '@/components/ui/toaster'
-import Loglib from "@loglib/tracker/react";
+import Loglib from "@loglib/tracker/react"
+
+import { siteConfig } from "@/config/site"
+import { Toaster } from "@/components/ui/toaster"
+import { ThemeProvider } from "@/components/theme-provider"
 
 const fontSatoshi = localFont({
   src: [
     {
       path: "../../assets/fonts/Satoshi-Regular.woff2",
       weight: "400",
-      style: "normal"
+      style: "normal",
     },
     {
       path: "../../assets/fonts/Satoshi-Medium.woff2",
       weight: "500",
-      style: "normal"
+      style: "normal",
     },
     {
       path: "../../assets/fonts/Satoshi-Bold.woff2",
       weight: "700",
-      style: "normal"
+      style: "normal",
     },
     {
       path: "../../assets/fonts/Satoshi-Black.woff2",
       weight: "900",
-      style: "black"
-    }
+      style: "black",
+    },
   ],
-  variable: "--font-satoshi"
+  variable: "--font-satoshi",
 })
 
 const fontHeading = localFont({
@@ -85,25 +88,41 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head >
+      <head>
         <link rel="shortcut icon" href="/images/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/images/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/images/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/images/favicon-16x16.png"
+        />
       </head>
       <body
         className={cn(
-          " min-h-screen bg-gradient-to-tr from-white to-gray-100 p-4 font-sans antialiased transition-all duration-300 dark:from-black dark:to-slate-900/30 md:px-16",
+          " min-h-screen bg-gradient-to-tr from-white to-gray-100 p-4 font-sans antialiased transition-all duration-300 dark:from-black dark:to-slate-900/30  md:px-16",
           fontSatoshi.variable,
           fontHeading.variable
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           {children}
-          <Loglib config={{
-            id: "loglib",
-            host: "https://loglib.io",
-          }} />
+          <Loglib
+            config={{
+              id: "loglib",
+              host: "https://loglib.io",
+            }}
+          />
           <Toaster />
         </ThemeProvider>
       </body>

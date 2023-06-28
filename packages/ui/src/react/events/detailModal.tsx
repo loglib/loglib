@@ -31,12 +31,12 @@ const renderSubComponent = ({ row }: { row: Row<EventsWithData[0]> }) => {
         ...customProperties
     }
     return (
-        <div className=" w-full">
+        <div className=" tw-w-full dark:tw-border-gray-800 ">
             <Tabs defaultValue="all">
                 <TabsList>
                     <TabsTrigger value="all">
                         All Properties
-                    </TabsTrigger>
+                    </TabsTrigger> 
                     <TabsTrigger value="auto">
                         Automatic Properties
                     </TabsTrigger>
@@ -45,12 +45,12 @@ const renderSubComponent = ({ row }: { row: Row<EventsWithData[0]> }) => {
                     </TabsTrigger>
                 </TabsList>
                 <TabsContent value="all">
-                    <div className="grid grid-cols-3 gap-4 py-4 px-2 place-content-center ">
+                    <div className="tw-grid tw-grid-cols-3 tw-gap-4 tw-py-4 tw-px-2 tw-place-content-center ">
                         {
                             Object.keys(allProperties).map((key) => {
                                 return (
-                                    <div className=" flex border-b py-2 gap-2" key={key}>
-                                        <div className="font-bold">{key}: </div>
+                                    <div className=" tw-flex tw-border-b dark:tw-border-gray-800 tw-py-2 tw-gap-2" key={key}>
+                                        <div className="tw-font-bold">{key}: </div>
                                         <div>{allProperties[key]}</div>
                                     </div>
                                 )
@@ -59,12 +59,12 @@ const renderSubComponent = ({ row }: { row: Row<EventsWithData[0]> }) => {
                     </div>
                 </TabsContent>
                 <TabsContent value="auto">
-                    <div className="grid grid-cols-3 gap-4 py-4 px-2 place-content-center ">
+                    <div className="tw-grid tw-grid-cols-3 tw-gap-4 tw-py-4 tw-px-2 tw-place-content-center ">
                         {
                             Object.keys(automaticProperties).map((key) => {
                                 return (
-                                    <div className=" flex border-b py-2 gap-2" key={key}>
-                                        <div className="font-bold">{key}: </div>
+                                    <div className=" tw-flex tw-border-b dark:tw-border-gray-800 tw-py-2 tw-gap-2" key={key}>
+                                        <div className="tw-font-bold">{key}: </div>
                                         <div>{automaticProperties[key]}</div>
                                     </div>
                                 )
@@ -73,12 +73,12 @@ const renderSubComponent = ({ row }: { row: Row<EventsWithData[0]> }) => {
                     </div>
                 </TabsContent>
                 <TabsContent value="custom">
-                    <div className="grid grid-cols-3 gap-4 py-4 px-2 place-content-center ">
+                    <div className="tw-grid tw-grid-cols-3 tw-gap-4 tw-py-4 tw-px-2 tw-place-content-center ">
                         {
                             Object.keys(customProperties).map((key) => {
                                 return (
-                                    <div className=" flex border-b py-2 gap-2" key={key}>
-                                        <div className="font-bold">{key}: </div>
+                                    <div className=" tw-flex tw-border-b dark:tw-border-gray-800 tw-py-2 tw-gap-2" key={key}>
+                                        <div className="tw-font-bold">{key}: </div>
                                         <div>{customProperties[key]}</div>
                                     </div>
                                 )
