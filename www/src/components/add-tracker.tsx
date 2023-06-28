@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react"
 import { trackerModalAtom } from "@/jotai/store"
-import { loglib } from "@loglib/tracker"
 import { AnimatePresence } from "framer-motion"
 import { useAtom } from "jotai"
 import { CheckIcon, ChevronsRightLeft, Code2, X } from "lucide-react"
