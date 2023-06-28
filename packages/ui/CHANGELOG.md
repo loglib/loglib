@@ -1,5 +1,11 @@
 # @loglib/ui
 
+## 0.4.0
+
+### Minor Changes
+
+- 609c413: maps added to locations
+
 ## 0.3.0
 
 ### Minor Changes
