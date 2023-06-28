@@ -27,6 +27,8 @@ type DashboardProps = {
   websiteUrl?: string
   components?: typeof defaultComponents
   className?: string
+  noAuth?: boolean
+  style?: React.CSSProperties
 }
 
 const defaultComponents = {
@@ -103,26 +105,25 @@ export const Dashboard: FC<DashboardProps> = (props) => {
   //set default components if not provided
   const components = props.components ?? defaultComponents
   return (
-    <main className="">
+    <main>
       <LayoutGroup>
-        <div className={cn(" tw-min-h-screen tw-bg-white/80 dark:tw-bg-slate-950  tw-w-full tw-space-y-4 tw-p-8 tw-pt-6 tw-transition-all tw-duration-700 dark:text-white/90 scrollbar-hide", props.className)}>
+        <div style={props.style} className={cn("tw-min-h-screen dark:tw-bg-[#02060f] tw-bg-white tw-w-full tw-space-y-4 tw-p-8 tw-pt-6 tw-transition-all tw-duration-700 dark:tw-text-white/80 scrollbar-hide", props.className)}>
           <components.header timezone={timezone} setTimezone={setTimezone} timezones={timezones} logoutFn={defaultLogout} hideLogout={!token} />
-          {isAuth ?
+          {isAuth || props.noAuth ?
             <Tabs defaultValue="insights" className="tw-space-y-4" >
               <TabsList>
                 <TabsTrigger
                   value="insights"
-                  className=" data-[state=active]:tw-text-emphasis"
+                  className=" dark:data-[state=active]:tw-text-emphasis data-[state=active]:tw-text-emphasis"
                 >
                   Insights
                 </TabsTrigger>
                 <TabsTrigger
                   value="events"
-                  className=" data-[state=active]:tw-text-emphasis"
+                  className=" dark:data-[state=active]:tw-text-emphasis data-[state=active]:tw-text-emphasis"
                 >
                   Events
                 </TabsTrigger>
-
               </TabsList>
               <div className=" tw-flex tw-justify-between">
                 <div className=" tw-flex tw-gap-2 tw-items-center">
@@ -130,7 +131,7 @@ export const Dashboard: FC<DashboardProps> = (props) => {
                 </div>
                 <div className=" tw-flex tw-flex-col tw-items-end">
                   <div className=" tw-flex tw-gap-1 tw-items-center">
-                    <div className=" tw-w-2.5 tw-h-2.5 tw-bg-gradient-to-tr from-lime-500 to-lime-700 tw-animate-pulse tw-rounded-full" >
+                    <div className=" tw-w-2.5 tw-h-2.5 tw-bg-gradient-to-tr tw-from-lime-500 tw-to-lime-700 tw-animate-pulse tw-rounded-full" >
                     </div>
                     <p className=" tw-text-sm tw-bg-gradient-to-tr tw-from-lime-600 tw-to-lime-800 tw-text-transparent tw-bg-clip-text tw-font-medium">
                       {data ? data.onlineUsers : 0} Online
@@ -191,11 +192,11 @@ export const Dashboard: FC<DashboardProps> = (props) => {
 
                     </div>
                     <div className="tw-grid tw-gap-4 md:tw-grid-cols-2 lg:tw-grid-cols-7 tw-grid-cols-1">
-                      <Card className="md:tw-col-span-4">
+                      <Card className="md:tw-col-span-4 ">
                         <Tabs defaultValue="visitors">
                           <CardHeader className=" tw-flex tw-flex-row tw-justify-between tw-items-center">
-                                         
-                            <CardTitle>Visitors</CardTitle>
+   
+                            <CardTitle className="tw-text-base">Visitors</CardTitle>
                             <TabsList>
                               <TabsTrigger value="visitors">
                                 Visitors
@@ -204,16 +205,13 @@ export const Dashboard: FC<DashboardProps> = (props) => {
                                 Sessions
                               </TabsTrigger>
                             </TabsList>
-                   
                           </CardHeader>
                           <CardContent >
                             <div className="tw-pl-2">
-
-                
                             <TabsContent value="visitors">
                               <Graph data={data ? data.graph.uniqueVisitorsByDate : []} name="Visitors" Icon={Users2} isLoading={isLoading} />
                             </TabsContent>
-                            <TabsContent value="sessions">
+                            <TabsContent value="sessions" className=" ">
                               <Graph data={data ? data.graph.uniqueSessionByDate : []} name="Sessions" Icon={Laptop2} isLoading={isLoading} />
                             </TabsContent>
                             </div>

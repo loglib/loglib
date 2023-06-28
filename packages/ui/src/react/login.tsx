@@ -19,35 +19,35 @@ export function Login({ setAuth, setToken }: { setAuth: (state: boolean) => void
     const [username, setUsername] = React.useState("")
     const [password, setPassword] = React.useState("")
     return (
-        <div className=" flex flex-col items-center justify-center">
-            <p className=" font-medium mt-24 mb-4 italic">
+        <div className=" tw-flex tw-flex-col tw-items-center tw-justify-center">
+            <p className=" tw-font-medium tw-mt-24 tw-mb-4 tw-italic">
                 "Here is a login page!"
-                <span className=" text-xs font-light">
+                <span className=" tw-text-xs tw-font-light">
                     {" "}__steve jobs
                 </span>
             </p>
-            <Card className=" md:w-1/3 w-full">
+            <Card className=" md:tw-w-1/3 tw-w-full">
                 <CardHeader>
                     <CardTitle>Login</CardTitle>
                     <CardDescription className="">with your credentials</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form className=" space-y-2">
-                        <div className="grid w-full items-center gap-4">
-                            <div className="flex flex-col space-y-1.5">
+                    <form className=" tw-space-y-2">
+                        <div className="tw-grid tw-w-full tw-items-center tw-gap-4">
+                            <div className="tw-flex tw-flex-col tw-space-y-1.5">
                                 <Label htmlFor="name">Username</Label>
                                 <Input id="name" placeholder="Your username" onChange={(e) => setUsername(e.currentTarget.value)} value={username} />
                             </div>
                         </div>
-                        <div className="grid w-full items-center gap-4">
-                            <div className="flex flex-col space-y-1.5">
+                        <div className="tw-grid tw-w-full tw-items-center tw-gap-4">
+                            <div className="tw-flex tw-flex-col tw-space-y-1.5">
                                 <Label htmlFor="name">Password</Label>
                                 <Input id="name" placeholder="Your password" type="password" onChange={(e) => setPassword(e.currentTarget.value)} value={password} />
                             </div>
                         </div>
                     </form>
                 </CardContent>
-                <CardFooter className="flex justify-between">
+                <CardFooter className="tw-flex tw-justify-between">
                     <Button
                         onClick={() => {
                             loginUser({ username, password }).then((data) => {

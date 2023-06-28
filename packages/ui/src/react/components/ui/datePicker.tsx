@@ -149,7 +149,7 @@ export const DatePicker = ({ setTimeRange, setCustomTime, timeRange, customTime 
         defaultValue="24hr"
         
       >
-        <SelectTrigger className="tw-w-auto tw-px-2 tw-space-x-4">
+        <SelectTrigger className="tw-w-auto tw-px-2 tw-space-x-4 dark:tw-text-white/75">
           <CalendarDays className=" dark:tw-text-gray-300 tw-text-gray-700" />
           <SelectValue placeholder="Select Time" />
         </SelectTrigger>

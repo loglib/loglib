@@ -61,7 +61,7 @@ export function Graph({ data, name, Icon, isLoading }: { data: { date: string, v
                                             No Data Just Yet
                                         </p>
                                         <p className=" tw-text-sm tw-font-light">
-                                            if you haven't setup tracker refer to the <a href="https://loglib.io/docs" target="_blank" className=" tw-text-blue-700 tw-underline">doc</a> on how to do that.
+                                            if you haven't setup tracker refer to the <a href="https://docs.loglib.io" target="_blank" className=" tw-text-blue-700 tw-underline">doc</a> on how to do that.
                                         </p>
                                     </>
                             }

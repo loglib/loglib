@@ -69,7 +69,7 @@
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0",
     "flag-icons": "^6.6.6",
-    "framer-motion": "^10.12.12",
+    "framer-motion": "^10.12.16",
     "lucide-react": "^0.220.0",
     "postcss-prefix-selector": "^1.16.0",
     "prop-types": "^15.6.0",

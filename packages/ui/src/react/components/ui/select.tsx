@@ -19,7 +19,7 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      "tw-flex tw-h-10 tw-w-full tw-items-center tw-justify-between tw-rounded-md tw-border tw-border-slate-200 tw-bg-transparent tw-px-3 tw-py-2 tw-text-sm tw-ring-offset-white placeholder:text-slate-500 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-slate-400 focus:tw-ring-offset-2 disabled:tw-cursor-not-allowed disabled:tw-opacity-50 dark:tw-border-slate-800 dark:tw-ring-offset-slate-950 dark:placeholder:tw-text-slate-400 dark:focus:tw-ring-slate-800",
+      "tw-flex tw-h-10 tw-w-full tw-items-center tw-justify-between tw-rounded-md tw-border tw-border-slate-300 tw-bg-transparent tw-px-3 tw-py-2 tw-text-sm tw-ring-offset-white placeholder:tw-text-slate-500 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-slate-400 focus:tw-ring-offset-2 disabled:tw-cursor-not-allowed disabled:tw-opacity-50 dark:tw-border-slate-800 dark:tw-ring-offset-slate-950 dark:placeholder:tw-text-slate-400 dark:focus:tw-ring-slate-800",
       className
     )}
     {...props}
@@ -40,7 +40,7 @@ const SelectContent = React.forwardRef<
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
-        "tw-relative tw-z-50 tw-min-w-[8rem] tw-overflow-hidden tw-rounded-md tw-border tw-border-slate-200 tw-bg-white tw-text-slate-950 tw-shadow-md data-[state=open]:tw-animate-in data-[state=closed]:tw-animate-out data-[state=closed]:tw-fade-out-0 data-[state=open]:tw-fade-in-0 data-[state=closed]:tw-zoom-out-95 data-[state=open]:tw-zoom-in-95 data-[side=bottom]:tw-slide-in-from-top-2 data-[side=left]:tw-slide-in-from-right-2 data-[side=right]:tw-slide-in-from-left-2 data-[side=top]:tw-slide-in-from-bottom-2 dark:tw-border-slate-800 dark:tw-bg-slate-900 dark:tw-text-slate-50",
+        "tw-relative tw-z-50 tw-min-w-[8rem] tw-overflow-hidden tw-rounded-md tw-border tw-border-slate-200 tw-bg-white tw-text-slate-950 tw-shadow-md data-[state=open]:tw-animate-in data-[state=closed]:tw-animate-out data-[state=closed]:tw-fade-out-0 data-[state=open]:tw-fade-in-0 data-[state=closed]:tw-zoom-out-95 data-[state=open]:tw-zoom-in-95 data-[side=bottom]:tw-slide-in-from-top-2 data-[side=left]:tw-slide-in-from-right-2 data-[side=right]:tw-slide-in-from-left-2 data-[side=top]:tw-slide-in-from-bottom-2 dark:tw-border-slate-800 dark:tw-bg-slate-950 dark:tw-text-slate-50",
         position === "popper" &&
           "data-[side=bottom]:tw-translate-y-1 data-[side=left]:tw-translate-x-1 data-[side=right]:tw-translate-x-1 data-[side=top]:tw-translate-y-1",
         className

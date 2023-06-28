@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ["class"],
+  darkMode: ["class", '[class="dark"]'],
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
@@ -31,10 +31,10 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       colors:{
-        "emphasis": "#f8a857"
+        "emphasis": "#f8a857",
       }
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar-hide")],
   prefix: "tw-"
 }

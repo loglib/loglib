@@ -21,14 +21,14 @@ export function InsightCard({ title, Icon, data, valuePrefix, bottomChildren, is
   const increase = negative ? data.change <= 0 : data.change >= 0;
   return (
     <Card className=" tw-bg-gradient-to-tr dark:tw-from-black  dark:tw-to-slate-900 tw-border tw-from-white tw-to-gray-100">
-      <CardHeader >
-        <div className=" tw-flex tw-flex-row  tw-items-center tw-justify-between tw-space-y-0 tw-pb-2">
+      <CardHeader className=" tw-flex tw-flex-row  tw-items-center tw-justify-between tw-space-y-0 tw-pb-2">
+
         <CardTitle className="tw-text-sm tw-font-medium">{title}</CardTitle>
         <Icon className="tw-h-4 tw-w-4" />
-        </div>
+
       </CardHeader>
       {
-        !isLoading && data ? <CardContent>
+        !isLoading && data ? <CardContent className="">
           <div className="tw-text-2xl tw-font-bold">{`${data.total ? data.total.toLocaleString() : 0} ${valuePrefix ?? ""}`}</div>
           <div className=" tw-flex tw-justify-between">
             <div className=" tw-flex tw-text-xs">
