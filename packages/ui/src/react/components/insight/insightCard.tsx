@@ -1,7 +1,7 @@
 "use client";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent,  CardHeader, CardTitle } from "../ui/card";
 import React from "react";
-import { ArrowDown, ArrowUpIcon, Info, LucideIcon } from "lucide-react";
+import { ArrowDown, ArrowUpIcon,  LucideIcon } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 
 export type InsightType = {
