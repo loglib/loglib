@@ -1,5 +1,12 @@
 # @loglib/ui
 
+## 0.3.0
+
+### Minor Changes
+
+- d321f8f: - Taiwind class clash fixed
+  - Now customization of dashboard should use tw prefix for classnames
+
 ## 0.2.2
 
 ### Patch Changes
