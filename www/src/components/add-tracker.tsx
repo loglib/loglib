@@ -196,6 +196,7 @@ export const AddTracker = ({ websiteId, show }: { websiteId: string, show: boole
     <AnimatePresence>
       {isOpen && !isMobile && <Modal
         isOpen={isOpen}
+        onRequestClose={() => setIsOpen(false)}
         className="font-jost mx-4 flex h-full items-center justify-center border-none outline-none backdrop:blur-xl"
         style={{
           overlay: {

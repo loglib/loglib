@@ -4,7 +4,6 @@ export default defineConfig((opts) => ([
     {
         entryPoints: ["src/index.ts"],
         format: ["cjs", "esm"],
-        external: ['react'],
         clean: !opts.watch,
         outDir: "dist",
         target: "es2017",
@@ -15,4 +14,3 @@ export default defineConfig((opts) => ([
         ],
     }
 ]));
-

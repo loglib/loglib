@@ -28,7 +28,7 @@ export function RefComponent({ refs, filter: { isFilterActive, clearFilter, addF
           }} />
           : null
       }
-      <ScrollArea className=" md:h-96 h-72">
+      <ScrollArea className=" md:tw-h-96 tw-h-72">
         <Tabs defaultValue="referrer">
           <TabsList>
             <TabsTrigger value="referrer">
@@ -51,7 +51,7 @@ export function RefComponent({ refs, filter: { isFilterActive, clearFilter, addF
 
                 <TableRow>
                   <TableHead>Referees</TableHead>
-                  <TableHead className="text-right">Views</TableHead>
+                  <TableHead className="tw-text-right">Views</TableHead>
                 </TableRow>
               </TableHeader>
 
@@ -70,15 +70,15 @@ export function RefComponent({ refs, filter: { isFilterActive, clearFilter, addF
                             data: "session"
                           })
                         }}
-                        className=" cursor-pointer"
+                        className=" tw-cursor-pointer"
                       >
-                        <TableCell className="flex gap-1 items-center">
+                        <TableCell className="tw-flex tw-gap-1 tw-items-center">
                           {
                             RefIcons[refs.referrer.toLowerCase()] ? RefIcons[refs.referrer.toLowerCase()]() : RefIcons["default"]()
                           }
                           {refs.referrer}
                         </TableCell>
-                        <TableCell className="text-right">{refs.visits}</TableCell>
+                        <TableCell className="tw-text-right">{refs.visits}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -95,7 +95,7 @@ export function RefComponent({ refs, filter: { isFilterActive, clearFilter, addF
 
                 <TableRow>
                   <TableHead>Referees</TableHead>
-                  <TableHead className="text-right">Views</TableHead>
+                  <TableHead className="tw-text-right">Views</TableHead>
                 </TableRow>
               </TableHeader>
 
@@ -114,12 +114,12 @@ export function RefComponent({ refs, filter: { isFilterActive, clearFilter, addF
                             data: "session"
                           })
                         }}
-                        className=" cursor-pointer"
+                        className=" tw-cursor-pointer"
                       >
-                        <TableCell className="flex gap-1 items-center">
+                        <TableCell className="tw-flex tw-gap-1 tw-items-center">
                           {campaign.utmCampaign}
                         </TableCell>
-                        <TableCell className="text-right">{campaign.visits}</TableCell>
+                        <TableCell className="tw-text-right">{campaign.visits}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -135,7 +135,7 @@ export function RefComponent({ refs, filter: { isFilterActive, clearFilter, addF
 
                 <TableRow>
                   <TableHead>Referees</TableHead>
-                  <TableHead className="text-right">Views</TableHead>
+                  <TableHead className="tw-text-right">Views</TableHead>
                 </TableRow>
               </TableHeader>
 
@@ -154,12 +154,12 @@ export function RefComponent({ refs, filter: { isFilterActive, clearFilter, addF
                             data: "session"
                           })
                         }}
-                        className=" cursor-pointer"
+                        className=" tw-cursor-pointer"
                       >
-                        <TableCell className="flex gap-1 items-center">
+                        <TableCell className="tw-flex tw-gap-1 tw-items-center">
                           {campaign.utmSource}
                         </TableCell>
-                        <TableCell className="text-right">{campaign.visits}</TableCell>
+                        <TableCell className="tw-text-right">{campaign.visits}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>

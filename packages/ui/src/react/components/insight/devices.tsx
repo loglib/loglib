@@ -18,7 +18,7 @@ import { ScrollArea } from "../ui/scroll-area";
 export function DeviceComponent({ devices, os, browser, filter: { clearFilter, addFilter, isFilterActive }, isLoading }: { devices?: DevicesType[], os?: OSType[], browser?: BrowserType[], filter: FilterProp, isLoading: boolean }) {
   return (
     <CardContent>
-      <Tabs className=" w-full" defaultValue="general">
+      <Tabs className=" tw-w-full" defaultValue="general">
         {
           isFilterActive("device") || isFilterActive("os") || isFilterActive("browser") ?
             <ClearFilter onClick={() => {
@@ -27,7 +27,7 @@ export function DeviceComponent({ devices, os, browser, filter: { clearFilter, a
               clearFilter("browser")
             }} /> : null
         }
-        <TabsList className=" border-gray-400 ml-auto">
+        <TabsList className=" tw-border-gray-400 tw-ml-auto">
           <TabsTrigger value="general">
             Devices
           </TabsTrigger>
@@ -39,12 +39,12 @@ export function DeviceComponent({ devices, os, browser, filter: { clearFilter, a
           </TabsTrigger>
         </TabsList>
         <TabsContent value="general">
-          <ScrollArea className=" md:h-96 h-72">
+          <ScrollArea className=" md:tw-h-96 tw-h-72">
             <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead>Device</TableHead>
-                  <TableHead className="text-right">Views</TableHead>
+                  <TableHead className="tw-text-right">Views</TableHead>
                 </TableRow>
               </TableHeader>
               {
@@ -61,10 +61,10 @@ export function DeviceComponent({ devices, os, browser, filter: { clearFilter, a
                             data: "session"
                           })
                         }}
-                        className=" cursor-pointer"
+                        className=" tw-cursor-pointer"
                       >
                         <TableCell>{device.device}</TableCell>
-                        <TableCell className="text-right">{device.visits}</TableCell>
+                        <TableCell className="tw-text-right">{device.visits}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -74,14 +74,14 @@ export function DeviceComponent({ devices, os, browser, filter: { clearFilter, a
         </TabsContent>
 
         <TabsContent value="os">
-          <ScrollArea className=" md:h-96 h-72">
+          <ScrollArea className=" md:tw-h-96 tw-h-72">
             <Table>
               <TableHeader>
                 <TableRow
 
                 >
                   <TableHead>OS</TableHead>
-                  <TableHead className="text-right">Views</TableHead>
+                  <TableHead className="tw-text-right">Views</TableHead>
                 </TableRow>
               </TableHeader>
               {
@@ -97,10 +97,10 @@ export function DeviceComponent({ devices, os, browser, filter: { clearFilter, a
                             data: "session"
                           })
                         }}
-                        className=" cursor-pointer"
+                        className=" tw-cursor-pointer"
                       >
                         <TableCell>{device.os}</TableCell>
-                        <TableCell className="text-right">{device.visits}</TableCell>
+                        <TableCell className="tw-text-right">{device.visits}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -109,12 +109,12 @@ export function DeviceComponent({ devices, os, browser, filter: { clearFilter, a
           </ScrollArea>
         </TabsContent>
         <TabsContent value="browser">
-          <ScrollArea className=" md:h-96 h-72">
+          <ScrollArea className=" md:tw-h-96 tw-h-72">
             <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead>OS</TableHead>
-                  <TableHead className="text-right">Views</TableHead>
+                  <TableHead className="tw-text-right">Views</TableHead>
                 </TableRow>
               </TableHeader>
               {
@@ -130,10 +130,10 @@ export function DeviceComponent({ devices, os, browser, filter: { clearFilter, a
                             data: "session"
                           })
                         }}
-                        className=" cursor-pointer"
+                        className=" tw-cursor-pointer"
                       >
                         <TableCell>{device.browser}</TableCell>
-                        <TableCell className="text-right">{device.visits}</TableCell>
+                        <TableCell className="tw-text-right">{device.visits}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>

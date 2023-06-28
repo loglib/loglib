@@ -12,5 +12,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*", "test/**/*", "tsup.config.ts"]
+  "include": ["src/**/*", "test/**/*", "tsup.config.ts", "tailwind.config.js"]
 }

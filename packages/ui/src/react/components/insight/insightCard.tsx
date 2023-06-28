@@ -20,34 +20,36 @@ export type InsightType = {
 export function InsightCard({ title, Icon, data, valuePrefix, bottomChildren, isLoading, negative, changePrefix }: InsightType) {
   const increase = negative ? data.change <= 0 : data.change >= 0;
   return (
-    <Card className=" bg-gradient-to-tr dark:from-black  dark:to-slate-900 border from-white to-gray-100">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        <Icon className="h-4 w-4 text-muted-foreground" />
+    <Card className=" tw-bg-gradient-to-tr dark:tw-from-black  dark:tw-to-slate-900 tw-border tw-from-white tw-to-gray-100">
+      <CardHeader >
+        <div className=" tw-flex tw-flex-row  tw-items-center tw-justify-between tw-space-y-0 tw-pb-2">
+        <CardTitle className="tw-text-sm tw-font-medium">{title}</CardTitle>
+        <Icon className="tw-h-4 tw-w-4" />
+        </div>
       </CardHeader>
       {
         !isLoading && data ? <CardContent>
-          <div className="text-2xl font-bold">{`${data.total ? data.total.toLocaleString() : 0} ${valuePrefix ?? ""}`}</div>
-          <div className=" flex justify-between">
-            <div className=" flex text-xs">
+          <div className="tw-text-2xl tw-font-bold">{`${data.total ? data.total.toLocaleString() : 0} ${valuePrefix ?? ""}`}</div>
+          <div className=" tw-flex tw-justify-between">
+            <div className=" tw-flex tw-text-xs">
               {
                 increase ? (
-                  <ArrowUpIcon className=" text-green-500" size={16} />
+                  <ArrowUpIcon className=" tw-text-green-500" size={16} />
                 ) : (
-                  <ArrowDown className=" text-red-500" size={16} />)
+                  <ArrowDown className=" tw-text-red-500" size={16} />)
               }
               <div> {changePrefix ?? ""}{data.change ? data.change.toLocaleString() : 0}%</div>
             </div>
             {bottomChildren}
           </div>
 
-        </CardContent> : <CardContent className=" h-24 w-full animate-pulse">
-          <div className="flex flex-col justify-center gap-2">
-            <div className="text-2xl font-bold">
-              <div className="bg-gray-200 dark:bg-gray-800 h-7 w-24 "></div>
+        </CardContent> : <CardContent className=" tw-h-24 tw-w-full tw-animate-pulse">
+          <div className="tw-flex tw-flex-col tw-justify-center tw-gap-2">
+            <div className="tw-text-2xl tw-font-bold">
+              <div className="tw-bg-gray-200 dark:tw-bg-gray-800 tw-h-7 tw-w-24 "></div>
             </div>
-            <div className="text-2xl font-bold">
-              <div className="bg-gray-200 dark:bg-gray-800 h-4 w-9 "></div>
+            <div className="tw-text-2xl tw-font-bold">
+              <div className="tw-bg-gray-200 dark:tw-bg-gray-800 tw-h-4 tw-w-9 "></div>
             </div>
           </div>
         </CardContent>

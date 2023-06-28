@@ -75,12 +75,14 @@ export const WebsiteForm = () => {
         url = url.replace("." + allCom[allCom.length - 1], "").replace(/\./g, "_");
 
         form.setValue("id", url)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fieldValue])
     return (
         <AnimatePresence>
             {
                 modal ? <Modal
                     isOpen={modal}
+                    onRequestClose={() => setModal(false)}
                     className="font-jost flex h-full items-center justify-center border-none outline-none backdrop:blur-xl"
                     style={{
                         overlay: {

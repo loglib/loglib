@@ -32,7 +32,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".contentlayer/generated",
-    "src/env/index.mjs"
+    "src/env/index.mjs",
+    "**/*.js"
   ],
-  "exclude": ["node_modules", "**/*.js"]
+  "exclude": ["node_modules"]
 }

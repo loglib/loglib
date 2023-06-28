@@ -92,7 +92,7 @@ function DataTable<TData, TValue>({
                 <strong> {data.length} </strong>
                 events
             </p>
-            <motion.div className="rounded-md border scrollbar-hide" >
+            <motion.div className="rounded-md border dark:tw-border-gray-800 scrollbar-hide" >
                 <div className="flex items-center py-4 px-2">
                     <Input
                         placeholder="Search Events..."

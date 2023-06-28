@@ -9,6 +9,7 @@ const config = {
       "./docs/tsconfig.json",
       "./packages/*/tsconfig.json",
       "./www/tsconfig.json",
+      "./packages/config/*/tsconfig.json"
     ],
   },
   plugins: ["@typescript-eslint"],
