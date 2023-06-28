@@ -25,6 +25,7 @@
     "dotenv-cli": "^7.2.1",
     "eslint": "^8.39.0",
     "prettier": "^2.8.8",
+    "prettier-plugin-tailwindcss": "^0.3.0",
     "tsup": "^6.7.0",
     "turbo": "^1.9.3",
     "typescript": "^5.0.4",
