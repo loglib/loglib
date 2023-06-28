@@ -19,7 +19,7 @@
     "@loglib/next": "^0.1.14",
     "@loglib/prisma-adapter": "^0.2.2",
     "@loglib/tracker": "0.3.4",
-    "@loglib/ui": "0.2.2",
+    "@loglib/ui": "0.3.0",
     "@lottiefiles/react-lottie-player": "^3.5.3",
     "@mdx-js/mdx": "^2.3.0",
     "@next-auth/prisma-adapter": "^1.0.7",
