@@ -44,5 +44,5 @@
     "useDefineForClassFields": true
   },
   "exclude": ["node_modules", "dist"],
-  "include": [".eslintrc.js", ".prettierrc.js"]
+  "include": [".eslintrc.js", ".prettierrc.cjs"]
 }
