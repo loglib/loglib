@@ -22,7 +22,7 @@ export type InsightType = {
 export function InsightCard({ title, Icon, data, valuePrefix, bottomChildren, isLoading, negative, changePrefix, tooltip }: InsightType) {
   const increase = negative ? data.change <= 0 : data.change >= 0;
   return (
-    <Card className=" tw-bg-gradient-radial dark:tw-to-black  dark:tw-from-slate-900/30 tw-border tw-from-white tw-to-gray-100">
+    <Card className=" tw-bg-gradient-to-tr dark:tw-to-black  dark:tw-from-slate-900/30 tw-border tw-from-white tw-to-gray-100">
       <CardHeader className=" tw-flex tw-flex-row  tw-items-center tw-justify-between tw-space-y-0 tw-pb-2">
         <CardTitle className="tw-text-sm tw-font-medium">{title}</CardTitle>
         <TooltipProvider>
