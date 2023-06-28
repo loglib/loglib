@@ -27,7 +27,7 @@ export function Graph({ data, name, Icon, isLoading }: { data: { date: string, v
                             axisLine={false}
                             tickFormatter={(value) => `${value}`}
                         />
-                        <Line dataKey="visits" fill="#fff" label="Visitors" />
+                        <Line dataKey="visits" fill="#fff" label="Visitors"  />
                         <Tooltip contentStyle={{
                             backgroundColor: "black",
                             borderRadius: "10px"
