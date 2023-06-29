@@ -23,17 +23,19 @@ export const POST = async (req: Request) => {
         }), {
             status: 400
         })
-        const key = "site_" + Math.random().toString(36).substring(2, 9)
+        const key = "site_" + Math.random().toString(36).substring(2, 12)
         const res = await db.apiKey.create({
             data: {
                 userId: user.id,
                 expires: new Date(new Date().getTime() + (24 * 60 * 60 * 1000) * data.expiresIn),
                 name: data.name,
                 websiteId: data.website,
-                key: encrypt(key)
+                key
             }
         })
-        return new Response(null, {
+        return new Response(JSON.stringify({
+            key
+        }), {
             status: 200
         })
     } catch (e) {

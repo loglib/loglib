@@ -2,7 +2,7 @@ import z from "zod";
 import { RootDashboardSchema } from "../../schema";
 import { ApiGetHandler } from "../../type";
 import { getBrowser, getDevices, getEvents, getLoc, getOS, getOnlineVisitors, getPageViews, getPages, getReferer, getUniqueVisitors, getVisitorsByDate } from "./utils";
-import { EventsWithData, getAverageTime, getBounceRate, getUtmCampaigns, getUtmSources } from "./utils/analysis";
+import { EventsWithData, getAverageTime, getBounceRate, getNewVisitors, getUtmCampaigns, getUtmSources } from "./utils/analysis";
 import { GenericError, PageView, Session } from "../../..";
 import { filter } from "./filter/smallFilter";
 import { Filter } from "./filter/type";
@@ -27,6 +27,10 @@ export type GetInsightResponse = {
             total: number,
             change: number
         },
+        newVisitors: {
+            total: number,
+            change: number
+        }
 
     },
     data: {
@@ -173,7 +177,8 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
 
 
             //insights data
-            const uniqueVisitors = getUniqueVisitors(users, pastUsers)
+            const uniqueVisitors = getUniqueVisitors(sessions, pastSessions)
+            const newVisitors = getNewVisitors(users, pastUsers)
             const pageView = getPageViews(pageViews, pastPageViews)
             const averageTime = getAverageTime(sessions, pastSessions, pageViews, pastPageViews)
             const bounceRate = getBounceRate(pageViews, pastPageViews, sessions, pastSessions)
@@ -201,6 +206,7 @@ export const getDashboardData: ApiGetHandler<GetInsightQuery, GetInsightResponse
                         pageView,
                         averageTime,
                         bounceRate,
+                        newVisitors
                     },
                     data: {
                         pages,

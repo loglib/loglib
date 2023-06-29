@@ -2,7 +2,27 @@ import { PageView, Visitor, Session, Events } from "../../../../adapters/models"
 import { ReferrerName } from "./constants"
 import { getTimeRange } from "./timeHelper"
 
-export const getUniqueVisitors = (visitors: Visitor[], pastVisitors: Visitor[]) => {
+export const getUniqueVisitors = (sessions: Session[], pastSessions: Session[]) => {
+    const uniqueValues = new Set();
+
+    sessions.forEach(session => {
+        uniqueValues.add(session.visitorId);
+    });
+    const uniqueVisitor = Array.from(uniqueValues);
+    const pastUniqueValues = new Set();
+    pastSessions.forEach(session => {
+        pastUniqueValues.add(session.visitorId);
+    }
+    );
+    const pastUniqueVisitor = Array.from(pastUniqueValues);
+    const change = pastUniqueVisitor.length ? Math.floor(((uniqueVisitor.length - pastUniqueVisitor.length) / pastUniqueVisitor.length) * 100) : 100
+    return {
+        total: uniqueVisitor.length,
+        change: change > 100 ? 100 : change
+    }
+}
+
+export const getNewVisitors = (visitors: Visitor[], pastVisitors: Visitor[]) => {
     const change = pastVisitors.length ? Math.floor(((visitors.length - pastVisitors.length) / pastVisitors.length) * 100) : 100
     return {
         total: visitors.length,

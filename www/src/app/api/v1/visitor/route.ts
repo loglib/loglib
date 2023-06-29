@@ -1,4 +1,3 @@
-import { encrypt } from "@/lib/crypto";
 import { db } from "@/lib/db";
 import { apiErrorMessages } from "@/lib/messages";
 import { rateLimitCheck } from "@/lib/rate-limit";
@@ -46,7 +45,7 @@ export const POST = async (req: Request) => {
             const apiKey = validatedData.data.apiKey
             const res = await db.apiKey.findFirst({
                 where: {
-                    key: encrypt(apiKey),
+                    key: apiKey,
                     expires: {
                         gt: new Date()
                     }

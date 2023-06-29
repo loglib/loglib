@@ -3,8 +3,6 @@ import { db } from "@/lib/db"
 import { rootApiSchema, rootWhereSchema, transformToISO } from "@/lib/validations/api"
 import { rateLimitCheck } from "@/lib/rate-limit"
 import { apiErrorMessages } from "@/lib/messages"
-import { encrypt } from "@/lib/crypto"
-
 
 
 
@@ -39,13 +37,12 @@ export const POST = async (req: Request) => {
     try {
         const body = await req.json().catch((e) => { throw new Error(apiErrorMessages["JSON-parse-error"]) })
         const schema = pageviewApiSchema.safeParse(body)
-        console.log(schema)
         if (schema.success) {
-            const apiKey = schema.data.apiKey
+            const key = schema.data.apiKey
             const res = await db.apiKey.findFirst({
                 where: {
                     AND: {
-                        key: encrypt(apiKey),
+                        key,
                         expires: {
                             gt: new Date()
                         }
@@ -60,7 +57,7 @@ export const POST = async (req: Request) => {
                     statusText: "Unauthorized"
                 })
             }
-            const rateLimit = await rateLimitCheck(apiKey)
+            const rateLimit = await rateLimitCheck(key)
             if (!rateLimit) return new Response(JSON.stringify({
                 message: apiErrorMessages["Rate-limit-exceeded"]
             }), {

@@ -1,5 +1,5 @@
 import { describe, expect } from "vitest";
-import { getAverageTime, getBounceRate, getBrowser, getDevices, getLoc, getOS, getPageViews, getPages, getReferer, getUniqueVisitors } from "../src/router/routes/dashboard/utils";
+import { getAverageTime, getBounceRate, getBrowser, getDevices, getLoc, getOS, getPageViews, getPages, getReferer, getNewVisitors } from "../src/router/routes/dashboard/utils";
 import { Session, Visitor } from "../src";
 import { pageViews, pastPageViews, pastSessions, pastVisitors, sessions, visitors } from "./data/demo";
 
@@ -7,23 +7,24 @@ import { pageViews, pastPageViews, pastSessions, pastVisitors, sessions, visitor
 
 
 
-describe("unique visitors", (it) => {
+
+describe("new visitors", (it) => {
 
     it('should return the correct total and change when pastVisitors is empty', () => {
         const pastVisitors: Visitor[] = [];
-        const result = getUniqueVisitors(visitors, pastVisitors);
+        const result = getNewVisitors(visitors, pastVisitors);
         expect(result.total).toBe(3);
         expect(result.change).toBe(100);
     });
 
     it('should return the correct total and change when pastVisitors is not empty', () => {
-        const result = getUniqueVisitors(visitors, pastVisitors);
+        const result = getNewVisitors(visitors, pastVisitors);
         expect(result.total).toBe(3);
         expect(result.change).toBe(50);
     });
 
     it("should never return above 100% change", () => {
-        const result = getUniqueVisitors(visitors, pastVisitors);
+        const result = getNewVisitors(visitors, pastVisitors);
         expect(result.change).toBeLessThanOrEqual(100);
     })
 })
@@ -64,21 +65,6 @@ describe("averageTime", (it) => {
         const result = getAverageTime(sessions, pastSessions, pageViews, pastPageViews);
         expect(result.change).toBeGreaterThan(0);
     });
-
-    // it('should return a negative percentage change when the total time has decreased', () => {
-    //     const result = getAverageTime(pastSessions, sessions, pageViews, pastPageViews);
-    //     expect(result.change).toBeLessThan(0);
-    // });
-
-    // it('should return a change of 0 when the total time has not changed', () => {
-    //     const result = getAverageTime(sessions, sessions, pageViews, pastPageViews);
-    //     expect(result.change).toEqual(0);
-    // });
-
-    // it('Should never return above 100% change', () => {
-    //     const result = getAverageTime(sessions, [], pastPageViews, pageViews);
-    //     expect(result.change).toBeLessThanOrEqual(100);
-    // })
 })
 
 
