@@ -15,6 +15,11 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  transpilePackages: ["@loglib/ui", "@loglib/core", "@loglib/next"],
+  transpilePackages: [
+    "@loglib/ui",
+    "@loglib/core",
+    "@loglib/next",
+    "@loglib/tracker",
+  ],
 }
 export default nextConfig

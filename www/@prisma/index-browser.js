@@ -126,6 +126,30 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.TeamScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  name: 'name'
+};
+
+exports.Prisma.TeamUserScalarFieldEnum = {
+  id: 'id',
+  teamId: 'teamId',
+  userId: 'userId',
+  role: 'role',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TeamWebsiteScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  teamId: 'teamId',
+  websiteId: 'websiteId'
+};
+
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   ReadUncommitted: 'ReadUncommitted',
   ReadCommitted: 'ReadCommitted',
@@ -225,7 +249,10 @@ exports.Prisma.ModelName = {
   WebSession: 'WebSession',
   WebPageview: 'WebPageview',
   WebEvent: 'WebEvent',
-  ApiKey: 'ApiKey'
+  ApiKey: 'ApiKey',
+  Team: 'Team',
+  TeamWebsite: 'TeamWebsite',
+  TeamUser: 'TeamUser'
 };
 
 /**
