@@ -1,14 +1,15 @@
+import { cn } from "@/react/lib/utils";
 import React from "react";
 
 
 
-const LogoIcon = () => {
+const LogoIcon = ({className}: {className?:string}) => {
   return (
     <svg
       width="59"
       height="55"
       viewBox="0 0 59 55"
-      className=" tw-w-8 tw-h-8 md:tw-w-12 md:tw-h-12"
+      className={cn(" tw-w-8 tw-h-8 md:tw-w-12 md:tw-h-12", className)}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

@@ -1,100 +1,35 @@
-# Session API Endpoint
+# Sessions
 
-The Session API Endpoint allows you to interact with the Logilb.io session data. You can send requests to retrieve session information based on various parameters.
+##### path: /api/v1/session
 
-## Endpoint URL
+**method:** POST
 
-```
-https://logilb.io/api/v1/session
-```
-
-## Request Method
-
-- POST
-
-## Request Headers
-
-The following headers should be included in the request:
-
-```
-Content-Type: application/json
-```
-
-## Request Body
-
-The request body should contain a JSON object with the following parameters:
-
-| Parameter | Type     | Required | Default | Description                                                                                         |
-|-----------|----------|----------|---------|-----------------------------------------------------------------------------------------------------|
-| apiKey    | string   | Yes      | -       | The API key for authentication. This key is used to authorize access to the Logilb.io session data. |
-| take      | number   | No       | 10      | The maximum number of session records to retrieve.                                                  |
-| skip      | number   | No       | 0       | The number of records to skip from the beginning of the result set.                                 |
-| orderBy   | object   | No       |         | Specifies the field(s) to order the result by and the sorting order.                                 |
-| where     | object   | No       |         | Specifies additional filtering criteria for the session records.                                    |
-| include   | object   | No       |         | Specifies the related data to include in the response.                                              |
-
-The `orderBy`, `where`, and `include` objects have their own sub-properties as described below:
-
-### orderBy Object
-
-Specifies the field(s) to order the result by and the sorting order.
-
-| Property   | Type                 | Description                                                                                         |
-|------------|----------------------|-----------------------------------------------------------------------------------------------------|
-| createdAt  | "asc" or "desc"      | Specifies the sorting order based on the session creation timestamp.                                |
-| updatedAt  | "asc" or "desc"      | Specifies the sorting order based on the session update timestamp.                                   |
-| id         | "asc" or "desc"      | Specifies the sorting order based on the session ID.                                                |
-| device     | "asc" or "desc"      | Specifies the sorting order based on the device used during the session.                            |
-| os         | "asc" or "desc"      | Specifies the sorting order based on the operating system used during the session.                  |
-
-### where Object
-
-Specifies additional filtering criteria for the session records.
-
-| Property    | Type     | Description                                                                                         |
-|-------------|----------|-----------------------------------------------------------------------------------------------------|
-| id          | string   | Filters sessions by the session ID.                                                                 |
-| device      | string   | Filters sessions by the device used during the session.                                             |
-| city        | string   | Filters sessions by the city where the session occurred.                                            |
-| country     | string   | Filters sessions by the country where the session occurred.                                         |
-| referrer    | string   | Filters sessions by the referrer URL of the session.                                                |
-| browser     | string   | Filters sessions by the browser used during the session.                                            |
-| os          | string   | Filters sessions by the operating system used during the session.                                   |
-| visitorId   | string   | Filters sessions by the visitor ID associated with the session.                                     |
-| pageviewId  | string   | Filters sessions by the pageview ID associated with the session.                                    |
-
-### include Object
-
-Specifies the related data to include in the response.
-
-| Property   | Type     | Description                                                                                         |
-|------------|----------|-----------------------------------------------------------------------------------------------------|
-| pageview   | boolean  | Set to `true` to include the related pageview
-
- data in the response, or `false` to exclude it.       |
-| event      | boolean  | Set to `true` to include the related event data in the response, or `false` to exclude it.          |
-| visitors   | boolean  | Set to `true` to include the related visitor data in the response, or `false` to exclude it.        |
-
-### Example Request Body
+**request body:**
 
 ```json
 {
-  "apiKey": "your-api-key",
+  "apiKey": "string", //required
   "take": 10,
   "skip": 0,
   "orderBy": {
     "createdAt": "desc"
   },
   "where": {
-    "id": "session-id",
-    "device": "Desktop",
-    "city": "New York",
-    "country": "USA",
-    "referrer": "https://example.com",
-    "browser": "Chrome",
-    "os": "Windows",
-    "visitorId": "visitor-id",
-    "pageviewId": "pageview-id"
+    "id": "string",
+    "createdAt": {
+      "gt": "string",
+      "lt": "string",
+      "gte": "string",
+      "lte": "string"
+    },
+    "device": "string",
+    "city": "string",
+    "country": "string",
+    "referrer": "string",
+    "browser": "string",
+    "os": "string",
+    "visitorId": "string",
+    "pageviewId": "string"
   },
   "include": {
     "pageview": false,
@@ -104,58 +39,20 @@ Specifies the related data to include in the response.
 }
 ```
 
-## Response Body
+_apiKey_ (string, required): Represents the API key.
 
-The API will respond with a JSON object containing the following properties:
+_take_ (number, optional, default: 10): Specifies the maximum number of results to return.
 
+_skip_ (number, optional, default: 0): Specifies the number of results to skip.
 
-```json
-{
-  "data": [
-    {
-      "id": "session_123",
-      "createdAt": "2023-06-24T08:00:00Z",
-      "updatedAt": "2023-06-24T09:30:00Z",
-      "queryParams": {
-        "utm_source": "google",
-        "utm_medium": "cpc",
-        "utm_campaign": "summer_sale"
-      },
-      "referrer": "https://google.com",
-      "duration": 1800,
-      "country": "United States",
-      "city": "New York",
-      "language": "en-US",
-      "device": "Desktop",
-      "os": "Windows 10",
-      "browser": "Chrome",
-      "visitorId": "visitor_123",
-      "websiteId": null
-    },
-    {
-      "id": "session_456",
-      "createdAt": "2023-06-24T10:15:00Z",
-      "updatedAt": "2023-06-24T11:45:00Z",
-      "queryParams": null,
-      "referrer": "https://example.com",
-      "duration": 5400,
-      "country": "Germany",
-      "city": "Berlin",
-      "language": "de-DE",
-      "device": "Mobile",
-      "os": "iOS 14",
-      "browser": "Safari",
-      "visitorId": "visitor_789",
-      "websiteId": "website_123"
-    }
-  ]
-}
-```
+_orderBy_ (object, optional, default: `{ "createdAt": "desc" }`): Specifies the field to order the results by and the sort order. Valid field values are "createdAt", "updatedAt", "id", "device", "os". Valid sort order values are "asc" and "desc".
 
-## Error Handling
+_where_ (object, optional, default: `{}`): Contains optional filters for the query. Properties include:
 
-If there is an error with the request, the API will respond with an appropriate HTTP status code and an error message indicating the reason for the failure.
+_id_ (string, optional): Filters by ID.
 
-## Security
+_createdAt_ (object, optional): Filters based on createdAt timestamps using the following operators: "gt" (greater than), "lt" (less than), "gte" (greater than or equal to), "lte" (less than or equal to). The values should be strings in ISO format.
 
-To access the Session API Endpoint, you need to provide a valid API key in the request. Make sure to keep your API key confidential and only share it with authorized individuals.
+_device, city, country, referrer, browser, os, visitorId, pageviewId_ (strings, optional): Filters based on corresponding fields.
+
+_include_ (object, optional, default: `{ "pageview": false, "event": false, "visitors": false }`): Specifies which related entities to include in the results. Properties include: "pageview", "event", "visitors". By default, all properties are set to false.
