@@ -7,7 +7,7 @@ import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "rec
 
 export function Graph({ data, name, Icon, isLoading, setTimeRange }: { data: { date: string, visits: number }[], name: string, Icon: LucideIcon, isLoading: boolean, setTimeRange:(range: TimeRange)=>void }) {
     const [isMobile, setIsMobile] = useState<boolean>()
-    const [filter, setFilter] = useState(false)
+    const [, setFilter] = useState(false)
     useEffect(() => {
         setIsMobile(window.innerWidth < 768)
     }, [])
