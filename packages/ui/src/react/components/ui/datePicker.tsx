@@ -41,7 +41,7 @@ export function CalendarDateRangePicker({
             size="sm"
             className={cn(
               "tw-w-max tw-justify-start tw-text-left tw-font-normal",
-              !date && "tw-text-muted-foreground"
+              !date && " tw-text-slate-800"
             )}
           >
             <CalendarIcon className="tw-mr-2 tw-h-4 tw-w-4" />
@@ -59,7 +59,7 @@ export function CalendarDateRangePicker({
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="tw-w-auto" align="start">
+        <PopoverContent className="tw-w-auto tw-bg-white dark:tw-bg-slate-900" align="start">
           <Calendar
             initialFocus
             mode="range"
