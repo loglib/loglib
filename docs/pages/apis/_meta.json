@@ -1,6 +1,7 @@
 {
-  "events": "Events",
+  "index": "Hmm ?",
   "session": "Session",
+  "page": "Page View",
   "visitor": "Visitor",
-  "page": "Page View"
+  "events": "Events"
 }

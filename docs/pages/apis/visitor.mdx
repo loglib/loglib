@@ -1,117 +1,54 @@
-# Visitor API Endpoint
+# Visitors
 
-The Visitor API Endpoint allows you to interact with the Logilb.io visitor data. You can send requests to retrieve visitor information based on various parameters.
+##### path: /api/v1/visitor
 
-## Endpoint URL
+**method:** POST
 
-```
-https://logilb.io/api/v1/visitor
-```
-
-## Request Method
-
-- POST
-
-## Request Headers
-
-The following headers should be included in the request:
-
-```
-Content-Type: application/json
-```
-
-## Request Body
-
-The request body should contain a JSON object with the following parameters:
-
-| Parameter | Type   | Required | Default | Description                                                                                         |
-| --------- | ------ | -------- | ------- | --------------------------------------------------------------------------------------------------- |
-| apiKey    | string | Yes      | -       | The API key for authentication. This key is used to authorize access to the Logilb.io visitor data. |
-| take      | number | No       | 10      | The maximum number of visitor records to retrieve.                                                  |
-| skip      | number | No       | 0       | The number of records to skip from the beginning of the result set.                                 |
-| orderBy   | object | No       |         | Specifies the field(s) to order the result by and the sorting order.                                |
-| where     | object | No       |         | Specifies additional filtering criteria for the visitor records.                                    |
-
-The `orderBy` and `where` objects have their own sub-properties as described below:
-
-### orderBy Object
-
-Specifies the field(s) to order the result by and the sorting order.
-
-| Property  | Type            | Description                                                          |
-| --------- | --------------- | -------------------------------------------------------------------- |
-| createdAt | "asc" or "desc" | Specifies the sorting order based on the visitor creation timestamp. |
-| updatedAt | "asc" or "desc" | Specifies the sorting order based on the visitor update timestamp.   |
-| id        | "asc" or "desc" | Specifies the sorting order based on the visitor ID.                 |
-
-### where Object
-
-Specifies additional filtering criteria for the visitor records.
-
-| Property | Type   | Description                                    |
-| -------- | ------ | ---------------------------------------------- |
-| id       | string | Filters visitors by the visitor ID.            |
-| device   | string | Filters visitors by the device used.           |
-| os       | string | Filters visitors by the operating system used. |
-
-### Example Request Body
+**request body:**
 
 ```json
 {
-  "apiKey": "your-api-key",
+  "apiKey": "string",
   "take": 10,
   "skip": 0,
   "orderBy": {
     "createdAt": "desc"
   },
   "where": {
-    "id": "visitor-id",
-    "device": "Desktop",
-    "os": "Windows"
+    "id": "string",
+    "createdAt": {
+      "gt": "string",
+      "lt": "string",
+      "gte": "string",
+      "lte": "string"
+    },
+    "payload": {
+      "key1": "value1",
+      "key2": "value2"
+    }
+  },
+  "include": {
+    "pageview": false,
+    "event": false,
+    "session": false
   }
 }
 ```
 
-## Response
+apiKey (string, required): Represents the API key.
 
-The API will respond with a JSON object containing the following properties:
+take (number, optional, default: 10): Specifies the maximum number of results to return.
 
-```json
-{
-  "data": [
-    {
-      "id": "visitor_123",
-      "createdAt": "2023-06-24T08:15:00Z",
-      "updatedAt": "2023-06-24T08:15:00Z",
-      "data": {
-        "name": "John Doe",
-        "age": 28,
-        "country": "USA"
-      },
-      "websiteId": null
-    },
-    {
-      "id": "visitor_456",
-      "createdAt": "2023-06-24T11:20:00Z",
-      "updatedAt": "2023-06-24T11:20:00Z",
-      "data": {
-        "name": "Jane Smith",
-        "age": 35,
-        "country": "Canada",
-        "interests": ["hiking", "photography", "cooking"]
-      },
-      "websiteId": "website_789"
-    }
-  ]
-}
-```
+skip (number, optional, default: 0): Specifies the number of results to skip.
 
-Please note that this documentation is a general example, and the actual response structure may vary depending on your specific API implementation and requirements.
+orderBy (object, optional, default: `{ "createdAt": "desc" }`): Specifies the field to order the results by and the sort order. Valid field values are "createdAt", "updatedAt", "id", "device", "os". Valid sort order values are "asc" and "desc".
 
-## Error Handling
+where (object, optional, default: {}): Contains optional filters for the query. Properties include:
 
-If there is an error with the request, the API will respond with an appropriate HTTP status code and an error message indicating the reason for the failure.
+id (string, optional): Filters by ID.
 
-## Security
+createdAt (object, optional): Filters based on createdAt timestamps using the following operators: "gt" (greater than), "lt" (less than), "gte" (greater than or equal to), "lte" (less than or equal to). The values should be strings in ISO format.
 
-To access the Visitor API Endpoint, you need to provide a valid API key in the request. Ensure that you keep your API key confidential and only share it with authorized individuals.
+payload (object, optional): Filters based on payload key-value pairs. The payload object should contain one or more key-value pairs.
+
+include (object, optional, default: `{"pageview": false, "event": false, "session": false }`): Specifies which related entities to include in the results. Properties include: "pageview", "event", "session". By default, all properties are set to false.

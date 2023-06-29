@@ -1,7 +1,7 @@
 {
   "index": "Introduction",
-  "installation": "Installation",
-  "get-started": "Get Started",
+  "quick-setup": "Quick Setup",
+  "manual": "Manual Setup",
   "advanced": "Advanced",
   "apis": "API",
   "contact": {
