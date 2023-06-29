@@ -68,7 +68,6 @@ export function InsightCard({ title, Icon, data, valuePrefix, BottomChildren, is
           </div>
         </CardContent>
       }
-  
     </Card>
   );
 }
