@@ -21,6 +21,9 @@ import { Login } from "./login";
 import ct from "countries-and-timezones"
 import { DefaultHeader } from "./components/header";
 import LocationMap from "./components/insight/locationMap";
+import { TimeRange } from "./lib/type";
+import { Switch } from "./components/ui/switch";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./components/ui/tooltip";
 
 
 type DashboardProps = {
@@ -37,11 +40,7 @@ const defaultComponents = {
 }
 
 export const Dashboard: FC<DashboardProps> = (props) => {
-  const [timeRange, setTimeRange] = useState<{
-    startDate: Date,
-    endDate: Date,
-    stringValue?: string
-  }>({
+  const [timeRange, setTimeRange] = useState<TimeRange>({
     startDate: getToday(),
     endDate: getTomorrow(),
     stringValue: "24hr"
@@ -104,7 +103,7 @@ export const Dashboard: FC<DashboardProps> = (props) => {
   }
 
   const [curTableTab, setCurTableTab] = useState("")
-
+  const [viCardSwitch, setViCardSwitch] = useState(false)
 
   //set default components if not provided
   const components = props.components ?? defaultComponents
@@ -167,11 +166,31 @@ export const Dashboard: FC<DashboardProps> = (props) => {
                   <TabsContent value="insights" className="tw-space-y-4">
                     <div className="tw-grid tw-gap-4 md:tw-grid-cols-2 tw-grid-cols-2 lg:tw-grid-cols-4">
                       <InsightCard
-                        title={"Unique Visitors"}
+                        title={viCardSwitch ? "New Visitors" : "Unique Visitors"}
                         Icon={UserIcon}
-                        data={data ? data.insight.uniqueVisitors : { change: 0, total: 0 }}
+                        data={data ? viCardSwitch ?  data.insight.newVisitors :  data.insight.uniqueVisitors : { change: 0, total: 0 }}
                         isLoading={isLoading}
                         tooltip="Unique visitors requesting pages within a specific period, regardless of repeat visits."
+                    BottomChildren={()=>(
+                      <div>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <div>
+                                <Switch onCheckedChange={(v)=>setViCardSwitch(v)} checked={viCardSwitch} />
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>
+                                Switch between unique visitors and new visitors
+                              </p>
+                              </TooltipContent>
+                          </Tooltip>
+                  
+                        </TooltipProvider>
+
+                        </div>
+                    )}
                       />
                       <InsightCard
                         title={"Views"}
@@ -234,10 +253,10 @@ export const Dashboard: FC<DashboardProps> = (props) => {
                           <CardContent>
                             <div className="tw-pl-2">
                             <TabsContent value="visitors">
-                              <Graph data={data ? data.graph.uniqueVisitorsByDate : []} name="Visitors" Icon={Users2} isLoading={isLoading} />
+                              <Graph data={data ? data.graph.uniqueVisitorsByDate : []} name="Visitors" Icon={Users2} isLoading={isLoading} setTimeRange={setTimeRange} />
                             </TabsContent>
                             <TabsContent value="sessions" className=" ">
-                              <Graph data={data ? data.graph.uniqueSessionByDate : []} name="Sessions" Icon={Laptop2} isLoading={isLoading} />
+                              <Graph data={data ? data.graph.uniqueSessionByDate : []} name="Sessions" Icon={Laptop2} isLoading={isLoading} setTimeRange={setTimeRange} />
                             </TabsContent>
                             </div>
                           </CardContent>

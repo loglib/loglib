@@ -1,8 +1,7 @@
-import { encrypt } from "@/lib/crypto";
 import { db } from "@/lib/db";
 import { apiErrorMessages } from "@/lib/messages";
 import { rateLimitCheck } from "@/lib/rate-limit";
-import { rootWhereSchema, transformToISO } from "@/lib/validations/api";
+import { transformToISO } from "@/lib/validations/api";
 import { z } from "zod";
 
 const sessionApiSchema = z.object({
@@ -32,11 +31,11 @@ const sessionApiSchema = z.object({
         pageviewId: z.string().optional(),
     }).default({}),
     include: z.object({
-        pageview: z.boolean().default(false),
+        pageView: z.boolean().default(false),
         event: z.boolean().default(false),
         visitors: z.boolean().default(false),
     }).default({
-        pageview: false,
+        pageView: false,
         event: false,
         visitors: false
     })
@@ -50,7 +49,7 @@ export const POST = async (req: Request) => {
             const apiKey = validatedData.data.apiKey
             const res = await db.apiKey.findFirst({
                 where: {
-                    key: encrypt(apiKey),
+                    key: apiKey,
                     expires: {
                         gt: new Date()
                     }
@@ -79,10 +78,20 @@ export const POST = async (req: Request) => {
                 skip,
                 orderBy: [orderBy],
                 include: {
-                    WebPage: include?.pageview,
+                    WebPage: include?.pageView,
                     WebEvent: include?.event,
                     WebVisitor: include?.visitors
                 }
+            }).then((res) => {
+                return res.map((session) => {
+                    const { WebPage, WebEvent, WebVisitor, ...rest } = session
+                    return {
+                        ...rest,
+                        pageView: WebPage,
+                        event: WebEvent,
+                        visitor: WebVisitor
+                    }
+                })
             })
             return new Response(JSON.stringify(session), {
                 status: 200

@@ -13,13 +13,13 @@ export type InsightType = {
   }
   valuePrefix?: string,
   changePrefix?: string,
-  bottomChildren?: React.ReactNode,
+  BottomChildren?: ()=>React.ReactNode,
   negative?: boolean,
   isLoading?: boolean
   tooltip?: string
 }
 
-export function InsightCard({ title, Icon, data, valuePrefix, bottomChildren, isLoading, negative, changePrefix, tooltip }: InsightType) {
+export function InsightCard({ title, Icon, data, valuePrefix, BottomChildren, isLoading, negative, changePrefix, tooltip }: InsightType) {
   const increase = negative ? data.change <= 0 : data.change >= 0;
   return (
     <Card className=" tw-bg-gradient-to-tr dark:tw-to-black  dark:tw-from-slate-900/30 tw-border tw-from-white tw-to-gray-100">
@@ -27,7 +27,7 @@ export function InsightCard({ title, Icon, data, valuePrefix, bottomChildren, is
         <CardTitle className="tw-text-sm tw-font-medium">{title}</CardTitle>
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger asChild>
+            <TooltipTrigger asChild className=" tw-cursor-pointer">
             <Icon className="tw-h-4 tw-w-4" />
             </TooltipTrigger>
             <TooltipContent>
@@ -52,7 +52,9 @@ export function InsightCard({ title, Icon, data, valuePrefix, bottomChildren, is
               }
               <div> {changePrefix ?? ""}{data.change ? data.change.toLocaleString() : 0}%</div>
             </div>
-            {bottomChildren}
+            {BottomChildren &&
+            <BottomChildren />
+            }
           </div>
 
         </CardContent> : <CardContent className=" tw-h-24 tw-w-full tw-animate-pulse">

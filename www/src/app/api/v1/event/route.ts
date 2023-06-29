@@ -32,7 +32,7 @@ export const POST = async (req: Request) => {
             const res = await db.apiKey.findFirst({
                 where: {
                     AND: {
-                        key: encrypt(apiKey),
+                        key: apiKey,
                         expires: {
                             gt: new Date()
                         }
