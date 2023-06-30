@@ -1,5 +1,14 @@
 # @loglib/core
 
+## 0.3.3
+
+### Patch Changes
+
+- b7913cc: - click on the graph now set time range
+  - unique visitors fix
+  - new visitors added
+  - api bug fix
+
 ## 0.3.2
 
 ### Patch Changes
