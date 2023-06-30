@@ -1,11 +1,14 @@
-import { WebsiteCreateButton } from "@/components/website-create-button"
-import { WebsiteForm } from "@/components/website-from-modal"
+import { redirect } from "next/navigation"
+
 import { db } from "@/lib/db"
 import { getCurrentUser } from "@/lib/session"
+import { WebsiteCreateButton } from "@/components/website-create-button"
+import { WebsiteForm } from "@/components/website-from-modal"
 import { WebsitesList } from "@/components/websites-list"
 
 export default async function DashboardPage() {
   const user = await getCurrentUser()
+  if (!user) return redirect("/login")
   const websites = await db.website.findMany({
     where: {
       userId: user?.id,
@@ -15,14 +18,14 @@ export default async function DashboardPage() {
         distinct: ["visitorId"],
         where: {
           createdAt: {
-            gte: new Date(new Date().getTime() - (24 * 60 * 60 * 1000))
+            gte: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
           },
         },
         select: {
-          id: true
-        }
-      }
-    }
+          id: true,
+        },
+      },
+    },
   })
   return (
     <section>
