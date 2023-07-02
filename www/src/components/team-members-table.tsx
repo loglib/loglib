@@ -175,7 +175,7 @@ export const columns: ColumnDef<Teams[0]["TeamUser"][0]>[] = [
       const currentRole = useUserRole()
       const [team, setTeam] = useAtom(selectedTeamAtom)
       const id = row.original.id
-      const [pending, startTransition] = React.useTransition()
+      const [pending, setPending] = React.useState(false)
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -188,11 +188,10 @@ export const columns: ColumnDef<Teams[0]["TeamUser"][0]>[] = [
             <DropdownMenuItem
               disabled={role === "owner" || currentRole === "viewer" || pending}
               onClick={async () => {
+                setPending(true)
                 try {
                   if (!team) return
-                  startTransition(async () => {
-                    await removeTeamUser(id, team.id)
-                  })
+                  await removeTeamUser(id, team.id)
                   if (team) {
                     setTeam({
                       ...team,
@@ -208,6 +207,7 @@ export const columns: ColumnDef<Teams[0]["TeamUser"][0]>[] = [
                       "Couldn't remove the user from this team try again later",
                   })
                 }
+                setPending(false)
               }}
             >
               <div className=" flex items-center gap-2">
@@ -220,17 +220,16 @@ export const columns: ColumnDef<Teams[0]["TeamUser"][0]>[] = [
                 disabled={role === "viewer" || pending}
                 onClick={async () => {
                   if (team && row.original.email) {
+                    setPending(true)
                     try {
-                      startTransition(async () => {
-                        await inviteTeam(
-                          {
-                            email: row.original.email ?? "",
-                            role,
-                          },
-                          team.id,
-                          true
-                        )
-                      })
+                      await inviteTeam(
+                        {
+                          email: row.original.email ?? "",
+                          role,
+                        },
+                        team.id,
+                        true
+                      )
                       toast({
                         title: "The invitation is sent.",
                       })
@@ -239,6 +238,7 @@ export const columns: ColumnDef<Teams[0]["TeamUser"][0]>[] = [
                         title: "Couldn't send the invitation try again later",
                       })
                     }
+                    setPending(false)
                   }
                 }}
               >

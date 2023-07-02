@@ -38,15 +38,12 @@ export const TeamForm = () => {
     },
   })
   const [websites] = useAtom(websitesAtom)
-  const [pending, startTransition] = useTransition()
 
   async function onSubmit(values: z.infer<typeof teamSchema>) {
     setIsLoading(true)
     try {
       await createTeam(values)
-      startTransition(async () => {
-        await createTeam(values)
-      })
+      await createTeam(values)
       toast({
         title: "Success!",
         description: "Your team has been created.",

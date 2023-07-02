@@ -3,7 +3,7 @@ import { redirect } from "next/navigation"
 import { db } from "@/lib/db"
 import { getCurrentUser } from "@/lib/session"
 import { WebsiteCreateButton } from "@/components/website-create-button"
-import { WebsiteForm } from "@/components/website-from-modal"
+import { WebsiteForm } from "@/components/website-create-form"
 import { WebsitesList } from "@/components/websites-list"
 
 export default async function DashboardPage() {
@@ -30,9 +30,9 @@ export default async function DashboardPage() {
   return (
     <section>
       <div className=" flex justify-end">
-        <WebsiteCreateButton websiteCount={websites.length} />
+        <WebsiteCreateButton />
       </div>
-      <WebsitesList websites={websites} />
+      <WebsitesList />
       <WebsiteForm />
     </section>
   )
