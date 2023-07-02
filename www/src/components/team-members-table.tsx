@@ -6,6 +6,7 @@ import {
   inviteTeamModalAtom,
   leaveTeamModalAtom,
   selectedTeamAtom,
+  teamsAtom,
   userAtom,
 } from "@/jotai/store"
 import {
@@ -109,6 +110,7 @@ export const columns: ColumnDef<Teams[0]["TeamUser"][0]>[] = [
       const role = useUserRole()
       const id = row.original.id
       const [updating, setUpdating] = React.useState(false)
+      const [team] = useAtom(selectedTeamAtom)
       return (
         <div className="text-right">
           <Select
@@ -117,9 +119,13 @@ export const columns: ColumnDef<Teams[0]["TeamUser"][0]>[] = [
             onValueChange={async (val) => {
               setUpdating(true)
               try {
-                await updateTeamUser(id, {
-                  role: val as "viewer" | "admin",
-                })
+                await updateTeamUser(
+                  id,
+                  {
+                    role: val as "viewer" | "admin",
+                  },
+                  team?.id ?? ""
+                )
                 toast({
                   title: "User role is updated successfully",
                 })
@@ -166,11 +172,10 @@ export const columns: ColumnDef<Teams[0]["TeamUser"][0]>[] = [
     cell: ({ row }) => {
       const accepted = row.getValue("accepted")
       const role = row.original.role
-      // eslint-disable-next-line react-hooks/rules-of-hooks
       const currentRole = useUserRole()
-      // eslint-disable-next-line react-hooks/rules-of-hooks
       const [team, setTeam] = useAtom(selectedTeamAtom)
       const id = row.original.id
+      const [pending, startTransition] = React.useTransition()
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -181,10 +186,13 @@ export const columns: ColumnDef<Teams[0]["TeamUser"][0]>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem
-              disabled={role === "owner" || currentRole === "viewer"}
+              disabled={role === "owner" || currentRole === "viewer" || pending}
               onClick={async () => {
                 try {
-                  await removeTeamUser(id)
+                  if (!team) return
+                  startTransition(async () => {
+                    await removeTeamUser(id, team.id)
+                  })
                   if (team) {
                     setTeam({
                       ...team,
@@ -209,17 +217,20 @@ export const columns: ColumnDef<Teams[0]["TeamUser"][0]>[] = [
             </DropdownMenuItem>
             {!accepted ? (
               <DropdownMenuItem
+                disabled={role === "viewer" || pending}
                 onClick={async () => {
                   if (team && row.original.email) {
                     try {
-                      await inviteTeam(
-                        {
-                          email: row.original.email,
-                          role,
-                        },
-                        team.id,
-                        true
-                      )
+                      startTransition(async () => {
+                        await inviteTeam(
+                          {
+                            email: row.original.email ?? "",
+                            role,
+                          },
+                          team.id,
+                          true
+                        )
+                      })
                       toast({
                         title: "The invitation is sent.",
                       })
@@ -283,16 +294,16 @@ export function TeamMembersTable() {
     }).length === 1
   return (
     <div className="w-full">
-      <div className="flex items-center justify-between py-4">
+      <div className="grid grid-cols-3 py-4">
         <Input
           placeholder="Search by name..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
         />
-        <div className=" flex items-center gap-2">
+        <div></div>
+        <div className=" flex items-center justify-end gap-2">
           <Button
             variant="secondary"
             className=" flex items-center gap-2"

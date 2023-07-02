@@ -29,9 +29,25 @@ export const { GET, POST } = createServerRoutes({
                 }
             })
             if (!website) {
-                return {
-                    message: "Website not found",
-                    code: 404
+                const teamWebsite = await db.teamWebsite.findFirst({
+                    where: {
+                        AND: {
+                            websiteId: id,
+                            Team: {
+                                TeamUser: {
+                                    some: {
+                                        userId: user.id
+                                    }
+                                }
+                            }
+                        }
+                    }
+                })
+                if (!teamWebsite) {
+                    return {
+                        message: "Website not found",
+                        code: 404
+                    }
                 }
             }
         }

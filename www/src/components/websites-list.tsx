@@ -5,11 +5,11 @@ import { websitesAtom } from "@/jotai/store"
 import { useAtom } from "jotai"
 
 import { Website as WebsiteType } from "../../@prisma"
-import { DeleteWebsiteAlert } from "./delete-website-alert"
-import { EditWebsiteForm } from "./edit-website-form"
 import { EmptyPlaceholder } from "./empty-placeholder"
 import { Website } from "./website"
 import { WebsiteCreateButton } from "./website-create-button"
+import { DeleteWebsiteAlert } from "./website-delete-alert"
+import { EditWebsiteForm } from "./website-edit-form"
 
 export const WebsitesList = () => {
   const [websites] = useAtom(websitesAtom)

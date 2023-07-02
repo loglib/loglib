@@ -1,12 +1,17 @@
 import { db } from "@/lib/db"
+import { getCurrentUser } from "@/lib/session"
 
-export const getTeams = async (userId: string) => {
+export const getTeams = async () => {
+    const user = await getCurrentUser()
+    if (!user) {
+        throw new Error('User not found')
+    }
     const teams = await db.team.findMany({
         where: {
             TeamUser: {
                 some: {
                     AND: {
-                        userId,
+                        userId: user.id,
                         accepted: true
                     }
                 },

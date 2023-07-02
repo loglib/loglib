@@ -7,6 +7,8 @@ import { SidebarNavItem } from "types"
 import { cn } from "@/lib/utils"
 import { Icons } from "@/components/icons"
 
+import { Label } from "./ui/label"
+
 interface DashboardNavProps {
   items: SidebarNavItem[]
 }
@@ -36,6 +38,11 @@ export default function DashboardNav({ items }: DashboardNavProps) {
               >
                 <Icon className="mr-2 h-4 w-4" />
                 <span>{item.title}</span>
+                {item.label && (
+                  <span className=" ml-auto bg-gradient-to-tr from-purple-800 to-slate-800 bg-clip-text text-xs text-transparent dark:from-purple-300 dark:to-slate-200">
+                    {item.label}
+                  </span>
+                )}
               </span>
             </Link>
           )

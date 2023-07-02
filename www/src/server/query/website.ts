@@ -1,9 +1,14 @@
 import { db } from "@/lib/db"
+import { getCurrentUser } from "@/lib/session"
 
-export const getWebsite = async (userId: string) => {
+export const getWebsite = async () => {
+    const user = await getCurrentUser()
+    if (!user) {
+        throw new Error('User not found')
+    }
     const website = await db.website.findMany({
         where: {
-            userId: userId,
+            userId: user.id,
         },
         include: {
             WebSession: {
@@ -26,7 +31,7 @@ export const getWebsite = async (userId: string) => {
                 AND: {
                     TeamUser: {
                         some: {
-                            userId: userId,
+                            userId: user.id,
                         },
                     },
                     TeamWebsite: {
@@ -69,3 +74,4 @@ export const getWebsite = async (userId: string) => {
 }
 
 export type Websites = Awaited<ReturnType<typeof getWebsite>>
+

@@ -94,7 +94,7 @@ export const TeamHeader = ({ teams }: Props) => {
           </DropdownMenu>
         ) : null}
 
-        {selectedTeam ? (
+        {teams.length ? (
           <div className="ml-auto flex items-center gap-2">
             <button
               onClick={() => {
@@ -118,7 +118,9 @@ export const TeamHeader = ({ teams }: Props) => {
           </div>
         )}
       </div>
-      {selectedTeam?.TeamWebsite.length || role === "viewer" ? null : (
+      {!teams.length ||
+      selectedTeam?.TeamWebsite.length ||
+      role === "viewer" ? null : (
         <Alert className=" text-logo">
           <Terminal size={16} className=" animate-pulse" />
           <AlertTitle>Hey there!</AlertTitle>

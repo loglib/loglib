@@ -20,7 +20,7 @@ const Page = async ({
 }) => {
   const user = await getCurrentUser()
   if (!user) return null
-  const teams = await getTeams(user.id)
+  const teams = await getTeams()
   return (
     <section className=" space-y-8">
       <StoreSetter store="teams" data={teams} />

@@ -49,6 +49,7 @@ export const TeamUpdateForm = () => {
     setIsLoading(true)
     try {
       const res = await updateTeam(data, team.id)
+      if (!res) throw new Error("Could not update team")
       setSelectedTeam({
         ...team,
         name: res.name,
@@ -77,7 +78,7 @@ export const TeamUpdateForm = () => {
   return (
     <Form {...form}>
       <form
-        className=" grid grid-cols-3 gap-2"
+        className=" grid grid-cols-3 "
         onSubmit={form.handleSubmit(handleSubmit, (e) => {
           toast({
             title: e.root?.message ?? e.name?.message,
@@ -88,7 +89,7 @@ export const TeamUpdateForm = () => {
           control={form.control}
           name="name"
           render={({ field }) => (
-            <FormItem className=" flex-grow ">
+            <FormItem className="">
               <FormLabel>Team Name</FormLabel>
               {/* <FormMessage /> */}
               <FormControl>
@@ -103,7 +104,7 @@ export const TeamUpdateForm = () => {
           )}
         />
 
-        <div className=" self-end">
+        <div className=" mx-2 self-end">
           <Button
             variant="secondary"
             disabled={

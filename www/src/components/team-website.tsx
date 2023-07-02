@@ -46,7 +46,7 @@ export const TeamWebsiteModal = () => {
   const [team, setTeam] = useAtom(selectedTeamAtom)
   const [websites] = useAtom(websitesAtom)
   const router = useRouter()
-  const [selected, setSelected] = useState<string>("")
+  const [selected, setSelected] = useState<string>()
   async function onSubmit() {
     setIsLoading(true)
     try {
@@ -54,6 +54,7 @@ export const TeamWebsiteModal = () => {
         throw new Error("No team selected", {
           cause: "No team selected",
         })
+      if (!selected) throw new Error("No website selected")
       await addWebsiteToTeam(team.id, selected)
       toast({
         title: "Success!",

@@ -16,6 +16,7 @@ export default function Loglib({
   website: Website
   showHowTo: boolean
 }) {
+  console.log(website, "website")
   return (
     <main>
       <AddTracker websiteId={website.id} show={showHowTo} />

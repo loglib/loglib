@@ -15,25 +15,38 @@ export default async function Dashboard({
   if (!user) {
     return redirect("/")
   }
-  const teamWebsite = await db.teamWebsite.findFirst({
-    where: {
-      websiteId: params.website,
-      Team: {
-        TeamUser: {
-          some: {
-            userId: user.id,
+  const teamWebsite = await db.teamWebsite
+    .findFirst({
+      where: {
+        websiteId: params.website,
+        Team: {
+          TeamUser: {
+            some: {
+              userId: user.id,
+            },
           },
         },
       },
-    },
-  })
-  if (!teamWebsite) {
-    return notFound()
-  }
+      include: {
+        Website: {
+          include: {
+            WebSession: {
+              select: {
+                id: true,
+              },
+              take: 1,
+            },
+          },
+        },
+      },
+    })
+    .then((res) => res?.Website)
+
   const website = await db.website.findFirst({
     where: {
       AND: {
         id: params.website,
+        userId: user.id,
       },
     },
     include: {
@@ -45,12 +58,13 @@ export default async function Dashboard({
       },
     },
   })
-  if (!website) {
+  const site = website || teamWebsite
+  if (!site) {
     return notFound()
   }
   return (
-    <main>
-      <Loglib website={website} showHowTo={!website.WebSession.length} />
+    <main className=" space-y-8">
+      <Loglib website={site} showHowTo={!site.WebSession.length} />
     </main>
   )
 }
