@@ -1,5 +1,16 @@
 # @loglib/ui
 
+## 0.4.1
+
+### Patch Changes
+
+- b7913cc: - click on the graph now set time range
+  - unique visitors fix
+  - new visitors added
+  - api bug fix
+- Updated dependencies [b7913cc]
+  - @loglib/core@0.3.3
+
 ## 0.4.0
 
 ### Minor Changes

@@ -49,8 +49,8 @@ jobs:
         id: changeset
         uses: changesets/action@v1.4.4
         with:
-          commit: "Loglib(release): 📦  version packages"
-          title: "Loglib(release): 📦  version packages"
+          commit: "chore(release): 📦  version packages"
+          title: "chore(release): 📦  version packages"
           publish: npx changeset publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
