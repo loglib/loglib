@@ -60,8 +60,10 @@ model User {
   stripePriceId          String?   @map(name: "stripe_price_id")
   stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
 
-  Website Website[]
-  ApiKey  ApiKey[]
+  Website        Website[]
+  ApiKey         ApiKey[]
+  TeamUser       TeamUser[]
+  TeamUserInvite TeamUserInvite[]
 
   @@map(name: "users")
 }
@@ -90,6 +92,7 @@ model Website {
   WebPageview WebPageview[]
   WebEvent    WebEvent[]
   ApiKey      ApiKey[]
+  TeamWebsite TeamWebsite[]
 
   @@index([userId])
   @@map("website")
@@ -200,4 +203,82 @@ model ApiKey {
   @@index([userId])
   @@index([websiteId])
   @@map("api_key")
+}
+
+model Team {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  name      String   @map(name: "name")
+
+  TeamWebsite    TeamWebsite[]
+  TeamUser       TeamUser[]
+  TeamUserInvite TeamUserInvite[]
+
+  @@map(name: "team")
+}
+
+model TeamWebsite {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  teamId    String   @map(name: "team_id")
+  websiteId String   @map(name: "website_id")
+
+  Team    Team    @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  Website Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+
+  @@index([teamId])
+  @@index([websiteId])
+  @@map(name: "team_website")
+}
+
+model TeamUser {
+  id        String   @id @default(cuid())
+  teamId    String   @map(name: "team_id")
+  userId    String   @map(name: "user_id")
+  role      ROLE     @default(owner)
+  accepted  Boolean  @default(false)
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  Team           Team             @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  User           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  TeamUserInvite TeamUserInvite[]
+
+  @@index([teamId])
+  @@index([userId])
+  @@map(name: "team_users")
+}
+
+model TeamUserInvite {
+  id         String        @id @default(cuid())
+  teamId     String        @map(name: "team_id")
+  userId     String        @map(name: "user_id")
+  teamUserId String        @map(name: "team_user_id")
+  token      String        @map(name: "token")
+  status     INVITE_STATUS @default(sent)
+  createdAt  DateTime      @default(now()) @map(name: "created_at")
+  updatedAt  DateTime      @updatedAt @map(name: "updated_at")
+
+  Team     Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  User     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  TeamUser TeamUser @relation(fields: [teamUserId], references: [id], onDelete: Cascade)
+
+  @@index([teamId])
+  @@index([userId])
+  @@index([teamUserId])
+  @@map(name: "team_user_invite")
+}
+
+enum ROLE {
+  owner
+  admin
+  viewer
+}
+
+enum INVITE_STATUS {
+  sent
+  accepted
+  expired
 }

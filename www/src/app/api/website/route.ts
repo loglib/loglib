@@ -34,9 +34,23 @@ export const POST = async (request: Request) => {
                 id: body.id,
                 userId: user.id,
                 url: body.url,
-                title: body.title
+                title: body.title,
             }
         })
+        if (body.team) {
+            await db.team.update({
+                where: {
+                    id: body.team
+                },
+                data: {
+                    TeamWebsite: {
+                        create: {
+                            websiteId: body.id
+                        }
+                    }
+                }
+            })
+        }
         return new Response(JSON.stringify(website), {
             status: 201, headers: {
                 'Content-Type': 'application/json'

@@ -11,10 +11,16 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ["@prisma/client"],
     appDir: true,
+    serverActions: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
   },
-  transpilePackages: ["@loglib/ui", "@loglib/core", "@loglib/next"],
+  transpilePackages: [
+    "@loglib/ui",
+    "@loglib/core",
+    "@loglib/next",
+    "@loglib/tracker",
+  ],
 }
 export default nextConfig

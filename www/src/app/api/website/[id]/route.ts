@@ -13,7 +13,6 @@ const routeContextSchema = z.object({
 export const PATCH = async (request: Request, context: z.infer<typeof routeContextSchema>) => {
     try {
         const { params: { id } } = routeContextSchema.parse(context)
-        console.log(id)
         if (!id) {
             return new Response("Id not specified", { status: 400 })
         }
@@ -44,6 +43,24 @@ export const PATCH = async (request: Request, context: z.infer<typeof routeConte
                 id: body.id,
             }
         })
+        if (body.team) {
+            const isSiteInTeam = db.teamWebsite.findFirst({
+                where: {
+                    AND: {
+                        teamId: body.team,
+                        websiteId: body.id
+                    }
+                }
+            })
+            if (!isSiteInTeam) {
+                await db.teamWebsite.create({
+                    data: {
+                        websiteId: body.id,
+                        teamId: body.team
+                    }
+                })
+            }
+        }
         return new Response(JSON.stringify(res), { status: 200 })
     } catch {
         return new Response(null, { status: 500 })
