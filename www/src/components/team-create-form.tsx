@@ -43,7 +43,6 @@ export const TeamForm = () => {
     setIsLoading(true)
     try {
       await createTeam(values)
-      await createTeam(values)
       toast({
         title: "Success!",
         description: "Your team has been created.",
