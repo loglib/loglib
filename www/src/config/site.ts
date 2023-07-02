@@ -7,7 +7,7 @@ export const siteConfig: SiteConfig = {
   url: "https://www.loglib.io",
   ogImage: "https://www.loglib.io/og.png",
   links: {
-    twitter: "https://twitter.com/_loglib",
+    twitter: "https://twitter.com/loglib_io",
     github: "https://github.com/loglib/loglib",
   },
 }

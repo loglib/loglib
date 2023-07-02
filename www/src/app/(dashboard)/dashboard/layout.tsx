@@ -12,15 +12,15 @@ export default async function DashboardSideBarLayout({ children }) {
               href: "/dashboard",
             },
             {
+              title: "Teams",
+              icon: "teams",
+              href: "/dashboard/team",
+              useInclude: true,
+            },
+            {
               title: "Api Keys",
               icon: "key",
               href: "/dashboard/api-keys",
-            },
-            {
-              title: "Teams",
-              icon: "users",
-              href: "/dashboard/team",
-              useInclude: true,
             },
           ]}
         />

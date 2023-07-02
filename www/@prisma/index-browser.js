@@ -133,11 +133,23 @@ exports.Prisma.TeamScalarFieldEnum = {
   name: 'name'
 };
 
+exports.Prisma.TeamUserInviteScalarFieldEnum = {
+  id: 'id',
+  teamId: 'teamId',
+  userId: 'userId',
+  teamUserId: 'teamUserId',
+  token: 'token',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.TeamUserScalarFieldEnum = {
   id: 'id',
   teamId: 'teamId',
   userId: 'userId',
   role: 'role',
+  accepted: 'accepted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -237,7 +249,17 @@ exports.Prisma.WebsiteScalarFieldEnum = {
   userId: 'userId',
   active: 'active'
 };
+exports.INVITE_STATUS = {
+  sent: 'sent',
+  accepted: 'accepted',
+  expired: 'expired'
+};
 
+exports.ROLE = {
+  owner: 'owner',
+  admin: 'admin',
+  viewer: 'viewer'
+};
 
 exports.Prisma.ModelName = {
   Account: 'Account',
@@ -252,7 +274,8 @@ exports.Prisma.ModelName = {
   ApiKey: 'ApiKey',
   Team: 'Team',
   TeamWebsite: 'TeamWebsite',
-  TeamUser: 'TeamUser'
+  TeamUser: 'TeamUser',
+  TeamUserInvite: 'TeamUserInvite'
 };
 
 /**

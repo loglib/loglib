@@ -14,6 +14,7 @@ export const env = createEnv({
     GOOGLE_CLIENT_SECRET: z.string().min(1),
     DATABASE_URL: z.string().min(1),
     API_SECRET: z.string().min(1),
+    RESEND_EMAIL_SECRET: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_APP_URL: z.string().min(1),
@@ -29,5 +30,6 @@ export const env = createEnv({
     DATABASE_URL: process.env.DATABASE_URL,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     API_SECRET: process.env.API_SECRET,
+    RESEND_EMAIL_SECRET: process.env.RESEND_EMAIL_SECRET,
   },
 })

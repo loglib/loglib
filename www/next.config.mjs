@@ -11,6 +11,7 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ["@prisma/client"],
     appDir: true,
+    serverActions: true,
   },
   eslint: {
     ignoreDuringBuilds: true,

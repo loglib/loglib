@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react"
 import Link from "next/link"
-import { websiteDeleteModalAtom } from "@/jotai/store"
+import { teamsAtom, websiteDeleteModalAtom } from "@/jotai/store"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { AnimatePresence, motion } from "framer-motion"
 import { useAtom } from "jotai"
-import { Trash2 } from "lucide-react"
+import { Plus, Trash2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import Modal from "react-modal"
 import { z } from "zod"
@@ -15,6 +15,12 @@ import { Website } from "../../@prisma"
 import { Icons } from "./icons"
 import { Button, buttonVariants } from "./ui/button"
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu"
+import {
   Form,
   FormControl,
   FormDescription,
@@ -24,6 +30,14 @@ import {
   FormMessage,
 } from "./ui/form"
 import { Input } from "./ui/input"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select"
 import { toast } from "./ui/use-toast"
 
 export const EditWebsiteForm = ({
@@ -37,6 +51,7 @@ export const EditWebsiteForm = ({
 }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [, setDeleteAlert] = useAtom(websiteDeleteModalAtom)
+  const [teams] = useAtom(teamsAtom)
   const form = useForm<z.infer<typeof websiteFormSchema>>({
     resolver: zodResolver(websiteFormSchema),
   })
@@ -141,7 +156,7 @@ export const EditWebsiteForm = ({
                     variant: "destructive",
                   })
                 })}
-                className="space-y-4 "
+                className="space-y-2 "
               >
                 <FormField
                   control={form.control}

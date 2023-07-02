@@ -1,6 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { websitesAtom } from "@/jotai/store"
+import { useAtom } from "jotai"
 
 import { Website as WebsiteType } from "../../@prisma"
 import { DeleteWebsiteAlert } from "./delete-website-alert"
@@ -9,17 +11,9 @@ import { EmptyPlaceholder } from "./empty-placeholder"
 import { Website } from "./website"
 import { WebsiteCreateButton } from "./website-create-button"
 
-type WebsiteTypeWithSessions = WebsiteType & {
-  WebSession: {
-    id: string
-  }[]
-}
-export const WebsitesList = ({
-  websites,
-}: {
-  websites: WebsiteTypeWithSessions[]
-}) => {
-  const [selected, setSelected] = useState<string>(websites[0].id)
+export const WebsitesList = () => {
+  const [websites] = useAtom(websitesAtom)
+  const [selected, setSelected] = useState<string>("")
   const [selectedWebsite, setWebsite] = useState<WebsiteType | undefined>(
     undefined
   )
@@ -27,7 +21,6 @@ export const WebsitesList = ({
   useEffect(() => {
     setWebsite(websites.find((website) => website.id === selected))
   }, [selected, websites])
-
   return (
     <>
       {websites.length ? (
@@ -49,7 +42,7 @@ export const WebsitesList = ({
           <EmptyPlaceholder.Description>
             You haven&apos;t added any website yet. Start adding website
           </EmptyPlaceholder.Description>
-          <WebsiteCreateButton websiteCount={websites.length} />
+          <WebsiteCreateButton />
         </EmptyPlaceholder>
       )}
       <EditWebsiteForm
