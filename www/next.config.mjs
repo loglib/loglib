@@ -1,12 +1,10 @@
-import { withContentlayer } from "next-contentlayer"
-
 import "./env.mjs"
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   compiler: {
-    removeConsole: true,
+    removeConsole: process.env.NODE_ENV === "production",
   },
   images: {
     domains: ["avatars.githubusercontent.com"],
@@ -19,6 +17,11 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  transpilePackages: ["@loglib/core", "@loglib/next", "@loglib/tracker"],
+  transpilePackages: [
+    "@loglib/core",
+    "@loglib/next",
+    "@loglib/tracker",
+    "@loglib/ui",
+  ],
 }
 export default nextConfig

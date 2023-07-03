@@ -9,6 +9,9 @@ import { AddTracker } from "./add-tracker"
 
 import "@/styles/dashboard.css"
 
+import { useEffect } from "react"
+import { useTheme } from "next-themes"
+
 export default function Loglib({
   showHowTo,
   website,
@@ -16,9 +19,9 @@ export default function Loglib({
   website: Website
   showHowTo: boolean
 }) {
-  console.log(website, "website")
+  const { theme } = useTheme()
   return (
-    <main>
+    <main className={theme === "dark" ? "tw-dark dark" : ""}>
       <AddTracker websiteId={website.id} show={showHowTo} />
       <Dashboard
         className="tw-p-0 tw-m-0 dashboard bg-none dark:bg-none"
@@ -28,6 +31,7 @@ export default function Loglib({
         components={{
           header: () => <></>,
         }}
+        theme={theme as "dark"}
       />
     </main>
   )
