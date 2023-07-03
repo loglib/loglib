@@ -74,7 +74,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         onClick={() => {
           setIsGitHubLoading(true)
           signIn("github", {
-            callbackUrl: "/dashboard",
+            callbackUrl: searchParams?.get("from") || "/dashboard",
           })
         }}
         disabled={isLoading || isGitHubLoading}

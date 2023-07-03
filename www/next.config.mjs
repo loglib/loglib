@@ -5,6 +5,9 @@ import "./env.mjs"
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  compiler: {
+    removeConsole: true,
+  },
   images: {
     domains: ["avatars.githubusercontent.com"],
   },
@@ -16,11 +19,6 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  transpilePackages: [
-    "@loglib/ui",
-    "@loglib/core",
-    "@loglib/next",
-    "@loglib/tracker",
-  ],
+  transpilePackages: ["@loglib/core", "@loglib/next", "@loglib/tracker"],
 }
 export default nextConfig
