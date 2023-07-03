@@ -50,9 +50,9 @@ interface Comment {
   id: number
 }
 
-const DOCS_PATH = '/docs/pages/'
-const EXCLUDED_PATHS = ['']
-const EXCLUDED_HASHES = ['']
+const DOCS_PATH = '/docs/'
+const EXCLUDED_PATHS: string[] = []
+const EXCLUDED_HASHES: string[] = []
 const COMMENT_TAG = '<!-- LINK_CHECKER_COMMENT -->'
 
 const { context, getOctokit } = github
