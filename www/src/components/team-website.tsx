@@ -7,6 +7,8 @@ import {
   inviteTeamModalAtom,
   selectedTeamAtom,
   teamSitesModalAtom,
+  userAtom,
+  userWebsitesAtom,
   websitesAtom,
 } from "@/jotai/store"
 import {
@@ -15,7 +17,6 @@ import {
   inviteTeam,
   removeAllTeamWebsites,
 } from "@/server/actions/team"
-import { zodResolver } from "@hookform/resolvers/zod"
 import { AnimatePresence, motion } from "framer-motion"
 import { useAtom } from "jotai"
 import { useForm } from "react-hook-form"
@@ -44,7 +45,7 @@ export const TeamWebsiteModal = () => {
   const [isDeleteLoading, setIsDeleteLoading] = useState(false)
   const [modal, setModal] = useAtom(teamSitesModalAtom)
   const [team, setTeam] = useAtom(selectedTeamAtom)
-  const [websites] = useAtom(websitesAtom)
+  const [websites] = useAtom(userWebsitesAtom)
   const router = useRouter()
   const [selected, setSelected] = useState<string>()
   async function onSubmit() {
@@ -100,6 +101,7 @@ export const TeamWebsiteModal = () => {
       team.TeamWebsite.length && setSelected(team.TeamWebsite[0]?.websiteId)
     }
   }, [team])
+  const [user] = useAtom(userAtom)
   return (
     <AnimatePresence>
       {modal ? (
@@ -155,7 +157,7 @@ export const TeamWebsiteModal = () => {
                   {isDeleteLoading ? (
                     <Icons.spinner className=" h-4 w-4 animate-spin text-red-500" />
                   ) : (
-                    "Remove all websites"
+                    "Remove Websites"
                   )}
                 </Button>
               </div>
