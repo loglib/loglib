@@ -2,7 +2,7 @@ name: 'Validate Doc Links'
 on:
   pull_request:
     paths:
-      - 'docs/pages/**.mdx'
+      - 'docs/**.mdx'
 
 jobs:
   link-check:
