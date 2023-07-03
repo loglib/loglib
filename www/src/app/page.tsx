@@ -11,6 +11,7 @@ import { Icons } from "@/components/icons"
 import { SiteHeader } from "@/components/site-header"
 
 import { env } from "../../env.mjs"
+import { PricingCard } from "@/components/PricingCard"
 
 async function getGitHubStars() {
   try {
@@ -48,6 +49,40 @@ async function getGitHubContributors() {
     .then((result) => JSON.parse(result).length)
     .catch((error) => console.log("error", error))
 }
+
+const tiers = [
+  {
+    name: "Starter",
+    href: "/login?from=Starter",
+    priceMonthly: "Free",
+    description:
+      "Ideal for personal use or small businesses with a limited number of websites.",
+    features: [
+      "Upto 2 website",
+      "Upto 10k api requests per month",
+      "Upto 5M page views per month",
+      "Only 1 team",
+      "Receive a congratulatory email for every 5K page views",
+    ],
+    notIncluded: ["Custom Email Notification"],
+  },
+  {
+    name: "Enterprise",
+    href: "/login?from=Enterprise",
+    priceMonthly: "240k",
+    description:
+      "Ideal for businesses of all sizes that need more advanced web analytics features.",
+    features: [
+      "Unlimited",
+      "Unlimited",
+      "Unlimited",
+      "Unlimited",
+      "Receive a congratulatory email for every 1M page views",
+      "Custom Email Notification",
+    ],
+    notIncluded: [],
+  },
+]
 
 export default async function IndexPage() {
   const stars = await getGitHubStars()
@@ -460,6 +495,45 @@ export default async function IndexPage() {
               alt=""
             />
           </ul>
+        </div>
+      </section>
+
+      <section className="max-w-8xl card bg-gradient-radial flex w-full flex-col justify-center space-y-4 rounded-3xl  sm:min-h-fit md:px-16">
+        <div className="pt-12 sm:pt-16 lg:pt-24">
+          <div className="max-w-7xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl mx-auto space-y-2 lg:max-w-none">
+              <h2 className="text-lg leading-6 font-semibold text-slate-800 dark:text-slate-300 uppercase tracking-wider">
+                Pricing
+              </h2>
+              <div className="flex items-start justify-center mx-auto">
+                <svg className="h-12 w-12 text-gray-900 opacity-25 "
+                      fill="currentColor"
+                      viewBox="0 0 32 32"
+                      aria-hidden="true"
+                    >
+                      <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
+                    </svg>
+                <p className="text-3xl mt-10 font-extrabold max-w-2xl text-slate-900 dark:text-slate-200 sm:text-4xl lg:text-5xl">
+                  Here's where I separate the men from the boys.
+                </p>
+              </div>
+                <p className="text-xl text-slate-700 dark:text-slate-400">
+                  - Steve Jons 
+                </p>
+            </div>
+          </div>
+        </div>
+        <div className="mt-8 pb-12  sm:mt-12 sm:pb-16 lg:mt-16 lg:pb-24">
+          <div className="relative">
+            <div className="absolute inset-0 h-3/4 " />
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="max-w-md mx-auto space-y-4 lg:max-w-5xl lg:grid lg:grid-cols-2 lg:gap-5 lg:space-y-0">
+                <PricingCard tier={tiers[0]} />
+                <PricingCard tier={tiers[1]} blur/>
+              </div>
+            </div>
+          </div>
+      
         </div>
       </section>
 
