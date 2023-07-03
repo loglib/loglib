@@ -4,7 +4,7 @@ import { DatePicker, CalendarDateRangePicker } from "./components/ui/datePicker"
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";
 import useSWR from 'swr'
-import { cn, fetcher, getTheme, getUrl } from "@/react/lib/utils";
+import {  cn, fetcher, getTheme, getUrl } from "@/react/lib/utils";
 import { GetInsightResponse } from "@loglib/core"
 import { InsightCard } from "./components/insight/insightCard";
 import { Activity, Asterisk, Eye, Laptop2, MapPin, MonitorSmartphone, PanelTop, TimerIcon, UserIcon, Users2 } from "lucide-react";
@@ -32,14 +32,17 @@ type DashboardProps = {
   components?: typeof defaultComponents
   className?: string
   noAuth?: boolean
-  style?: React.CSSProperties
+  style?: React.CSSProperties,
+  theme?: "light" | "dark"
 }
 
 const defaultComponents = {
   header: DefaultHeader,
 }
 
-export const Dashboard: FC<DashboardProps> = (props) => {
+export const Dashboard: FC<DashboardProps> = (props = {
+  components: defaultComponents
+}) => {
   const [timeRange, setTimeRange] = useState<TimeRange>({
     startDate: getToday(),
     endDate: getTomorrow(),
@@ -105,13 +108,21 @@ export const Dashboard: FC<DashboardProps> = (props) => {
   const [curTableTab, setCurTableTab] = useState("")
   const [viCardSwitch, setViCardSwitch] = useState(false)
 
-  //set default components if not provided
-  const components = props.components ?? defaultComponents
+
+  const [theme, setTheme] = useState(props.theme)
+
+  useEffect(() => {
+    if (props.theme) {
+      setTheme(props.theme)
+    }
+  }, [props])
   return (
-    <main>
+    <main className={
+      theme === "dark" ? "dark" : ""
+    }>
       <LayoutGroup>
         <div style={props.style} className={cn("tw-min-h-screen dark:tw-bg-[#02060f] tw-bg-white tw-w-full tw-space-y-4 tw-p-8 tw-pt-6 tw-transition-all tw-duration-700 dark:tw-text-white/80 scrollbar-hide", props.className)}>
-          <components.header timezone={timezone} setTimezone={setTimezone} timezones={timezones} logoutFn={defaultLogout} hideLogout={!token} />
+          <props.components.header timezone={timezone} setTimezone={setTimezone} timezones={timezones} logoutFn={defaultLogout} hideLogout={!token} />
           {isAuth || props.noAuth ?
             <Tabs defaultValue="insights" className="tw-space-y-4" >
               <TabsList>
