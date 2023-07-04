@@ -1,5 +1,11 @@
 # @loglib/ui
 
+## 0.5.1
+
+### Patch Changes
+
+- da5caf5: - time range fix
+
 ## 0.5.0
 
 ### Minor Changes
