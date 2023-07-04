@@ -6,7 +6,7 @@ export const getWebsite = async () => {
     if (!user) {
         throw new Error('User not found')
     }
-    const website = await db.website.findMany({
+    const userWebsites = await db.website.findMany({
         where: {
             userId: user.id,
         },
@@ -24,7 +24,7 @@ export const getWebsite = async () => {
             },
         },
     })
-    const ids = website.map((website) => website.id)
+    const ids = userWebsites.map((website) => website.id)
     const teamWebsites = await db.teamWebsite.findMany({
         where: {
             Team: {
@@ -32,10 +32,10 @@ export const getWebsite = async () => {
                     TeamUser: {
                         some: {
                             userId: user.id,
+                            accepted: true,
                         },
                     },
                     TeamWebsite: {
-
                         some: {
                             websiteId: {
                                 notIn: ids
@@ -64,13 +64,12 @@ export const getWebsite = async () => {
             },
         },
     })
-    const websites = [
-        website,
-        teamWebsites.map((teamWebsite) => ({
-            ...teamWebsite.Website,
-        }))
-    ].reduce((acc, val) => acc.concat(val), [])
-    return websites
+
+
+    return {
+        teamWebsites: teamWebsites.map(t => t.Website),
+        userWebsites
+    }
 }
 
 export type Websites = Awaited<ReturnType<typeof getWebsite>>

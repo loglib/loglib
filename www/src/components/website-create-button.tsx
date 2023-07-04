@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { useRouter } from "next/navigation"
-import { websiteFormAtom, websitesAtom } from "@/jotai/store"
+import { userWebsitesAtom, websiteFormAtom, websitesAtom } from "@/jotai/store"
 import { useAtom } from "jotai"
 
 import { cn } from "@/lib/utils"
@@ -17,7 +17,7 @@ export function WebsiteCreateButton({
   variant,
   ...props
 }: WebsiteCreateButtonProps) {
-  const [websites] = useAtom(websitesAtom)
+  const [websites] = useAtom(userWebsitesAtom)
   const [, setCreateWebsite] = useAtom(websiteFormAtom)
   async function onClick() {
     if (websites.length > 1) {

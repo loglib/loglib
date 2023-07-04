@@ -9,11 +9,14 @@ import { StoreSetter } from "@/components/store-setter"
 export default async function DashboardSideBarLayout({ children }) {
   const user = await getCurrentUser()
   if (!user) return redirect("/login")
-  const websites = await getWebsite()
+  const { userWebsites, teamWebsites } = await getWebsite()
+  const websites = userWebsites.concat(teamWebsites)
   return (
     <div className=" space-y-8">
       <StoreSetter store="website" data={websites} />
       <StoreSetter store="user" data={user} />
+      <StoreSetter store="teamWebsites" data={teamWebsites} />
+      <StoreSetter store="userWebsites" data={userWebsites} />
       <DashboardHeader user={user} />
       <main className="grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
         <aside className="hidden w-[200px] flex-col pr-4 md:flex">

@@ -1,10 +1,18 @@
 "use client"
 
-import { teamsAtom, userAtom, websitesAtom } from "@/jotai/store"
+import {
+  teamsAtom,
+  teamWebsitesAtom,
+  userAtom,
+  userWebsitesAtom,
+  websitesAtom,
+} from "@/jotai/store"
 import { ExtractAtomArgs, useAtom } from "jotai"
 
 const stores = {
   website: websitesAtom,
+  teamWebsites: teamWebsitesAtom,
+  userWebsites: userWebsitesAtom,
   user: userAtom,
   teams: teamsAtom,
 }
