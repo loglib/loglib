@@ -8,10 +8,10 @@ import { getCurrentUser } from "@/lib/session"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { Icons } from "@/components/icons"
+import { PricingCard } from "@/components/pricing-card"
 import { SiteHeader } from "@/components/site-header"
 
 import { env } from "../../env.mjs"
-import { PricingCard } from "@/components/PricingCard"
 
 async function getGitHubStars() {
   try {
@@ -59,10 +59,9 @@ const tiers = [
       "Ideal for personal use or small businesses with a limited number of websites.",
     features: [
       "Upto 2 website",
+      "Upto 1M page views per month",
       "Upto 10k api requests per month",
-      "Upto 5M page views per month",
       "Only 1 team",
-      "Receive a congratulatory email for every 5K page views",
     ],
     notIncluded: ["Custom Email Notification"],
   },
@@ -184,7 +183,7 @@ export default async function IndexPage() {
         </div>
         <div className="flex flex-col  gap-6 font-semibold sm:flex-row ">
           <button className="group relative h-12 w-[170px] overflow-hidden rounded-lg px-8  py-3 text-white/80 dark:text-gray-400">
-            <div className=" absolute left-1/2 top-1/2 flex aspect-square w-full -translate-x-1/2 -translate-y-1/2  scale-105 items-center justify-center rounded-full bg-gray-900  bg-gradient-to-br from-indigo-600 to-orange-500 transition-all duration-1000 group-hover:rotate-180"></div>
+            <div className=" animate-text absolute left-1/2 top-1/2 flex aspect-square w-full -translate-x-1/2  -translate-y-1/2 scale-105 items-center justify-center rounded-full  bg-gray-900 bg-gradient-to-br from-indigo-600 to-orange-500 transition-all duration-1000 group-hover:rotate-180"></div>
             <Link
               className="absolute inset-0.5 flex w-40 items-center  justify-center rounded-md bg-gray-900/95 uppercase transition-all duration-500 hover:text-white/80 group-hover:bg-gray-900"
               href="/login"
@@ -212,7 +211,7 @@ export default async function IndexPage() {
           </Link>
           <Link
             href="https://demo.loglib.io/"
-            className=" flex items-center gap-4 rounded-md bg-gradient-to-tr from-slate-700/80 to-orange-600/60 bg-clip-text text-transparent transition-all duration-500 hover:gap-8 hover:text-gray-800 dark:from-white/70 hover:dark:text-gray-400"
+            className=" flex items-center gap-4 rounded-md bg-gradient-to-tr from-slate-700/80 to-orange-600/60 bg-clip-text text-transparent transition-all duration-500 hover:gap-8 hover:text-gray-800 dark:from-white/70 dark:to-purple-700 hover:dark:text-gray-400"
             target="_blank"
           >
             <span>Live Demo</span>
@@ -345,7 +344,34 @@ export default async function IndexPage() {
           </div>
         </div>
 
-        <div className="-mt-2 flex w-10/12 border-spacing-2 flex-col items-center space-x-4 border border-black/20 border-opacity-25 p-6 dark:border-white/25 md:w-[52%] lg:flex-row">
+        <div className="relative -mt-2 flex w-10/12 border-spacing-2 flex-col items-center space-x-4 border border-black/20 border-opacity-25 p-6 dark:border-white/25 md:w-[52%] lg:flex-row">
+          <div className="absolute -left-4 -top-5 border border-dashed border-black/50 p-1 dark:border-white/40">
+            <div className="bg-gradient-to-tr from-orange-800/80 to-yellow-700 px-2 py-1 text-xs font-bold text-white md:text-sm">
+              Coming Soon
+            </div>
+          </div>
+          <svg
+            width="56"
+            height="56"
+            viewBox="0 0 56 56"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M46.3955 9.36182C46.4316 9.36729 46.3014 9.3721 46.0331 9.3721C44.0084 9.3721 42.1197 11.5662 42.1197 14.5674C42.1197 16.0801 42.6351 17.4339 43.3911 18.3715L44.5086 19.7524L42.7518 20.0226C41.5968 20.1995 40.8199 20.7261 40.1678 21.5913C39.5157 22.4564 39.0364 23.6891 38.7186 25.1289C38.1514 27.6983 38.1072 30.8629 38.1033 33.6772H41.4325L41.4974 34.6309L42.2733 46.2896H49.4716L50.3498 34.6203L50.4217 33.6771H53.9217C53.8955 30.9008 53.7445 27.7782 53.1185 25.2279C52.767 23.7966 52.2672 22.5641 51.6214 21.6868C50.9756 20.8097 50.2324 20.2814 49.2082 20.0907L47.4888 19.7695L48.6135 18.4297C49.4041 17.4865 49.9464 16.1177 49.9464 14.5673C49.9464 11.752 48.2511 9.60102 46.4157 9.36521L46.3952 9.36193L46.3955 9.36182ZM19.626 9.73096C14.6057 9.73161 8.70554 10.3186 1.94824 11.6893V13.7812C31.2627 9.66347 39.3047 17.9539 26.6943 22.4595C13.8617 27.0445 3.67057 50.0502 44.1294 52.0557C44.6065 52.1036 45.0973 52.1308 45.5989 52.1308C48.0358 52.1308 50.2299 51.5345 51.7376 50.644C53.2456 49.7537 53.9902 48.6599 53.9902 47.5919C53.9902 46.5238 53.2456 45.4302 51.7377 44.5397C51.7126 44.5246 51.685 44.5099 51.6593 44.495L51.4405 47.3902L51.3687 48.3369H40.3593L40.2977 47.3799L39.939 41.9658C25.9178 42.2721 22.0829 30.9726 31.1787 27.6957C33.4083 26.8924 35.235 25.9636 36.6679 24.958C36.6865 24.8681 36.7029 24.777 36.7226 24.6879C37.0794 23.072 37.6256 21.5709 38.5376 20.3608C39.0785 19.643 39.7669 19.0406 40.5851 18.6141C40.2434 13.9605 33.1109 9.72888 19.6259 9.73096H19.626Z"
+              fill="#EAD5D5"
+              className="fill-black/80 dark:fill-[#EAD5D5]"
+            ></path>
+          </svg>
+          <div>
+            <p className="text-xl font-bold md:text-3xl">Journey builder</p>
+            <p className="max-w-md text-sm">
+              build a journey using events or page views and get analyzed
+              information about your funnel and your users flow.
+            </p>
+          </div>
+        </div>
+        <div className="relative -mt-3 ml-auto flex w-10/12 border-spacing-2 flex-col items-center border border-black/40 border-opacity-25 bg-white/10 p-6 px-10 dark:border-white/25 dark:bg-black/10 md:w-[50%] lg:flex-row lg:space-x-5">
           <svg
             width="80"
             height="80"
@@ -363,29 +389,6 @@ export default async function IndexPage() {
             <p className="max-w-md text-sm">
               With automatic and manual event tracking view how users interact
               with your website.
-            </p>
-          </div>
-        </div>
-        <div className="relative -mt-3 ml-auto flex w-10/12 border-spacing-2 flex-col items-center border border-black/40 border-opacity-25 bg-white/10 p-6 px-10 dark:border-white/25 dark:bg-black/10 md:w-[50%] lg:flex-row lg:space-x-5">
-          <svg
-            className=" h-16 w-16 fill-gray-800 dark:fill-white/90"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"> */}
-            <path
-              fill-rule="evenodd"
-              d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z"
-              clipRule="evenodd"
-            />
-          </svg>
-
-          <div className="">
-            <p className="text-xl font-bold md:text-3xl">
-              Notification and Reports
-            </p>
-            <p className="max-w-md text-sm">
-              Get monthly reports about your website inside your inbox.
             </p>
           </div>
         </div>
@@ -410,11 +413,6 @@ export default async function IndexPage() {
         </svg>
 
         <div className="relative flex w-10/12 border-spacing-8 flex-col items-center space-x-4 border border-dashed border-black/20 p-6 decoration-dashed dark:border-white/25 md:w-1/2 lg:flex-row">
-          <div className="absolute -left-4 -top-5 border border-dashed border-black/50 p-1 dark:border-white/40">
-            <div className="bg-gradient-to-tr from-orange-800/80 to-yellow-700 px-2 py-1 text-xs font-bold text-white md:text-sm">
-              New Release
-            </div>
-          </div>
           <svg
             width="71"
             height="71"
@@ -441,6 +439,9 @@ export default async function IndexPage() {
       </section>
 
       <section>
+        <p className=" font-heading text-center font-bold">
+          And a lot in the making...
+        </p>
         <div className="relative z-10 mx-auto max-w-screen-lg items-center px-4  py-8 text-center md:py-20">
           <p className="font-bold text-neutral-400 line-through">
             you can pretend this is true
@@ -498,42 +499,46 @@ export default async function IndexPage() {
         </div>
       </section>
 
+      <div className="max-w-8xl flex w-full items-end justify-end gap-8 pl-10">
+        <h1 className="dark:text-light font-heading text-5xl md:text-5xl lg:text-7xl xl:text-8xl">
+          Pricin<span className="text-logo">g</span>
+        </h1>
+        <div className="h-16 w-7/12 border-y border-l bg-zinc-400 bg-opacity-60 dark:border-slate-800 dark:bg-gray-800"></div>
+      </div>
+
       <section className="max-w-8xl card bg-gradient-radial flex w-full flex-col justify-center space-y-4 rounded-3xl  sm:min-h-fit md:px-16">
-        <div className="pt-12 sm:pt-16 lg:pt-24">
-          <div className="max-w-7xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl mx-auto space-y-2 lg:max-w-none">
-              <h2 className="text-lg leading-6 font-semibold text-slate-800 dark:text-slate-300 uppercase tracking-wider">
-                Pricing
-              </h2>
-              <div className="flex items-start justify-center mx-auto">
-                <svg className="h-12 w-12 text-gray-900 opacity-25 "
-                      fill="currentColor"
-                      viewBox="0 0 32 32"
-                      aria-hidden="true"
-                    >
-                      <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
-                    </svg>
-                <p className="text-3xl mt-10 font-extrabold max-w-2xl text-slate-900 dark:text-slate-200 sm:text-4xl lg:text-5xl">
-                  Here's where I separate the men from the boys.
+        <div className="pt-4 sm:pt-16 lg:pt-12">
+          <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-3xl space-y-2 lg:max-w-none">
+              <div className="mx-auto flex items-start justify-center">
+                <svg
+                  className="h-6 w-6 text-gray-900 opacity-25 dark:fill-white"
+                  fill="currentColor"
+                  viewBox="0 0 32 32"
+                  aria-hidden="true"
+                >
+                  <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
+                </svg>
+                <p className="mt-4 max-w-2xl text-lg font-extrabold text-slate-900 dark:text-slate-200 sm:text-4xl lg:text-2xl">
+                  They have the most generous free plan in the market
                 </p>
               </div>
-                <p className="text-xl text-slate-700 dark:text-slate-400">
-                  - Steve Jons 
-                </p>
+              <p className="text-xl text-slate-700 dark:text-slate-400">
+                - Steve Jones, CEO
+              </p>
             </div>
           </div>
         </div>
         <div className="mt-8 pb-12  sm:mt-12 sm:pb-16 lg:mt-16 lg:pb-24">
           <div className="relative">
             <div className="absolute inset-0 h-3/4 " />
-            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="max-w-md mx-auto space-y-4 lg:max-w-5xl lg:grid lg:grid-cols-2 lg:gap-5 lg:space-y-0">
+            <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="mx-auto max-w-md space-y-4 lg:grid lg:max-w-5xl lg:grid-cols-2 lg:gap-5 lg:space-y-0">
                 <PricingCard tier={tiers[0]} />
-                <PricingCard tier={tiers[1]} blur/>
+                <PricingCard tier={tiers[1]} blur />
               </div>
             </div>
           </div>
-      
         </div>
       </section>
 

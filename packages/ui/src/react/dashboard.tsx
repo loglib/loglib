@@ -13,7 +13,7 @@ import { RefComponent } from "./components/insight/referrer";
 import { DeviceComponent } from "./components/insight/devices";
 import { LocationsComponent } from "./components/insight/locations";
 import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
-import { getToday, getTomorrow } from "./lib/timeHelper";
+import { getLast24Hour } from "./lib/timeHelper";
 import { Graph } from "./components/insight/visitorsGraph";
 import Events from "./events";
 import { Filter, FilterProp } from "./lib/filter";
@@ -44,8 +44,8 @@ export const Dashboard: FC<DashboardProps> = (props = {
   components: defaultComponents
 }) => {
   const [timeRange, setTimeRange] = useState<TimeRange>({
-    startDate: getToday(),
-    endDate: getTomorrow(),
+    startDate: getLast24Hour(),
+    endDate: new Date(),
     stringValue: "24hr"
   });
 
