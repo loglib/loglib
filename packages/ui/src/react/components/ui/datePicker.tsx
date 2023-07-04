@@ -11,7 +11,7 @@ import {
   SelectValue
 } from "./select";
 import { Separator } from "./separator";
-import { getLastNinetyDays, getLastSevenDays, getLastThirtyDays, getThisMonth, getThisWeek, getThisYear, getToday, getTomorrow, getYesterday } from "../../lib/timeHelper";
+import { getLast24Hour, getLastNinetyDays, getLastSevenDays, getLastThirtyDays, getThisMonth, getThisWeek, getThisYear, getToday, getTomorrow, getYesterday } from "../../lib/timeHelper";
 import { format, subMonths } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { DateRange } from "react-day-picker"
@@ -87,8 +87,8 @@ export const DatePicker = ({ setTimeRange, setCustomTime, timeRange, customTime 
     switch (value) {
       case "24hr":
         setTimeRange({
-          startDate: getToday(),
-          endDate: getTomorrow(),
+          startDate: getLast24Hour(),
+          endDate: new Date(),
           stringValue: "24hr"
         })
         break;
