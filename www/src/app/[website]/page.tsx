@@ -63,7 +63,7 @@ export default async function Dashboard({
     return notFound()
   }
   return (
-    <main className=" space-y-8">
+    <main>
       <Loglib website={site} showHowTo={!site.WebSession.length} />
     </main>
   )
