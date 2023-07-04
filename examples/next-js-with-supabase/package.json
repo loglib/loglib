@@ -13,7 +13,7 @@
     "@loglib/next": "0.1.15",
     "@loglib/supabase-adapter": "0.3.3",
     "@loglib/tracker": "0.3.4",
-    "@loglib/ui": "0.5.0",
+    "@loglib/ui": "0.5.1",
     "@supabase/supabase-js": "^2.24.0",
     "@types/node": "^18.15.13",
     "@types/react": "^18.2.0",
