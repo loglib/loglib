@@ -1,5 +1,12 @@
 # @loglib/ui
 
+## 0.5.0
+
+### Minor Changes
+
+- 4086eb4: - bug fix on theme change on some browsers
+  - theme now can be provided as a prop
+
 ## 0.4.1
 
 ### Patch Changes
