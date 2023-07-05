@@ -7,14 +7,23 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
+      "outputMode": "new-only"
     },
     "lint": {
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build",
+        "$NODE_ENV",
+        "$NEXT_PUBLIC_LOGLIB_URL",
+        "$LOGLIB_URL",
+        "$VERCEL_URL",
+        "$NEXT_PUBLIC_VERCEL_URL"
+      ],
       "outputs": []
     },
     "test": {
       "dependsOn": ["build"],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts"],
       "outputs": []
     },
     "typecheck": {
@@ -22,5 +31,6 @@
       "outputs": [],
       "cache": true
     }
-  }
+  },
+  "globalDependencies": [".env", ".env.local", "tsconfig.json"]
 }

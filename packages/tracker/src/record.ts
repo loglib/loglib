@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { clickHandler } from "./handlers/clickHandler";
 import { send } from "./server";
 import { Config } from "./types";

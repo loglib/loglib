@@ -12,14 +12,7 @@ const config = {
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
   ],
-  overrides: [
-    {
-      files: ["**/tsup.config.ts"],
-      parserOptions: {
-        project: ["./tsconfig.json"],
-      },
-    },
-  ],
+
   rules: {
     "@typescript-eslint/no-unused-vars": [
       "error",
@@ -42,8 +35,12 @@ const config = {
     ".eslintrc.cjs",
     "**/config.*",
     "tailwind.config.js",
+    "**/*.config.js", 
+    "**/*.config.cjs",
+    "packages/config/**",
     "postcss.config.js",
   ],
+  reportUnusedDisableDirectives: true,
 };
 
 module.exports = config;
