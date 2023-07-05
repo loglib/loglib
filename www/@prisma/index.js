@@ -277,7 +277,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/runner/work/loglib/loglib/www/@prisma",
+      "value": "/Users/bekacru/Desktop/Development/loglib/www/@prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -286,7 +286,7 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-1.1.x",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
@@ -294,7 +294,8 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null
+    "rootEnvPath": "../.env",
+    "schemaEnvPath": "../.env"
   },
   "relativePath": "../prisma",
   "clientVersion": "4.15.0",
@@ -304,8 +305,7 @@ const config = {
   ],
   "activeProvider": "mysql",
   "dataProxy": false,
-  "postinstall": false,
-  "ciName": "GitHub Actions"
+  "postinstall": false
 }
 
 const fs = require('fs')
@@ -335,7 +335,7 @@ const PrismaClient = getPrismaClient(config)
 exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
-path.join(__dirname, "libquery_engine-debian-openssl-1.1.x.so.node");
-path.join(process.cwd(), "@prisma/libquery_engine-debian-openssl-1.1.x.so.node")
+path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
+path.join(process.cwd(), "@prisma/libquery_engine-darwin-arm64.dylib.node")
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "@prisma/schema.prisma")
