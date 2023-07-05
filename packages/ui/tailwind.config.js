@@ -3,13 +3,13 @@ module.exports = {
   darkMode: ["class", '[class="dark"]'],
   corePlugins: {
     preflight: false,
- },
+  },
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   theme: {
     container: {
       center: true,
@@ -38,12 +38,12 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
-      colors:{
-        "emphasis": "#f8a857",
-      }
+      colors: {
+        emphasis: "#f8a857",
+      },
     },
   },
+  // @ts-ignore
   plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar-hide")],
   prefix: "tw-",
-  important: true
-}
+};

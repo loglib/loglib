@@ -43,7 +43,7 @@ export function TeamLeaveAlert({
       toast({
         title: deleteTeam ? "Team deleted." : "You left the team.",
       })
-    } catch (e) {
+    } catch (e: any) {
       toast({
         title: "Something went wrong.",
         description: e.message,

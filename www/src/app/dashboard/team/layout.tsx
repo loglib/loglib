@@ -1,7 +1,12 @@
+import { ReactNode } from "react"
 import Link from "next/link"
 import { ChevronRight } from "lucide-react"
 
-export default async function DashboardLayout({ children }) {
+export default async function DashboardLayout({
+  children,
+}: {
+  children: ReactNode
+}) {
   return (
     <main>
       <div className="grid gap-1">

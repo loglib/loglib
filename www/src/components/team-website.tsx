@@ -61,7 +61,7 @@ export const TeamWebsiteModal = () => {
         title: "Success!",
         description: "Your team website has been updated!",
       })
-    } catch (e) {
+    } catch (e: any) {
       toast({
         title: e.message ?? "Uh oh!",
         description:

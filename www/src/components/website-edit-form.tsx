@@ -132,7 +132,7 @@ export const EditWebsiteForm = ({
               ease: "easeInOut",
               duration: 0.3,
             }}
-            className=" animate-in relative flex w-11/12 flex-col  justify-center rounded-md border bg-gradient-to-tr from-gray-100 to-gray-200 px-8 pb-10 pt-4 dark:border-slate-800 dark:from-black dark:to-slate-900/20 md:w-3/12"
+            className="animate-in relative flex w-11/12 flex-col  justify-center rounded-md border bg-gradient-to-tr from-gray-100 to-gray-200 px-8 pb-10 pt-4 dark:border-slate-800 dark:from-black dark:to-slate-900/20 md:w-3/12"
           >
             <div className=" ml-auto">
               <Button
@@ -197,7 +197,7 @@ export const EditWebsiteForm = ({
                       {/* <FormMessage /> */}
                       <FormControl>
                         <div className="border-input flex items-center  rounded-md border px-1 focus-within:outline-none">
-                          <span className=" flex h-10 items-center border-r px-2 text-sm dark:border-slate-800">
+                          <span className="flex h-10 items-center border-r px-2 text-sm dark:border-slate-800">
                             loglib.io/
                           </span>
                           <input

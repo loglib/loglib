@@ -1,6 +1,12 @@
+import { ReactNode } from "react"
+
 import DashboardNav from "@/components/side-nav"
 
-export default async function DashboardSideBarLayout({ children }) {
+export default async function DashboardSideBarLayout({
+  children,
+}: {
+  children: ReactNode
+}) {
   return (
     <main>
       <div className="grid gap-1">

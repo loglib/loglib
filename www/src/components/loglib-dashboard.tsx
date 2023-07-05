@@ -24,7 +24,7 @@ export default function Loglib({
     <main className={theme === "dark" ? "tw-dark dark" : ""}>
       <AddTracker websiteId={website.id} show={showHowTo} />
       <Dashboard
-        className="tw-p-0 tw-m-0 dashboard bg-none dark:bg-none"
+        className="tw-p-0 tw-m-0 dashboard tw-bg-none dark:tw-bg-none"
         websiteId={website.id}
         websiteUrl={website.url}
         noAuth

@@ -1,4 +1,3 @@
-
 import path from "path"
 import fs from "fs-extra"
 import { type PackageJson } from "type-fest"

@@ -1,3 +1,4 @@
+import { ReactNode } from "react"
 import { redirect } from "next/navigation"
 import { getWebsite } from "@/server/query/website"
 
@@ -6,7 +7,11 @@ import DashboardNav from "@/components/side-nav"
 import { DashboardHeader } from "@/components/site-header"
 import { StoreSetter } from "@/components/store-setter"
 
-export default async function DashboardSideBarLayout({ children }) {
+export default async function DashboardSideBarLayout({
+  children,
+}: {
+  children: ReactNode
+}) {
   const user = await getCurrentUser()
   if (!user) return redirect("/login")
   const { userWebsites, teamWebsites } = await getWebsite()

@@ -1,11 +1,12 @@
 import Link from "next/link"
+import { motion } from "framer-motion"
 import { Twitter } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 
 export default function page() {
   return (
-    <div>
+    <div className=" animate-in">
       <div className=" my-auto flex min-h-[70vh] flex-col items-center justify-center gap-10 space-y-4">
         <h2 className=" text-center text-6xl font-bold text-slate-400/80">
           Reach <span className=" text-slate-400">Out</span>

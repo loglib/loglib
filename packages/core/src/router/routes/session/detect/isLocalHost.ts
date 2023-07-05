@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { isIP, isIPv4 } from 'net';
 import { createSocket, Socket } from 'dgram';
 import { ADDRCONFIG, lookup } from 'dns';

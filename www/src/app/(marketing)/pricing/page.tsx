@@ -1,6 +1,3 @@
-import { motion } from "framer-motion"
-import { Quote } from "lucide-react"
-
 import { PricingCard } from "@/components/pricing-card"
 
 const tiers = [
@@ -8,12 +5,12 @@ const tiers = [
     name: "Starter",
     href: "/login?from=Starter",
     priceMonthly: "Free",
-    description: "Ideal for get started with your personal projects.",
+    description: "Ideal to get started and for your personal projects.",
     features: [
       "Upto 2 website",
       "Upto 1M page views per month",
       "Upto 10k api requests per month",
-      "Only 1 team",
+      "Throw in there 1 team",
     ],
     notIncluded: ["Custom Email Notification"],
   },
@@ -31,12 +28,15 @@ const tiers = [
 export default function page() {
   return (
     <div className=" space-y-4">
-      <h2 className=" text-center text-6xl font-bold text-slate-400/80">
-        Pricing
-      </h2>
+      <div className="relative mx-auto max-w-6xl">
+        <h1 className="bg-gradient-to-r from-slate-300 to-slate-400/80 bg-clip-text pb-3 text-center text-4xl font-semibold leading-tight tracking-tight text-transparent sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-relaxed">
+          Pricing
+        </h1>
+      </div>
+
       <div className=" flex items-center justify-center">
-        <p className=" max-w-lg break-words text-center font-medium  text-slate-500">
-          _price is what you pay. <span className=" text-slate-300">Value</span>{" "}
+        <p className=" max-w-lg break-words text-center font-medium  italic text-slate-500">
+          Price is what you pay. <span className=" text-slate-300">Value</span>{" "}
           is what you get. And with <span className=" text-slate-400">our</span>{" "}
           prices, you&apos;re getting a{" "}
           <span className=" text-orange-300/60">whole</span> lot of value and a{" "}
@@ -47,9 +47,29 @@ export default function page() {
       </div>
 
       <div className=" flex items-center justify-center gap-10">
-        <PricingCard tier={tiers[0]} />
-        <PricingCard tier={tiers[1]} blur />
+        <div className=" rounded-lg border border-slate-300/10">
+          <PricingCard tier={tiers[0]} />
+        </div>
+
+        <div className=" relative">
+          <PricingCard tier={tiers[1]} blur />
+          <ComingSoon />
+        </div>
+        <div className=" relative">
+          <PricingCard tier={tiers[1]} blur />
+          <ComingSoon />
+        </div>
       </div>
+    </div>
+  )
+}
+
+const ComingSoon = () => {
+  return (
+    <div className="absolute left-0 top-0 flex h-full w-full flex-col  items-center justify-center">
+      <h2 className="font-heading bg-gradient-to-tr from-orange-800 to-slate-800 bg-clip-text text-2xl font-bold uppercase leading-6 tracking-wider text-transparent dark:from-slate-100 dark:to-slate-300">
+        Coming <span className=" tex-slate-200">soon</span>
+      </h2>
     </div>
   )
 }

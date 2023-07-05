@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { describe, expect, it, vi } from "vitest";
 import { Adapter } from "../src/adapters";
 import { internalRouter } from "../src/router";
