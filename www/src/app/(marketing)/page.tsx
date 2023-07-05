@@ -1,17 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-
-import { stat } from "fs"
 import Link from "next/link"
 
 import { siteConfig } from "@/config/site"
 import { getCurrentUser } from "@/lib/session"
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
-import { Icons } from "@/components/icons"
-import { PricingCard } from "@/components/pricing-card"
-import { SiteHeader } from "@/components/site-header"
 
-import { env } from "../../env.mjs"
+import { env } from "../../../env.mjs"
 
 async function getGitHubStars() {
   try {
@@ -50,68 +43,20 @@ async function getGitHubContributors() {
     .catch((error) => console.log("error", error))
 }
 
-const tiers = [
-  {
-    name: "Starter",
-    href: "/login?from=Starter",
-    priceMonthly: "Free",
-    description:
-      "Ideal for personal use or small businesses with a limited number of websites.",
-    features: [
-      "Upto 2 website",
-      "Upto 1M page views per month",
-      "Upto 10k api requests per month",
-      "Only 1 team",
-    ],
-    notIncluded: ["Custom Email Notification"],
-  },
-  {
-    name: "Enterprise",
-    href: "/login?from=Enterprise",
-    priceMonthly: "240k",
-    description:
-      "Ideal for businesses of all sizes that need more advanced web analytics features.",
-    features: [
-      "Unlimited",
-      "Unlimited",
-      "Unlimited",
-      "Unlimited",
-      "Receive a congratulatory email for every 1M page views",
-      "Custom Email Notification",
-    ],
-    notIncluded: [],
-  },
-]
-
 export default async function IndexPage() {
   const stars = await getGitHubStars()
   const contributors = await getGitHubContributors()
   const user = await getCurrentUser()
   return (
     <main className="  grid place-items-center  space-y-10 md:space-y-20">
-      <header className="max-w-8xl w-full pt-4">
-        <SiteHeader />
-        <div className="mt-4 space-y-5">
-          <hr className="border-1 ml-auto mr-8 w-8/12 animate-pulse border-[#877474]" />
-          <div className="flex items-center space-x-4">
-            <hr className="w-3/12 animate-pulse border-gray-400/50 md:w-7/12" />
-            <span className="grow select-none text-xs font-extralight italic dark:text-white/70 md:text-sm">
-              appreciate you&apos;re here for analytics. despite having no real
-              users. 👀
-            </span>
-          </div>
-          <hr className="border-1 ml-auto w-7/12 animate-pulse border-[#877474] border-opacity-50" />
-        </div>
-      </header>
-
-      <section className="max-w-8xl card bg-gradient-radial flex w-full flex-col justify-center space-y-4 rounded-3xl border from-gray-50 to-gray-200 px-8 py-12 dark:border-slate-800 dark:from-yellow-700/10 dark:to-[#080812] sm:min-h-fit md:px-16 md:py-24">
+      <section className="max-w-8xl card bg-gradient-radial flex w-full flex-col  justify-between space-y-4 rounded-3xl border from-gray-50 to-gray-200 px-8 py-12 dark:border-slate-800 dark:from-yellow-700/10 dark:to-[#080812] sm:min-h-fit md:px-16 md:py-20">
         <Link
           href={siteConfig.links.github}
           target="_blank"
           rel="noreferrer"
           className="underline underline-offset-4"
         >
-          <div className="mx-auto flex items-center gap-2">
+          <div className="mx-auto flex items-center gap-3">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"
@@ -126,13 +71,21 @@ export default async function IndexPage() {
             </h2>
           </div>
         </Link>
+
         <h1 className="font-heading max-w-3xl text-4xl font-bold sm:text-8xl ">
-          Yet Another <br className="" />
-          <span className="bg-gradient-to-br from-orange-400 to-gray-200 bg-clip-text uppercase text-transparent dark:from-gray-200 dark:to-orange-400">
+          <span className=" text-opacity-80 hover:opacity-95">
+            Y<span className=" text-opacity-95">e</span>t
+          </span>{" "}
+          An
+          <span className="animate-pulse opacity-80 hover:opacity-90">o</span>
+          ther
+          <br className="" />
+          <span className="animate-text bg-gradient-to-br from-orange-400 to-gray-200 bg-clip-text uppercase text-transparent dark:from-gray-200 dark:to-orange-400">
             web analytics
           </span>
         </h1>
-        <div className="flex flex-col gap-3 font-semibold ">
+
+        <div className="mt-4 flex flex-col gap-3 font-semibold">
           <p className="max-w-xl text-left text-xl tracking-wider text-orange-500">
             3 Easy Step To Setup
           </p>
@@ -182,33 +135,23 @@ export default async function IndexPage() {
           </div>
         </div>
         <div className="flex flex-col  gap-6 font-semibold sm:flex-row ">
-          <button className="group relative h-12 w-[170px] overflow-hidden rounded-lg px-8  py-3 text-white/80 dark:text-gray-400">
-            <div className=" animate-text absolute left-1/2 top-1/2 flex aspect-square w-full -translate-x-1/2  -translate-y-1/2 scale-105 items-center justify-center rounded-full  bg-gray-900 bg-gradient-to-br from-indigo-600 to-orange-500 transition-all duration-1000 group-hover:rotate-180"></div>
+          <button className=" animate-text group relative h-12 w-[170px] overflow-hidden rounded-lg px-8  py-3 text-white/80 dark:text-gray-400">
+            <div className="  from-logo/80 absolute left-1/2 top-1/2 flex aspect-square w-full  -translate-x-1/2 -translate-y-1/2 scale-105 items-center justify-center  rounded-full bg-gray-900 bg-gradient-to-br to-indigo-800 transition-all duration-1000 group-hover:rotate-180"></div>
+            <div
+              className="absolute bottom-0 left-0 h-1/3 w-[var(--width)] translate-x-[var(--left)] translate-y-full rounded-full bg-white/30 blur-md transition-[width,transform] duration-[--duration]"
+              style={{
+                width: "84.5px",
+                left: "0px",
+              }}
+            ></div>
             <Link
-              className="absolute inset-0.5 flex w-40 items-center  justify-center rounded-md bg-gray-900/95 uppercase transition-all duration-500 hover:text-white/80 group-hover:bg-gray-900"
+              className="absolute inset-0.5 flex w-40 items-center justify-center  rounded-md bg-gray-900/95 font-bold uppercase transition-all duration-500 hover:text-white/80 group-hover:bg-gray-900"
               href="/login"
             >
               Get Started
             </Link>
           </button>
-          <Link
-            href="https://docs.loglib.io"
-            className=" flex items-center gap-4 rounded-md text-gray-500 transition-all duration-500 hover:gap-8 hover:text-gray-800 dark:from-white/70 hover:dark:text-gray-400 "
-          >
-            <span>Read The Doc</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              className="aspect-square w-5 stroke-orange-300 stroke-2 "
-            >
-              <path
-                strokeLinecap="round"
-                stroke-linejoin="round"
-                d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-              />
-            </svg>
-          </Link>
+
           <Link
             href="https://demo.loglib.io/"
             className=" flex items-center gap-4 rounded-md bg-gradient-to-tr from-slate-700/80 to-orange-600/60 bg-clip-text text-transparent transition-all duration-500 hover:gap-8 hover:text-gray-800 dark:from-white/70 dark:to-purple-700 hover:dark:text-gray-400"
@@ -232,7 +175,10 @@ export default async function IndexPage() {
       </section>
 
       <div className="max-w-8xl flex w-full items-end justify-end gap-8 pl-10">
-        <h1 className="dark:text-light font-heading text-5xl md:text-5xl lg:text-7xl xl:text-8xl">
+        <h1
+          id="features"
+          className="dark:text-light font-heading text-5xl md:text-5xl lg:text-7xl xl:text-8xl"
+        >
           Feature<span className="text-logo">s</span>
         </h1>
         <div className="h-16 w-7/12 border-y border-l bg-zinc-400 bg-opacity-60 dark:border-slate-800 dark:bg-gray-800"></div>
@@ -496,49 +442,6 @@ export default async function IndexPage() {
               alt=""
             />
           </ul>
-        </div>
-      </section>
-
-      <div className="max-w-8xl flex w-full items-end justify-end gap-8 pl-10">
-        <h1 className="dark:text-light font-heading text-5xl md:text-5xl lg:text-7xl xl:text-8xl">
-          Pricin<span className="text-logo">g</span>
-        </h1>
-        <div className="h-16 w-7/12 border-y border-l bg-zinc-400 bg-opacity-60 dark:border-slate-800 dark:bg-gray-800"></div>
-      </div>
-
-      <section className="max-w-8xl card bg-gradient-radial flex w-full flex-col justify-center space-y-4 rounded-3xl  sm:min-h-fit md:px-16">
-        <div className="pt-4 sm:pt-16 lg:pt-12">
-          <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-3xl space-y-2 lg:max-w-none">
-              <div className="mx-auto flex items-start justify-center">
-                <svg
-                  className="h-6 w-6 text-gray-900 opacity-25 dark:fill-white"
-                  fill="currentColor"
-                  viewBox="0 0 32 32"
-                  aria-hidden="true"
-                >
-                  <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
-                </svg>
-                <p className="mt-4 max-w-2xl text-lg font-extrabold text-slate-900 dark:text-slate-200 sm:text-4xl lg:text-2xl">
-                  They have the most generous free plan in the market
-                </p>
-              </div>
-              <p className="text-xl text-slate-700 dark:text-slate-400">
-                - Steve Jones, CEO
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="mt-8 pb-12  sm:mt-12 sm:pb-16 lg:mt-16 lg:pb-24">
-          <div className="relative">
-            <div className="absolute inset-0 h-3/4 " />
-            <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <div className="mx-auto max-w-md space-y-4 lg:grid lg:max-w-5xl lg:grid-cols-2 lg:gap-5 lg:space-y-0">
-                <PricingCard tier={tiers[0]} />
-                <PricingCard tier={tiers[1]} blur />
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 

@@ -6,6 +6,7 @@ import { User } from "next-auth"
 import { useTheme } from "next-themes"
 
 import { Icons } from "./icons"
+import { LandingNav } from "./landing-nav"
 import { Button } from "./ui/button"
 import { UserAccountNav } from "./user-account-nav"
 
@@ -19,10 +20,14 @@ export function SiteHeader({ user }: { user?: User }) {
         logoClassName=" w-10 h-10"
         headerClassName=" text-3xl"
       />
+      <div className=" hidden md:block">
+        <LandingNav />
+      </div>
       <div className="flex items-center gap-2 font-medium">
         <Link href={user ? "/dashboard" : "/login"}>
           <Button variant="outline">{user ? "Dashboard" : "Login"}</Button>
         </Link>
+
         <div className="relative col-span-1 select-none flex-col items-center justify-center self-center lg:flex">
           <Button
             variant="outline"
