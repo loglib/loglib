@@ -4,14 +4,13 @@ const config = {
   parser: "@typescript-eslint/parser",
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: true
+    project: true,
   },
   plugins: ["@typescript-eslint"],
   extends: [
     "turbo",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "prettier",
   ],
   overrides: [
     {
