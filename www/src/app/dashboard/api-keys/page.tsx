@@ -20,9 +20,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { CopyToClipboard } from "@/components/copy-to-clipboard"
-import { GenerateApiKey } from "@/components/generate-api-key-modal"
-import { DeleteKeys, GenerateKeys } from "@/components/generate-keys"
+import { DeleteKeys, GenerateKeys } from "@/components/api-key-generate-buttons"
+import { GenerateApiKey } from "@/components/api-key-generate-modal"
 
 const apiKeys = async () => {
   const user = await getCurrentUser()

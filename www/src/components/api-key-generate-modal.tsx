@@ -60,7 +60,7 @@ export const GenerateApiKey = ({ websites }: { websites: Website[] }) => {
       const data = await res.json()
       setKey(data.key)
       router.refresh()
-    } catch (e) {
+    } catch (e: any) {
       toast({
         title: e.message,
         variant: "destructive",

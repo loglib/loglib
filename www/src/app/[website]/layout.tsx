@@ -1,9 +1,10 @@
+import { ReactNode } from "react"
 import { redirect } from "next/navigation"
 
 import { getCurrentUser } from "@/lib/session"
 import { DashboardHeader } from "@/components/site-header"
 
-export default async function layout({ children }) {
+export default async function layout({ children }: { children: ReactNode }) {
   const user = await getCurrentUser()
   if (!user) return redirect("/login")
   return (

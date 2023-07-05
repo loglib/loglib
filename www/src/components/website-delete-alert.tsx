@@ -31,7 +31,7 @@ export function DeleteWebsiteAlert({ id }: { id: string }) {
       return toast({
         title: "Website deleted.",
       })
-    } catch (e) {
+    } catch (e: any) {
       setIsDeleteLoading(false)
       toast({
         title: "Something went wrong.",

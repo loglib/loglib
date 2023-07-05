@@ -40,9 +40,7 @@ const defaultComponents = {
   header: DefaultHeader,
 }
 
-export const Dashboard: FC<DashboardProps> = (props = {
-  components: defaultComponents
-}) => {
+export const Dashboard: FC<DashboardProps> = (props) => {
   const [timeRange, setTimeRange] = useState<TimeRange>({
     startDate: getLast24Hour(),
     endDate: new Date(),
@@ -116,13 +114,15 @@ export const Dashboard: FC<DashboardProps> = (props = {
       setTheme(props.theme)
     }
   }, [props])
+
+  const components = { ...defaultComponents, ...props.components }
   return (
     <main className={
       theme === "dark" ? "dark" : ""
     }>
       <LayoutGroup>
         <div style={props.style} className={cn(" dark:tw-bg-[#02060f] tw-bg-white tw-w-full tw-space-y-4 tw-p-8 tw-pt-6 tw-transition-all tw-duration-700 dark:tw-text-white/80 scrollbar-hide", props.className)}>
-          <props.components.header timezone={timezone} setTimezone={setTimezone} timezones={timezones} logoutFn={defaultLogout} hideLogout={!token} />
+          <components.header timezone={timezone} setTimezone={setTimezone} timezones={timezones} logoutFn={defaultLogout} hideLogout={!token} />
           {isAuth || props.noAuth ?
             <Tabs defaultValue="insights" className="tw-space-y-4" >
               <TabsList>

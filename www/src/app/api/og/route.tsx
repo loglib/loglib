@@ -106,14 +106,14 @@ export async function GET(req: Request) {
                   stroke={paint}
                   strokeWidth="2"
                   stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M18 36c-9.02 4-10-4-14-4"
                   stroke={paint}
                   strokeWidth="2"
                   stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinejoin="round"
                 />
               </svg>
               <div tw="flex ml-2">github.com/loglib/loglib</div>

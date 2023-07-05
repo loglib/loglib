@@ -11,10 +11,6 @@ const config = {
   semi: true,
   trailingComma: "all",
   tabWidth: 2,
-  plugins: [
-    "@ianvs/prettier-plugin-sort-imports",
-    "prettier-plugin-tailwindcss",
-  ],
   tailwindConfig: "./packages/config/tailwind",
   importOrderTypeScriptVersion: "4.4.0",
   importOrder: [

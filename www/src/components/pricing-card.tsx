@@ -3,6 +3,8 @@
 import { motion } from "framer-motion"
 import { CheckIcon, XIcon } from "lucide-react"
 
+import { cn } from "@/lib/utils"
+
 interface Tier {
   name: string
   href: string
@@ -21,7 +23,10 @@ export function PricingCard({ tier, blur }: PricingCardProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="relative flex max-w-md flex-col overflow-hidden rounded-lg shadow-lg"
+      className={cn(
+        "relative flex max-w-sm flex-col overflow-hidden rounded-lg shadow-lg",
+        blur && "blur-md"
+      )}
     >
       <div className="bg-slate-50 px-6 py-8 dark:bg-slate-900/40 sm:p-10 sm:pb-6">
         <div>
@@ -82,13 +87,6 @@ export function PricingCard({ tier, blur }: PricingCardProps) {
           </a>
         </div>
       </div>
-      {blur && (
-        <div className="absolute left-0 top-0 flex h-full w-full flex-col  items-center justify-center backdrop-blur-md">
-          <h2 className="font-heading bg-gradient-to-tr from-orange-800 to-slate-800 bg-clip-text text-2xl font-bold uppercase leading-6 tracking-wider text-transparent dark:from-white dark:to-slate-300">
-            Coming soon
-          </h2>
-        </div>
-      )}
     </motion.div>
   )
 }

@@ -70,7 +70,7 @@ export const TeamInviteForm = () => {
         title: "Success!",
         description: "Your team invite has been sent.",
       })
-    } catch (e) {
+    } catch (e: any) {
       toast({
         title: e.message ?? "Uh oh!",
         description:

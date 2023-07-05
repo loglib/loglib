@@ -44,5 +44,5 @@
     "useDefineForClassFields": true
   },
   "exclude": ["node_modules", "dist"],
-  "include": [".eslintrc.js", ".prettierrc.cjs"]
+  "include": [".eslintrc.js", ".prettierrc.cjs", "**/tsup.config.ts"]
 }
