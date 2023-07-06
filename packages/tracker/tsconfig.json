@@ -12,6 +12,6 @@
     "allowUmdGlobalAccess": true,
     "noEmit": true
   },
-  "include": ["src", "test"],
+  "include": ["src", "test", "vite.config.ts"],
   "exclude": ["node_modules"]
 }
