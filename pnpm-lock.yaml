@@ -46,7 +46,7 @@ importers:
 
   docs:
     specifiers:
-      '@loglib/tracker': 0.3.4
+      '@loglib/tracker': 0.3.5
       '@radix-ui/react-aspect-ratio': ^1.0.3
       '@radix-ui/react-slot': ^1.0.1
       '@types/node': ^18.15.13
@@ -106,7 +106,7 @@ importers:
       '@loglib/core': 0.3.3
       '@loglib/next': 0.1.15
       '@loglib/prisma-adapter': 0.2.3
-      '@loglib/tracker': 0.3.4
+      '@loglib/tracker': 0.3.5
       '@loglib/ui': 0.5.2
       '@prisma/client': ^4.14.0
       '@types/node': ^18.15.13
@@ -148,7 +148,7 @@ importers:
       '@loglib/core': 0.3.3
       '@loglib/next': 0.1.15
       '@loglib/supabase-adapter': 0.3.3
-      '@loglib/tracker': 0.3.4
+      '@loglib/tracker': 0.3.5
       '@loglib/ui': 0.5.2
       '@supabase/supabase-js': ^2.24.0
       '@types/node': ^18.15.13
@@ -433,7 +433,7 @@ importers:
       '@loglib/core': ^0.3.3
       '@loglib/next': ^0.1.15
       '@loglib/prisma-adapter': ^0.2.3
-      '@loglib/tracker': 0.3.4
+      '@loglib/tracker': 0.3.5
       '@loglib/ui': 0.5.2
       '@lottiefiles/react-lottie-player': ^3.5.3
       '@mdx-js/mdx': ^2.3.0
