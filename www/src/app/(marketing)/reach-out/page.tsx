@@ -1,8 +1,8 @@
 import Link from "next/link"
-import { motion } from "framer-motion"
 import { Twitter } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { Track } from "@loglib/tracker/react"
 
 export default function page() {
   return (
@@ -21,19 +21,23 @@ export default function page() {
             love to hear from you.
           </p>
           <div className=" mt-10 ">
-            <Link
-              href="https://cal.com/loglib/30min"
-              className="rounded-sm bg-slate-900 p-3 text-white hover:bg-slate-950 dark:bg-[#cac5c1] dark:text-black dark:hover:bg-gray-300/80"
-              id="lets_meet"
-            >
-              Let&apos;s Meet
-            </Link>
-            <Button variant="link" className=" gap-2">
-              <Twitter size={16} />
-              <Link href="https://twitter.com/loglib_io">
-                Follow us on Twitter
+            <Track name="meet">
+              <Link
+                href="https://cal.com/loglib/30min"
+                className="rounded-sm bg-slate-900 p-3 text-white hover:bg-slate-950 dark:bg-[#cac5c1] dark:text-black dark:hover:bg-gray-300/80"
+                id="lets_meet"
+              >
+                Let&apos;s Meet
               </Link>
-            </Button>
+            </Track>
+            <Track name="follow on twitter">
+              <Button variant="link" className=" gap-2">
+                <Twitter size={16} />
+                <Link href="https://twitter.com/loglib_io">
+                  Follow us on Twitter
+                </Link>
+              </Button>
+            </Track>
           </div>
         </div>
       </div>
