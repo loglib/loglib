@@ -1,5 +1,11 @@
 # @loglib/tracker
 
+## 0.3.5
+
+### Patch Changes
+
+- a35d867: track support for RSC
+
 ## 0.3.4
 
 ### Patch Changes
