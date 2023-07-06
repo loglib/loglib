@@ -1,5 +1,11 @@
 # @loglib/ui
 
+## 0.5.2
+
+### Patch Changes
+
+- 9a5c38d: minor bug fixes
+
 ## 0.5.1
 
 ### Patch Changes
