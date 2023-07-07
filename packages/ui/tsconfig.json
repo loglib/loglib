@@ -2,12 +2,12 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "sourceMap": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
+    "allowUmdGlobalAccess": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "strict": false,
-    "baseUrl": ".",
+    "strict": true,
     "paths": {
       "@/*": ["./src/*"]
     }
