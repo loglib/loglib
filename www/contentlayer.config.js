@@ -15,7 +15,6 @@ const computedFields = {
     resolve: (doc) => doc._raw.flattenedPath.split("/").slice(1).join("/"),
   },
 }
-
 export const Doc = defineDocumentType(() => ({
   name: "Doc",
   filePathPattern: `docs/**/*.mdx`,
@@ -36,78 +35,77 @@ export const Doc = defineDocumentType(() => ({
   computedFields,
 }))
 
-export const Guide = defineDocumentType(() => ({
-  name: "Guide",
-  filePathPattern: `guides/**/*.mdx`,
-  contentType: "mdx",
-  fields: {
-    title: {
-      type: "string",
-      required: true,
-    },
-    description: {
-      type: "string",
-    },
-    date: {
-      type: "date",
-      required: true,
-    },
-    published: {
-      type: "boolean",
-      default: true,
-    },
-    featured: {
-      type: "boolean",
-      default: false,
-    },
-  },
-  computedFields,
-}))
+// export const Guide = defineDocumentType(() => ({
+//   name: "Guide",
+//   filePathPattern: `guides/**/*.mdx`,
+//   contentType: "mdx",
+//   fields: {
+//     title: {
+//       type: "string",
+//       required: true,
+//     },
+//     description: {
+//       type: "string",
+//     },
+//     date: {
+//       type: "date",
+//       required: true,
+//     },
+//     published: {
+//       type: "boolean",
+//       default: true,
+//     },
+//     featured: {
+//       type: "boolean",
+//       default: false,
+//     },
+//   },
+//   computedFields,
+// }))
 
-export const Author = defineDocumentType(() => ({
-  name: "Author",
-  filePathPattern: `authors/**/*.mdx`,
-  contentType: "mdx",
-  fields: {
-    title: {
-      type: "string",
-      required: true,
-    },
-    description: {
-      type: "string",
-    },
-    avatar: {
-      type: "string",
-      required: true,
-    },
-    twitter: {
-      type: "string",
-      required: true,
-    },
-  },
-  computedFields,
-}))
+// export const Author = defineDocumentType(() => ({
+//   name: "Author",
+//   filePathPattern: `authors/**/*.mdx`,
+//   contentType: "mdx",
+//   fields: {
+//     title: {
+//       type: "string",
+//       required: true,
+//     },
+//     description: {
+//       type: "string",
+//     },
+//     avatar: {
+//       type: "string",
+//       required: true,
+//     },
+//     twitter: {
+//       type: "string",
+//       required: true,
+//     },
+//   },
+//   computedFields,
+// }))
 
-export const Page = defineDocumentType(() => ({
-  name: "Page",
-  filePathPattern: `pages/**/*.mdx`,
-  contentType: "mdx",
-  fields: {
-    title: {
-      type: "string",
-      required: true,
-    },
-    description: {
-      type: "string",
-    },
-  },
-  computedFields,
-}))
-
+// export const Page = defineDocumentType(() => ({
+//   name: "Page",
+//   filePathPattern: `pages/**/*.mdx`,
+//   contentType: "mdx",
+//   fields: {
+//     title: {
+//       type: "string",
+//       required: true,
+//     },
+//     description: {
+//       type: "string",
+//     },
+//   },
+//   computedFields,
+// }))
 
 export default makeSource({
   contentDirPath: "./src/content",
-  documentTypes: [Page, Doc, Guide, Author],
+  documentTypes: [Doc],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [
@@ -116,7 +114,6 @@ export default makeSource({
         rehypePrettyCode,
         {
           theme: "github-dark",
-          //@ts-expect-error
           onVisitLine(node) {
             // Prevent lines from collapsing in `display: grid` mode, and allow empty
             // lines to be copy/pasted
@@ -124,11 +121,9 @@ export default makeSource({
               node.children = [{ type: "text", value: " " }]
             }
           },
-          //@ts-expect-error
           onVisitHighlightedLine(node) {
             node.properties.className.push("line--highlighted")
           },
-         //@ts-expect-error
           onVisitHighlightedWord(node) {
             node.properties.className = ["word--highlighted"]
           },

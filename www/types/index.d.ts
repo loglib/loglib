@@ -3,9 +3,7 @@ import type { Icon } from "lucide-react"
 
 import { Icons } from "@/components/icons"
 
-
 export type MainNavItem = NavItem
-
 
 export type NavLink = {
   title: string
@@ -19,17 +17,18 @@ export type SidebarNavItem = {
   disabled?: boolean
   external?: boolean
   label?: string
-  icon?: keyof typeof Icons,
+  icon?: keyof typeof Icons
   useInclude?: boolean
 } & (
-    | {
+  | {
       href: string
       items?: never
     }
-    | {
-      href: string
+  | {
+      href?: string
+      items: NavLink[]
     }
-  )
+)
 
 export type SiteConfig = {
   name: string
@@ -43,9 +42,9 @@ export type SiteConfig = {
 }
 
 export type DocsConfig = {
+  mainNav: MainNavItem[]
   sidebarNav: SidebarNavItem[]
 }
-
 export type DashboardConfig = {
   sidebarNav: SidebarNavItem[]
 }
@@ -61,4 +60,3 @@ export type UserSubscriptionPlan = SubscriptionPlan &
     stripeCurrentPeriodEnd: number
     isPro: boolean
   }
-
