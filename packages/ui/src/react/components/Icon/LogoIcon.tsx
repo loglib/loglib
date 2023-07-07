@@ -1,9 +1,6 @@
 import { cn } from "@/react/lib/utils";
-import React from "react";
 
-
-
-const LogoIcon = ({className}: {className?:string}) => {
+const LogoIcon = ({ className }: { className?: string }) => {
   return (
     <svg
       width="59"
