@@ -271,6 +271,11 @@ model TeamUserInvite {
   @@map(name: "team_user_invite")
 }
 
+model Disallowed {
+  id       String @id @default(cuid())
+  identity String
+}
+
 enum ROLE {
   owner
   admin

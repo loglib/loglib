@@ -12,6 +12,9 @@
     "preview": "next build && next start",
     "postinstall": "prisma generate"
   },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
   "dependencies": {
     "@hookform/resolvers": "^3.1.1",
     "@loglib/core": "^0.3.3",

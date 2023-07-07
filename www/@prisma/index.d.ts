@@ -220,6 +220,15 @@ export type TeamUserInvite = {
   updatedAt: Date
 }
 
+/**
+ * Model Disallowed
+ * 
+ */
+export type Disallowed = {
+  id: string
+  identity: string
+}
+
 
 /**
  * Enums
@@ -499,6 +508,16 @@ export class PrismaClient<
     * ```
     */
   get teamUserInvite(): Prisma.TeamUserInviteDelegate<GlobalReject>;
+
+  /**
+   * `prisma.disallowed`: Exposes CRUD operations for the **Disallowed** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Disalloweds
+    * const disalloweds = await prisma.disallowed.findMany()
+    * ```
+    */
+  get disallowed(): Prisma.DisallowedDelegate<GlobalReject>;
 }
 
 export namespace Prisma {
@@ -981,7 +1000,8 @@ export namespace Prisma {
     Team: 'Team',
     TeamWebsite: 'TeamWebsite',
     TeamUser: 'TeamUser',
-    TeamUserInvite: 'TeamUserInvite'
+    TeamUserInvite: 'TeamUserInvite',
+    Disallowed: 'Disallowed'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -15561,6 +15581,864 @@ export namespace Prisma {
 
 
   /**
+   * Model Disallowed
+   */
+
+
+  export type AggregateDisallowed = {
+    _count: DisallowedCountAggregateOutputType | null
+    _min: DisallowedMinAggregateOutputType | null
+    _max: DisallowedMaxAggregateOutputType | null
+  }
+
+  export type DisallowedMinAggregateOutputType = {
+    id: string | null
+    identity: string | null
+  }
+
+  export type DisallowedMaxAggregateOutputType = {
+    id: string | null
+    identity: string | null
+  }
+
+  export type DisallowedCountAggregateOutputType = {
+    id: number
+    identity: number
+    _all: number
+  }
+
+
+  export type DisallowedMinAggregateInputType = {
+    id?: true
+    identity?: true
+  }
+
+  export type DisallowedMaxAggregateInputType = {
+    id?: true
+    identity?: true
+  }
+
+  export type DisallowedCountAggregateInputType = {
+    id?: true
+    identity?: true
+    _all?: true
+  }
+
+  export type DisallowedAggregateArgs = {
+    /**
+     * Filter which Disallowed to aggregate.
+     */
+    where?: DisallowedWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Disalloweds to fetch.
+     */
+    orderBy?: Enumerable<DisallowedOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DisallowedWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Disalloweds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Disalloweds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Disalloweds
+    **/
+    _count?: true | DisallowedCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DisallowedMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DisallowedMaxAggregateInputType
+  }
+
+  export type GetDisallowedAggregateType<T extends DisallowedAggregateArgs> = {
+        [P in keyof T & keyof AggregateDisallowed]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDisallowed[P]>
+      : GetScalarType<T[P], AggregateDisallowed[P]>
+  }
+
+
+
+
+  export type DisallowedGroupByArgs = {
+    where?: DisallowedWhereInput
+    orderBy?: Enumerable<DisallowedOrderByWithAggregationInput>
+    by: DisallowedScalarFieldEnum[]
+    having?: DisallowedScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DisallowedCountAggregateInputType | true
+    _min?: DisallowedMinAggregateInputType
+    _max?: DisallowedMaxAggregateInputType
+  }
+
+
+  export type DisallowedGroupByOutputType = {
+    id: string
+    identity: string
+    _count: DisallowedCountAggregateOutputType | null
+    _min: DisallowedMinAggregateOutputType | null
+    _max: DisallowedMaxAggregateOutputType | null
+  }
+
+  type GetDisallowedGroupByPayload<T extends DisallowedGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<DisallowedGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DisallowedGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DisallowedGroupByOutputType[P]>
+            : GetScalarType<T[P], DisallowedGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DisallowedSelect = {
+    id?: boolean
+    identity?: boolean
+  }
+
+
+  export type DisallowedGetPayload<S extends boolean | null | undefined | DisallowedArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? Disallowed :
+    S extends undefined ? never :
+    S extends { include: any } & (DisallowedArgs | DisallowedFindManyArgs)
+    ? Disallowed 
+    : S extends { select: any } & (DisallowedArgs | DisallowedFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof Disallowed ? Disallowed[P] : never
+  } 
+      : Disallowed
+
+
+  type DisallowedCountArgs = 
+    Omit<DisallowedFindManyArgs, 'select' | 'include'> & {
+      select?: DisallowedCountAggregateInputType | true
+    }
+
+  export interface DisallowedDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one Disallowed that matches the filter.
+     * @param {DisallowedFindUniqueArgs} args - Arguments to find a Disallowed
+     * @example
+     * // Get one Disallowed
+     * const disallowed = await prisma.disallowed.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends DisallowedFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, DisallowedFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Disallowed'> extends True ? Prisma__DisallowedClient<DisallowedGetPayload<T>> : Prisma__DisallowedClient<DisallowedGetPayload<T> | null, null>
+
+    /**
+     * Find one Disallowed that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {DisallowedFindUniqueOrThrowArgs} args - Arguments to find a Disallowed
+     * @example
+     * // Get one Disallowed
+     * const disallowed = await prisma.disallowed.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends DisallowedFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, DisallowedFindUniqueOrThrowArgs>
+    ): Prisma__DisallowedClient<DisallowedGetPayload<T>>
+
+    /**
+     * Find the first Disallowed that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DisallowedFindFirstArgs} args - Arguments to find a Disallowed
+     * @example
+     * // Get one Disallowed
+     * const disallowed = await prisma.disallowed.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends DisallowedFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, DisallowedFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Disallowed'> extends True ? Prisma__DisallowedClient<DisallowedGetPayload<T>> : Prisma__DisallowedClient<DisallowedGetPayload<T> | null, null>
+
+    /**
+     * Find the first Disallowed that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DisallowedFindFirstOrThrowArgs} args - Arguments to find a Disallowed
+     * @example
+     * // Get one Disallowed
+     * const disallowed = await prisma.disallowed.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends DisallowedFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, DisallowedFindFirstOrThrowArgs>
+    ): Prisma__DisallowedClient<DisallowedGetPayload<T>>
+
+    /**
+     * Find zero or more Disalloweds that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DisallowedFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Disalloweds
+     * const disalloweds = await prisma.disallowed.findMany()
+     * 
+     * // Get first 10 Disalloweds
+     * const disalloweds = await prisma.disallowed.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const disallowedWithIdOnly = await prisma.disallowed.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends DisallowedFindManyArgs>(
+      args?: SelectSubset<T, DisallowedFindManyArgs>
+    ): Prisma.PrismaPromise<Array<DisallowedGetPayload<T>>>
+
+    /**
+     * Create a Disallowed.
+     * @param {DisallowedCreateArgs} args - Arguments to create a Disallowed.
+     * @example
+     * // Create one Disallowed
+     * const Disallowed = await prisma.disallowed.create({
+     *   data: {
+     *     // ... data to create a Disallowed
+     *   }
+     * })
+     * 
+    **/
+    create<T extends DisallowedCreateArgs>(
+      args: SelectSubset<T, DisallowedCreateArgs>
+    ): Prisma__DisallowedClient<DisallowedGetPayload<T>>
+
+    /**
+     * Create many Disalloweds.
+     *     @param {DisallowedCreateManyArgs} args - Arguments to create many Disalloweds.
+     *     @example
+     *     // Create many Disalloweds
+     *     const disallowed = await prisma.disallowed.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends DisallowedCreateManyArgs>(
+      args?: SelectSubset<T, DisallowedCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Disallowed.
+     * @param {DisallowedDeleteArgs} args - Arguments to delete one Disallowed.
+     * @example
+     * // Delete one Disallowed
+     * const Disallowed = await prisma.disallowed.delete({
+     *   where: {
+     *     // ... filter to delete one Disallowed
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends DisallowedDeleteArgs>(
+      args: SelectSubset<T, DisallowedDeleteArgs>
+    ): Prisma__DisallowedClient<DisallowedGetPayload<T>>
+
+    /**
+     * Update one Disallowed.
+     * @param {DisallowedUpdateArgs} args - Arguments to update one Disallowed.
+     * @example
+     * // Update one Disallowed
+     * const disallowed = await prisma.disallowed.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends DisallowedUpdateArgs>(
+      args: SelectSubset<T, DisallowedUpdateArgs>
+    ): Prisma__DisallowedClient<DisallowedGetPayload<T>>
+
+    /**
+     * Delete zero or more Disalloweds.
+     * @param {DisallowedDeleteManyArgs} args - Arguments to filter Disalloweds to delete.
+     * @example
+     * // Delete a few Disalloweds
+     * const { count } = await prisma.disallowed.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends DisallowedDeleteManyArgs>(
+      args?: SelectSubset<T, DisallowedDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Disalloweds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DisallowedUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Disalloweds
+     * const disallowed = await prisma.disallowed.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends DisallowedUpdateManyArgs>(
+      args: SelectSubset<T, DisallowedUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Disallowed.
+     * @param {DisallowedUpsertArgs} args - Arguments to update or create a Disallowed.
+     * @example
+     * // Update or create a Disallowed
+     * const disallowed = await prisma.disallowed.upsert({
+     *   create: {
+     *     // ... data to create a Disallowed
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Disallowed we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends DisallowedUpsertArgs>(
+      args: SelectSubset<T, DisallowedUpsertArgs>
+    ): Prisma__DisallowedClient<DisallowedGetPayload<T>>
+
+    /**
+     * Count the number of Disalloweds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DisallowedCountArgs} args - Arguments to filter Disalloweds to count.
+     * @example
+     * // Count the number of Disalloweds
+     * const count = await prisma.disallowed.count({
+     *   where: {
+     *     // ... the filter for the Disalloweds we want to count
+     *   }
+     * })
+    **/
+    count<T extends DisallowedCountArgs>(
+      args?: Subset<T, DisallowedCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DisallowedCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Disallowed.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DisallowedAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DisallowedAggregateArgs>(args: Subset<T, DisallowedAggregateArgs>): Prisma.PrismaPromise<GetDisallowedAggregateType<T>>
+
+    /**
+     * Group by Disallowed.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DisallowedGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DisallowedGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DisallowedGroupByArgs['orderBy'] }
+        : { orderBy?: DisallowedGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DisallowedGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDisallowedGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Disallowed.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__DisallowedClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * Disallowed base type for findUnique actions
+   */
+  export type DisallowedFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the Disallowed
+     */
+    select?: DisallowedSelect | null
+    /**
+     * Filter, which Disallowed to fetch.
+     */
+    where: DisallowedWhereUniqueInput
+  }
+
+  /**
+   * Disallowed findUnique
+   */
+  export interface DisallowedFindUniqueArgs extends DisallowedFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Disallowed findUniqueOrThrow
+   */
+  export type DisallowedFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Disallowed
+     */
+    select?: DisallowedSelect | null
+    /**
+     * Filter, which Disallowed to fetch.
+     */
+    where: DisallowedWhereUniqueInput
+  }
+
+
+  /**
+   * Disallowed base type for findFirst actions
+   */
+  export type DisallowedFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the Disallowed
+     */
+    select?: DisallowedSelect | null
+    /**
+     * Filter, which Disallowed to fetch.
+     */
+    where?: DisallowedWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Disalloweds to fetch.
+     */
+    orderBy?: Enumerable<DisallowedOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Disalloweds.
+     */
+    cursor?: DisallowedWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Disalloweds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Disalloweds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Disalloweds.
+     */
+    distinct?: Enumerable<DisallowedScalarFieldEnum>
+  }
+
+  /**
+   * Disallowed findFirst
+   */
+  export interface DisallowedFindFirstArgs extends DisallowedFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Disallowed findFirstOrThrow
+   */
+  export type DisallowedFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Disallowed
+     */
+    select?: DisallowedSelect | null
+    /**
+     * Filter, which Disallowed to fetch.
+     */
+    where?: DisallowedWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Disalloweds to fetch.
+     */
+    orderBy?: Enumerable<DisallowedOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Disalloweds.
+     */
+    cursor?: DisallowedWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Disalloweds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Disalloweds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Disalloweds.
+     */
+    distinct?: Enumerable<DisallowedScalarFieldEnum>
+  }
+
+
+  /**
+   * Disallowed findMany
+   */
+  export type DisallowedFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the Disallowed
+     */
+    select?: DisallowedSelect | null
+    /**
+     * Filter, which Disalloweds to fetch.
+     */
+    where?: DisallowedWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Disalloweds to fetch.
+     */
+    orderBy?: Enumerable<DisallowedOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Disalloweds.
+     */
+    cursor?: DisallowedWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Disalloweds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Disalloweds.
+     */
+    skip?: number
+    distinct?: Enumerable<DisallowedScalarFieldEnum>
+  }
+
+
+  /**
+   * Disallowed create
+   */
+  export type DisallowedCreateArgs = {
+    /**
+     * Select specific fields to fetch from the Disallowed
+     */
+    select?: DisallowedSelect | null
+    /**
+     * The data needed to create a Disallowed.
+     */
+    data: XOR<DisallowedCreateInput, DisallowedUncheckedCreateInput>
+  }
+
+
+  /**
+   * Disallowed createMany
+   */
+  export type DisallowedCreateManyArgs = {
+    /**
+     * The data used to create many Disalloweds.
+     */
+    data: Enumerable<DisallowedCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Disallowed update
+   */
+  export type DisallowedUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the Disallowed
+     */
+    select?: DisallowedSelect | null
+    /**
+     * The data needed to update a Disallowed.
+     */
+    data: XOR<DisallowedUpdateInput, DisallowedUncheckedUpdateInput>
+    /**
+     * Choose, which Disallowed to update.
+     */
+    where: DisallowedWhereUniqueInput
+  }
+
+
+  /**
+   * Disallowed updateMany
+   */
+  export type DisallowedUpdateManyArgs = {
+    /**
+     * The data used to update Disalloweds.
+     */
+    data: XOR<DisallowedUpdateManyMutationInput, DisallowedUncheckedUpdateManyInput>
+    /**
+     * Filter which Disalloweds to update
+     */
+    where?: DisallowedWhereInput
+  }
+
+
+  /**
+   * Disallowed upsert
+   */
+  export type DisallowedUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the Disallowed
+     */
+    select?: DisallowedSelect | null
+    /**
+     * The filter to search for the Disallowed to update in case it exists.
+     */
+    where: DisallowedWhereUniqueInput
+    /**
+     * In case the Disallowed found by the `where` argument doesn't exist, create a new Disallowed with this data.
+     */
+    create: XOR<DisallowedCreateInput, DisallowedUncheckedCreateInput>
+    /**
+     * In case the Disallowed was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DisallowedUpdateInput, DisallowedUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Disallowed delete
+   */
+  export type DisallowedDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the Disallowed
+     */
+    select?: DisallowedSelect | null
+    /**
+     * Filter which Disallowed to delete.
+     */
+    where: DisallowedWhereUniqueInput
+  }
+
+
+  /**
+   * Disallowed deleteMany
+   */
+  export type DisallowedDeleteManyArgs = {
+    /**
+     * Filter which Disalloweds to delete
+     */
+    where?: DisallowedWhereInput
+  }
+
+
+  /**
+   * Disallowed without action
+   */
+  export type DisallowedArgs = {
+    /**
+     * Select specific fields to fetch from the Disallowed
+     */
+    select?: DisallowedSelect | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -15596,6 +16474,14 @@ export namespace Prisma {
   };
 
   export type ApiKeyScalarFieldEnum = (typeof ApiKeyScalarFieldEnum)[keyof typeof ApiKeyScalarFieldEnum]
+
+
+  export const DisallowedScalarFieldEnum: {
+    id: 'id',
+    identity: 'identity'
+  };
+
+  export type DisallowedScalarFieldEnum = (typeof DisallowedScalarFieldEnum)[keyof typeof DisallowedScalarFieldEnum]
 
 
   export const SessionScalarFieldEnum: {
@@ -16670,6 +17556,39 @@ export namespace Prisma {
     status?: EnumINVITE_STATUSWithAggregatesFilter | INVITE_STATUS
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
+  }
+
+  export type DisallowedWhereInput = {
+    AND?: Enumerable<DisallowedWhereInput>
+    OR?: Enumerable<DisallowedWhereInput>
+    NOT?: Enumerable<DisallowedWhereInput>
+    id?: StringFilter | string
+    identity?: StringFilter | string
+  }
+
+  export type DisallowedOrderByWithRelationInput = {
+    id?: SortOrder
+    identity?: SortOrder
+  }
+
+  export type DisallowedWhereUniqueInput = {
+    id?: string
+  }
+
+  export type DisallowedOrderByWithAggregationInput = {
+    id?: SortOrder
+    identity?: SortOrder
+    _count?: DisallowedCountOrderByAggregateInput
+    _max?: DisallowedMaxOrderByAggregateInput
+    _min?: DisallowedMinOrderByAggregateInput
+  }
+
+  export type DisallowedScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<DisallowedScalarWhereWithAggregatesInput>
+    OR?: Enumerable<DisallowedScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<DisallowedScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    identity?: StringWithAggregatesFilter | string
   }
 
   export type AccountCreateInput = {
@@ -17802,6 +18721,41 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DisallowedCreateInput = {
+    id?: string
+    identity: string
+  }
+
+  export type DisallowedUncheckedCreateInput = {
+    id?: string
+    identity: string
+  }
+
+  export type DisallowedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    identity?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DisallowedUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    identity?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DisallowedCreateManyInput = {
+    id?: string
+    identity: string
+  }
+
+  export type DisallowedUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    identity?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DisallowedUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    identity?: StringFieldUpdateOperationsInput | string
+  }
+
   export type StringFilter = {
     equals?: string
     in?: Enumerable<string> | string
@@ -18648,6 +19602,21 @@ export namespace Prisma {
     _count?: NestedIntFilter
     _min?: NestedEnumINVITE_STATUSFilter
     _max?: NestedEnumINVITE_STATUSFilter
+  }
+
+  export type DisallowedCountOrderByAggregateInput = {
+    id?: SortOrder
+    identity?: SortOrder
+  }
+
+  export type DisallowedMaxOrderByAggregateInput = {
+    id?: SortOrder
+    identity?: SortOrder
+  }
+
+  export type DisallowedMinOrderByAggregateInput = {
+    id?: SortOrder
+    identity?: SortOrder
   }
 
   export type UserCreateNestedOneWithoutAccountsInput = {

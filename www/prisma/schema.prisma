@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../@prisma"
 }
 
 datasource db {
@@ -269,6 +268,11 @@ model TeamUserInvite {
   @@index([userId])
   @@index([teamUserId])
   @@map(name: "team_user_invite")
+}
+
+model Disallowed {
+  id       String @id @default(cuid())
+  identity String
 }
 
 enum ROLE {

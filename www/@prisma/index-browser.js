@@ -114,6 +114,11 @@ exports.Prisma.ApiKeyScalarFieldEnum = {
   expires: 'expires'
 };
 
+exports.Prisma.DisallowedScalarFieldEnum = {
+  id: 'id',
+  identity: 'identity'
+};
+
 exports.Prisma.SessionScalarFieldEnum = {
   id: 'id',
   sessionToken: 'sessionToken',
@@ -275,7 +280,8 @@ exports.Prisma.ModelName = {
   Team: 'Team',
   TeamWebsite: 'TeamWebsite',
   TeamUser: 'TeamUser',
-  TeamUserInvite: 'TeamUserInvite'
+  TeamUserInvite: 'TeamUserInvite',
+  Disallowed: 'Disallowed'
 };
 
 /**

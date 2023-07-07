@@ -30,6 +30,14 @@ export const POST = async (request: Request) => {
     }
     const body = websiteFormSchema.parse(await request.json())
     const { user } = session
+    const disallowed = await db.disallowed.findFirst({
+      where: {
+        identity: body.id,
+      },
+    })
+    if (disallowed) {
+      return new Response("Website is disallowed", { status: 403 })
+    }
     const website = await db.website.create({
       data: {
         id: body.id,

@@ -85,7 +85,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <Component {...pageProps} />
     <Loglib config={{
         id: "${id}",
-        host: "${siteConfig.url},"
+        host: "${siteConfig.url}"
       }} />
       </>
   </>
