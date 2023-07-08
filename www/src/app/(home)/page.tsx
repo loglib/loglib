@@ -76,21 +76,12 @@ export default async function IndexPage() {
             </Link>
           </Track>
 
-          <h1 className="font-heading max-w-3xl text-4xl font-bold text-slate-800 dark:text-slate-300 sm:text-8xl">
-            <span className=" hover:opacity-95 dark:text-slate-300/80">
-              Y
-              <span className=" text-opacity-95 dark:text-slate-100 relative">
-                e
-              </span>
-              t
-            </span>{" "}
-            An
-            <span className=" text-opacity-95 dark:text-slate-300/70 relative">
-              o
+          <h1 className="font-heading max-w-3xl text-4xl font-bold text-slate-800 dark:text-slate-300 ">
+            <span className=" hover:opacity-95 dark:text-slate-100/80 text-4xl">
+              Crafted with care. Privacy First. Open Source.
             </span>
-            <span className=" dark:text-slate-200">ther</span>
             <br className="" />
-            <span className="bg-gradient-to-br from-orange-400 to-gray-200 bg-clip-text uppercase text-transparent dark:from-gray-200 dark:to-orange-400">
+            <span className="bg-gradient-to-br text-8xl from-orange-400 to-gray-200 bg-clip-text uppercase text-transparent dark:from-gray-200 dark:to-orange-400">
               web analytics
             </span>
           </h1>
