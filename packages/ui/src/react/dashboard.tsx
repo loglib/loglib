@@ -129,12 +129,13 @@ export const Dashboard: FC<DashboardProps> = (props) => {
   const [curTableTab, setCurTableTab] = useState("");
   const [viCardSwitch, setViCardSwitch] = useState(false);
 
-  const [theme, setTheme] = useState(props.theme);
+  const [theme, setTheme] = useState("dark");
 
   useEffect(() => {
     if (props.theme) {
       setTheme(props.theme);
     }
+    setTheme(props.theme ?? "dark");
   }, [props]);
 
   const components = { ...defaultComponents, ...props.components };

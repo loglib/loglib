@@ -76,15 +76,18 @@ export default async function IndexPage() {
             </Link>
           </Track>
 
-          <h1 className="font-heading max-w-3xl text-4xl font-bold text-slate-800 dark:text-slate-300 ">
-            <span className=" hover:opacity-95 dark:text-slate-100/80 text-4xl">
-              Crafted with care. Privacy First. Open Source.
-            </span>
-            <br className="" />
-            <span className="bg-gradient-to-br text-8xl from-orange-400 to-gray-200 bg-clip-text uppercase text-transparent dark:from-gray-200 dark:to-orange-400">
+          <div className="font-heading max-w-3xl text-4xl font-bold text-slate-800 dark:text-slate-300 ">
+            <h1 className=" hover:opacity-95 dark:text-slate-100/80 md:text-4xl text-lg">
+              <span className=" bg-gradient-to-br bg-clip-text from-orange-600 to-white/25 dark:to-white/75 text-transparent">
+                Crafted with care.
+              </span>{" "}
+              Privacy First. Open Source.
+            </h1>
+
+            <h1 className="bg-gradient-to-br md:text-8xl text-5xl from-orange-400 to-gray-200 bg-clip-text uppercase text-transparent dark:from-gray-200 dark:to-orange-400">
               web analytics
-            </span>
-          </h1>
+            </h1>
+          </div>
         </div>
         <div className=" mt-8 space-y-4">
           <div className="flex flex-col gap-3 font-semibold">
