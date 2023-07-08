@@ -90,7 +90,7 @@ export default async function IndexPage() {
             </span>
             <span className=" dark:text-slate-200">ther</span>
             <br className="" />
-            <span className="animate-text bg-gradient-to-br from-orange-400 to-gray-200 bg-clip-text uppercase text-transparent dark:from-gray-200 dark:to-orange-400">
+            <span className="bg-gradient-to-br from-orange-400 to-gray-200 bg-clip-text uppercase text-transparent dark:from-gray-200 dark:to-orange-400">
               web analytics
             </span>
           </h1>
@@ -146,8 +146,8 @@ export default async function IndexPage() {
             </div>
           </div>
           <div className="flex  flex-col gap-6 font-semibold sm:flex-row">
-            <button className=" animate-text group relative h-12 w-[170px] overflow-hidden rounded-lg px-8  py-3 text-white/80 dark:text-gray-400">
-              <div className="  to-logo/80 absolute left-1/2 top-1/2 flex aspect-square w-full  -translate-x-1/2 -translate-y-1/2 scale-105 items-center justify-center  rounded-full bg-gray-900 bg-gradient-to-br from-purple-600 transition-all duration-1000 group-hover:rotate-180"></div>
+            <button className=" animate-text group relative h-12 w-[170px] overflow-hidden rounded-lg px-8  py-3  dark:text-gray-400">
+              <div className="  to-logo/80 absolute left-1/2 top-1/2 flex aspect-square w-full  -translate-x-1/2 -translate-y-1/2 scale-105 items-center justify-center  rounded-full bg-gray-900 bg-gradient-to-br hover:text-white/60 from-purple-600 transition-all duration-1000 rotate-180 hover:rotate-90"></div>
               <div
                 className="absolute bottom-0 left-0 h-1/3 w-[var(--width)] translate-x-[var(--left)] translate-y-full rounded-full bg-white/30 blur-md transition-[width,transform] duration-[--duration]"
                 style={{
@@ -156,7 +156,7 @@ export default async function IndexPage() {
                 }}
               ></div>
               <Link
-                className="absolute inset-0.5 flex w-40 items-center justify-center  rounded-md bg-gray-900/95 font-bold uppercase transition-all duration-500 hover:text-white/80 group-hover:bg-gray-900"
+                className="absolute inset-0.5 flex w-40 items-center justify-center  rounded-md bg-gray-900/95 font-bold uppercase transition-all duration-500 text-white/80 group-hover:bg-gray-900"
                 href="/login"
               >
                 Get Started

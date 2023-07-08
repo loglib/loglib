@@ -22,7 +22,7 @@ export const docsConfig: DocsConfig = {
       ],
     },
     {
-      title: "Self Hosted/App Embedded",
+      title: "Self Hosted",
       items: [
         {
           title: "Quick Setup",
@@ -30,41 +30,62 @@ export const docsConfig: DocsConfig = {
         },
         {
           title: "Next Js with Prisma",
-          href: "/docs/nextjs-with-prisma",
+          href: "/docs/self-host/nextjs-with-prisma",
         },
         {
-          title: "Next Js with supabase",
-          href: "/docs/manual-setup/nextjs-with-supabase",
+          title: "Next Js with Supabase",
+          href: "/docs/self-host/nextjs-with-supabase",
         },
+        {
+          title: "Upgrading",
+          href: "/docs/self-host/upgrading"
+        }
       ],
     },
     {
-      title: "Packages",
+      title: "Advanced Usage",
       items: [
         {
           title: "Tracker",
-          href: "/docs/packages/tracker",
+          href: "/docs/advanced/tracker",
         },
         {
           title: "Server",
-          href: "/docs/packages/server",
+          href: "/docs/advanced/server",
         },
         {
           title: "Dashboard",
-          href: "/docs/packages/dashboard",
+          href: "/docs/advanced/dashboard",
         },
         {
           title: "Wordpress Plugin",
-          href: "/docs/packages/wordpress-plugin",
+          href: "/docs/advanced/wordpress-plugin",
         },
+
       ],
     },
     {
       title: "API",
       items: [
         {
+          title: "Overview",
+          href: "/docs/api",
+        },
+        {
           title: "Session",
           href: "/docs/api/session",
+        },
+        {
+          title: "Pageview",
+          href: "/docs/api/pageview",
+        },
+        {
+          title: "Event",
+          href: "/docs/api/event",
+        },
+        {
+          title: "Visitor",
+          href: "/docs/api/visitor",
         },
       ],
     },

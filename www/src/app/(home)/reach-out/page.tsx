@@ -9,9 +9,6 @@ export default function page() {
   return (
     <div className=" animate-in">
       <div className=" my-auto flex min-h-[70vh] flex-col items-center justify-center gap-10 space-y-4">
-        {/* <h2 className=" text-center text-6xl font-bold text-slate-400/80">
-          Reach <span className=" text-slate-400">Out</span>
-        </h2> */}
         <div className=" max-w-md">
           <p className="break-words border-l px-4">
             We&apos;re a small team of two developers from{" "}
@@ -56,15 +53,15 @@ export default function page() {
                   height={28}
                 />
               </Link>
-              <Link href="https://twitter.com/TheodoreNegusu" target="_blank">
-                <Image
-                  src="https://avatars.githubusercontent.com/u/44190023?v=4"
-                  alt="beka-profile"
-                  width={28}
-                  className=" rounded-full"
-                  height={28}
-                />
-              </Link>
+
+              <Image
+                src="https://avatars.githubusercontent.com/u/44190023?v=4"
+                alt="beka-profile"
+                width={28}
+                className=" rounded-full"
+                height={28}
+              />
+
               {/* <p className="text-sm">Beka Cru (Berket Engida)</p>
               <Link href="https://twitter.com/imbereket">
                 <Twitter size={16} />

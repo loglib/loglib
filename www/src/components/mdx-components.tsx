@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 import { Callout } from "@/components/callout"
 import { MdxCard } from "@/components/mdx-card"
 import { Steps, Tab, Tabs } from "nextra-theme-docs"
+import { MdxTab, MdxTabs } from "./mdx-tab"
 
 const components = {
   h1: ({ className, ...props }) => (
@@ -150,9 +151,9 @@ const components = {
     />
   ),
   Steps,
-  Tab,
-  Tabs,
-  Image,
+  Tab: MdxTab,
+  Tabs: MdxTabs,
+  Image: Image as any,
   Callout,
   Card: MdxCard,
 }

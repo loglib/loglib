@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"contentlayer dev\" \"next dev\"",
+    "dev:next": "next dev",
     "build": "contentlayer build && next build",
     "turbo": "next dev --turbo",
     "start": "next start",
