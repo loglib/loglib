@@ -135,7 +135,6 @@ export const Dashboard: FC<DashboardProps> = (props) => {
     if (props.theme) {
       setTheme(props.theme);
     }
-    setTheme(props.theme ?? "dark");
   }, [props]);
 
   const components = { ...defaultComponents, ...props.components };
