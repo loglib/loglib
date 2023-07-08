@@ -1,3 +1,4 @@
 .dashboard {
   background: none !important;
+  min-height: max-content !important;
 }

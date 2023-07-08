@@ -21,10 +21,12 @@ type InsightTablesProps = {
   isLoading: boolean;
   setCurrentTableTab: (state: string) => void;
   filter: FilterProp;
+  websiteUrl?: string;
 };
 
 export const InsightTables = ({
   data,
+  websiteUrl,
   isLoading,
   setCurrentTableTab,
   filter: { isFilterActive, addFilter, clearFilter },
@@ -85,11 +87,16 @@ export const InsightTables = ({
                         key: "page",
                         value: d.page,
                         operator: "is",
-                        data: "page",
+                        data: "pageview",
                       })
                     }
                   >
-                    {d.page}
+                    <a
+                      href={websiteUrl ? `${websiteUrl}/${d.page}` : d.page}
+                      className=" hover:tw-underline"
+                    >
+                      {d.page}
+                    </a>
                   </TableCell>
                   <TableCell className="tw-text-right">{d.visits}</TableCell>
                 </TableRow>

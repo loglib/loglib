@@ -1,0 +1,46 @@
+---
+title: Event
+description: They represent a single action taken by a visitor on a page.
+---
+
+##### path: /api/v1/event
+
+**method:** POST
+
+**request body:**
+
+```json
+{
+  "apiKey": "string",
+  "take": 10,
+  "skip": 0,
+  "orderBy": {
+    "createdAt": "desc"
+  },
+  "where": {
+    "id": "string",
+    "sessionId": "string",
+    "page": "string",
+    "visitorId": "string"
+  },
+  "include": {
+    "session": false
+  }
+}
+```
+
+apiKey (string, required): Represents the API key.
+
+take (number, optional, default: 10): Specifies the maximum number of results to return.
+
+skip (number, optional, default: 0): Specifies the number of results to skip.
+
+orderBy (object, optional, default: `{ "createdAt": "desc" }`): Specifies the field to order the results by and the sort order. Valid field values are "createdAt", "updatedAt", "id". Valid sort order values are "asc" and "desc".
+
+where (object, optional, default: `{}`): Contains optional filters for the query. Properties include:
+
+id (string, optional): Filters by ID.
+
+sessionId, page, visitorId (strings, optional): Filters based on corresponding fields.
+
+include (object, optional, default: `{ "session": false }`): Specifies which related entities to include in the results. Properties include: "session". By default, the property is set to false.

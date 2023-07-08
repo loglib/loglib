@@ -94,14 +94,33 @@ module.exports = {
             "background-position": "right center",
           },
         },
+        border: {
+          "0%, 100%": {
+            transform: "translateX(0)",
+          },
+          "50%": {
+            transform: "translateX(50px)",
+          },
+          "70%": {
+            transform: "translateX(100px)",
+          },
+          "80%": {
+            transform: "translateX(400px)",
+          },
+          "100%": {
+            transform: "translateX(600px)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         typing: "typing 2s steps(14), blink 0.1s infinite",
         text: "text 6s ease infinite",
+        border: "border 30s ease infinite -2s",
       },
     },
   },
+  // @ts-ignore
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 }

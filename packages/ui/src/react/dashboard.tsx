@@ -144,7 +144,7 @@ export const Dashboard: FC<DashboardProps> = (props) => {
         <div
           style={props.style}
           className={cn(
-            " dark:tw-bg-[#02060f] tw-bg-white tw-w-full tw-space-y-4 tw-p-8 tw-pt-6 tw-transition-all tw-duration-700 dark:tw-text-white/80 scrollbar-hide",
+            " dark:tw-bg-[#02060f] tw-bg-white tw-min-h-[100vh] tw-w-full tw-space-y-4 tw-p-8 tw-pt-6 tw-transition-all tw-duration-700 dark:tw-text-white/80 scrollbar-hide",
             props.className,
           )}
         >
@@ -362,6 +362,7 @@ export const Dashboard: FC<DashboardProps> = (props) => {
                         isLoading={isLoading}
                         filter={filter}
                         data={data}
+                        websiteUrl={props.websiteUrl}
                         setCurrentTableTab={setCurTableTab}
                       />
                     </div>

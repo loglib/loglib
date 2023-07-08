@@ -1,0 +1,44 @@
+---
+title: Dashboard
+description: How to use the dashboard
+---
+
+You can use the loglib dashboard which is react only right now but there is a plan to support more frameworks in the future.
+
+```bash
+pnpm add @loglib/ui
+```
+
+then export the dashboard wherever you want in your app.
+
+```js
+import { Dashboard } from "@loglib/ui"
+import "@loglib/ui/dist/index.css"
+
+export default function page() {
+  return (
+    <>
+      <Dashboard />
+    </>
+  )
+}
+```
+
+You probably want to protect the dashboard with some kind of auth check. You can use our custom credential login but you can also use any auth library you want. Here is an example using next auth.
+
+```ts
+import { Dashboard } from "@loglib/ui"
+import "@loglib/ui/dist/index.css"
+import { useSession } from "next-auth/client"
+
+export default function page() {
+  const [session, loading] = useSession()
+  if (loading) return <div>Loading...</div>
+  if (!session) return <div>Access Denied</div>
+  return (
+    <>
+      <Dashboard />
+    </>
+  )
+}
+```

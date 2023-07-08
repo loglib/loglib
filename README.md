@@ -12,7 +12,6 @@
   <img src="./images/dark-logo-v1.png#gh-light-mode-only" alt="screenshot" height="350" />
 </p>
 
-
 # Introduction
 
 Welcome to Loglib! honestly it's just yet another web analytics :)
@@ -33,6 +32,7 @@ Loglib is a **Open Source** and **Privacy-First** web analytics that can be atta
 - And more things are on the way.
 
 ## How to Get Started
-To get started with Loglib, please visit our  [documentation](https://docs.loglib.io/). The documentation has all the information you need to get started with Loglib, including installation instructions, and tutorials. We have tried to cover different types of integrations in our documentation. 
+
+To get started with Loglib, please visit our [documentation](https://docs.loglib.io/). The documentation has all the information you need to get started with Loglib, including installation instructions, and tutorials. We have tried to cover different types of integrations in our documentation.
 
 If you don't quite find what you need, you can join the Loglib Community and ask anything. The Loglib Community is a great place to ask questions and get help from other Loglib users. You can find the Loglib Community on [Telegram](https://t.me/loglib_community).
