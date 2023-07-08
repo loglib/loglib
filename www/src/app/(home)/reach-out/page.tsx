@@ -61,11 +61,6 @@ export default function page() {
                 className=" rounded-full"
                 height={28}
               />
-
-              {/* <p className="text-sm">Beka Cru (Berket Engida)</p>
-              <Link href="https://twitter.com/imbereket">
-                <Twitter size={16} />
-              </Link> */}
             </div>
           </div>
         </div>
