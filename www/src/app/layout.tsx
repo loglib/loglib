@@ -111,25 +111,24 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          " min-h-screen bg-gradient-to-tr from-white to-gray-100 font-sans antialiased  dark:from-black dark:to-slate-900/30 transition-all duration-300",
+          " bg-gradient-to-tr from-white min-h-screen to-gray-100 font-sans antialiased  dark:from-black dark:to-slate-900/30 transition-all duration-300",
           fontSatoshi.variable,
           fontHeading.variable
         )}
       >
         <Background />
-        <div className=" px-4 md:px-16">
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-            {children}
-            <Loglib
-              config={{
-                id: "loglib",
-                host: "https://loglib.io",
-                consent: "granted",
-              }}
-            />
-            <Toaster />
-          </ThemeProvider>
-        </div>
+
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          {children}
+          <Loglib
+            config={{
+              id: "loglib",
+              host: "https://loglib.io",
+              consent: "granted",
+            }}
+          />
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   )
