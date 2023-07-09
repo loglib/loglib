@@ -103,6 +103,7 @@
     "react-email": "1.9.3",
     "react-hook-form": "^7.44.3",
     "react-modal": "^3.16.1",
+    "react-parallax-tilt": "^1.7.152",
     "react-syntax-highlighter": "^15.5.0",
     "react-tweet": "^3.0.2",
     "recharts": "^2.6.2",

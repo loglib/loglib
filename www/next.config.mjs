@@ -29,4 +29,4 @@ const nextConfig = {
     "@loglib/ui",
   ],
 }
-export default nextConfig
+export default withContentlayer(nextConfig)

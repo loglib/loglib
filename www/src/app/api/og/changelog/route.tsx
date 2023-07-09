@@ -3,7 +3,6 @@ import { allChangelogPosts } from "contentlayer/generated"
 import { formatDate } from "@/lib/utils"
 
 export const runtime = "edge"
-export const contentType = "image/png"
 
 const satoshiBold = fetch(
   new URL("../../../../../assets/fonts/Satoshi-Bold.ttf", import.meta.url)
@@ -13,7 +12,7 @@ const interMedium = fetch(
   new URL("../../../../../assets/fonts/Inter-Medium.ttf", import.meta.url)
 ).then((res) => res.arrayBuffer())
 
-export async function GET() {
+export async function GET(req: Request) {
   const [satoshiBoldData, interMediumData] = await Promise.all([
     satoshiBold,
     interMedium,

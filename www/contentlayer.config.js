@@ -15,6 +15,10 @@ const computedFields = (type) => ({
     type: "string",
     resolve: (doc) => doc._raw.flattenedPath.replace(`${type}/`, ""),
   },
+  slugAsParams: {
+    type: "string",
+    resolve: (doc) => doc._raw.flattenedPath.split("/").slice(1).join("/"),
+  },
   images: {
     type: "array",
     resolve: (doc) => {
@@ -75,7 +79,7 @@ export const Doc = defineDocumentType(() => ({
       default: true,
     },
   },
-  computedFields,
+  computedFields: computedFields("docs"),
 }))
 
 export const ChangelogPost = defineDocumentType(() => ({
