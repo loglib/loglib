@@ -17,7 +17,7 @@ export default function Changelog() {
           Check out our changelog to see what&apos;s new on Loglib.
         </p>
       </div>
-      <ul className="mx-5 max-w-2xl md:mx-auto md:translate-x-28">
+      <ul className="max-w-2xl md:mx-auto ">
         {allChangelogPosts
           .sort(
             (a, b) =>
@@ -44,19 +44,17 @@ export default function Changelog() {
 const DesktopChangelogEntry = ({ post }) => (
   <Link
     href={`/changelog/${post.slug}`}
-    className="group hidden grid-cols-5 items-center md:grid"
+    className="group hidden md:flex items-center justify-center gap-2"
   >
-    <dl className="">
+    <dl>
       <dt className="sr-only">Published on</dt>
-      <dd className="text-base font-medium underline text-gray-400 transition-colors px-4 group-hover:text-gray-700">
+      <dd className="text-base font-medium underline text-gray-400 transition-colors  group-hover:text-gray-700">
         <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
       </dd>
     </dl>
-    <div className="col-span-4 flex items-center">
-      <h3 className="text-2xl font-medium tracking-tight text-slate-700 dark:text-slate-400 transition-colors group-hover:dark:text-slate-100 group-hover:text-black/80">
-        {post.title}
-      </h3>
-    </div>
+    <h3 className="text-2xl font-medium tracking-tight text-slate-700 dark:text-slate-400 transition-colors group-hover:dark:text-slate-100 group-hover:text-black/80">
+      {post.title}
+    </h3>
   </Link>
 )
 
