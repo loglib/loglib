@@ -137,8 +137,8 @@ export default async function IndexPage() {
             <div className="flex  flex-col gap-6 font-semibold sm:flex-row">
               <Link
                 className={cn(
-                  "  text-white cursor-pointer font-bold transition-all duration-[0.3s] ease-[ease] relative inline-block shadow-[inset_2px_2px_2px_0px_rgba(255,255,255,0.1),7px_7px_20px_0px_rgba(26, 35, 126, 0.3),4px_4px_5px_0px_rgba(0,0,0,0.1)] px-[25px] py-2.5 rounded-[5px] bg-transparent",
-                  "dark:text-white/80 text-slate-900 border-[none] after:absolute after:content-[''] after:w-0 after:h-full after:z-[-1] after:shadow-[-7px_-7px_20px_0px_#1a237e,-4px_-4px_5px_0px_#000,7px_7px_20px_0px_#0002,4px_4px_5px_0px_#0001] after:transition-all after:duration-[0.3s] after:ease-[ease] after:left-0 after:top-0 hover:text-black hover:after:w-full border-slate-300 dark:border-slate-800 hover:dark:text-white hover:after:left-auto hover:after:right-0 active:top-0.2 border"
+                  "  text-white cursor-pointer font-bold transition-all duration-[0.3s] ease-[ease] relative inline-block shadow-[inset_2px_2px_2px_0px_rgba(255,255,255,0.1),7px_7px_20px_0px_rgba(26, 35, 126, 0.3),4px_4px_5px_0px_rgba(0,0,0,0.1)] px-4 md:px-[25px] py-2.5 rounded-[5px] bg-transparent",
+                  "dark:text-white/80 text-slate-900 border-[none] after:absolute after:content-[''] after:w-0 after:h-full after:z-[-1] after:shadow-[-7px_-7px_20px_0px_#1a237e,-4px_-4px_5px_0px_#000,7px_7px_20px_0px_#0002,4px_4px_5px_0px_#0001] after:transition-all after:duration-[0.3s] after:ease-[ease] after:left-0 after:top-0 hover:text-black hover:after:w-full border-slate-300 dark:border-slate-800 hover:dark:text-white hover:after:left-auto hover:after:right-0 active:top-0.2 border w-max"
                 )}
                 href="/login"
               >
@@ -384,7 +384,9 @@ export default async function IndexPage() {
         <Changelog />
       </section>
 
-      <section className="max-w-8xl flex items-center gap-2 to-50 mx-auto mt-10 w-full rounded-3xl  bg-gradient-to-br from-gray-100 px-4 dark:from-slate-900/80 dark:to-[#080812] sm:px-16 ">
+      {/* <ReachOut /> */}
+
+      <section className="max-w-8xl to-50 mx-auto mt-10 w-full rounded-3xl  bg-gradient-to-br from-gray-100 px-4 dark:from-slate-900/80 dark:to-[#080812] sm:px-16 ">
         <div className="flex h-full w-full flex-col justify-center gap-8 py-12">
           <h1 className="font-heading max-w-3xl text-3xl font-bold sm:text-6xl">
             Supported by the
@@ -405,6 +407,16 @@ export default async function IndexPage() {
                 </p>
               </div>
             </div>
+            <div className="flex flex-col items-center justify-center rounded-lg  border border-gray-900 px-16 py-4 transition-colors duration-500 hover:border-gray-800">
+              <div>
+                <h1 className="font-heading bg-gradient-to-tr from-red-500 to-indigo-700 bg-clip-text text-5xl font-black text-transparent ">
+                  127
+                </h1>
+                <p className="text-md font-mono font-thin opacity-75">
+                  Community
+                </p>
+              </div>
+            </div>
 
             <div className="flex flex-col items-center justify-center rounded-lg  border border-gray-900 px-16 py-4 transition-colors duration-500 hover:border-gray-800">
               <div>
@@ -422,7 +434,6 @@ export default async function IndexPage() {
             </div>
           </div>
         </div>
-        <ReachOut />
       </section>
     </main>
   )

@@ -9,7 +9,7 @@ import { motion } from "framer-motion"
 import { User2 } from "lucide-react"
 export const LandingGraph = () => {
   return (
-    <div className=" flex items-center justify-center">
+    <div className=" md:flex items-center justify-center hidden">
       <svg
         className={styles.mainSvg}
         viewBox="0 0 800 600"

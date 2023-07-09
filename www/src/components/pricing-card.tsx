@@ -28,7 +28,7 @@ export function PricingCard({ tier, blur }: PricingCardProps) {
         blur && "blur-md"
       )}
     >
-      <div className="bg-slate-50 px-6 py-8 dark:bg-slate-900/40 sm:p-10 sm:pb-6">
+      <div className="bg-slate-50 px-6 py-8 dark:bg-slate-900/80 sm:p-10 sm:pb-6">
         <div>
           <h3
             className="text-logo inline-flex rounded-full bg-slate-800 px-4 py-1 text-sm font-semibold uppercase tracking-wide"
@@ -51,7 +51,7 @@ export function PricingCard({ tier, blur }: PricingCardProps) {
         </div>
         <p className="mt-5 text-lg text-slate-500">{tier.description}</p>
       </div>
-      <div className="flex flex-1 flex-col justify-between space-y-6 bg-slate-100 px-6 pb-8 pt-6 dark:bg-slate-900/20 sm:p-10 sm:pt-6">
+      <div className="flex flex-1 flex-col justify-between space-y-6 bg-slate-100 px-6 pb-8 pt-6 dark:bg-slate-950/80 sm:p-10 sm:pt-6">
         <ul role="list" className="space-y-4">
           {tier.features.map((feature) => (
             <li key={feature} className="flex items-start">

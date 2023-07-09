@@ -30,7 +30,7 @@ export const Hero = () => {
   }, [])
   return (
     <div className="font-heading max-w-3xl text-4xl font-bold text-slate-800 dark:text-slate-300 ">
-      <h1 className=" hover:opacity-95 flex items-center gap-2 dark:text-slate-100/80 md:text-4xl text-lg">
+      <h1 className=" hover:opacity-95 flex flex-col md:flex-row items-start md:item gap-2 dark:text-slate-100/80 md:text-4xl text-lg">
         <span className=" relative inline-block ">
           <span className={cn(styles.magicStar, "star")}>
             <svg viewBox="0 0 512 512">
