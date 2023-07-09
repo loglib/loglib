@@ -35,10 +35,8 @@ export function SiteHeader({ user }: { user?: User }) {
             onClick={() => {
               if (theme === "dark") {
                 setTheme("light")
-                switchOnRef.current?.play()
               } else {
                 setTheme("dark")
-                switchOffRef.current?.play()
               }
             }}
           >

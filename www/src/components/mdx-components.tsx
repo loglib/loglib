@@ -9,7 +9,7 @@ import { MdxCard } from "@/components/mdx-card"
 import { Steps, Tab, Tabs } from "nextra-theme-docs"
 import { MdxTab, MdxTabs } from "./mdx-tab"
 
-const components = {
+export const components = {
   h1: ({ className, ...props }) => (
     <h1
       className={cn(

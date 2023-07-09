@@ -9,7 +9,10 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === "production",
   },
   images: {
-    domains: ["avatars.githubusercontent.com"],
+    domains: [
+      "avatars.githubusercontent.com",
+      "vgssydupjvshgeeeqjvo.supabase.co",
+    ],
   },
   experimental: {
     serverComponentsExternalPackages: ["@prisma/client"],

@@ -9,6 +9,7 @@ import Loglib from "@loglib/tracker/react"
 import { siteConfig } from "@/config/site"
 import { Toaster } from "@/components/ui/toaster"
 import { ThemeProvider } from "@/components/theme-provider"
+import Background from "@/components/background/background"
 
 const fontSatoshi = localFont({
   src: [
@@ -110,22 +111,25 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          " min-h-screen bg-gradient-to-tr from-white to-gray-100 p-4 font-sans antialiased transition-all duration-300 dark:from-black dark:to-slate-900/30  md:px-16",
+          " min-h-screen bg-gradient-to-tr from-white to-gray-100 font-sans antialiased  dark:from-black dark:to-slate-900/30 transition-all duration-300",
           fontSatoshi.variable,
           fontHeading.variable
         )}
       >
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          {children}
-          <Loglib
-            config={{
-              id: "loglib",
-              host: "https://loglib.io",
-              consent: "granted",
-            }}
-          />
-          <Toaster />
-        </ThemeProvider>
+        <Background />
+        <div className=" px-4 md:px-16">
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+            {children}
+            <Loglib
+              config={{
+                id: "loglib",
+                host: "https://loglib.io",
+                consent: "granted",
+              }}
+            />
+            <Toaster />
+          </ThemeProvider>
+        </div>
       </body>
     </html>
   )

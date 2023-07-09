@@ -5,7 +5,14 @@ import { siteConfig } from "@/config/site"
 import { getCurrentUser } from "@/lib/session"
 
 import { env } from "../../../env.mjs"
-import { Track, TrackOnView } from "@loglib/tracker/react"
+
+import Changelog from "@/components/changelog"
+import { Sparkles } from "lucide-react"
+import { Hero } from "@/components/hero/hero"
+import { cn } from "@/lib/utils"
+import { LandingGraph } from "@/components/landing-graph/landing-graph"
+import { ReachOut } from "@/components/reach-out"
+// import { LandingGraph } from "@/components/landing-graph/landing-graph"
 
 async function getGitHubStars() {
   try {
@@ -50,9 +57,9 @@ export default async function IndexPage() {
   const user = await getCurrentUser()
   return (
     <main className="  grid place-items-center  space-y-10 md:space-y-20">
-      <section className="max-w-8xl card bg-gradient-radial flex w-full flex-col  justify-between space-y-8 rounded-3xl border from-gray-50 to-gray-200 px-8 py-12 dark:border-slate-800 dark:from-yellow-700/10 dark:to-[#080812] sm:min-h-fit md:px-16 md:py-20">
-        <div className=" space-y-2">
-          <Track name="github-repo">
+      <div className=" flex  max-w-8xl card bg-gradient-radial  w-full justify-between px-8 py-12 from-gray-50 to-gray-200 border dark:border-slate-800 dark:from-slate-700/10 dark:to-[#080812] sm:min-h-fit md:px-16 md:py-16  rounded-3xl">
+        <section className="flex flex-col  space-y-8  ">
+          <div className=" space-y-4">
             <Link
               href={siteConfig.links.github}
               target="_blank"
@@ -74,111 +81,94 @@ export default async function IndexPage() {
                 </h2>
               </div>
             </Link>
-          </Track>
 
-          <div className="font-heading max-w-3xl text-4xl font-bold text-slate-800 dark:text-slate-300 ">
-            <h1 className=" hover:opacity-95 dark:text-slate-100/80 md:text-4xl text-lg">
-              <span className=" bg-gradient-to-br bg-clip-text from-orange-600 to-white/25 dark:to-white/75 text-transparent">
-                Crafted with care.
-              </span>{" "}
-              Privacy First. Open Source.
-            </h1>
-
-            <h1 className="bg-gradient-to-br md:text-8xl text-5xl from-orange-400 to-gray-200 bg-clip-text uppercase text-transparent dark:from-gray-200 dark:to-orange-400">
-              web analytics
-            </h1>
+            <Hero />
           </div>
-        </div>
-        <div className=" mt-8 space-y-4">
-          <div className="flex flex-col gap-3 font-semibold">
-            <p className="max-w-xl text-left text-xl tracking-wider text-orange-500">
-              3 Easy Step To Setup
-            </p>
-            <div className="text-md flex flex-col gap-4 text-black dark:text-white sm:flex-row sm:text-lg">
-              <div className="flex gap-2">
-                <span className="bg-gradient-to-br from-indigo-300 to-orange-600 bg-clip-text text-transparent">
-                  01
-                </span>
-                <span className=" ">Create account</span>
-              </div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="hidden aspect-square w-5 stroke-orange-300 stroke-2 sm:block"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                />
-              </svg>
-              <div className="flex gap-2">
-                <span className="bg-gradient-to-br from-indigo-300 to-orange-600 bg-clip-text text-transparent">
-                  02
-                </span>
-                <span className="">Add your website</span>
-              </div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="hidden aspect-square w-5 stroke-orange-300 stroke-2 sm:block"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                />
-              </svg>
-              <div className="flex gap-2">
-                <span className="bg-gradient-to-br from-indigo-300 to-orange-600 bg-clip-text text-transparent">
-                  03
-                </span>
-                <span className="">Start tracking</span>
+          <div className=" mt-8 space-y-4">
+            <div className="flex flex-col gap-3 font-semibold">
+              <p className="max-w-xl text-left text-xl tracking-wider text-orange-500">
+                3 Easy Step To Setup
+              </p>
+              <div className="text-md flex flex-col gap-4 text-black dark:text-white sm:flex-row sm:text-lg">
+                <div className="flex gap-2">
+                  <span className="bg-gradient-to-br from-indigo-300 to-orange-600 bg-clip-text text-transparent">
+                    01
+                  </span>
+                  <span className=" ">Create account</span>
+                </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  className="hidden aspect-square w-5 stroke-orange-300 stroke-2 sm:block"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+                  />
+                </svg>
+                <div className="flex gap-2">
+                  <span className="bg-gradient-to-br from-indigo-300 to-orange-600 bg-clip-text text-transparent">
+                    02
+                  </span>
+                  <span className="">Add your website</span>
+                </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  className="hidden aspect-square w-5 stroke-orange-300 stroke-2 sm:block"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+                  />
+                </svg>
+                <div className="flex gap-2">
+                  <span className="bg-gradient-to-br from-indigo-300 to-orange-600 bg-clip-text text-transparent">
+                    03
+                  </span>
+                  <span className="">Start tracking</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="flex  flex-col gap-6 font-semibold sm:flex-row">
-            <button className=" animate-text group relative h-12 w-[170px] overflow-hidden rounded-lg px-8  py-3  dark:text-gray-400">
-              <div className="  to-logo/80 absolute left-1/2 top-1/2 flex aspect-square w-full  -translate-x-1/2 -translate-y-1/2 scale-105 items-center justify-center  rounded-full bg-gray-900 bg-gradient-to-br hover:text-white/60 from-purple-600 transition-all duration-1000 rotate-180 hover:rotate-90"></div>
-              <div
-                className="absolute bottom-0 left-0 h-1/3 w-[var(--width)] translate-x-[var(--left)] translate-y-full rounded-full bg-white/30 blur-md transition-[width,transform] duration-[--duration]"
-                style={{
-                  width: "84.5px",
-                  left: "0px",
-                }}
-              ></div>
+            <div className="flex  flex-col gap-6 font-semibold sm:flex-row">
               <Link
-                className="absolute inset-0.5 flex w-40 items-center justify-center  rounded-md bg-gray-900/95 font-bold uppercase transition-all duration-500 text-white/80 group-hover:bg-gray-900"
+                className={cn(
+                  "  text-white cursor-pointer font-bold transition-all duration-[0.3s] ease-[ease] relative inline-block shadow-[inset_2px_2px_2px_0px_rgba(255,255,255,0.1),7px_7px_20px_0px_rgba(26, 35, 126, 0.3),4px_4px_5px_0px_rgba(0,0,0,0.1)] px-[25px] py-2.5 rounded-[5px] bg-transparent",
+                  "dark:text-white/80 text-slate-900 border-[none] after:absolute after:content-[''] after:w-0 after:h-full after:z-[-1] after:shadow-[-7px_-7px_20px_0px_#1a237e,-4px_-4px_5px_0px_#000,7px_7px_20px_0px_#0002,4px_4px_5px_0px_#0001] after:transition-all after:duration-[0.3s] after:ease-[ease] after:left-0 after:top-0 hover:text-black hover:after:w-full border-slate-300 dark:border-slate-800 hover:dark:text-white hover:after:left-auto hover:after:right-0 active:top-0.2 border"
+                )}
                 href="/login"
               >
                 Get Started
               </Link>
-            </button>
 
-            <Link
-              href="https://demo.loglib.io/"
-              className=" flex items-center gap-4 rounded-md bg-gradient-to-tr from-slate-700/80 to-orange-600/60 bg-clip-text text-transparent transition-all duration-500 hover:gap-8 hover:text-gray-800 dark:from-white/70 dark:to-purple-700 hover:dark:text-gray-400"
-              target="_blank"
-            >
-              <span>Live Demo</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="aspect-square w-5 stroke-orange-300 stroke-2 "
+              <Link
+                href="https://demo.loglib.io/"
+                className=" flex items-center gap-4 rounded-md bg-gradient-to-tr from-slate-700/80 to-orange-600/60 bg-clip-text text-transparent transition-all duration-500 hover:gap-8 hover:text-gray-800 dark:from-white/70 dark:to-purple-700 hover:dark:text-gray-400"
+                target="_blank"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                />
-              </svg>
-            </Link>
+                <span>Live Demo</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  className="aspect-square w-5 stroke-orange-300 stroke-2 "
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+                  />
+                </svg>
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+        <LandingGraph />
+      </div>
 
       <div className="max-w-8xl flex w-full items-end justify-end gap-8 pl-10">
         <h1
@@ -391,138 +381,49 @@ export default async function IndexPage() {
       </section>
 
       <section>
-        <p className=" font-heading text-center font-bold">
-          And a lot in the making...
-        </p>
-        <div className="relative z-10 mx-auto max-w-screen-lg items-center px-4  py-8 text-center md:py-20">
-          <p className="font-bold text-neutral-400 line-through">
-            you can pretend this is true
-          </p>
-          <p className="mb-8 font-mono text-neutral-400">
-            Trusted by
-            <span className="from-logo bg-gradient-to-br to-orange-600 bg-clip-text font-black text-transparent">
+        <Changelog />
+      </section>
+
+      <section className="max-w-8xl flex items-center gap-2 to-50 mx-auto mt-10 w-full rounded-3xl  bg-gradient-to-br from-gray-100 px-4 dark:from-slate-900/80 dark:to-[#080812] sm:px-16 ">
+        <div className="flex h-full w-full flex-col justify-center gap-8 py-12">
+          <h1 className="font-heading max-w-3xl text-3xl font-bold sm:text-6xl">
+            Supported by the
+            <span className="from-logo bg-gradient-to-br to-orange-600 bg-clip-text font-black uppercase text-transparent">
               {" "}
-              100,000+{" "}
+              Dope{" "}
             </span>
-            engineers at
-          </p>
-          <ul className="mx-auto flex flex-wrap items-center justify-center gap-10 md:gap-12">
-            <img
-              src="/assets/Icons/companies/atlassian.svg"
-              className="h-4 bg-gradient-to-br from-indigo-600 to-orange-600 bg-clip-text fill-transparent opacity-75 invert transition hover:opacity-100 dark:invert-0 md:h-6"
-              alt=""
-            />
-            <img
-              src="/assets/Icons/companies/github.svg"
-              className="h-4 bg-gradient-to-br from-indigo-600 to-orange-600 bg-clip-text fill-transparent opacity-75 invert transition hover:opacity-100 dark:invert-0 md:h-6"
-              alt=""
-            />
-            <img
-              src="/assets/Icons/companies/google.svg"
-              className="h-4 bg-gradient-to-br from-indigo-600 to-orange-600 bg-clip-text fill-transparent opacity-75 invert transition hover:opacity-100 dark:invert-0 md:h-8"
-              alt=""
-            />
-            <img
-              src="/assets/Icons/companies/microsoft.svg"
-              className="h-4 bg-gradient-to-br from-indigo-600 to-orange-600 bg-clip-text fill-transparent opacity-75 invert transition hover:opacity-100 dark:invert-0 md:h-7"
-              alt=""
-            />
-            <img
-              src="/assets/Icons/companies/airbnb.svg"
-              className="h-4 bg-gradient-to-br from-indigo-600 to-orange-600 bg-clip-text fill-transparent opacity-75 invert transition hover:opacity-100 dark:invert-0 md:h-8"
-              alt=""
-            />
-            <img
-              src="/assets/Icons/companies/cisco.svg"
-              className="h-6 bg-gradient-to-br from-indigo-600 to-orange-600 bg-clip-text fill-transparent opacity-75 invert transition hover:opacity-100 dark:invert-0 md:h-8"
-              alt=""
-            />
-            <img
-              src="/assets/Icons/companies/amazon.svg"
-              className="h-5 bg-gradient-to-br from-indigo-600 to-orange-600 bg-clip-text fill-transparent opacity-75 invert transition hover:opacity-100 dark:invert-0 md:h-7"
-              alt=""
-            />
-            <img
-              src="/assets/Icons/companies/paypal.svg"
-              className="h-5 bg-gradient-to-br from-indigo-600 to-orange-600 bg-clip-text fill-transparent opacity-75 invert transition hover:opacity-100 dark:invert-0 md:h-7"
-              alt=""
-            />
-          </ul>
-        </div>
-      </section>
-
-      <section className=" max-w-8xl relative mx-auto my-10  flex w-full flex-wrap items-center justify-center gap-20 p-4 sm:px-16 ">
-        <div className=" flex items-center  justify-center py-4 sm:gap-20 ">
-          <div className="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center gap-8 px-4 text-center dark:bg-[#080812]/40  sm:gap-4">
-            <h1 className="font-heading max-w-3xl text-2xl font-bold sm:text-4xl">
-              <a href="https://github.com/LogLib/loglib" className="italic">
-                Loglib{" "}
-              </a>
-              works with
-              <span className="from-logo bg-gradient-to-br to-orange-600 bg-clip-text font-black uppercase text-transparent">
-                {" "}
-                any{" "}
-              </span>
-              language and framework
-            </h1>
-            <p className="max-w-lg">
-              It effortlessly works with any JavaScript ecosystem, even in pure
-              HTML via a CDN.
-            </p>
-          </div>
-        </div>
-      </section>
-      <TrackOnView name="on-footer">
-        <section className="max-w-8xl to-50 mx-auto mt-10 w-full rounded-3xl  bg-gradient-to-br from-gray-100 px-4 dark:from-gray-700/25 dark:to-[#080812] sm:px-16 ">
-          <div className="flex h-full w-full flex-col justify-center gap-8 py-12">
-            <h1 className="font-heading max-w-3xl text-3xl font-bold sm:text-6xl">
-              Supported by the
-              <span className="from-logo bg-gradient-to-br to-orange-600 bg-clip-text font-black uppercase text-transparent">
-                {" "}
-                Dope{" "}
-              </span>
-              #community
-            </h1>
-            <div className="flex flex-col gap-10 font-semibold sm:flex-row sm:gap-20">
-              <div className="flex flex-col items-center justify-center rounded-lg  border border-gray-900 px-16 py-4 transition-colors duration-500 hover:border-gray-800">
-                <div>
-                  <h1 className="font-heading bg-gradient-to-bl from-red-500 to-indigo-700 bg-clip-text text-5xl font-black text-transparent ">
-                    0{stars}
-                  </h1>
-                  <p className="text-md font-mono font-thin opacity-75">
-                    GitHub Stars
-                  </p>
-                </div>
+            #community
+          </h1>
+          <div className="flex flex-col gap-10 font-semibold sm:flex-row sm:gap-20">
+            <div className="flex flex-col items-center justify-center rounded-lg  border border-gray-900 px-16 py-4 transition-colors duration-500 hover:border-gray-800">
+              <div>
+                <h1 className="font-heading bg-gradient-to-bl from-red-500 to-indigo-700 bg-clip-text text-5xl font-black text-transparent ">
+                  0{stars}
+                </h1>
+                <p className="text-md font-mono font-thin opacity-75">
+                  GitHub Stars
+                </p>
               </div>
-              <div className="flex flex-col items-center justify-center rounded-lg  border border-gray-900 px-16 py-4 transition-colors duration-500 hover:border-gray-800">
-                <div>
-                  <h1 className="font-heading bg-gradient-to-tr from-red-500 to-indigo-700 bg-clip-text text-5xl font-black text-transparent ">
-                    127
-                  </h1>
-                  <p className="text-md font-mono font-thin opacity-75">
-                    Community
-                  </p>
-                </div>
-              </div>
+            </div>
 
-              <div className="flex flex-col items-center justify-center rounded-lg  border border-gray-900 px-16 py-4 transition-colors duration-500 hover:border-gray-800">
-                <div>
-                  <h1 className="font-heading bg-gradient-to-br from-red-500 to-indigo-700 bg-clip-text text-5xl font-black text-transparent ">
-                    {contributors <= 10
-                      ? "00" + contributors
-                      : contributors <= 100
-                      ? "0" + contributors
-                      : contributors}
-                  </h1>
-                  <p className="text-md font-mono font-thin opacity-75">
-                    Contributors
-                  </p>
-                </div>
+            <div className="flex flex-col items-center justify-center rounded-lg  border border-gray-900 px-16 py-4 transition-colors duration-500 hover:border-gray-800">
+              <div>
+                <h1 className="font-heading bg-gradient-to-br from-red-500 to-indigo-700 bg-clip-text text-5xl font-black text-transparent ">
+                  {contributors <= 10
+                    ? "00" + contributors
+                    : contributors <= 100
+                    ? "0" + contributors
+                    : contributors}
+                </h1>
+                <p className="text-md font-mono font-thin opacity-75">
+                  Contributors
+                </p>
               </div>
             </div>
           </div>
-        </section>
-      </TrackOnView>
+        </div>
+        <ReachOut />
+      </section>
     </main>
   )
 }

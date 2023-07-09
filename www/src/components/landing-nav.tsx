@@ -20,7 +20,8 @@ export const LandingNav = () => {
             pathname === "/" && "translate-x-2",
             pathname === "/pricing" && "translate-x-20",
             pathname === "/reach-out" && "translate-x-44",
-            pathname?.includes("/docs") && " translate-x-72"
+            pathname?.includes("/changelog") && " translate-x-72",
+            pathname?.includes("/docs") && " translate-x-96"
           )}
           style={{
             width: "84.5px",
@@ -35,7 +36,8 @@ export const LandingNav = () => {
               pathname === "/" && "translate-x-2",
               pathname === "/pricing" && "translate-x-20",
               pathname === "/reach-out" && "translate-x-44",
-              pathname?.includes("/docs") && " translate-x-72"
+              pathname?.includes("/changelog") && " translate-x-72",
+              pathname?.includes("/docs") && " translate-x-96"
             )}
             style={{
               width: "84.5px",
@@ -71,7 +73,7 @@ export const LandingNav = () => {
                 </button>
               </Link>
             </li>
-            <li className="">
+            {/* <li className="">
               <Link href="/reach-out">
                 <button
                   type="button"
@@ -82,6 +84,20 @@ export const LandingNav = () => {
                   )}
                 >
                   Reach Out
+                </button>
+              </Link>
+            </li> */}
+            <li className="hidden md:block">
+              <Link href="/changelog">
+                <button
+                  type="button"
+                  className={cn(
+                    "px-4 py-1 text-sm font-light text-black/60 transition-[text-shadow,color] duration-200 hover:text-black/80 focus:outline-none dark:text-white/60 dark:hover:text-white/75",
+                    pathname?.includes("/docs") &&
+                      "text-black/80 dark:text-white/75"
+                  )}
+                >
+                  Changelog
                 </button>
               </Link>
             </li>

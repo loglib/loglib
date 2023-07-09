@@ -34,6 +34,8 @@
     --ring: 215 20.2% 65.1%;
 
     --radius: 0.5rem;
+
+    --gird: url("/assets/grid.svg");
   }
 
   .dark {
@@ -67,6 +69,8 @@
     --ring: 216 34% 17%;
 
     --radius: 0.5rem;
+
+    --gird: url("/assets/grid-dark.svg");
   }
 }
 

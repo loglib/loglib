@@ -5,16 +5,59 @@ import rehypeSlug from "rehype-slug"
 import remarkGfm from "remark-gfm"
 
 /** @type {import('contentlayer/source-files').ComputedFields} */
-const computedFields = {
+
+const capitalize = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
+const computedFields = (type) => ({
   slug: {
     type: "string",
-    resolve: (doc) => `/${doc._raw.flattenedPath}`,
+    resolve: (doc) => doc._raw.flattenedPath.replace(`${type}/`, ""),
   },
-  slugAsParams: {
-    type: "string",
-    resolve: (doc) => doc._raw.flattenedPath.split("/").slice(1).join("/"),
+  images: {
+    type: "array",
+    resolve: (doc) => {
+      return doc.body.raw.match(
+        /(?<=<BlurImage[^>]*\bsrc=")[^"]+(?="[^>]*\/>)/g
+      )
+    },
   },
-}
+  tweetIds: {
+    type: "array",
+    resolve: (doc) => {
+      const tweetMatches = doc.body.raw.match(/<StaticTweet\sid="[0-9]+"\s\/>/g)
+      return tweetMatches?.map((tweet) => tweet.match(/[0-9]+/g)[0]) || []
+    },
+  },
+  githubRepos: {
+    type: "array",
+    resolve: (doc) => {
+      // match all <GithubRepo url=""/> and extract the url
+      return doc.body.raw.match(
+        /(?<=<GithubRepo[^>]*\burl=")[^"]+(?="[^>]*\/>)/g
+      )
+    },
+  },
+  structuredData: {
+    type: "object",
+    resolve: (doc) => ({
+      "@context": "https://schema.org",
+      "@type": `${capitalize(type)}Posting`,
+      headline: doc.title,
+      datePublished: doc.publishedAt,
+      dateModified: doc.publishedAt,
+      description: doc.summary,
+      image: doc.image,
+      url: `https://lgolib.io/${doc._raw.flattenedPath}`,
+      author: {
+        "@type": "Person",
+        name: doc.author,
+      },
+    }),
+  },
+})
+
 export const Doc = defineDocumentType(() => ({
   name: "Doc",
   filePathPattern: `docs/**/*.mdx`,
@@ -35,77 +78,39 @@ export const Doc = defineDocumentType(() => ({
   computedFields,
 }))
 
-// export const Guide = defineDocumentType(() => ({
-//   name: "Guide",
-//   filePathPattern: `guides/**/*.mdx`,
-//   contentType: "mdx",
-//   fields: {
-//     title: {
-//       type: "string",
-//       required: true,
-//     },
-//     description: {
-//       type: "string",
-//     },
-//     date: {
-//       type: "date",
-//       required: true,
-//     },
-//     published: {
-//       type: "boolean",
-//       default: true,
-//     },
-//     featured: {
-//       type: "boolean",
-//       default: false,
-//     },
-//   },
-//   computedFields,
-// }))
-
-// export const Author = defineDocumentType(() => ({
-//   name: "Author",
-//   filePathPattern: `authors/**/*.mdx`,
-//   contentType: "mdx",
-//   fields: {
-//     title: {
-//       type: "string",
-//       required: true,
-//     },
-//     description: {
-//       type: "string",
-//     },
-//     avatar: {
-//       type: "string",
-//       required: true,
-//     },
-//     twitter: {
-//       type: "string",
-//       required: true,
-//     },
-//   },
-//   computedFields,
-// }))
-
-// export const Page = defineDocumentType(() => ({
-//   name: "Page",
-//   filePathPattern: `pages/**/*.mdx`,
-//   contentType: "mdx",
-//   fields: {
-//     title: {
-//       type: "string",
-//       required: true,
-//     },
-//     description: {
-//       type: "string",
-//     },
-//   },
-//   computedFields,
-// }))
+export const ChangelogPost = defineDocumentType(() => ({
+  name: "ChangelogPost",
+  filePathPattern: `**/changelog/*.mdx`,
+  contentType: "mdx",
+  fields: {
+    title: {
+      type: "string",
+      required: true,
+    },
+    publishedAt: {
+      type: "string",
+      required: true,
+    },
+    summary: {
+      type: "string",
+      required: true,
+    },
+    image: {
+      type: "string",
+      required: true,
+    },
+    author: {
+      type: "string",
+      required: true,
+    },
+  },
+  // @ts-ignore
+  computedFields: computedFields("changelog"),
+}))
 
 export default makeSource({
-  contentDirPath: "./src/content",
-  documentTypes: [Doc],
+  contentDirPath: "src/content",
+  documentTypes: [Doc, ChangelogPost],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [

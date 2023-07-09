@@ -87,11 +87,11 @@ module.exports = {
         text: {
           "0%, 100%": {
             "background-size": "200% 200%",
-            "background-position": "left center",
+            "background-position": "0% center",
           },
           "50%": {
             "background-size": "200% 200%",
-            "background-position": "right center",
+            "background-position": "100% center",
           },
         },
         border: {
@@ -111,13 +111,23 @@ module.exports = {
             transform: "translateX(600px)",
           },
         },
+
+        "background-pan": {
+          from: {
+            "background-position": "0% center",
+          },
+          to: {
+            "background-position": "-200% center",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         typing: "typing 2s steps(14), blink 0.1s infinite",
-        text: "text 6s ease infinite",
+        text: "text 6s linear infinite",
         border: "border 30s ease infinite -2s",
+        "background-pan": "background-pan 3s linear infinite",
       },
     },
   },
