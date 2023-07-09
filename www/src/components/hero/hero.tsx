@@ -30,7 +30,7 @@ export const Hero = () => {
   }, [])
   return (
     <div className="font-heading max-w-3xl text-4xl font-bold text-slate-800 dark:text-slate-300 ">
-      <h1 className=" hover:opacity-95 flex flex-col md:flex-row items-start md:item gap-2 dark:text-slate-100/80 md:text-4xl text-lg">
+      <h1 className=" hover:opacity-95 flex flex-wrap flex-col md:flex-row items-start md:item gap-2 dark:text-slate-100/80 2xl:text-4xl md:text-3xl text-lg">
         <span className=" relative inline-block ">
           <span className={cn(styles.magicStar, "star")}>
             <svg viewBox="0 0 512 512">
@@ -50,10 +50,13 @@ export const Hero = () => {
           <span className={styles.magicText}>Crafted with care.</span>
         </span>{" "}
         <span className="  bg-gradient-to-tr dark:from-slate-300 from-slate-500 to-slate-600 dark:to-slate-400 bg-clip-text text-transparent">
-          Privacy First. Open Source.
+          Privacy First.
+        </span>
+        <span className="  bg-gradient-to-tr dark:from-slate-300 from-slate-500 to-slate-600 dark:to-slate-400 bg-clip-text text-transparent">
+          Open Source.
         </span>
       </h1>
-      <h1 className="bg-gradient-to-br md:text-8xl text-5xl from-orange-400 to-gray-200 bg-clip-text uppercase text-transparent dark:from-gray-200 dark:to-orange-400">
+      <h1 className="bg-gradient-to-br md:text-6xl xl:text-8xl text-5xl from-orange-400 to-gray-200 bg-clip-text uppercase text-transparent dark:from-gray-200 dark:to-orange-400">
         web analytics
       </h1>
     </div>
