@@ -15,7 +15,7 @@ export function SiteHeader({ user }: { user?: User }) {
   const switchOnRef = useRef<HTMLAudioElement>(null)
   const switchOffRef = useRef<HTMLAudioElement>(null)
   return (
-    <header className="flex items-center justify-between  px-16">
+    <header className="flex items-center justify-between md:px-16 px-4">
       <Icons.logoWithLetter
         logoClassName=" w-10 h-10"
         headerClassName=" text-3xl"
