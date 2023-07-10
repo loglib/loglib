@@ -1,5 +1,11 @@
 # @loglib/tracker
 
+## 0.4.3
+
+### Patch Changes
+
+- 3f65e26: dts error fix
+
 ## 0.4.1
 
 ### Patch Changes
