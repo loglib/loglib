@@ -1,17 +1,14 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "sourceMap": true,
-    "skipLibCheck": true,
-    "jsx": "react-jsx",
-    "module": "ES2022",
-    "moduleResolution": "Bundler",
-    "target": "ESNext",
+    "jsx": "react",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "strict": true,
-    "allowUmdGlobalAccess": true,
-    "noEmit": true
+    "strict": false,
+    "types": ["vitest/globals"]
   },
-  "include": ["src", "test", "vite.config.ts"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src/**/*", "test/**/*", "tsup.config.ts", "vite.config.ts"],
+  "exclude": ["node_modules", "dist", "lib"]
 }

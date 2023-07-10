@@ -5,6 +5,7 @@ import "@/styles/globals.css"
 import { Inter } from "next/font/google"
 import localFont from "next/font/local"
 import Loglib from "@loglib/tracker/react"
+import { loglib } from "@loglib/tracker"
 
 import { siteConfig } from "@/config/site"
 import { Toaster } from "@/components/ui/toaster"
@@ -123,10 +124,8 @@ export default function RootLayout({
           <Loglib
             config={{
               id: "loglib",
-              host: "http://localhost:3000",
+              host: "https://loglib.io",
               consent: "granted",
-              debug: true,
-              env: "prod",
             }}
           />
           <Toaster />

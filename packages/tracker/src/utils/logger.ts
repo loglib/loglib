@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { isUndefined } from "./util";
 
 // Console override
@@ -8,9 +11,11 @@ export const logger = {
 		const config = window.llc;
 		if (config.debug && !isUndefined(window.console) && window.console) {
 			const log =
+				// eslint-disable-next-line @typescript-eslint/unbound-method
 				"__rrweb_original__" in window.console.log
 					? (window.console.log as any)["__rrweb_original__"]
 					: window.console.log;
+
 			try {
 				log.apply(window.console, args);
 			} catch (err) {
