@@ -49,7 +49,7 @@ importers:
       '@loglib/core': 0.3.3
       '@loglib/next': 0.2.0
       '@loglib/prisma-adapter': 0.2.3
-      '@loglib/tracker': 0.4.0
+      '@loglib/tracker': 0.4.1
       '@loglib/ui': 0.5.3
       '@prisma/client': ^4.14.0
       '@types/node': ^18.15.13
@@ -91,7 +91,7 @@ importers:
       '@loglib/core': 0.3.3
       '@loglib/next': 0.2.0
       '@loglib/supabase-adapter': 0.3.3
-      '@loglib/tracker': 0.4.0
+      '@loglib/tracker': 0.4.1
       '@loglib/ui': 0.5.3
       '@supabase/supabase-js': ^2.24.0
       '@types/node': ^18.15.13
@@ -376,7 +376,7 @@ importers:
       '@loglib/core': ^0.3.3
       '@loglib/next': ^0.2.0
       '@loglib/prisma-adapter': ^0.2.3
-      '@loglib/tracker': 0.4.0
+      '@loglib/tracker': 0.4.1
       '@loglib/ui': 0.5.3
       '@lottiefiles/react-lottie-player': ^3.5.3
       '@mdx-js/mdx': ^2.3.0

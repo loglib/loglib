@@ -1,5 +1,11 @@
 # @loglib/tracker
 
+## 0.4.1
+
+### Patch Changes
+
+- fa59622: bug fix
+
 ## 0.4.0
 
 ### Minor Changes
