@@ -1,5 +1,18 @@
 # @loglib/next
 
+## 0.2.0
+
+### Minor Changes
+
+- 4fa30ef: - tracker bug fixes
+
+### Patch Changes
+
+- d39c636: - tracker is using fetch insted of sendBeacon on default
+  - mpa support to not persist session between page unloads
+  - dashboard ui improvements
+  - and bug fixes...
+
 ## 0.1.15
 
 ### Patch Changes

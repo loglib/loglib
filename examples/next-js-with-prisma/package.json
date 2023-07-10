@@ -10,10 +10,10 @@
   },
   "dependencies": {
     "@loglib/core": "0.3.3",
-    "@loglib/next": "0.1.15",
+    "@loglib/next": "0.2.0",
     "@loglib/prisma-adapter": "0.2.3",
-    "@loglib/tracker": "0.3.5",
-    "@loglib/ui": "0.5.2",
+    "@loglib/tracker": "0.4.0",
+    "@loglib/ui": "0.5.3",
     "@prisma/client": "^4.14.0",
     "@types/node": "^18.15.13",
     "@types/react": "^18.2.0",
