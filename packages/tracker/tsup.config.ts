@@ -12,9 +12,16 @@ export default defineConfig(() => [
   {
     ...cfg,
     entry: {
+      index: "src/entry.ts",
+    },
+    format: ["iife"],
+    minify: true,
+  },
+  {
+    ...cfg,
+    entry: {
       index: "src/lib.ts",
     },
-
     outDir: "dist",
   },
   {
@@ -29,13 +36,5 @@ export default defineConfig(() => [
         js: '"use client";',
       };
     },
-  },
-  {
-    ...cfg,
-    entry: {
-      index: "src/entry.ts",
-    },
-    format: ["iife"],
-    minify: true,
   },
 ]);

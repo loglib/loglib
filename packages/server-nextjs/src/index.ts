@@ -63,10 +63,6 @@ const createServerRoutes = (options: LogLibOptions) => {
       }),
       {
         status: internalResponse.code,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": options.cors?.origin || "*",
-        },
       },
     );
   };

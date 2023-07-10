@@ -8,4 +8,4 @@ const loglib = {
   setConsent,
 };
 
-export { loglib, identify, setConsent, track };
+export { loglib, identify, setConsent, track, record };
