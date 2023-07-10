@@ -35,4 +35,4 @@ Loglib is a **Open Source** and **Privacy-First** web analytics that can be atta
 
 To get started with Loglib, please visit our [documentation](https://docs.loglib.io/). The documentation has all the information you need to get started with Loglib, including installation instructions, and tutorials. We have tried to cover different types of integrations in our documentation.
 
-If you don't quite find what you need, you can join the Loglib Community and ask anything. The Loglib Community is a great place to ask questions and get help from other Loglib users. You can find the Loglib Community on [Telegram](https://t.me/loglib_community).
+If you don't quite find what you need, you can join the Loglib Community and ask anything. The Loglib Community is a great place to ask questions and get help from other Loglib users. You can find the Loglib Community on [Telegram](https://t.me/loglib_community) or [discord](https://discord.gg/vBkrdDER).

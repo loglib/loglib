@@ -127,6 +127,14 @@ export const parseHost = (url: string) => {
   }
 };
 
+export const setSessionStartTime = (time: number) => {
+  sessionStorage.setItem("loglib-session-start-time", time.toString());
+};
+
 export const getSessionDuration = () => {
-  return (Date.now() - window.lli.startTime) / 1000;
+  const startTime = sessionStorage.getItem("loglib-session-start-time");
+  if (startTime) {
+    return (Date.now() - parseInt(startTime)) / 1000;
+  }
+  return 0;
 };

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { clickHandler } from "./handlers/clickHandler";
 import { send } from "./server";
 import { Config } from "./types";
@@ -13,6 +14,7 @@ import {
   guid,
   hook,
   parseHost,
+  setSessionStartTime,
 } from "./utils/util";
 import { logger } from "./utils/logger";
 
@@ -40,6 +42,7 @@ export function record(config?: Partial<Config>) {
 
   //Set Internal
   const now = Date.now();
+  setSessionStartTime(now);
   window.lli = {
     eventsBank: [],
     startTime: now,
@@ -122,11 +125,12 @@ export const navigationHandler = (_: string, __: string, url: string) => {
   }
 };
 
-const sessionEndHandler = () => {
+const sessionEndHandler = async () => {
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "hidden") {
-      window.lli.eventsBank.length &&
+      if (window.lli.eventsBank.length) {
         send(window.lli.eventsBank, "/event", flush);
+      }
       send(
         {
           pageDuration: (Date.now() - window.lli.timeOnPage) / 1000,
@@ -135,6 +139,7 @@ const sessionEndHandler = () => {
         "/session/pulse",
         flush,
       );
+
       clearIntervals();
     } else {
       window.lli.timeOnPage = Date.now();

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { send } from "./server";
 import { getVisitorId, guid, q } from "./utils/util";
 
