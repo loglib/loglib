@@ -111,7 +111,7 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          " bg-gradient-to-tr from-white min-h-screen to-gray-100 font-sans antialiased  dark:from-black dark:to-slate-900/30 transition-all duration-300",
+          " bg-gradient-to-tr from-white min-h-screen to-gray-100 font-sans antialiased dark:from-black dark:to-slate-900/30 transition-all duration-300",
           fontSatoshi.variable,
           fontHeading.variable
         )}
@@ -123,11 +123,8 @@ export default function RootLayout({
           <Loglib
             config={{
               id: "loglib",
-              host: "http://localhost:3000",
+              host: "https://loglib.io",
               consent: "granted",
-              debug: true,
-              useBeacon: true,
-              env: "prod",
             }}
           />
           <Toaster />

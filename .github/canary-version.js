@@ -4,7 +4,8 @@ import { exec } from "child_process";
 const pkgJsonPaths = [
   "packages/core/package.json",
   "packages/next/package.json",
-  "packages/prisma-adapter/package.json"
+  "packages/prisma-adapter/package.json",
+  "packages/tracker/package.json",
 ];
 
 try {
