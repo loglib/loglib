@@ -4,23 +4,14 @@ import Link from "next/link"
 import { siteConfig } from "@/config/site"
 import { getCurrentUser } from "@/lib/session"
 
-import { env } from "../../../env.mjs"
-
 import Changelog from "@/components/changelog"
-import { Sparkles } from "lucide-react"
 import { Hero } from "@/components/hero/hero"
 import { cn } from "@/lib/utils"
 import { LandingGraph } from "@/components/landing-graph/landing-graph"
-import { ReachOut } from "@/components/reach-out"
-// import { LandingGraph } from "@/components/landing-graph/landing-graph"
 
 async function getGitHubStars() {
   try {
     const response = await fetch("https://api.github.com/repos/loglib/loglib", {
-      headers: {
-        Accept: "application/vnd.github+json",
-        Authorization: `Bearer ${env.GITHUB_ACCESS_TOKEN}`,
-      },
       next: {
         revalidate: 60,
       },
@@ -383,8 +374,6 @@ export default async function IndexPage() {
       <section>
         <Changelog />
       </section>
-
-      {/* <ReachOut /> */}
 
       <section className="max-w-8xl to-50 mx-auto mt-10 w-full rounded-3xl  bg-gradient-to-br from-gray-100 px-4 dark:from-slate-900/80 dark:to-[#080812] sm:px-16 ">
         <div className="flex h-full w-full flex-col justify-center gap-8 py-12">
