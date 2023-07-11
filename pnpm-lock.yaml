@@ -58,7 +58,7 @@ importers:
       autoprefixer: ^10.4.14
       eslint: ^8.39.0
       eslint-config-next: 13.4.4
-      next: ^13.4.1
+      next: latest
       postcss: ^8.4.23
       prisma: ^4.14.0
       react: ^18.2.0
@@ -78,7 +78,7 @@ importers:
       autoprefixer: 10.4.14_postcss@8.4.24
       eslint: 8.41.0
       eslint-config-next: 13.4.4_7ploys55nlrvgzaet23aqtwjea
-      next: 13.4.4_biqbaboplfbrettd7655fr4n2y
+      next: 13.4.9_biqbaboplfbrettd7655fr4n2y
       postcss: 8.4.24
       prisma: 4.15.0
       react: 18.2.0
@@ -452,7 +452,7 @@ importers:
       jotai-cache: ^0.3.0
       lucide-react: ^0.220.0
       mdast-util-toc: ^6.1.1
-      next: ^13.4.6
+      next: ^13.4.1
       next-auth: 4.22.1
       next-contentlayer: ^0.3.3
       next-themes: ^0.2.1
@@ -2656,6 +2656,7 @@ packages:
 
   /@next/env/13.4.4:
     resolution: {integrity: sha512-q/y7VZj/9YpgzDe64Zi6rY1xPizx80JjlU2BTevlajtaE3w1LqweH1gGgxou2N7hdFosXHjGrI4OUvtFXXhGLg==}
+    dev: true
 
   /@next/env/13.4.9:
     resolution: {integrity: sha512-vuDRK05BOKfmoBYLNi2cujG2jrYbEod/ubSSyqgmEx9n/W3eZaJQdRNhTfumO+qmq/QTzLurW487n/PM/fHOkw==}
@@ -2687,6 +2688,7 @@ packages:
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@next/swc-darwin-arm64/13.4.9:
@@ -2704,6 +2706,7 @@ packages:
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@next/swc-darwin-x64/13.4.9:
@@ -2721,6 +2724,7 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@next/swc-linux-arm64-gnu/13.4.9:
@@ -2738,6 +2742,7 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@next/swc-linux-arm64-musl/13.4.9:
@@ -2755,6 +2760,7 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@next/swc-linux-x64-gnu/13.4.9:
@@ -2772,6 +2778,7 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@next/swc-linux-x64-musl/13.4.9:
@@ -2789,6 +2796,7 @@ packages:
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@next/swc-win32-arm64-msvc/13.4.9:
@@ -2806,6 +2814,7 @@ packages:
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@next/swc-win32-ia32-msvc/13.4.9:
@@ -2823,6 +2832,7 @@ packages:
     cpu: [x64]
     os: [win32]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@next/swc-win32-x64-msvc/13.4.9:
@@ -13063,6 +13073,7 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
+    dev: true
 
   /next/13.4.9_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-vtefFm/BWIi/eWOqf1GsmKG3cjKw1k3LjuefKRcL3iiLl3zWzFdPG3as6xtxrGO6gwTzzaO1ktL4oiHt/uvTjA==}
