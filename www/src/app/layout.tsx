@@ -3,7 +3,6 @@ import { cn } from "@/lib/utils"
 import "@/styles/globals.css"
 
 import localFont from "next/font/local"
-import Loglib from "@loglib/tracker/react"
 
 import { siteConfig } from "@/config/site"
 import { Toaster } from "@/components/ui/toaster"
@@ -117,13 +116,7 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="dark">
           {children}
-          <Loglib
-            config={{
-              id: "loglib",
-              host: "https://loglib.io",
-              consent: "granted",
-            }}
-          />
+
           <Toaster />
         </ThemeProvider>
       </body>
