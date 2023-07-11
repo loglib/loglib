@@ -181,7 +181,7 @@ export default async function IndexPage() {
       </div>
 
       <section className="max-w-8xl relative mx-4 w-full md:mx-0">
-        <div className="relative flex w-10/12 border-spacing-2 flex-col items-center border border-black/20 p-6 decoration-dashed dark:border-white/20 md:w-1/2 lg:flex-row lg:space-x-8">
+        <div className="relative flex w-10/12 border-spacing-2  flex-col items-center border border-black/20 p-6 decoration-dashed dark:border-white/10 md:w-1/2 lg:flex-row lg:space-x-8">
           <svg
             version="1.1"
             className=" h-16 w-16 fill-gray-800 dark:fill-white/90"

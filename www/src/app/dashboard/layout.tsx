@@ -17,13 +17,13 @@ export default async function DashboardSideBarLayout({
   const { userWebsites, teamWebsites } = await getWebsite()
   const websites = userWebsites.concat(teamWebsites)
   return (
-    <div className=" min-h-[99vh] space-y-8 px-4 md:px-16 bg-gradient-to-tr dark:from-slate-950 dark:to-slate-950/50 from-white to-slate-200">
+    <div className=" space-y-8 px-4 md:px-16 bg-gradient-to-tr ">
       <StoreSetter store="website" data={websites} />
       <StoreSetter store="user" data={user} />
       <StoreSetter store="teamWebsites" data={teamWebsites} />
       <StoreSetter store="userWebsites" data={userWebsites} />
       <DashboardHeader user={user} />
-      <main className="grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
+      <main className="grid  gap-12 md:grid-cols-[200px_1fr]">
         <aside className="hidden w-[200px] flex-col pr-4 md:flex">
           <DashboardNav
             items={[
@@ -47,7 +47,7 @@ export default async function DashboardSideBarLayout({
             ]}
           />
         </aside>
-        <main className="flex w-full flex-1 flex-col">{children}</main>
+        <main className="flex w-full  flex-col">{children}</main>
       </main>
     </div>
   )

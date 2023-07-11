@@ -2,10 +2,8 @@ import { cn } from "@/lib/utils"
 
 import "@/styles/globals.css"
 
-import { Inter } from "next/font/google"
 import localFont from "next/font/local"
 import Loglib from "@loglib/tracker/react"
-import { loglib } from "@loglib/tracker"
 
 import { siteConfig } from "@/config/site"
 import { Toaster } from "@/components/ui/toaster"
@@ -112,14 +110,12 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          " bg-gradient-to-tr from-white min-h-screen to-gray-100 font-sans antialiased dark:from-black dark:to-slate-900/30 transition-all duration-300",
+          " bg-gradient-to-tr from-white  to-gray-100 font-sans antialiased dark:from-black dark:to-slate-900/30 transition-all duration-300",
           fontSatoshi.variable,
           fontHeading.variable
         )}
       >
-        <Background />
-
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="dark">
           {children}
           <Loglib
             config={{

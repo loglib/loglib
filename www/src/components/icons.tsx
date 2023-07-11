@@ -71,11 +71,13 @@ export const Icons = {
     headerClassName?: string
   }) => (
     <Link
-      className={cn("flex  cursor-pointer items-end gap-2 ", className)}
+      className={cn("flex cursor-pointer items-end gap-2", className)}
       href="/"
     >
       <Icons.logo className={cn("h-14 w-14", logoClassName)} />
-      <h2 className={cn(" text-5xl font-bold", headerClassName)}>LOGLIB</h2>
+      <h2 className={cn(" text-5xl font-bold font-sans", headerClassName)}>
+        LOGLIB
+      </h2>
     </Link>
   ),
   spinner: Loader2,

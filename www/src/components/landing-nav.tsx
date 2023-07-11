@@ -12,7 +12,7 @@ import { Button } from "./ui/button"
 export const LandingNav = () => {
   const pathname = usePathname()
   return (
-    <div className="font-outfit relative overflow-hidden rounded-xl [--duration:500ms] [transform:translateZ(0)]">
+    <div className=" relative overflow-hidden rounded-xl [--duration:500ms] [transform:translateZ(0)]">
       <nav className="relative w-full rounded-xl border border-black/10 p-2 dark:border-white/10">
         <div
           className={cn(
