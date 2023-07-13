@@ -59,13 +59,7 @@ export function InsightCard({
           <div className=" tw-flex tw-justify-between">
             <div className=" tw-flex tw-text-xs">
               {increase ? (
-                negative ? (
-                  <ArrowUpIcon className=" tw-text-green-500" size={16} />
-                ) : (
-                  <ArrowDown className=" tw-text-green-500" size={16} />
-                )
-              ) : negative ? (
-                <ArrowUpIcon className=" tw-text-red-500" size={16} />
+                <ArrowUpIcon className=" tw-text-green-500" size={16} />
               ) : (
                 <ArrowDown className=" tw-text-red-500" size={16} />
               )}
