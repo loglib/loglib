@@ -5,7 +5,7 @@ import { db } from "@/lib/db"
 import { apiErrorMessages } from "@/lib/messages"
 import { rateLimitCheck } from "@/lib/rate-limit"
 import { rootApiSchema } from "@/lib/validations/api"
-import { NextResponse } from "next/server"
+import cors, { corsHeaders } from "@/lib/cors"
 
 const eventsApiSchema = rootApiSchema.merge(
   z.object({
@@ -58,6 +58,7 @@ export const POST = async (req: Request) => {
           {
             status: 401,
             statusText: "Unauthorized",
+            headers: corsHeaders,
           }
         )
       }
@@ -69,6 +70,7 @@ export const POST = async (req: Request) => {
           }),
           {
             status: 429,
+            headers: corsHeaders,
           }
         )
       const { take, skip, orderBy, include, where } = schema.data
@@ -97,6 +99,7 @@ export const POST = async (req: Request) => {
         })
       return new Response(JSON.stringify(events), {
         status: 200,
+        headers: corsHeaders,
       })
     } else {
       return new Response(
@@ -106,6 +109,7 @@ export const POST = async (req: Request) => {
         {
           status: 400,
           statusText: "Bad Request",
+          headers: corsHeaders,
         }
       )
     }
@@ -117,12 +121,17 @@ export const POST = async (req: Request) => {
       {
         status: 500,
         statusText: "Internal Server Error",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        },
+        headers: corsHeaders,
       }
     )
   }
+}
+
+export async function OPTIONS(request: Request) {
+  return cors(
+    request,
+    new Response(null, {
+      status: 204,
+    })
+  )
 }

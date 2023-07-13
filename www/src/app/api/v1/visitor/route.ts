@@ -4,6 +4,7 @@ import { db } from "@/lib/db"
 import { apiErrorMessages } from "@/lib/messages"
 import { rateLimitCheck } from "@/lib/rate-limit"
 import { transformToISO } from "@/lib/validations/api"
+import cors, { corsHeaders } from "@/lib/cors"
 
 const visitorApiSchema = z.object({
   apiKey: z.string({
@@ -74,6 +75,7 @@ export const POST = async (req: Request) => {
             message: apiErrorMessages["Invalid-api-key"],
           }),
           {
+            headers: corsHeaders,
             status: 401,
           }
         )
@@ -85,6 +87,7 @@ export const POST = async (req: Request) => {
             message: apiErrorMessages["Rate-limit-exceeded"],
           }),
           {
+            headers: corsHeaders,
             status: 429,
           }
         )
@@ -112,6 +115,7 @@ export const POST = async (req: Request) => {
           message: validatedData.error.issues,
         }),
         {
+          headers: corsHeaders,
           status: 400,
           statusText: "Bad Request",
         }
@@ -123,6 +127,7 @@ export const POST = async (req: Request) => {
         message: e.message ?? apiErrorMessages["Internal-server-error"],
       }),
       {
+        headers: corsHeaders,
         status: 500,
         statusText: "Internal Server Error",
         headers: {
@@ -133,4 +138,13 @@ export const POST = async (req: Request) => {
       }
     )
   }
+}
+
+export async function OPTIONS(request: Request) {
+  return cors(
+    request,
+    new Response(null, {
+      status: 204,
+    })
+  )
 }

@@ -145,3 +145,9 @@ export default async function cors(
 export function initCors(options?: CorsOptions) {
   return (req: Request, res: Response) => cors(req, res, options)
 }
+
+export const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+}
