@@ -4,7 +4,7 @@ import { db } from "@/lib/db"
 import { apiErrorMessages } from "@/lib/messages"
 import { rateLimitCheck } from "@/lib/rate-limit"
 import { transformToISO } from "@/lib/validations/api"
-import cors from "@/lib/cors"
+import cors, { corsHeaders } from "@/lib/cors"
 
 const sessionApiSchema = z.object({
   apiKey: z.string({
@@ -76,6 +76,7 @@ export const POST = async (req: Request) => {
             message: apiErrorMessages["Invalid-api-key"],
           }),
           {
+            headers: corsHeaders,
             status: 401,
           }
         )
@@ -87,6 +88,7 @@ export const POST = async (req: Request) => {
             message: apiErrorMessages["Rate-limit-exceeded"],
           }),
           {
+            headers: corsHeaders,
             status: 429,
           }
         )
@@ -118,6 +120,7 @@ export const POST = async (req: Request) => {
           })
         })
       return new Response(JSON.stringify(session), {
+        headers: corsHeaders,
         status: 200,
       })
     } else {
@@ -126,6 +129,7 @@ export const POST = async (req: Request) => {
           message: validatedData.error.issues,
         }),
         {
+          headers: corsHeaders,
           status: 400,
           statusText: "Bad Request",
         }
@@ -137,6 +141,7 @@ export const POST = async (req: Request) => {
         message: e.message ?? apiErrorMessages["Internal-server-error"],
       }),
       {
+        headers: corsHeaders,
         status: 500,
         statusText: "Internal Server Error",
       }
@@ -144,10 +149,8 @@ export const POST = async (req: Request) => {
   }
 }
 export async function OPTIONS(request: Request) {
-  return cors(
-    request,
-    new Response(null, {
-      status: 204,
-    })
-  )
+  return new Response(null, {
+    status: 204,
+    headers: corsHeaders,
+  })
 }
