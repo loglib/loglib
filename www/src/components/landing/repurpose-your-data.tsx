@@ -2,7 +2,6 @@
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import Background from "./grid-background/background"
-import { Particles } from "./feature-cards/particles"
 
 export const RepurposeYourData = () => {
   const [borderHeight, setBorderHeight] = useState(0)
