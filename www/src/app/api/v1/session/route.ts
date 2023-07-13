@@ -148,7 +148,7 @@ export const POST = async (req: Request) => {
     )
   }
 }
-export async function OPTIONS(request: Request) {
+export async function OPTIONS() {
   return new Response(null, {
     status: 204,
     headers: corsHeaders,
