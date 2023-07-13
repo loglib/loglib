@@ -71,6 +71,17 @@ export const POST = async (request: Request) => {
     if (e.code === "P2002") {
       return new Response("Website already exists", { status: 409 })
     }
-    return new Response(null, { status: 500 })
+    return new Response(null, {
+      status: 500,
+    })
   }
+}
+
+export async function OPTIONS(request: Request) {
+  return cors(
+    request,
+    new Response(null, {
+      status: 204,
+    })
+  )
 }

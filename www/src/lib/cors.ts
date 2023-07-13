@@ -1,9 +1,3 @@
-/**
- * Multi purpose CORS lib.
- * Note: Based on the `cors` package in npm but using only
- * web APIs. Feel free to use it in your own projects.
- */
-
 type StaticOrigin = boolean | string | RegExp | (boolean | string | RegExp)[]
 
 type OriginFn = (

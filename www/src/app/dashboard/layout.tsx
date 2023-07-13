@@ -17,7 +17,7 @@ export default async function DashboardSideBarLayout({
   const { userWebsites, teamWebsites } = await getWebsite()
   const websites = userWebsites.concat(teamWebsites)
   return (
-    <div className=" space-y-8 px-4 md:px-16 bg-gradient-to-tr ">
+    <div className=" space-y-8 px-4 md:px-16 ">
       <StoreSetter store="website" data={websites} />
       <StoreSetter store="user" data={user} />
       <StoreSetter store="teamWebsites" data={teamWebsites} />

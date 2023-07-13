@@ -21,6 +21,8 @@ module.exports = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "gradient-circle":
+          "radial-gradient(circle, var(--tw-gradient-stops), transparent 90%)",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -120,6 +122,16 @@ module.exports = {
             "background-position": "-200% center",
           },
         },
+        "spin-slow": {
+          from: {
+            "transform-origin": "center center",
+            transform: "rotate(0deg)",
+          },
+          to: {
+            "transform-origin": "center center",
+            transform: "rotate(360deg)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -128,6 +140,7 @@ module.exports = {
         text: "text 6s linear infinite",
         border: "border 30s ease infinite -2s",
         "background-pan": "background-pan 3s linear infinite",
+        "spin-slow": "spin-slow 10s linear infinite",
       },
     },
   },

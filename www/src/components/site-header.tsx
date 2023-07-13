@@ -28,7 +28,7 @@ export function SiteHeader({ user }: { user?: User }) {
           <Button variant="outline">{user ? "Dashboard" : "Login"}</Button>
         </Link>
 
-        <div className="relative col-span-1 select-none flex-col items-center justify-center self-center lg:flex">
+        {/* <div className="relative col-span-1 select-none flex-col items-center justify-center self-center lg:flex">
           <Button
             variant="outline"
             id="dark-switch"
@@ -67,7 +67,7 @@ export function SiteHeader({ user }: { user?: User }) {
             ref={switchOffRef}
             src="/audio/switch-off.mp3"
           ></audio>
-        </div>
+        </div> */}
       </div>
     </header>
   )
@@ -85,7 +85,7 @@ export function DashboardHeader({ user }: { user: User }) {
       />
       <div className="flex items-center gap-2 font-medium">
         <div className="relative col-span-1 select-none flex-col items-center justify-center self-center lg:flex">
-          <Button
+          {/* <Button
             variant="ghost"
             id="dark-switch"
             onClick={() => {
@@ -122,7 +122,7 @@ export function DashboardHeader({ user }: { user: User }) {
             id="switch-off"
             ref={switchOffRef}
             src="/audio/switch-off.mp3"
-          ></audio>
+          ></audio> */}
         </div>
         <UserAccountNav user={user} />
       </div>
