@@ -5,6 +5,7 @@ import { db } from "@/lib/db"
 import { apiErrorMessages } from "@/lib/messages"
 import { rateLimitCheck } from "@/lib/rate-limit"
 import { rootApiSchema } from "@/lib/validations/api"
+import cors from "@/lib/cors"
 
 const eventsApiSchema = rootApiSchema.merge(
   z.object({
@@ -119,4 +120,13 @@ export const POST = async (req: Request) => {
       }
     )
   }
+}
+
+export async function OPTIONS(request: Request) {
+  return cors(
+    request,
+    new Response(null, {
+      status: 204,
+    })
+  )
 }

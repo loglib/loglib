@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { websiteFormSchema } from "@/lib/validations/website"
+import cors from "@/lib/cors"
 
 export const GET = async (request: Request) => {
   try {
