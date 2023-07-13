@@ -31,7 +31,7 @@ const featureList = [
         View demo
       </Link>
     ),
-    demo: "https://vgssydupjvshgeeeqjvo.supabase.co/storage/v1/object/public/images/869745cd-da8c-418b-8365-ba4a174cef6f.mp4",
+    demo: "/assets/features/analytics.mp4",
     thumbnail: "/assets/features/analytics.png",
   },
   {
