@@ -42,13 +42,14 @@ export const RepurposeYourData = () => {
             </h2>
             <p className="text-base font-normal tracking-normal max-w-lg mt-4 text-neutral-400 leading-7">
               <span className="text-neutral-200 text-medium">
-                One of the reasons loglib was created was because we couldn't
-                find a decent option that allowed us to repurpose the data they
-                collected at the time. So we developed an embeddable one where
-                you can grab your own data from your database, but if you use
-                the hosted version, either self-deployed or on loglib.io, you
-                lose that ability, so we made sure you can access it through api
-                just like it's in your database.
+                One of the reasons loglib was created was because we
+                couldn&apos;t find a decent option that allowed us to repurpose
+                the data they collected at the time. So we developed an
+                embeddable one where you can grab your own data from your
+                database, but if you use the hosted version, either
+                self-deployed or on loglib.io, you lose that ability, so we made
+                sure you can access it through api just like it&apos;s in your
+                database.
               </span>{" "}
             </p>
             <Link
