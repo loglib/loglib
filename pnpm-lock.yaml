@@ -464,7 +464,6 @@ importers:
       prism-react-renderer: ^2.0.6
       prisma: ^4.14.0
       react: ^18.2.0
-      react-animate-on-scroll: ^2.1.7
       react-day-picker: ^8.8.0
       react-dom: ^18.2.0
       react-email: 1.9.3
@@ -568,7 +567,6 @@ importers:
       prism-react-renderer: 2.0.6_react@18.2.0
       prisma: 4.15.0
       react: 18.2.0
-      react-animate-on-scroll: 2.1.7_errwv5oxixu7j5h6xfyonqef44
       react-day-picker: 8.8.0_kzhlcyde2l6xjiirkbg7jzhosa
       react-dom: 18.2.0_react@18.2.0
       react-email: 1.9.3
@@ -11871,10 +11869,6 @@ packages:
   /lodash.startcase/4.4.0:
     resolution: {integrity: sha512-+WKqsK294HMSc2jEbNgpHpd0JfIBhp7rEV4aqXWqFr6AlXov+SlcgB1Fv01y2kGe3Gc8nMW7VA0SrGuSkRfIEg==}
 
-  /lodash.throttle/4.1.1:
-    resolution: {integrity: sha512-wIkUCfVKpVsWo3JSZlc+8MB5it+2AN5W8J7YVMST30UrvcQNZ1Okbj+rbVniijTWE6FGYy4XJq/rHkas8qJMLQ==}
-    dev: false
-
   /lodash.union/4.6.0:
     resolution: {integrity: sha512-c4pB2CdGrGdjMKYLA+XiRDO7Y0PRQbm/Gzg8qMj+QH+pFVAoTp5sBpO0odL3FjoPCGjK96p6qsP+yQoiLoOBcw==}
     dev: true
@@ -14920,18 +14914,6 @@ packages:
       ini: 1.3.8
       minimist: 1.2.8
       strip-json-comments: 2.0.1
-    dev: false
-
-  /react-animate-on-scroll/2.1.7_errwv5oxixu7j5h6xfyonqef44:
-    resolution: {integrity: sha512-A4MsApouThr2YhguCQ0fq/HVOLtDMuBM1XCHxhYug8k2NfP0S4S6B7qhrVjylMCX4zFAnTa+YKz7eQG/StizFw==}
-    peerDependencies:
-      classnames: ^2.2.5
-      react: '>= 15.4.1 < 17.0.0-0'
-    dependencies:
-      classnames: 2.3.2
-      lodash.throttle: 4.1.1
-      prop-types: 15.8.1
-      react: 18.2.0
     dev: false
 
   /react-country-flag/3.1.0_r32unjednohwkobv7sozx6ckr4:
