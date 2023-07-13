@@ -10,7 +10,6 @@ import { loglib } from "@loglib/tracker"
 import { siteConfig } from "@/config/site"
 import { Toaster } from "@/components/ui/toaster"
 import { ThemeProvider } from "@/components/theme-provider"
-import Background from "@/components/background/background"
 
 const fontSatoshi = localFont({
   src: [
@@ -112,7 +111,7 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          " bg-gradient-to-tr from-white min-h-screen to-gray-100 font-sans antialiased dark:from-black dark:to-slate-900/30 transition-all duration-300",
+          " bg-gradient-to-tr from-white to-gray-100 font-sans antialiased dark:from-slate-950 via-black dark:to-slate-950/30 transition-all duration-300",
           fontSatoshi.variable,
           fontHeading.variable
         )}

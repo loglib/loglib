@@ -28,7 +28,7 @@ export function SiteHeader({ user }: { user?: User }) {
           <Button variant="outline">{user ? "Dashboard" : "Login"}</Button>
         </Link>
 
-        <div className="relative col-span-1 select-none flex-col items-center justify-center self-center lg:flex">
+        {/* <div className="relative col-span-1 select-none flex-col items-center justify-center self-center lg:flex">
           <Button
             variant="outline"
             id="dark-switch"
@@ -67,7 +67,7 @@ export function SiteHeader({ user }: { user?: User }) {
             ref={switchOffRef}
             src="/audio/switch-off.mp3"
           ></audio>
-        </div>
+        </div> */}
       </div>
     </header>
   )

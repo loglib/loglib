@@ -48,7 +48,7 @@ export const LandingGraph = () => {
             fill="#fff"
             font-weight="700"
           >
-            0
+            0 Visitors
           </text>
           <text
             transform="translate(48.33 301.71)"
@@ -64,13 +64,6 @@ export const LandingGraph = () => {
             className=" fill-black dark:fill-white stroke-black dark:stroke-white"
           >
             400 Visitors
-          </text>
-          <text
-            transform="translate(48.33 501.71)"
-            font-size="18"
-            className=" fill-black dark:fill-white stroke-black dark:stroke-white"
-          >
-            1200 Visitors
           </text>
         </g>
         <g

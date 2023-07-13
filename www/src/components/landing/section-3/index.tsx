@@ -1,102 +1,58 @@
-/* eslint-disable @next/next/no-img-element */
+"use client"
+import Image from "next/image"
 import Link from "next/link"
+import Features from "./features"
+import styles from "./features.module.css"
+import ScrollAnimation from "react-animate-on-scroll"
+import { useScroll, motion } from "framer-motion"
 
-import { getCurrentUser } from "@/lib/session"
-
-import Changelog from "@/components/changelog"
-import { Section1 } from "@/components/landing/section-1"
-import { Section2 } from "@/components/landing/section-2"
-import { Section3 } from "@/components/landing/section-3"
-import { RepurposeYourData } from "@/components/landing/repurpose-your-data"
-
-async function getGitHubStars() {
-  try {
-    const response = await fetch("https://api.github.com/repos/loglib/loglib", {
-      next: {
-        revalidate: 60,
-      },
-    })
-    if (!response?.ok) {
-      return null
-    }
-    const json = await response.json()
-    const stars = parseInt(json["stargazers_count"]).toLocaleString()
-    return stars
-  } catch (error) {
-    return null
-  }
-}
-async function getGitHubContributors() {
-  return await fetch(
-    "https://api.github.com/repos/loglib/loglib/contributors",
-    {
-      method: "GET",
-      redirect: "follow",
-      next: {
-        revalidate: 60,
-      },
-    }
-  )
-    .then((response) => response.text())
-    .then((result) => JSON.parse(result).length)
-    .catch((error) => console.log("error", error))
-}
-
-export default async function IndexPage() {
-  const stars = await getGitHubStars()
-  const contributors = await getGitHubContributors()
-  const user = await getCurrentUser()
+export const Section3 = () => {
+  const { scrollYProgress } = useScroll()
   return (
-    <main className="  grid place-items-center  space-y-10 md:space-y-20">
-      <Section1 />
-      <Section2 />
-      <Section3 />
-      {/* <div className="max-w-8xl flex w-full items-end justify-end gap-8 pl-10">
-        <h1
-          id="features"
-          className="dark:text-light font-heading text-5xl md:text-5xl lg:text-7xl xl:text-8xl"
-        >
-          Feature<span className="text-logo">s</span>
-        </h1>
-        <div className="h-16 w-7/12 border-y border-l  bg-opacity-60 dark:border-slate-800 bg-gradient-br from-slate-900/40 to-slate-900/20 backdrop-blur-sm"></div>
-      </div> */}
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      className=" space-y-8 md:space-y-16 w-full flex items-center  flex-col justify-center relative"
+    >
+      <div className=" space-y-6 text-center">
+        <h2 className=" font-medium text-3xl encbSy">
+          <span className={styles.magicText}>Beyond</span>{" "}
+          <span className=" ">
+            <span className=" font-bold">the basics</span>
+          </span>
+        </h2>
 
-      {/* <section className="max-w-8xl relative mx-4 w-full md:mx-0">
+        <p className=" text-slate-300">
+          Loglib is beyond a basic analytics tool, it's a powerful tool that can
+          help you understand your users and your product better.
+        </p>
+      </div>
+
+      <Features />
+
+      {/* <section className="relative mx-4 md:mx-0">
         <div className="relative bg-gradient-br from-slate-900/40 to-slate-900/20 backdrop-blur-sm flex w-10/12 border-spacing-2  flex-col items-center border border-black/20 p-6 decoration-dashed dark:border-white/20 md:w-1/2 lg:flex-row lg:space-x-8">
-          <svg
-            version="1.1"
-            className=" h-16 w-16 fill-gray-800 dark:fill-white/90"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1200 1200"
-            enable-background="new 0 0 1200 1200"
-            xmlSpace="preserve"
-            fill="#000000"
-          >
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g
-              id="SVGRepo_tracerCarrier"
-              stroke-linecap="round"
-              strokeLinejoin="round"
-            ></g>
-            <g id="SVGRepo_iconCarrier">
-              {" "}
-              <g id="layer1" transform="translate(0,147.63782)">
-                {" "}
-                <path
-                  id="path2996"
-                  d="M600.073-130.212C268.728-130.212,0,138.37,0,469.715 c0,260.491,166.117,482.172,398.146,565.076L546.04,643.675c-74.269-23.013-128.273-92.136-128.273-173.96 c0-100.646,81.661-182.307,182.308-182.307c100.646,0,182.16,81.661,182.16,182.307c0,81.888-53.952,151.147-128.273,174.106 l147.896,391.115C1033.938,952.082,1200,730.271,1200,469.715C1200,138.37,931.419-130.212,600.073-130.212z"
-                ></path>{" "}
-              </g>{" "}
-            </g>
-          </svg>
+          <div className="border dark:border-white/40 border-black/50 border-dashed p-1 absolute -top-5 -left-4">
+            <div className="text-xs text-white md:text-sm font-bold bg-gradient-to-tr from-zinc-800 to-gray-700 px-2 py-1">
+              Coming Soon
+            </div>
+          </div>
+          <Image
+            src="/assets/bot-white.svg"
+            className="h-20 w-16"
+            alt=""
+            width={64}
+            height={80}
+          />
           <div>
-            <p className="bg-clip-text text-xl font-bold md:text-3xl">
-              Open source & Privacy First
+            <p className="md:text-3xl text-xl font-bold bg-gradient-to-br from-logo to-yellow-800 text-transparent bg-clip-text">
+              Integrated Artifical Intelligence
             </p>
             <p className="max-w-md text-sm">
-              Loglib is open source and privacy first. It&apos;s compliant with
-              GDPR and CCPA. Its doesn&apos;t collect any personal data and we
-              don&apos;t use cookies.
+              master at juicy summarizations, eye-opening insights, and clever
+              suggestions yours truly
+              <span className="font-semibold text-gold">co-pilot 👀</span>
+              on the stranded land of logs .
             </p>
           </div>
         </div>
@@ -260,118 +216,6 @@ export default async function IndexPage() {
           </div>
         </div>
       </section> */}
-
-      <RepurposeYourData />
-      {/* <section>
-        <div className="relative z-10 mx-auto max-w-screen-lg items-center px-4  py-8 text-center md:py-20">
-          <p className="font-bold text-neutral-400 italic">
-            you can pretend this is true
-          </p>
-          <p className="mb-8 font-mono text-neutral-400">
-            Trusted by
-            <span className="from-logo bg-gradient-to-br to-orange-600 bg-clip-text font-black text-transparent">
-              {" "}
-              100,000+{" "}
-            </span>
-            engineers at
-          </p>
-          <ul className="mx-auto flex flex-wrap items-center justify-center gap-10 md:gap-12">
-            <img
-              src="/assets/Icons/companies/atlassian.svg"
-              className="h-4 bg-gradient-to-br from-indigo-600 to-orange-600 bg-clip-text fill-transparent opacity-75 invert transition hover:opacity-100 dark:invert-0 md:h-6"
-              alt=""
-            />
-            <img
-              src="/assets/Icons/companies/github.svg"
-              className="h-4 bg-gradient-to-br from-indigo-600 to-orange-600 bg-clip-text fill-transparent opacity-75 invert transition hover:opacity-100 dark:invert-0 md:h-6"
-              alt=""
-            />
-            <img
-              src="/assets/Icons/companies/google.svg"
-              className="h-4 bg-gradient-to-br from-indigo-600 to-orange-600 bg-clip-text fill-transparent opacity-75 invert transition hover:opacity-100 dark:invert-0 md:h-8"
-              alt=""
-            />
-            <img
-              src="/assets/Icons/companies/microsoft.svg"
-              className="h-4 bg-gradient-to-br from-indigo-600 to-orange-600 bg-clip-text fill-transparent opacity-75 invert transition hover:opacity-100 dark:invert-0 md:h-7"
-              alt=""
-            />
-            <img
-              src="/assets/Icons/companies/airbnb.svg"
-              className="h-4 bg-gradient-to-br from-indigo-600 to-orange-600 bg-clip-text fill-transparent opacity-75 invert transition hover:opacity-100 dark:invert-0 md:h-8"
-              alt=""
-            />
-            <img
-              src="/assets/Icons/companies/cisco.svg"
-              className="h-6 bg-gradient-to-br from-indigo-600 to-orange-600 bg-clip-text fill-transparent opacity-75 invert transition hover:opacity-100 dark:invert-0 md:h-8"
-              alt=""
-            />
-            <img
-              src="/assets/Icons/companies/amazon.svg"
-              className="h-5 bg-gradient-to-br from-indigo-600 to-orange-600 bg-clip-text fill-transparent opacity-75 invert transition hover:opacity-100 dark:invert-0 md:h-7"
-              alt=""
-            />
-            <img
-              src="/assets/Icons/companies/paypal.svg"
-              className="h-5 bg-gradient-to-br from-indigo-600 to-orange-600 bg-clip-text fill-transparent opacity-75 invert transition hover:opacity-100 dark:invert-0 md:h-7"
-              alt=""
-            />
-          </ul>
-        </div>
-      </section> */}
-      <section>
-        <Changelog />
-      </section>
-
-      <section className="max-w-8xl to-50 mx-auto mt-10 w-full rounded-3xl  bg-gradient-to-br from-gray-100 px-4 dark:from-slate-900/80 dark:to-[#080812] sm:px-16 ">
-        <div className="flex h-full w-full flex-col justify-center gap-8 py-12">
-          <h1 className="font-heading max-w-3xl text-3xl font-bold sm:text-6xl">
-            Supported by the
-            <span className="from-logo bg-gradient-to-br to-orange-600 bg-clip-text font-black uppercase text-transparent">
-              {" "}
-              Dope{" "}
-            </span>
-            #community
-          </h1>
-          <div className="flex flex-col gap-10 font-semibold sm:flex-row sm:gap-20">
-            <div className="flex flex-col items-center justify-center rounded-lg  border border-gray-900 px-16 py-4 transition-colors duration-500 hover:border-gray-800">
-              <div>
-                <h1 className="font-heading bg-gradient-to-bl from-red-500 to-indigo-700 bg-clip-text text-5xl font-black text-transparent ">
-                  0{stars}
-                </h1>
-                <p className="text-md font-mono font-thin opacity-75">
-                  GitHub Stars
-                </p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center justify-center rounded-lg  border border-gray-900 px-16 py-4 transition-colors duration-500 hover:border-gray-800">
-              <div>
-                <h1 className="font-heading bg-gradient-to-tr from-red-500 to-indigo-700 bg-clip-text text-5xl font-black text-transparent ">
-                  127
-                </h1>
-                <p className="text-md font-mono font-thin opacity-75">
-                  Community
-                </p>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-center justify-center rounded-lg  border border-gray-900 px-16 py-4 transition-colors duration-500 hover:border-gray-800">
-              <div>
-                <h1 className="font-heading bg-gradient-to-br from-red-500 to-indigo-700 bg-clip-text text-5xl font-black text-transparent ">
-                  {contributors <= 10
-                    ? "00" + contributors
-                    : contributors <= 100
-                    ? "0" + contributors
-                    : contributors}
-                </h1>
-                <p className="text-md font-mono font-thin opacity-75">
-                  Contributors
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
+    </motion.div>
   )
 }
