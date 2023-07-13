@@ -78,6 +78,7 @@ export const InsightTables = ({
               }}
               searchFn={(t) => searchFn("page", t, "pageview")}
               hideSearchBar={data && data?.data.pages.length < 10}
+              searchPlaceholder="Search Page..."
               Row={(d) => (
                 <TableRow>
                   <TableCell
@@ -131,6 +132,7 @@ export const InsightTables = ({
                     ogLocation: ctr.location,
                     visits: ctr.visits,
                   }))}
+                  searchPlaceholder="Search Country..."
                   meta={{
                     key: "location",
                     nameLabel: "Country",
@@ -196,6 +198,7 @@ export const InsightTables = ({
                     nameLabel: "City",
                     valueLabel: "Visits",
                   }}
+                  searchPlaceholder="Search City..."
                   searchFn={(t) => searchFn("city", t, "session")}
                   hideSearchBar={data && data?.data.locations.city.length < 10}
                   isLoading={isLoading}
@@ -264,6 +267,7 @@ export const InsightTables = ({
               <TabsContent value="referrer">
                 <InsightTable
                   data={data?.data.referrer}
+                  searchPlaceholder="Search Referrer.."
                   meta={{
                     key: "referrer",
                     nameLabel: "Referrer",
@@ -312,6 +316,7 @@ export const InsightTables = ({
                     nameLabel: "Source",
                     valueLabel: "Visits",
                   }}
+                  searchPlaceholder="Search Source..."
                   searchFn={(t) => searchFn("utmSource", t, "session")}
                   tip="Your UTM sources and how many time your website is visited from them :)"
                   hideSearchBar={data && data?.data.utmSources.length < 10}
@@ -348,6 +353,7 @@ export const InsightTables = ({
               <TabsContent value="campaigns">
                 <InsightTable
                   data={data?.data.utmCampaigns}
+                  searchPlaceholder="Search campaigns..."
                   meta={{
                     key: "utmCampaign",
                     nameLabel: "Campaign",
@@ -413,6 +419,7 @@ export const InsightTables = ({
                 <InsightTable
                   data={data?.data.devices}
                   isLoading={isLoading}
+                  searchPlaceholder="Search device..."
                   meta={{
                     key: "device",
                     nameLabel: "OS",
@@ -447,6 +454,7 @@ export const InsightTables = ({
                 <InsightTable
                   data={data?.data.os}
                   isLoading={isLoading}
+                  searchPlaceholder="Search OS..."
                   meta={{
                     key: "os",
                     nameLabel: "OS",
@@ -485,6 +493,7 @@ export const InsightTables = ({
                     nameLabel: "OS",
                     valueLabel: "visits",
                   }}
+                  searchPlaceholder="search Browser..."
                   tip="Your browsers and how many time your website is visited from them :)"
                   hideSearchBar={data && data?.data.browser.length < 10}
                   Row={(d) => (

@@ -23,6 +23,7 @@ type InsightProps<T> = {
   Row: (data: T) => React.ReactElement;
   searchFn?: (term: string) => void;
   hideSearchBar?: boolean;
+  searchPlaceholder: string;
   tip?: string;
 };
 
@@ -34,6 +35,7 @@ export function InsightTable<T>({
   Row,
   hideSearchBar,
   tip,
+  searchPlaceholder,
 }: InsightProps<T>) {
   const [term, setTerm] = useState("");
   const [lData, setLData] = useState<T[]>([]);
@@ -66,7 +68,7 @@ export function InsightTable<T>({
                 <input
                   onChange={(e) => setTerm(e.target.value)}
                   className=" tw-bg-transparent tw-flex-grow focus:tw-outline-none tw-outline-none"
-                  placeholder="Search pages..."
+                  placeholder={searchPlaceholder}
                   value={term}
                 />
 
