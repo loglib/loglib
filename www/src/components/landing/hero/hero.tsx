@@ -49,10 +49,10 @@ export const Hero = () => {
           </span>
           <span className={styles.magicText}>Roll Your Own</span>
         </span>{" "}
-        <span className="  bg-gradient-to-tr dark:from-slate-300 from-slate-500 to-slate-600 dark:to-slate-400 bg-clip-text text-transparent">
+        <span className="hidden md:block  bg-gradient-to-tr dark:from-slate-300 from-slate-500 to-slate-600 dark:to-slate-400 bg-clip-text text-transparent">
           Privacy First.
         </span>
-        <span className="  bg-gradient-to-tr dark:from-slate-300 from-slate-500 to-slate-600 dark:to-slate-400 bg-clip-text text-transparent">
+        <span className="  bg-gradient-to-tr hidden md:block dark:from-slate-300 from-slate-500 to-slate-600 dark:to-slate-400 bg-clip-text text-transparent">
           Open Source.
         </span>
       </h1>

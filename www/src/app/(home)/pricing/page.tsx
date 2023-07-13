@@ -37,8 +37,8 @@ export default function page() {
       <div className=" flex items-center justify-center">
         <p className=" max-w-lg break-words text-center font-medium  italic text-slate-500">
           Price is what you pay. <span className=" text-slate-300">Value</span>{" "}
-          is what you get. And with <span className=" text-slate-400">our</span>{" "}
-          prices, you&apos;re getting a{" "}
+          is what you get. And with <span className=" text-slate-400">us,</span>{" "}
+          you&apos;re getting a{" "}
           <span className=" text-orange-300/60">whole</span> lot of value and a{" "}
           <span className=" text-slate-400">few</span> extra
           <span className=" text-yellow-300"> smiles</span> :) thrown in for{" "}

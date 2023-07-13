@@ -1,16 +1,21 @@
+"use client"
 import Link from "next/link"
 import Background from "../grid-background/background"
 import { Hero } from "./hero"
 import { LandingGraph } from "./landing-graph"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
+import { loglib } from "@loglib/tracker"
 
-export const Section1 = () => {
+export const HeroSection = () => {
   return (
     <div className=" relative flex  max-w-8xl card bg-gradient-radial  w-full justify-between px-8 py-10 pb-8 from-gray-50 to-gray-200 border dark:border-slate-800 dark:from-slate-700/10 dark:to-[#080812] sm:min-h-fit md:px-16 md:py-12  md:pt-16 rounded-3xl">
       <section className="flex flex-col  space-y-8  ">
         <Background />
-        <div className=" space-y-4">
+        <div
+          className=" space-y-4"
+          onClick={() => loglib.track("github", { from: "hero section" })}
+        >
           <Link
             href={siteConfig.links.github}
             target="_blank"

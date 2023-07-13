@@ -116,7 +116,7 @@ export default function RootLayout({
           fontHeading.variable
         )}
       >
-        <ThemeProvider attribute="class" defaultTheme="dark">
+        <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark">
           {children}
           <Loglib
             config={{

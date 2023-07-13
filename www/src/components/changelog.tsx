@@ -2,18 +2,20 @@ import { formatDate } from "@/lib/utils"
 import MaxWidthWrapper from "@/components/max-width-wrapper"
 import { allChangelogPosts } from "contentlayer/generated"
 import Link from "next/link"
+import { Icons } from "./icons"
+import { Particles } from "./landing/feature-cards/particles"
 
 export default function Changelog() {
   return (
-    <MaxWidthWrapper className="space-y-5 pt-20 md:space-y-10">
+    <MaxWidthWrapper className="space-y-5 pt-20 md:space-y-10 relative">
       <div className="mx-auto max-w-md text-center sm:max-w-xl">
-        <h2 className="font-display text-4xl font-extrabold leading-tight  sm:text-5xl sm:leading-tight">
+        <h2 className="font-display text-3xl font-extrabold leading-tight  md:text-5xl sm:leading-tight">
           A lot{" "}
           <span className="bg-gradient-to-br from-orange-600 to-orange-500 bg-clip-text pr-2 text-transparent">
             In the making
           </span>
         </h2>
-        <p className="mt-5 text-gray-600 sm:text-lg">
+        <p className="mt-5 text-gray-600 text-sm sm:text-lg">
           Check out our changelog to see what&apos;s new on Loglib.
         </p>
       </div>
@@ -33,7 +35,7 @@ export default function Changelog() {
       </ul>
       <Link
         href="/changelog"
-        className="mx-auto block max-w-fit rounded-full border border-black hover:bg-orange-600  px-4 py-1.5 text-sm text-black hover:text-white bg-slate-100/90 "
+        className="mx-auto block max-w-fit rounded-full border border-black hover:bg-slate-950  px-4 py-1.5 text-sm text-black hover:text-white bg-slate-100/90 "
       >
         Full changelog
       </Link>

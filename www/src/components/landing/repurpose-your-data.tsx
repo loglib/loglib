@@ -1,6 +1,8 @@
 "use client"
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import Background from "./grid-background/background"
+import { Particles } from "./feature-cards/particles"
 
 export const RepurposeYourData = () => {
   const [borderHeight, setBorderHeight] = useState(0)
@@ -23,15 +25,10 @@ export const RepurposeYourData = () => {
       ).observe(document.getElementById("border") as HTMLElement)
   }, [])
   return (
-    <section className=" w-full ">
-      <div className="border-y border-slate-800 py-16 md:py-20 relative">
-        {/* <div
-          className=" bg-[#303a75]  border-t border-slate-800 transition-all duration-500 w-full absolute top-0 blur-md"
-          id="border"
-          style={{
-            height: borderHeight,
-          }}
-        ></div> */}
+    <section className=" w-full bg-slate-950 ">
+      <Background />
+
+      <div className="border-y border-slate-900 py-16 md:py-20 relative">
         <div
           className=" bg-[#303a75]  border-t border-slate-800 transition-all duration-500 w-full absolute bottom-0 blur-md"
           id="border"
@@ -48,9 +45,11 @@ export const RepurposeYourData = () => {
               <span className="text-neutral-200 text-medium">
                 One of the reasons loglib was created was because we couldn't
                 find a decent option that allowed us to repurpose the data they
-                collected at the time. Don't get me wrong: they might exist, but
-                we weren't able to find them. So made sure you can access it
-                through api just like it's in your database.
+                collected at the time. So we developed an embeddable one where
+                you can grab your own data from your database, but if you use
+                the hosted version, either self-deployed or on loglib.io, you
+                lose that ability, so we made sure you can access it through api
+                just like it's in your database.
               </span>{" "}
             </p>
             <Link

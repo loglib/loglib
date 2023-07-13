@@ -12,81 +12,72 @@ import {
 } from "@/components/ui/accordion"
 import { AnimatePresence, motion } from "framer-motion"
 
-import { Airplay, Link2, PhoneOutgoing, QrCode, Users } from "lucide-react"
+import { Filter, MousePointerClick, Users } from "lucide-react"
 import { BarChart } from "lucide-react"
 
 const featureList = [
   {
     key: "analytics",
     title: "Analytics that matter",
-    icon: <BarChart className="h-5 w-5 text-gray-600" />,
+    icon: <BarChart className="h-5 w-5 text-slate-400" />,
     description:
-      "Dub provides powerful analytics for your links, including geolocation, device, browser, and referrer information.",
+      "Get insights into your users, their devices, and their locations.",
     cta: (
       <Link
-        href="/stats/github"
-        className="block max-w-fit rounded-full border border-black bg-black px-4 py-1.5 text-sm text-white transition-all hover:bg-white hover:text-black"
+        href="https://demo.loglib.io"
+        target="_blank"
+        className="block max-w-fit rounded-full border border-slate-900 bg-slate-200 px-4 py-1.5 text-sm text-slate-950 transition-all hover:bg-white hover:text-black"
       >
         View demo
       </Link>
     ),
     demo: "https://vgssydupjvshgeeeqjvo.supabase.co/storage/v1/object/public/images/869745cd-da8c-418b-8365-ba4a174cef6f.mp4",
-    thumbnail: "/_static/features/analytics.png",
+    thumbnail: "/assets/features/analytics.png",
   },
   {
-    key: "domains",
-    title: "Use your own domain",
-    icon: <Airplay className="h-5 w-5 text-gray-600" />,
+    key: "filters",
+    title: "Advanced Filters",
+    icon: <Filter className="h-5 w-5 text-slate-400" />,
     description:
-      "Dub offers free custom domains on all plans - start personalizing your links today.",
+      "Combine multiple filters to create advanced filters for your data.",
     cta: (
-      <a
-        href="https://app.dub.sh"
+      <Link
+        href="/dashboard"
         target="_blank"
         rel="noreferrer"
-        className="block max-w-fit rounded-full border border-black bg-black px-4 py-1.5 text-sm text-white transition-all hover:bg-white hover:text-black"
+        className="block max-w-fit rounded-full border border-slate-900 bg-slate-200 px-4 py-1.5 text-sm text-slate-950 transition-all hover:bg-white hover:text-black"
       >
-        Create your project
-      </a>
+        Add Your Website
+      </Link>
     ),
-    demo: "https://d2vwwcvoksz7ty.cloudfront.net/custom-domain.mp4",
+    demo: "/assets/features/filters.mp4",
   },
   {
-    key: "link",
-    title: "Powerful link builder",
-    icon: <Link2 className="h-5 w-5 text-gray-600" />,
+    key: "events",
+    title: "Custom Events",
+    icon: <MousePointerClick className="h-5 w-5 text-slate-400" />,
     description:
-      "Build your links with UTM parameters, password protection, expiration dates, iOS/Android targeting, etc.",
-    cta: "View demo", //custom cta
-    demo: "https://d2vwwcvoksz7ty.cloudfront.net/link.mp4",
+      "Track custom events on your website and filter by them in your dashboard",
+    cta: null,
+    demo: "/assets/features/events.mp4",
   },
-  {
-    key: "social",
-    title: "Custom social media cards",
-    icon: <PhoneOutgoing className="h-5 w-5 text-gray-600" />,
-    description:
-      "Overlay custom OG images on your links to make them stand out on social media.",
-    cta: "View demo", //custom cta
-    demo: "https://d2vwwcvoksz7ty.cloudfront.net/og.mp4",
-  },
-
   {
     key: "team",
     title: "Collaborate with your team",
-    icon: <Users className="h-5 w-5 text-gray-600" />,
+    icon: <Users className="h-5 w-5 text-slate-400" />,
     description:
-      "With Dub, you can invite unlimited team members to collaborate on your project for free - no more sharing logins via Google groups.",
+      "With Loglib, you can invite your teammates to collaborate on your websites.",
     cta: (
       <a
-        href="https://app.dub.sh"
+        href="https://loglib.io/dashboard"
         target="_blank"
         rel="noreferrer"
-        className="block max-w-fit rounded-full border border-black bg-black px-4 py-1.5 text-sm text-white transition-all hover:bg-white hover:text-black"
+        className="block max-w-fit rounded-full border border-slate-900 bg-slate-200 px-4 py-1.5 text-sm text-slate-950 transition-all hover:bg-white hover:text-black"
       >
         Invite your teammates
       </a>
     ),
-    demo: "https://d2vwwcvoksz7ty.cloudfront.net/team.mp4",
+    demo: "/assets/features/teams.mp4",
   },
 ]
 
@@ -100,7 +91,7 @@ export default function Features() {
         <link key={key} rel="preload" as="video" href={demo} />
       ))}
       <MaxWidthWrapper className="pb-10">
-        <div className="my-10 h-[840px]  w-full overflow-hidden text-white rounded-xl border relative  bg-slate-900/40 shadow-[inset_10px_-50px_94px_0_rgb(112, 128, 144, 0.2)] backdrop-blur lg:h-[630px]">
+        <div className="my-10  w-full overflow-hidden text-white rounded-xl border relative  bg-slate-950/40 shadow-[inset_10px_-50px_94px_0_rgb(112, 128, 144, 0.2)] backdrop-blur h-max">
           <div className="grid grid-cols-1 gap-10 p-5 lg:grid-cols-3">
             <Accordion
               type="single"
@@ -124,9 +115,7 @@ export default function Features() {
                       <p className="mb-4 text-sm text-slate-200">
                         {description}
                       </p>
-                      <button className="block max-w-fit rounded-full border border-black bg-white px-4 py-1.5 text-sm text-black transition-all hover:bg-white hover:text-black">
-                        View demo
-                      </button>
+                      {cta}
                     </div>
                   </AccordionContent>
                 </AccordionItem>
@@ -153,9 +142,9 @@ export default function Features() {
                           stiffness: 300,
                           damping: 30,
                         }}
-                        className="relative min-h-[400px] w-full overflow-hidden flex h-full items-center justify-center px-6 rounded-md lg:w-[700px]"
+                        className="relative min-h-[200px] w-full overflow-hidden flex h-full items-center justify-center px-6 rounded-md lg:w-[700px]"
                       >
-                        <div className=" absolute top-0 w-full h-full bg-gradient-to-tr from-slate-900 to-slate-950 opacity-10 blur-2xl scale-125 "></div>
+                        {/* <div className=" absolute top-0 w-full h-full bg-gradient-to-tr from-slate-900 to-slate-900  blur-2xl scale-125 "></div> */}
                         <video
                           autoPlay
                           muted

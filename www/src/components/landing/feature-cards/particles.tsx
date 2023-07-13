@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+//this is from highstorm by @chronark
 "use client"
 
 import React, { useRef, useEffect } from "react"
