@@ -58,7 +58,15 @@ export const { GET, POST, OPTIONS } = createServerRoutes({
     if (req.method === "POST") {
       const site = await db.website.findFirst({
         where: {
-          id,
+          AND: {
+            id,
+            url: {
+              in:
+                process.env.NODE_ENV === "development"
+                  ? "http://localhost:3000"
+                  : (req.headers.origin as string),
+            },
+          },
         },
       })
       if (!site) {

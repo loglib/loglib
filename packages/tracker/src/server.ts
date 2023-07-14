@@ -29,7 +29,7 @@ export async function send(
   const maxRetries = 3;
   async function sendRequest() {
     try {
-      if (window.llc.useBeacon) {
+      if (!window.llc.useBeacon) {
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         await fetch(host, {
           body: JSON.stringify(dataToSend),
