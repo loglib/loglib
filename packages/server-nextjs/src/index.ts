@@ -63,6 +63,11 @@ const createServerRoutes = (options: LogLibOptions) => {
       }),
       {
         status: internalResponse.code,
+        headers: {
+          "Access-Control-Allow-Origin": options.cors?.origin || "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        },
       },
     );
   };
