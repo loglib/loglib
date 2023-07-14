@@ -66,7 +66,8 @@ const createServerRoutes = (options: LogLibOptions) => {
         headers: {
           "Access-Control-Allow-Origin": options.cors?.origin || "*",
           "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type, Authorization",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Credentials": "true",
         },
       },
     );
@@ -76,10 +77,9 @@ const createServerRoutes = (options: LogLibOptions) => {
       status: 200,
       headers: {
         "Access-Control-Allow-Origin": options.cors?.origin || "*",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "Access-Control-Allow-Headers":
-          "Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version",
-        "Access-Control-Max-Age": "86400",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "*",
+        "Access-Control-Allow-Credentials": "true",
       },
     });
     return response;
