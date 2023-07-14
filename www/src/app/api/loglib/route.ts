@@ -59,10 +59,7 @@ export const { GET, POST, OPTIONS } = createServerRoutes({
           AND: {
             id,
             url: {
-              in:
-                process.env.NODE_ENV === "development"
-                  ? siteConfig.url
-                  : (req.headers.origin as string),
+              contains: req.headers.origin,
             },
           },
         },
