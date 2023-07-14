@@ -38,39 +38,52 @@ const createServer = (options: LogLibOptions) => {
 
 const createServerRoutes = (options: LogLibOptions) => {
   const fn = async (req: Request) => {
-    let body = {};
-    if (req.method === "POST") {
-      body = await req.json();
-    }
-    const header = Object.fromEntries(new Headers(req.headers));
-    const query = new URLSearchParams(req.url.split("?")[1]);
-    const queryObject = Object.fromEntries(query.entries());
-    const internalResponse = await internalRouter(
-      {
-        body,
-        headers: header,
-        method: req.method,
-        query: queryObject,
-        cookies: cookies(),
-      },
-      options,
-    );
-    return new Response(
-      JSON.stringify({
-        data: internalResponse.data,
-        message: internalResponse.message,
-        code: internalResponse.code,
-      }),
-      {
-        status: internalResponse.code,
+    try {
+      let body = {};
+      if (req.method === "POST") {
+        body = await req.json();
+      }
+      const header = Object.fromEntries(new Headers(req.headers));
+      const query = new URLSearchParams(req.url.split("?")[1]);
+      const queryObject = Object.fromEntries(query.entries());
+      const internalResponse = await internalRouter(
+        {
+          body,
+          headers: header,
+          method: req.method,
+          query: queryObject,
+          cookies: cookies(),
+        },
+        options,
+      );
+      console.log("here");
+      return new Response(
+        JSON.stringify({
+          data: internalResponse.data,
+          message: internalResponse.message,
+          code: internalResponse.code,
+        }),
+        {
+          status: internalResponse.code,
+          headers: {
+            "Access-Control-Allow-Origin": options.cors?.origin || "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Credentials": "true",
+          },
+        },
+      );
+    } catch (e) {
+      return new Response(null, {
+        status: 500,
         headers: {
           "Access-Control-Allow-Origin": options.cors?.origin || "*",
           "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
           "Access-Control-Allow-Headers": "*",
           "Access-Control-Allow-Credentials": "true",
         },
-      },
-    );
+      });
+    }
   };
   async function OPTIONS(_: Request) {
     const response = new NextResponse(null, {
