@@ -7,9 +7,6 @@ import { getCurrentUser } from "@/lib/session"
 
 export const { GET, POST, OPTIONS } = createServerRoutes({
   adapter: prismaAdapter(db),
-  cors: {
-    origin: "*",
-  },
   disableLocation: process.env.NODE_ENV === "development" ? true : false,
   environment: process.env.NODE_ENV === "development" ? "test" : "production",
   middleware: async (req, options, next) => {
