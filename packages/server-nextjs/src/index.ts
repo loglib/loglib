@@ -69,6 +69,7 @@ const createServerRoutes = (options: LogLibOptions) => {
             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
             "Access-Control-Allow-Headers": "*",
             "Access-Control-Allow-Credentials": "true",
+            "Content-Type": "application/json",
           },
         },
       );
