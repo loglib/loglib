@@ -56,7 +56,6 @@ const createServerRoutes = (options: LogLibOptions) => {
         },
         options,
       );
-      console.log("here");
       return new Response(
         JSON.stringify({
           data: internalResponse.data,

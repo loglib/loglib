@@ -5,7 +5,7 @@ export async function send(
   data: Record<string, any> | Array<Record<string, any>>,
   path: string,
   onSuccess?: () => void,
-  onError?: () => void,
+  _?: () => void,
 ) {
   const host = window.llc.host;
   if (!data || (Array.isArray(data) && data.length === 0)) {
@@ -29,20 +29,14 @@ export async function send(
   const maxRetries = 3;
   async function sendRequest() {
     try {
-      if (!window.llc.useBeacon) {
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        await fetch(host, {
-          body: JSON.stringify(dataToSend),
-          method: "POST",
-          keepalive: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }).then(() => onSuccess?.());
-      } else {
-        navigator.sendBeacon(host, JSON.stringify(dataToSend));
-        onSuccess?.();
-      }
+      await fetch(host, {
+        body: JSON.stringify(dataToSend),
+        method: "POST",
+        keepalive: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(() => onSuccess?.());
     } catch {
       const xhr = new XMLHttpRequest();
       xhr.open("POST", host);
@@ -56,11 +50,8 @@ export async function send(
         logger.error(xhr.statusText);
       };
       xhr.onerror = async () => {
-        onError?.();
-        await retry();
-        logger.critical(
-          "Couldn't send request to the server. See the XHR error.",
-        );
+        navigator.sendBeacon(host, JSON.stringify(dataToSend));
+        onSuccess?.();
       };
       xhr.send(JSON.stringify(dataToSend));
     }
