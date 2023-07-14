@@ -4,6 +4,7 @@ import { createServerRoutes } from "@loglib/next"
 import { db } from "@/lib/db"
 import { prismaAdapter } from "@/lib/db/custom-adapter"
 import { getCurrentUser } from "@/lib/session"
+import { siteConfig } from "@/config/site"
 
 export const { GET, POST, OPTIONS } = createServerRoutes({
   adapter: prismaAdapter(db),
@@ -60,7 +61,7 @@ export const { GET, POST, OPTIONS } = createServerRoutes({
             url: {
               in:
                 process.env.NODE_ENV === "development"
-                  ? "http://localhost:3000"
+                  ? siteConfig.url
                   : (req.headers.origin as string),
             },
           },

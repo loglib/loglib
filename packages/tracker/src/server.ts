@@ -29,15 +29,20 @@ export async function send(
   const maxRetries = 3;
   async function sendRequest() {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      await fetch(host, {
-        body: JSON.stringify(dataToSend),
-        method: "POST",
-        keepalive: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then(() => onSuccess?.());
+      if (window.llc.useBeacon) {
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        await fetch(host, {
+          body: JSON.stringify(dataToSend),
+          method: "POST",
+          keepalive: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }).then(() => onSuccess?.());
+      } else {
+        navigator.sendBeacon(host, JSON.stringify(dataToSend));
+        onSuccess?.();
+      }
     } catch {
       const xhr = new XMLHttpRequest();
       xhr.open("POST", host);
@@ -66,14 +71,7 @@ export async function send(
       logger.log(`Retrying request. Attempt ${retryCount} of ${maxRetries}...`);
       await new Promise((resolve) => setTimeout(resolve, 1000 * retryCount));
     } else {
-      try {
-        navigator.sendBeacon(host, JSON.stringify(dataToSend));
-        onSuccess?.();
-      } catch {
-        logger.critical(
-          "Couldn't send request to the server. See the XHR error.",
-        );
-      }
+      logger.error("Request failed after multiple retries.");
     }
   }
   await sendRequest();
