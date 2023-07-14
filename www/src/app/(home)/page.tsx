@@ -106,10 +106,6 @@ export default async function IndexPage() {
         </div>
       </section>
       <footer className=" border-t !w-full py-10 my-9 justify-between flex items-center">
-        <div className=" flex items-start gap-2">
-          <Icons.logo className=" w-5 h-5" />
-          Made in <span className=" text-yellow-500 font-bold">Addis</span>
-        </div>
         <span className="  text-slate-300 font-light text-sm">
           {new Date().getFullYear()} © Loglib
         </span>
