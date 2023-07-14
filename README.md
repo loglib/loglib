@@ -1,6 +1,6 @@
 # LogLib
 
-## Yet Another Web Analytics Tool
+## Roll Your Own Privacy First Web Analytics
 
 ![npm](https://img.shields.io/npm/v/@loglib/next) ![npm bundle size](https://img.shields.io/bundlephobia/min/@loglib/next) ![GitHub license](https://img.shields.io/github/license/LogLib/loglib) ![GitHub issues](https://img.shields.io/github/issues/LogLib/loglib) ![GitHub stars](https://img.shields.io/github/stars/LogLib/loglib)
 
