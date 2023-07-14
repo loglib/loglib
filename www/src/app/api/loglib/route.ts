@@ -58,16 +58,13 @@ export const { GET, POST, OPTIONS } = createServerRoutes({
         where: {
           AND: {
             id,
-            url: {
-              contains: req.headers.origin,
-            },
           },
         },
       })
       if (!site) {
         return {
           message: "Website not found",
-          code: 404,
+          code: 400,
         }
       }
     }
