@@ -14,7 +14,7 @@
 
 # Introduction
 
-Welcome to Loglib! honestly it's just yet another web analytics :)
+Welcome to Loglib!
 
 ## What is Loglib?
 
