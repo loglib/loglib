@@ -111,6 +111,7 @@ export const sessionPost: ApiPostHandler<
           data: session,
         };
       } catch (e) {
+        console.error(e);
         return {
           message: "error",
           code: 400,
