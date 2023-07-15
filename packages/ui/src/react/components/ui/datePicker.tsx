@@ -4,9 +4,7 @@ import React from "react";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "./select";
@@ -73,10 +71,7 @@ export function CalendarDateRangePicker({
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent
-          className="tw-w-auto tw-bg-white dark:tw-bg-slate-900"
-          align="start"
-        >
+        <PopoverContent className="tw-w-auto tw-bg-slate-950" align="start">
           <Calendar
             initialFocus
             mode="range"
@@ -190,21 +185,19 @@ export const DatePicker = ({
         </SelectTrigger>
 
         <SelectContent className="dark">
-          <SelectGroup>
-            <SelectLabel>Choose Range</SelectLabel>
-            <SelectItem value={"24hr"}>Last 24 Hours</SelectItem>
-            <SelectItem value="yesterday">Yesterday</SelectItem>
-            <Separator className="tw-my-2" />
-            <SelectItem value="thisWeek">This Week</SelectItem>
-            <SelectItem value="7days">Last 7 days</SelectItem>
-            <Separator className="tw-my-2" />
-            <SelectItem value="thisMonth">This Month</SelectItem>
-            <SelectItem value="last30">Last 30 Days</SelectItem>
-            <SelectItem value="last90">Last 90 Days</SelectItem>
-            <SelectItem value="thisYear">This Year</SelectItem>
-            <Separator className="tw-my-2" />
-            <SelectItem value="custom">Custom</SelectItem>
-          </SelectGroup>
+          {/* <SelectLabel>Choose Range</SelectLabel> */}
+          <SelectItem value={"24hr"}>Last 24 Hours</SelectItem>
+          <SelectItem value="yesterday">Yesterday</SelectItem>
+          <Separator className="tw-my-2" />
+          <SelectItem value="thisWeek">This Week</SelectItem>
+          <SelectItem value="7days">Last 7 days</SelectItem>
+          <Separator className="tw-my-2" />
+          <SelectItem value="thisMonth">This Month</SelectItem>
+          <SelectItem value="last30">Last 30 Days</SelectItem>
+          <SelectItem value="last90">Last 90 Days</SelectItem>
+          <SelectItem value="thisYear">This Year</SelectItem>
+          <Separator className="tw-my-2" />
+          <SelectItem value="custom">Custom</SelectItem>
         </SelectContent>
       </Select>
     </div>
