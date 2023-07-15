@@ -68,6 +68,7 @@ export const { GET, POST, OPTIONS } = createServerRoutes({
           code: 400,
         }
       }
+      //origin check
       const url = new URL(site.url.replace(/\/$/, "").replace("www.", ""))
       origin = new URL(origin.replace(/\/$/, "").replace("www.", "")).origin
       console.log(url.origin, origin)

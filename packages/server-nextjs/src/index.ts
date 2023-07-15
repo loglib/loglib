@@ -78,6 +78,7 @@ const createServerRoutes = (options: LogLibOptions) => {
       return new Response(
         JSON.stringify({
           message: "Internal server error",
+          error: e ? JSON.stringify(e) : undefined,
         }),
         {
           status: 500,
