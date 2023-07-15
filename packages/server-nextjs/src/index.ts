@@ -74,15 +74,21 @@ const createServerRoutes = (options: LogLibOptions) => {
         },
       );
     } catch (e) {
-      return new Response(null, {
-        status: 500,
-        headers: {
-          "Access-Control-Allow-Origin": options.cors?.origin || "*",
-          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "*",
-          "Access-Control-Allow-Credentials": "true",
+      console.error(e);
+      return new Response(
+        JSON.stringify({
+          message: "Internal server error",
+        }),
+        {
+          status: 500,
+          headers: {
+            "Access-Control-Allow-Origin": options.cors?.origin || "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Credentials": "true",
+          },
         },
-      });
+      );
     }
   };
   async function OPTIONS(_: Request) {
