@@ -52,10 +52,10 @@ export const { GET, POST, OPTIONS } = createServerRoutes({
       }
     }
     if (req.method === "POST") {
-      const origin =
+      const origin: string =
         process.env.NODE_ENV === "development"
           ? siteConfig.url
-          : (req.headers.origin as string)
+          : req.headers.origin || req.headers.host || req.headers.referer
       const site = await db
         .selectFrom("website")
         .where("id", "=", id)
