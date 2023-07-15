@@ -121,8 +121,7 @@ export default function RootLayout({
           <Loglib
             config={{
               id: "loglib",
-              host: "http://localhost:3000",
-              env: "prod",
+              host: process.env.LOGLIB_URL || "https://loglib.io",
               consent: "granted",
             }}
           />
