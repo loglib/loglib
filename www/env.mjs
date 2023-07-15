@@ -15,6 +15,9 @@ export const env = createEnv({
     DATABASE_URL: z.string().min(1),
     API_SECRET: z.string().min(1),
     RESEND_EMAIL_SECRET: z.string().min(1),
+    DATABASE_HOST: z.string().min(1),
+    DATABASE_USERNAME: z.string().min(1),
+    DATABASE_PASSWORD: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_APP_URL: z.string().min(1),
@@ -31,5 +34,8 @@ export const env = createEnv({
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     API_SECRET: process.env.API_SECRET,
     RESEND_EMAIL_SECRET: process.env.RESEND_EMAIL_SECRET,
+    DATABASE_HOST: process.env.DATABASE_HOST,
+    DATABASE_USERNAME: process.env.DATABASE_USERNAME,
+    DATABASE_PASSWORD: process.env.DATABASE_PASSWORD,
   },
 })

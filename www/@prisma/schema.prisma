@@ -9,6 +9,13 @@ datasource db {
   relationMode = "prisma"
 }
 
+generator kysely {
+  provider     = "prisma-kysely"
+  output       = "../src/server/db"
+  fileName     = "types.ts"
+  enumFileName = "enums.ts"
+}
+
 model Account {
   id                String   @id @default(cuid())
   userId            String

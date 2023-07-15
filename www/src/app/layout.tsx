@@ -123,6 +123,7 @@ export default function RootLayout({
               id: "loglib",
               env: "prod",
               consent: "granted",
+              debug: true,
             }}
           />
           <Toaster />
