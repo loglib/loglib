@@ -18,7 +18,12 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
             : undefined,
         },
       })
-      return { ...response, queryParams: JSON.parse(response.queryParams) }
+      return {
+        ...response,
+        queryParams: response.queryParams
+          ? JSON.parse(response.queryParams)
+          : undefined,
+      }
     },
     async updateSession(data: CustomSession, id) {
       const res = await db.webSession.update({
