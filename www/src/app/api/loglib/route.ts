@@ -62,8 +62,10 @@ export const { GET, POST, OPTIONS } = createServerRoutes({
         .select("id")
         .select("url")
         .executeTakeFirst()
-
-      if (!site || !site.url.toLowerCase().includes(origin)) {
+      const isOrigin =
+        site?.url.toLowerCase().includes(origin) ||
+        (site && origin.includes(site?.url.toLowerCase()))
+      if (!site || !isOrigin) {
         return {
           message: "Website not found",
           code: 400,
