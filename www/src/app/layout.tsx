@@ -121,8 +121,9 @@ export default function RootLayout({
           <Loglib
             config={{
               id: "loglib",
-              host: process.env.LOGLIB_URL || "https://loglib.io",
+              host: "https://loglib.io",
               consent: "granted",
+              env: "prod",
             }}
           />
           <Toaster />
