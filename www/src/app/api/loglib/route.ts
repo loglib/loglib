@@ -69,15 +69,15 @@ export const { GET, POST, OPTIONS } = createServerRoutes({
         }
       }
       //origin check
-      const url = new URL(site.url.replace(/\/$/, "").replace("www.", ""))
-      origin = new URL(origin.replace(/\/$/, "").replace("www.", "")).origin
-      console.log(url.origin, origin)
-      if (url.origin !== origin) {
-        return {
-          message: "Website not found",
-          code: 400,
-        }
-      }
+      // const url = new URL(site.url.replace(/\/$/, "").replace("www.", ""))
+      // origin = new URL(origin.replace(/\/$/, "").replace("www.", "")).origin
+      // console.log(url.origin, origin)
+      // if (url.origin !== origin) {
+      //   return {
+      //     message: "Website not found",
+      //     code: 400,
+      //   }
+      // }
     }
     return await next(req, options)
   },
