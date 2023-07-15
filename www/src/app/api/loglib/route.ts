@@ -52,7 +52,7 @@ export const { GET, POST, OPTIONS } = createServerRoutes({
       }
     }
     if (req.method === "POST") {
-      const origin: string =
+      let origin: string =
         process.env.NODE_ENV === "development"
           ? siteConfig.url
           : req.headers.origin || req.headers.host || req.headers.referer
@@ -62,10 +62,16 @@ export const { GET, POST, OPTIONS } = createServerRoutes({
         .select("id")
         .select("url")
         .executeTakeFirst()
-      const isOrigin =
-        site?.url.toLowerCase().includes(origin) ||
-        (site && origin.includes(site?.url.toLowerCase()))
-      if (!site || !isOrigin) {
+      if (!site) {
+        return {
+          message: "Website not found",
+          code: 400,
+        }
+      }
+      const url = new URL(site.url.replace(/\/$/, "").replace("www.", ""))
+      origin = new URL(origin.replace(/\/$/, "").replace("www.", "")).origin
+      console.log(url.origin, origin)
+      if (url.origin !== origin) {
         return {
           message: "Website not found",
           code: 400,
