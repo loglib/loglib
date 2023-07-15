@@ -6,7 +6,6 @@ export const kyselyAdapter = (db: Kysely<DB>): Adapter => {
   return {
     async createSession(data) {
       if (!data.websiteId) throw "website Id is required"
-
       await db
         .insertInto("web_session")
         .values({
@@ -121,10 +120,10 @@ export const kyselyAdapter = (db: Kysely<DB>): Adapter => {
 
     async getVisitor(startDate, endDate, websiteId) {
       if (!websiteId) throw "websiteId is required"
-      return await db
+      const visitor = await db
         .selectFrom("web_user")
-        .where("created_at", "<=", startDate)
-        .where("created_at", ">=", endDate)
+        .where("created_at", ">=", startDate)
+        .where("created_at", "<=", endDate)
         .where("website_id", "=", websiteId)
         .selectAll()
         .execute()
@@ -133,18 +132,19 @@ export const kyselyAdapter = (db: Kysely<DB>): Adapter => {
             ...r,
             createdAt: r.created_at,
             updatedAt: r.updated_at,
-            data: JSON.parse(r.data),
+            data: r.data ? JSON.parse(r.data) : {},
             websiteId: r.website_id,
           }))
         )
+      return visitor
     },
 
     async getEvents(startDate, endDate, websiteId) {
       if (!websiteId) throw "websiteId is required"
       return await db
         .selectFrom("web_event")
-        .where("created_at", "<=", startDate)
-        .where("created_at", ">=", endDate)
+        .where("created_at", ">=", startDate)
+        .where("created_at", "<=", endDate)
         .where("website_id", "=", websiteId)
         .selectAll()
         .execute()
@@ -170,8 +170,8 @@ export const kyselyAdapter = (db: Kysely<DB>): Adapter => {
       if (!websiteId) throw "websiteId is required"
       return await db
         .selectFrom("web_pageview")
-        .where("created_at", "<=", startDate)
-        .where("created_at", ">=", endDate)
+        .where("created_at", ">=", startDate)
+        .where("created_at", "<=", endDate)
         .where("website_id", "=", websiteId)
         .selectAll()
         .execute()
@@ -180,7 +180,7 @@ export const kyselyAdapter = (db: Kysely<DB>): Adapter => {
             ...r,
             createdAt: r.created_at,
             updatedAt: r.updated_at,
-            queryParams: JSON.parse(r.query_params),
+            queryParams: r.query_params ? JSON.parse(r.query_params) : {},
             websiteId: r.website_id,
             sessionId: r.web_session_id,
             visitorId: r.user_id,
@@ -191,8 +191,8 @@ export const kyselyAdapter = (db: Kysely<DB>): Adapter => {
       if (!websiteId) throw "websiteId is required"
       return await db
         .selectFrom("web_session")
-        .where("created_at", "<=", startDate)
-        .where("created_at", ">=", endDate)
+        .where("created_at", ">=", startDate)
+        .where("created_at", "<=", endDate)
         .where("website_id", "=", websiteId)
         .selectAll()
         .execute()
@@ -201,7 +201,7 @@ export const kyselyAdapter = (db: Kysely<DB>): Adapter => {
             ...r,
             createdAt: r.created_at,
             updatedAt: r.updated_at,
-            queryParams: JSON.parse(r.query_params),
+            queryParams: r.query_params ? JSON.parse(r.query_params) : {},
             websiteId: r.website_id,
             sessionId: r.id,
             visitorId: r.user_id,
