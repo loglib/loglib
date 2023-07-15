@@ -8,6 +8,7 @@ import {
   ChevronsUpDown,
   UnfoldVertical,
 } from "lucide-react";
+import COUNTRIES from "../lib/constants";
 
 export const columns: ColumnDef<EventsWithData[0]>[] = [
   {
@@ -113,6 +114,9 @@ export const columns: ColumnDef<EventsWithData[0]>[] = [
           />
         </span>
       );
+    },
+    cell: ({ row }) => {
+      return COUNTRIES[row.original.country ?? ""] ?? row.original.country;
     },
   },
   {

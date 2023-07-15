@@ -8,17 +8,18 @@ import {
   TabsList,
   TabsContent,
 } from "../components/ui/tabs";
+import COUNTRIES from "../lib/constants";
 
 const renderSubComponent = ({ row }: { row: Row<EventsWithData[0]> }) => {
   const data = row.original;
   const automaticProperties = {
     Browser: data.browser,
     City: data.city,
-    Country: data.country,
+    Country: COUNTRIES[data.country ?? ""] ?? data.country,
     Device: data.device,
     Referrer: data.page?.referrer,
     "Initial Referrer": data.page?.referrer,
-    Url: location.protocol + "//" + location.host + data.page?.page,
+    Url: `${location.protocol}//${location.host}${data.page?.page}`,
     "Operating System": data.os,
     "Session Duration":
       data.duration && data.duration > 100

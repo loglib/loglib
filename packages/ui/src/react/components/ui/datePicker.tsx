@@ -8,28 +8,42 @@ import {
   SelectItem,
   SelectLabel,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from "./select";
 import { Separator } from "./separator";
-import { getLast24Hour, getLastNinetyDays, getLastSevenDays, getLastThirtyDays, getThisMonth, getThisWeek, getThisYear, getToday, getYesterday } from "../../lib/timeHelper";
-import { format, subMonths } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
-import { DateRange } from "react-day-picker"
-import { cn } from "../../lib/utils"
-import { Button } from "./button"
-import { Calendar } from "./calendar"
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "./popover"
+  getLast24Hour,
+  getLastNinetyDays,
+  getLastSevenDays,
+  getLastThirtyDays,
+  getThisMonth,
+  getThisWeek,
+  getThisYear,
+  getToday,
+  getYesterday,
+} from "../../lib/timeHelper";
+import { format, subMonths } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { DateRange } from "react-day-picker";
+import { cn } from "../../lib/utils";
+import { Button } from "./button";
+import { Calendar } from "./calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 
 export function CalendarDateRangePicker({
   date,
   setDate,
-  className
-}: { date: DateRange, setDate: (state: { startDate: Date, endDate: Date, stringValue: string }) => void, className?: string }) {
-  const lastMonth = subMonths(new Date(), 1)
+  className,
+}: {
+  date: DateRange;
+  setDate: (state: {
+    startDate: Date;
+    endDate: Date;
+    stringValue: string;
+  }) => void;
+  className?: string;
+}) {
+  const lastMonth = subMonths(new Date(), 1);
 
   return (
     <div className={cn("tw-grid tw-gap-2", className)}>
@@ -41,7 +55,7 @@ export function CalendarDateRangePicker({
             size="sm"
             className={cn(
               "tw-w-max tw-justify-start tw-text-left tw-font-normal",
-              !date && " tw-text-slate-800"
+              !date && " tw-text-slate-800",
             )}
           >
             <CalendarIcon className="tw-mr-2 tw-h-4 tw-w-4" />
@@ -59,7 +73,10 @@ export function CalendarDateRangePicker({
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="tw-w-auto tw-bg-white dark:tw-bg-slate-900" align="start">
+        <PopoverContent
+          className="tw-w-auto tw-bg-white dark:tw-bg-slate-900"
+          align="start"
+        >
           <Calendar
             initialFocus
             mode="range"
@@ -67,10 +84,13 @@ export function CalendarDateRangePicker({
             selected={date}
             onSelect={(selected) => {
               if (selected && selected.from && selected.to) {
-                setDate({ startDate: selected.from, endDate: selected.to, stringValue: "custom" })
+                setDate({
+                  startDate: selected.from,
+                  endDate: selected.to,
+                  stringValue: "custom",
+                });
               }
-            }
-            }
+            }}
             numberOfMonths={2}
             toMonth={new Date()}
             toDate={new Date()}
@@ -78,66 +98,82 @@ export function CalendarDateRangePicker({
         </PopoverContent>
       </Popover>
     </div>
-  )
+  );
 }
 
-export const DatePicker = ({ setTimeRange, setCustomTime, timeRange, customTime }: { setTimeRange: React.Dispatch<React.SetStateAction<{ startDate: Date, endDate: Date, stringValue?: string }>>; timeRange: { startDate: Date, endDate: Date, stringValue?: string }; setCustomTime: (state: boolean) => void, customTime: boolean }) => {
+export const DatePicker = ({
+  setTimeRange,
+  setCustomTime,
+  timeRange,
+  customTime,
+}: {
+  setTimeRange: React.Dispatch<
+    React.SetStateAction<{
+      startDate: Date;
+      endDate: Date;
+      stringValue?: string;
+    }>
+  >;
+  timeRange: { startDate: Date; endDate: Date; stringValue?: string };
+  setCustomTime: (state: boolean) => void;
+  customTime: boolean;
+}) => {
   function setTime(value: string) {
-    setCustomTime(false)
+    setCustomTime(false);
     switch (value) {
       case "24hr":
         setTimeRange({
           startDate: getLast24Hour(),
           endDate: new Date(),
-          stringValue: "24hr"
-        })
+          stringValue: "24hr",
+        });
         break;
       case "yesterday":
         setTimeRange({
           startDate: getYesterday(),
           endDate: getToday(),
-          stringValue: "yesterday"
-        })
-        break
+          stringValue: "yesterday",
+        });
+        break;
       case "thisWeek":
         setTimeRange({
           ...getThisWeek(),
-          stringValue: "thisWeek"
-        })
-        break
+          stringValue: "thisWeek",
+        });
+        break;
       case "7days":
         setTimeRange({
           ...getLastSevenDays(),
-          stringValue: "7days"
-        })
-        break
+          stringValue: "7days",
+        });
+        break;
       case "thisMonth":
         setTimeRange({
           ...getThisMonth(),
-          stringValue: "thisMonth"
-        })
-        break
+          stringValue: "thisMonth",
+        });
+        break;
       case "last30":
         setTimeRange({
           ...getLastThirtyDays(),
-          stringValue: "last30"
-        })
-        break
+          stringValue: "last30",
+        });
+        break;
       case "last90":
         setTimeRange({
           ...getLastNinetyDays(),
-          stringValue: "last90"
-        })
-        break
+          stringValue: "last90",
+        });
+        break;
       case "thisYear":
         setTimeRange({
           ...getThisYear(),
-          stringValue: "thisYear"
-        })
-        break
+          stringValue: "thisYear",
+        });
+        break;
       default:
-        setCustomTime(true)
-        break
+        setCustomTime(true);
+        break;
     }
   }
 
@@ -147,17 +183,16 @@ export const DatePicker = ({ setTimeRange, setCustomTime, timeRange, customTime 
         onValueChange={(value) => setTime(value)}
         value={customTime ? "custom" : timeRange.stringValue}
         defaultValue="24hr"
-        
       >
         <SelectTrigger className="tw-w-auto tw-px-2 tw-space-x-4 dark:tw-text-white/75">
           <CalendarDays className=" dark:tw-text-gray-300 tw-text-gray-700" />
           <SelectValue placeholder="Select Time" />
         </SelectTrigger>
- 
-        <SelectContent>
+
+        <SelectContent className="dark">
           <SelectGroup>
             <SelectLabel>Choose Range</SelectLabel>
-            <SelectItem value={"24hr"} >Last 24 Hours</SelectItem>
+            <SelectItem value={"24hr"}>Last 24 Hours</SelectItem>
             <SelectItem value="yesterday">Yesterday</SelectItem>
             <Separator className="tw-my-2" />
             <SelectItem value="thisWeek">This Week</SelectItem>
@@ -170,13 +205,8 @@ export const DatePicker = ({ setTimeRange, setCustomTime, timeRange, customTime 
             <Separator className="tw-my-2" />
             <SelectItem value="custom">Custom</SelectItem>
           </SelectGroup>
-        </SelectContent>        
-
-
+        </SelectContent>
       </Select>
     </div>
   );
 };
-
-
-
