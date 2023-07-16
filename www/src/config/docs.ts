@@ -1,6 +1,16 @@
 import { DocsConfig } from "types"
 
 export const docsConfig: DocsConfig = {
+  mainNav: [
+    {
+      title: "Documentation",
+      href: "/docs",
+    },
+    {
+      title: "Guides",
+      href: "/guides",
+    },
+  ],
   sidebarNav: [
     {
       title: "Getting Started",
@@ -12,113 +22,70 @@ export const docsConfig: DocsConfig = {
       ],
     },
     {
-      title: "Documentation",
+      title: "Self Hosted",
       items: [
         {
-          title: "Introduction",
-          href: "/docs/documentation",
+          title: "Quick Setup",
+          href: "/docs/quick-setup",
         },
         {
-          title: "Contentlayer",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "Next Js with Prisma",
+          href: "/docs/self-host/nextjs-with-prisma",
         },
         {
-          title: "Components",
-          href: "/docs/documentation/components",
+          title: "Next Js with Supabase",
+          href: "/docs/self-host/nextjs-with-supabase",
         },
         {
-          title: "Code Blocks",
-          href: "/docs/documentation/code-blocks",
-        },
-        {
-          title: "Style Guide",
-          href: "/docs/documentation/style-guide",
-        },
-        {
-          title: "Search",
-          href: "/docs/in-progress",
-          disabled: true,
-        },
+          title: "Upgrading",
+          href: "/docs/self-host/upgrading"
+        }
       ],
     },
     {
-      title: "Blog",
+      title: "Advanced Usage",
       items: [
         {
-          title: "Introduction",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "Tracker",
+          href: "/docs/advanced/tracker",
         },
         {
-          title: "Build your own",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "Server",
+          href: "/docs/advanced/server",
         },
         {
-          title: "Writing Posts",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "Dashboard",
+          href: "/docs/advanced/dashboard",
         },
+        {
+          title: "Wordpress Plugin",
+          href: "/docs/advanced/wordpress-plugin",
+        },
+
       ],
     },
     {
-      title: "Dashboard",
+      title: "API",
       items: [
         {
-          title: "Introduction",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "Overview",
+          href: "/docs/api",
         },
         {
-          title: "Layouts",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "Session",
+          href: "/docs/api/session",
         },
         {
-          title: "Server Components",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "Pageview",
+          href: "/docs/api/pageview",
         },
         {
-          title: "Authentication",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "Event",
+          href: "/docs/api/event",
         },
         {
-          title: "Database with Prisma",
-          href: "/docs/in-progress",
-          disabled: true,
-        },
-        {
-          title: "API Routes",
-          href: "/docs/in-progress",
-          disabled: true,
-        },
-      ],
-    },
-    {
-      title: "Marketing Site",
-      items: [
-        {
-          title: "Introduction",
-          href: "/docs/in-progress",
-          disabled: true,
-        },
-        {
-          title: "File Structure",
-          href: "/docs/in-progress",
-          disabled: true,
-        },
-        {
-          title: "Tailwind CSS",
-          href: "/docs/in-progress",
-          disabled: true,
-        },
-        {
-          title: "Typography",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "Visitor",
+          href: "/docs/api/visitor",
         },
       ],
     },

@@ -6,7 +6,6 @@ module.exports = {
     "./src/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./ui/**/*.{ts,tsx}",
-    "./content/**/*.{md,mdx}",
   ],
   darkMode: ["class"],
   theme: {
@@ -22,6 +21,8 @@ module.exports = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "gradient-circle":
+          "radial-gradient(circle, var(--tw-gradient-stops), transparent 90%)",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -29,7 +30,7 @@ module.exports = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        logo: "#f8a857",
+        logo: "#F9A858",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -88,11 +89,47 @@ module.exports = {
         text: {
           "0%, 100%": {
             "background-size": "200% 200%",
-            "background-position": "left center",
+            "background-position": "0% center",
           },
           "50%": {
             "background-size": "200% 200%",
-            "background-position": "right center",
+            "background-position": "100% center",
+          },
+        },
+        border: {
+          "0%, 100%": {
+            transform: "translateX(0)",
+          },
+          "50%": {
+            transform: "translateX(50px)",
+          },
+          "70%": {
+            transform: "translateX(100px)",
+          },
+          "80%": {
+            transform: "translateX(400px)",
+          },
+          "100%": {
+            transform: "translateX(600px)",
+          },
+        },
+
+        "background-pan": {
+          from: {
+            "background-position": "0% center",
+          },
+          to: {
+            "background-position": "-200% center",
+          },
+        },
+        "spin-slow": {
+          from: {
+            "transform-origin": "center center",
+            transform: "rotate(0deg)",
+          },
+          to: {
+            "transform-origin": "center center",
+            transform: "rotate(360deg)",
           },
         },
       },
@@ -100,9 +137,13 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         typing: "typing 2s steps(14), blink 0.1s infinite",
-        text: "text 5s ease infinite",
+        text: "text 6s linear infinite",
+        border: "border 30s ease infinite -2s",
+        "background-pan": "background-pan 3s linear infinite",
+        "spin-slow": "spin-slow 10s linear infinite",
       },
     },
   },
+  // @ts-ignore
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 }

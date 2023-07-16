@@ -3,7 +3,7 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Icons } from "@/components/icons"
 
-interface EmptyPlaceholderProps extends React.HTMLAttributes<HTMLDivElement> { }
+interface EmptyPlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function EmptyPlaceholder({
   className,
@@ -13,7 +13,7 @@ export function EmptyPlaceholder({
   return (
     <div
       className={cn(
-        "flex min-h-[400px] flex-col items-center justify-center rounded-md border border-dashed p-8 text-center animate-in fade-in-50",
+        "animate-in fade-in-50 flex min-h-[400px] flex-col items-center justify-center rounded-md border border-dashed p-8 text-center",
         className
       )}
       {...props}
@@ -41,14 +41,14 @@ EmptyPlaceholder.Icon = function EmptyPlaceHolderIcon({
     return null
   }
   return (
-    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-muted">
+    <div className="bg-muted flex h-20 w-20 items-center justify-center rounded-full">
       <Icon className={cn("h-10 w-10", className)} {...props} />
     </div>
   )
 }
 
 interface EmptyPlaceholderTitleProps
-  extends React.HTMLAttributes<HTMLHeadingElement> { }
+  extends React.HTMLAttributes<HTMLHeadingElement> {}
 
 EmptyPlaceholder.Title = function EmptyPlaceholderTitle({
   className,
@@ -60,7 +60,7 @@ EmptyPlaceholder.Title = function EmptyPlaceholderTitle({
 }
 
 interface EmptyPlaceholderDescriptionProps
-  extends React.HTMLAttributes<HTMLParagraphElement> { }
+  extends React.HTMLAttributes<HTMLParagraphElement> {}
 
 EmptyPlaceholder.Description = function EmptyPlaceholderDescription({
   className,
@@ -69,7 +69,7 @@ EmptyPlaceholder.Description = function EmptyPlaceholderDescription({
   return (
     <p
       className={cn(
-        "mb-8 mt-2 text-center text-sm font-normal leading-6 text-muted-foreground",
+        "text-muted-foreground mb-8 mt-2 text-center text-sm font-normal leading-6",
         className
       )}
       {...props}

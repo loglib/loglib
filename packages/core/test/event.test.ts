@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { postEvent, EventPostInput } from '../src/router/routes/event/post';
 import { Adapter, Events, GenericError } from '../src';

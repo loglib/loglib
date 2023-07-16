@@ -6,6 +6,7 @@ import { User } from "next-auth"
 import { useTheme } from "next-themes"
 
 import { Icons } from "./icons"
+import { LandingNav } from "./landing-nav"
 import { Button } from "./ui/button"
 import { UserAccountNav } from "./user-account-nav"
 
@@ -14,16 +15,20 @@ export function SiteHeader({ user }: { user?: User }) {
   const switchOnRef = useRef<HTMLAudioElement>(null)
   const switchOffRef = useRef<HTMLAudioElement>(null)
   return (
-    <header className="flex items-center justify-between">
+    <header className="flex items-center justify-between top-0 md:px-16 px-4 max-w-8xl sticky mb-16 w-full z-50 bg-white/60 backdrop-blur-sm  dark:bg-slate-950/80 py-4 border-b dark:border-slate-800 border-slate-300">
       <Icons.logoWithLetter
         logoClassName=" w-10 h-10"
         headerClassName=" text-3xl"
       />
+      <div className=" hidden md:block">
+        <LandingNav />
+      </div>
       <div className="flex items-center gap-2 font-medium">
         <Link href={user ? "/dashboard" : "/login"}>
           <Button variant="outline">{user ? "Dashboard" : "Login"}</Button>
         </Link>
-        <div className="relative col-span-1 select-none flex-col items-center justify-center self-center lg:flex">
+
+        {/* <div className="relative col-span-1 select-none flex-col items-center justify-center self-center lg:flex">
           <Button
             variant="outline"
             id="dark-switch"
@@ -62,7 +67,7 @@ export function SiteHeader({ user }: { user?: User }) {
             ref={switchOffRef}
             src="/audio/switch-off.mp3"
           ></audio>
-        </div>
+        </div> */}
       </div>
     </header>
   )
@@ -80,7 +85,7 @@ export function DashboardHeader({ user }: { user: User }) {
       />
       <div className="flex items-center gap-2 font-medium">
         <div className="relative col-span-1 select-none flex-col items-center justify-center self-center lg:flex">
-          <Button
+          {/* <Button
             variant="ghost"
             id="dark-switch"
             onClick={() => {
@@ -117,7 +122,7 @@ export function DashboardHeader({ user }: { user: User }) {
             id="switch-off"
             ref={switchOffRef}
             src="/audio/switch-off.mp3"
-          ></audio>
+          ></audio> */}
         </div>
         <UserAccountNav user={user} />
       </div>

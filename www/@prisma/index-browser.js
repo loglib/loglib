@@ -114,6 +114,11 @@ exports.Prisma.ApiKeyScalarFieldEnum = {
   expires: 'expires'
 };
 
+exports.Prisma.DisallowedScalarFieldEnum = {
+  id: 'id',
+  identity: 'identity'
+};
+
 exports.Prisma.SessionScalarFieldEnum = {
   id: 'id',
   sessionToken: 'sessionToken',
@@ -124,6 +129,42 @@ exports.Prisma.SessionScalarFieldEnum = {
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.TeamScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  name: 'name'
+};
+
+exports.Prisma.TeamUserInviteScalarFieldEnum = {
+  id: 'id',
+  teamId: 'teamId',
+  userId: 'userId',
+  teamUserId: 'teamUserId',
+  token: 'token',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TeamUserScalarFieldEnum = {
+  id: 'id',
+  teamId: 'teamId',
+  userId: 'userId',
+  role: 'role',
+  accepted: 'accepted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TeamWebsiteScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  teamId: 'teamId',
+  websiteId: 'websiteId'
 };
 
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
@@ -213,7 +254,17 @@ exports.Prisma.WebsiteScalarFieldEnum = {
   userId: 'userId',
   active: 'active'
 };
+exports.INVITE_STATUS = {
+  sent: 'sent',
+  accepted: 'accepted',
+  expired: 'expired'
+};
 
+exports.ROLE = {
+  owner: 'owner',
+  admin: 'admin',
+  viewer: 'viewer'
+};
 
 exports.Prisma.ModelName = {
   Account: 'Account',
@@ -225,7 +276,12 @@ exports.Prisma.ModelName = {
   WebSession: 'WebSession',
   WebPageview: 'WebPageview',
   WebEvent: 'WebEvent',
-  ApiKey: 'ApiKey'
+  ApiKey: 'ApiKey',
+  Team: 'Team',
+  TeamWebsite: 'TeamWebsite',
+  TeamUser: 'TeamUser',
+  TeamUserInvite: 'TeamUserInvite',
+  Disallowed: 'Disallowed'
 };
 
 /**

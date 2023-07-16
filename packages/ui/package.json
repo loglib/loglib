@@ -1,6 +1,6 @@
 {
   "name": "@loglib/ui",
-  "version": "0.4.1",
+  "version": "0.5.3",
   "description": "",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -71,7 +71,10 @@
     "flag-icons": "^6.6.6",
     "framer-motion": "^10.12.16",
     "lucide-react": "^0.220.0",
+    "postcss-import": "^15.1.0",
+    "postcss-nesting": "^11.3.0",
     "postcss-prefix-selector": "^1.16.0",
+    "postcss-preset-env": "^8.5.1",
     "prop-types": "^15.6.0",
     "react-country-flag": "^3.1.0",
     "react-day-picker": "^8.8.0",

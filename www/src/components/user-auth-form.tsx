@@ -63,7 +63,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           <span className="w-full border-t" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
+          <span className="bg-background text-muted-foreground px-2">
             continue with
           </span>
         </div>
@@ -74,7 +74,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         onClick={() => {
           setIsGitHubLoading(true)
           signIn("github", {
-            callbackUrl: "/dashboard",
+            callbackUrl: searchParams?.get("from") || "/dashboard",
           })
         }}
         disabled={isLoading || isGitHubLoading}

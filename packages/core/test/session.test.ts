@@ -79,7 +79,6 @@ describe('sessionPost', () => {
     it('should use ipAddress as visitorId if visitorId is empty GDPR shit', async () => {
         const req = mockRequest({ ...validRequest, visitorId: '' });
         const res = await sessionPost(req, mockOptions);
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         expect(res.data?.visitorId).not.toBe("")
         expect(res).toEqual({
             message: 'success',

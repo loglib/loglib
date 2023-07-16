@@ -1,0 +1,61 @@
+---
+title: Sessions
+desctiption: Sessions are created when a visitor visits your website. They contain information about the visitor, the pageview, and the events that occurred during the session.
+---
+
+**path: /api/v1/session**
+
+**method:** POST
+
+**request body:**
+
+```json
+{
+  "apiKey": "string", //required
+  "take": 10,
+  "skip": 0,
+  "orderBy": {
+    "createdAt": "desc"
+  },
+  "where": {
+    "id": "string",
+    "createdAt": {
+      "gt": "string",
+      "lt": "string",
+      "gte": "string",
+      "lte": "string"
+    },
+    "device": "string",
+    "city": "string",
+    "country": "string",
+    "referrer": "string",
+    "browser": "string",
+    "os": "string",
+    "visitorId": "string",
+    "pageviewId": "string"
+  },
+  "include": {
+    "pageview": false,
+    "event": false,
+    "visitors": false
+  }
+}
+```
+
+_apiKey_ (string, required): Represents the API key.
+
+_take_ (number, optional, default: 10): Specifies the maximum number of results to return.
+
+_skip_ (number, optional, default: 0): Specifies the number of results to skip.
+
+_orderBy_ (object, optional, default: `{ "createdAt": "desc" }`): Specifies the field to order the results by and the sort order. Valid field values are "createdAt", "updatedAt", "id", "device", "os". Valid sort order values are "asc" and "desc".
+
+_where_ (object, optional, default: `{}`): Contains optional filters for the query. Properties include:
+
+_id_ (string, optional): Filters by ID.
+
+_createdAt_ (object, optional): Filters based on createdAt timestamps using the following operators: "gt" (greater than), "lt" (less than), "gte" (greater than or equal to), "lte" (less than or equal to). The values should be strings in ISO format.
+
+_device, city, country, referrer, browser, os, visitorId, pageviewId_ (strings, optional): Filters based on corresponding fields.
+
+_include_ (object, optional, default: `{ "pageview": false, "event": false, "visitors": false }`): Specifies which related entities to include in the results. Properties include: "pageview", "event", "visitors". By default, all properties are set to false.

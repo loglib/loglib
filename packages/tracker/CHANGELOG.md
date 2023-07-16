@@ -1,64 +1,16 @@
 # @loglib/tracker
 
-## 0.3.4
+## 0.4.3
 
 ### Patch Changes
 
-- 401f8dc: bug fix
-- 58514db: pacakge fix
+- 3f65e26: dts error fix
 
-## 0.3.3
-
-### Patch Changes
-
-- 523c24c: default returned back to send beacon
-
-## 0.3.2
+## 0.4.1
 
 ### Patch Changes
 
-- 9bed7c1: tracker bug fix
-
-## 0.3.1
-
-### Patch Changes
-
-- 50f7019: now tracker uses fetch by default insted of sendbeacon unless passed in the config
-
-## 0.3.0
-
-### Minor Changes
-
-- d48f41d: # Kind of big change for current users
-
-  - Web user filed changed to web visitor since web user is a bit confusing and it's not a user in the traditional sense
-  - All the adapters have been updated to use the new web visitor type
-
-### Patch Changes
-
-- d48f41d: cli adapter template update to visitor id
-
-## 0.2.0
-
-### Minor Changes
-
-- fbc11fc: - supports multiple site
-  - UI is composable and customizable
-  - Tracker now doesn't send pings to periodically to the server, instead it sends pings on page navigation and when the page is closed
-  - And many more bug fixes and improvements
-
-## 0.1.0
-
-### Minor Changes
-
-- 5e5dc8e: - support through cdn is added to the tracker
-  - minor bug fixes on core
-
-## 0.0.12
-
-### Patch Changes
-
-- 7f97565: iife output
+- fa59622: bug fix
 
 ## 0.0.11
 

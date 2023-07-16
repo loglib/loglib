@@ -5,16 +5,62 @@ import rehypeSlug from "rehype-slug"
 import remarkGfm from "remark-gfm"
 
 /** @type {import('contentlayer/source-files').ComputedFields} */
-const computedFields = {
+
+const capitalize = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
+const computedFields = (type) => ({
   slug: {
     type: "string",
-    resolve: (doc) => `/${doc._raw.flattenedPath}`,
+    resolve: (doc) => doc._raw.flattenedPath.replace(`${type}/`, ""),
   },
   slugAsParams: {
     type: "string",
     resolve: (doc) => doc._raw.flattenedPath.split("/").slice(1).join("/"),
   },
-}
+  images: {
+    type: "array",
+    resolve: (doc) => {
+      return doc.body.raw.match(
+        /(?<=<BlurImage[^>]*\bsrc=")[^"]+(?="[^>]*\/>)/g
+      )
+    },
+  },
+  tweetIds: {
+    type: "array",
+    resolve: (doc) => {
+      const tweetMatches = doc.body.raw.match(/<StaticTweet\sid="[0-9]+"\s\/>/g)
+      return tweetMatches?.map((tweet) => tweet.match(/[0-9]+/g)[0]) || []
+    },
+  },
+  githubRepos: {
+    type: "array",
+    resolve: (doc) => {
+      // match all <GithubRepo url=""/> and extract the url
+      return doc.body.raw.match(
+        /(?<=<GithubRepo[^>]*\burl=")[^"]+(?="[^>]*\/>)/g
+      )
+    },
+  },
+  structuredData: {
+    type: "object",
+    resolve: (doc) => ({
+      "@context": "https://schema.org",
+      "@type": `${capitalize(type)}Posting`,
+      headline: doc.title,
+      datePublished: doc.publishedAt,
+      dateModified: doc.publishedAt,
+      description: doc.summary,
+      image: doc.image,
+      url: `https://lgolib.io/${doc._raw.flattenedPath}`,
+      author: {
+        "@type": "Person",
+        name: doc.author,
+      },
+    }),
+  },
+})
 
 export const Doc = defineDocumentType(() => ({
   name: "Doc",
@@ -33,81 +79,42 @@ export const Doc = defineDocumentType(() => ({
       default: true,
     },
   },
-  computedFields,
+  computedFields: computedFields("docs"),
 }))
 
-export const Guide = defineDocumentType(() => ({
-  name: "Guide",
-  filePathPattern: `guides/**/*.mdx`,
+export const ChangelogPost = defineDocumentType(() => ({
+  name: "ChangelogPost",
+  filePathPattern: `**/changelog/*.mdx`,
   contentType: "mdx",
   fields: {
     title: {
       type: "string",
       required: true,
     },
-    description: {
-      type: "string",
-    },
-    date: {
-      type: "date",
-      required: true,
-    },
-    published: {
-      type: "boolean",
-      default: true,
-    },
-    featured: {
-      type: "boolean",
-      default: false,
-    },
-  },
-  computedFields,
-}))
-
-export const Author = defineDocumentType(() => ({
-  name: "Author",
-  filePathPattern: `authors/**/*.mdx`,
-  contentType: "mdx",
-  fields: {
-    title: {
+    publishedAt: {
       type: "string",
       required: true,
     },
-    description: {
-      type: "string",
-    },
-    avatar: {
+    summary: {
       type: "string",
       required: true,
     },
-    twitter: {
+    image: {
+      type: "string",
+      required: true,
+    },
+    author: {
       type: "string",
       required: true,
     },
   },
-  computedFields,
+  // @ts-ignore
+  computedFields: computedFields("changelog"),
 }))
-
-export const Page = defineDocumentType(() => ({
-  name: "Page",
-  filePathPattern: `pages/**/*.mdx`,
-  contentType: "mdx",
-  fields: {
-    title: {
-      type: "string",
-      required: true,
-    },
-    description: {
-      type: "string",
-    },
-  },
-  computedFields,
-}))
-
 
 export default makeSource({
-  contentDirPath: "./src/content",
-  documentTypes: [Page, Doc, Guide, Author],
+  contentDirPath: "src/content",
+  documentTypes: [Doc, ChangelogPost],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [
@@ -116,7 +123,6 @@ export default makeSource({
         rehypePrettyCode,
         {
           theme: "github-dark",
-          //@ts-expect-error
           onVisitLine(node) {
             // Prevent lines from collapsing in `display: grid` mode, and allow empty
             // lines to be copy/pasted
@@ -124,11 +130,9 @@ export default makeSource({
               node.children = [{ type: "text", value: " " }]
             }
           },
-          //@ts-expect-error
           onVisitHighlightedLine(node) {
             node.properties.className.push("line--highlighted")
           },
-         //@ts-expect-error
           onVisitHighlightedWord(node) {
             node.properties.className = ["word--highlighted"]
           },

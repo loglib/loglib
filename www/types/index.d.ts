@@ -3,29 +3,32 @@ import type { Icon } from "lucide-react"
 
 import { Icons } from "@/components/icons"
 
-export type NavItem = {
+export type MainNavItem = NavItem
+
+export type NavLink = {
   title: string
   href: string
   disabled?: boolean
+  dynamic?: boolean
 }
-
-export type MainNavItem = NavItem
 
 export type SidebarNavItem = {
   title: string
   disabled?: boolean
   external?: boolean
+  label?: string
   icon?: keyof typeof Icons
+  useInclude?: boolean
 } & (
-    | {
+  | {
       href: string
       items?: never
     }
-    | {
+  | {
       href?: string
       items: NavLink[]
     }
-  )
+)
 
 export type SiteConfig = {
   name: string
@@ -39,15 +42,10 @@ export type SiteConfig = {
 }
 
 export type DocsConfig = {
+  mainNav: MainNavItem[]
   sidebarNav: SidebarNavItem[]
 }
-
-export type MarketingConfig = {
-  mainNav: MainNavItem[]
-}
-
 export type DashboardConfig = {
-  mainNav: MainNavItem[]
   sidebarNav: SidebarNavItem[]
 }
 

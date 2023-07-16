@@ -1,4 +1,8 @@
-
+export const getLast24Hour = () => {
+    const today = new Date()
+    today.setMilliseconds(new Date().getMilliseconds() - 1000 * 60 * 60 * 24)
+    return today
+}
 
 
 export const getToday = () => {

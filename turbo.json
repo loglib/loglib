@@ -7,14 +7,31 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
+      "outputMode": "new-only"
     },
     "lint": {
       "dependsOn": ["build"],
-      "outputs": []
+      "outputs": [],
+      "env": [
+        "NODE_ENV",
+        "NEXT_PUBLIC_LOGLIB_URL",
+        "LOGLIB_URL",
+        "VERCEL_URL",
+        "VERCEL",
+        "NEXT_PUBLIC_VERCEL_URL",
+        "LOGLIB_USERNAME",
+        "LOGLIB_PASSWORD",
+        "CLIENT_IP_ADDRESS",
+        "SUPABASE_URL",
+        "SUPABASE_KEY",
+        "npm_config_user_agent",
+        "npm_lifecycle_event"
+      ]
     },
     "test": {
       "dependsOn": ["build"],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts"],
       "outputs": []
     },
     "typecheck": {
@@ -22,5 +39,6 @@
       "outputs": [],
       "cache": true
     }
-  }
+  },
+  "globalDependencies": [".env", ".env.local", "tsconfig.json"]
 }

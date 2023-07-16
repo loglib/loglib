@@ -1,15 +1,24 @@
 import { useEffect } from "react";
+import { record } from "../record";
+import { Config, Internal } from "../types";
 import { loglib } from "../lib";
-import { Config } from "../types";
 
 interface Props {
-	config?: Partial<Config>;
+  config?: Partial<Config>;
+}
+
+declare global {
+  interface Window {
+    llc: Config;
+    lli: Internal;
+    logLib: typeof loglib;
+  }
 }
 
 function LogLib({ config }: Props) {
-	useEffect(() => {
-		loglib.record(config);
-	}, []);
-	return null;
+  useEffect(() => {
+    record(config);
+  }, []);
+  return null;
 }
 export default LogLib;

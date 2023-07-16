@@ -24,6 +24,7 @@
         "name": "next"
       }
     ],
+    "downlevelIteration": true,
     "strictNullChecks": true
   },
   "include": [
@@ -31,9 +32,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".contentlayer/generated",
-    "src/env/index.mjs",
-    "**/*.js"
+    ".contentlayer/generated"
   ],
   "exclude": ["node_modules"]
 }

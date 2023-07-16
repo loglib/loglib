@@ -1,0 +1,62 @@
+---
+title: Quick Setup
+description: Quick Setup for embeding LogLib in your project
+---
+
+<Callout>
+  As said above there are two ways to use Loglib. You can use the hosted version
+  or you can use the package version. The package version is more customizable
+  and you can use it with your own database. But the hosted version is easier to
+  setup and it's **free** for now. The setup below is for the package version.
+  If you want to use the hosted version you can go to the
+  [dashboard](/dashboard) and create a new project and follow the instructions
+  there.
+</Callout>
+
+Currently LogLib supports Next JS. But if you want to use LogLib with other
+frameworks, you can sill deploy loglib separately and use the tracker in ur
+site.
+
+### Install like every other library
+
+```bash
+pnpm add @loglib/next
+```
+
+loglib ships with a cli tool that helps you setup your project. You can run the following command to setup your project and watch as the magic unfolds:
+
+```bash
+pnpm loglib init
+```
+
+To update all the loglib packages in your app, you can run the following command:
+
+```bash
+pnpm loglib update
+```
+
+this will setup your project with all possible configurations. Refer to the [Advanced Docs](/advanced) for more information.
+
+### Other Frameworks / Separate Deployments
+
+1. clone [https://github.com/LogLib/loglib-starter](https://github.com/LogLib/loglib-starter) this repo and run `pnpm i` to install dependencies.
+2. change .env.example to .env and fill in the required env variables
+3. migrate your database with `pnpm prisma migrate` or `pnpm prisma db push`
+4. You can now deploy but if you're deploying to platforms other than vercel you need to setup location resolver for your server. [Read more](https://github.com/loglib/loglib/#resolving-user-location-from-ip)
+5. Now go to your project where you want to track and put loglib url in the `LOGLIB_URL` or `NEXT_PUBLIC_LOGLIB_URL` env variable.
+6. Install the loglib tracker in `pnpm i @loglib/tracker`
+7. Follow the instructions in the [doc](https://github.com/LogLib/loglib#loglib-tracker) to setup the tracker.
+
+### Manual Setup
+
+#### Next JS
+
+- [With Prisma](/docs/self-host/nextjs-with-prisma)
+- [With Supabase](/docs/self-host/nextjs-with-supabase)
+
+### Advanced Usage
+
+- [Tracker](/docs/advanced/tracker)
+- [Server](/docs/advanced/server)
+- [Dashboard](/docs/advanced/dashboard)
+- [Upgrading](/docs/self-host/upgrading)

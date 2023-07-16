@@ -1,3 +1,4 @@
+"use client"
 import * as React from "react"
 import Image from "next/image"
 import { useMDXComponent } from "next-contentlayer/hooks"
@@ -5,8 +6,10 @@ import { useMDXComponent } from "next-contentlayer/hooks"
 import { cn } from "@/lib/utils"
 import { Callout } from "@/components/callout"
 import { MdxCard } from "@/components/mdx-card"
+import { Steps, Tab, Tabs } from "nextra-theme-docs"
+import { MdxTab, MdxTabs } from "./mdx-tab"
 
-const components = {
+export const components = {
   h1: ({ className, ...props }) => (
     <h1
       className={cn(
@@ -147,7 +150,10 @@ const components = {
       {...props}
     />
   ),
-  Image,
+  Steps,
+  Tab: MdxTab,
+  Tabs: MdxTabs,
+  Image: Image as any,
   Callout,
   Card: MdxCard,
 }
@@ -161,8 +167,7 @@ export function Mdx({ code }: MdxProps) {
 
   return (
     <div className="mdx">
-      {/* don't why it's showing error should be fixed later it's any for now */}
-      <Component components={components as any} />
+      <Component components={components} />
     </div>
   )
 }

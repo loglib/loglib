@@ -1,5 +1,33 @@
 # @loglib/ui
 
+## 0.5.3
+
+### Patch Changes
+
+- d39c636: - tracker is using fetch insted of sendBeacon on default
+  - mpa support to not persist session between page unloads
+  - dashboard ui improvements
+  - and bug fixes...
+
+## 0.5.2
+
+### Patch Changes
+
+- 9a5c38d: minor bug fixes
+
+## 0.5.1
+
+### Patch Changes
+
+- da5caf5: - time range fix
+
+## 0.5.0
+
+### Minor Changes
+
+- 4086eb4: - bug fix on theme change on some browsers
+  - theme now can be provided as a prop
+
 ## 0.4.1
 
 ### Patch Changes
