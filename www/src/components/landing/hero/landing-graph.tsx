@@ -79,9 +79,9 @@ export const LandingGraph = () => {
             x2="30"
             y2="481.7"
             className=" fill-black dark:fill-white stroke-black dark:stroke-white"
-            initial={{ opacity: 0 }} // Initial animation state
-            animate={{ opacity: 0.3 }} // Animation when component appears
-            transition={{ duration: 0.5, delay: 0.2 }} // Animation duration and delay
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
           />
 
           <motion.line
@@ -91,9 +91,9 @@ export const LandingGraph = () => {
             x2="30"
             y2="381.7"
             className=" fill-black dark:fill-white stroke-black dark:stroke-white"
-            initial={{ opacity: 0 }} // Initial animation state
-            animate={{ opacity: 0.3 }} // Animation when component appears
-            transition={{ duration: 0.5, delay: 0.4 }} // Animation duration and delay
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
           />
 
           <motion.line
@@ -103,9 +103,9 @@ export const LandingGraph = () => {
             x2="30"
             y2="281.7"
             className=" fill-black dark:fill-white stroke-black dark:stroke-white"
-            initial={{ opacity: 0 }} // Initial animation state
-            animate={{ opacity: 0.3 }} // Animation when component appears
-            transition={{ duration: 0.5, delay: 0.6 }} // Animation duration and delay
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
           />
 
           <motion.line
@@ -115,9 +115,9 @@ export const LandingGraph = () => {
             x2="30"
             className=" fill-black dark:fill-white stroke-black dark:stroke-white"
             y2="181.7"
-            initial={{ opacity: 0 }} // Initial animation state
-            animate={{ opacity: 0.3 }} // Animation when component appears
-            transition={{ duration: 0.5, delay: 0.8 }} // Animation duration and delay
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
           />
 
           <motion.line
@@ -127,9 +127,9 @@ export const LandingGraph = () => {
             x2="30"
             y2="81.7"
             className=" fill-black dark:fill-white stroke-black dark:stroke-white"
-            initial={{ opacity: 0 }} // Initial animation state
-            animate={{ opacity: 0.3 }} // Animation when component appears
-            transition={{ duration: 0.5, delay: 1.0 }} // Animation duration and delay
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.3 }}
+            transition={{ duration: 0.5, delay: 1.0 }}
           />
         </g>
         <g id="uiGroup" filter="url(#glow)">
@@ -143,9 +143,9 @@ export const LandingGraph = () => {
             d="M94.6,405.1
     c62.9-95,109.2-111.7,142.4-103.8c44.6,10.6,74.8,67.9,143.4,63.8c35-2.1,32.7-17.4,73.9-21.7c77.7-8.2,105.9,44,136.3,13.6
     c30.6-30.5,10.8-91.7,44.9-127.5c29.1-30.6,56.7,0,94.1-33.9c20.6-18.6,32.6-46.2,39.6-66.5"
-            initial={{ pathLength: 0, pathOffset: 1, opacity: 0 }} // Initial animation state
-            animate={{ pathLength: 1, pathOffset: 0, opacity: 1 }} // Animation when component appears
-            transition={{ duration: 2 }} // Animation duration
+            initial={{ pathLength: 0, pathOffset: 1, opacity: 0 }}
+            animate={{ pathLength: 1, pathOffset: 0, opacity: 1 }}
+            transition={{ duration: 2 }}
           />
           <motion.g id="connectorGroup">
             <motion.line
@@ -155,9 +155,9 @@ export const LandingGraph = () => {
               y1="0"
               y2="0"
               className=" stroke-black dark:stroke-white"
-              initial={{ scaleX: 0 }} // Initial animation state
-              animate={{ scaleX: 1 }} // Animation when component appears
-              transition={{ duration: 0.5 }} // Animation duration
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.5 }}
             />
           </motion.g>
           <motion.g className={styles.box}>
@@ -168,17 +168,17 @@ export const LandingGraph = () => {
               rx="20"
               ry="20"
               className=" fill-black dark:fill-white"
-              initial={{ opacity: 0 }} // Initial animation state
-              animate={{ opacity: 1 }} // Animation when component appears
-              transition={{ duration: 0.5, delay: 0.5 }} // Animation duration and delay
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
             />
             <motion.text
               className={styles.boxLabel}
               x="40"
               y="28"
-              initial={{ opacity: 0 }} // Initial animation state
-              animate={{ opacity: 1 }} // Animation when component appears
-              transition={{ duration: 0.5, delay: 0.7 }} // Animation duration and delay
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.7 }}
             ></motion.text>
           </motion.g>
         </g>
