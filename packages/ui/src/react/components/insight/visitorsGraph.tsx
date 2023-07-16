@@ -37,19 +37,19 @@ export function Graph({
           data={data}
           onClick={(e) => {
             if (!data) return;
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             const startDate = new Date(
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
               e.activePayload && e.activePayload[0].payload.originalDate,
             );
             startDate.setHours(startDate.getHours() - 1);
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
             const endDate = new Date(
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
               e.activePayload && e.activePayload[0].payload.originalDate,
             );
             endDate.setHours(endDate.getHours() + 1);
             setTimeRange({
-              // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
               startDate: new Date(
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
                 e.activePayload && e.activePayload[0].payload.originalDate,
               ),
               // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -114,7 +114,7 @@ export function Graph({
                 <p className=" tw-text-sm tw-font-light">
                   if you haven't setup tracker refer to the{" "}
                   <a
-                    href="https://docs.loglib.io"
+                    href="https://loglib.io/docs"
                     target="_blank"
                     className=" tw-text-blue-700 tw-underline"
                   >
