@@ -4,24 +4,24 @@ import rehypePrettyCode from "rehype-pretty-code"
 import rehypeSlug from "rehype-slug"
 import remarkGfm from "remark-gfm"
 
-/** @type {import('contentlayer/source-files').ComputedFields} */
-
-const capitalize = (str) => {
+const capitalize = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-const computedFields = (type) => ({
+const computedFields = (type: "changelog" | "docs") => ({
   slug: {
     type: "string",
-    resolve: (doc) => doc._raw.flattenedPath.replace(`${type}/`, ""),
+    resolve: (doc: { _raw: { flattenedPath: string } }) =>
+      doc._raw.flattenedPath.replace(`${type}/`, ""),
   },
   slugAsParams: {
     type: "string",
-    resolve: (doc) => doc._raw.flattenedPath.split("/").slice(1).join("/"),
+    resolve: (doc: { _raw: { flattenedPath: string } }) =>
+      doc._raw.flattenedPath.split("/").slice(1).join("/"),
   },
   images: {
     type: "array",
-    resolve: (doc) => {
+    resolve: (doc: { body: { raw: string } }) => {
       return doc.body.raw.match(
         /(?<=<BlurImage[^>]*\bsrc=")[^"]+(?="[^>]*\/>)/g
       )
@@ -29,14 +29,14 @@ const computedFields = (type) => ({
   },
   tweetIds: {
     type: "array",
-    resolve: (doc) => {
+    resolve: (doc: { body: { raw: string } }) => {
       const tweetMatches = doc.body.raw.match(/<StaticTweet\sid="[0-9]+"\s\/>/g)
-      return tweetMatches?.map((tweet) => tweet.match(/[0-9]+/g)[0]) || []
+      return tweetMatches?.map((tweet) => tweet.match(/[0-9]+/g)![0]) || []
     },
   },
   githubRepos: {
     type: "array",
-    resolve: (doc) => {
+    resolve: (doc: { body: { raw: string } }) => {
       // match all <GithubRepo url=""/> and extract the url
       return doc.body.raw.match(
         /(?<=<GithubRepo[^>]*\burl=")[^"]+(?="[^>]*\/>)/g
@@ -45,7 +45,14 @@ const computedFields = (type) => ({
   },
   structuredData: {
     type: "object",
-    resolve: (doc) => ({
+    resolve: (doc: {
+      title: any
+      publishedAt: any
+      summary: any
+      image: any
+      _raw: { flattenedPath: any }
+      author: any
+    }) => ({
       "@context": "https://schema.org",
       "@type": `${capitalize(type)}Posting`,
       headline: doc.title,
@@ -79,6 +86,7 @@ export const Doc = defineDocumentType(() => ({
       default: true,
     },
   },
+  //@ts-ignore
   computedFields: computedFields("docs"),
 }))
 
@@ -123,7 +131,7 @@ export default makeSource({
         rehypePrettyCode,
         {
           theme: "github-dark",
-          onVisitLine(node) {
+          onVisitLine(node: { children: string | any[] }) {
             // Prevent lines from collapsing in `display: grid` mode, and allow empty
             // lines to be copy/pasted
             if (node.children.length === 0) {
