@@ -14,7 +14,7 @@ export function DocsSidebarNav({ items }: DocsSidebarNavProps) {
   const pathname = usePathname()
 
   return items.length ? (
-    <div className="w-full">
+    <div className="w-full scrollbar-none">
       {items.map((item, index) => (
         <div key={index} className={cn("pb-8")}>
           <h4 className="mb-1 rounded-md px-2 py-1 text-sm font-medium">
@@ -39,7 +39,7 @@ export function DocsSidebarNavItems({
   pathname,
 }: DocsSidebarNavItemsProps) {
   return items?.length ? (
-    <div className="grid grid-flow-row auto-rows-max text-sm">
+    <div className="grid grid-flow-row auto-rows-max text-sm scrollbar-none">
       {items.map((item, index) =>
         !item.disabled && item.href ? (
           <Link

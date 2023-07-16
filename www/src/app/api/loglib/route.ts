@@ -4,6 +4,9 @@ import { getCurrentUser } from "@/lib/session"
 import { kyselyAdapter } from "@/lib/db/kysely-adapter"
 import { db } from "@/server/db"
 import { siteConfig } from "@/config/site"
+import { kv } from "@vercel/kv"
+import { ApiRequest } from "@loglib/core"
+import { getHost } from "@/lib/utils"
 
 export const { GET, POST, OPTIONS } = createServerRoutes({
   adapter: kyselyAdapter(db),
@@ -52,10 +55,6 @@ export const { GET, POST, OPTIONS } = createServerRoutes({
       }
     }
     if (req.method === "POST") {
-      let origin: string =
-        process.env.NODE_ENV === "development"
-          ? siteConfig.url
-          : req.headers.origin || req.headers.host || req.headers.referer
       const site = await db
         .selectFrom("website")
         .where("id", "=", id)
@@ -68,17 +67,71 @@ export const { GET, POST, OPTIONS } = createServerRoutes({
           code: 400,
         }
       }
-      //origin check
-      // const url = new URL(site.url.replace(/\/$/, "").replace("www.", ""))
-      // origin = new URL(origin.replace(/\/$/, "").replace("www.", "")).origin
-      // console.log(url.origin, origin)
-      // if (url.origin !== origin) {
-      //   return {
-      //     message: "Website not found",
-      //     code: 400,
-      //   }
-      // }
+      const isOriginValid = await checkOrigin(req, site.url)
+      if (!isOriginValid) {
+        return {
+          message: "Origin not valid",
+          code: 400,
+        }
+      }
     }
     return await next(req, options)
   },
 })
+
+async function checkOrigin(
+  req: ApiRequest<
+    {
+      host?: string
+      sdkVersion?: string
+      path: string
+      data: { host?: string }
+      sessionId: string
+    },
+    any
+  >,
+  url: string
+) {
+  //host and sdkVersion is added with every request since sdkVersion 0.5.0
+  if (req.body.sdkVersion) {
+    const hostname =
+      process.env.NODE_ENV === "development"
+        ? getHost(siteConfig.url)
+        : req.body.host && getHost(req.body.host)
+    const siteHostname = getHost(url)
+    if (hostname && siteHostname && hostname === siteHostname) {
+      return true
+    }
+    return false
+  } else {
+    if (req.body.path === "/session") {
+      if (req.body.data) {
+        const origin =
+          process.env.NODE_ENV === "development"
+            ? siteConfig.url
+            : (req.body.data.host as string | undefined)
+        const sessionId = req.body.sessionId as string | undefined
+        const hostname = origin && getHost(origin)
+        const siteHostname = getHost(url)
+        const isValidOrigin =
+          hostname && siteHostname && hostname === siteHostname
+        if (!origin || !sessionId || !isValidOrigin) {
+          return false
+        }
+        await kv.set(sessionId, origin)
+        return true
+      } else {
+        return false
+      }
+    } else {
+      const origin = (await kv.get(req.body?.sessionId as string)) as
+        | string
+        | undefined
+      console.log(origin, "origin")
+      if (!origin || getHost(url) !== getHost(origin)) {
+        return false
+      }
+      return true
+    }
+  }
+}

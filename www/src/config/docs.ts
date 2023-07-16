@@ -38,12 +38,12 @@ export const docsConfig: DocsConfig = {
         },
         {
           title: "Upgrading",
-          href: "/docs/self-host/upgrading"
-        }
+          href: "/docs/self-host/upgrading",
+        },
       ],
     },
     {
-      title: "Advanced Usage",
+      title: "Advanced Setup",
       items: [
         {
           title: "Tracker",
@@ -57,11 +57,19 @@ export const docsConfig: DocsConfig = {
           title: "Dashboard",
           href: "/docs/advanced/dashboard",
         },
+
+        {
+          title: "Next.js Proxy",
+          href: "/docs/advanced/next-proxy",
+        },
+        {
+          title: "Send Data to your own server",
+          href: "/docs/advanced/send-data-to-your-own-server",
+        },
         {
           title: "Wordpress Plugin",
           href: "/docs/advanced/wordpress-plugin",
         },
-
       ],
     },
     {

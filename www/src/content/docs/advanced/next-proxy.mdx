@@ -1,0 +1,20 @@
+---
+title: Next JS Proxy
+---
+
+You can use Next.js to route all analytics traffic through your own server and domain. This will reduce DNS lookups, as well as prevent Adblockers from blocking requests.
+
+By default the tracker sends request to your own domain at `/api/loglib`. So remove the host from the tracker code and add a reweite to your Next.js config.
+
+```ts
+module.exports = {
+  async rewrites() {
+    return [
+      {
+        source: "/api/loglib",
+        destination: "https://loglib.io/api/loglib",
+      },
+    ]
+  },
+}
+```

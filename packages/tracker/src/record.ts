@@ -19,12 +19,10 @@ import {
 import { logger } from "./utils/logger";
 
 /**
- *
- * @name record
- * @description entry point to start recording events
- * @param Config
+ * Initializes the web analytics tracker with the specified configuration options.
+ * @param {Partial<Config>} [config] - The configuration options for the tracker. See {@link Config} for overview
+ * @see [Documentation](https://loglib.io/docs) for details.
  */
-
 export function record(config?: Partial<Config>) {
   //Set Config
   const defaultConfig: Config = {
@@ -36,13 +34,19 @@ export function record(config?: Partial<Config>) {
     consent: "denied",
   };
   if (config && config.host) {
-    config.host = parseHost(config.host);
+    if (Array.isArray(config.host)) {
+      config.host = config.host.map((host) => parseHost(host));
+    } else {
+      config.host = parseHost(config.host);
+    }
   }
   window.llc = config ? { ...defaultConfig, ...config } : defaultConfig;
 
   //Set Internal
   const now = Date.now();
   setSessionStartTime(now);
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const packageJson = require("../package.json") as { version: string };
   window.lli = {
     eventsBank: [],
     startTime: now,
@@ -52,6 +56,7 @@ export function record(config?: Partial<Config>) {
     sessionId: guid(),
     pageId: guid(),
     intervals: [],
+    sdkVersion: packageJson.version,
   };
 
   logger.log("start recording...");

@@ -1,13 +1,21 @@
 export type Config = {
+  /** The ID of the tracker instance */
   id?: string;
+  /** Whether to automatically track events. Currently only supports click events with onclick handlers or clicks on a button. */
   autoTrack: boolean;
+  /** Whether to enable debug logging. */
   debug: boolean;
+  /** The environment to use for tracking. */
   env: "auto" | "prod" | "dev";
+  /** The interval (in milliseconds) for sending data to the server. */
   postInterval: number;
-  host: string;
+  /** The hostname or array of hostnames to send data to. By default it sends to the current hostname at "/api/loglib" */
+  host: string | string[];
+  /** The user's consent status for tracking. If not granted if uses hashed version of the user ip address as user id. If granted it store userId on local storage. By default it's denied. You can set it globally here or You can change the user consent using the setConsent method exported from the tracker.. @example import {setConsent} from "@loglib/tracker"
+   * setConsent("granted") */
   consent: "granted" | "denied";
   useServerPath?: boolean;
-  useBeacon?: boolean;
+  useFetch?: boolean;
 };
 export type ServerEvents = {
   id: string;
@@ -30,6 +38,7 @@ export interface Internal {
   pageId: string;
   sessionId: string;
   intervals: NodeJS.Timer[];
+  sdkVersion: string;
 }
 
 export interface InitInfo {

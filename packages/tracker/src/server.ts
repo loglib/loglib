@@ -7,7 +7,7 @@ export async function send(
   onSuccess?: () => void,
   onError?: () => void,
 ) {
-  const host = window.llc.host;
+  const url = window.llc.host;
   if (!data || (Array.isArray(data) && data.length === 0)) {
     logger.log("skipping empty request...");
     return;
@@ -16,6 +16,7 @@ export async function send(
     logger.log("skipping development logs...");
     return;
   }
+
   const dataToSend = {
     data,
     path,
@@ -23,13 +24,15 @@ export async function send(
     visitorId: getVisitorId(),
     pageId: window.lli.pageId,
     websiteId: window.llc.id,
+    host: location.hostname,
+    sdkVersion: window.lli.sdkVersion,
   };
   logger.log("sending...", dataToSend);
   let retryCount = 0;
   const maxRetries = 3;
-  async function sendRequest() {
+  async function sendRequest(host: string) {
     try {
-      if (window.llc.useBeacon) {
+      if (window.llc.useFetch) {
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         await fetch(host, {
           body: JSON.stringify(dataToSend),
@@ -74,5 +77,11 @@ export async function send(
       logger.error("Request failed after multiple retries.");
     }
   }
-  await sendRequest();
+  if (Array.isArray(url)) {
+    for (const host of url) {
+      await sendRequest(host);
+    }
+  } else {
+    await sendRequest(url);
+  }
 }
