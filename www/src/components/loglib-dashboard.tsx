@@ -10,6 +10,7 @@ import { AddTracker } from "./add-tracker"
 import "@/styles/dashboard.css"
 
 import { useTheme } from "next-themes"
+import { useSearchParams } from "next/navigation"
 
 export default function Loglib({
   showHowTo,
@@ -19,6 +20,8 @@ export default function Loglib({
   showHowTo: boolean
 }) {
   const { theme } = useTheme()
+  const params = useSearchParams()
+  const useKysely = params?.get("kysely")
   return (
     <main className={theme === "dark" ? "tw-dark dark" : ""}>
       <AddTracker websiteId={website.id} show={showHowTo} />
@@ -27,6 +30,7 @@ export default function Loglib({
         websiteId={website.id}
         websiteUrl={website.url}
         noAuth
+        url={`/api/loglib/${website.id}?${useKysely ? "kysely=true&" : ""}`}
         components={{
           header: () => <></>,
         }}

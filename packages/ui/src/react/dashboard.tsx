@@ -45,6 +45,7 @@ type DashboardProps = {
   noAuth?: boolean;
   style?: React.CSSProperties;
   theme?: "light" | "dark";
+  url?: string;
 };
 
 const defaultComponents = {
@@ -65,10 +66,10 @@ export const Dashboard: FC<DashboardProps> = (props) => {
   const [timezone, setTimezone] = useState(
     Intl.DateTimeFormat().resolvedOptions().timeZone,
   );
-
+  const url = props.url ?? getUrl() + "?";
   const { data, isLoading } = useSWR<GetInsightResponse>(
-    getUrl() +
-      `?startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&timeZone=${timezone}&filter=${JSON.stringify(
+    url +
+      `startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&timeZone=${timezone}&filter=${JSON.stringify(
         filters,
       )}&path=/dashboard&websiteId=${props.websiteId ?? ""}`,
     fetcher,

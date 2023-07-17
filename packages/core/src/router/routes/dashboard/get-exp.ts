@@ -25,7 +25,6 @@ import {
 import { GenericError, PageView, Session } from "../../..";
 import { filter } from "./filter/smallFilter";
 import { Filter } from "./filter/type";
-import { getDashboardDataExperimental } from "./get-exp";
 
 export type GetInsightQuery = z.infer<typeof getInsightSchema>;
 
@@ -118,7 +117,7 @@ const getInsightSchema = RootDashboardSchema.merge(
   }),
 );
 
-export const getDashboardData: ApiGetHandler<
+export const getDashboardDataExperimental: ApiGetHandler<
   GetInsightQuery,
   GetInsightResponse
 > = async (req, options) => {
@@ -132,39 +131,31 @@ export const getDashboardData: ApiGetHandler<
       const endDateObj = new Date(endDate);
       const duration = endDateObj.getTime() - startDateObj.getTime();
       const pastEndDateObj = new Date(startDateObj.getTime() - duration);
-      if (adapter.getData) {
-        return await getDashboardDataExperimental(req, options);
-      }
+      if (!adapter.getData) throw "adapter doesn't implement getData";
+
+      console.log("starting query");
       let startTime = performance.now();
-      let users = await adapter.getVisitor(startDateObj, endDateObj, websiteId);
-      let pastUsers = await adapter.getVisitor(
+      let users = await adapter.getData(startDateObj, endDateObj, websiteId);
+      let pastUsers = await adapter.getData(
         pastEndDateObj,
         startDateObj,
         websiteId,
       );
-      let pageViews = await adapter.getPageViews(
-        startDateObj,
-        endDateObj,
-        websiteId,
-      );
-      let pastPageViews = await adapter.getPageViews(
-        pastEndDateObj,
-        startDateObj,
-        websiteId,
-      );
-      let sessions = await adapter.getSession(
-        startDateObj,
-        endDateObj,
-        websiteId,
-      );
-      let pastSessions = await adapter.getSession(
-        pastEndDateObj,
-        startDateObj,
-        websiteId,
-      );
-      let events = await adapter.getEvents(startDateObj, endDateObj, websiteId);
       let endTime = performance.now();
       console.log(endTime - startTime, "query");
+
+      let pageViews = users
+        .map((u) => u.Pageview)
+        .reduce((a, b) => a.concat(b));
+      let pastPageViews = pastUsers
+        .map((u) => u.Pageview)
+        .reduce((a, b) => a.concat(b));
+      let sessions = users.map((u) => u.Session).reduce((a, b) => a.concat(b));
+      let pastSessions = pastUsers
+        .map((u) => u.Session)
+        .reduce((a, b) => a.concat(b));
+      let events = users.map((e) => e.WebEvent).reduce((a, b) => a.concat(b));
+
       //add utmCampaigns as a key in session
       sessions = sessions.map((s) => {
         const utmCampaign = s.queryParams?.utm_campaign ?? "";

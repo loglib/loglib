@@ -6,7 +6,7 @@ import { prismaAdapter } from "@/lib/db/custom-adapter"
 import { getCurrentUser } from "@/lib/session"
 import { siteConfig } from "@/config/site"
 
-export const { GET, POST, OPTIONS } = createServerRoutes({
+export const { POST, OPTIONS } = createServerRoutes({
   adapter: prismaAdapter(db),
   disableLocation: process.env.NODE_ENV === "development" ? true : false,
   environment: process.env.NODE_ENV === "development" ? "test" : "production",
@@ -19,42 +19,7 @@ export const { GET, POST, OPTIONS } = createServerRoutes({
       }
     }
     const id = websiteId as string
-    if (req.method === "GET") {
-      const user = await getCurrentUser()
-      if (!user) return { message: "Unauthorized", code: 401 }
-      const website = await db.website.findFirst({
-        where: {
-          AND: {
-            id,
-            userId: user.id,
-          },
-        },
-      })
-      if (!website) {
-        const teamWebsite = await db.teamWebsite.findFirst({
-          where: {
-            AND: {
-              websiteId: id,
-              Team: {
-                TeamUser: {
-                  some: {
-                    userId: user.id,
-                  },
-                },
-              },
-            },
-          },
-        })
-        if (!teamWebsite) {
-          return {
-            message: "Website not found",
-            code: 404,
-          }
-        }
-      }
-    }
     if (req.method === "POST") {
-      console.log("post")
       const site = await db.website.findFirst({
         where: {
           AND: {
