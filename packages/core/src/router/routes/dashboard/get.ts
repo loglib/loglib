@@ -130,6 +130,8 @@ export const getDashboardData: ApiGetHandler<
       const endDateObj = new Date(endDate);
       const duration = endDateObj.getTime() - startDateObj.getTime();
       const pastEndDateObj = new Date(startDateObj.getTime() - duration);
+
+      let startTime = performance.now();
       let users = await adapter.getVisitor(startDateObj, endDateObj, websiteId);
       let pastUsers = await adapter.getVisitor(
         pastEndDateObj,
@@ -157,14 +159,15 @@ export const getDashboardData: ApiGetHandler<
         websiteId,
       );
       let events = await adapter.getEvents(startDateObj, endDateObj, websiteId);
-
+      let endTime = performance.now();
+      console.log(endTime - startTime, "query");
       //add utmCampaigns as a key in session
       sessions = sessions.map((s) => {
         const utmCampaign = s.queryParams?.utm_campaign ?? "";
         const utmSource = s.queryParams?.utm_source ?? "";
         return { ...s, utmCampaign, utmSource };
       });
-
+      startTime = performance.now();
       //filters
       const filters = JSON.parse(query.data.filter) as
         | Filter<Session, "session">[]
@@ -270,6 +273,8 @@ export const getDashboardData: ApiGetHandler<
       const eventsWithData = getEvents(events, sessions, pageViews);
       const utmSources = getUtmSources(sessions);
       const utmCampaigns = getUtmCampaigns(sessions);
+      endTime = performance.now();
+      console.log(endTime - startTime, "Js");
       return {
         message: "success",
         code: 200,

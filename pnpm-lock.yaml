@@ -706,6 +706,9 @@ importers:
       contentlayer:
         specifier: ^0.3.1
         version: 0.3.3(esbuild@0.18.10)
+      crypto:
+        specifier: ^1.0.1
+        version: 1.0.1
       cssnano:
         specifier: ^6.0.1
         version: 6.0.1(postcss@8.4.24)
@@ -8371,6 +8374,11 @@ packages:
   /crypto-random-string@2.0.0:
     resolution: {integrity: sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==}
     engines: {node: '>=8'}
+    dev: false
+
+  /crypto@1.0.1:
+    resolution: {integrity: sha512-VxBKmeNcqQdiUQUW2Tzq0t377b54N2bMtXO/qiLa+6eRRmmC4qT3D4OnTGoT/U6O9aklQ/jTwbOtRMTTY8G0Ig==}
+    deprecated: This package is no longer supported. It's now a built-in Node module. If you've depended on crypto, you should switch to the one that's built-in.
     dev: false
 
   /css-background-parser@0.1.0:

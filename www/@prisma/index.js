@@ -283,7 +283,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/bekacru/Desktop/Development/loglib/www/@prisma",
+      "value": "/Users/bekacru/Desktop/Development/loglib-1/www/@prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -300,8 +300,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../.env",
-    "schemaEnvPath": "../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../prisma",
   "clientVersion": "4.15.0",

@@ -48,7 +48,12 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
             : undefined,
         },
       })
-      return { ...response, queryParams: JSON.parse(response.queryParams) }
+      return {
+        ...response,
+        queryParams: response.queryParams
+          ? JSON.parse(response.queryParams)
+          : {},
+      }
     },
     async createManyEvents(data: CustomEvents[]) {
       const promises = data.map(async (event) => {
@@ -64,7 +69,9 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
           })
           .then((res) => ({
             ...res,
-            payload: JSON.parse(res.payload) as Record<string, string>,
+            payload: res.payload
+              ? (JSON.parse(res.payload) as Record<string, string>)
+              : {},
           }))
         return response
       })
@@ -90,7 +97,9 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
         })
         .then((res) => ({
           ...res,
-          data: JSON.parse(res.data) as Record<string, string>,
+          data: res.data
+            ? (JSON.parse(res.data) as Record<string, string>)
+            : {},
         }))
       return response
     },
@@ -115,7 +124,9 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
         .then((res) => {
           const users = res.map((user) => ({
             ...user,
-            data: JSON.parse(user.data) as Record<string, string>,
+            data: user.data
+              ? (JSON.parse(user.data) as Record<string, string>)
+              : {},
           }))
           return users
         })
@@ -156,7 +167,9 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
         .then((res) => {
           const events = res.map((event) => ({
             ...event,
-            payload: JSON.parse(event.payload) as Record<string, string>,
+            payload: event.payload
+              ? (JSON.parse(event.payload) as Record<string, string>)
+              : {},
           }))
           return events
         })
@@ -174,7 +187,9 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
 
       return res.map((session) => ({
         ...session,
-        queryParams: JSON.parse(session.queryParams) as Record<string, string>,
+        queryParams: session.queryParams
+          ? (JSON.parse(session.queryParams) as Record<string, string>)
+          : {},
       }))
     },
     async updatePageView(data: CustomPageView) {
@@ -186,7 +201,10 @@ export const prismaAdapter = (db: PrismaClient): Adapter => {
           id: data.id,
         },
       })
-      return { ...res, queryParams: JSON.parse(res.queryParams) }
+      return {
+        ...res,
+        queryParams: res.queryParams ? JSON.parse(res.queryParams) : {},
+      }
     },
   }
 }
