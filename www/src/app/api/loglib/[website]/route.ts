@@ -82,7 +82,7 @@ export const GET = async (
   })
 }
 
-export const getDashboardData = async (req: {
+const getDashboardData = async (req: {
   query: Record<string, string>
   options: LogLibOptions
 }) => {
