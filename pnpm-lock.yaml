@@ -526,6 +526,9 @@ importers:
 
   www:
     dependencies:
+      '@clickhouse/client':
+        specifier: ^0.1.1
+        version: 0.1.1
       '@hookform/resolvers':
         specifier: ^3.1.1
         version: 3.1.1(react-hook-form@7.44.3)
@@ -1281,6 +1284,13 @@ packages:
 
   /@chevrotain/utils@10.5.0:
     resolution: {integrity: sha512-hBzuU5+JjB2cqNZyszkDHZgOSrUUT8V3dhgRl8Q9Gp6dAj/H5+KILGjbhDpc3Iy9qmqlm/akuOI2ut9VUtzJxQ==}
+    dev: false
+
+  /@clickhouse/client@0.1.1:
+    resolution: {integrity: sha512-oeALCAjNFEXHPxMHJgj0QERiLM2ZknOOavvHB1mxmztZLhTuj86HaQEfh9q8x7LgKnv3jep7lb/fhFgD71WTjA==}
+    engines: {node: '>=16'}
+    dependencies:
+      uuid: 9.0.0
     dev: false
 
   /@commander-js/extra-typings@9.4.1(commander@9.4.1):

@@ -17,6 +17,7 @@
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
+    "@clickhouse/client": "^0.1.1",
     "@hookform/resolvers": "^3.1.1",
     "@loglib/core": "^0.3.3",
     "@loglib/next": "^0.2.0",
