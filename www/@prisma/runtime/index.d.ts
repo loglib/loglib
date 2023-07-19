@@ -30,7 +30,6 @@ declare class Arg {
     constructor({ key, value, isEnum, error, schemaArg, inputType }: ArgOptions);
     get [Symbol.toStringTag](): string;
     _toString(value: ArgValue, key: string): string | undefined;
-    stringifyValue(value: ArgValue): any;
     toString(): string | undefined;
     collectErrors(): ArgError[];
 }
@@ -73,7 +72,7 @@ declare type Args_4<T, F extends Operation> = T extends {
     };
 } ? T[symbol]['types'][F]['args'] : never;
 
-declare type ArgValue = string | boolean | number | undefined | Args_2 | string[] | boolean[] | number[] | Args_2[] | Date | null;
+declare type ArgValue = string | boolean | number | undefined | Args_2 | string[] | boolean[] | number[] | Args_2[] | null;
 
 declare interface AtLeastOneError {
     type: 'atLeastOne';
@@ -114,9 +113,8 @@ declare type BatchTransactionOptions = {
 };
 
 declare interface BinaryTargetsEnvValue {
-    fromEnvVar: string | null;
+    fromEnvVar: null | string;
     value: string;
-    native?: boolean;
 }
 
 declare interface CallSite {
@@ -537,7 +535,7 @@ export declare interface DecimalJsLike {
     toFixed(): string;
 }
 
-export declare const decompressFromBase64: (str: string) => string;
+export declare const decompressFromBase64: (str: string) => any;
 
 declare type DefaultArgs = InternalArgs<{}, {}, {}, {}>;
 
@@ -906,7 +904,7 @@ declare type EngineBatchQueries = GraphQLQuery[] | JsonQuery[];
 
 declare interface EngineConfig {
     cwd: string;
-    dirname: string;
+    dirname?: string;
     datamodelPath: string;
     enableDebugLogs?: boolean;
     allowTriggerPanic?: boolean;
@@ -1535,7 +1533,7 @@ declare type InternalRequestParams = {
     customDataProxyFetch?: (fetch: Fetch) => Fetch;
 } & Omit<QueryMiddlewareParams, 'runInTransaction'>;
 
-declare type InvalidArgError = InvalidArgNameError | MissingArgError | InvalidArgTypeError | AtLeastOneError | AtMostOneError | InvalidNullArgError | InvalidDateArgError;
+declare type InvalidArgError = InvalidArgNameError | MissingArgError | InvalidArgTypeError | AtLeastOneError | AtMostOneError | InvalidNullArgError;
 
 /**
  * This error occurs if the user provides an arg name that doesn't exist
@@ -1562,14 +1560,6 @@ declare interface InvalidArgTypeError {
         inputType: DMMF.SchemaArgInputType[];
     };
     providedValue: any;
-}
-
-/**
- * User provided invalid date value
- */
-declare interface InvalidDateArgError {
-    type: 'invalidDateArg';
-    argName: string;
 }
 
 declare type InvalidFieldError = InvalidFieldNameError | InvalidFieldTypeError | EmptySelectError | NoTrueSelectError | IncludeAndSelectError | EmptyIncludeError;
@@ -2626,7 +2616,7 @@ declare interface TraceState {
 declare interface TracingHelper {
     isEnabled(): boolean;
     getTraceParent(context?: Context): string;
-    createEngineSpan(engineSpanEvent: EngineSpanEvent): void;
+    createEngineSpan(engineSpanEvent: EngineSpanEvent): Promise<void>;
     getActiveContext(): Context | undefined;
     runInChildSpan<R>(nameOrOptions: string | ExtendedSpanOptions, callback: SpanCallback<R>): R;
 }

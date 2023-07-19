@@ -3,6 +3,7 @@ import { twMerge } from "tailwind-merge"
 
 import { env } from "../../env.mjs"
 import { Metadata } from "next"
+import axios from "axios"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -17,6 +18,8 @@ export function formatDate(input: string | number): string {
   })
 }
 
+export const fetcher = (url: string) =>
+  axios.get(url).then((res) => res.data.data)
 export function absoluteUrl(path: string) {
   return `${env.NEXT_PUBLIC_APP_URL}${path}`
 }

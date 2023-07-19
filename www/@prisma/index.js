@@ -29,12 +29,12 @@ const Prisma = {}
 exports.Prisma = Prisma
 
 /**
- * Prisma Client JS version: 4.15.0
- * Query Engine version: 8fbc245156db7124f997f4cecdd8d1219e360944
+ * Prisma Client JS version: 4.14.0
+ * Query Engine version: d9a4c5988f480fa576d43970d5a23641aa77bc9c
  */
 Prisma.prismaVersion = {
-  client: "4.15.0",
-  engine: "8fbc245156db7124f997f4cecdd8d1219e360944"
+  client: "4.14.0",
+  engine: "d9a4c5988f480fa576d43970d5a23641aa77bc9c"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -289,22 +289,17 @@ const config = {
     "config": {
       "engineType": "library"
     },
-    "binaryTargets": [
-      {
-        "fromEnvVar": null,
-        "value": "darwin-arm64",
-        "native": true
-      }
-    ],
+    "binaryTargets": [],
     "previewFeatures": [],
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null
+    "rootEnvPath": "../.env",
+    "schemaEnvPath": "../.env"
   },
   "relativePath": "../prisma",
-  "clientVersion": "4.15.0",
-  "engineVersion": "8fbc245156db7124f997f4cecdd8d1219e360944",
+  "clientVersion": "4.14.0",
+  "engineVersion": "d9a4c5988f480fa576d43970d5a23641aa77bc9c",
   "datasourceNames": [
     "db"
   ],
@@ -317,6 +312,9 @@ const fs = require('fs')
 
 config.dirname = __dirname
 if (!fs.existsSync(path.join(__dirname, 'schema.prisma'))) {
+  warnOnce('bundled-warning-1', 'Your generated Prisma Client could not immediately find its `schema.prisma`, falling back to finding it via the current working directory.')
+  warnOnce('bundled-warning-2', 'We are interested in learning about your project setup. We\'d appreciate if you could take the time to share some information with us.')
+  warnOnce('bundled-warning-3', 'Please help us by answering a few questions: https://pris.ly/bundler-investigation')
   config.dirname = path.join(process.cwd(), "@prisma")
   config.isBundled = true
 }

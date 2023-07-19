@@ -80,7 +80,6 @@ function setClassName(classObject, name) {
 // src/runtime/strictEnum.ts
 var allowList = /* @__PURE__ */ new Set([
   "toJSON",
-  "$$typeof",
   "asymmetricMatch",
   Symbol.iterator,
   Symbol.toStringTag,

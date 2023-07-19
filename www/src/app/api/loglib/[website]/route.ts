@@ -19,14 +19,7 @@ import {
   getUtmCampaigns,
   getUtmSources,
 } from "./utils/analysis"
-import {
-  Events,
-  GenericError,
-  LogLibOptions,
-  PageView,
-  Session,
-  Visitor,
-} from "@loglib/core"
+import { GenericError, LogLibOptions, PageView, Session } from "@loglib/core"
 import { filter } from "./filter/smallFilter"
 import { Filter } from "./filter/type"
 import { kyselyAdapter } from "@/lib/db/kysely-adapter"
@@ -43,7 +36,6 @@ const getInsightSchema = z.object({
   timeZone: z.string(),
   filter: z.string(),
   websiteId: z.string(),
-  path: z.string(),
 })
 
 export const GET = async (
@@ -287,7 +279,9 @@ const authenticate = async (usePrisma: boolean, id: string) => {
         .where("website_id", "=", id)
         .selectAll()
         .executeTakeFirst()
-      if (!teamWebsite) return false
+      if (!teamWebsite) {
+        return false
+      }
       const team = await db
         .selectFrom("team_users")
         .where("user_id", "=", user.id)

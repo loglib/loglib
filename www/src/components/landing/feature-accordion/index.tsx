@@ -1,7 +1,7 @@
 "use client"
 import Features from "./features"
 import styles from "./features.module.css"
-import { useScroll, motion } from "framer-motion"
+import { motion } from "framer-motion"
 
 export const FeatureAccordion = () => {
   return (

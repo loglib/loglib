@@ -6,9 +6,6 @@ import {
   Check,
   ChevronLeft,
   ChevronRight,
-  Clipboard,
-  ClipboardCopy,
-  Command,
   CreditCard,
   File,
   FileText,
@@ -22,8 +19,6 @@ import {
   LucideProps,
   Moon,
   MoreHorizontal,
-  MoreVertical,
-  Navigation,
   Pizza,
   Plus,
   Settings,
@@ -35,8 +30,6 @@ import {
   X,
   type Icon as LucideIcon,
 } from "lucide-react"
-
-import { cn } from "@/lib/utils"
 
 export type Icon = LucideIcon
 
@@ -61,15 +54,7 @@ export const Icons = {
     </svg>
   ),
   close: X,
-  logoWithLetter: ({
-    className,
-    logoClassName,
-    headerClassName,
-  }: {
-    className?: string
-    logoClassName?: string
-    headerClassName?: string
-  }) => (
+  logoWithLetter: () => (
     <Link href="/">
       <svg
         viewBox="0 0 162 33"
@@ -77,6 +62,7 @@ export const Icons = {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>Loglib</title>
         <path
           d="M30.6193 12.429C30.3167 12.5054 29.891 12.647 29.7032 12.8962L29.38 13.3252L22.2546 22.777C21.4259 23.8763 19.7603 23.8292 18.9951 22.6849L15.1076 16.8724C14.3196 15.6941 12.5898 15.687 11.792 16.8587L8.40306 21.836C7.72321 22.8345 6.32013 23.007 5.41864 22.203L3.39598 20.3989C2.96552 20.015 2.92289 19.3567 3.30023 18.9204V18.9204C3.68521 18.4753 4.35977 18.431 4.79975 18.8217L5.27246 19.2416C6.02958 19.9141 7.20517 19.7687 7.77568 18.932L11.7919 13.0423C12.59 11.8717 14.3187 11.8793 15.1065 13.0569L19.0845 19.0024C19.85 20.1466 21.5157 20.1933 22.3441 19.0937L25.4877 14.9211C26.2798 13.8698 25.5868 12.2688 24.427 11.6464V11.6464C23.534 11.1671 22.748 10.51 22.117 9.71531C21.486 8.92059 21.0233 8.00499 20.7573 7.02458C20.6931 6.78782 20.6407 6.54849 20.6001 6.30746C20.3981 5.10826 19.483 4.01361 18.2669 4.01361H2C1.46957 4.01361 0.960859 4.22504 0.585786 4.60139C0.210714 4.97774 0 5.48818 0 6.02041V28.0953C0 28.6275 0.210714 29.1379 0.585786 29.5143C0.960859 29.8906 1.46957 30.1021 2 30.1021H30C30.5304 30.1021 31.0392 29.8906 31.4142 29.5143C31.7893 29.1379 32 28.6275 32 28.0953V13.2647C32 12.446 31.413 12.2286 30.6193 12.429V12.429Z"
           fill="white"
@@ -113,7 +99,7 @@ export const Icons = {
       viewBox="0 0 24 24"
       width="24"
     >
-      <path d="M6 17C4.89543 17 4 16.1046 4 15V5C4 3.89543 4.89543 3 6 3H13C13.7403 3 14.3866 3.4022 14.7324 4M11 21H18C19.1046 21 20 20.1046 20 19V9C20 7.89543 19.1046 7 18 7H11C9.89543 7 9 7.89543 9 9V19C9 20.1046 9.89543 21 11 21Z"></path>
+      <path d="M6 17C4.89543 17 4 16.1046 4 15V5C4 3.89543 4.89543 3 6 3H13C13.7403 3 14.3866 3.4022 14.7324 4M11 21H18C19.1046 21 20 20.1046 20 19V9C20 7.89543 19.1046 7 18 7H11C9.89543 7 9 7.89543 9 9V19C9 20.1046 9.89543 21 11 21Z" />
     </svg>
   ),
   trash: Trash,
@@ -152,7 +138,7 @@ export const Icons = {
     </svg>
   ),
   logout: LogOut,
-  typescript: ({ className }: { className?: string }) => (
+  typescript: () => (
     <svg
       viewBox="0 0 32 32"
       className="h-4 w-4 fill-black dark:fill-white"
@@ -170,7 +156,7 @@ export const Icons = {
       </g>
     </svg>
   ),
-  javascript: ({ className }: { className?: string }) => (
+  javascript: () => (
     <svg
       fill="#fff"
       className="h-4 w-4 fill-black dark:fill-white"
