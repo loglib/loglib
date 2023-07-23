@@ -26,9 +26,11 @@ import { kyselyAdapter } from "@/lib/db/kysely-adapter"
 
 import { NextResponse } from "next/server"
 import { db } from "@/server/db"
+import { client } from "@/server/db/clickhouse"
 import { db as prismaDb } from "@/lib/db"
-import { prismaAdapter } from "@/lib/db/custom-adapter"
+import { prismaAdapter } from "@/lib/db/prisma-adapter"
 import { getCurrentUser } from "@/lib/session"
+import { clickHouseAdapter } from "@/lib/db/clickhouse-adapter"
 
 const getInsightSchema = z.object({
   startDate: z.string(),
@@ -46,7 +48,7 @@ export const GET = async (
   const queryObject = Object.fromEntries(query.entries())
   const adapter = queryObject.kysely
     ? kyselyAdapter(db)
-    : prismaAdapter(prismaDb)
+    : clickHouseAdapter(client)
   const website = ctx.params.website
   const isAuth = await authenticate(!!queryObject.prisma, website)
   if (!isAuth) {
@@ -323,6 +325,3 @@ const authenticate = async (usePrisma: boolean, id: string) => {
   }
   return true
 }
-
-
-

@@ -11,8 +11,8 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"
-import React, { Fragment, ReactNode } from "react"
+} from "@tanstack/react-table";
+import React, { Fragment, ReactNode } from "react";
 import {
   Table,
   TableBody,
@@ -20,17 +20,16 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { AnimatePresence, motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { TableLoading } from "../table-loading"
+} from "@/components/ui/table";
+import { AnimatePresence, motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
-  renderSubComponent: (props: { row: Row<TData> }) => React.ReactElement
-  isLoading: boolean
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+  renderSubComponent: (props: { row: Row<TData> }) => React.ReactElement;
+  isLoading: boolean;
 }
 
 function DataTable<TData, TValue>({
@@ -39,27 +38,21 @@ function DataTable<TData, TValue>({
   renderSubComponent,
   isLoading,
 }: DataTableProps<TData, TValue>) {
-  if (!data.length) {
-    ;<TableLoading cellCount={5} />
-  }
-  const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  )
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 
-  const [{ pageIndex, pageSize }, setPagination] =
-    React.useState<PaginationState>({
-      pageIndex: 0,
-      pageSize: 40,
-    })
+  const [{ pageIndex, pageSize }, setPagination] = React.useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 40,
+  });
 
   const pagination = React.useMemo(
     () => ({
       pageIndex,
       pageSize,
     }),
-    [pageIndex, pageSize]
-  )
+    [pageIndex, pageSize],
+  );
 
   const table = useReactTable({
     data,
@@ -79,7 +72,7 @@ function DataTable<TData, TValue>({
     onPaginationChange: () => {
       //pagination is handled by the load more button
     },
-  })
+  });
 
   return (
     <AnimatePresence>
@@ -92,12 +85,8 @@ function DataTable<TData, TValue>({
         <div className="flex items-center py-4 px-2">
           <Input
             placeholder="Search Events..."
-            value={
-              (table.getColumn("eventName")?.getFilterValue() as string) ?? ""
-            }
-            onChange={(event) =>
-              table.getColumn("eventName")?.setFilterValue(event.target.value)
-            }
+            value={(table.getColumn("eventName")?.getFilterValue() as string) ?? ""}
+            onChange={(event) => table.getColumn("eventName")?.setFilterValue(event.target.value)}
             className="max-w-sm"
           />
         </div>
@@ -112,10 +101,10 @@ function DataTable<TData, TValue>({
                         ? null
                         : (flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           ) as ReactNode)}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
@@ -131,12 +120,7 @@ function DataTable<TData, TValue>({
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
-                        {
-                          flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          ) as ReactNode
-                        }
+                        {flexRender(cell.column.columnDef.cell, cell.getContext()) as ReactNode}
                       </TableCell>
                     ))}
                   </TableRow>
@@ -158,9 +142,7 @@ function DataTable<TData, TValue>({
               ))
             ) : isLoading ? (
               <TableRow
-                className={
-                  "h-6 gap-2 bg-gray-200 dark:bg-gray-800 rounded-md animate-pulse"
-                }
+                className={"h-6 gap-2 bg-gray-200 dark:bg-gray-800 rounded-md animate-pulse"}
               >
                 <TableCell
                   colSpan={columns.length}
@@ -171,10 +153,7 @@ function DataTable<TData, TValue>({
               </TableRow>
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
+                <TableCell colSpan={columns.length} className="h-24 text-center">
                   No results.
                 </TableCell>
               </TableRow>
@@ -189,7 +168,7 @@ function DataTable<TData, TValue>({
               setPagination({
                 pageIndex: 0,
                 pageSize: pagination.pageSize + 40,
-              })
+              });
             }}
             variant="outline"
           >
@@ -198,7 +177,7 @@ function DataTable<TData, TValue>({
         )}
       </div>
     </AnimatePresence>
-  )
+  );
 }
 
-export { DataTable }
+export { DataTable };

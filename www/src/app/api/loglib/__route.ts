@@ -2,7 +2,7 @@
 import { createServerRoutes } from "@loglib/next"
 
 import { db } from "@/lib/db"
-import { prismaAdapter } from "@/lib/db/custom-adapter"
+import { prismaAdapter } from "@/lib/db/prisma-adapter"
 import { getCurrentUser } from "@/lib/session"
 import { siteConfig } from "@/config/site"
 

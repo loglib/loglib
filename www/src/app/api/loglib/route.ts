@@ -2,7 +2,6 @@
 import { db } from "@/server/db"
 import { ApiRequest } from "@loglib/core"
 import { createServerRoutes } from "@loglib/next"
-<<<<<<< Updated upstream
 import { kv } from "@vercel/kv"
 
 import { siteConfig } from "@/config/site"
@@ -38,22 +37,6 @@ export const { POST, OPTIONS } = createServerRoutes({
     }
     return await next(req, options)
   },
-=======
-import { getCurrentUser } from "@/lib/session"
-import { kyselyAdapter } from "@/lib/db/kysely-adapter"
-
-import { siteConfig } from "@/config/site"
-import { kv } from "@vercel/kv"
-import { ApiRequest } from "@loglib/core"
-import { getHost } from "@/lib/utils"
-import { clickHouseAdapter } from "@/lib/db/clickhouse-adapter"
-import { client } from "@/server/db/clickhouse"
-
-export const { GET, POST, OPTIONS } = createServerRoutes({
-  adapter: clickHouseAdapter(client),
-  disableLocation: process.env.NODE_ENV === "development" ? true : false,
-  environment: process.env.NODE_ENV === "development" ? "test" : "production",
->>>>>>> Stashed changes
 })
 
 async function checkOrigin(
