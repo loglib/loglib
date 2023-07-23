@@ -31,7 +31,6 @@ export const TeamHeader = ({ teams }: Props) => {
   const [selectedTeam, setSelectedTeam] = useAtom(selectedTeamAtom);
   const [teamSiteModal, setTeamSitesModal] = useAtom(teamSitesModalAtom);
   const role = useUserRole();
-  const router = useRouter();
   async function onClick() {
     if (teams.length > 2) {
       return toast({

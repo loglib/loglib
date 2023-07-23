@@ -1,5 +1,4 @@
 import { authOptions } from "@/lib/auth"
-import cors from "@/lib/cors"
 import { db } from "@/lib/db"
 import { websiteFormSchema } from "@/lib/validations/website"
 import { getServerSession } from "next-auth"
@@ -34,11 +33,11 @@ export const PATCH = async (
         },
       },
     })
-
     if (!userWebsite) {
       return new Response("Website not found", { status: 404 })
     }
     const body = websiteFormSchema.parse(await request.json())
+
     const res = await db.website.update({
       where: {
         id,
@@ -47,6 +46,7 @@ export const PATCH = async (
         url: body.url,
         title: body.title,
         id: body.id,
+        public: body.public,
       },
     })
     if (body.team) {
@@ -68,13 +68,14 @@ export const PATCH = async (
       }
     }
     return new Response(JSON.stringify(res), { status: 200 })
-  } catch {
+  } catch (e) {
+    console.log(e)
     return new Response(null, { status: 500 })
   }
 }
 
 export const DELETE = async (
-  request: Request,
+  _: Request,
   context: z.infer<typeof routeContextSchema>
 ) => {
   try {

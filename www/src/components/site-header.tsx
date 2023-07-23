@@ -123,3 +123,13 @@ export function DashboardHeader({ user }: { user: User }) {
     </header>
   );
 }
+export function PublicDashboardHeader() {
+  return (
+    <header className="mt-4 flex items-center justify-between border-b pb-4 dark:border-gray-800">
+      <Icons.logoWithLetter />
+      <div className="flex items-center gap-2 font-medium">
+        <div className="relative col-span-1 select-none flex-col items-center justify-center self-center lg:flex"></div>
+      </div>
+    </header>
+  );
+}

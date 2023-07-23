@@ -92,6 +92,7 @@ model Website {
   title     String?  @map("title")
   userId    String   @map("user_id")
   active    Boolean  @default(false)
+  public    Boolean  @default(false)
 
   User        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   WebVisitor  WebVisitor[]

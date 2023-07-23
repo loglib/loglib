@@ -1,21 +1,23 @@
-import { ReactNode } from "react"
-import { redirect } from "next/navigation"
-import { getWebsite } from "@/server/query/website"
+import { ReactNode } from "react";
+import { redirect } from "next/navigation";
+import { getWebsite } from "@/server/query/website";
 
-import { getCurrentUser } from "@/lib/session"
-import DashboardNav from "@/components/side-nav"
-import { DashboardHeader } from "@/components/site-header"
-import { StoreSetter } from "@/components/store-setter"
+import { getCurrentUser } from "@/lib/session";
+import DashboardNav from "@/components/side-nav";
+import { DashboardHeader } from "@/components/site-header";
+import { StoreSetter } from "@/components/store-setter";
 
 export default async function DashboardSideBarLayout({
   children,
 }: {
-  children: ReactNode
+  children: ReactNode;
 }) {
-  const user = await getCurrentUser()
-  if (!user) return redirect("/login")
-  const { userWebsites, teamWebsites } = await getWebsite()
-  const websites = userWebsites.concat(teamWebsites)
+  const user = await getCurrentUser();
+  if (!user) {
+    return redirect("/login");
+  }
+  const { userWebsites, teamWebsites } = await getWebsite();
+  const websites = userWebsites.concat(teamWebsites);
   return (
     <div className=" space-y-8 px-4 md:px-16 ">
       <StoreSetter store="website" data={websites} />
@@ -50,5 +52,5 @@ export default async function DashboardSideBarLayout({
         <main className="flex w-full  flex-col">{children}</main>
       </main>
     </div>
-  )
+  );
 }

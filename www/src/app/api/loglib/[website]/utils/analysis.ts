@@ -206,7 +206,7 @@ export const getBounceRate = (
 export const getPages = (pageViews: PageView[]) => {
   const startTime = performance.now()
   const pages = pageViews.reduce((acc, pageView) => {
-    const { page } = pageView
+    const page = pageView.page.split("?")[0]
     const isPage = acc.find((p) => p.page === page)
     if (!page) {
       return acc
@@ -391,8 +391,8 @@ export const getVisitorsByDate = (
   sessions: Session[],
   startDate: Date,
   endDate: Date,
-  uniqueVisitors = true,
-  timezone: string
+  timezone: string,
+  uniqueVisitors = true
 ) => {
   const startTime = performance.now()
   const ONE_DAY = 1000 * 60 * 60 * 24
@@ -438,6 +438,7 @@ export const getVisitorsByDate = (
         visits: 0,
       })
     }
+    // rome-ignore lint/style/noNonNullAssertion: <explanation>
     accumulator.get(date)!.visits++
     return accumulator
   }, new Map<string, { date: string; visits: number; originalDate: Date }>())
@@ -482,12 +483,12 @@ export const getEvents = (
 export type EventsWithData = ReturnType<typeof getEvents>
 
 export const getUtmSources = (sessions: Session[]) => {
-  sessions = sessions.filter((session) => {
+  const localSessions = sessions.filter((session) => {
     if (session.queryParams) {
       return session.queryParams.utm_source
     }
   })
-  const utmSources = sessions.reduce((acc, session) => {
+  const utmSources = localSessions.reduce((acc, session) => {
     const utmSource = session.queryParams?.utm_source ?? "unknown"
     const isFound = acc.find((p) => p.utmSource === utmSource)
     if (isFound) {
@@ -504,12 +505,12 @@ export const getUtmSources = (sessions: Session[]) => {
 }
 
 export const getUtmCampaigns = (sessions: Session[]) => {
-  sessions = sessions.filter((session) => {
+  const localSessions = sessions.filter((session) => {
     if (session.queryParams) {
       return session.queryParams.utm_campaign
     }
   })
-  const utmCampaigns = sessions.reduce((acc, session) => {
+  const utmCampaigns = localSessions.reduce((acc, session) => {
     const utmCampaign = session.queryParams?.utm_campaign
     const isFound = acc.find((p) => p.utmCampaign === utmCampaign)
     if (isFound) {

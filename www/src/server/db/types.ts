@@ -140,6 +140,7 @@ export type Website = {
   title: string | null
   user_id: string
   active: Generated<number>
+  public: Generated<number>
 }
 export type WebVisitor = {
   id: string

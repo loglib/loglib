@@ -1,110 +1,98 @@
-"use client"
+"use client";
 
-import React, { Fragment, useState } from "react"
-import { GetInsightResponse } from "@loglib/core"
-import { Website } from "generated/client"
-import ct from "countries-and-timezones"
-import { AnimatePresence, LayoutGroup, motion } from "framer-motion"
-import {
-  Activity,
-  Eye,
-  Laptop2,
-  TimerIcon,
-  UserIcon,
-  Users2,
-} from "lucide-react"
-import useSWR from "swr"
+import React, { Fragment, useState } from "react";
+import { GetInsightResponse } from "@loglib/core";
+import { Website } from "generated/client";
+import ct from "countries-and-timezones";
+import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
+import { Activity, Eye, Laptop2, TimerIcon, UserIcon, Users2 } from "lucide-react";
+import useSWR from "swr";
 
-import { getLast24Hour } from "@/lib/time-helper"
-import { cn, fetcher } from "@/lib/utils"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Switch } from "@/components/ui/switch"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
+import { getLast24Hour } from "@/lib/time-helper";
+import { cn, fetcher } from "@/lib/utils";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
-import { CalendarDateRangePicker, DatePicker } from "./date-picker"
-import Events from "./events"
-import { InsightCard } from "./insight/card"
-import LocationMap from "./insight/location-map"
-import { InsightTables } from "./insight/tables"
-import { Graph } from "./insight/visitor-graph"
-import { Filter, FilterProp, TimeRange } from "./type"
+import { CalendarDateRangePicker, DatePicker } from "./date-picker";
+import Events from "./events";
+import { InsightCard } from "./insight/card";
+import LocationMap from "./insight/location-map";
+import { InsightTables } from "./insight/tables";
+import { Graph } from "./insight/visitor-graph";
+import { Filter, FilterProp, TimeRange } from "./type";
 
-export const Dashboard = ({ website }: { website: Website }) => {
+export const Dashboard = ({ website, isPublic }: { website: Website; isPublic: boolean }) => {
   const [timeRange, setTimeRange] = useState<TimeRange>({
     startDate: getLast24Hour(),
     endDate: new Date(),
     stringValue: "24hr",
-  })
+  });
 
-  const [customTime, setCustomTime] = useState(false)
+  const [customTime, setCustomTime] = useState(false);
 
-  const [filters, setFilters] = useState<Filter[]>([])
-  const [timezone, setTimezone] = useState(
-    Intl.DateTimeFormat().resolvedOptions().timeZone
-  )
+  const [filters, setFilters] = useState<Filter[]>([]);
+  const [timezone, setTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
 
-  const url = `/api/loglib/${website.id}`
+  const url = `/api/loglib/${website.id}`;
   const { data, isLoading } = useSWR<GetInsightResponse>(
     `${url}?startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&timeZone=${timezone}&filter=${JSON.stringify(
-      filters
+      filters,
     )}`,
-    fetcher
-  )
+    fetcher,
+  );
 
   function addFilter(f: Filter) {
-    setFilters([...filters, f])
+    setFilters([...filters, f]);
   }
 
   function clearFilter(key: string) {
-    setFilters((prev) => prev.filter((f) => f.key !== key))
+    setFilters((prev) => prev.filter((f) => f.key !== key));
   }
 
-  const isFilterActive = (key: string) =>
-    filters.some((filter) => filter.key === key)
+  const isFilterActive = (key: string) => filters.some((filter) => filter.key === key);
 
   const filter: FilterProp = {
     addFilter,
     clearFilter,
     isFilterActive,
-  }
+  };
 
   const timezones = {
     ...ct.getAllTimezones(),
     "Africa/Addis_Ababa": { name: "Africa/Addis_Ababa" },
-  }
+  };
 
-  const [curTableTab, setCurTableTab] = useState("")
-  const [viCardSwitch, setViCardSwitch] = useState(false)
+  const [curTableTab, setCurTableTab] = useState("");
+  const [viCardSwitch, setViCardSwitch] = useState(false);
 
   return (
     <main>
       <LayoutGroup>
         <div
           className={cn(
-            "w-full space-y-4 transition-all duration-700 dark:text-white/80 scrollbar-hide"
+            "w-full space-y-4 transition-all duration-700 dark:text-white/80 scrollbar-hide",
           )}
         >
           <Tabs defaultValue="insights" className="space-y-4">
-            <TabsList>
-              <TabsTrigger
-                value="insights"
-                className=" dark:data-[state=active]:text-emphasis data-[state=active]:text-emphasis"
-              >
-                Insights
-              </TabsTrigger>
-              <TabsTrigger
-                value="events"
-                className=" dark:data-[state=active]:text-emphasis data-[state=active]:text-emphasis"
-              >
-                Events
-              </TabsTrigger>
-            </TabsList>
+            {!isPublic ? (
+              <TabsList>
+                <TabsTrigger
+                  value="insights"
+                  className=" dark:data-[state=active]:text-emphasis data-[state=active]:text-emphasis"
+                >
+                  Insights
+                </TabsTrigger>
+
+                <TabsTrigger
+                  value="events"
+                  className=" dark:data-[state=active]:text-emphasis data-[state=active]:text-emphasis"
+                >
+                  Events
+                </TabsTrigger>
+              </TabsList>
+            ) : null}
             <div className=" flex justify-between">
               <div className=" flex gap-2 items-center">
                 <DatePicker
@@ -178,10 +166,7 @@ export const Dashboard = ({ website }: { website: Website }) => {
                                 </div>
                               </TooltipTrigger>
                               <TooltipContent>
-                                <p>
-                                  Switch between unique visitors and new
-                                  visitors
-                                </p>
+                                <p>Switch between unique visitors and new visitors</p>
                               </TooltipContent>
                             </Tooltip>
                           </TooltipProvider>
@@ -191,20 +176,14 @@ export const Dashboard = ({ website }: { website: Website }) => {
                     <InsightCard
                       title={"Views"}
                       Icon={Eye}
-                      data={
-                        data ? data.insight.pageView : { change: 0, total: 0 }
-                      }
+                      data={data ? data.insight.pageView : { change: 0, total: 0 }}
                       isLoading={isLoading}
                       tooltip="The total number of pages viewed. Repeated views of a single page are counted."
                     />
                     <InsightCard
                       title={"Average Time"}
                       Icon={TimerIcon}
-                      data={
-                        data
-                          ? data.insight.averageTime
-                          : { change: 0, total: 0 }
-                      }
+                      data={data ? data.insight.averageTime : { change: 0, total: 0 }}
                       valuePrefix={""}
                       isLoading={isLoading}
                       tooltip="The average amount of time visitors spend on your website."
@@ -214,9 +193,7 @@ export const Dashboard = ({ website }: { website: Website }) => {
                       valuePrefix={"%"}
                       Icon={Activity}
                       negative
-                      data={
-                        data ? data.insight.bounceRate : { change: 0, total: 0 }
-                      }
+                      data={data ? data.insight.bounceRate : { change: 0, total: 0 }}
                       isLoading={isLoading}
                       tooltip=" The percentage of visitors who quickly exit your website without exploring further."
                     />
@@ -226,42 +203,26 @@ export const Dashboard = ({ website }: { website: Website }) => {
                       {curTableTab === "locations" ? (
                         <Fragment>
                           <CardHeader className=" flex flex-row gap-2 items-end">
-                            <CardTitle className="text-base py-4">
-                              Visitors Map
-                            </CardTitle>
+                            <CardTitle className="text-base py-4">Visitors Map</CardTitle>
                           </CardHeader>
-                          <CardContent
-                            className={cn(
-                              curTableTab === "locations" && "zoom-in-95"
-                            )}
-                          >
-                            <LocationMap
-                              data={data ? data.data.locations.country : []}
-                            />
+                          <CardContent className={cn(curTableTab === "locations" && "zoom-in-95")}>
+                            <LocationMap data={data ? data.data.locations.country : []} />
                           </CardContent>
                         </Fragment>
                       ) : (
                         <Tabs defaultValue="visitors">
                           <CardHeader className=" flex flex-row justify-between items-center">
-                            <CardTitle className="text-base">
-                              Visitors
-                            </CardTitle>
+                            <CardTitle className="text-base">Visitors</CardTitle>
                             <TabsList>
-                              <TabsTrigger value="visitors">
-                                Visitors
-                              </TabsTrigger>
-                              <TabsTrigger value="sessions">
-                                Sessions
-                              </TabsTrigger>
+                              <TabsTrigger value="visitors">Visitors</TabsTrigger>
+                              <TabsTrigger value="sessions">Sessions</TabsTrigger>
                             </TabsList>
                           </CardHeader>
                           <CardContent>
                             <div className="pl-2">
                               <TabsContent value="visitors">
                                 <Graph
-                                  data={
-                                    data ? data.graph.uniqueVisitorsByDate : []
-                                  }
+                                  data={data ? data.graph.uniqueVisitorsByDate : []}
                                   name="Visitors"
                                   Icon={Users2}
                                   isLoading={isLoading}
@@ -270,9 +231,7 @@ export const Dashboard = ({ website }: { website: Website }) => {
                               </TabsContent>
                               <TabsContent value="sessions" className=" ">
                                 <Graph
-                                  data={
-                                    data ? data.graph.uniqueSessionByDate : []
-                                  }
+                                  data={data ? data.graph.uniqueSessionByDate : []}
                                   name="Sessions"
                                   Icon={Laptop2}
                                   isLoading={isLoading}
@@ -294,10 +253,7 @@ export const Dashboard = ({ website }: { website: Website }) => {
                   </div>
                 </TabsContent>
                 <TabsContent value="events">
-                  <Events
-                    events={data ? data.eventsWithData : []}
-                    isLoading={isLoading}
-                  />
+                  <Events events={data ? data.eventsWithData : []} isLoading={isLoading} />
                 </TabsContent>
               </motion.div>
             </AnimatePresence>
@@ -305,5 +261,5 @@ export const Dashboard = ({ website }: { website: Website }) => {
         </div>
       </LayoutGroup>
     </main>
-  )
-}
+  );
+};
