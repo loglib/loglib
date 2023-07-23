@@ -1,36 +1,30 @@
-import type { Metadata } from "next"
-import { notFound } from "next/navigation"
-import { allChangelogPosts } from "contentlayer/generated"
-import { MDX } from "@/components/blog-mdx"
-import Link from "next/link"
-import { formatDate } from "@/lib/utils"
-import { getBlurDataURL } from "@/lib/image"
-import BlurImage from "@/components/ui/blur-image"
-import { Facebook, Linkedin, Twitter } from "lucide-react"
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { allChangelogPosts } from "contentlayer/generated";
+import { MDX } from "@/components/blog-mdx";
+import Link from "next/link";
+import { formatDate } from "@/lib/utils";
+import { getBlurDataURL } from "@/lib/image";
+import BlurImage from "@/components/ui/blur-image";
+import { Facebook, Linkedin, Twitter } from "lucide-react";
 
 export async function generateStaticParams() {
   return allChangelogPosts.map((post) => ({
     slug: post.slug,
-  }))
+  }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string }
+  params: { slug: string };
 }): Promise<Metadata | undefined> {
-  const post = allChangelogPosts.find((post) => post.slug === params.slug)
+  const post = allChangelogPosts.find((post) => post.slug === params.slug);
   if (!post) {
-    return
+    return;
   }
 
-  const {
-    title,
-    publishedAt: publishedTime,
-    summary: description,
-    image,
-    slug,
-  } = post
+  const { title, publishedAt: publishedTime, summary: description, image, slug } = post;
 
   return {
     title: `${title} - Loglib Changelog`,
@@ -53,17 +47,17 @@ export async function generateMetadata({
       description,
       images: [image],
     },
-  }
+  };
 }
 
 export default async function ChangelogPost({
   params,
 }: {
-  params: { slug: string }
+  params: { slug: string };
 }) {
-  const post = allChangelogPosts.find((post) => post.slug === params.slug)
+  const post = allChangelogPosts.find((post) => post.slug === params.slug);
   if (!post) {
-    notFound()
+    notFound();
   }
 
   return (
@@ -79,10 +73,7 @@ export default async function ChangelogPost({
       <div className="flex flex-col space-y-8 md:col-span-3">
         <div className="mx-5 grid gap-5 md:mx-0">
           <div className="flex flex-col">
-            <Link
-              href="/changelog"
-              className="my-5 text-sm text-gray-500 md:hidden"
-            >
+            <Link href="/changelog" className="my-5 text-sm text-gray-500 md:hidden">
               ← Back to Changelog
             </Link>
             <time
@@ -103,7 +94,7 @@ export default async function ChangelogPost({
           height={900}
           priority // since it's above the fold
           placeholder="blur"
-          blurDataURL={await getBlurDataURL(post.image!)}
+          blurDataURL={await getBlurDataURL(post.image)}
           className="border border-gray-100 dark:border-slate-800 md:rounded-2xl"
         />
         <div className="mx-5 mb-10 flex items-center justify-between md:mx-0">
@@ -149,5 +140,5 @@ export default async function ChangelogPost({
         </div>
       </div>
     </div>
-  )
+  );
 }

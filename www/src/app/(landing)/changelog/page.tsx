@@ -1,18 +1,17 @@
-import BlurImage from "@/components/ui/blur-image"
-import { getBlurDataURL } from "@/lib/image"
-import { allChangelogPosts } from "contentlayer/generated"
-import { constructMetadata, formatDate } from "@/lib/utils"
-import Link from "next/link"
-import { MDX } from "@/components/blog-mdx"
-import { Rss } from "lucide-react"
-import { Twitter } from "lucide-react"
+import BlurImage from "@/components/ui/blur-image";
+import { getBlurDataURL } from "@/lib/image";
+import { ChangelogPost, allChangelogPosts } from "contentlayer/generated";
+import { constructMetadata, formatDate } from "@/lib/utils";
+import Link from "next/link";
+import { MDX } from "@/components/blog-mdx";
+import { Twitter } from "lucide-react";
 
 export const metadata = constructMetadata({
   title: "Changelog - Loglib",
   description:
     "All the latest updates, improvements, and fixes to loglib - the privacy first open source web analytics.",
   image: "https://loglib.io/api/og/changelog",
-})
+});
 
 export default async function Changelog() {
   return (
@@ -20,9 +19,7 @@ export default async function Changelog() {
       <div className="relative grid border-b border-gray-200 py-20 md:grid-cols-4">
         <div className="md:col-span-1" />
         <div className="mx-5 flex flex-col space-y-6 md:col-span-3 md:mx-0">
-          <h1 className="font-display text-4xl font-bold tracking-tight md:text-5xl">
-            Changelog
-          </h1>
+          <h1 className="font-display text-4xl font-bold tracking-tight md:text-5xl">Changelog</h1>
           <p className="text-lg text-gray-500 dark:text-gray-200">
             All the latest updates, improvements, and fixes to Loglib.
           </p>
@@ -37,12 +34,6 @@ export default async function Changelog() {
           >
             <Twitter className="h-4 w-4 text-[#1d9bf0]" />
           </Link>
-          {/* <Link
-            href="/atom"
-            className="rounded-full bg-gray-100 p-2 transition-colors hover:bg-gray-200"
-          >
-            <Rss className="h-4 w-4 text-gray-500" />
-          </Link> */}
         </div>
       </div>
 
@@ -50,15 +41,12 @@ export default async function Changelog() {
         {allChangelogPosts
           .sort((a, b) => {
             if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
-              return -1
+              return -1;
             }
-            return 1
+            return 1;
           })
-          .map(async (post, idx) => (
-            <div
-              key={idx}
-              className="grid py-20 md:grid-cols-4 md:px-5 xl:px-0"
-            >
+          .map((post, idx) => (
+            <div key={post._id} className="grid py-20 md:grid-cols-4 md:px-5 xl:px-0">
               <div className="sticky top-10 hidden self-start md:col-span-1 md:block">
                 <Link href={`/changelog/${post.slug}`}>
                   <time
@@ -72,16 +60,8 @@ export default async function Changelog() {
               <div className="md:col-span-3">
                 <div className="flex flex-col gap-6">
                   <Link href={`/changelog/${post.slug}`}>
-                    <BlurImage
-                      src={post.image}
-                      alt={post.title}
-                      width={1200}
-                      height={900}
-                      priority={idx === 0} // since it's above the fold
-                      placeholder="blur"
-                      blurDataURL={await getBlurDataURL(post.image!)}
-                      className="border border-gray-100 dark:border-slate-800 md:rounded-2xl"
-                    />
+                    {/* @ts-ignore */}
+                    <BlurredImage post={post} idx={idx} />
                   </Link>
                   <Link
                     href={`/changelog/${post.slug}`}
@@ -94,10 +74,7 @@ export default async function Changelog() {
                       {formatDate(post.publishedAt)}
                     </time>
                   </Link>
-                  <Link
-                    href={`/changelog/${post.slug}`}
-                    className="mx-5 md:mx-0"
-                  >
+                  <Link href={`/changelog/${post.slug}`} className="mx-5 md:mx-0">
                     <h2 className="font-display text-3xl font-bold tracking-tight  hover:underline hover:decoration-1 hover:underline-offset-4 md:text-4xl">
                       {post.title}
                     </h2>
@@ -109,5 +86,21 @@ export default async function Changelog() {
           ))}
       </div>
     </div>
-  )
+  );
+}
+
+async function BlurredImage({ post, idx }: { post: ChangelogPost; idx: number }) {
+  const blurDataURL = await getBlurDataURL(post.image);
+  return (
+    <BlurImage
+      src={post.image}
+      alt={post.title}
+      width={1200}
+      height={900}
+      priority={idx === 0} // since it's above the fold
+      placeholder="blur"
+      blurDataURL={blurDataURL}
+      className="border border-gray-100 dark:border-slate-800 md:rounded-2xl"
+    />
+  );
 }

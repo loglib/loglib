@@ -1,6 +1,6 @@
 import { Adapter, Events, PageView, Session, Visitor } from "@loglib/core"
 
-import { PrismaClient } from "../../../@prisma"
+import { PrismaClient } from "generated/client"
 
 type CustomSession = Session & { websiteId: string }
 type CustomPageView = PageView & { websiteId: string }

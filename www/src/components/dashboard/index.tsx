@@ -2,7 +2,7 @@
 
 import React, { Fragment, useState } from "react"
 import { GetInsightResponse } from "@loglib/core"
-import { Website } from "@prisma"
+import { Website } from "generated/client"
 import ct from "countries-and-timezones"
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion"
 import {

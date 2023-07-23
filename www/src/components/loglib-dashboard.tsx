@@ -4,7 +4,7 @@ import { Dashboard } from "@loglib/ui"
 
 import "@loglib/ui/dist/index.css"
 
-import { Website } from "../../@prisma"
+import { Website } from "generated/client"
 import { AddTracker } from "./add-tracker"
 
 import "@/styles/dashboard.css"

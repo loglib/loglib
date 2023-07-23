@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { websitesAtom } from "@/jotai/store"
 import { useAtom } from "jotai"
 
-import { Website as WebsiteType } from "../../@prisma"
+import { Website as WebsiteType } from "generated/client"
 import { EmptyPlaceholder } from "./empty-placeholder"
 import { Website } from "./website"
 import { WebsiteCreateButton } from "./website-create-button"

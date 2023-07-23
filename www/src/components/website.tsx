@@ -4,7 +4,7 @@ import { LucideSettings, User2 } from "lucide-react"
 
 import { Skeleton } from "@/components/ui/skeleton"
 
-import { Website as WebsiteType } from "../../@prisma"
+import { Website as WebsiteType } from "generated/client"
 import { Icons } from "./icons"
 import { Button } from "./ui/button"
 import { Card, CardContent, CardHeader } from "./ui/card"

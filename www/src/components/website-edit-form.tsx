@@ -11,7 +11,7 @@ import { z } from "zod"
 
 import { websiteFormSchema } from "@/lib/validations/website"
 
-import { Website } from "../../@prisma"
+import { Website } from "generated/client"
 import { Icons } from "./icons"
 import { Button, buttonVariants } from "./ui/button"
 import {

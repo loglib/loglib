@@ -13,7 +13,7 @@ import { z } from "zod"
 
 import { apiKeySchema } from "@/lib/validations/api-key"
 
-import { Website } from "../../@prisma"
+import { Website } from "generated/client"
 import { CopyToClipboard } from "./copy-to-clipboard"
 import { Icons } from "./icons"
 import { Button } from "./ui/button"
