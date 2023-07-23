@@ -3,14 +3,7 @@
 import { TimeRange } from "@/react/lib/type";
 import { LucideIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import {
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
+import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 export function Graph({
   data,
@@ -39,18 +32,18 @@ export function Graph({
             if (!data) return;
             const startDate = new Date(
               // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-              e.activePayload && e.activePayload[0].payload.originalDate,
+              e.activePayload?.[0].payload.originalDate,
             );
             startDate.setHours(startDate.getHours() - 1);
             const endDate = new Date(
               // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-              e.activePayload && e.activePayload[0].payload.originalDate,
+              e.activePayload?.[0].payload.originalDate,
             );
             endDate.setHours(endDate.getHours() + 1);
             setTimeRange({
               startDate: new Date(
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                e.activePayload && e.activePayload[0].payload.originalDate,
+                e.activePayload?.[0].payload.originalDate,
               ),
               // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
               endDate: new Date(endDate),
@@ -59,13 +52,7 @@ export function Graph({
             setFilter(true);
           }}
         >
-          <XAxis
-            dataKey="date"
-            stroke="#888888"
-            fontSize={12}
-            tickLine={false}
-            axisLine={false}
-          />
+          <XAxis dataKey="date" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
           <YAxis
             stroke="#888888"
             fontSize={12}
@@ -89,9 +76,7 @@ export function Graph({
                   <div className="tw-custom-tooltip dark:tw-bg-black tw-bg-white/80 tw-px-2 tw-border tw-rounded-md tw-border-gray-700 tw-py-2">
                     <div className=" tw-flex tw-items-center tw-gap-2 dark:tw-text-emphasis tw-text-black">
                       <Icon size={16} />
-                      <p className=" tw-font-medium">{`${
-                        payload[0] && payload[0].value
-                      } ${name}`}</p>
+                      <p className=" tw-font-medium">{`${payload[0]?.value} ${name}`}</p>
                     </div>
                     <p className="tw-text-gray-400 tw-text-sm">{label}</p>
                   </div>
@@ -105,9 +90,7 @@ export function Graph({
         <div className=" tw-flex tw-flex-col tw-justify-center tw-gap-2">
           <div className="tw-text-2xl tw-font-bold tw-text-center ">
             {isLoading ? (
-              <p className=" tw-text-sm tw-font-medium tw-italic">
-                hmm loading...
-              </p>
+              <p className=" tw-text-sm tw-font-medium tw-italic">hmm loading...</p>
             ) : (
               <>
                 <p>No Data Just Yet</p>
@@ -117,6 +100,7 @@ export function Graph({
                     href="https://loglib.io/docs"
                     target="_blank"
                     className=" tw-text-blue-700 tw-underline"
+                    rel="noreferrer"
                   >
                     doc
                   </a>{" "}

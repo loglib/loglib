@@ -10,21 +10,13 @@
     "dev": "tsup --watch",
     "build": "tsup",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .ts"
+    "lint": "rome check ."
   },
-  "files": [
-    "dist",
-    "package.json",
-    "LICENSE",
-    "README.md"
-  ],
+  "files": ["dist", "package.json", "LICENSE", "README.md"],
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "exports": [
-    "./dist/index.js",
-    "./dist/cli/index.js"
-  ],
+  "exports": ["./dist/index.js", "./dist/cli/index.js"],
   "bin": {
     "loglib": "./dist/cli/index.js"
   },

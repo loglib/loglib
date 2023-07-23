@@ -7,19 +7,24 @@
       "correctness": {
         "noUnusedVariables": "warn"
       },
+      "suspicious": {
+        "noExplicitAny": "off"
+      },
       "security": {
         "noDangerouslySetInnerHtml": "off"
       },
       "style": {
-        "useBlockStatements": "error",
-        "useSelfClosingElements": "off"
+        "useBlockStatements": "off",
+        "useSelfClosingElements": "off",
+        "noParameterAssign": "off"
       },
       "performance": {
         "noDelete": "off"
       },
       "a11y": {
         "useButtonType": "off",
-        "noSvgWithoutTitle": "off"
+        "noSvgWithoutTitle": "off",
+        "useKeyWithClickEvents": "off"
       }
     },
     "ignore": ["node_modules", ".next", "dist"]

@@ -10,7 +10,7 @@ module.exports = {
         ".editor-styles-wrapper .is-root-container.block-editor-block-list__layout",
       includeFiles: ["editor.css"],
       // @ts-ignore
-      transform: function (prefix, selector, prefixedSelector, filepath) {
+      transform: function (prefix, selector, prefixedSelector) {
         if (selector.match(/^(html|body)/)) {
           return selector.replace(/^([^\s]*)/, `$1 ${prefix}`);
         } else if (selector.match(/^\.(wp-admin|editor-styles-wrapper)/)) {

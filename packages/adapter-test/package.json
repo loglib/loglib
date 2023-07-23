@@ -6,7 +6,7 @@
   "types": "./src/index.ts",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .ts"
+    "lint": "rome check ."
   },
   "devDependencies": {
     "@loglib/core": "0.3.3"

@@ -12,13 +12,9 @@
     "db:push": "prisma db push",
     "studio": "prisma studio",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .ts"
+    "lint": "rome check ."
   },
-  "files": [
-    "dist",
-    "package.json",
-    "README.md"
-  ],
+  "files": ["dist", "package.json", "README.md"],
   "keywords": [],
   "author": "",
   "license": "ISC",

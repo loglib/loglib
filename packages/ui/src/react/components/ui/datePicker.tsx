@@ -1,13 +1,7 @@
 "use client";
 import { CalendarDays } from "lucide-react";
 import React from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
 import { Separator } from "./separator";
 import {
   getLast24Hour,
@@ -60,8 +54,7 @@ export function CalendarDateRangePicker({
             {date?.from ? (
               date.to ? (
                 <>
-                  {format(date.from, "LLL dd, y")} -{" "}
-                  {format(date.to, "LLL dd, y")}
+                  {format(date.from, "LLL dd, y")} - {format(date.to, "LLL dd, y")}
                 </>
               ) : (
                 format(date.from, "LLL dd, y")
@@ -78,7 +71,7 @@ export function CalendarDateRangePicker({
             defaultMonth={lastMonth}
             selected={date}
             onSelect={(selected) => {
-              if (selected && selected.from && selected.to) {
+              if (selected?.from && selected.to) {
                 setDate({
                   startDate: selected.from,
                   endDate: selected.to,

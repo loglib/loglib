@@ -9,7 +9,7 @@ import { getTimeRange } from "./timeHelper";
 
 export const getUniqueVisitors = (
   sessions: Session[],
-  pastSessions: Session[],
+  pastSessions: Session[]
 ) => {
   const uniqueValues = new Set();
 
@@ -26,7 +26,7 @@ export const getUniqueVisitors = (
     ? Math.floor(
         ((uniqueVisitor.length - pastUniqueVisitor.length) /
           pastUniqueVisitor.length) *
-          100,
+          100
       )
     : 100;
   return {
@@ -37,11 +37,11 @@ export const getUniqueVisitors = (
 
 export const getNewVisitors = (
   visitors: Visitor[],
-  pastVisitors: Visitor[],
+  pastVisitors: Visitor[]
 ) => {
   const change = pastVisitors.length
     ? Math.floor(
-        ((visitors.length - pastVisitors.length) / pastVisitors.length) * 100,
+        ((visitors.length - pastVisitors.length) / pastVisitors.length) * 100
       )
     : 100;
   return {
@@ -52,12 +52,11 @@ export const getNewVisitors = (
 
 export const getPageViews = (
   pageViews: PageView[],
-  pastPageViews: PageView[],
+  pastPageViews: PageView[]
 ) => {
   const change = pastPageViews.length
     ? Math.floor(
-        ((pageViews.length - pastPageViews.length) / pastPageViews.length) *
-          100,
+        ((pageViews.length - pastPageViews.length) / pastPageViews.length) * 100
       )
     : 100;
   return {
@@ -71,25 +70,25 @@ export const getAverageTime = (
   sessions: Session[],
   pastSessions: Session[],
   pageViews: PageView[],
-  pastPageViews: PageView[],
+  pastPageViews: PageView[]
 ) => {
   const total = sessions.reduce((acc, session) => {
     const pages = pageViews.filter(
-      (pageView) => pageView.sessionId === session.id,
+      (pageView) => pageView.sessionId === session.id
     );
     const duration = pages.reduce(
       (acc, pageView) => acc + pageView.duration,
-      0,
+      0
     );
     return acc + duration;
   }, 0);
   const pastTotal = pastSessions.reduce((acc, session) => {
     const pages = pastPageViews.filter(
-      (pageView) => pageView.sessionId === session.id,
+      (pageView) => pageView.sessionId === session.id
     );
     const duration = pages.reduce(
       (acc, pageView) => acc + pageView.duration,
-      0,
+      0
     );
     return acc + duration;
   }, 0);
@@ -118,7 +117,7 @@ export const getBounceRate = (
   pageViews: PageView[],
   pastPageViews: PageView[],
   sessions: Session[],
-  pastSessions: Session[],
+  pastSessions: Session[]
 ) => {
   const totalSessions = sessions.length;
   const totalPageViews = pageViews.length;
@@ -130,13 +129,13 @@ export const getBounceRate = (
   }
   const singlePageViewSessions = sessions.filter((session) => {
     const sessionPageViews = pageViews.filter(
-      (pageView) => pageView.sessionId === session.id,
+      (pageView) => pageView.sessionId === session.id
     );
     return sessionPageViews.length === 1;
   });
   const pastSinglePageViewSessions = pastSessions.filter((session) => {
     const sessionPageViews = pastPageViews.filter(
-      (pageView) => pageView.sessionId === session.id,
+      (pageView) => pageView.sessionId === session.id
     );
     return sessionPageViews.length === 1;
   });
@@ -284,14 +283,14 @@ export const getVisitorsByDate = (
   sessions: Session[],
   startDate: Date,
   endDate: Date,
-  uniqueVisitors = true,
   timezone: string,
+  uniqueVisitors = true
 ) => {
   const ONE_DAY = 1000 * 60 * 60 * 24;
   const range = getTimeRange(startDate, endDate);
   const uniqueVisitorsSessions = sessions.filter(
     (session, index, self) =>
-      index === self.findIndex((s) => s.visitorId === session.visitorId),
+      index === self.findIndex((s) => s.visitorId === session.visitorId)
   );
   sessions = uniqueVisitors ? uniqueVisitorsSessions : sessions;
 
@@ -311,7 +310,7 @@ export const getVisitorsByDate = (
   const visitors = sessions.reduce((acc, session) => {
     const date = new Date(session.createdAt).toLocaleString(
       "default",
-      formatOptions,
+      formatOptions
     );
     const isFound = acc.find((p) => p.date === date);
     if (isFound) {
@@ -325,7 +324,7 @@ export const getVisitorsByDate = (
     }
     return acc.sort(
       (a, b) =>
-        new Date(a.originalDate).getTime() - new Date(b.originalDate).getTime(),
+        new Date(a.originalDate).getTime() - new Date(b.originalDate).getTime()
     );
   }, [] as { date: string; visits: number; originalDate: Date }[]);
   return visitors;
@@ -343,7 +342,7 @@ export const getOnlineVisitors = (sessions: Session[]) => {
 export const getEvents = (
   events: Events[],
   sessions: Session[],
-  pages: PageView[],
+  pages: PageView[]
 ) => {
   const eventWithSession = events.map((event) => {
     const session = sessions.find((session) => session.id === event.sessionId);

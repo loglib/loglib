@@ -1,12 +1,5 @@
 import { ScrollArea } from "../ui/scroll-area";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../ui/table";
+import { Table, TableBody, TableCaption, TableHead, TableHeader, TableRow } from "../ui/table";
 import { TableLoading } from "../util/tableLoading";
 import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
@@ -43,9 +36,7 @@ export function InsightTable<T>({
     if (term) {
       if (data) {
         setLData(
-          data.filter((d) =>
-            (d[meta.key] as string).toLowerCase().includes(term.toLowerCase()),
-          ),
+          data.filter((d) => (d[meta.key] as string).toLowerCase().includes(term.toLowerCase())),
         );
       }
     }
@@ -78,7 +69,7 @@ export function InsightTable<T>({
                     className=" tw-cursor-pointer"
                     onClick={() => {
                       if (term) {
-                        searchFn && searchFn(term);
+                        searchFn?.(term);
                       }
                     }}
                   />
@@ -92,6 +83,7 @@ export function InsightTable<T>({
         ) : (
           <TableBody>
             {lData.map((d, i) => {
+              // rome-ignore lint/suspicious/noArrayIndexKey: <explanation>
               return <Row {...d} key={i} />;
             })}
           </TableBody>

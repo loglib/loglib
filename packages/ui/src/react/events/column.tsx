@@ -2,12 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { EventsWithData } from "@loglib/core";
-import {
-  ChevronDown,
-  ChevronRight,
-  ChevronsUpDown,
-  UnfoldVertical,
-} from "lucide-react";
+import { ChevronDown, ChevronRight, ChevronsUpDown, UnfoldVertical } from "lucide-react";
 import COUNTRIES from "../lib/constants";
 
 export const columns: ColumnDef<EventsWithData[0]>[] = [
@@ -16,7 +11,14 @@ export const columns: ColumnDef<EventsWithData[0]>[] = [
     header: () => <UnfoldVertical />,
     cell: ({ row }) => {
       return (
-        <span onClick={() => row.toggleExpanded}>
+        <span
+          onClick={() => row.toggleExpanded}
+          onKeyUp={(e) => {
+            if (e.key === "Enter") {
+              row.toggleExpanded();
+            }
+          }}
+        >
           {!row.getIsExpanded() ? <ChevronRight /> : <ChevronDown />}
         </span>
       );

@@ -4,7 +4,6 @@ import maxmind from "maxmind";
 import { ApiRequest, GenericError, LogLibOptions } from "../../../..";
 
 let lookup: Reader<CityResponse> | null;
-// rome-ignore lint/suspicious/noExplicitAny: <explanation>
 export async function getLocation(ip: string, req: ApiRequest<unknown, any>) {
   if (req.headers["x-vercel-ip-country"]) {
     const country = req.headers["x-vercel-ip-country"] as string;
@@ -45,19 +44,16 @@ export async function getLocation(ip: string, req: ApiRequest<unknown, any>) {
 
 export const checkLocationConfig = async (
   options: LogLibOptions,
-  // rome-ignore lint/suspicious/noExplicitAny: <explanation>
+
   req: ApiRequest<any, unknown>
 ) => {
-  // if (process.env.NODE_ENV === "production") return
-  // rome-ignore lint/style/useBlockStatements: <explanation>
   if (req.headers["x-vercel-ip-country"]) return;
   const dir = path.join(process.cwd(), "geo");
   try {
     await maxmind.open(path.resolve(dir, "GeoLite2-City.mmdb"));
   } catch {
-    // rome-ignore lint/style/useBlockStatements: <explanation>
     if (options.disableLocation) return;
-    // rome-ignore lint/style/useBlockStatements: <explanation>
+
     if (options.getLocation) return;
     throw new GenericError(
       "LogLib encountered an error while trying to resolve the location of the user. To resolve this issue, you can either set up the MaxMind database by running 'loglib setup:maxmind', or provide a custom implementation. Alternatively, you can disable location resolution from IP by modifying the server configuration.",
