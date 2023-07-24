@@ -2,15 +2,13 @@
   "name": "@loglib/root",
   "packageManager": "pnpm@7.9.5",
   "private": true,
-  "workspaces": [
-    "examples/*, packages/*, www/*"
-  ],
+  "workspaces": ["examples/*, packages/*, www/*"],
   "type": "module",
   "scripts": {
     "build": "turbo --filter \"./packages/*\" build",
     "dev": "turbo --filter \"./packages/*\" dev",
     "lint": "turbo lint && manypkg check",
-    "lint:fix": "turbo lint -- --fix && manypkg fix",
+    "lint:fix": "turbo rome fix && manypkg fix",
     "test": "turbo test",
     "typecheck": "turbo typecheck",
     "ci:publish": "pnpm publish -r"

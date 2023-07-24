@@ -8,9 +8,7 @@
     "test": "dotenv -e ../../.env vitest run",
     "test:watch": "vitest watch",
     "build": "tsup",
-    "dev": "tsup --watch",
-    "typecheck": "tsc --noEmit",
-    "lint": "rome check ."
+    "dev": "tsup --watch"
   },
   "files": ["dist", "package.json", "README.md"],
   "keywords": [],
