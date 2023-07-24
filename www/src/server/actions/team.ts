@@ -1,6 +1,6 @@
 "use server"
 
-import { ROLE } from "@prisma"
+import { ROLE } from "generated/client"
 import { z } from "zod"
 
 import { siteConfig } from "@/config/site"

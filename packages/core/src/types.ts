@@ -5,7 +5,7 @@ import { GenericApiResponse } from "./router/type";
 export type LogLibOptions = {
   adapter: Adapter;
   getLocation?: (
-    ip: string,
+    ip: string
   ) => Promise<{ city: string | null; country: string | null }>;
   disableLocation?: boolean;
   apiKey?: string;
@@ -26,11 +26,11 @@ export interface ApiRequest<T, S> {
   headers: { [key: string]: any };
   method?: string;
   query?: S;
-  cookies?: { [key: string]: any };
+  cookies?: { [k: string]: any };
 }
 
 type Middleware = (
   req: ApiRequest<any, any>,
   options: LogLibOptions,
-  next: RequestHandler,
+  next: RequestHandler
 ) => GenericApiResponse<any>;

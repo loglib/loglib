@@ -1,5 +1,7 @@
-import { nFormatter } from "@/lib/utils"
 import { GitFork, Star } from "lucide-react"
+
+import { nFormatter } from "@/lib/utils"
+
 import { Icons } from "./icons"
 
 export interface GithubRepoProps {

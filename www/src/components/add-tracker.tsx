@@ -1,10 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { trackerModalAtom } from "@/jotai/store"
 import { AnimatePresence } from "framer-motion"
-import { useAtom } from "jotai"
-import { CheckIcon, ChevronsRightLeft, Code2, X } from "lucide-react"
 import { useTheme } from "next-themes"
 import Modal from "react-modal"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"

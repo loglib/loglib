@@ -115,7 +115,7 @@ const getInsightSchema = RootDashboardSchema.merge(
     timeZone: z.string(),
     filter: z.string(),
     websiteId: z.string().optional(),
-  }),
+  })
 );
 
 export const getDashboardData: ApiGetHandler<
@@ -140,27 +140,27 @@ export const getDashboardData: ApiGetHandler<
       let pastUsers = await adapter.getVisitor(
         pastEndDateObj,
         startDateObj,
-        websiteId,
+        websiteId
       );
       let pageViews = await adapter.getPageViews(
         startDateObj,
         endDateObj,
-        websiteId,
+        websiteId
       );
       let pastPageViews = await adapter.getPageViews(
         pastEndDateObj,
         startDateObj,
-        websiteId,
+        websiteId
       );
       let sessions = await adapter.getSession(
         startDateObj,
         endDateObj,
-        websiteId,
+        websiteId
       );
       let pastSessions = await adapter.getSession(
         pastEndDateObj,
         startDateObj,
-        websiteId,
+        websiteId
       );
       let events = await adapter.getEvents(startDateObj, endDateObj, websiteId);
       let endTime = performance.now();
@@ -242,13 +242,13 @@ export const getDashboardData: ApiGetHandler<
         sessions,
         pastSessions,
         pageViews,
-        pastPageViews,
+        pastPageViews
       );
       const bounceRate = getBounceRate(
         pageViews,
         pastPageViews,
         sessions,
-        pastSessions,
+        pastSessions
       );
       const pages = getPages(pageViews);
       const devices = getDevices(sessions);
@@ -263,15 +263,15 @@ export const getDashboardData: ApiGetHandler<
         sessions,
         startDateObj,
         endDateObj,
-        true,
         timeZone,
+        true
       );
       const uniqueSessionByDate = getVisitorsByDate(
         sessions,
         startDateObj,
         endDateObj,
-        false,
         timeZone,
+        false
       );
       const onlineUsers = getOnlineVisitors(sessions);
       const eventsWithData = getEvents(events, sessions, pageViews);

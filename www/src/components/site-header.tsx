@@ -1,25 +1,22 @@
-"use client"
+"use client";
 
-import { useRef } from "react"
-import Link from "next/link"
-import { User } from "next-auth"
-import { useTheme } from "next-themes"
+import { useRef } from "react";
+import Link from "next/link";
+import { User } from "next-auth";
+import { useTheme } from "next-themes";
 
-import { Icons } from "./icons"
-import { LandingNav } from "./landing-nav"
-import { Button } from "./ui/button"
-import { UserAccountNav } from "./user-account-nav"
+import { Icons } from "./icons";
+import { LandingNav } from "./landing-nav";
+import { Button } from "./ui/button";
+import { UserAccountNav } from "./user-account-nav";
 
 export function SiteHeader({ user }: { user?: User }) {
-  const { setTheme, theme } = useTheme()
-  const switchOnRef = useRef<HTMLAudioElement>(null)
-  const switchOffRef = useRef<HTMLAudioElement>(null)
+  const { setTheme, theme } = useTheme();
+  const switchOnRef = useRef<HTMLAudioElement>(null);
+  const switchOffRef = useRef<HTMLAudioElement>(null);
   return (
     <header className="flex items-center justify-between top-0 md:px-16 px-4 max-w-8xl sticky mb-16 w-full z-50 bg-white/60 backdrop-blur-sm  dark:bg-slate-950/80 py-4 border-b dark:border-slate-800 border-slate-300">
-      <Icons.logoWithLetter
-        logoClassName=" w-10 h-10"
-        headerClassName=" text-3xl"
-      />
+      <Icons.logoWithLetter />
       <div className=" hidden md:block">
         <LandingNav />
       </div>
@@ -70,19 +67,16 @@ export function SiteHeader({ user }: { user?: User }) {
         </div> */}
       </div>
     </header>
-  )
+  );
 }
 
 export function DashboardHeader({ user }: { user: User }) {
-  const { setTheme, theme } = useTheme()
-  const switchOnRef = useRef<HTMLAudioElement>(null)
-  const switchOffRef = useRef<HTMLAudioElement>(null)
+  const { setTheme, theme } = useTheme();
+  const switchOnRef = useRef<HTMLAudioElement>(null);
+  const switchOffRef = useRef<HTMLAudioElement>(null);
   return (
     <header className="mt-4 flex items-center justify-between border-b pb-4 dark:border-gray-800">
-      <Icons.logoWithLetter
-        logoClassName=" w-10 h-10"
-        headerClassName=" text-3xl"
-      />
+      <Icons.logoWithLetter />
       <div className="flex items-center gap-2 font-medium">
         <div className="relative col-span-1 select-none flex-col items-center justify-center self-center lg:flex">
           {/* <Button
@@ -127,5 +121,15 @@ export function DashboardHeader({ user }: { user: User }) {
         <UserAccountNav user={user} />
       </div>
     </header>
-  )
+  );
+}
+export function PublicDashboardHeader() {
+  return (
+    <header className="mt-4 flex items-center justify-between border-b pb-4 dark:border-gray-800">
+      <Icons.logoWithLetter />
+      <div className="flex items-center gap-2 font-medium">
+        <div className="relative col-span-1 select-none flex-col items-center justify-center self-center lg:flex"></div>
+      </div>
+    </header>
+  );
 }

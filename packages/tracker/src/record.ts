@@ -33,7 +33,7 @@ export function record(config?: Partial<Config>) {
     host: getUrl(),
     consent: "denied",
   };
-  if (config && config.host) {
+  if (config?.host) {
     if (Array.isArray(config.host)) {
       config.host = config.host.map((host) => parseHost(host));
     } else {
@@ -117,7 +117,7 @@ export const navigationHandler = (_: string, __: string, url: string) => {
         queryParams: getUrlParams(),
         duration: 0,
       },
-      "/pageview",
+      "/pageview"
     );
     send(
       {
@@ -125,7 +125,7 @@ export const navigationHandler = (_: string, __: string, url: string) => {
         duration: getSessionDuration(),
       },
       "/session/pulse",
-      flush,
+      flush
     );
   }
 };
@@ -142,7 +142,7 @@ const sessionEndHandler = async () => {
           duration: getSessionDuration(),
         },
         "/session/pulse",
-        flush,
+        flush
       );
 
       clearIntervals();

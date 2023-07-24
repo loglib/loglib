@@ -1,23 +1,13 @@
 import "../css/index.css";
 import React, { FC, Fragment, useEffect, useState } from "react";
-import {
-  DatePicker,
-  CalendarDateRangePicker,
-} from "./components/ui/datePicker";
+import { DatePicker, CalendarDateRangePicker } from "./components/ui/datePicker";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";
 import useSWR from "swr";
 import { cn, fetcher, getTheme, getUrl } from "@/react/lib/utils";
 import { GetInsightResponse } from "@loglib/core";
 import { InsightCard } from "./components/insight/insightCard";
-import {
-  Activity,
-  Eye,
-  Laptop2,
-  TimerIcon,
-  UserIcon,
-  Users2,
-} from "lucide-react";
+import { Activity, Eye, Laptop2, TimerIcon, UserIcon, Users2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
 import { getLast24Hour } from "./lib/timeHelper";
 import { Graph } from "./components/insight/visitorsGraph";
@@ -29,12 +19,7 @@ import { DefaultHeader } from "./components/header";
 import LocationMap from "./components/insight/locationMap";
 import { TimeRange } from "./lib/type";
 import { Switch } from "./components/ui/switch";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "./components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./components/ui/tooltip";
 import { InsightTables } from "./components/insight/inisght-tables";
 
 type DashboardProps = {
@@ -63,15 +48,12 @@ export const Dashboard: FC<DashboardProps> = (props) => {
 
   const [filters, setFilters] = useState<Filter[]>([]);
   const [isAuth, setIsAuth] = useState(true);
-  const [timezone, setTimezone] = useState(
-    Intl.DateTimeFormat().resolvedOptions().timeZone,
-  );
-  const url = props.url ?? getUrl() + "?";
+  const [timezone, setTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
+  const url = props.url ?? `${getUrl()}?`;
   const { data, isLoading } = useSWR<GetInsightResponse>(
-    url +
-      `startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&timeZone=${timezone}&filter=${JSON.stringify(
-        filters,
-      )}&path=/dashboard&websiteId=${props.websiteId ?? ""}`,
+    `${url}startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&timeZone=${timezone}&filter=${JSON.stringify(
+      filters,
+    )}&path=/dashboard&websiteId=${props.websiteId ?? ""}`,
     fetcher,
     {
       onError(err: { response: { status: number } }) {
@@ -91,8 +73,7 @@ export const Dashboard: FC<DashboardProps> = (props) => {
     setFilters((prev) => prev.filter((f) => f.key !== key));
   }
 
-  const isFilterActive = (key: string) =>
-    filters.some((filter) => filter.key === key);
+  const isFilterActive = (key: string) => filters.some((filter) => filter.key === key);
 
   const filter: FilterProp = {
     addFilter,
@@ -183,7 +164,7 @@ export const Dashboard: FC<DashboardProps> = (props) => {
                 </div>
                 <div className=" tw-flex tw-flex-col tw-items-end">
                   <div className=" tw-flex tw-gap-1 tw-items-center">
-                    <div className=" tw-w-2.5 tw-h-2.5 tw-bg-gradient-to-tr tw-from-lime-500 tw-to-lime-700 tw-animate-pulse tw-rounded-full"></div>
+                    <div className=" tw-w-2.5 tw-h-2.5 tw-bg-gradient-to-tr tw-from-lime-500 tw-to-lime-700 tw-animate-pulse tw-rounded-full" />
                     <p className=" tw-text-sm tw-bg-gradient-to-tr tw-from-lime-600 tw-to-lime-800 tw-text-transparent tw-bg-clip-text tw-font-medium">
                       {data ? data.onlineUsers : 0} Online
                     </p>
@@ -217,9 +198,7 @@ export const Dashboard: FC<DashboardProps> = (props) => {
                   <TabsContent value="insights" className="tw-space-y-4">
                     <div className="tw-grid tw-gap-4 md:tw-grid-cols-2 tw-grid-cols-2 lg:tw-grid-cols-4">
                       <InsightCard
-                        title={
-                          viCardSwitch ? "New Visitors" : "Unique Visitors"
-                        }
+                        title={viCardSwitch ? "New Visitors" : "Unique Visitors"}
                         Icon={UserIcon}
                         data={
                           data
@@ -241,18 +220,13 @@ export const Dashboard: FC<DashboardProps> = (props) => {
                                 <TooltipTrigger asChild>
                                   <div>
                                     <Switch
-                                      onCheckedChange={(v) =>
-                                        setViCardSwitch(v)
-                                      }
+                                      onCheckedChange={(v) => setViCardSwitch(v)}
                                       checked={viCardSwitch}
                                     />
                                   </div>
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                  <p>
-                                    Switch between unique visitors and new
-                                    visitors
-                                  </p>
+                                  <p>Switch between unique visitors and new visitors</p>
                                 </TooltipContent>
                               </Tooltip>
                             </TooltipProvider>
@@ -262,20 +236,14 @@ export const Dashboard: FC<DashboardProps> = (props) => {
                       <InsightCard
                         title={"Views"}
                         Icon={Eye}
-                        data={
-                          data ? data.insight.pageView : { change: 0, total: 0 }
-                        }
+                        data={data ? data.insight.pageView : { change: 0, total: 0 }}
                         isLoading={isLoading}
                         tooltip="The total number of pages viewed. Repeated views of a single page are counted."
                       />
                       <InsightCard
                         title={"Average Time"}
                         Icon={TimerIcon}
-                        data={
-                          data
-                            ? data.insight.averageTime
-                            : { change: 0, total: 0 }
-                        }
+                        data={data ? data.insight.averageTime : { change: 0, total: 0 }}
                         valuePrefix={""}
                         isLoading={isLoading}
                         tooltip="The average amount of time visitors spend on your website."
@@ -285,11 +253,7 @@ export const Dashboard: FC<DashboardProps> = (props) => {
                         valuePrefix={"%"}
                         Icon={Activity}
                         negative
-                        data={
-                          data
-                            ? data.insight.bounceRate
-                            : { change: 0, total: 0 }
-                        }
+                        data={data ? data.insight.bounceRate : { change: 0, total: 0 }}
                         isLoading={isLoading}
                         tooltip=" The percentage of visitors who quickly exit your website without exploring further."
                       />
@@ -299,44 +263,28 @@ export const Dashboard: FC<DashboardProps> = (props) => {
                         {curTableTab === "locations" ? (
                           <Fragment>
                             <CardHeader className=" tw-flex tw-flex-row tw-gap-2 tw-items-end">
-                              <CardTitle className="tw-text-base py-4">
-                                Visitors Map
-                              </CardTitle>
+                              <CardTitle className="tw-text-base py-4">Visitors Map</CardTitle>
                             </CardHeader>
                             <CardContent
-                              className={cn(
-                                curTableTab === "locations" && "tw-zoom-in-95",
-                              )}
+                              className={cn(curTableTab === "locations" && "tw-zoom-in-95")}
                             >
-                              <LocationMap
-                                data={data ? data.data.locations.country : []}
-                              />
+                              <LocationMap data={data ? data.data.locations.country : []} />
                             </CardContent>
                           </Fragment>
                         ) : (
                           <Tabs defaultValue="visitors">
                             <CardHeader className=" tw-flex tw-flex-row tw-justify-between tw-items-center">
-                              <CardTitle className="tw-text-base">
-                                Visitors
-                              </CardTitle>
+                              <CardTitle className="tw-text-base">Visitors</CardTitle>
                               <TabsList>
-                                <TabsTrigger value="visitors">
-                                  Visitors
-                                </TabsTrigger>
-                                <TabsTrigger value="sessions">
-                                  Sessions
-                                </TabsTrigger>
+                                <TabsTrigger value="visitors">Visitors</TabsTrigger>
+                                <TabsTrigger value="sessions">Sessions</TabsTrigger>
                               </TabsList>
                             </CardHeader>
                             <CardContent>
                               <div className="tw-pl-2">
                                 <TabsContent value="visitors">
                                   <Graph
-                                    data={
-                                      data
-                                        ? data.graph.uniqueVisitorsByDate
-                                        : []
-                                    }
+                                    data={data ? data.graph.uniqueVisitorsByDate : []}
                                     name="Visitors"
                                     Icon={Users2}
                                     isLoading={isLoading}
@@ -345,9 +293,7 @@ export const Dashboard: FC<DashboardProps> = (props) => {
                                 </TabsContent>
                                 <TabsContent value="sessions" className=" ">
                                   <Graph
-                                    data={
-                                      data ? data.graph.uniqueSessionByDate : []
-                                    }
+                                    data={data ? data.graph.uniqueSessionByDate : []}
                                     name="Sessions"
                                     Icon={Laptop2}
                                     isLoading={isLoading}
@@ -369,10 +315,7 @@ export const Dashboard: FC<DashboardProps> = (props) => {
                     </div>
                   </TabsContent>
                   <TabsContent value="events">
-                    <Events
-                      events={data ? data.eventsWithData : []}
-                      isLoading={isLoading}
-                    />
+                    <Events events={data ? data.eventsWithData : []} isLoading={isLoading} />
                   </TabsContent>
                 </motion.div>
               </AnimatePresence>

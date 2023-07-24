@@ -2,8 +2,6 @@ import { formatDate } from "@/lib/utils"
 import MaxWidthWrapper from "@/components/max-width-wrapper"
 import { allChangelogPosts } from "contentlayer/generated"
 import Link from "next/link"
-import { Icons } from "./icons"
-import { Particles } from "./landing/feature-cards/particles"
 
 export default function Changelog() {
   return (

@@ -6,6 +6,7 @@ export const getUniqueVisitors = (
   sessions: Session[],
   pastSessions: Session[]
 ) => {
+  const startTime = performance.now()
   const uniqueValues = new Set()
 
   sessions.forEach((session) => {
@@ -24,6 +25,8 @@ export const getUniqueVisitors = (
           100
       )
     : 100
+  const endTime = performance.now()
+  console.log(endTime - startTime, "unique visitors")
   return {
     total: uniqueVisitor.length,
     change: change > 100 ? 100 : change,
@@ -67,26 +70,57 @@ export const getAverageTime = (
   pageViews: PageView[],
   pastPageViews: PageView[]
 ) => {
-  const total = sessions.reduce((acc, session) => {
-    const pages = pageViews.filter(
-      (pageView) => pageView.sessionId === session.id
-    )
+  const startTime = performance.now()
+
+  // Group page views by session ID
+  const pageViewsBySession = pageViews.reduce((acc, pageView) => {
+    if (!acc[pageView.sessionId]) {
+      acc[pageView.sessionId] = []
+    }
+    acc[pageView.sessionId].push(pageView)
+    return acc
+  }, {})
+
+  const pastPageViewsBySession = pastPageViews.reduce((acc, pageView) => {
+    if (!acc[pageView.sessionId]) {
+      acc[pageView.sessionId] = []
+    }
+    acc[pageView.sessionId].push(pageView)
+    return acc
+  }, {})
+
+  let totalDuration = 0
+  let sessionCount = 0
+
+  // Calculate total duration and session count
+  sessions.forEach((session) => {
+    const pages = pageViewsBySession[session.id] || []
     const duration = pages.reduce((acc, pageView) => acc + pageView.duration, 0)
-    return acc + duration
-  }, 0)
-  const pastTotal = pastSessions.reduce((acc, session) => {
-    const pages = pastPageViews.filter(
-      (pageView) => pageView.sessionId === session.id
-    )
+    totalDuration += duration
+    sessionCount++
+  })
+
+  let pastTotalDuration = 0
+  let pastSessionCount = 0
+
+  pastSessions.forEach((session) => {
+    const pages = pastPageViewsBySession[session.id] || []
     const duration = pages.reduce((acc, pageView) => acc + pageView.duration, 0)
-    return acc + duration
-  }, 0)
+    pastTotalDuration += duration
+    pastSessionCount++
+  })
+
+  const pastTotal = pastSessionCount ? pastTotalDuration : 0
   const change = pastTotal
-    ? Math.floor(((total - pastTotal) / pastTotal) * 100)
+    ? Math.floor(((totalDuration - pastTotal) / pastTotal) * 100)
     : 100
-  const seconds = Math.floor(total / sessions.length)
+  const seconds = Math.floor(totalDuration / sessionCount)
   const minutes = Math.floor(seconds / 60)
   const remainingSeconds = seconds % 60
+
+  const endTime = performance.now()
+  console.log(endTime - startTime, "average time")
+
   if (seconds < 60) {
     return {
       total: isNaN(seconds) ? "0 sec" : `${seconds} sec`,
@@ -108,32 +142,61 @@ export const getBounceRate = (
   sessions: Session[],
   pastSessions: Session[]
 ) => {
+  const startTime = performance.now()
+
   const totalSessions = sessions.length
   const totalPageViews = pageViews.length
+
   if (totalSessions === 0 || totalPageViews === 0) {
     return {
       total: 0,
       change: 0,
     }
   }
-  const singlePageViewSessions = sessions.filter((session) => {
-    const sessionPageViews = pageViews.filter(
-      (pageView) => pageView.sessionId === session.id
-    )
-    return sessionPageViews.length === 1
+
+  // Create a map of session IDs to page view counts
+  const pageViewCounts = pageViews.reduce((acc, pageView) => {
+    if (!acc[pageView.sessionId]) {
+      acc[pageView.sessionId] = 0
+    }
+    acc[pageView.sessionId]++
+    return acc
+  }, {})
+
+  const pastPageViewCounts = pastPageViews.reduce((acc, pageView) => {
+    if (!acc[pageView.sessionId]) {
+      acc[pageView.sessionId] = 0
+    }
+    acc[pageView.sessionId]++
+    return acc
+  }, {})
+
+  // Count single-page view sessions
+  let singlePageViewSessions = 0
+  let pastSinglePageViewSessions = 0
+
+  sessions.forEach((session) => {
+    if (pageViewCounts[session.id] === 1) {
+      singlePageViewSessions++
+    }
   })
-  const pastSinglePageViewSessions = pastSessions.filter((session) => {
-    const sessionPageViews = pastPageViews.filter(
-      (pageView) => pageView.sessionId === session.id
-    )
-    return sessionPageViews.length === 1
+
+  pastSessions.forEach((session) => {
+    if (pastPageViewCounts[session.id] === 1) {
+      pastSinglePageViewSessions++
+    }
   })
-  const bounceRate = (singlePageViewSessions.length / sessions.length) * 100
+
+  const bounceRate = (singlePageViewSessions / totalSessions) * 100
   const pastBounceRate =
-    (pastSinglePageViewSessions.length / pastSessions.length) * 100
+    (pastSinglePageViewSessions / pastSessions.length) * 100
   const change = pastBounceRate
     ? Math.floor(((bounceRate - pastBounceRate) / pastBounceRate) * 100)
     : 100
+
+  const endTime = performance.now()
+  console.log(endTime - startTime, "bounce rate")
+
   return {
     total: parseFloat(bounceRate.toFixed(2)),
     change: change > 100 ? 100 : parseFloat(change.toFixed(2)),
@@ -141,8 +204,9 @@ export const getBounceRate = (
 }
 
 export const getPages = (pageViews: PageView[]) => {
+  const startTime = performance.now()
   const pages = pageViews.reduce((acc, pageView) => {
-    const { page } = pageView
+    const page = pageView.page.split("?")[0]
     const isPage = acc.find((p) => p.page === page)
     if (!page) {
       return acc
@@ -157,10 +221,15 @@ export const getPages = (pageViews: PageView[]) => {
     }
     return acc
   }, [] as { page: string; visits: number }[])
-  return pages.sort((a, b) => b.visits - a.visits)
+
+  const sorted = pages.sort((a, b) => b.visits - a.visits)
+  const endTime = performance.now()
+  console.log(endTime - startTime, "pages")
+  return sorted
 }
 
 export const getLoc = (sessions: Session[], byCountry = true) => {
+  const startTime = performance.now()
   const locations = sessions.reduce((acc, session) => {
     const location = byCountry
       ? session.country ?? "Unknown"
@@ -179,10 +248,15 @@ export const getLoc = (sessions: Session[], byCountry = true) => {
     }
     return acc
   }, [] as { location: string; visits: number; country: string }[])
-  return locations.sort((a, b) => b.visits - a.visits)
+
+  const sorted = locations.sort((a, b) => b.visits - a.visits)
+  const endTime = performance.now()
+  console.log(endTime - startTime, "location")
+  return sorted
 }
 
 export const getReferer = (sessions: Session[]) => {
+  const startTime = performance.now()
   function getSiteName(url: string): string {
     try {
       const parsedUrl = new URL(url)
@@ -213,75 +287,116 @@ export const getReferer = (sessions: Session[]) => {
     }
     return acc
   }, [] as { referrer: string; visits: number; referrerDomain: string }[])
-  return referees.sort((a, b) => b.visits - a.visits)
+
+  const sorted = referees.sort((a, b) => b.visits - a.visits)
+  const endTime = performance.now()
+  console.log(endTime - startTime, "referrer")
+  return sorted
 }
 
 export const getDevices = (sessions: Session[]) => {
-  const devices = sessions.reduce((acc, session) => {
+  const startTime = performance.now()
+  const devices: { device: string; visits: number }[] = []
+
+  for (let i = 0; i < sessions.length; i++) {
+    const session = sessions[i]
     const device = session.device || "unknown"
-    const isFound = acc.find((p) => p.device === device)
-    if (isFound) {
-      isFound.visits++
-    } else {
-      acc.push({
+    let isFound = false
+
+    for (let j = 0; j < devices.length; j++) {
+      if (devices[j].device === device) {
+        devices[j].visits++
+        isFound = true
+        break
+      }
+    }
+
+    if (!isFound) {
+      devices.push({
         device,
         visits: 1,
       })
     }
-    return acc
-  }, [] as { device: string; visits: number }[])
+  }
+
+  const endTime = performance.now()
+  console.log(endTime - startTime, "devices")
 
   return devices.sort((a, b) => b.visits - a.visits)
 }
 
 export const getOS = (sessions: Session[]) => {
-  const deviceOS = sessions.reduce((acc, session) => {
+  const startTime = performance.now()
+  const deviceOS: { os: string; visits: number }[] = []
+
+  for (let i = 0; i < sessions.length; i++) {
+    const session = sessions[i]
     const os = session.os ?? "unknown"
-    const isFound = acc.find((p) => p.os === os)
-    if (isFound) {
-      isFound.visits++
-    } else {
-      acc.push({
+    let isFound = false
+
+    for (let j = 0; j < deviceOS.length; j++) {
+      if (deviceOS[j].os === os) {
+        deviceOS[j].visits++
+        isFound = true
+        break
+      }
+    }
+
+    if (!isFound) {
+      deviceOS.push({
         os,
         visits: 1,
       })
     }
-    return acc
-  }, [] as { os: string; visits: number }[])
+  }
+
+  const endTime = performance.now()
+  console.log(endTime - startTime, "OS")
+
   return deviceOS.sort((a, b) => b.visits - a.visits)
 }
 
 export const getBrowser = (sessions: Session[]) => {
-  const browsers = sessions.reduce((acc, session) => {
+  const startTime = performance.now()
+  const browsers: { browser: string; visits: number }[] = []
+
+  for (let i = 0; i < sessions.length; i++) {
+    const session = sessions[i]
     const browser = session.browser ?? "unknown"
-    const isFound = acc.find((p) => p.browser === browser)
-    if (isFound) {
-      isFound.visits++
-    } else {
-      acc.push({
+    let isFound = false
+
+    for (let j = 0; j < browsers.length; j++) {
+      if (browsers[j].browser === browser) {
+        browsers[j].visits++
+        isFound = true
+        break
+      }
+    }
+
+    if (!isFound) {
+      browsers.push({
         browser,
         visits: 1,
       })
     }
-    return acc
-  }, [] as { browser: string; visits: number }[])
-  return browsers.sort((a, b) => b.visits - a.visits)
+  }
+
+  const sorted = browsers.sort((a, b) => b.visits - a.visits)
+  const endTime = performance.now()
+  console.log(endTime - startTime, "browser")
+  return sorted
 }
 
 export const getVisitorsByDate = (
   sessions: Session[],
   startDate: Date,
   endDate: Date,
-  uniqueVisitors = true,
-  timezone: string
+  timezone: string,
+  uniqueVisitors = true
 ) => {
+  const startTime = performance.now()
   const ONE_DAY = 1000 * 60 * 60 * 24
   const range = getTimeRange(startDate, endDate)
-  const uniqueVisitorsSessions = sessions.filter(
-    (session, index, self) =>
-      index === self.findIndex((s) => s.visitorId === session.visitorId)
-  )
-  sessions = uniqueVisitors ? uniqueVisitorsSessions : sessions
 
   const formatOptions: Intl.DateTimeFormatOptions = {
     timeZone: timezone,
@@ -296,26 +411,46 @@ export const getVisitorsByDate = (
     formatOptions.month = "short"
   }
 
-  const visitors = sessions.reduce((acc, session) => {
+  let sessionsToProcess = sessions
+
+  if (uniqueVisitors) {
+    // Use Set to eliminate duplicate sessions based on visitorId
+    const uniqueSessionsSet = new Set<string>()
+    sessionsToProcess = sessions.filter((session) => {
+      if (uniqueSessionsSet.has(session.visitorId)) {
+        return false
+      }
+      uniqueSessionsSet.add(session.visitorId)
+      return true
+    })
+  }
+
+  // Use Map to group sessions by date
+  const sessionsByDate = sessionsToProcess.reduce((accumulator, session) => {
     const date = new Date(session.createdAt).toLocaleString(
       "default",
       formatOptions
     )
-    const isFound = acc.find((p) => p.date === date)
-    if (isFound) {
-      isFound.visits++
-    } else {
-      acc.push({
-        originalDate: session.createdAt,
+    if (!accumulator.has(date)) {
+      accumulator.set(date, {
+        originalDate: new Date(session.createdAt), // Convert to Date object
         date,
-        visits: 1,
+        visits: 0,
       })
     }
-    return acc.sort(
-      (a, b) =>
-        new Date(a.originalDate).getTime() - new Date(b.originalDate).getTime()
-    )
-  }, [] as { date: string; visits: number; originalDate: Date }[])
+    // rome-ignore lint/style/noNonNullAssertion: <explanation>
+    accumulator.get(date)!.visits++
+    return accumulator
+  }, new Map<string, { date: string; visits: number; originalDate: Date }>())
+
+  // Convert Map values to an array
+  const visitors = Array.from(sessionsByDate.values()).sort(
+    (a, b) => a.originalDate.getTime() - b.originalDate.getTime()
+  )
+
+  const endTime = performance.now()
+  console.log(endTime - startTime, "visitors by date")
+
   return visitors
 }
 
@@ -348,12 +483,12 @@ export const getEvents = (
 export type EventsWithData = ReturnType<typeof getEvents>
 
 export const getUtmSources = (sessions: Session[]) => {
-  sessions = sessions.filter((session) => {
+  const localSessions = sessions.filter((session) => {
     if (session.queryParams) {
       return session.queryParams.utm_source
     }
   })
-  const utmSources = sessions.reduce((acc, session) => {
+  const utmSources = localSessions.reduce((acc, session) => {
     const utmSource = session.queryParams?.utm_source ?? "unknown"
     const isFound = acc.find((p) => p.utmSource === utmSource)
     if (isFound) {
@@ -370,12 +505,12 @@ export const getUtmSources = (sessions: Session[]) => {
 }
 
 export const getUtmCampaigns = (sessions: Session[]) => {
-  sessions = sessions.filter((session) => {
+  const localSessions = sessions.filter((session) => {
     if (session.queryParams) {
       return session.queryParams.utm_campaign
     }
   })
-  const utmCampaigns = sessions.reduce((acc, session) => {
+  const utmCampaigns = localSessions.reduce((acc, session) => {
     const utmCampaign = session.queryParams?.utm_campaign
     const isFound = acc.find((p) => p.utmCampaign === utmCampaign)
     if (isFound) {

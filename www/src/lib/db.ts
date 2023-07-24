@@ -1,7 +1,8 @@
-import { PrismaClient } from "../../@prisma"
+import { PrismaClient } from "generated/client"
 
 declare global {
   // eslint-disable-next-line no-var
+  // rome-ignore lint/style/noVar: <explanation>
   var cachedPrisma: PrismaClient
 }
 

@@ -9,11 +9,9 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .ts"
+    "lint": "rome check ."
   },
-  "exports": [
-    "./dist/index.js"
-  ],
+  "exports": ["./dist/index.js"],
   "dependencies": {
     "detect-browser": "^5.3.0",
     "isbot": "^3.6.10",
@@ -24,10 +22,7 @@
     "zod": "^3.21.4"
   },
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist",
-    "package.json"
-  ],
+  "files": ["dist", "package.json"],
   "keywords": [],
   "author": "",
   "license": "MIT",

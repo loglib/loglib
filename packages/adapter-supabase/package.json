@@ -8,15 +8,9 @@
     "test": "dotenv -e ../../.env vitest run",
     "test:watch": "vitest watch",
     "build": "tsup",
-    "dev": "tsup --watch",
-    "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .ts"
+    "dev": "tsup --watch"
   },
-  "files": [
-    "dist",
-    "package.json",
-    "README.md"
-  ],
+  "files": ["dist", "package.json", "README.md"],
   "keywords": [],
   "author": "",
   "license": "ISC",

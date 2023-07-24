@@ -8,7 +8,7 @@
     "test": "vitest",
     "dev": "rm -rf /dist & tsup --watch",
     "build": "rm -rf /dist & tsup",
-    "lint": "eslint . --ext .ts"
+    "lint": "rome check ."
   },
   "exports": {
     ".": {
@@ -24,29 +24,15 @@
   },
   "typesVersions": {
     "*": {
-      "*": [
-        "dist/index.d.ts"
-      ],
-      "react": [
-        "dist/react/index.d.ts"
-      ]
+      "*": ["dist/index.d.ts"],
+      "react": ["dist/react/index.d.ts"]
     }
   },
   "types": "dist/index.d.ts",
-  "keywords": [
-    "loglib",
-    "event tracker",
-    "web analytics",
-    "analytics"
-  ],
+  "keywords": ["loglib", "event tracker", "web analytics", "analytics"],
   "author": "",
   "license": "MIT",
-  "files": [
-    "dist",
-    "package.json",
-    "LICENSE",
-    "README.md"
-  ],
+  "files": ["dist", "package.json", "LICENSE", "README.md"],
   "devDependencies": {
     "@changesets/changelog-git": "^0.1.14",
     "@changesets/changelog-github": "^0.4.8",

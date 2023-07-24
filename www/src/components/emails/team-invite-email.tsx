@@ -2,7 +2,6 @@ import * as React from "react"
 import {
   Body,
   Button,
-  Column,
   Container,
   Head,
   Heading,
@@ -11,7 +10,6 @@ import {
   Img,
   Link,
   Preview,
-  Row,
   Section,
   Tailwind,
   Text,
@@ -25,12 +23,7 @@ interface TeamInviteEmailProps {
   inviteLink?: string
 }
 
-const baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000"
-
 export const TeamInviteEmail = ({
-  userImage,
   invitedByUsername,
   invitedByEmail,
   teamName,
@@ -47,7 +40,9 @@ export const TeamInviteEmail = ({
           <Container className="mx-auto my-[40px] w-[465px] rounded border border-solid border-[#eaeaea] p-[20px]">
             <Section className="mt-[32px]">
               <Img
-                src={`https://vgssydupjvshgeeeqjvo.supabase.co/storage/v1/object/public/images/Logo%20(5).png`}
+                src={
+                  "https://vgssydupjvshgeeeqjvo.supabase.co/storage/v1/object/public/images/Logo%20(5).png"
+                }
                 width="40"
                 height="37"
                 alt="Loglib"

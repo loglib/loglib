@@ -57,7 +57,7 @@ export function detectEnvironment() {
     if (env === "development" || env === "test") {
       return "dev";
     }
-  } catch (e) {
+  } catch {
     return "prod";
   }
   return "prod";
@@ -73,7 +73,7 @@ export const getPath = (url: string) => {
 export const hook = (
   _this: History,
   method: keyof History,
-  callback: (...args: string[]) => void,
+  callback: (...args: string[]) => void
 ) => {
   const orig = _this[method];
   return (...args: string[]) => {
@@ -103,7 +103,7 @@ export function getUrl() {
     return `${url}"/api/loglib"`;
   }
   if (process.env.NODE_ENV === "development") {
-    return location.origin + "/api/loglib";
+    return `${location.origin}/api/loglib`;
   }
   if (process.env.VERCEL_URL) {
     return "/api/loglib";
@@ -120,7 +120,7 @@ export const parseHost = (url: string) => {
       return url;
     } else {
       const host = new URL(url);
-      return host.origin + "/api/loglib";
+      return `${host.origin}/api/loglib`;
     }
   } else {
     return url;

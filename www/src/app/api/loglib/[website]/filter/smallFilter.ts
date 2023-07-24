@@ -25,16 +25,8 @@ interface FilterFunction<T, S extends keyof T = keyof T> {
   sort: (key: keyof T, desc?: boolean) => FilterFunction<T>
   limit: (count: number) => FilterFunction<T>
 }
-type Primitive =
-  | string
-  | number
-  | boolean
-  | null
-  | undefined
-  | Date
-  | Array<null | number | string>
 
-const filterRoot = <T extends Record<S, Primitive>, S extends keyof T>(
+const filterRoot = <T extends Record<S, any>, S extends keyof T>(
   data: T[],
   key: S,
   operator: OperatorType<T[S]>,

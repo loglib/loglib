@@ -1,27 +1,22 @@
-"use client"
+"use client";
 
-import { useEffect, useState, useTransition } from "react"
-import { useRouter } from "next/navigation"
-import {
-  createTeamModalAtom,
-  inviteTeamModalAtom,
-  selectedTeamAtom,
-  websitesAtom,
-} from "@/jotai/store"
-import { createTeam, inviteTeam } from "@/server/actions/team"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { AnimatePresence, motion } from "framer-motion"
-import { useAtom } from "jotai"
-import { useForm } from "react-hook-form"
-import Modal from "react-modal"
-import { z } from "zod"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { inviteTeamModalAtom, selectedTeamAtom } from "@/jotai/store";
+import { inviteTeam } from "@/server/actions/team";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AnimatePresence, motion } from "framer-motion";
+import { useAtom } from "jotai";
+import { useForm } from "react-hook-form";
+import Modal from "react-modal";
+import { z } from "zod";
 
-import { teamInviteSchema, teamSchema } from "@/lib/validations/team"
+import { teamInviteSchema } from "@/lib/validations/team";
 
-import { Icons } from "./icons"
-import { Button } from "./ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form"
-import { Input } from "./ui/input"
+import { Icons } from "./icons";
+import { Button } from "./ui/button";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
+import { Input } from "./ui/input";
 import {
   Select,
   SelectContent,
@@ -29,58 +24,61 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./ui/select"
-import { toast } from "./ui/use-toast"
+} from "./ui/select";
+import { toast } from "./ui/use-toast";
 
 export const TeamInviteForm = () => {
-  const [isLoading, setIsLoading] = useState(false)
-  const [modal, setModal] = useAtom(inviteTeamModalAtom)
-  const [team, setTeam] = useAtom(selectedTeamAtom)
-  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false);
+  const [modal, setModal] = useAtom(inviteTeamModalAtom);
+  const [team, setTeam] = useAtom(selectedTeamAtom);
+  const router = useRouter();
   const form = useForm<z.infer<typeof teamInviteSchema>>({
     resolver: zodResolver(teamInviteSchema),
     defaultValues: {
       email: "",
       role: "viewer",
     },
-  })
+  });
   async function onSubmit(values: z.infer<typeof teamInviteSchema>) {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
-      if (!team)
+      if (!team) {
         throw new Error("No team selected", {
           cause: "No team selected",
-        })
-      if (team.TeamUser.find((tu) => tu.email === values.email))
+        });
+      }
+
+      if (team.TeamUser.find((tu) => tu.email === values.email)) {
         throw new Error("User is already on the team", {
           cause: "The user is already a member of the team",
-        })
-      const res = await inviteTeam(values, team.id)
+        });
+      }
+
+      const res = await inviteTeam(values, team.id);
       if (!res) {
         throw new Error("This user isn't registered yet", {
-          cause:
-            "The user has to be registered before you can invite them to a team",
-        })
+          cause: "The user has to be registered before you can invite them to a team",
+        });
       }
       setTeam({
         ...team,
         TeamUser: [...team.TeamUser, res],
-      })
+      });
       toast({
         title: "Success!",
         description: "Your team invite has been sent.",
-      })
+      });
+      // rome-ignore lint/suspicious/noExplicitAny: <explanation>
     } catch (e: any) {
       toast({
         title: e.message ?? "Uh oh!",
-        description:
-          e.cause ?? "Could not send your team invite. Please try again later.",
+        description: e.cause ?? "Could not send your team invite. Please try again later.",
         variant: "destructive",
-      })
+      });
     }
-    router.refresh()
-    setIsLoading(false)
-    setModal(false)
+    router.refresh();
+    setIsLoading(false);
+    setModal(false);
   }
 
   // Define the animation variants
@@ -94,7 +92,7 @@ export const TeamInviteForm = () => {
       y: 0,
       scale: 1,
     },
-  }
+  };
   return (
     <AnimatePresence>
       {modal ? (
@@ -128,10 +126,9 @@ export const TeamInviteForm = () => {
                 onSubmit={form.handleSubmit(onSubmit, (e) => {
                   return toast({
                     title: "Uh oh! ",
-                    description:
-                      e.root?.message ?? e.email?.message ?? e.role?.message,
+                    description: e.root?.message ?? e.email?.message ?? e.role?.message,
                     variant: "destructive",
-                  })
+                  });
                 })}
                 className="space-y-4"
               >
@@ -143,12 +140,7 @@ export const TeamInviteForm = () => {
                       <FormLabel>Email</FormLabel>
                       {/* <FormMessage /> */}
                       <FormControl>
-                        <Input
-                          type="email"
-                          placeholder="Email"
-                          {...field}
-                          className=" "
-                        />
+                        <Input type="email" placeholder="Email" {...field} className=" " />
                       </FormControl>
                     </FormItem>
                   )}
@@ -161,9 +153,7 @@ export const TeamInviteForm = () => {
                       <FormLabel>Role</FormLabel>
                       <FormControl>
                         <Select
-                          onValueChange={(value) =>
-                            field.onChange(value as "admin" | "viewer")
-                          }
+                          onValueChange={(value) => field.onChange(value as "admin" | "viewer")}
                           value={field.value}
                         >
                           <SelectTrigger>
@@ -204,5 +194,5 @@ export const TeamInviteForm = () => {
         </Modal>
       ) : null}
     </AnimatePresence>
-  )
-}
+  );
+};

@@ -1,15 +1,13 @@
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-import "@/styles/globals.css"
+import "@/styles/globals.css";
 
-import { Inter } from "next/font/google"
-import localFont from "next/font/local"
-import Loglib from "@loglib/tracker/react"
-import { loglib } from "@loglib/tracker"
+import localFont from "next/font/local";
+import Loglib from "@loglib/tracker/react";
 
-import { siteConfig } from "@/config/site"
-import { Toaster } from "@/components/ui/toaster"
-import { ThemeProvider } from "@/components/theme-provider"
+import { siteConfig } from "@/config/site";
+import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const fontSatoshi = localFont({
   src: [
@@ -35,12 +33,12 @@ const fontSatoshi = localFont({
     },
   ],
   variable: "--font-satoshi",
-})
+});
 
 const fontHeading = localFont({
   src: "../../assets/fonts/CalSans-SemiBold.woff2",
   variable: "--font-heading",
-})
+});
 
 export const metadata = {
   title: {
@@ -48,12 +46,7 @@ export const metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  keywords: [
-    "Web Analytics",
-    "Open Source web analytics",
-    "loglib",
-    "loglib analytics",
-  ],
+  keywords: ["Web Analytics", "Open Source web analytics", "loglib", "loglib analytics"],
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
@@ -80,40 +73,26 @@ export const metadata = {
     apple: "/apple-touch-icon.png",
   },
   manifest: `${siteConfig.url}/site.webmanifest`,
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="shortcut icon" href="/images/favicon.ico" />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/images/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/images/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/images/favicon-16x16.png"
-        />
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
       </head>
       <body
         className={cn(
           " bg-gradient-to-tr from-white to-gray-100 font-sans antialiased dark:from-slate-950 via-black dark:to-slate-950/30 transition-all duration-300",
           fontSatoshi.variable,
-          fontHeading.variable
+          fontHeading.variable,
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark">
@@ -128,5 +107,5 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }

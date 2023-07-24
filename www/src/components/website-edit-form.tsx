@@ -1,90 +1,75 @@
-import { useEffect, useMemo, useState } from "react"
-import Link from "next/link"
-import { teamsAtom, websiteDeleteModalAtom } from "@/jotai/store"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { AnimatePresence, motion } from "framer-motion"
-import { useAtom } from "jotai"
-import { Plus, Trash2 } from "lucide-react"
-import { useForm } from "react-hook-form"
-import Modal from "react-modal"
-import { z } from "zod"
+import { useEffect, useState } from "react";
+import { websiteDeleteModalAtom } from "@/jotai/store";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AnimatePresence, motion } from "framer-motion";
+import { useAtom } from "jotai";
+import { ExternalLink, Info, Trash2 } from "lucide-react";
+import { useForm } from "react-hook-form";
+import Modal from "react-modal";
+import { z } from "zod";
 
-import { websiteFormSchema } from "@/lib/validations/website"
+import { websiteFormSchema } from "@/lib/validations/website";
 
-import { Website } from "../../@prisma"
-import { Icons } from "./icons"
-import { Button, buttonVariants } from "./ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "./ui/form"
-import { Input } from "./ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select"
-import { toast } from "./ui/use-toast"
+import { Website } from "generated/client";
+import { Icons } from "./icons";
+import { Button } from "./ui/button";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
+import { Input } from "./ui/input";
+import { toast } from "./ui/use-toast";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import Link from "next/link";
+import { siteConfig } from "@/config/site";
+import { CopyToClipboard } from "./copy-to-clipboard";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 
 export const EditWebsiteForm = ({
   data,
   isOpen,
   setIsOpen,
 }: {
-  data?: Website
-  isOpen: boolean
-  setIsOpen: (state: boolean) => void
+  data?: Website;
+  isOpen: boolean;
+  setIsOpen: (state: boolean) => void;
 }) => {
-  const [isLoading, setIsLoading] = useState(false)
-  const [, setDeleteAlert] = useAtom(websiteDeleteModalAtom)
-  const [teams] = useAtom(teamsAtom)
+  const [isLoading, setIsLoading] = useState(false);
+  const [, setDeleteAlert] = useAtom(websiteDeleteModalAtom);
   const form = useForm<z.infer<typeof websiteFormSchema>>({
     resolver: zodResolver(websiteFormSchema),
-  })
+  });
   async function onSubmit(values: z.infer<typeof websiteFormSchema>) {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
-      const res = await fetch("/api/website/" + data?.id, {
+      const res = await fetch(`/api/website/${data?.id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(values),
-      })
+      });
       if (!res.ok) {
         toast({
           title: "Uh oh!",
           description:
-            "This website already exists. Please try again with a different website ID or Website URL.",
+            "Error updating website. Please try again later or contact support if the issue persists.",
           variant: "destructive",
-        })
+        });
       }
+      toast({
+        title: "Success!",
+        description: "Website updated successfully.",
+      });
     } catch {
       toast({
         title: "Uh oh!",
         description:
-          "This website already exists. Please try again with a different website ID or Website URL.",
+          "Error updating website. Please try again later or contact support if the issue persists.",
         variant: "destructive",
-      })
+      });
     }
-    setIsLoading(false)
-    setIsOpen(false)
+    setIsLoading(false);
+    setIsOpen(false);
   }
-  // Define the animation variants
+
   const modalVariants = {
     hidden: {
       opacity: 0,
@@ -95,16 +80,17 @@ export const EditWebsiteForm = ({
       y: 0,
       scale: 1,
     },
-  }
+  };
   useEffect(() => {
     if (data) {
-      const { setValue } = form
-      setValue("id", data.id)
-      setValue("title", data.title ?? "")
-      setValue("url", data.url)
+      const { setValue } = form;
+      setValue("id", data.id);
+      setValue("title", data.title ?? "");
+      setValue("url", data.url);
+      setValue("public", data.public);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data])
+  }, [data]);
   return (
     <AnimatePresence>
       {isOpen ? (
@@ -112,6 +98,8 @@ export const EditWebsiteForm = ({
           isOpen={isOpen}
           onRequestClose={() => setIsOpen(false)}
           ariaHideApp
+          shouldCloseOnEsc
+          shouldCloseOnOverlayClick
           className="font-jost mx-4 flex h-full items-center justify-center border-none outline-none backdrop:blur-xl"
           style={{
             overlay: {
@@ -139,8 +127,8 @@ export const EditWebsiteForm = ({
                 variant="outline"
                 className=""
                 onClick={() => {
-                  setIsOpen(false)
-                  setDeleteAlert(true)
+                  setIsOpen(false);
+                  setDeleteAlert(true);
                 }}
               >
                 <Trash2 size={16} className=" text-red-500" />
@@ -151,10 +139,9 @@ export const EditWebsiteForm = ({
                 onSubmit={form.handleSubmit(onSubmit, (e) => {
                   return toast({
                     title: "Uh oh! ",
-                    description:
-                      e.root?.message ?? e.title?.message ?? e.url?.message,
+                    description: e.root?.message ?? e.title?.message ?? e.url?.message,
                     variant: "destructive",
-                  })
+                  });
                 })}
                 className="space-y-2 "
               >
@@ -178,11 +165,7 @@ export const EditWebsiteForm = ({
                     <FormItem className=" w-full">
                       <FormLabel>Website URL</FormLabel>
                       <FormControl>
-                        <Input
-                          placeholder="https://example.com"
-                          {...field}
-                          className=""
-                        />
+                        <Input placeholder="https://example.com" {...field} className="" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -211,6 +194,67 @@ export const EditWebsiteForm = ({
                   )}
                 />
 
+                <FormField
+                  control={form.control}
+                  name="public"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        <div className=" flex items-start gap-1">
+                          Public Page
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <Info size={12} />
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p className=" text-sm">
+                                  Public page is will make your website public and accessible to
+                                  anyone with the link.
+                                </p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        </div>
+                      </FormLabel>
+                      {field.value ? (
+                        <div className=" flex items-center justify-between">
+                          <Link
+                            href={`${siteConfig.url}/${data?.id}`}
+                            target="_blank"
+                            className=" flex items-center gap-2 hover:underline decoration-blue-500"
+                          >
+                            <p className=" text-blue-600 text-sm">
+                              {`${siteConfig.url}/`}
+                              <span className="">{data?.id}</span>{" "}
+                            </p>
+
+                            <ExternalLink size={14} className=" text-blue-500 cursor-pointer" />
+                          </Link>
+                          <CopyToClipboard
+                            text={`${siteConfig.url}/${data?.id}`}
+                            className="w-4 h-4"
+                          />
+                        </div>
+                      ) : null}
+                      <FormControl className="">
+                        <Select
+                          onValueChange={(e) => field.onChange(e === "on" ? true : false)}
+                          value={field.value ? "on" : "off"}
+                        >
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="off">Off</SelectItem>
+                            <SelectItem value="on">On</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+
                 <div className=" space-x-2">
                   <Button type="submit" disabled={isLoading}>
                     {isLoading ? (
@@ -234,5 +278,5 @@ export const EditWebsiteForm = ({
         </Modal>
       ) : null}
     </AnimatePresence>
-  )
-}
+  );
+};

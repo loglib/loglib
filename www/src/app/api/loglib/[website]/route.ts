@@ -19,23 +19,17 @@ import {
   getUtmCampaigns,
   getUtmSources,
 } from "./utils/analysis"
-import {
-  Events,
-  GenericError,
-  LogLibOptions,
-  PageView,
-  Session,
-  Visitor,
-} from "@loglib/core"
+import { GenericError, LogLibOptions, PageView, Session } from "@loglib/core"
 import { filter } from "./filter/smallFilter"
 import { Filter } from "./filter/type"
 import { kyselyAdapter } from "@/lib/db/kysely-adapter"
 
 import { NextResponse } from "next/server"
 import { db } from "@/server/db"
+import { client } from "@/server/db/clickhouse"
 import { db as prismaDb } from "@/lib/db"
-import { prismaAdapter } from "@/lib/db/custom-adapter"
 import { getCurrentUser } from "@/lib/session"
+import { clickHouseAdapter } from "@/lib/db/clickhouse-adapter"
 
 const getInsightSchema = z.object({
   startDate: z.string(),
@@ -43,7 +37,6 @@ const getInsightSchema = z.object({
   timeZone: z.string(),
   filter: z.string(),
   websiteId: z.string(),
-  path: z.string(),
 })
 
 export const GET = async (
@@ -54,9 +47,9 @@ export const GET = async (
   const queryObject = Object.fromEntries(query.entries())
   const adapter = queryObject.kysely
     ? kyselyAdapter(db)
-    : prismaAdapter(prismaDb)
+    : clickHouseAdapter(client)
   const website = ctx.params.website
-  const isAuth = await authenticate(!!queryObject.prisma, website)
+  const isAuth = await authenticate(website)
   if (!isAuth) {
     return new NextResponse(
       JSON.stringify({
@@ -213,15 +206,15 @@ const getDashboardData = async (req: {
         sessions,
         startDateObj,
         endDateObj,
-        true,
-        timeZone
+        timeZone,
+        true
       )
       const uniqueSessionByDate = getVisitorsByDate(
         sessions,
         startDateObj,
         endDateObj,
-        false,
-        timeZone
+        timeZone,
+        false
       )
       const onlineUsers = getOnlineVisitors(sessions)
       const eventsWithData = getEvents(events, sessions, pageViews)
@@ -270,62 +263,41 @@ const getDashboardData = async (req: {
   }
 }
 
-const authenticate = async (usePrisma: boolean, id: string) => {
+const authenticate = async (id: string) => {
   const user = await getCurrentUser()
-  if (!user) {
-    return false
-  }
-  if (usePrisma) {
-    const website = await db
-      .selectFrom("website")
-      .where("id", "=", id)
-      .selectAll()
-      .execute()
-    if (!website) {
-      const teamWebsite = await db
-        .selectFrom("team_website")
-        .where("website_id", "=", id)
-        .selectAll()
-        .executeTakeFirst()
-      if (!teamWebsite) return false
-      const team = await db
-        .selectFrom("team_users")
-        .where("user_id", "=", user.id)
-        .where("team_id", "=", teamWebsite?.team_id)
-        .selectAll()
-        .execute()
-      if (!team) {
-        return false
-      }
-    }
-  } else {
-    const website = await prismaDb.website.findFirst({
-      where: {
-        AND: {
-          id,
-          userId: user.id,
+
+  const website = await prismaDb.website.findFirst({
+    where: {
+      AND: {
+        id,
+        OR: {
+          userId: user?.id,
+          public: true,
         },
       },
-    })
-    if (!website) {
-      const teamWebsite = await prismaDb.teamWebsite.findFirst({
-        where: {
-          AND: {
-            websiteId: id,
-            Team: {
-              TeamUser: {
-                some: {
-                  userId: user.id,
-                },
+    },
+  })
+  if (website) {
+    return true
+  }
+  if (!website && user) {
+    const teamWebsite = await prismaDb.teamWebsite.findFirst({
+      where: {
+        AND: {
+          websiteId: id,
+          Team: {
+            TeamUser: {
+              some: {
+                userId: user?.id,
               },
             },
           },
         },
-      })
-      if (!teamWebsite) {
-        return false
-      }
+      },
+    })
+    if (!teamWebsite) {
+      return false
     }
   }
-  return true
+  return false
 }
