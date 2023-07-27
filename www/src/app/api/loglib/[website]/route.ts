@@ -1,3 +1,4 @@
+
 import z from "zod"
 import {
   getBrowser,
@@ -26,10 +27,11 @@ import { kyselyAdapter } from "@/lib/db/kysely-adapter"
 
 import { NextResponse } from "next/server"
 import { db } from "@/server/db"
-import { client } from "@/server/db/clickhouse"
 import { db as prismaDb } from "@/lib/db"
 import { getCurrentUser } from "@/lib/session"
+import { prismaAdapter } from "@/lib/db/prisma-adapter"
 import { clickHouseAdapter } from "@/lib/db/clickhouse-adapter"
+import { client } from "@/server/db/clickhouse"
 
 const getInsightSchema = z.object({
   startDate: z.string(),
@@ -270,34 +272,32 @@ const authenticate = async (id: string) => {
     where: {
       AND: {
         id,
-        OR: {
-          userId: user?.id,
-          public: true,
-        },
+        userId: user?.id,
       },
     },
   })
-  if (website) {
+  if (!website) {
+    return false
+  }
+  if (website.userId === user?.id) {
     return true
   }
-  if (!website && user) {
-    const teamWebsite = await prismaDb.teamWebsite.findFirst({
-      where: {
-        AND: {
-          websiteId: id,
-          Team: {
-            TeamUser: {
-              some: {
-                userId: user?.id,
-              },
-            },
-          },
-        },
+  const team = await prismaDb.team.findFirst({
+    where: {
+      TeamUser: {
+        some: {
+          userId: user?.id
+        }
       },
-    })
-    if (!teamWebsite) {
-      return false
+      TeamWebsite: {
+        some: {
+          websiteId: id
+        }
+      }
     }
+  })
+  if (team) {
+    return true
   }
   return false
 }
