@@ -25,13 +25,14 @@ export default async function Page({
       },
     },
   });
+  const showSetup = !website?.WebSession?.length;
   if (!website) {
     return redirect("/");
   }
   if (website.userId === user?.id) {
     return (
       <main>
-        <Dashboard website={website} isPublic={false} />
+        <Dashboard website={website} isPublic={false} showSetup={showSetup} />
       </main>
     );
   }
@@ -54,7 +55,7 @@ export default async function Page({
   if (team) {
     return (
       <main>
-        <Dashboard website={website} isPublic={false} />
+        <Dashboard website={website} isPublic={false} showSetup={showSetup} />
       </main>
     );
   }
@@ -62,7 +63,7 @@ export default async function Page({
   if (website?.public) {
     return (
       <main>
-        <Dashboard website={website} isPublic={true} />
+        <Dashboard website={website} isPublic={true}  />
       </main>
     );
   }

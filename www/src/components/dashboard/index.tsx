@@ -22,8 +22,9 @@ import LocationMap from "./insight/location-map";
 import { InsightTables } from "./insight/tables";
 import { Graph } from "./insight/visitor-graph";
 import { Filter, FilterProp, TimeRange } from "./type";
+import { AddTracker } from "../add-tracker";
 
-export const Dashboard = ({ website, isPublic }: { website: Website; isPublic: boolean }) => {
+export const Dashboard = ({ website, isPublic, showSetup }: { website: Website; isPublic: boolean, showSetup?: boolean }) => {
   const [timeRange, setTimeRange] = useState<TimeRange>({
     startDate: getLast24Hour(),
     endDate: new Date(),
@@ -66,9 +67,11 @@ export const Dashboard = ({ website, isPublic }: { website: Website; isPublic: b
 
   const [curTableTab, setCurTableTab] = useState("");
   const [viCardSwitch, setViCardSwitch] = useState(false);
+  
 
   return (
     <main>
+    <AddTracker websiteId={website.id} show={showSetup ?? false}/>
       <LayoutGroup>
         <div
           className={cn(
