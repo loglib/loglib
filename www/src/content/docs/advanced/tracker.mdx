@@ -15,8 +15,8 @@ pnpm i @loglib/tracker
 
 usage with nextjs
 
-<Tabs items={['app route', 'pages']}>
-  <Tab>
+<Tabs items={["app-route", "pages"]}>
+  <Tab value="app-route">
     `src/app/layout.tsx`
 
     ```ts
@@ -44,7 +44,7 @@ usage with nextjs
     ```
 
   </Tab>
-  <Tab>
+  <Tab value="pages">
     `src/pages/_app.tsx`
 
     ```js
@@ -70,9 +70,11 @@ if you're not using next js or react you can use the vanilla version of the trac
 
 ```js
 <script>
-  import {loglib} from '@loglib/tracker'; loglib.record(
+  import {loglib} from '@loglib/tracker';
+  loglib.record(
   {
-    // your config here
+    id: "1",
+    host: "https://loglib.io",
   })
 </script>
 ```
