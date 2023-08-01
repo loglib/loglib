@@ -106,8 +106,7 @@ export const navigationHandler = (_: string, __: string, url: string) => {
   window.lli.currentRef = window.lli.currentUrl;
   window.lli.currentUrl = getPath(url.toString());
   if (currentUrl !== currentRef) {
-    window.lli.eventsBank.length &&
-      send(window.lli.eventsBank, "/event", flush);
+    window.lli.eventsBank.length && send(window.lli.eventsBank, "/event", flush);
     window.lli.pageId = guid();
     window.lli.timeOnPage = Date.now();
     send(
@@ -117,7 +116,7 @@ export const navigationHandler = (_: string, __: string, url: string) => {
         queryParams: getUrlParams(),
         duration: 0,
       },
-      "/pageview"
+      "/pageview",
     );
     send(
       {
@@ -125,7 +124,7 @@ export const navigationHandler = (_: string, __: string, url: string) => {
         duration: getSessionDuration(),
       },
       "/session/pulse",
-      flush
+      flush,
     );
   }
 };
@@ -142,7 +141,7 @@ const sessionEndHandler = async () => {
           duration: getSessionDuration(),
         },
         "/session/pulse",
-        flush
+        flush,
       );
 
       clearIntervals();

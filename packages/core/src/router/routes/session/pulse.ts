@@ -15,10 +15,7 @@ const HeartBeatSchema = RootApiTrackerSchema.merge(
 
 type HeartBeatSchemaType = z.infer<typeof HeartBeatSchema>;
 
-export const pulse: ApiPostHandler<
-  HeartBeatSchemaType,
-  Session | null
-> = async (req, options) => {
+export const pulse: ApiPostHandler<HeartBeatSchemaType, Session | null> = async (req, options) => {
   const adapter = options.adapter;
   const data = HeartBeatSchema.safeParse(req.body);
   if (data.success) {

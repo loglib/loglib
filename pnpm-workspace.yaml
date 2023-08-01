@@ -4,4 +4,4 @@ packages:
   - docs
   - www
   - packages/config/*
-  - email
+  - apps/*

@@ -25,17 +25,16 @@ export const SessionPostSchema = RootApiTrackerSchema.merge(
 );
 export type SessionPostInput = z.infer<typeof SessionPostSchema>;
 
-export const sessionPost: ApiPostHandler<
-  SessionPostInput,
-  Session | null
-> = async (req, options) => {
+export const sessionPost: ApiPostHandler<SessionPostInput, Session | null> = async (
+  req,
+  options,
+) => {
   if (isbot(req.headers["user-agent"])) {
     return { message: "bot", code: 200 };
   }
   //if GDPR compliance is enabled, use ip address as user id
   if (!req.body.visitorId) {
-    req.body.visitorId =
-      (getIpAddress(req) as string) || Math.random().toString(36).substring(7);
+    req.body.visitorId = (getIpAddress(req) as string) || Math.random().toString(36).substring(7);
   }
   const body = SessionPostSchema.safeParse(req.body);
 
@@ -43,9 +42,7 @@ export const sessionPost: ApiPostHandler<
     const { sessionId, data, visitorId, pageId, websiteId } = body.data;
     const { referrer, language, queryParams, screenWidth } = data;
     const ipAddress =
-      options.environment === "test"
-        ? "155.252.206.205"
-        : (getIpAddress(req) as string);
+      options.environment === "test" ? "155.252.206.205" : (getIpAddress(req) as string);
     if (ipAddress && !(await isLocalhost(ipAddress))) {
       const location = !options.disableLocation
         ? options.getLocation
@@ -57,9 +54,7 @@ export const sessionPost: ApiPostHandler<
           "LogLib encountered an error while trying to resolve the location of the user. To resolve this issue, you can either set up the MaxMind database by running 'loglib setup:maxmind', or provide a custom implementation. Alternatively, you can disable location resolution by modifying the loglib server configuration.",
           { path: " / session" },
         );
-      const { city, country } = location
-        ? location
-        : { city: null, country: null };
+      const { city, country } = location ? location : { city: null, country: null };
       const adapter = options.adapter;
       const userAgent = req.headers["user-agent"] as string;
       if (!userAgent) return { message: "Invalid user agent", code: 400 };
@@ -76,7 +71,6 @@ export const sessionPost: ApiPostHandler<
           },
           visitorId,
         );
-
         const session = await adapter.createSession({
           city,
           country,

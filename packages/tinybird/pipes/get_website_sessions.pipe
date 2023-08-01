@@ -1,0 +1,22 @@
+VERSION 1
+TOKEN "get_website_session_read_2919" READ
+
+NODE get_session
+SQL > 
+        %
+            SELECT 
+                id,
+                websiteId,
+                createdAt,
+                country,
+                city,
+                referrer,
+                queryParams,
+                device,
+                os,
+                browser,
+                language,
+                visitorId
+            FROM sessions
+            WHERE 
+                websiteId = {{ String(websiteId, required=True) }} AND createdAt >= {{ Date(startDate, required=True) }} AND createdAt <= {{ Date(endDate, required=True) }}

@@ -6,18 +6,17 @@ import { visitorRouter } from "./routes/user";
 import { Router } from "./type";
 import { AuthRoute } from "./routes/auth";
 
-
 //routes should be registered here
 
 export const router: Router = {
-    "/session": sessionRoute,
-    "/session/pulse": pulseRoute,
-    "/pageview": pageViewRoute,
-    "/event": eventRouter,
-    "/visitor": visitorRouter,
-    "/test": {
-        "POST": async () => Promise.resolve({ message: 'test', code: 200 })
-    },
-    "/dashboard": dashboardRoutes,
-    "/auth": AuthRoute
-}
+  "/session": sessionRoute,
+  "/session/pulse": pulseRoute,
+  "/pageview": pageViewRoute,
+  "/event": eventRouter,
+  "/visitor": visitorRouter,
+  "/test": {
+    POST: async () => Promise.resolve({ message: "test", code: 200 }),
+  },
+  "/dashboard": dashboardRoutes,
+  "/auth": AuthRoute,
+};
