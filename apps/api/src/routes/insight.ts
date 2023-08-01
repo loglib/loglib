@@ -1,14 +1,3 @@
-import { z } from "zod";
-import { RouteType } from "./type";
-import { apiResponse } from "../lib/api-response";
-import {
-    getEventsIngestion,
-    getNewVisitorsEndpoint,
-    getPageViewsIngestion,
-    getSessionsIngestion,
-} from "../lib/tinybird";
-import { filter } from "../lib/filter/smallFilter";
-import { PageView, Session } from "../type";
 import {
     getAverageTime,
     getBounceRate,
@@ -27,7 +16,18 @@ import {
     getUtmSources,
     getVisitorsByDate,
 } from "../lib/analysis";
-import { Filter } from "../lib/filter/type";
+import { apiResponse } from "../lib/api-response";
+import { filter } from "../lib/small-filter";
+import {
+    getEventsEndpoint,
+    getNewVisitorsEndpoint,
+    getPageViewsEndpoint,
+    getSessionsEndpoint,
+} from "../lib/tinybird";
+import { Filter } from "../type";
+import { PageView, Session } from "../type";
+import { RouteType } from "./type";
+import { z } from "zod";
 
 const insightSchema = z.object({
     startDate: z.string(),
@@ -50,27 +50,27 @@ export const getInsightData: RouteType = async ({ tb, query: rawQuery }) => {
     let startTime = performance.now();
     let [sessions, pastSessions, pageViews, pastPageViews, events, visitors, pastVisitors] =
         await Promise.all([
-            getSessionsIngestion(tb)({
+            getSessionsEndpoint(tb)({
                 websiteId,
                 startDate: startDateObj.toISOString(),
                 endDate: endDateObj.toISOString(),
             }).then((res) => res.data),
-            getSessionsIngestion(tb)({
+            getSessionsEndpoint(tb)({
                 websiteId,
                 startDate: pastEndDateObj.toISOString(),
                 endDate: startDateObj.toISOString(),
             }).then((res) => res.data),
-            getPageViewsIngestion(tb)({
+            getPageViewsEndpoint(tb)({
                 websiteId,
                 startDate: startDateObj.toISOString(),
                 endDate: endDateObj.toISOString(),
             }).then((res) => res.data),
-            getPageViewsIngestion(tb)({
+            getPageViewsEndpoint(tb)({
                 websiteId,
                 startDate: pastEndDateObj.toISOString(),
                 endDate: startDateObj.toISOString(),
             }).then((res) => res.data),
-            getEventsIngestion(tb)({
+            getEventsEndpoint(tb)({
                 websiteId,
                 startDate: startDateObj.toISOString(),
                 endDate: endDateObj.toISOString(),

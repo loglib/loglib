@@ -1,6 +1,6 @@
+import { DB } from "./types";
 import { Kysely } from "kysely";
 import { PlanetScaleDialect } from "kysely-planetscale";
-import { DB } from "./types";
 
 export const getDb = (config: {
     host: string;
@@ -8,5 +8,11 @@ export const getDb = (config: {
     password: string;
 }) =>
     new Kysely<DB>({
-        dialect: new PlanetScaleDialect(config),
+        dialect: new PlanetScaleDialect({
+            ...config,
+            fetch: (url: string, init: RequestInit<RequestInitCfProperties>) => {
+                delete (init as any)["cache"]; // Remove cache header
+                return fetch(url, init);
+            },
+        }),
     });

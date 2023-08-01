@@ -1,6 +1,6 @@
 import { createEvents } from "./events";
 import { getInsightData } from "./insight";
-import { createPageview, createPageDuration } from "./pageview";
+import { createPageDuration, createPageview } from "./pageview";
 import { createSession } from "./session";
 import { RouterType } from "./type";
 import { createVisitor } from "./visitor";

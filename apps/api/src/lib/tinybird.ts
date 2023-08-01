@@ -1,6 +1,6 @@
+import { eventSchema, pageviewSchema, sessionSchema, visitorSchema } from "../schema";
 import { Tinybird } from "@chronark/zod-bird";
 import { z } from "zod";
-import { eventSchema, pageviewSchema, sessionSchema, visitorSchema } from "../schema";
 
 export const getTb = (token: string) =>
     new Tinybird({
@@ -42,7 +42,7 @@ export const publishEvents = (tb: Tinybird) =>
         event: eventSchema,
     });
 
-export const getVisitorsIngestion = (tb: Tinybird) =>
+export const getVisitorsEndpoint = (tb: Tinybird) =>
     tb.buildPipe({
         pipe: "get_website_visitors__v1",
         parameters: z.object({
@@ -53,7 +53,7 @@ export const getVisitorsIngestion = (tb: Tinybird) =>
         data: visitorSchema,
     });
 
-export const getSessionsIngestion = (tb: Tinybird) =>
+export const getSessionsEndpoint = (tb: Tinybird) =>
     tb.buildPipe({
         pipe: "get_website_sessions__v1",
         parameters: z.object({
@@ -64,7 +64,7 @@ export const getSessionsIngestion = (tb: Tinybird) =>
         data: sessionSchema.merge(z.object({ totalDuration: z.number() })),
     });
 
-export const getPageViewsIngestion = (tb: Tinybird) =>
+export const getPageViewsEndpoint = (tb: Tinybird) =>
     tb.buildPipe({
         pipe: "get_website_pageviews__v1",
         parameters: z.object({
@@ -75,7 +75,7 @@ export const getPageViewsIngestion = (tb: Tinybird) =>
         data: pageviewSchema.merge(z.object({ totalDuration: z.number() })),
     });
 
-export const getEventsIngestion = (tb: Tinybird) =>
+export const getEventsEndpoint = (tb: Tinybird) =>
     tb.buildPipe({
         pipe: "get_website_events__v1",
         parameters: z.object({

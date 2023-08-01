@@ -1,6 +1,6 @@
-import { PageView, Visitor, Session, Events } from "../type";
+import { Events, PageView, Session, Visitor } from "../type";
 import { ReferrerName } from "./constants";
-import { getTimeRange } from "./timeHelper";
+import { getTimeRange } from "./time-helper";
 
 export const getUniqueVisitors = (sessions: Session[], pastSessions: Session[]) => {
     const startTime = performance.now();

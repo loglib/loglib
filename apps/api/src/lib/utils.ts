@@ -9,3 +9,9 @@ export const convertDate = (date: Date | string) => {
 export const getNow = () => {
     return new Date(convertDate(new Date()));
 };
+
+export const getQuery = (query: string) => {
+    const q = new URLSearchParams(query.split("?")[1]);
+    const queryObject = Object.fromEntries(q.entries());
+    return queryObject;
+};

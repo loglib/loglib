@@ -1,5 +1,5 @@
-import { z } from "zod";
 import { convertDate } from "./lib/utils";
+import { z } from "zod";
 
 export const rootTrackerSchema = z.object({
     pageId: z.string(),
@@ -61,4 +61,10 @@ export const visitorSchema = z.object({
     websiteId: z.string(),
     createdAt: z.string(),
     data: z.string(),
+});
+
+//api v1
+export const apiQuery = z.object({
+    startDate: z.string(),
+    endDate: z.string(),
 });
