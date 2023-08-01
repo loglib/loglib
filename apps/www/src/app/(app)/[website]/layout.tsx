@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
-import { getCurrentUser } from "@/lib/session";
 import { DashboardHeader, PublicDashboardHeader } from "@/components/site-header";
+import { getCurrentUser } from "@/lib/session";
 
 export default async function layout({ children }: { children: ReactNode }) {
     const user = await getCurrentUser();

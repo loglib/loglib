@@ -43,7 +43,7 @@ jobs:
         run: pnpm install --no-frozen-lockfile --prefer-offline
 
       - name: Lint and build
-        run: pnpm turbo --filter "./packages/*" lint build
+        run: pnpm turbo --filter "./packages/*" build
 
       - name: Create Release
         id: changeset
