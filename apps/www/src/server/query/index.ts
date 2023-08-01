@@ -1,1 +1,1 @@
-export { getTeams, type Teams } from './team'
+export { getTeams, type Teams } from "./team";

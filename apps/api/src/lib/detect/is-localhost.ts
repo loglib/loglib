@@ -1,6 +1,6 @@
-import { isIP, isIPv4 } from 'net';
-import { createSocket, Socket } from 'dgram';
-import { ADDRCONFIG, lookup } from 'dns';
+import { isIP, isIPv4 } from "net";
+import { createSocket, Socket } from "dgram";
+import { ADDRCONFIG, lookup } from "dns";
 
 /**
  * Addresses reserved for private networks
@@ -25,9 +25,7 @@ const IP_RANGES: RegExp[] = [
 ];
 
 // Concat all RegExes from above into one
-const IP_TESTER_RE = new RegExp(
-    `^(${IP_RANGES.map((re) => re.source).join('|')})$`,
-);
+const IP_TESTER_RE = new RegExp(`^(${IP_RANGES.map((re) => re.source).join("|")})$`);
 
 /**
  * Syntax validation RegExp for possible valid host names. Permits underscore.
@@ -43,12 +41,12 @@ const VALID_HOSTNAME =
  * @returns {Promise<boolean>}
  */
 async function canBindToIp(ip: string): Promise<boolean> {
-    const socket: Socket = createSocket(isIPv4(ip) ? 'udp4' : 'udp6');
+    const socket: Socket = createSocket(isIPv4(ip) ? "udp4" : "udp6");
     return new Promise((resolve) => {
         try {
             socket
-                .once('error', () => socket.close(() => resolve(false)))
-                .once('listening', () => socket.close(() => resolve(true)))
+                .once("error", () => socket.close(() => resolve(false)))
+                .once("listening", () => socket.close(() => resolve(true)))
                 .unref()
                 .bind(0, ip);
         } catch {
@@ -64,11 +62,8 @@ async function canBindToIp(ip: string): Promise<boolean> {
  * @param {boolean} [canBind=false] - should check whether an interface with such address exists on the local machine
  * @returns {Promise.<boolean>} - true, if given strings is a local IP address or DNS names that resolves to local IP
  */
-async function isLocalhost(
-    ipOrHostname: string,
-    canBind = false,
-): Promise<boolean> {
-    if (typeof ipOrHostname !== 'string') return false;
+async function isLocalhost(ipOrHostname: string, canBind = false): Promise<boolean> {
+    if (typeof ipOrHostname !== "string") return false;
 
     // Check if given string is an IP address
     if (isIP(ipOrHostname)) {
@@ -93,7 +88,7 @@ async function isLocalhost(
             if (await isLocalhost(address as string, canBind)) return true;
         }
         // eslint-disable-next-line no-empty
-    } catch { }
+    } catch {}
     return false;
 }
 

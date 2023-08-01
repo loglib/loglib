@@ -1,17 +1,16 @@
 import { kv } from "@vercel/kv";
 
-
 const MAX_TOKENS = 100;
 const REFILL_RATE = 10;
 const REFILL_INTERVAL = 1000;
 
 export const rateLimitCheck = async (apiKey: string) => {
-    const bucket = await kv.get<{ tokens: number, lastRefill: number }>(apiKey);
+    const bucket = await kv.get<{ tokens: number; lastRefill: number }>(apiKey);
     const now = Date.now();
     if (!bucket) {
         kv.set(apiKey, {
             tokens: MAX_TOKENS,
-            lastRefill: now
+            lastRefill: now,
         });
         return true;
     }
@@ -23,7 +22,7 @@ export const rateLimitCheck = async (apiKey: string) => {
     } else {
         await kv.set(apiKey, {
             tokens: tokens - 1,
-            lastRefill: now
+            lastRefill: now,
         });
         return true;
     }

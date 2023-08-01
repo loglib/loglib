@@ -1,19 +1,19 @@
-import { User } from "next-auth"
-import { JWT } from "next-auth/jwt"
+import { User } from "next-auth";
+import { JWT } from "next-auth/jwt";
 
-type UserId = string
+type UserId = string;
 
 declare module "next-auth/jwt" {
-  // rome-ignore lint/suspicious/noRedeclare: <explanation>
-  interface JWT {
-    id: UserId
-  }
+    // rome-ignore lint/suspicious/noRedeclare: <explanation>
+    interface JWT {
+        id: UserId;
+    }
 }
 
 declare module "next-auth" {
-  interface Session {
-    user: User & {
-      id: UserId
+    interface Session {
+        user: User & {
+            id: UserId;
+        };
     }
-  }
 }

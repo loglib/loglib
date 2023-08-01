@@ -1,14 +1,14 @@
 export const apiResponse = {
-  badRequest: {
-    data: {
-      message: "Invalid request body",
+    badRequest: {
+        data: {
+            message: "Invalid request body",
+        },
+        status: 400,
     },
-    status: 400,
-  },
-  serverError: {
-    data: {
-      message: "Server error",
+    serverError: {
+        data: {
+            message: "Server error",
+        },
+        status: 500,
     },
-    status: 500,
-  },
 };

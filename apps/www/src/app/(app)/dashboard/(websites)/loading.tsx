@@ -1,8 +1,4 @@
-import { CardSkeleton } from "@/components/card-skeleton"
-import { WebsiteCreateButton } from "@/components/website-create-button"
-
-
-
+import { CardSkeleton } from "@/components/card-skeleton";
 
 export default function LoadingDashboard() {
     return (
@@ -11,5 +7,5 @@ export default function LoadingDashboard() {
                 <CardSkeleton />
             </div>
         </section>
-    )
+    );
 }

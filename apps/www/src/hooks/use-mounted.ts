@@ -1,21 +1,20 @@
-import * as React from "react"
+import * as React from "react";
 
 export function useMounted() {
-  const [mounted, setMounted] = React.useState(false)
+    const [mounted, setMounted] = React.useState(false);
 
-  React.useEffect(() => {
-    setMounted(true)
-  }, [])
+    React.useEffect(() => {
+        setMounted(true);
+    }, []);
 
-  return mounted
+    return mounted;
 }
 
-
 export function useRunOnMount<T>(fn: () => T) {
-  const [result, setResult] = React.useState<T>()
+    const [result, setResult] = React.useState<T>();
 
-  React.useEffect(() => {
-    setResult(fn())
-  }, [fn])
-  return result
+    React.useEffect(() => {
+        setResult(fn());
+    }, [fn]);
+    return result;
 }

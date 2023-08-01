@@ -1,17 +1,20 @@
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Skeleton } from "@/components/ui/skeleton"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-
-
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
 
 export default async function LoadingApiKeys() {
     return (
         <Card>
             <CardHeader>
                 <CardTitle>API Key</CardTitle>
-                <CardDescription>
-                    Manage your api keys here
-                </CardDescription>
+                <CardDescription>Manage your api keys here</CardDescription>
             </CardHeader>
             <Table>
                 <TableHeader>
@@ -23,7 +26,7 @@ export default async function LoadingApiKeys() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    <TableRow >
+                    <TableRow>
                         <TableCell className="font-medium">
                             <Skeleton className=" h-6 w-12" />
                         </TableCell>
@@ -35,9 +38,7 @@ export default async function LoadingApiKeys() {
                                 <Skeleton className=" h-6 w-12" />
                             </div>
                         </TableCell>
-                        <TableCell >{
-                            <Skeleton className=" h-6 w-12" />
-                        }</TableCell>
+                        <TableCell>{<Skeleton className=" h-6 w-12" />}</TableCell>
                         <TableCell className=" flex cursor-pointer justify-end">
                             <Skeleton className=" h-6 w-12" />
                         </TableCell>
@@ -45,5 +46,5 @@ export default async function LoadingApiKeys() {
                 </TableBody>
             </Table>
         </Card>
-    )
+    );
 }

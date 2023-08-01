@@ -1,10 +1,10 @@
-import { db } from "@/lib/db"
-import { getCurrentUser } from "@/lib/session"
+import { db } from "@/lib/db";
+import { getCurrentUser } from "@/lib/session";
 
 export const getWebsite = async () => {
-    const user = await getCurrentUser()
+    const user = await getCurrentUser();
     if (!user) {
-        throw new Error('User not found')
+        throw new Error("User not found");
     }
     const userWebsites = await db.website.findMany({
         where: {
@@ -23,8 +23,8 @@ export const getWebsite = async () => {
                 },
             },
         },
-    })
-    const ids = userWebsites.map((website) => website.id)
+    });
+    const ids = userWebsites.map((website) => website.id);
     const teamWebsites = await db.teamWebsite.findMany({
         where: {
             Team: {
@@ -38,12 +38,11 @@ export const getWebsite = async () => {
                     TeamWebsite: {
                         some: {
                             websiteId: {
-                                notIn: ids
-                            }
-                        }
-                    }
-                }
-
+                                notIn: ids,
+                            },
+                        },
+                    },
+                },
             },
         },
         include: {
@@ -63,14 +62,12 @@ export const getWebsite = async () => {
                 },
             },
         },
-    })
-
+    });
 
     return {
-        teamWebsites: teamWebsites.map(t => t.Website),
-        userWebsites
-    }
-}
+        teamWebsites: teamWebsites.map((t) => t.Website),
+        userWebsites,
+    };
+};
 
-export type Websites = Awaited<ReturnType<typeof getWebsite>>
-
+export type Websites = Awaited<ReturnType<typeof getWebsite>>;

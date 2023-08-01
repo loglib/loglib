@@ -1,1 +1,1 @@
-declare module 'next-contentlayer';
+declare module "next-contentlayer";

@@ -1,39 +1,43 @@
 {
-  "$schema": "./node_modules/rome/configuration_schema.json",
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true,
-      "correctness": {
-        "noUnusedVariables": "warn"
-      },
-      "suspicious": {
-        "noExplicitAny": "off"
-      },
-      "security": {
-        "noDangerouslySetInnerHtml": "off"
-      },
-      "style": {
-        "useBlockStatements": "off",
-        "useSelfClosingElements": "off",
-        "noParameterAssign": "off"
-      },
-      "performance": {
-        "noDelete": "off"
-      },
-      "a11y": {
-        "useButtonType": "off",
-        "noSvgWithoutTitle": "off",
-        "useKeyWithClickEvents": "off"
-      }
+    "$schema": "./node_modules/rome/configuration_schema.json",
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "recommended": true,
+            "correctness": {
+                "noUnusedVariables": "warn"
+            },
+            "suspicious": {
+                "noExplicitAny": "off",
+                "noPrototypeBuiltins": "off"
+            },
+            "security": {
+                "noDangerouslySetInnerHtml": "off"
+            },
+            "style": {
+                "useBlockStatements": "off",
+                "useSelfClosingElements": "off",
+                "noParameterAssign": "off"
+            },
+            "performance": {
+                "noDelete": "off"
+            },
+            "a11y": {
+                "useButtonType": "off",
+                "noSvgWithoutTitle": "off",
+                "useKeyWithClickEvents": "off"
+            }
+        },
+        "ignore": ["node_modules", ".next", "dist"]
     },
-    "ignore": ["node_modules", ".next", "dist"]
-  },
-  "formatter": {
-    "indentStyle": "space",
-    "indentSize": 2,
-    "enabled": true,
-    "lineWidth": 100,
-    "ignore": ["node_modules", ".next", "dist"]
-  }
+    "formatter": {
+        "indentStyle": "space",
+        "indentSize": 4,
+        "enabled": true,
+        "lineWidth": 100,
+        "ignore": ["node_modules", ".next", "dist"]
+    },
+    "organizeImports": {
+        "enabled": true
+    }
 }

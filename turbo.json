@@ -1,29 +1,25 @@
 {
-  "$schema": "https://turborepo.org/schema.json",
-  "pipeline": {
-    "dev": {
-      "cache": false,
-      "persistent": true
-    },
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
-      "outputMode": "new-only"
-    },
-    "lint": {
-      "dependsOn": ["build"],
-      "outputs": []
-    },
-    "test": {
-      "dependsOn": ["build"],
-      "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts"],
-      "outputs": []
-    },
-    "typecheck": {
-      "dependsOn": ["build"],
-      "outputs": [],
-      "cache": true
+    "$schema": "https://turborepo.org/schema.json",
+    "pipeline": {
+        "dev": {
+            "cache": false,
+            "persistent": true
+        },
+        "build": {
+            "dependsOn": ["fmt", "^build"],
+            "outputs": ["dist/**", ".next/*"]
+        },
+        "fmt": {
+            "cache": false
+        },
+        "test": {
+            "dependsOn": ["build"],
+            "outputs": []
+        },
+        "typecheck": {
+            "dependsOn": ["build"],
+            "outputs": [],
+            "cache": true
+        }
     }
-  },
-  "globalDependencies": [".env", ".env.local", "tsconfig.json"]
 }

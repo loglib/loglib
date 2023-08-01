@@ -28,4 +28,4 @@ export const ReferrerName = {
     "https://web.whatsapp.com/": "WhatsApp",
     "android-app://org.telegram.plus/": "Telegram",
     "https://t.co/": "Twitter",
-}
+};

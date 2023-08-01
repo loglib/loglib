@@ -1,5 +1,5 @@
 import { env } from "env.mjs";
-import bcrypt from 'bcrypt'
+import bcrypt from "bcrypt";
 
 const key = env.API_SECRET;
 
