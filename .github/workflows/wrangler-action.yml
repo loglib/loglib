@@ -15,3 +15,5 @@ jobs:
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
+          command: deploy --packages=external --minify src/index.ts
+          workingDirectory: "apps/api"

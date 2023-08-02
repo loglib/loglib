@@ -1,3 +1,7 @@
+import { Tinybird } from "@chronark/zod-bird";
+import jwt from "@tsndr/cloudflare-worker-jwt";
+import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { getDb } from "./lib/db";
 import {
     getEventsEndpoint,
@@ -8,10 +12,6 @@ import {
 import { router } from "./routes";
 import { apiQuery, envSchema } from "./schema";
 import { Path } from "./type";
-import { Tinybird } from "@chronark/zod-bird";
-import jwt from "@tsndr/cloudflare-worker-jwt";
-import { Hono } from "hono";
-import { cors } from "hono/cors";
 
 const app = new Hono();
 
@@ -107,6 +107,7 @@ app.use("/v1/*", async (c, next) => {
 
 app.get("/v1/session", async (c) => {
     const query = c.req.query();
+    console.log(query);
     const data = apiQuery.parse(query);
     const env = envSchema.parse(c.env);
     const websiteId = c.env.websiteId as string;

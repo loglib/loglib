@@ -1,6 +1,6 @@
-import { eventSchema, pageviewSchema, sessionSchema, visitorSchema } from "../schema";
 import { Tinybird } from "@chronark/zod-bird";
 import { z } from "zod";
+import { eventSchema, pageviewSchema, sessionSchema, visitorSchema } from "../schema";
 
 export const getTb = (token: string) =>
     new Tinybird({

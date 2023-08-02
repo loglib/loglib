@@ -9,7 +9,8 @@
         "dev": "turbo --filter \"./packages/*\" dev",
         "fmt": "pnpm rome check . && pnpm rome format . --write",
         "test": "turbo test",
-        "typecheck": "turbo typecheck"
+        "typecheck": "turbo typecheck",
+        "deploy:api": "turbo --filter api deploy"
     },
     "pnpm": {
         "overrides": {

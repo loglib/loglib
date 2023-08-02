@@ -4,12 +4,12 @@ import { websitesAtom } from "@/jotai/store";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 
+import { Website as WebsiteType } from "generated/client";
 import { EmptyPlaceholder } from "./empty-placeholder";
 import { Website } from "./website";
 import { WebsiteCreateButton } from "./website-create-button";
 import { DeleteWebsiteAlert } from "./website-delete-alert";
 import { EditWebsiteForm } from "./website-edit-form";
-import { Website as WebsiteType } from "generated/client";
 
 export const WebsitesList = () => {
     const [websites] = useAtom(websitesAtom);

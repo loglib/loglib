@@ -1,10 +1,10 @@
-import { z } from "zod";
-import isbot from "isbot";
-import { apiResponse } from "../lib/api-response";
 import { browserName, detectOS } from "detect-browser";
+import isbot from "isbot";
+import { z } from "zod";
+import { apiResponse } from "../lib/api-response";
 import { getDevice } from "../lib/detect/get-device";
-import { publishSession } from "../lib/tinybird";
 import { setVisitorId } from "../lib/set-visitor-id";
+import { publishSession } from "../lib/tinybird";
 import { RouteType } from "./type";
 
 export const sessionSchema = z.object({

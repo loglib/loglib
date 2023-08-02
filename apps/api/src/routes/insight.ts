@@ -1,3 +1,4 @@
+import { z } from "zod";
 import {
     getAverageTime,
     getBounceRate,
@@ -24,10 +25,8 @@ import {
     getPageViewsEndpoint,
     getSessionsEndpoint,
 } from "../lib/tinybird";
-import { Filter } from "../type";
-import { PageView, Session } from "../type";
+import { Filter, PageView, Session } from "../type";
 import { RouteType } from "./type";
-import { z } from "zod";
 
 const insightSchema = z.object({
     startDate: z.string(),

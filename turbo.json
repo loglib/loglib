@@ -20,6 +20,9 @@
             "dependsOn": ["build"],
             "outputs": [],
             "cache": true
+        },
+        "deploy":{
+            "cache": false
         }
     }
 }
