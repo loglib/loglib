@@ -1,8 +1,10 @@
-import React from "react";
-import { redirect } from "next/navigation";
-import { db } from "@/lib/db";
-import { getCurrentUser } from "@/lib/session";
 import { Dashboard } from "@/components/dashboard";
+import { generateToken } from "@/lib/generate-token";
+import { getCurrentUser } from "@/lib/session";
+import { getIsWebsiteActive } from "@/lib/tinybird";
+import { db } from "@/server/db";
+import { redirect } from "next/navigation";
+import React from "react";
 
 export default async function Page({
     params,
@@ -10,63 +12,56 @@ export default async function Page({
     params: { website: string };
 }) {
     const user = await getCurrentUser();
-    const website = await db.website.findFirst({
-        where: {
-            AND: {
-                id: params.website,
-            },
-        },
-        include: {
-            WebSession: {
-                select: {
-                    id: true,
-                },
-                take: 1,
-            },
-        },
+    const token = generateToken({
+        id: user?.id ?? "public",
+        website: params.website as string,
     });
-    const showSetup = !website?.WebSession?.length;
-    if (!website) {
+    const dbWebsite = await db
+        .selectFrom("website")
+        .leftJoin("team_website", "team_website.website_id", "website.id")
+        .leftJoin("team_users", "team_website.team_id", "team_users.team_id")
+        .leftJoin("web_session", "website.id", "web_session.website_id")
+        .select([
+            "website.id",
+            "website.public",
+            "website.title",
+            "website.active",
+            "website.user_id",
+            "website.url",
+            "team_website.team_id",
+            "team_users.user_id",
+            "team_users.role",
+        ])
+        .where("website.id", "=", params.website)
+        .execute();
+    const website = dbWebsite.find((d) => d.id === params.website);
+    const isAuthed = dbWebsite.find((d) => d.user_id === user?.id);
+    if (!website || (!isAuthed && !dbWebsite[0].public)) {
         return redirect("/");
     }
-    if (website.userId === user?.id) {
-        return (
-            <main>
-                <Dashboard website={website} isPublic={false} showSetup={showSetup} />
-            </main>
-        );
-    }
+    const isPublic = !isAuthed ? true : false;
+    const showSetup = isPublic
+        ? false
+        : website.active === 1
+        ? false
+        : await (async () => {
+              const haveSession = await getIsWebsiteActive({ websiteId: params.website });
+              if (haveSession) {
+                  await db
+                      .updateTable("website")
+                      .set({
+                          active: 1,
+                      })
+                      .where("id", "=", params.website)
+                      .executeTakeFirst();
+                  return false;
+              }
+              return true;
+          })();
 
-    const team = await db.team.findFirst({
-        where: {
-            TeamWebsite: {
-                some: {
-                    websiteId: params.website,
-                },
-            },
-            TeamUser: {
-                some: {
-                    userId: user?.id,
-                },
-            },
-        },
-    });
-
-    if (team) {
-        return (
-            <main>
-                <Dashboard website={website} isPublic={false} showSetup={showSetup} />
-            </main>
-        );
-    }
-
-    if (website?.public) {
-        return (
-            <main>
-                <Dashboard website={website} isPublic={true} />
-            </main>
-        );
-    }
-
-    return redirect("/");
+    return (
+        <main>
+            <Dashboard website={website} isPublic={isPublic} showSetup={showSetup} token={token} />
+        </main>
+    );
 }

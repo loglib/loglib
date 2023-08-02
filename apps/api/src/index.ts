@@ -1,22 +1,30 @@
 import { getDb } from "./lib/db";
-import { getEventsEndpoint, getPageViewsEndpoint, getSessionsEndpoint } from "./lib/tinybird";
+import {
+    getEventsEndpoint,
+    getIsWebsiteActive,
+    getPageViewsEndpoint,
+    getSessionsEndpoint,
+} from "./lib/tinybird";
 import { router } from "./routes";
 import { apiQuery, envSchema } from "./schema";
 import { Path } from "./type";
 import { Tinybird } from "@chronark/zod-bird";
+import jwt from "@tsndr/cloudflare-worker-jwt";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 
 const app = new Hono();
 
-app.use("*", cors());
-app.all("*", async (c, next) => {
-    const env = envSchema.safeParse(c.env);
-    if (!env.success) {
-        return c.json(null, 500);
-    }
-    return await next();
-});
+app.use(
+    "*",
+    cors({
+        origin: "*",
+        maxAge: 600,
+        allowMethods: ["POST", "GET"],
+        exposeHeaders: ["Content-Type", "Authorization", "x-api-key", "Cookie"],
+        allowHeaders: ["Content-Type", "Authorization", "x-api-key", "Cookie"],
+    }),
+);
 
 app.post("/", async (c) => {
     const body = await c.req.json();
@@ -32,8 +40,17 @@ app.post("/", async (c) => {
 
 app.get("/", async (c) => {
     const env = envSchema.parse(c.env);
-    const tb = new Tinybird({ token: env.TINYBIRD_TOKEN });
     const query = c.req.query();
+    if (!query.websiteId || !query.token) {
+        return c.json({ message: "Website id is required" }, 400);
+    }
+    const token = query.token;
+    const isValid = await jwt.verify(token, env.NEXTAUTH_SECRET);
+    const { payload } = jwt.decode(token);
+    if (!isValid || payload.website !== query.websiteId) {
+        return c.json({ message: "Unauthorized" }, 401);
+    }
+    const tb = new Tinybird({ token: env.TINYBIRD_TOKEN });
     const res = await router({
         path: "/insight",
         rawBody: {},
@@ -44,9 +61,22 @@ app.get("/", async (c) => {
     return c.json(res.data, res.status);
 });
 
+app.get("/is-website-active", async (c) => {
+    const websiteId = c.req.query("websiteId");
+    if (!websiteId) {
+        return c.json({ message: "Website id is required" }, 400);
+    }
+    const env = envSchema.parse(c.env);
+    const tb = new Tinybird({ token: env.TINYBIRD_TOKEN });
+    const result = await getIsWebsiteActive(tb)({ websiteId });
+    if (result.data.length) {
+        return c.json({ active: true }, 200);
+    }
+    return c.json({ active: false }, 200);
+});
+
 //api/v1
 app.use("/v1/*", async (c, next) => {
-    console.log("middleware");
     const apiKey = c.req.headers.get("x-api-key");
     if (!apiKey) {
         return c.json({ message: "Unauthorized" }, 401);

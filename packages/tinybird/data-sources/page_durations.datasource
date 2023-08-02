@@ -1,0 +1,9 @@
+
+SCHEMA >
+    `duration` Int32 `json:$.duration`,
+    `pageId` String `json:$.pageId`,
+    `sessionId` String `json:$.sessionId`,
+    `timestamp` String `json:$.timestamp`
+
+ENGINE "MergeTree"
+ENGINE_SORTING_KEY "duration, pageId, sessionId, timestamp"

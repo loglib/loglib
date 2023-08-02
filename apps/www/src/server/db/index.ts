@@ -1,8 +1,8 @@
+import { DB } from "./types";
+import { connect } from "@planetscale/database";
+import { env } from "env.mjs";
 import { Kysely } from "kysely";
 import { PlanetScaleDialect } from "kysely-planetscale";
-import { DB } from "./types";
-import { env } from "env.mjs";
-import { connect } from "@planetscale/database";
 
 const config = {
     host: env.DATABASE_HOST,

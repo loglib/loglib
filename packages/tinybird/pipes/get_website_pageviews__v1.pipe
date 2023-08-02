@@ -1,0 +1,31 @@
+TOKEN "get_website_pageviews_read_2919" READ
+
+NODE get_pageviews
+SQL >
+
+    %
+    SELECT
+        id,
+        createdAt,
+        sessionId,
+        websiteId,
+        page,
+        referrer,
+        queryParams,
+        totalDuration,
+        visitorId,
+        totalDuration
+    FROM pageviews
+    LEFT JOIN
+        (
+            SELECT page_durations.pageId, SUM(duration) AS totalDuration
+            FROM page_durations
+            GROUP BY pageId
+        ) sd
+        ON pageviews.id = sd.pageId
+    WHERE
+        websiteId = {{ String(websiteId, required=True) }}
+        AND createdAt >= {{ DateTime(startDate, required=True) }}
+        AND createdAt <= {{ DateTime(endDate, required=True) }}
+
+

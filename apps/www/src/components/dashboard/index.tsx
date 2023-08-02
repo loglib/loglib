@@ -1,20 +1,20 @@
 "use client";
 
-import React, { Fragment, useState } from "react";
 import { GetInsightResponse } from "@loglib/core";
-import { Website } from "generated/client";
 import ct from "countries-and-timezones";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { Activity, Eye, Laptop2, TimerIcon, UserIcon, Users2 } from "lucide-react";
+import React, { Fragment, useState } from "react";
 import useSWR from "swr";
 
-import { getLast24Hour } from "@/lib/time-helper";
-import { cn, fetcher } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { getLast24Hour } from "@/lib/time-helper";
+import { cn, fetcher } from "@/lib/utils";
 
+import { AddTracker } from "../add-tracker";
 import { CalendarDateRangePicker, DatePicker } from "./date-picker";
 import Events from "./events";
 import { InsightCard } from "./insight/card";
@@ -22,32 +22,34 @@ import LocationMap from "./insight/location-map";
 import { InsightTables } from "./insight/tables";
 import { Graph } from "./insight/visitor-graph";
 import { Filter, FilterProp, TimeRange } from "./type";
-import { AddTracker } from "../add-tracker";
 import { env } from "env.mjs";
 
 export const Dashboard = ({
     website,
     isPublic,
+    token,
     showSetup,
-}: { website: Website; isPublic: boolean; showSetup?: boolean }) => {
+}: {
+    website: { id: string; url: string };
+    isPublic: boolean;
+    showSetup?: boolean;
+    token: string;
+}) => {
     const [timeRange, setTimeRange] = useState<TimeRange>({
         startDate: getLast24Hour(),
         endDate: new Date(),
         stringValue: "24hr",
     });
-
     const [customTime, setCustomTime] = useState(false);
-
     const [filters, setFilters] = useState<Filter[]>([]);
-    const [timezone, setTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
-
+    const [timezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
     const url = env.NEXT_PUBLIC_API_URL;
     const { data, isLoading } = useSWR<GetInsightResponse>(
         `${url}?websiteId=${
             website.id
         }&startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&timeZone=${timezone}&filter=${JSON.stringify(
             filters,
-        )}`,
+        )}&token=${token}`,
         fetcher,
     );
 

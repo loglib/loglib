@@ -1,0 +1,20 @@
+TOKEN "get_website_events_read_2919" READ
+
+NODE get_events
+SQL >
+
+    %
+                SELECT 
+                    id,
+                    createdAt,
+                    sessionId,
+                    eventType,
+                    eventName,
+                    payload,
+                    pageId,
+                    visitorId
+                FROM events
+                WHERE 
+                    websiteId = {{ String(websiteId, required=True) }} AND createdAt >= {{ DateTime(startDate, required=True) }} AND createdAt <= {{ DateTime(endDate, required=True) }}
+
+

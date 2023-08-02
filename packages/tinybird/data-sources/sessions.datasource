@@ -1,18 +1,19 @@
 
 SCHEMA >
     `browser` String `json:$.browser`,
-    `city` String `json:$.city`,
-    `country` String `json:$.country`,
-    `createdAt` DateTime `json:$.createdAt`,
+    `city` Nullable(String) `json:$.city`,
+    `country` Nullable(String) `json:$.country`,
+    `createdAt` String `json:$.createdAt`,
     `device` String `json:$.device`,
+    `duration` Int32 `json:$.duration`,
     `id` String `json:$.id`,
     `language` String `json:$.language`,
     `os` String `json:$.os`,
     `queryParams` String `json:$.queryParams`,
     `referrer` String `json:$.referrer`,
+    `updatedAt` String `json:$.updatedAt`,
     `visitorId` String `json:$.visitorId`,
     `websiteId` String `json:$.websiteId`
 
 ENGINE "MergeTree"
-ENGINE_PARTITION_KEY "toYear(createdAt)"
-ENGINE_SORTING_KEY "createdAt, referrer, visitorId, websiteId"
+ENGINE_SORTING_KEY "browser, updatedAt, visitorId, websiteId"

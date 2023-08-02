@@ -13,6 +13,7 @@ export const envSchema = z.object({
     DATABASE_HOST: z.string(),
     DATABASE_USERNAME: z.string(),
     DATABASE_PASSWORD: z.string(),
+    NEXTAUTH_SECRET: z.string(),
 });
 
 export const sessionSchema = z.object({

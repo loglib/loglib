@@ -98,3 +98,12 @@ export const getNewVisitorsEndpoint = (tb: Tinybird) =>
             visitorId: z.string(),
         }),
     });
+
+export const getIsWebsiteActive = (tb: Tinybird) =>
+    tb.buildPipe({
+        pipe: "get_is_website_active__v1",
+        parameters: z.object({
+            websiteId: z.string(),
+        }),
+        data: z.any(),
+    });

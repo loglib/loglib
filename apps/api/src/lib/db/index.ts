@@ -11,7 +11,7 @@ export const getDb = (config: {
         dialect: new PlanetScaleDialect({
             ...config,
             fetch: (url: string, init: RequestInit<RequestInitCfProperties>) => {
-                delete (init as any)["cache"]; // Remove cache header
+                delete (init as any)["cache"];
                 return fetch(url, init);
             },
         }),

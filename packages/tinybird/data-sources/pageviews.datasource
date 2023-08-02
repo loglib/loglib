@@ -1,0 +1,15 @@
+
+SCHEMA >
+    `createdAt` String `json:$.createdAt`,
+    `duration` Int32 `json:$.duration`,
+    `id` String `json:$.id`,
+    `page` String `json:$.page`,
+    `queryParams` Nullable(String) `json:$.queryParams`,
+    `referrer` Nullable(String) `json:$.referrer`,
+    `sessionId` String `json:$.sessionId`,
+    `updatedAt` Nullable(String) `json:$.updatedAt`,
+    `visitorId` String `json:$.visitorId`,
+    `websiteId` String `json:$.websiteId`
+
+ENGINE "MergeTree"
+ENGINE_SORTING_KEY "createdAt, sessionId, visitorId, websiteId"

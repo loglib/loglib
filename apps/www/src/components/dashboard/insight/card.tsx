@@ -12,7 +12,7 @@ export type InsightType = {
     };
     valuePrefix?: string;
     changePrefix?: string;
-    BottomChildren: () => React.ReactNode | null;
+    BottomChildren?: () => React.ReactNode | null;
     negative?: boolean;
     isLoading?: boolean;
     tooltip?: string;
@@ -64,7 +64,7 @@ export function InsightCard({
                             </div>
                         </div>
                         {/* @ts-ignore */}
-                        <BottomChildren />
+                        {BottomChildren ? <BottomChildren /> : null}
                     </div>
                 </CardContent>
             ) : (

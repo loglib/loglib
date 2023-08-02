@@ -1,0 +1,14 @@
+TOKEN "get_new_visitors_v1_endpoint_read_3293" READ
+
+NODE get_new_visitors
+SQL >
+
+    %
+    SELECT
+        visitorId,
+        MIN(createdAt) AS createdAt
+    FROM sessions
+    WHERE websiteId = {{ String(websiteId, required=True) }}
+    GROUP BY visitorId
+    HAVING createdAt >= {{ DateTime(startDate, required=True) }}
+       AND createdAt <= {{ DateTime(endDate, required=True) }}

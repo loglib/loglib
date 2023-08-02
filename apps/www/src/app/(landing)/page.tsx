@@ -55,8 +55,7 @@ export default async function IndexPage() {
                     <h1 className="font-heading max-w-3xl text-3xl font-bold sm:text-6xl">
                         Supported by the
                         <span className="from-logo bg-gradient-to-br to-orange-600 bg-clip-text font-black uppercase text-transparent">
-                            {" "}
-                            Dope{" "}
+                            Dope
                         </span>
                         #community
                     </h1>

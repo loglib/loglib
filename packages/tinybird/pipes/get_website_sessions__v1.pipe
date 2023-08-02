@@ -1,0 +1,33 @@
+TOKEN "get_website_sessions__v1_endpoint_read_3016" READ
+
+NODE get_session
+SQL >
+
+    %
+     SELECT 
+        id,
+        websiteId,
+        createdAt,
+        country,
+        city,
+        referrer,
+        queryParams,
+        device,
+        os,
+        browser,
+        language,
+        visitorId,
+        totalDuration,
+        updatedAt
+    FROM sessions s
+    LEFT JOIN (
+        SELECT
+            sessionId,
+            SUM(duration) AS totalDuration,
+            page_durations.timestamp AS updatedAt
+        FROM page_durations
+        GROUP BY sessionId, page_durations.timestamp
+    ) sd ON s.id = sd.sessionId 
+      WHERE websiteId = {{ String(websiteId, required=True) }} AND createdAt >= {{ DateTime(startDate, required=True) }} AND createdAt <= {{ DateTime(endDate, required=True) }}  
+
+
