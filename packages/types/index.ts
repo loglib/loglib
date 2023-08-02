@@ -1,27 +1,4 @@
-import { EventsWithData } from "./lib/analysis";
-import { OperatorType } from "./lib/small-filter";
-import { eventSchema, pageviewSchema, sessionSchema, visitorSchema } from "./schema";
-import { z } from "zod";
-export type Path =
-    | "/session"
-    | "/pageview"
-    | "/session/pulse"
-    | "/events"
-    | "/visitor"
-    | "/test"
-    | "/insight";
-
-export type Session = z.infer<typeof sessionSchema>;
-export type PageView = z.infer<typeof pageviewSchema>;
-export type Events = z.infer<typeof eventSchema>;
-export type Visitor = z.infer<typeof visitorSchema>;
-
-export type Filter<T, D> = {
-    key: keyof T;
-    value: T[keyof T];
-    operator: OperatorType<T[keyof T]>;
-    data: D;
-};
+import { PageView } from "./models";
 
 export type GetInsightResponse = {
     insight: {
@@ -101,3 +78,41 @@ export type GetInsightResponse = {
     onlineUsers: number;
     eventsWithData: EventsWithData;
 };
+
+export type EventsWithData = {
+    page: PageView | undefined;
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    queryParams?: Record<string, any> | null | undefined;
+    referrer?: string | undefined;
+    duration?: number | undefined;
+    country?: string | null | undefined;
+    city?: string | null | undefined;
+    language?: string | null | undefined;
+    device?: string | null | undefined;
+    os?: string | null | undefined;
+    browser?: string | null | undefined;
+    visitorId: string;
+    websiteId?: string | null | undefined;
+    eventName: string;
+    eventType: string;
+    payload: Record<string, any> | null;
+    pageId: string;
+    sessionId: string;
+}[];
+
+type StringOperator = "is" | "isNot" | "contains" | "notContains";
+type NumberOperator = "lte" | "gte" | "lt" | "gt" | "is" | "isNot";
+type DateOperator = "lte" | "gte" | "lt" | "gt" | "is" | "isNot";
+type ArrayOperator = "contains" | "notContains";
+
+export type OperatorType<T> = T extends string
+    ? StringOperator
+    : T extends number
+    ? NumberOperator
+    : T extends Date
+    ? DateOperator
+    : T extends Array<any>
+    ? ArrayOperator
+    : never;

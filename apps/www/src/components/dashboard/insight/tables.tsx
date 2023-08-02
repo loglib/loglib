@@ -1,14 +1,14 @@
-import { GetInsightResponse } from "@loglib/core";
-import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Asterisk, Link2Icon, MapPin, MonitorSmartphone, PanelTop } from "lucide-react";
-import { ClearFilter } from "./clear-filter";
-import { InsightTable } from "./table";
-import { TableCell, TableRow } from "@/components/ui/table";
 import { FilterProp } from "../type";
-import ReactCountryFlag from "react-country-flag";
-import COUNTRIES from "@/lib/constants";
+import { ClearFilter } from "./clear-filter";
 import { RefIcons } from "./ref-icons";
+import { InsightTable } from "./table";
+import { Card, CardContent } from "@/components/ui/card";
+import { TableCell, TableRow } from "@/components/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import COUNTRIES from "@/lib/constants";
+import { GetInsightResponse } from "@loglib/types";
+import { Asterisk, Link2Icon, MapPin, MonitorSmartphone, PanelTop } from "lucide-react";
+import ReactCountryFlag from "react-country-flag";
 
 type InsightTablesProps = {
     data?: GetInsightResponse;

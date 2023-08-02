@@ -6,6 +6,10 @@
         "build": "wrangler publish src/index.ts --dry-run --outdir dist",
         "deploy": "wrangler deploy --minify src/index.ts"
     },
+    "main": "src/index.ts",
+    "module": "src/index.ts",
+    "types": "src/index/ts",
+    "type": "module",
     "dependencies": {
         "@chronark/zod-bird": "^0.1.1",
         "@tsndr/cloudflare-worker-jwt": "^2.2.1",
@@ -22,5 +26,15 @@
         "@cloudflare/workers-types": "^4.20230628.0",
         "@types/jsonwebtoken": "^9.0.2",
         "wrangler": "^3.1.2"
+    },
+    "exports": {
+        ".": {
+            "import": "./src/index.ts",
+            "types": "./src/index.ts"
+        },
+        "./types": {
+            "import": "./src/type.ts",
+            "types": "./src/type.ts"
+        }
     }
 }

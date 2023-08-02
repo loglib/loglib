@@ -2,7 +2,7 @@
 import { columns } from "./column";
 import { renderSubComponent } from "./detail-modal";
 import { DataTable } from "./table-data";
-import { EventsWithData } from "@loglib/core";
+import { EventsWithData } from "@loglib/types";
 
 const Events = ({
     events,

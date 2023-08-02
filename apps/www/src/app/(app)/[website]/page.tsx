@@ -29,13 +29,13 @@ export default async function Page({
             "website.user_id",
             "website.url",
             "team_website.team_id",
-            "team_users.user_id",
+            "team_users.user_id as team_user_id",
             "team_users.role",
         ])
         .where("website.id", "=", params.website)
         .execute();
     const website = dbWebsite.find((d) => d.id === params.website);
-    const isAuthed = dbWebsite.find((d) => d.user_id === user?.id);
+    const isAuthed = dbWebsite.find((d) => d.user_id === user?.id || d.team_user_id === user?.id);
     if (!website || (!isAuthed && !dbWebsite[0].public)) {
         return redirect("/");
     }
@@ -45,7 +45,8 @@ export default async function Page({
         : website.active === 1
         ? false
         : await (async () => {
-              const haveSession = await getIsWebsiteActive({ websiteId: params.website });
+              const haveSession = (await getIsWebsiteActive({ websiteId: params.website })).data
+                  .length;
               if (haveSession) {
                   await db
                       .updateTable("website")
@@ -58,7 +59,6 @@ export default async function Page({
               }
               return true;
           })();
-
     return (
         <main>
             <Dashboard website={website} isPublic={isPublic} showSetup={showSetup} token={token} />

@@ -96,9 +96,9 @@ export function Graph({
                                         className=" text-blue-700 underline"
                                         rel="noreferrer"
                                     >
-                                        doc
+                                        docs
                                     </a>{" "}
-                                    on how to do that.
+                                    how to do that.
                                 </p>
                             </>
                         )}

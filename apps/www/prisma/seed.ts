@@ -41,6 +41,7 @@ const paths = [
     "new",
     "news",
     "shop",
+    "demo",
     "store",
     "download",
     "downloads",

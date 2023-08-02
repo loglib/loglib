@@ -1,11 +1,11 @@
 "use client";
-import Link from "next/link";
 import Background from "../grid-background/background";
 import { Hero } from "./hero";
 import { LandingGraph } from "./landing-graph";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { loglib } from "@loglib/tracker";
+import Link from "next/link";
 
 export const HeroSection = () => {
     return (
@@ -102,7 +102,7 @@ export const HeroSection = () => {
                         </Link>
 
                         <Link
-                            href="https://demo.loglib.io/"
+                            href="https://loglib.io/demo"
                             className=" flex items-center gap-4 rounded-md bg-gradient-to-tr from-slate-700/80 to-orange-600/60 bg-clip-text text-transparent transition-all duration-500 hover:gap-8 hover:text-gray-800 dark:from-white/70 dark:to-purple-700 hover:dark:text-gray-400"
                             target="_blank"
                         >

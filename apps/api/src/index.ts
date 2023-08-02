@@ -27,6 +27,7 @@ app.use(
 );
 
 app.post("/", async (c) => {
+    console.log("request post");
     const body = await c.req.json();
     const env = envSchema.parse(c.env);
     if (!body.path) {

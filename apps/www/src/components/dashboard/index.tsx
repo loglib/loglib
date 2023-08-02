@@ -1,6 +1,6 @@
 "use client";
 
-import { GetInsightResponse } from "@loglib/core";
+import { GetInsightResponse } from "@loglib/types";
 import ct from "countries-and-timezones";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { Activity, Eye, Laptop2, TimerIcon, UserIcon, Users2 } from "lucide-react";

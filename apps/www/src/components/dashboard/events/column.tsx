@@ -1,7 +1,7 @@
 "use client";
 
 import COUNTRIES from "@/lib/constants";
-import { EventsWithData } from "@loglib/core";
+import { EventsWithData } from "@loglib/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { ChevronDown, ChevronRight, ChevronsUpDown, UnfoldVertical } from "lucide-react";
 

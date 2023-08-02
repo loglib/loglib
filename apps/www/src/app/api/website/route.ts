@@ -7,7 +7,7 @@ import { websiteFormSchema } from "@/lib/validations/website";
 
 export const GET = async (_: Request) => {
     try {
-        const session = await getServerSession(authOpstions);
+        const session = await getServerSession(authOptions);
         if (!session) {
             return new Response("Unauthorized", { status: 403 });
         }

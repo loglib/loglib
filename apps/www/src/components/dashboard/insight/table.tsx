@@ -56,7 +56,7 @@ export function InsightTable<T>({
                         <TableHead>{meta.nameLabel}</TableHead>
                         <TableHead className="text-right">{meta.valueLabel}</TableHead>
                     </TableRow>
-                    {!isLoading && !hideSearchBar && (
+                    {!isLoading && !hideSearchBar && data?.length && (
                         <TableHead colSpan={2} className=" px-0">
                             <div className="flex h-10 w-full items-center rounded-md border  border-slate-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-800 dark:bg-slate-950 dark:ring-offset-slate-950 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-800 relative">
                                 <input
@@ -81,7 +81,7 @@ export function InsightTable<T>({
                         </TableHead>
                     )}
                 </TableHeader>
-                {isLoading || !data ? (
+                {isLoading ? (
                     <TableLoading cellCount={2} />
                 ) : (
                     <TableBody>

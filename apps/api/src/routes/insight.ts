@@ -47,7 +47,7 @@ export const getInsightData: RouteType = async ({ tb, query: rawQuery }) => {
     const endDateObj = new Date(endDate);
     const duration = endDateObj.getTime() - startDateObj.getTime();
     const pastEndDateObj = new Date(startDateObj.getTime() - duration);
-    let startTime = performance.now();
+
     let [sessions, pastSessions, pageViews, pastPageViews, events, visitors, pastVisitors] =
         await Promise.all([
             getSessionsEndpoint(tb)({
@@ -86,10 +86,7 @@ export const getInsightData: RouteType = async ({ tb, query: rawQuery }) => {
                 endDate: startDateObj.toISOString(),
             }).then((res) => res.data),
         ]);
-    let endTime = performance.now();
-    console.log(endTime - startTime, "query");
 
-    startTime = performance.now();
     //add utmCampaigns as a key in session
     sessions = sessions.map((s) => {
         const queryParams = JSON.parse(s.queryParams);
@@ -169,7 +166,6 @@ export const getInsightData: RouteType = async ({ tb, query: rawQuery }) => {
     const eventsWithData = getEvents(events, sessions, pageViews);
     const utmSources = getUtmSources(sessions);
     const utmCampaigns = getUtmCampaigns(sessions);
-    endTime = performance.now();
 
     return {
         data: {

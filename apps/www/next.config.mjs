@@ -14,7 +14,7 @@ const nextConfig = {
       "vgssydupjvshgeeeqjvo.supabase.co",
     ],
   },
-  rewrites: () => [
+  rewrites: async () => [
     {
       destination: env.NEXT_PUBLIC_API_URL,
       source: "/api/loglib",

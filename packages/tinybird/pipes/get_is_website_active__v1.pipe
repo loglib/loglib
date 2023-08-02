@@ -1,0 +1,13 @@
+DESCRIPTION >
+	This check if there is any session for a given websiteId
+
+
+TOKEN "get_is_website_active__v1_endpoint_read_3397" READ
+
+NODE get_is_website_active__v1_0
+SQL >
+
+    %
+    SELECT * FROM sessions
+    where websiteId = {{String(websiteId, required=True)}}
+    limit 1

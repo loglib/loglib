@@ -1,5 +1,4 @@
 "use client";
-
 import { inviteTeamModalAtom, selectedTeamAtom } from "@/jotai/store";
 import { inviteTeam } from "@/server/actions/team";
 import { zodResolver } from "@hookform/resolvers/zod";

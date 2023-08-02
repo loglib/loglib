@@ -1,4 +1,4 @@
-import { OperatorType } from "@loglib/core";
+import { OperatorType } from "@loglib/types";
 
 export type TimeRange = {
     startDate: Date;

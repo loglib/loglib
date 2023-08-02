@@ -3,7 +3,6 @@ import { ReferrerName } from "./constants";
 import { getTimeRange } from "./time-helper";
 
 export const getUniqueVisitors = (sessions: Session[], pastSessions: Session[]) => {
-    const startTime = performance.now();
     const uniqueValues = new Set();
 
     sessions.forEach((session) => {
@@ -20,8 +19,7 @@ export const getUniqueVisitors = (sessions: Session[], pastSessions: Session[]) 
               ((uniqueVisitor.length - pastUniqueVisitor.length) / pastUniqueVisitor.length) * 100,
           )
         : 100;
-    const endTime = performance.now();
-    console.log(endTime - startTime, "unique visitors");
+
     return {
         total: uniqueVisitor.length,
         change: change > 100 ? 100 : change,
@@ -55,8 +53,6 @@ export const getAverageTime = (
     pageViews: PageView[],
     pastPageViews: PageView[],
 ) => {
-    const startTime = performance.now();
-
     // Group page views by session ID
     const pageViewsBySession = pageViews.reduce((acc, pageView) => {
         if (!acc[pageView.sessionId]) {
@@ -101,9 +97,6 @@ export const getAverageTime = (
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
 
-    const endTime = performance.now();
-    console.log(endTime - startTime, "average time");
-
     if (seconds < 60) {
         return {
             total: isNaN(seconds) ? "0 sec" : `${seconds} sec`,
@@ -125,8 +118,6 @@ export const getBounceRate = (
     sessions: Session[],
     pastSessions: Session[],
 ) => {
-    const startTime = performance.now();
-
     const totalSessions = sessions.length;
     const totalPageViews = pageViews.length;
 
@@ -176,9 +167,6 @@ export const getBounceRate = (
         ? Math.floor(((bounceRate - pastBounceRate) / pastBounceRate) * 100)
         : 100;
 
-    const endTime = performance.now();
-    console.log(endTime - startTime, "bounce rate");
-
     return {
         total: parseFloat(bounceRate.toFixed(2)),
         change: change > 100 ? 100 : parseFloat(change.toFixed(2)),
@@ -186,7 +174,6 @@ export const getBounceRate = (
 };
 
 export const getPages = (pageViews: PageView[]) => {
-    const startTime = performance.now();
     const pages = pageViews.reduce((acc, pageView) => {
         const page = pageView.page.split("?")[0];
         const isPage = acc.find((p) => p.page === page);
@@ -205,13 +192,10 @@ export const getPages = (pageViews: PageView[]) => {
     }, [] as { page: string; visits: number }[]);
 
     const sorted = pages.sort((a, b) => b.visits - a.visits);
-    const endTime = performance.now();
-    console.log(endTime - startTime, "pages");
     return sorted;
 };
 
 export const getLoc = (sessions: Session[], byCountry = true) => {
-    const startTime = performance.now();
     const locations = sessions.reduce((acc, session) => {
         const location = byCountry ? session.country ?? "Unknown" : session.city ?? "Unknown";
         const isFound = acc.find((p) => p.location === location);
@@ -230,13 +214,11 @@ export const getLoc = (sessions: Session[], byCountry = true) => {
     }, [] as { location: string; visits: number; country: string }[]);
 
     const sorted = locations.sort((a, b) => b.visits - a.visits);
-    const endTime = performance.now();
-    console.log(endTime - startTime, "location");
+
     return sorted;
 };
 
 export const getReferer = (sessions: Session[]) => {
-    const startTime = performance.now();
     function getSiteName(url: string): string {
         try {
             const parsedUrl = new URL(url);
@@ -267,13 +249,11 @@ export const getReferer = (sessions: Session[]) => {
     }, [] as { referrer: string; visits: number; referrerDomain: string }[]);
 
     const sorted = referees.sort((a, b) => b.visits - a.visits);
-    const endTime = performance.now();
-    console.log(endTime - startTime, "referrer");
+
     return sorted;
 };
 
 export const getDevices = (sessions: Session[]) => {
-    const startTime = performance.now();
     const devices: { device: string; visits: number }[] = [];
 
     for (let i = 0; i < sessions.length; i++) {
@@ -297,14 +277,10 @@ export const getDevices = (sessions: Session[]) => {
         }
     }
 
-    const endTime = performance.now();
-    console.log(endTime - startTime, "devices");
-
     return devices.sort((a, b) => b.visits - a.visits);
 };
 
 export const getOS = (sessions: Session[]) => {
-    const startTime = performance.now();
     const deviceOS: { os: string; visits: number }[] = [];
 
     for (let i = 0; i < sessions.length; i++) {
@@ -328,14 +304,10 @@ export const getOS = (sessions: Session[]) => {
         }
     }
 
-    const endTime = performance.now();
-    console.log(endTime - startTime, "OS");
-
     return deviceOS.sort((a, b) => b.visits - a.visits);
 };
 
 export const getBrowser = (sessions: Session[]) => {
-    const startTime = performance.now();
     const browsers: { browser: string; visits: number }[] = [];
 
     for (let i = 0; i < sessions.length; i++) {
@@ -360,8 +332,6 @@ export const getBrowser = (sessions: Session[]) => {
     }
 
     const sorted = browsers.sort((a, b) => b.visits - a.visits);
-    const endTime = performance.now();
-    console.log(endTime - startTime, "browser");
     return sorted;
 };
 
@@ -372,7 +342,6 @@ export const getVisitorsByDate = (
     timezone: string,
     uniqueVisitors = true,
 ) => {
-    const startTime = performance.now();
     const ONE_DAY = 1000 * 60 * 60 * 24;
     const range = getTimeRange(startDate, endDate);
 
@@ -422,9 +391,6 @@ export const getVisitorsByDate = (
     const visitors = Array.from(sessionsByDate.values()).sort(
         (a, b) => a.originalDate.getTime() - b.originalDate.getTime(),
     );
-
-    const endTime = performance.now();
-    console.log(endTime - startTime, "visitors by date");
 
     return visitors;
 };

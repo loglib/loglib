@@ -1,6 +1,6 @@
 {
     "name": "web",
-    "version": "0.1.2",
+    "version": "0.0.1",
     "private": true,
     "scripts": {
         "dev": "concurrently \"contentlayer dev\" \"next dev\"",
@@ -20,12 +20,7 @@
         "@chronark/zod-bird": "^0.1.1",
         "@clickhouse/client": "^0.1.1",
         "@hookform/resolvers": "^3.1.1",
-        "@loglib/api": "workspace:*",
-        "@loglib/core": "^0.3.3",
-        "@loglib/next": "^0.2.0",
-        "@loglib/prisma-adapter": "^0.2.3",
         "@loglib/tracker": "0.4.3",
-        "@loglib/ui": "0.5.3",
         "@lottiefiles/react-lottie-player": "^3.5.3",
         "@mdx-js/mdx": "^2.3.0",
         "@next-auth/prisma-adapter": "^1.0.7",
@@ -144,6 +139,8 @@
         "tailwindcss": "^3.3.2",
         "tailwindcss-animate": "^1.0.5",
         "tsx": "^3.12.7",
-        "typescript": "^5.1.6"
+        "typescript": "^5.1.6",
+        "@loglib/api": "workspace:*",
+        "@loglib/types": "workspace:*"
     }
 }

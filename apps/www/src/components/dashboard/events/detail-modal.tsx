@@ -2,7 +2,7 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import COUNTRIES from "@/lib/constants";
-import { EventsWithData } from "@loglib/core";
+import { EventsWithData } from "@loglib/types";
 import { Row } from "@tanstack/react-table";
 
 const renderSubComponent = ({ row }: { row: Row<EventsWithData[0]> }) => {
