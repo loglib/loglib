@@ -1,11 +1,11 @@
 "use client";
 
-import { components } from "./mdx-components";
 import GithubRepo, { GithubRepoProps } from "@/components/github-repo";
 import Tweet from "@/components/tweet";
 import BlurImage from "@/components/ui/blur-image";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import { Tweet as TweetProps } from "react-tweet/api";
+import { components } from "./mdx-components";
 
 interface MDXProps {
     code: string;
@@ -49,6 +49,7 @@ export function MDX({ code, images, tweets, repos }: MDXProps) {
 
     return (
         <article>
+            {/* @ts-ignore */}
             <Component components={{ ...components, MDXImage, MDXTweet, MDXRepo }} />
         </article>
     );

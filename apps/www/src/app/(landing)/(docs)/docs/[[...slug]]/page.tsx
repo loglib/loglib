@@ -1,17 +1,17 @@
-import { notFound } from "next/navigation";
 import { allDocs } from "contentlayer/generated";
+import { notFound } from "next/navigation";
 
-import { getTableOfContents } from "@/lib/toc";
 import { Mdx } from "@/components/mdx-components";
 import { DocsPageHeader } from "@/components/page-header";
 import { DocsPager } from "@/components/pager";
 import { DashboardTableOfContents } from "@/components/toc";
+import { getTableOfContents } from "@/lib/toc";
 
 import "@/styles/mdx.css";
 import { Metadata } from "next";
 
-import { env } from "env.mjs";
 import { absoluteUrl } from "@/lib/utils";
+import { env } from "env.mjs";
 
 interface DocPageProps {
     params: {
@@ -19,7 +19,7 @@ interface DocPageProps {
     };
 }
 
-async function getDocFromParams(params) {
+async function getDocFromParams(params: DocPageProps["params"]) {
     const slug = params.slug?.join("/") || "";
     const doc = allDocs.find((doc) => doc.slugAsParams === slug);
 

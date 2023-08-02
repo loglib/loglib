@@ -1,6 +1,6 @@
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { formatDate } from "@/lib/utils";
-import { allChangelogPosts } from "contentlayer/generated";
+import { ChangelogPost, allChangelogPosts } from "contentlayer/generated";
 import Link from "next/link";
 
 export default function Changelog() {
@@ -40,7 +40,7 @@ export default function Changelog() {
     );
 }
 
-const DesktopChangelogEntry = ({ post }) => (
+const DesktopChangelogEntry = ({ post }: {post: ChangelogPost}) => (
     <Link
         href={`/changelog/${post.slug}`}
         className="group hidden md:flex items-center justify-center gap-2"
@@ -57,7 +57,7 @@ const DesktopChangelogEntry = ({ post }) => (
     </Link>
 );
 
-const MobileChangelogEntry = ({ post }) => (
+const MobileChangelogEntry = ({ post }: {post: ChangelogPost}) => (
     <Link
         href={`/changelog/${post.slug}`}
         className="flex items-center space-x-4 rounded-lg active:bg-gray-100 md:hidden"
