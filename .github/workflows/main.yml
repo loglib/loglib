@@ -44,9 +44,6 @@ jobs:
         run: pnpm install --no-frozen-lockfile --prefer-offline
 
       - name: Build, lint and type-check
-        env:
-          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
         run: pnpm turbo run build typecheck test --filter='./packages/*'
 
       - name: Check workspaces

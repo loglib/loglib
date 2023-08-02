@@ -1,6 +1,6 @@
 # LogLib
 
-## Roll Your Own Privacy First Web Analytics
+## The web analytics you will actually use
 
 ![npm](https://img.shields.io/npm/v/@loglib/tracker) ![npm bundle size](https://img.shields.io/bundlephobia/min/@loglib/tracker) ![GitHub license](https://img.shields.io/github/license/LogLib/loglib) ![GitHub issues](https://img.shields.io/github/issues/LogLib/loglib) ![GitHub stars](https://img.shields.io/github/stars/LogLib/loglib)
 
@@ -18,21 +18,26 @@ Welcome to Loglib!
 
 ## What is Loglib?
 
-Loglib is a **Open Source** and **Privacy-First** web analytics that can be attached to your app. Admittedly it has beautiful dashboard built with schadcn ui and the hosted version comes with api that you can use to get your data back.
+Loglib is a **Open Source** and **Privacy-First** web analytics that aims to provide simple yet can be powerful based on your needs. Admittedly it has beautiful dashboard and it comes with api that you can use to get your data back anytime you want for any purpose.
 
 ## Why Loglib?
 
-- Why not?
-- No need to deploy it separately. You can easily attach Loglib to your Next js app (more framework support soon), and you can see your website analytics. (despite having 0 users)
-- Keep all your data in your existing database, you have the freedom to store your data in your existing db or your choice of db. We currently support prisma and supabase adapters but more supports are on the way.
-- Behold the beauty of your dashboard, powered by Shadcn UI.
-- Privacy-first and GDPR compliant out of the box, with customization options.
-- You can see basic analytics like vercel analytics but also events aren't paid and it's better than...
-- Your mom will be impressed.
-- And more things are on the way.
+- **Privacy first**: GDPR compliant out of the box, with customization options.
 
-## How to Get Started
+- **Own your data**: Repurpose your data using our APIs .
 
-To get started with Loglib, please visit our [documentation](https://loglib.io/docs). The documentation has all the information you need to get started with Loglib, including installation instructions, and tutorials. We have tried to cover different types of integrations in our documentation.
+- **Events and product analysis features**: More than just pageviews - when you need it to be more loglib can be more.
 
-If you don't quite find what you need, you can join the Loglib Community and ask anything. The Loglib Community is a great place to ask questions and get help from other Loglib users. You can find the Loglib Community on [Telegram](https://t.me/loglib_community) or [discord](https://discord.gg/vBkrdDER).
+- **Developer friendly**: Easy to add to your apps and frameworks.
+
+- **Your mom will be impressed**: Maybe not really, but we think it worth trying.
+
+- **More in the making**: We have some a lot of new exciting features in the works. Stay tuned!
+
+## Self Host
+
+We understand self hosting the whole thing isn't the best thing most of the time. We're working on making loglib easily self hosted stay tuned for that. But in the mean time you can use our [hosted version](https://loglib.io) for free.
+
+## Contributing
+
+See [here](./.github/CONTRIBUTING.md) for more information on how to contribute to Loglib.
