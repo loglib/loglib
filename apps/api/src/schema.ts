@@ -1,6 +1,14 @@
 import { convertDate } from "./lib/utils";
 import { z } from "zod";
 
+export const insightSchema = z.object({
+    startDate: z.string(),
+    endDate: z.string(),
+    websiteId: z.string(),
+    timeZone: z.string(),
+    filter: z.string(),
+});
+
 export const rootTrackerSchema = z.object({
     pageId: z.string(),
     sessionId: z.string(),
@@ -9,7 +17,8 @@ export const rootTrackerSchema = z.object({
 });
 
 export const envSchema = z.object({
-    TINYBIRD_TOKEN: z.string(),
+    CLICKHOUSE_HOST: z.string(),
+    CLICKHOUSE_PASSWORD: z.string(),
     DATABASE_HOST: z.string(),
     DATABASE_USERNAME: z.string(),
     DATABASE_PASSWORD: z.string(),

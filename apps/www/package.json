@@ -72,6 +72,7 @@
         "axios": "^1.4.0",
         "bcrypt": "^5.1.0",
         "class-variance-authority": "^0.6.0",
+        "clickhouse": "^2.6.0",
         "clsx": "^1.2.1",
         "cmdk": "^0.2.0",
         "compare-versions": "^6.0.0",
@@ -126,6 +127,8 @@
         "zod": "^3.21.4"
     },
     "devDependencies": {
+        "@loglib/api": "workspace:*",
+        "@loglib/types": "workspace:*",
         "@types/bcrypt": "^5.0.0",
         "@types/js-cookie": "^3.0.3",
         "@types/jsonwebtoken": "^9.0.2",
@@ -139,8 +142,6 @@
         "tailwindcss": "^3.3.2",
         "tailwindcss-animate": "^1.0.5",
         "tsx": "^3.12.7",
-        "typescript": "^5.1.6",
-        "@loglib/api": "workspace:*",
-        "@loglib/types": "workspace:*"
+        "typescript": "^5.1.6"
     }
 }

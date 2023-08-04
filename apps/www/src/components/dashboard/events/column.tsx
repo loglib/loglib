@@ -19,7 +19,7 @@ export const columns: ColumnDef<EventsWithData[0]>[] = [
     },
     {
         id: "eventName",
-        accessorKey: "eventName",
+        accessorKey: "event",
         header: ({ column }) => {
             return (
                 <span
@@ -36,8 +36,8 @@ export const columns: ColumnDef<EventsWithData[0]>[] = [
         },
     },
     {
-        id: "createdAt",
-        accessorKey: "createdAt",
+        id: "timestamp",
+        accessorKey: "timestamp",
         header: ({ column }) => {
             return (
                 <span
@@ -54,7 +54,7 @@ export const columns: ColumnDef<EventsWithData[0]>[] = [
         },
         cell: ({ row }) => {
             const currentDate = new Date();
-            const eventDate = new Date(row.original.createdAt);
+            const eventDate = new Date(row.original.timestamp);
             const diff = currentDate.getTime() - eventDate.getTime();
             const hours = Math.floor(diff / (1000 * 60 * 60));
             const minutes = Math.floor(diff / (1000 * 60));

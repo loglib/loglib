@@ -4,12 +4,12 @@ import { z } from "zod";
 import { apiResponse } from "../lib/api-response";
 import { getDevice } from "../lib/detect/get-device";
 import { setVisitorId } from "../lib/set-visitor-id";
-import { publishSession } from "../lib/tinybird";
 import { RouteType } from "./type";
 
 export const sessionSchema = z.object({
     data: z.object({
         referrer: z.string(),
+        pathname: z.string(),
         screenWidth: z.number(),
         language: z.string(),
         queryParams: z.record(z.string(), z.string()),
@@ -17,11 +17,12 @@ export const sessionSchema = z.object({
     }),
     sessionId: z.string(),
     visitorId: z.string(),
+    pageId: z.string(),
     websiteId: z.string(),
 });
 export type SessionInput = z.infer<typeof sessionSchema>;
 
-export const createSession: RouteType = async ({ headers, rawBody, tb }) => {
+export const createSession: RouteType = async ({ headers, rawBody, client }) => {
     if (isbot(headers.get("user-agent"))) {
         return { data: { message: "bot" }, status: 200 };
     }
@@ -33,8 +34,8 @@ export const createSession: RouteType = async ({ headers, rawBody, tb }) => {
             body.data.visitorId,
             headers.get("cf-connecting-ip") as string,
         );
-        const { sessionId, data, visitorId, websiteId } = body.data;
-        const { referrer, language, queryParams, screenWidth } = data;
+        const { sessionId, data, visitorId, websiteId, pageId } = body.data;
+        const { referrer, language, queryParams, screenWidth, pathname } = data;
         const city = (headers.get("cf-ipcity") as string) ?? "unknown";
         const country = (headers.get("cf-ipcountry") as string) ?? "unknown";
         const userAgent = (headers.get("user-agent") as string) ?? "unknown";
@@ -42,34 +43,34 @@ export const createSession: RouteType = async ({ headers, rawBody, tb }) => {
         const os = detectOS(userAgent) ?? "Mac OS";
         const device = os ? getDevice(screenWidth, os) ?? "desktop" : "unknown";
         try {
-            console.log({
-                id: sessionId,
-                createdAt: new Date().toISOString().slice(0, 19).replace("T", " "),
-                queryParams: queryParams ? JSON.stringify(queryParams) : "{}",
-                referrer: referrer ?? "direct",
-                country,
-                city,
-                language,
-                device,
-                os,
-                browser,
-                visitorId,
-                websiteId,
-            });
-            await publishSession(tb)({
-                id: sessionId,
-                createdAt: new Date().toISOString(),
-                queryParams: queryParams ? JSON.stringify(queryParams) : "{}",
-                referrer,
-                country,
-                city,
-                language,
-                device,
-                os,
-                browser,
-                visitorId,
-                websiteId,
-            });
+            await client
+                .insert({
+                    table: "loglib.event",
+                    values: [
+                        {
+                            id: pageId,
+                            sessionId,
+                            visitorId,
+                            websiteId,
+                            event: "hits",
+                            properties: JSON.stringify({
+                                queryParams: queryParams ? JSON.stringify(queryParams) : "{}",
+                                duration: 0,
+                                currentPath: pathname,
+                                referrerDomain: referrer ?? "direct",
+                                country,
+                                city,
+                                language,
+                                device,
+                                os,
+                                browser,
+                            }),
+                            sign: 1,
+                        },
+                    ],
+                    format: "JSONEachRow",
+                })
+                .catch((e) => console.log(e));
             return {
                 data: {
                     message: "Session updated",

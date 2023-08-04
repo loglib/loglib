@@ -1,6 +1,6 @@
-import { DB } from "./types";
-import { Kysely } from "kysely";
+import { CamelCasePlugin, Kysely } from "kysely";
 import { PlanetScaleDialect } from "kysely-planetscale";
+import { DB } from "./types";
 
 export const getDb = (config: {
     host: string;
@@ -15,4 +15,5 @@ export const getDb = (config: {
                 return fetch(url, init);
             },
         }),
+        plugins: [new CamelCasePlugin()],
     });

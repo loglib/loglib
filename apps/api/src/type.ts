@@ -1,12 +1,12 @@
+import { z } from "zod";
 import { EventsWithData } from "./lib/analysis";
 import { OperatorType } from "./lib/small-filter";
 import { eventSchema, pageviewSchema, sessionSchema, visitorSchema } from "./schema";
-import { z } from "zod";
 export type Path =
     | "/session"
     | "/pageview"
     | "/session/pulse"
-    | "/events"
+    | "/event"
     | "/visitor"
     | "/test"
     | "/insight";
@@ -16,11 +16,10 @@ export type PageView = z.infer<typeof pageviewSchema>;
 export type Events = z.infer<typeof eventSchema>;
 export type Visitor = z.infer<typeof visitorSchema>;
 
-export type Filter<T, D> = {
+export type Filter<T> = {
     key: keyof T;
     value: T[keyof T];
     operator: OperatorType<T[keyof T]>;
-    data: D;
 };
 
 export type GetInsightResponse = {
@@ -100,4 +99,36 @@ export type GetInsightResponse = {
     };
     onlineUsers: number;
     eventsWithData: EventsWithData;
+};
+
+export type LoglibEvent = {
+    id: string;
+    timestamp: string;
+    event: "pageview" | "event";
+    sessionId: string;
+    city: string;
+    country: string;
+    browser: string;
+    language: string;
+    currentPath: string;
+    referrerPath: string;
+    referrerDomain: string;
+    queryParams: string;
+    device: string;
+    duration: number;
+    os: string;
+    visitorId: string;
+};
+
+export type LoglibTrackerEvent = {
+    screenWidth: number;
+    language: string;
+    currentUrl: string;
+    referrerUrl: string;
+    queryParams: Record<string, string>;
+    duration: number;
+    host: string;
+    sessionId: string;
+    visitorId: string;
+    sdkVersion: string;
 };

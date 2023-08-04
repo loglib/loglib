@@ -16,13 +16,13 @@ import { cn, fetcher } from "@/lib/utils";
 
 import { AddTracker } from "../add-tracker";
 import { CalendarDateRangePicker, DatePicker } from "./date-picker";
-import Events from "./events";
 import { InsightCard } from "./insight/card";
 import LocationMap from "./insight/location-map";
 import { InsightTables } from "./insight/tables";
 import { Graph } from "./insight/visitor-graph";
 import { Filter, FilterProp, TimeRange } from "./type";
 import { env } from "env.mjs";
+import Events from "./events";
 
 export const Dashboard = ({
     website,
@@ -76,6 +76,7 @@ export const Dashboard = ({
 
     const [curTableTab, setCurTableTab] = useState("");
     const [viCardSwitch, setViCardSwitch] = useState(false);
+    console.log(data)
 
     return (
         <main>
@@ -117,7 +118,7 @@ export const Dashboard = ({
                                 <div className=" flex gap-1 items-center">
                                     <div className=" w-2.5 h-2.5 bg-gradient-to-tr from-lime-500 to-lime-700 animate-pulse rounded-full"></div>
                                     <p className=" text-sm bg-gradient-to-tr from-lime-600 to-lime-800 text-transparent bg-clip-text font-medium">
-                                        {data ? data.onlineUsers : 0} Online
+                                        {data ? data.data.onlineVisitors : 0} Online
                                     </p>
                                 </div>
                             </div>
@@ -158,7 +159,7 @@ export const Dashboard = ({
                                                     ? viCardSwitch
                                                         ? data.insight.newVisitors
                                                         : data.insight.uniqueVisitors
-                                                    : { change: 0, total: 0 }
+                                                    : { change: 0, current: 0 }
                                             }
                                             isLoading={isLoading}
                                             tooltip={
@@ -196,8 +197,8 @@ export const Dashboard = ({
                                             Icon={Eye}
                                             data={
                                                 data
-                                                    ? data.insight.pageView
-                                                    : { change: 0, total: 0 }
+                                                    ? data.insight.totalPageViews
+                                                    : { change: 0, current: 0 }
                                             }
                                             isLoading={isLoading}
                                             tooltip="The total number of pages viewed. Repeated views of a single page are counted."
@@ -208,7 +209,7 @@ export const Dashboard = ({
                                             data={
                                                 data
                                                     ? data.insight.averageTime
-                                                    : { change: 0, total: 0 }
+                                                    : { change: 0, current: 0 }
                                             }
                                             valuePrefix={""}
                                             isLoading={isLoading}
@@ -222,7 +223,7 @@ export const Dashboard = ({
                                             data={
                                                 data
                                                     ? data.insight.bounceRate
-                                                    : { change: 0, total: 0 }
+                                                    : { change: 0, current: 0 }
                                             }
                                             isLoading={isLoading}
                                             tooltip=" The percentage of visitors who quickly exit your website without exploring further."
@@ -316,8 +317,9 @@ export const Dashboard = ({
                                 </TabsContent>
                                 <TabsContent value="events">
                                     <Events
-                                        events={data ? data.eventsWithData : []}
-                                        isLoading={isLoading}
+                                        startDate={timeRange.startDate}
+                                        endDate={timeRange.endDate}
+                                        websiteId={website.id}
                                     />
                                 </TabsContent>
                             </motion.div>

@@ -23,9 +23,8 @@ export const ReferrerName = {
     "ios-app://com.apple.Music/": "Music",
     "ios-app://com.apple.calculator/": "Calculator",
     "ios-app://com.apple.camera/": "Camera",
-    "https://web.telegram.org/a/": "Telegram",
-    "https://web.telegram.org/z/": "Telegram",
-    "https://web.whatsapp.com/": "WhatsApp",
+    "web.telegram.org": "Telegram",
+    "web.whatsapp.com": "WhatsApp",
     "android-app://org.telegram.plus/": "Telegram",
-    "https://t.co/": "Twitter",
+    T: "Twitter",
 };

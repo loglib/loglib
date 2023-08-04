@@ -1,26 +1,32 @@
 "use client";
+import useSWR from "swr";
 import { columns } from "./column";
 import { renderSubComponent } from "./detail-modal";
 import { DataTable } from "./table-data";
 import { EventsWithData } from "@loglib/types";
+import { env } from "env.mjs";
+import { fetcher } from "@/lib/utils";
 
 const Events = ({
-    events,
-    isLoading,
+    startDate,
+    endDate,
+    websiteId
 }: {
-    events: EventsWithData;
-    isLoading: boolean;
+    startDate: Date;
+    endDate: Date
+    websiteId: string
 }) => {
-    const sortedEvents = events.sort((a, b) => {
-        const aDate = new Date(a.createdAt);
-        const bDate = new Date(b.createdAt);
-        return bDate.getTime() - aDate.getTime();
-    });
+    console.log( websiteId, "event")
+    const url = env.NEXT_PUBLIC_API_URL;
+    const {data, isLoading} = useSWR<EventsWithData>(`${url}/events?websiteId=${websiteId}&startDate=${startDate}&endDate=${endDate}`, fetcher)
+    if(!isLoading){
+        console.log(data, "event ata")
+    }
     return (
         <div className=" no-scrollbar">
             <DataTable
                 columns={columns}
-                data={sortedEvents}
+                data={data ?? []}
                 renderSubComponent={renderSubComponent}
                 isLoading={isLoading}
             />

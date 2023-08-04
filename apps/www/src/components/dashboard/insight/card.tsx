@@ -7,7 +7,7 @@ export type InsightType = {
     title: string;
     Icon: LucideIcon;
     data: {
-        total: number | string;
+        current: number | string;
         change: number;
     };
     valuePrefix?: string;
@@ -48,7 +48,7 @@ export function InsightCard({
             {!isLoading && data ? (
                 <CardContent className="">
                     <div className="text-2xl font-bold">{`${
-                        data.total ? data.total.toLocaleString() : 0
+                        data.current ? data.current.toLocaleString() : 0
                     } ${valuePrefix ?? ""}`}</div>
                     <div className=" flex justify-between">
                         <div className=" flex text-xs">
@@ -60,7 +60,7 @@ export function InsightCard({
                             <div>
                                 {" "}
                                 {changePrefix ?? ""}
-                                {data.change ? data.change.toLocaleString() : 0}%
+                                {data.change ? data.change.toLocaleString() : '-'}%
                             </div>
                         </div>
                         {/* @ts-ignore */}

@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { apiResponse } from "../lib/api-response";
-import { publishPageDuration, publishPageView } from "../lib/tinybird";
 import { RouteType } from "./type";
+import { browserName, detectOS } from "detect-browser";
 
 export const pageViewSchema = z.object({
     data: z.object({
@@ -9,6 +9,7 @@ export const pageViewSchema = z.object({
         currentRef: z.string(),
         duration: z.number(),
         queryParams: z.record(z.any()),
+        screenWidth: z.string().optional(),
     }),
     pageId: z.string(),
     sessionId: z.string(),
@@ -16,24 +17,57 @@ export const pageViewSchema = z.object({
     websiteId: z.string(),
 });
 
-export const createPageview: RouteType = async ({ rawBody, headers, tb }) => {
+export const createPageview: RouteType = async ({ rawBody, headers, client }) => {
     const body = pageViewSchema.safeParse(rawBody);
     if (body.success) {
         if (!body.data.visitorId) {
             body.data.visitorId = headers.get("cf-connecting-ip") as string;
         }
-        const { websiteId, data, pageId, sessionId } = body.data;
-        const { currentUrl, currentRef, queryParams } = data;
+        const { websiteId, data, pageId, sessionId, visitorId } = body.data;
+        const { currentUrl, currentRef, queryParams, duration } = data;
+        const session = await client
+            .query({
+                query: `select * from loglib.event where sessionId = '${sessionId}' limit 1`,
+                format: "JSONEachRow",
+            })
+            .then(async (res) => await res.json());
+
+        const city = (headers.get("cf-ipcity") as string) ?? "unknown";
+        const country = (headers.get("cf-ipcountry") as string) ?? "unknown";
+        const userAgent = (headers.get("user-agent") as string) ?? "unknown";
+        const browser = browserName(userAgent) ?? "unknown";
+        const os = detectOS(userAgent) ?? "Mac OS";
+        const properties = JSON.parse(session[0].properties);
+        const device = properties.device ?? "desktop";
+        const language = properties.language ?? "en";
+        const referrerDomain = properties.referrerDomain ?? "unknown";
         try {
-            await publishPageView(tb)({
-                id: pageId,
-                page: currentUrl,
-                queryParams: JSON.stringify(queryParams),
-                referrer: currentRef,
-                sessionId: sessionId,
-                visitorId: body.data.visitorId,
-                createdAt: new Date().toISOString(),
-                websiteId,
+            await client.insert({
+                table: "loglib.event",
+                values: [
+                    {
+                        id: pageId,
+                        sessionId,
+                        visitorId,
+                        websiteId,
+                        event: "hits",
+                        properties: JSON.stringify({
+                            queryParams: queryParams ? JSON.stringify(queryParams) : "{}",
+                            duration,
+                            currentPath: currentUrl,
+                            referrerPath: currentRef,
+                            referrerDomain,
+                            country,
+                            city,
+                            language,
+                            device,
+                            os,
+                            browser,
+                        }),
+                        sign: 1,
+                    },
+                ],
+                format: "JSONEachRow",
             });
             return {
                 data: {
@@ -50,10 +84,7 @@ export const createPageview: RouteType = async ({ rawBody, headers, tb }) => {
     }
 };
 
-/**
- * this is for older tracker sdk where it sends page duration in different payload
- */
-export const createPageDuration: RouteType = async ({ rawBody, tb }) => {
+export const updatePageDuration: RouteType = async ({ rawBody, client }) => {
     const schema = z.object({
         data: z.object({
             duration: z.number(),
@@ -62,17 +93,52 @@ export const createPageDuration: RouteType = async ({ rawBody, tb }) => {
         pageId: z.string(),
         sessionId: z.string(),
         visitorId: z.string().optional(),
+        websiteId: z.string(),
     });
     const body = schema.safeParse(rawBody);
     if (body.success) {
-        const { pageId, data, sessionId } = body.data;
+        const { pageId, data } = body.data;
+        const query = await client
+            .query({
+                query: `select * from loglib.event where id = '${pageId}'`,
+                format: "JSONEachRow",
+            })
+            .then(async (res) => await res.json());
+        const pageview = query[0];
+        if (!pageview)
+            return {
+                data: { message: "not updated! pageview not recorded yet" },
+                status: 200,
+            };
         try {
-            await publishPageDuration(tb)({
-                duration: data.pageDuration,
-                pageId,
-                sessionId,
-                timestamp: new Date().toISOString().slice(0, 19).replace("T", " "),
-            });
+            await client
+                .insert({
+                    table: "loglib.event",
+                    values: [
+                        {
+                            ...pageview,
+                            sign: -1,
+                        },
+                    ],
+                    format: "JSONEachRow",
+                })
+                .catch((e) => console.log(e));
+            await client
+                .insert({
+                    table: "loglib.event",
+                    values: [
+                        {
+                            ...pageview,
+                            properties: JSON.stringify({
+                                ...JSON.parse(pageview.properties),
+                                duration: data.pageDuration,
+                            }),
+                            sign: 1,
+                        },
+                    ],
+                    format: "JSONEachRow",
+                })
+                .catch((e) => console.log(e));
             return {
                 data: {
                     message: "successfully updated page duration",

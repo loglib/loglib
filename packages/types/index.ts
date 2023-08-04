@@ -3,23 +3,23 @@ import { PageView } from "./models";
 export type GetInsightResponse = {
     insight: {
         uniqueVisitors: {
-            total: number;
+            current: number;
             change: number;
         };
-        pageView: {
-            total: number;
+        totalPageViews: {
+            current: number;
             change: number;
         };
         averageTime: {
-            total: string;
+            current: string;
             change: number;
         };
         bounceRate: {
-            total: number;
+            current: number;
             change: number;
         };
         newVisitors: {
-            total: number;
+            current: number;
             change: number;
         };
     };
@@ -64,6 +64,7 @@ export type GetInsightResponse = {
             utmCampaign: string;
             visits: number;
         }[];
+        onlineVisitors: number;
     };
     graph: {
         uniqueVisitorsByDate: {
@@ -75,17 +76,15 @@ export type GetInsightResponse = {
             visits: number;
         }[];
     };
-    onlineUsers: number;
-    eventsWithData: EventsWithData;
 };
 
 export type EventsWithData = {
-    page: PageView | undefined;
+    currentPath: string | undefined;
     id: string;
-    createdAt: Date;
-    updatedAt: Date;
+    timestamp: Date;
     queryParams?: Record<string, any> | null | undefined;
-    referrer?: string | undefined;
+    referrerPath?: string | undefined;
+    referrerDomain?: string;
     duration?: number | undefined;
     country?: string | null | undefined;
     city?: string | null | undefined;
@@ -95,10 +94,9 @@ export type EventsWithData = {
     browser?: string | null | undefined;
     visitorId: string;
     websiteId?: string | null | undefined;
-    eventName: string;
-    eventType: string;
-    payload: Record<string, any> | null;
-    pageId: string;
+    event: string;
+    type: string;
+    payload: Record<string, string> | null;
     sessionId: string;
 }[];
 

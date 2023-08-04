@@ -12,19 +12,19 @@ const renderSubComponent = ({ row }: { row: Row<EventsWithData[0]> }) => {
         City: data.city,
         Country: COUNTRIES[data.country ?? ""] ?? data.country,
         Device: data.device,
-        Referrer: data.page?.referrer,
-        "Initial Referrer": data.page?.referrer,
-        Url: `${location.protocol}//${location.host}${data.page?.page}`,
+        Referrer: data.referrerPath,
+        "Initial Referrer": data.referrerDomain,
+        path: `${data.currentPath}`,
         "Operating System": data.os,
         "Session Duration":
             data.duration && data.duration > 100
                 ? `${Math.floor(data.duration / 60)} min ${data.duration % 60} sec`
                 : `${data.duration} sec`,
         "Session Id": data.sessionId,
-        "Event Type": data.eventType,
+        "Event Type": data.type,
         "User Id": data.visitorId,
         Language: data.language,
-        Time: new Date(data.createdAt).toLocaleString(),
+        Time: new Date(data.timestamp).toLocaleString(),
     };
     const customProperties = {
         ...data.payload,
@@ -50,6 +50,7 @@ const renderSubComponent = ({ row }: { row: Row<EventsWithData[0]> }) => {
                                     key={key}
                                 >
                                     <div className="font-bold">{key}: </div>
+                   
                                     <div>{allProperties[key as keyof typeof allProperties]}</div>
                                 </div>
                             );
@@ -66,6 +67,7 @@ const renderSubComponent = ({ row }: { row: Row<EventsWithData[0]> }) => {
                                 >
                                     <div className="font-bold">{key}: </div>
                                     <div>
+                      
                                         {automaticProperties[key as keyof typeof allProperties]}
                                     </div>
                                 </div>

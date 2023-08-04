@@ -56,8 +56,8 @@ export const InsightTables = ({
                 </TabsList>
                 <TabsContent value="pages">
                     <CardContent>
-                        {isFilterActive("page") ? (
-                            <ClearFilter onClick={() => clearFilter("page")} />
+                        {isFilterActive("currentPath") ? (
+                            <ClearFilter onClick={() => clearFilter("currentPath")} />
                         ) : null}
                         <InsightTable
                             data={data?.data.pages}
@@ -76,7 +76,7 @@ export const InsightTables = ({
                                         className=" flex items-center gap-1 cursor-pointer"
                                         onClick={() =>
                                             addFilter({
-                                                key: "page",
+                                                key: "currentPath",
                                                 value: d.page,
                                                 operator: "is",
                                                 data: "pageview",
@@ -238,10 +238,10 @@ export const InsightTables = ({
                 {/* Referrer */}
                 <TabsContent value="ref">
                     <CardContent>
-                        {isFilterActive("referrer") || isFilterActive("utmCampaign") ? (
+                        {isFilterActive("referrerDomain") || isFilterActive("utmCampaign") ? (
                             <ClearFilter
                                 onClick={() => {
-                                    clearFilter("referrer");
+                                    clearFilter("referrerDomain");
                                     clearFilter("utmCampaign");
                                 }}
                             />
@@ -258,7 +258,7 @@ export const InsightTables = ({
                                     data={data?.data.referrer}
                                     searchPlaceholder="Search Referrer.."
                                     meta={{
-                                        key: "referrer",
+                                        key: "referrerDomain",
                                         nameLabel: "Referrer",
                                         valueLabel: "Visits",
                                     }}
@@ -270,7 +270,7 @@ export const InsightTables = ({
                                         <TableRow
                                             onClick={() => {
                                                 addFilter({
-                                                    key: "referrer",
+                                                    key: "referrerDomain",
                                                     value: refs.referrerDomain
                                                         ? refs.referrerDomain
                                                         : "direct",
@@ -288,7 +288,7 @@ export const InsightTables = ({
                                                           refs.referrer.toLowerCase() as keyof typeof RefIcons
                                                       ]()
                                                     : RefIcons["default"]()}
-                                                {refs.referrer}
+                                                {refs.referrerDomain}
                                             </TableCell>
                                             <TableCell className="text-right">
                                                 {refs.visits}
@@ -314,7 +314,7 @@ export const InsightTables = ({
                                         <TableRow
                                             onClick={() => {
                                                 addFilter({
-                                                    key: "referrer",
+                                                    key: "referrerDomain",
                                                     value: refs.utmSource,
                                                     operator: "is",
                                                     data: "session",
@@ -355,7 +355,7 @@ export const InsightTables = ({
                                         <TableRow
                                             onClick={() => {
                                                 addFilter({
-                                                    key: "referrer",
+                                                    key: "referrerDomain",
                                                     value: refs.utmCampaign,
                                                     operator: "is",
                                                     data: "session",

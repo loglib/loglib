@@ -9,17 +9,12 @@ const visitorInput = z.object({
     websiteId: z.string(),
 });
 
-export const createVisitor: RouteType = async ({ rawBody, tb }) => {
+export const createVisitor: RouteType = async ({ rawBody, client }) => {
     const body = visitorInput.safeParse(rawBody);
     if (body.success) {
         try {
             const { websiteId, id, data } = body.data;
-            await publishVisitor(tb)({
-                id,
-                websiteId,
-                data: JSON.stringify(data),
-                createdAt: new Date().toISOString(),
-            });
+
             return {
                 data: {
                     message: "User updated",
