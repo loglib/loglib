@@ -251,8 +251,8 @@ export const InsightTables = ({
                         <Tabs defaultValue="referrer">
                             <TabsList>
                                 <TabsTrigger value="referrer">Referrer</TabsTrigger>
-                                <TabsTrigger value="campaigns">UTM Sources</TabsTrigger>
-                                <TabsTrigger value="sources">UTM Campaigns</TabsTrigger>
+                                <TabsTrigger value="sources">UTM Sources</TabsTrigger>
+                                <TabsTrigger value="campaigns">UTM Campaigns</TabsTrigger>
                             </TabsList>
                             <TabsContent value="referrer">
                                 <InsightTable
@@ -336,11 +336,13 @@ export const InsightTables = ({
                                             <TableCell className="flex gap-1 items-center">
                                                 {RefIcons[
                                                     refs.utmSource.toLowerCase() as keyof typeof RefIcons
-                                                ]
-                                                    ? RefIcons[
-                                                          refs.utmSource.toLowerCase() as keyof typeof RefIcons
-                                                      ]()
-                                                    : RefIcons["default"]()}
+                                                ] ? (
+                                                    <RenderIcon
+                                                        icon={refs.utmSource.toLowerCase()}
+                                                    />
+                                                ) : (
+                                                    <DefaultIcons url={refs.utmSource} />
+                                                )}
                                                 {refs.utmSource}
                                             </TableCell>
                                             <TableCell className="text-right">
@@ -377,11 +379,13 @@ export const InsightTables = ({
                                             <TableCell className="flex gap-1 items-center">
                                                 {RefIcons[
                                                     refs.utmCampaign?.toLowerCase() as keyof typeof RefIcons
-                                                ]
-                                                    ? RefIcons[
-                                                          refs.utmCampaign?.toLowerCase() as keyof typeof RefIcons
-                                                      ]()
-                                                    : RefIcons["default"]()}
+                                                ] ? (
+                                                    <RenderIcon
+                                                        icon={refs.utmCampaign?.toLowerCase()}
+                                                    />
+                                                ) : (
+                                                    <DefaultIcons url={refs.utmCampaign} />
+                                                )}
                                                 {refs.utmCampaign}
                                             </TableCell>
                                             <TableCell className="text-right">

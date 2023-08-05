@@ -11,9 +11,6 @@ import {
     Youtube,
 } from "lucide-react";
 import { Icons } from "@/components/icons";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Image from "next/image";
 import { getHostName } from "@/lib/utils";
 
 export const RefIcons = {
