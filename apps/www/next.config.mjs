@@ -9,14 +9,16 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === "production",
   },
   images: {
-    domains: [
-      "avatars.githubusercontent.com",
-      "vgssydupjvshgeeeqjvo.supabase.co",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
     ],
   },
   rewrites: async () => [
     {
-      destination: env.NEXT_PUBLIC_API_URL,
+      destination: process.env.NEXT_PUBLIC_API_URL,
       source: "/api/loglib",
     },
   ],

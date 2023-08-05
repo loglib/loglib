@@ -1,10 +1,25 @@
-import { ArrowUpRight, Facebook, Github, Instagram, Laptop, Link, PcCase, Twitter, Youtube } from "lucide-react";
+import {
+    ArrowUpRight,
+    Facebook,
+    Github,
+    Instagram,
+    Laptop,
+    Link,
+    Linkedin,
+    Mail,
+    Twitch,
+    Youtube,
+} from "lucide-react";
 import { Icons } from "@/components/icons";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Image from "next/image";
+import { getHostName } from "@/lib/utils";
 
 export const RefIcons = {
     vercel: () => (
         <svg
-            width="18"
+            width="16"
             height="18"
             viewBox="0 0 76 65"
             className=" dark:fill-white fill-black"
@@ -15,24 +30,35 @@ export const RefIcons = {
         </svg>
     ),
     github: () => <Github size={18} />,
-    twitter: () => <Twitter size={18} />,
+    twitter: () => (
+        <svg viewBox="0 0 24 24" aria-hidden="true" className=" w-4 h-4 dark:fill-white">
+            <g>
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+            </g>
+        </svg>
+    ),
+    "x [ex: twitter]": () => (
+        <svg viewBox="0 0 24 24" aria-hidden="true" className=" w-4 h-4 dark:fill-white">
+            <g>
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+            </g>
+        </svg>
+    ),
+    x: () => (
+        <svg viewBox="0 0 24 24" aria-hidden="true" className=" w-4 h-4 dark:fill-white">
+            <g>
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+            </g>
+        </svg>
+    ),
     direct: () => <ArrowUpRight size={18} />,
     facebook: () => <Facebook size={18} />,
     google: () => (
-        <svg
-            viewBox="0 0 48 48"
-            width={16}
-            height={16}
-            className=" stroke-black stroke-2 dark:stroke-white fill-none"
-            id="b"
-            xmlns="http://www.w3.org/2000/svg"
-        >
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-            <g id="SVGRepo_iconCarrier">
-                defs
-                <path d="m31.6814,34.8868c-1.9155,1.29-4.3586,2.0718-7.2514,2.0718-5.59,0-10.3395-3.7723-12.04-8.8541v-.0195c-.43-1.29-.6841-2.6582-.6841-4.085s.2541-2.795.6841-4.085c1.7005-5.0818,6.45-8.8541,12.04-8.8541,3.1664,0,5.9809,1.0945,8.2286,3.2055l6.1568-6.1568c-3.7332-3.4791-8.5805-5.6095-14.3855-5.6095-8.4045,0-15.6559,4.8277-19.1936,11.8641-1.4659,2.8927-2.3064,6.1568-2.3064,9.6359s.8405,6.7432,2.3064,9.6359v.0195c3.5377,7.0168,10.7891,11.8445,19.1936,11.8445,5.805,0,10.6718-1.9155,14.2291-5.1991,4.0655-3.7527,6.4109-9.2645,6.4109-15.8123,0-1.5245-.1368-2.9905-.3909-4.3977h-20.2491v8.3264h11.5709c-.5082,2.6777-2.0327,4.945-4.3195,6.4695h0Z"></path>
-            </g>
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width={17}>
+            <path
+                d="M19.76 10.77L19.67 10.42H12.23V13.58H16.68C16.4317 14.5443 15.8672 15.3974 15.0767 16.0029C14.2863 16.6084 13.3156 16.9313 12.32 16.92C11.0208 16.9093 9.77254 16.4135 8.81999 15.53C8.35174 15.0685 7.97912 14.5191 7.72344 13.9134C7.46777 13.3077 7.33407 12.6575 7.33 12C7.34511 10.6795 7.86792 9.41544 8.79 8.47002C9.7291 7.58038 10.9764 7.08932 12.27 7.10002C13.3779 7.10855 14.4446 7.52101 15.27 8.26002L17.47 6.00002C16.02 4.70638 14.1432 3.9941 12.2 4.00002C11.131 3.99367 10.0713 4.19793 9.08127 4.60115C8.09125 5.00436 7.19034 5.59863 6.43 6.35002C4.98369 7.8523 4.16827 9.85182 4.15152 11.9371C4.13478 14.0224 4.918 16.0347 6.34 17.56C7.12784 18.3449 8.06422 18.965 9.09441 19.3839C10.1246 19.8029 11.2279 20.0123 12.34 20C13.3484 20.0075 14.3479 19.8102 15.2779 19.42C16.2078 19.0298 17.0488 18.4549 17.75 17.73C19.1259 16.2171 19.8702 14.2347 19.83 12.19C19.8408 11.7156 19.8174 11.2411 19.76 10.77Z"
+                fill="#fff"
+            ></path>
         </svg>
     ),
     telegram: () => (
@@ -49,7 +75,7 @@ export const RefIcons = {
         </svg>
     ),
     instagram: () => <Instagram size={16} />,
-    loglib: () => <Icons.logo className=" h-4 w-4 md:h-5 md:w-5" />,
+    loglib: () => <Icons.logo className=" h-4 w-4 md:h-4 md:w-4" />,
     android: () => (
         <svg
             viewBox="0 0 24 24"
@@ -89,7 +115,28 @@ export const RefIcons = {
             </g>
         </svg>
     ),
-    localhost:() => <Laptop size={18} />,
-    youtube: ()=><Youtube size={18}/>,
+    localhost: () => <Laptop size={18} />,
+    youtube: () => <Youtube size={18} />,
+    linkedin: () => <Linkedin size={17} />,
     default: () => <Link size={18} />,
+    twitch: () => <Twitch size={18} />,
+    gmail: () => <Mail size={18} />,
+    mail: () => <Mail size={18} />,
+};
+
+export const RenderIcon = ({ icon }: { icon: string }) => {
+    const Icon = RefIcons[icon];
+    return <Icon />;
+};
+
+export const DefaultIcons = ({ url }: { url: string }) => {
+    const hostName = getHostName(url);
+    return (
+        <img
+            alt=""
+            src={`https://icons.duckduckgo.com/ip3/${hostName}.ico`}
+            width={18}
+            height={18}
+        />
+    );
 };

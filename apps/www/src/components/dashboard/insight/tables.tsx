@@ -1,6 +1,6 @@
 import { FilterProp } from "../type";
 import { ClearFilter } from "./clear-filter";
-import { RefIcons } from "./ref-icons";
+import { DefaultIcons, RefIcons, RenderIcon } from "./ref-icons";
 import { InsightTable } from "./table";
 import { Card, CardContent } from "@/components/ui/card";
 import { TableCell, TableRow } from "@/components/ui/table";
@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import COUNTRIES from "@/lib/constants";
 import { GetInsightResponse } from "@loglib/types";
 import { Asterisk, Link2Icon, MapPin, MonitorSmartphone, PanelTop } from "lucide-react";
+import Link from "next/link";
 import ReactCountryFlag from "react-country-flag";
 
 type InsightTablesProps = {
@@ -280,15 +281,25 @@ export const InsightTables = ({
                                             }}
                                             className=" cursor-pointer"
                                         >
-                                            <TableCell className="flex gap-1 items-center">
+                                            <TableCell className="flex gap-2 items-center z-10">
                                                 {RefIcons[
                                                     refs.referrer.toLowerCase() as keyof typeof RefIcons
-                                                ]
-                                                    ? RefIcons[
-                                                          refs.referrer.toLowerCase() as keyof typeof RefIcons
-                                                      ]()
-                                                    : RefIcons["default"]()}
-                                                {refs.referrer}
+                                                ] ? (
+                                                    <RenderIcon
+                                                        icon={refs.referrer.toLowerCase()}
+                                                    />
+                                                ) : (
+                                                    <DefaultIcons url={refs.referrerDomain} />
+                                                )}
+                                                <Link
+                                                    className=" hover:underline"
+                                                    href={refs.referrerDomain}
+                                                >
+                                                    {refs.referrer.split(".").length > 1
+                                                        ? refs.referrer
+                                                        : refs.referrer.charAt(0).toUpperCase() +
+                                                          refs.referrer.slice(1)}
+                                                </Link>
                                             </TableCell>
                                             <TableCell className="text-right">
                                                 {refs.visits}

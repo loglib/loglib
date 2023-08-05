@@ -87,3 +87,18 @@ export const truncate = (str: string | null, length: number) => {
 export const getHost = (url: string) => {
     return new URL(url).hostname.match(/[^.]+\.[^.]+$/)?.[0];
 };
+
+export function isURLImage(url: string, callback: (state: boolean) => void) {
+    const img = new Image();
+    img.onload = function () {
+        callback(true);
+    };
+    img.onerror = function () {
+        callback(false);
+    };
+    img.src = url;
+}
+export function getHostName(url: string) {
+    const match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n?=]+)/im);
+    return match && match.length > 1 ? match[1] : null;
+}
