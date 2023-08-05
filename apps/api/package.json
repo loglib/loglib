@@ -4,7 +4,7 @@
     "scripts": {
         "dev": "tsx watch src/index.ts",
         "build": "tsup",
-        "stage": "tsup --watch && node dist/index.js",
+        "setup": "node setup/index.js",
         "serve": "pm2 start server dist/index.js"
     },
     "main": "src/index.ts",

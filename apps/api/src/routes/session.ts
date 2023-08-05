@@ -74,6 +74,10 @@ export const createSession: RouteType = async ({ req, rawBody }) => {
             return {
                 data: {
                     message: "Session created",
+                    data: {
+                        country,
+                        city,
+                    },
                 },
                 status: 200,
             };
