@@ -71,9 +71,6 @@ importers:
       '@chronark/zod-bird':
         specifier: ^0.1.1
         version: 0.1.1
-      '@clickhouse/client':
-        specifier: ^0.1.1
-        version: 0.1.1
       '@clickhouse/client-web':
         specifier: ^0.2.0
         version: 0.2.0
