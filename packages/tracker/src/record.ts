@@ -127,22 +127,22 @@ export const navigationHandler = (_: string, __: string, url: string) => {
             "/session/pulse",
             flush,
         );
-        send(
-            {
-                screenWidth: window.screen.width,
-                language: navigator.language,
-                currentUrl: currentUrl,
-                referrerUrl: currentRef,
-                queryParams: getUrlParams(),
-                duration: (Date.now() - window.lli.timeOnPage) / 1000,
-                host: location.hostname,
-                sessionId: window.lli.sessionId,
-                sdkVersion: window.lli.sdkVersion,
-                visitorId: getVisitorId(),
-            },
-            "/event",
-            flush,
-        );
+        // send(
+        //     {
+        //         screenWidth: window.screen.width,
+        //         language: navigator.language,
+        //         currentUrl: currentUrl,
+        //         referrerUrl: currentRef,
+        //         queryParams: getUrlParams(),
+        //         duration: (Date.now() - window.lli.timeOnPage) / 1000,
+        //         host: location.hostname,
+        //         sessionId: window.lli.sessionId,
+        //         sdkVersion: window.lli.sdkVersion,
+        //         visitorId: getVisitorId(),
+        //     },
+        //     "/event",
+        //     flush,
+        // );
     }
 };
 

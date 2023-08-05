@@ -27,7 +27,7 @@ export const WebsitesList = () => {
                         <Website
                             key={website.id}
                             site={website}
-                            visitors={website.WebSession.length}
+                            visitors={website.visitors}
                             setSelected={setSelected}
                             setIsOpen={setIsOpen}
                         />

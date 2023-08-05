@@ -1,3 +1,4 @@
+import { client } from "@/lib/clickhouse";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
 
@@ -10,20 +11,8 @@ export const getWebsite = async () => {
         where: {
             userId: user.id,
         },
-        include: {
-            WebSession: {
-                distinct: ["visitorId"],
-                where: {
-                    createdAt: {
-                        gte: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
-                    },
-                },
-                select: {
-                    id: true,
-                },
-            },
-        },
     });
+
     const ids = userWebsites.map((website) => website.id);
     const teamWebsites = await db.teamWebsite.findMany({
         where: {
@@ -46,27 +35,42 @@ export const getWebsite = async () => {
             },
         },
         include: {
-            Website: {
-                include: {
-                    WebSession: {
-                        distinct: ["visitorId"],
-                        where: {
-                            createdAt: {
-                                gte: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
-                            },
-                        },
-                        select: {
-                            id: true,
-                        },
-                    },
-                },
-            },
+            Website: true,
         },
+    });
+    const sites = userWebsites.map(async (web) => {
+        const before24Hour = new Date(new Date().getTime() - 24 * 60 * 60 * 1000);
+        const sessionsCount = await client.query({
+            query: `select visitorId as id from loglib.event where websiteId='${
+                web.id
+            }' AND timestamp >= '${before24Hour.toISOString().slice(0, 19).replace("T", " ")}'`,
+            format: "JSONEachRow",
+        });
+        const s = (await sessionsCount.json()) as { id: string }[];
+        return {
+            ...web,
+            visitors: new Set(s.map((l) => l.id)).size,
+        };
+    });
+
+    const teamSites = teamWebsites.map(async (web) => {
+        const before24Hour = new Date(new Date().getTime() - 24 * 60 * 60 * 1000);
+        const sessionsCount = await client.query({
+            query: `select visitorId as id from loglib.event where websiteId='${
+                web.Website.id
+            }' AND timestamp >= '${before24Hour.toISOString().slice(0, 19).replace("T", " ")}'`,
+            format: "JSONEachRow",
+        });
+        const s = (await sessionsCount.json()) as { id: string }[];
+        return {
+            ...web.Website,
+            visitors: new Set(s.map((l) => l.id)).size,
+        };
     });
 
     return {
-        teamWebsites: teamWebsites.map((t) => t.Website),
-        userWebsites,
+        teamWebsites: await Promise.all(teamSites),
+        userWebsites: await Promise.all(sites),
     };
 };
 
