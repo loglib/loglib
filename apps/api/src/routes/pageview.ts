@@ -2,6 +2,9 @@ import { z } from "zod";
 import { apiResponse } from "../lib/api-response";
 import { RouteType } from "./type";
 import { browserName, detectOS } from "detect-browser";
+import { client } from "../lib/db/clickhouse";
+import { getLocation } from "../lib/detect/get-location";
+import { getIpAddress } from "../lib/detect/get-ip-address";
 
 export const pageViewSchema = z.object({
     data: z.object({
@@ -17,11 +20,11 @@ export const pageViewSchema = z.object({
     websiteId: z.string(),
 });
 
-export const createPageview: RouteType = async ({ rawBody, headers, client }) => {
+export const createPageview: RouteType = async ({ rawBody, req }) => {
     const body = pageViewSchema.safeParse(rawBody);
     if (body.success) {
         if (!body.data.visitorId) {
-            body.data.visitorId = headers.get("cf-connecting-ip") as string;
+            body.data.visitorId = req.headers.get("cf-connecting-ip") as string;
         }
         const { websiteId, data, pageId, sessionId, visitorId } = body.data;
         const { currentUrl, currentRef, queryParams, duration } = data;
@@ -31,10 +34,10 @@ export const createPageview: RouteType = async ({ rawBody, headers, client }) =>
                 format: "JSONEachRow",
             })
             .then(async (res) => await res.json());
-
-        const city = (headers.get("cf-ipcity") as string) ?? "unknown";
-        const country = (headers.get("cf-ipcountry") as string) ?? "unknown";
-        const userAgent = (headers.get("user-agent") as string) ?? "unknown";
+        const ip = getIpAddress(req);
+        const city = getLocation(ip, req);
+        const country = getLocation(ip, req);
+        const userAgent = (req.headers["user-agent"] as string) ?? "unknown";
         const browser = browserName(userAgent) ?? "unknown";
         const os = detectOS(userAgent) ?? "Mac OS";
         const properties = JSON.parse(session[0].properties);
@@ -84,7 +87,7 @@ export const createPageview: RouteType = async ({ rawBody, headers, client }) =>
     }
 };
 
-export const updatePageDuration: RouteType = async ({ rawBody, client }) => {
+export const updatePageDuration: RouteType = async ({ rawBody }) => {
     const schema = z.object({
         data: z.object({
             duration: z.number(),

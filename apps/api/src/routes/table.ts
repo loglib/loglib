@@ -41,7 +41,7 @@ const transformData = (events: LoglibEvent[]) => {
         const cityIndex = byCity.findIndex((a) => a.location === city);
         const countryIndex = byCountry.findIndex((a) => a.location === country);
         const refDomain = event.referrerDomain;
-        const refIndex = referrer.findIndex((a) => a.referrerDomain === refDomain);
+        const refIndex = referrer.findIndex((a) => a.referrer === transformRef(refDomain));
         const browserIndex = browsers.findIndex((a) => a.browser === event.browser);
         const osIndex = os.findIndex((a) => a.os === event.os);
         const queryParams = JSON.parse(event.queryParams);
@@ -155,10 +155,11 @@ const transformData = (events: LoglibEvent[]) => {
 function getSiteName(url: string): string {
     try {
         const parsedUrl = new URL(url);
-        const subDomain = parsedUrl.hostname;
-        if (subDomain.indexOf(".")) {
-            const name = subDomain.split(".")[0];
-            return name;
+        const subDomain = parsedUrl.hostname.replace("www.", "");
+        if (subDomain.includes(".")) {
+            const splitted = subDomain.split(".");
+            const domainWithoutLtd = splitted.slice(0, splitted.length - 1);
+            return domainWithoutLtd[0];
         }
         return subDomain;
     } catch {
@@ -170,12 +171,15 @@ const transformRef = (ref: string) => {
     if (ref === "direct") {
         return ref;
     }
-    ref = getSiteName(ref);
-
-    if (ReferrerName[ref]) {
-        ref = ReferrerName[ref];
+    let shortRef = getSiteName(ref);
+    if (ReferrerName[shortRef]) {
+        shortRef = ReferrerName[shortRef];
     }
-    return ref;
+    const url = ref.startsWith("https") ? new URL(ref).hostname : ref.replace("android-app://", "");
+    if (ReferrerName[url]) {
+        shortRef = ReferrerName[url];
+    }
+    return shortRef;
 };
 
 export const getVisitorsByDate = (

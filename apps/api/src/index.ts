@@ -1,4 +1,5 @@
-import { createClient } from "@clickhouse/client-web";
+import "dotenv/config";
+import { createClient } from "@clickhouse/client";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { convertDate } from "./lib/utils";
@@ -10,24 +11,23 @@ import { envSchema, insightSchema } from "./schema";
 import { customEventsQuery, getDataQuery } from "./lib/db/clickhouse";
 import { filter } from "./lib/small-filter";
 import { retryFunction } from "./lib/retry";
-//-> pageId -> Distinct Id , duration -
+import { serve } from "@hono/node-server";
+import jwt from "jsonwebtoken";
+import { logger } from "hono/logger";
 
 const app = new Hono();
 
+app.use("*", logger());
 app.use("*", cors());
 
 app.post("/", async (c) => {
-    const env = envSchema.parse(c.env);
+    envSchema.parse(process.env);
     const body = await c.req.json();
     if (!body.path) {
         return c.json(null, 200);
     }
-    const client = createClient({
-        host: env.CLICKHOUSE_HOST,
-        password: env.CLICKHOUSE_PASSWORD,
-    });
     const path: Path = body.path;
-    const res = await router({ path, rawBody: body, client, headers: c.req.headers, query: {} });
+    const res = await router({ path, rawBody: body, req: c.req, query: {} });
     if (res.status !== 200) {
         console.log(path, res.status, body.data);
     }
@@ -35,28 +35,38 @@ app.post("/", async (c) => {
 });
 
 app.get("/", async (c) => {
-    const env = envSchema.parse(c.env);
+    //check env
+    const env = envSchema.parse(process.env);
+    //authentication
     const queries = insightSchema.safeParse(c.req.query());
     if (!queries.success) {
-        console.log(queries);
         return c.json(null, 400);
     }
-    const { startDate, endDate, timeZone, websiteId } = queries.data;
+    const { startDate, endDate, timeZone, websiteId, token } = queries.data;
+    try {
+        jwt.verify(token, env.NEXTAUTH_SECRET, (err, decoded) => {
+            //@ts-ignore
+            if (decoded.website !== websiteId) {
+                throw Error;
+            }
+        });
+    } catch {
+        return c.json(null, 401);
+    }
     const startDateObj = new Date(startDate);
     const endDateObj = new Date(endDate);
     const duration = endDateObj.getTime() - startDateObj.getTime();
     const pastEndDateObj = new Date(startDateObj.getTime() - duration);
-    const client = createClient({
-        host: env.CLICKHOUSE_HOST,
-        password: env.CLICKHOUSE_PASSWORD,
-    });
     try {
+        const tick = performance.now();
         let [events, lastEvents] = await retryFunction(
             getDataQuery,
-            [client, startDateObj, endDateObj, pastEndDateObj, websiteId],
+            [startDateObj, endDateObj, pastEndDateObj, websiteId],
             3,
             4,
         );
+        const tack = performance.now();
+        console.log(tack - tick, "ms taken to query");
         const filters = JSON.parse(queries.data.filter) as Filter<LoglibEvent>[];
         filters.length &&
             filters.forEach((f) => {
@@ -115,7 +125,6 @@ app.get("/events", async (c) => {
             timestamp: string;
             websiteId: string;
         };
-        console.log(startDateObj, endDateObj);
         const events = (res as EventRes[])
             .map((s) => {
                 const properties = JSON.parse(s.properties);
@@ -220,4 +229,12 @@ app.get("/events", async (c) => {
 //     return c.json(events, 200);
 // });
 
-export default app;
+serve(
+    {
+        fetch: app.fetch,
+        port: 8000,
+    },
+    (info) => {
+        console.log("listening on port: ", info.port);
+    },
+);

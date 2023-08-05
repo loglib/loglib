@@ -5,6 +5,9 @@ import { apiResponse } from "../lib/api-response";
 import { getDevice } from "../lib/detect/get-device";
 import { setVisitorId } from "../lib/set-visitor-id";
 import { RouteType } from "./type";
+import { getIpAddress } from "../lib/detect/get-ip-address";
+import { getLocation } from "../lib/detect/get-location";
+import { client } from "../lib/db/clickhouse";
 
 export const sessionSchema = z.object({
     data: z.object({
@@ -22,23 +25,20 @@ export const sessionSchema = z.object({
 });
 export type SessionInput = z.infer<typeof sessionSchema>;
 
-export const createSession: RouteType = async ({ headers, rawBody, client }) => {
-    if (isbot(headers.get("user-agent"))) {
+export const createSession: RouteType = async ({ req, rawBody }) => {
+    if (isbot(req.headers["user-agent"])) {
         return { data: { message: "bot" }, status: 200 };
     }
     //if GDPR compliance is enabled, use ip address as user id
     const body = sessionSchema.safeParse(rawBody);
-
     if (body.success) {
-        body.data.visitorId = setVisitorId(
-            body.data.visitorId,
-            headers.get("cf-connecting-ip") as string,
-        );
+        const ip = getIpAddress(req);
+        body.data.visitorId = setVisitorId(body.data.visitorId, ip);
         const { sessionId, data, visitorId, websiteId, pageId } = body.data;
         const { referrer, language, queryParams, screenWidth, pathname } = data;
-        const city = (headers.get("cf-ipcity") as string) ?? "unknown";
-        const country = (headers.get("cf-ipcountry") as string) ?? "unknown";
-        const userAgent = (headers.get("user-agent") as string) ?? "unknown";
+        const city = getLocation(ip, req);
+        const country = getLocation(ip, req);
+        const userAgent = req.headers["user-agent"];
         const browser = browserName(userAgent) ?? "unknown";
         const os = detectOS(userAgent) ?? "Mac OS";
         const device = os ? getDevice(screenWidth, os) ?? "desktop" : "unknown";
@@ -74,7 +74,7 @@ export const createSession: RouteType = async ({ headers, rawBody, client }) => 
                 .then((res) => console.log(res, referrer.length ?? "direct", "ref"));
             return {
                 data: {
-                    message: "Session updated",
+                    message: "Session created",
                 },
                 status: 200,
             };
