@@ -4,6 +4,7 @@ import { z } from "zod";
 import { apiResponse } from "../lib/api-response";
 import { browserName, detectOS } from "detect-browser";
 import { getDevice } from "../lib/detect/get-device";
+import { client } from "../lib/db/clickhouse";
 
 const schema = z.object({
     id: z.string(),
@@ -25,8 +26,8 @@ const schema = z.object({
  * on progress: a new tracker sdk should use this endpoint in default. We should avoid fetching data and updates as much as possible but we'll keep the support for the old sdk for sometime.
  */
 
-export const createEvent: RouteType = async ({ headers, rawBody, client }) => {
-    if (isbot(headers.get("user-agent"))) {
+export const createEvent: RouteType = async ({ req, rawBody }) => {
+    if (isbot(req.headers.get["user-agent"])) {
         return { data: { message: "bot" }, status: 200 };
     }
     const body = schema.safeParse(rawBody);
@@ -46,9 +47,9 @@ export const createEvent: RouteType = async ({ headers, rawBody, client }) => {
         duration,
         websiteId,
     } = body.data;
-    const city = (headers.get("cf-ipcity") as string) ?? "unknown";
-    const country = (headers.get("cf-ipcountry") as string) ?? "unknown";
-    const userAgent = (headers.get("user-agent") as string) ?? "unknown";
+    const city = (req.headers["cf-ipcity"] as string) ?? "unknown";
+    const country = (req.headers["cf-ipcountry"] as string) ?? "unknown";
+    const userAgent = (req.headers["user-agent"] as string) ?? "unknown";
     const browser = browserName(userAgent) ?? "unknown";
     const os = detectOS(userAgent) ?? "Mac OS";
     const device = os ? getDevice(screenWidth, os) ?? "desktop" : "unknown";

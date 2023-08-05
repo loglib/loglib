@@ -35,8 +35,7 @@ export const createPageview: RouteType = async ({ rawBody, req }) => {
             })
             .then(async (res) => await res.json());
         const ip = getIpAddress(req);
-        const city = getLocation(ip, req);
-        const country = getLocation(ip, req);
+        const { city, country } = await getLocation(ip, req);
         const userAgent = (req.headers["user-agent"] as string) ?? "unknown";
         const browser = browserName(userAgent) ?? "unknown";
         const os = detectOS(userAgent) ?? "Mac OS";

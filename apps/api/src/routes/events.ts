@@ -3,6 +3,9 @@ import { apiResponse } from "../lib/api-response";
 import { RouteType } from "./type";
 import { setVisitorId } from "../lib/set-visitor-id";
 import { browserName, detectOS } from "detect-browser";
+import { getIpAddress } from "../lib/detect/get-ip-address";
+import { getLocation } from "../lib/detect/get-location";
+import { client } from "../lib/db/clickhouse";
 
 export const eventSchema = z.object({
     data: z.array(
@@ -20,10 +23,10 @@ export const eventSchema = z.object({
     websiteId: z.string(),
 });
 
-export const createEvents: RouteType = async ({ rawBody, headers, client }) => {
+export const createEvents: RouteType = async ({ rawBody, req }) => {
     const body = eventSchema.safeParse(rawBody);
     if (body.success) {
-        const ipAddress = headers.get("cf-connecting-ip") as string;
+        const ipAddress = getIpAddress(req);
         const { visitorId, websiteId, sessionId, data, pageId } = body.data;
         const session = await client
             .query({
@@ -31,9 +34,8 @@ export const createEvents: RouteType = async ({ rawBody, headers, client }) => {
                 format: "JSONEachRow",
             })
             .then(async (res) => await res.json());
-        const city = (headers.get("cf-ipcity") as string) ?? "unknown";
-        const country = (headers.get("cf-ipcountry") as string) ?? "unknown";
-        const userAgent = (headers.get("user-agent") as string) ?? "unknown";
+        const { city, country } = await getLocation(ipAddress, req);
+        const userAgent = req.headers["user-agent"] ?? "unknown";
         const browser = browserName(userAgent) ?? "unknown";
         const os = detectOS(userAgent) ?? "Mac OS";
         if (!session[0])
