@@ -7,6 +7,7 @@ import { formatDate } from "@/lib/utils";
 import { getBlurDataURL } from "@/lib/image";
 import BlurImage from "@/components/ui/blur-image";
 import { Facebook, Linkedin, Twitter } from "lucide-react";
+import { Icons } from "@/components/icons";
 
 export async function generateStaticParams() {
     return allChangelogPosts.map((post) => ({
@@ -100,15 +101,15 @@ export default async function ChangelogPost({
                 <div className="mx-5 mb-10 flex items-center justify-between md:mx-0">
                     {/* <Author username={post.author} /> */}
                     <div className="flex items-center space-x-6">
-                        <Link
+                        {/* <Link
                             href={`https://twitter.com/intent/tweet?text=${post.title}&url=https://loglib.io/changelog/${post.slug}&via=${post.author}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="transition-all hover:scale-110"
                         >
-                            <Twitter className="h-6 w-6" />
-                        </Link>
-                        <Link
+                            <Icons.twitter className="h-6 w-6 fill-white" />
+                        </Link> */}
+                        {/* <Link
                             href={`
             http://www.linkedin.com/shareArticle?mini=true&url=https://loglib.io/changelog/${post.slug}`}
                             target="_blank"
@@ -124,13 +125,13 @@ export default async function ChangelogPost({
                             className="transition-all hover:scale-110"
                         >
                             <Facebook className="h-6 w-6" fill="black" />
-                        </Link>
+                        </Link> */}
                     </div>
                 </div>
                 <MDX code={post.body.code} />
                 <div className="mt-10 flex justify-end border-t border-gray-200 pt-5">
                     <Link
-                        href={`https://github.com/steven-tey/dub/blob/main/posts/changelog/${params.slug}.mdx`}
+                        href={`https://github.com/loglib/loglib/apps/www/content/changelog/${params.slug}.mdx`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-sm text-gray-500 transition-colors hover:text-gray-800"

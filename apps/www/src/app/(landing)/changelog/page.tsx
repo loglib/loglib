@@ -5,6 +5,7 @@ import { constructMetadata, formatDate } from "@/lib/utils";
 import Link from "next/link";
 import { MDX } from "@/components/blog-mdx";
 import { Twitter } from "lucide-react";
+import { Icons } from "@/components/icons";
 
 export const metadata = constructMetadata({
     title: "Changelog - Loglib",
@@ -34,7 +35,7 @@ export default async function Changelog() {
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        <Twitter className="h-4 w-4 text-[#1d9bf0]" />
+                        <Icons.twitter className="h-4 w-4 text-[#1d9bf0] fill-black" />
                     </Link>
                 </div>
             </div>
