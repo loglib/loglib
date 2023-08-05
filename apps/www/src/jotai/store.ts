@@ -1,5 +1,4 @@
 import { atom } from "jotai";
-import { WebsiteWithSessions } from "./types";
 import { Teams } from "@/server/query";
 import { User } from "next-auth";
 import { Website } from "generated/client";

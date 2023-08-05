@@ -35,32 +35,32 @@ export default async function Page({
         .where("website.id", "=", params.website)
         .execute();
     const website = dbWebsite.find((d) => d.id === params.website);
-    // const isAuthed = dbWebsite.find((d) => d.user_id === user?.id || d.team_user_id === user?.id);
-    // if (!website || (!isAuthed && !dbWebsite[0].public)) {
-    //     return redirect("/");
-    // }
-    // const isPublic = !isAuthed ? true : false;
-    // const showSetup = isPublic
-    //     ? false
-    //     : website.active === 1
-    //     ? false
-    //     : await (async () => {
-    //           const haveSession = (await getIsWebsiteActive({ websiteId: params.website })).length;
-    //           if (haveSession) {
-    //               await db
-    //                   .updateTable("website")
-    //                   .set({
-    //                       active: 1,
-    //                   })
-    //                   .where("id", "=", params.website)
-    //                   .executeTakeFirst();
-    //               return false;
-    //           }
-    //           return true;
-    //       })();
+    const isAuthed = dbWebsite.find((d) => d.user_id === user?.id || d.team_user_id === user?.id);
+    if (!website || (!isAuthed && !dbWebsite[0].public)) {
+        return redirect("/");
+    }
+    const isPublic = !isAuthed ? true : false;
+    const showSetup = isPublic
+        ? false
+        : website.active === 1
+        ? false
+        : await (async () => {
+              const haveSession = (await getIsWebsiteActive({ websiteId: params.website })).length;
+              if (haveSession) {
+                  await db
+                      .updateTable("website")
+                      .set({
+                          active: 1,
+                      })
+                      .where("id", "=", params.website)
+                      .executeTakeFirst();
+                  return false;
+              }
+              return true;
+          })();
     return (
         <main>
-            <Dashboard website={website} isPublic={false} showSetup={false} token={token} />
+            <Dashboard website={website} isPublic={isPublic} showSetup={showSetup} token={token} />
         </main>
     );
 }

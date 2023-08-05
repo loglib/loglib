@@ -11,7 +11,6 @@ import {
     getSessionDuration,
     getUrl,
     getUrlParams,
-    getVisitorId,
     guid,
     hook,
     parseHost,

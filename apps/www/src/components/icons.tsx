@@ -24,7 +24,6 @@ import {
     Settings,
     SunMedium,
     Trash,
-    Twitter,
     User,
     Users,
     X,
