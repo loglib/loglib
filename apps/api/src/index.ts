@@ -148,6 +148,11 @@ app.get("/events", async (c) => {
 
 //api/v1
 app.use("/v1/*", async (c, next) => {
+    return await next();
+});
+
+app.get("/v1/hits", async (c) => {
+    const query = c.req.query();
     const apiKey = c.req.headers.get("x-api-key");
     if (!apiKey) {
         return c.json({ message: "Unauthorized" }, 401);
@@ -160,20 +165,12 @@ app.use("/v1/*", async (c, next) => {
     if (!site) {
         return c.json({ message: "Unauthorized" }, 401);
     }
-    const query = c.req.query();
     const data = apiQuery.safeParse(query);
     if (!data.success) {
         return c.json({ message: "Bad request" }, 400);
     }
-    c.env.websiteId = site.websiteId;
-    return await next();
-});
-
-app.get("/v1/hits", async (c) => {
-    const query = c.req.query();
-    console.log(query);
-    const { startDate, endDate } = apiQuery.parse(query);
-    const websiteId = c.env.websiteId as string;
+    const { startDate, endDate } = data.data;
+    const websiteId = site.websiteId;
     const startDateObj = new Date(startDate);
     const endDateObj = new Date(endDate);
     async function getData() {
@@ -184,8 +181,8 @@ app.get("/v1/hits", async (c) => {
             })
             .then(async (res) => (await res.json()) as LoglibEvent[]);
     }
-    const data = await retryFunction(getData, [], 3, 4);
-    return c.json(data, 200);
+    const res = await retryFunction(getData, [], 3, 4);
+    return c.json(res, 200);
 });
 
 serve(
