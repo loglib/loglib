@@ -1,7 +1,7 @@
 import { Dashboard } from "@/components/dashboard";
 import { generateToken } from "@/lib/generate-token";
 import { getCurrentUser } from "@/lib/session";
-import { getIsWebsiteActive } from "@/lib/tinybird";
+import { getIsWebsiteActive } from "@/lib/clickhouse";
 import { db } from "@/server/db";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -45,8 +45,7 @@ export default async function Page({
         : website.active === 1
         ? false
         : await (async () => {
-              const haveSession = (await getIsWebsiteActive({ websiteId: params.website })).data
-                  .length;
+              const haveSession = (await getIsWebsiteActive({ websiteId: params.website })).length;
               if (haveSession) {
                   await db
                       .updateTable("website")

@@ -41,6 +41,17 @@ const transformData = (events: LoglibEvent[], pastEvents: LoglibEvent[]) => {
     const newVisitors = new Set([...uniqueValues].filter((x) => !pastUniqueValues.has(x))).size;
     const returningVisitors = new Set([...uniqueValues].filter((x) => pastUniqueValues.has(x)))
         .size;
+    function getAverageTime(seconds: number) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        if (seconds < 60) {
+            return isNaN(seconds) ? "0 sec" : `${seconds} sec`;
+        } else {
+            return `${isNaN(minutes) ? 0 : minutes} min ${
+                isNaN(remainingSeconds) ? 0 : remainingSeconds
+            } sec`;
+        }
+    }
     return {
         uniqueVisitors: {
             current: uniqueVisitorCount,
@@ -59,7 +70,7 @@ const transformData = (events: LoglibEvent[], pastEvents: LoglibEvent[]) => {
             change: getChange(pastBounces / pastEvents.length, bounces / events.length),
         },
         averageTime: {
-            current: Math.round(duration / events.length),
+            current: getAverageTime(Math.round(duration / events.length)),
             change: getChange(pastDuration / pastEvents.length, duration / events.length),
         },
     };

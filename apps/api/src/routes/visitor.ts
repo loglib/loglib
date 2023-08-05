@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { publishVisitor } from "../lib/tinybird";
 import { RouteType } from "./type";
 import { apiResponse } from "../lib/api-response";
 
@@ -14,7 +13,15 @@ export const createVisitor: RouteType = async ({ rawBody, client }) => {
     if (body.success) {
         try {
             const { websiteId, id, data } = body.data;
-
+            await client.insert({
+                table: "loglib.visitor",
+                values: {
+                    id,
+                    identifiedId: data.identifiedId ?? id,
+                    properties: JSON.stringify(data),
+                    websiteId,
+                },
+            });
             return {
                 data: {
                     message: "User updated",

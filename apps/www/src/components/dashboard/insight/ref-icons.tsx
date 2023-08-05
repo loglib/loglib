@@ -1,4 +1,4 @@
-import { ArrowUpRight, Facebook, Github, Instagram, Link, Twitter } from "lucide-react";
+import { ArrowUpRight, Facebook, Github, Instagram, Laptop, Link, PcCase, Twitter, Youtube } from "lucide-react";
 import { Icons } from "@/components/icons";
 
 export const RefIcons = {
@@ -89,5 +89,7 @@ export const RefIcons = {
             </g>
         </svg>
     ),
+    localhost:() => <Laptop size={18} />,
+    youtube: ()=><Youtube size={18}/>,
     default: () => <Link size={18} />,
 };

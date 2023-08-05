@@ -1,4 +1,3 @@
-import { getInsightData } from "./_insight";
 import { createEvents } from "./events";
 import { updatePageDuration, createPageview } from "./pageview";
 import { createSession } from "./session";
@@ -17,8 +16,6 @@ export const router: RouterType = async ({ path, ...rest }) => {
             return await createEvents(rest);
         case "/visitor":
             return await createVisitor(rest);
-        case "/insight":
-            return await getInsightData(rest);
         default:
             return {
                 data: {

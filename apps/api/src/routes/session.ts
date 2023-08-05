@@ -57,7 +57,7 @@ export const createSession: RouteType = async ({ headers, rawBody, client }) => 
                                 queryParams: queryParams ? JSON.stringify(queryParams) : "{}",
                                 duration: 0,
                                 currentPath: pathname,
-                                referrerDomain: referrer ?? "direct",
+                                referrerDomain: referrer.length ? referrer : "direct",
                                 country,
                                 city,
                                 language,
@@ -70,7 +70,8 @@ export const createSession: RouteType = async ({ headers, rawBody, client }) => 
                     ],
                     format: "JSONEachRow",
                 })
-                .catch((e) => console.log(e));
+                .catch((e) => console.log(e))
+                .then((res) => console.log(res, referrer.length ?? "direct", "ref"));
             return {
                 data: {
                     message: "Session updated",

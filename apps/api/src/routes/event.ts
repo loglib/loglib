@@ -21,6 +21,10 @@ const schema = z.object({
     websiteId: z.string(),
 });
 
+/**
+ * on progress: a new tracker sdk should use this endpoint in default. We should avoid fetching data and updates as much as possible but we'll keep the support for the old sdk for sometime.
+ */
+
 export const createEvent: RouteType = async ({ headers, rawBody, client }) => {
     if (isbot(headers.get("user-agent"))) {
         return { data: { message: "bot" }, status: 200 };

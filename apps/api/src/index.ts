@@ -7,8 +7,9 @@ import { getTablesData } from "./routes/table";
 import { Filter, LoglibEvent, Path } from "./type";
 import { router } from "./routes";
 import { envSchema, insightSchema } from "./schema";
-import { hitsQuery, customEventsQuery } from "./lib/db/clickhouse";
+import { customEventsQuery, getDataQuery } from "./lib/db/clickhouse";
 import { filter } from "./lib/small-filter";
+import { retryFunction } from "./lib/retry";
 //-> pageId -> Distinct Id , duration -
 
 const app = new Hono();
@@ -50,28 +51,20 @@ app.get("/", async (c) => {
         password: env.CLICKHOUSE_PASSWORD,
     });
     try {
-        const [res, lastRes] = await Promise.all([
-            client.query({
-                query: hitsQuery(convertDate(startDateObj), convertDate(endDateObj), websiteId),
-                format: "JSONEachRow",
-            }),
-            client.query({
-                query: hitsQuery(convertDate(pastEndDateObj), convertDate(startDateObj), websiteId),
-                format: "JSONEachRow",
-            }),
-        ]);
-        let [events, lastEvents] = await Promise.all([
-            res.json() as Promise<LoglibEvent[]>,
-            lastRes.json() as Promise<LoglibEvent[]>,
-        ]);
+        let [events, lastEvents] = await retryFunction(
+            getDataQuery,
+            [client, startDateObj, endDateObj, pastEndDateObj, websiteId],
+            3,
+            4,
+        );
         const filters = JSON.parse(queries.data.filter) as Filter<LoglibEvent>[];
-        console.log(...filters);
-        filters.forEach((f) => {
-            events = filter(events).where(f.key, f.operator, f.value).execute();
-            lastEvents = filter(lastEvents as LoglibEvent[])
-                .where(f.key, f.operator, f.value)
-                .execute();
-        });
+        filters.length &&
+            filters.forEach((f) => {
+                events = filter(events).where(f.key, f.operator, f.value).execute();
+                lastEvents = filter(lastEvents as LoglibEvent[])
+                    .where(f.key, f.operator, f.value)
+                    .execute();
+            });
         const insightData = getInsight(events as LoglibEvent[], lastEvents as LoglibEvent[]);
         const tableData = getTablesData(
             events as LoglibEvent[],

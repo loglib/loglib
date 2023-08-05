@@ -29,11 +29,18 @@ export function Graph({
                     onClick={(e) => {
                         if (!data) return;
                         const startDate = new Date(e.activePayload?.[0].payload.originalDate);
-                        startDate.setHours(startDate.getHours() - 1);
+                        const stringDate = e.activePayload?.[0].payload.date.split(" ");
                         const endDate = new Date(e.activePayload?.[0].payload.originalDate);
-                        endDate.setHours(endDate.getHours() + 1);
+                        console.log(stringDate, "string date", startDate[1]);
+                        if (stringDate[1] === "AM" || stringDate[1] === "PM") {
+                            endDate.setHours(endDate.getHours() + 1);
+                        } else if (stringDate[1]) {
+                            endDate.setDate(startDate.getDate() + 1);
+                        } else {
+                            endDate.setMonth(startDate.getMonth() + 1);
+                        }
                         setTimeRange({
-                            startDate: new Date(e.activePayload?.[0].payload.originalDate),
+                            startDate: new Date(startDate),
                             endDate: new Date(endDate),
                             stringValue: "custom",
                         });

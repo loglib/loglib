@@ -45,11 +45,11 @@ const transformData = (events: LoglibEvent[]) => {
         const browserIndex = browsers.findIndex((a) => a.browser === event.browser);
         const osIndex = os.findIndex((a) => a.os === event.os);
         const queryParams = JSON.parse(event.queryParams);
-        const utmSourceIndex = utmSources.findIndex((a) => queryParams?.utm_source === a.utmSource);
-        const utmCampaignIndex = utmCampaigns.findIndex(
-            (c) => queryParams?.utm_campaign === c.utmCampaign,
-        );
-        if (timestamp.getTime() - Date.now() < 1000 * 60) {
+        const utmSource = queryParams.utm_source;
+        const utmCampaign = queryParams.utm_campaign;
+        const utmSourceIndex = utmSources.findIndex((a) => utmSource === a.utmSource);
+        const utmCampaignIndex = utmCampaigns.findIndex((c) => utmCampaign === c.utmCampaign);
+        if (Date.now() - timestamp.getTime() < 1000 * 60) {
             onlineVisitors.add(event.visitorId);
         }
         if (pageIndex === -1) {
@@ -113,16 +113,18 @@ const transformData = (events: LoglibEvent[]) => {
             os[osIndex].visits++;
         }
         if (utmSourceIndex === -1) {
-            utmSources.push({
-                utmSource: queryParams?.utm_source,
-                visits: 1,
-            });
+            utmSource &&
+                utmSources.push({
+                    utmSource,
+                    visits: 1,
+                });
         }
         if (utmCampaignIndex === -1) {
-            utmCampaigns.push({
-                utmCampaign: queryParams?.utm_campaign,
-                visits: 1,
-            });
+            utmCampaign &&
+                utmCampaigns.push({
+                    utmCampaign,
+                    visits: 1,
+                });
         }
     }
     const pageVisitsSorted = pageViews.sort((a, b) => b.visits - a.visits);
@@ -153,26 +155,27 @@ const transformData = (events: LoglibEvent[]) => {
 function getSiteName(url: string): string {
     try {
         const parsedUrl = new URL(url);
-        const subDomain = parsedUrl.hostname.split(".");
-        const domain = subDomain[subDomain.length - 2];
-        return domain ? domain.charAt(0).toUpperCase() + domain.slice(1) : url;
+        const subDomain = parsedUrl.hostname;
+        if (subDomain.indexOf(".")) {
+            const name = subDomain.split(".")[0];
+            return name;
+        }
+        return subDomain;
     } catch {
         return url.split("/").length > 1 ? url : url.charAt(0).toUpperCase() + url.slice(1);
     }
 }
 
 const transformRef = (ref: string) => {
-    console.log(ref, "referrer");
+    if (ref === "direct") {
+        return ref;
+    }
+    ref = getSiteName(ref);
+
+    if (ReferrerName[ref]) {
+        ref = ReferrerName[ref];
+    }
     return ref;
-    // if (ref === "") {
-    //     return ref;
-    // } else {
-    //     ref = getSiteName(ref);
-    //     if (ReferrerName[ref]) {
-    //         ref = ReferrerName[ref];
-    //     }
-    //     return ref;
-    // }
 };
 
 export const getVisitorsByDate = (
@@ -207,38 +210,41 @@ export const getVisitorsByDate = (
             "default",
             formatOptions,
         );
-        console.log(new Date(event.timestamp));
-        if (uniqueSessionsSet.has(event.sessionId)) {
-            continue;
+
+        if (!uniqueSessionsSet.has(event.sessionId)) {
+            uniqueSessionsSet.add(event.sessionId);
+            const index = uniqueSessionByDate.findIndex((f) => f.date === date);
+            if (index !== -1) {
+                uniqueSessionByDate[index].visits++;
+            } else {
+                uniqueSessionByDate.push({
+                    date,
+                    visits: 1,
+                    originalDate: new Date(event.timestamp),
+                });
+            }
         }
-        uniqueSessionsSet.add(event.sessionId);
-        const index = uniqueSessionByDate.findIndex((f) => f.date === date);
-        if (index !== -1) {
-            uniqueSessionByDate[index].visits++;
-        } else {
-            uniqueSessionByDate.push({
-                date,
-                visits: 1,
-                originalDate: new Date(event.timestamp),
-            });
-        }
-        if (uniqueVisitorsSet.has(event.visitorId)) {
-            continue;
-        }
-        uniqueVisitorsSet.add(event.visitorId);
-        const index2 = uniqueVisitorsByDate.findIndex((f) => f.date === date);
-        if (index2 !== -1) {
-            uniqueSessionByDate[index2].visits++;
-        } else {
-            uniqueVisitorsByDate.push({
-                date,
-                visits: 1,
-                originalDate: new Date(event.timestamp),
-            });
+
+        if (!uniqueVisitorsSet.has(event.visitorId)) {
+            uniqueVisitorsSet.add(event.visitorId);
+            const index2 = uniqueVisitorsByDate.findIndex((f) => f.date === date);
+            if (index2 !== -1) {
+                uniqueVisitorsByDate[index2].visits++;
+            } else {
+                uniqueVisitorsByDate.push({
+                    date,
+                    visits: 1,
+                    originalDate: new Date(event.timestamp),
+                });
+            }
         }
     }
     return {
-        uniqueSessionByDate,
-        uniqueVisitorsByDate,
+        uniqueSessionByDate: uniqueSessionByDate.sort(
+            (a, b) => a.originalDate.getTime() - b.originalDate.getTime(),
+        ),
+        uniqueVisitorsByDate: uniqueVisitorsByDate.sort(
+            (a, b) => a.originalDate.getTime() - b.originalDate.getTime(),
+        ),
     };
 };

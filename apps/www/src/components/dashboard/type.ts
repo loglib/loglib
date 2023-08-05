@@ -1,4 +1,4 @@
-import { EventsWithData, OperatorType } from "@loglib/types";
+import { OperatorType } from "@loglib/types";
 
 export type TimeRange = {
     startDate: Date;

@@ -1,60 +1,70 @@
 import { db } from "@/lib/db";
 import { createClient } from "@clickhouse/client";
+import { env } from "env.mjs";
 import fs from "fs";
 export const POST = async (req: Request) => {
     const body = await req.json();
     const table = body.table;
     if (table === "clickhouse") {
         const client = createClient({
-            host: "http://49.12.238.229:8123/",
-            password: "Klc7-klc7",
-        });
-        const exDa = await client.query({
-            query: "SELECT * FROM event LIMIT 10",
-            format: "JSONEachRow",
-        });
-        const d = (await exDa.json()) as {
-            timestamp: string;
-            event: string;
-            properties: string;
-            id: string;
-        }[];
-        d.map((e) => {
-            console.log(e.id);
+            host: env.CLICKHOUSE_HOST,
+            password: env.CLICKHOUSE_PASSWORD,
         });
         const sessions = await db.webSession.findMany();
         const pageViews = await db.webPageview.findMany();
-        const merged = sessions.map((session) => {
-            const pageview = pageViews.find((p) => p.sessionId === session.id);
+        const merged = pageViews.map((pageview) => {
+            const session = sessions.find((p) => p.id === pageview.sessionId);
+            if (!session) {
+                return {};
+            }
             return {
-                ...session,
-                ...pageview,
+                websiteId: session?.websiteId,
+                sessionId: session?.id,
+                timestamp: pageview.createdAt.toISOString().slice(0, 19).replace("T", " "),
+                visitorId: session?.visitorId,
+                language: session?.language,
+                browser: session?.browser,
+                referrer: session?.referrer,
+                page: pageview.page,
+                queryParams: pageview.queryParams,
+                country: session?.country,
+                city: session?.city,
+                os: session?.os,
+                device: session?.device,
+                duration: pageview.duration,
+                id: pageview?.id,
+                referrerPath: pageview?.referrer,
             };
         });
-        const x = merged.map((d) => ({
-            timestamp: d.createdAt.toISOString().slice(0, 19).replace("T", " "),
-            event: "pageview",
-            websiteId: d.websiteId,
-            id: d.visitorId,
-            properties: JSON.stringify({
-                sessionId: d.id,
+        const x = merged
+            .map((d) => ({
+                id: d.id,
+                event: "hits",
+                websiteId: d.websiteId,
+                sessionId: d.sessionId,
                 visitorId: d.visitorId,
-                locale: d.language,
-                browser: d.browser,
-                referrer: d.referrer,
-                pathname: d.page,
-                queryParams: d.queryParams,
-                country: d.country,
-                city: d.city,
-                os: d.os,
-                device: d.device,
-                duration: d.duration,
-            }),
-        }));
+                timestamp: d.timestamp,
+                properties: JSON.stringify({
+                    language: d.language,
+                    browser: d.browser,
+                    referrerPath: d.referrerPath,
+                    referrerDomain: d.referrer,
+                    currentPath: d.page,
+                    queryParams: d.queryParams,
+                    country: d.country,
+                    city: d.city,
+                    os: d.os,
+                    device: d.device,
+                    duration: d.duration,
+                }),
+                sign: 1,
+            }))
+            .filter((d) => d.id);
         console.log(x.length);
+        console.log("clickhouse started");
         await client
             .insert({
-                table: "event",
+                table: "loglib.event",
                 values: x,
                 format: "JSONEachRow",
             })

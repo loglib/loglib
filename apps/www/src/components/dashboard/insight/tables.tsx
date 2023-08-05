@@ -288,7 +288,7 @@ export const InsightTables = ({
                                                           refs.referrer.toLowerCase() as keyof typeof RefIcons
                                                       ]()
                                                     : RefIcons["default"]()}
-                                                {refs.referrerDomain}
+                                                {refs.referrer}
                                             </TableCell>
                                             <TableCell className="text-right">
                                                 {refs.visits}
@@ -365,10 +365,10 @@ export const InsightTables = ({
                                         >
                                             <TableCell className="flex gap-1 items-center">
                                                 {RefIcons[
-                                                    refs.utmCampaign.toLowerCase() as keyof typeof RefIcons
+                                                    refs.utmCampaign?.toLowerCase() as keyof typeof RefIcons
                                                 ]
                                                     ? RefIcons[
-                                                          refs.utmCampaign.toLowerCase() as keyof typeof RefIcons
+                                                          refs.utmCampaign?.toLowerCase() as keyof typeof RefIcons
                                                       ]()
                                                     : RefIcons["default"]()}
                                                 {refs.utmCampaign}
