@@ -7,10 +7,9 @@ Thank you for your interest in contributing to loglib! We welcome contributions 
 There are a few 3rd party services that are required to run the app:
 
 - [Planetscale](https://planetscale.com?ref=loglib): Database
-- [Tinybird](https://www.tinybird.co?ref=loglib): Time series database
 - [Upstash/Redis](https://upstash.com?ref=loglib): Rate Limiting
 
-You will need to set environment variables in /apps/www/.env and/or /apps/api/.dev.vars respectively and populate the values from the services above. You can use the following commands to copy the example files:
+You will need to set environment variables in /apps/www/.env and/or /apps/api/.env respectively and populate the values from the services above. You can use the following commands to copy the example files:
 
 ```sh-session
 cp apps/www/.env.example apps/web/.env
@@ -30,15 +29,6 @@ Push the database schema to Planetscale:
 ```sh-session
 cd apps/www
 pnpm prisma db push
-```
-
-### 2. Tinybird
-
-Download the Tinybird CLI from [here](https://www.tinybird.co/docs/cli.html) and run the following command after authenticating:
-
-```sh-session
-cd packages/tinybird
-tb push
 ```
 
 ## Build
