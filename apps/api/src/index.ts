@@ -2,18 +2,19 @@ import "dotenv/config";
 import { createClient } from "@clickhouse/client";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import { convertDate } from "./lib/utils";
+import { convertDate, convertToUTC } from "./lib/utils";
 import { getInsight } from "./routes/insight";
 import { getTablesData } from "./routes/table";
 import { Filter, LoglibEvent, Path } from "./type";
 import { router } from "./routes";
-import { envSchema, insightSchema } from "./schema";
-import { customEventsQuery, getDataQuery } from "./lib/db/clickhouse";
+import { apiQuery, envSchema, insightSchema } from "./schema";
+import { client, customEventsQuery, getDataQuery, hitsQuery } from "./lib/db/clickhouse";
 import { filter } from "./lib/small-filter";
 import { retryFunction } from "./lib/retry";
 import { serve } from "@hono/node-server";
 import jwt from "jsonwebtoken";
 import { logger } from "hono/logger";
+import { db } from "./lib/db/kysley";
 
 const app = new Hono();
 
@@ -145,89 +146,47 @@ app.get("/events", async (c) => {
     }
 });
 
-// app.get("/is-website-active", async (c) => {
-//     const websiteId = c.req.query("websiteId");
-//     if (!websiteId) {
-//         return c.json({ message: "Website id is required" }, 400);
-//     }
-//     const env = envSchema.parse(c.env);
-//     const tb = new Tinybird({ token: env.TINYBIRD_TOKEN });
-//     const result = await getIsWebsiteActive(tb)({ websiteId });
-//     if (result.data.length) {
-//         return c.json({ active: true }, 200);
-//     }
-//     return c.json({ active: false }, 200);
-// });
-
 //api/v1
-// app.use("/v1/*", async (c, next) => {
-//     const apiKey = c.req.headers.get("x-api-key");
-//     if (!apiKey) {
-//         return c.json({ message: "Unauthorized" }, 401);
-//     }
-//     const env = envSchema.parse(c.env);
-//     const db = getDb({
-//         host: env.DATABASE_HOST,
-//         password: env.DATABASE_PASSWORD,
-//         username: env.DATABASE_USERNAME,
-//     });
-//     const site = await db
-//         .selectFrom("api_key")
-//         .selectAll()
-//         .where("key", "=", apiKey)
-//         .executeTakeFirst();
-//     if (!site) {
-//         return c.json({ message: "Unauthorized" }, 401);
-//     }
-//     const query = c.req.query();
-//     const data = apiQuery.safeParse(query);
-//     if (!data.success) {
-//         return c.json({ message: "Bad request" }, 400);
-//     }
-//     c.env.websiteId = site.websiteId;
-//     return await next();
-// });
+app.use("/v1/*", async (c, next) => {
+    const apiKey = c.req.headers.get("x-api-key");
+    if (!apiKey) {
+        return c.json({ message: "Unauthorized" }, 401);
+    }
+    const site = await db
+        .selectFrom("api_key")
+        .selectAll()
+        .where("key", "=", apiKey)
+        .executeTakeFirst();
+    if (!site) {
+        return c.json({ message: "Unauthorized" }, 401);
+    }
+    const query = c.req.query();
+    const data = apiQuery.safeParse(query);
+    if (!data.success) {
+        return c.json({ message: "Bad request" }, 400);
+    }
+    c.env.websiteId = site.websiteId;
+    return await next();
+});
 
-// app.get("/v1/session", async (c) => {
-//     const query = c.req.query();
-//     console.log(query);
-//     const data = apiQuery.parse(query);
-//     const env = envSchema.parse(c.env);
-//     const websiteId = c.env.websiteId as string;
-//     const tb = new Tinybird({ token: env.TINYBIRD_TOKEN });
-//     const sessions = await getSessionsEndpoint(tb)({
-//         websiteId: websiteId,
-//         startDate: new Date(data.startDate).toISOString(),
-//         endDate: new Date(data.endDate).toISOString(),
-//     });
-//     return c.json(sessions, 200);
-// });
-
-// app.get("/v1/pageview", async (c) => {
-//     const query = apiQuery.parse(c.req.query());
-//     const env = envSchema.parse(c.env);
-//     const websiteId = c.env.websiteId as string;
-//     const tb = new Tinybird({ token: env.TINYBIRD_TOKEN });
-//     const pageview = await getPageViewsEndpoint(tb)({
-//         websiteId: websiteId,
-//         startDate: new Date(query.startDate).toISOString(),
-//         endDate: new Date(query.endDate).toISOString(),
-//     });
-//     return c.json(pageview, 200);
-// });
-
-// app.get("/v1/events", async (c) => {
-//     const query = apiQuery.parse(c.req.query());
-//     const env = envSchema.parse(c.env);
-//     const websiteId = c.env.websiteId as string;
-//     const tb = new Tinybird({ token: env.TINYBIRD_TOKEN });
-//     const events = await getEventsEndpoint(tb)({
-//         websiteId: websiteId,
-//         startDate: new Date(query.startDate).toISOString(),
-//         endDate: new Date(query.endDate).toISOString(),
-//     });
-//     return c.json(events, 200);
-// });
+app.get("/v1/hits", async (c) => {
+    const query = c.req.query();
+    console.log(query);
+    const { startDate, endDate } = apiQuery.parse(query);
+    const websiteId = c.env.websiteId as string;
+    const startDateObj = new Date(startDate);
+    const endDateObj = new Date(endDate);
+    async function getData() {
+        return await client
+            .query({
+                query: hitsQuery(convertToUTC(startDateObj), convertToUTC(endDateObj), websiteId),
+                format: "JSONEachRow",
+            })
+            .then(async (res) => (await res.json()) as LoglibEvent[]);
+    }
+    const data = await retryFunction(getData, [], 3, 4);
+    return c.json(data, 200);
+});
 
 serve(
     {
