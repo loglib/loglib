@@ -21,50 +21,50 @@ export const docsConfig: DocsConfig = {
                 },
             ],
         },
+        // {
+        //     title: "Self Hosted",
+        //     items: [
+        //         {
+        //             title: "Quick Setup",
+        //             href: "/docs/quick-setup",
+        //         },
+        //         {
+        //             title: "Next Js with Prisma",
+        //             href: "/docs/self-host/nextjs-with-prisma",
+        //         },
+        //         {
+        //             title: "Next Js with Supabase",
+        //             href: "/docs/self-host/nextjs-with-supabase",
+        //         },
+        //         {
+        //             title: "Upgrading",
+        //             href: "/docs/self-host/upgrading",
+        //         },
+        //     ],
+        // },
         {
-            title: "Self Hosted",
+            title: "Tracker",
             items: [
                 {
-                    title: "Quick Setup",
-                    href: "/docs/quick-setup",
-                },
-                {
-                    title: "Next Js with Prisma",
-                    href: "/docs/self-host/nextjs-with-prisma",
-                },
-                {
-                    title: "Next Js with Supabase",
-                    href: "/docs/self-host/nextjs-with-supabase",
-                },
-                {
-                    title: "Upgrading",
-                    href: "/docs/self-host/upgrading",
-                },
-            ],
-        },
-        {
-            title: "Advanced Setup",
-            items: [
-                {
-                    title: "Tracker",
+                    title: "Quick Start",
                     href: "/docs/advanced/tracker",
                 },
                 {
-                    title: "Server",
-                    href: "/docs/advanced/server",
+                    title: "User Consent",
+                    href: "/docs/advanced/user-consent",
                 },
                 {
-                    title: "Dashboard",
-                    href: "/docs/advanced/dashboard",
+                    title: "Custom Events",
+                    href: "/docs/advanced/custom-events",
                 },
                 {
                     title: "Next.js Proxy",
                     href: "/docs/advanced/next-proxy",
                 },
-                {
-                    title: "Send Data to your own server",
-                    href: "/docs/advanced/send-data-to-your-own-server",
-                },
+                // {
+                //     title: "Send Data to your own server",
+                //     href: "/docs/advanced/send-data-to-your-own-server",
+                // },
                 {
                     title: "Wordpress Plugin",
                     href: "/docs/advanced/wordpress-plugin",
@@ -79,20 +79,8 @@ export const docsConfig: DocsConfig = {
                     href: "/docs/api",
                 },
                 {
-                    title: "Session",
-                    href: "/docs/api/session",
-                },
-                {
-                    title: "Pageview",
-                    href: "/docs/api/pageview",
-                },
-                {
-                    title: "Event",
-                    href: "/docs/api/event",
-                },
-                {
-                    title: "Visitor",
-                    href: "/docs/api/visitor",
+                    title: "Hits",
+                    href: "/docs/api/hits",
                 },
             ],
         },
