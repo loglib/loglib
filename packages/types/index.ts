@@ -22,6 +22,10 @@ export type GetInsightResponse = {
             current: number;
             change: number;
         };
+        returningVisitor: {
+            current: number;
+            change: number;
+        };
     };
     data: {
         pages: {
