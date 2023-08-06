@@ -1,13 +1,14 @@
 {
-  "commit": false,
-  "updateInternalDependencies": "patch",
-  "linked": [],
-  "access": "public",
-  "baseBranch": "main",
-  "ignore": [
-    "@examples/next-js-with-prisma",
-    "@examples/next-js-with-supabase",
-    "web"
-  ],
-  "changelog": "@changesets/cli/changelog"
+    "commit": false,
+    "updateInternalDependencies": "patch",
+    "linked": [],
+    "access": "public",
+    "baseBranch": "main",
+    "ignore": [
+        "@examples/next-js-with-prisma",
+        "@examples/next-js-with-supabase",
+        "@loglib/web",
+        "@loglib/api"
+    ],
+    "changelog": "@changesets/cli/changelog"
 }

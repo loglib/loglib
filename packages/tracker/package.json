@@ -1,71 +1,57 @@
 {
-  "name": "@loglib/tracker",
-  "version": "0.4.3",
-  "description": "A simple tracker for loglib",
-  "main": "./dist/index.js",
-  "packageManager": "pnpm@7.9.5",
-  "scripts": {
-    "test": "vitest",
-    "dev": "rm -rf /dist & tsup --watch",
-    "build": "rm -rf /dist & tsup",
-    "lint": "eslint . --ext .ts"
-  },
-  "exports": {
-    ".": {
-      "browser": "./dist/index.js",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+    "name": "@loglib/tracker",
+    "version": "0.4.3",
+    "description": "A simple tracker for loglib",
+    "main": "./dist/index.js",
+    "packageManager": "pnpm@7.9.5",
+    "scripts": {
+        "test": "vitest",
+        "dev": "rm -rf /dist & tsup --watch",
+        "build": "rm -rf /dist & tsup",
+        "lint": "rome check ."
     },
-    "./react": {
-      "browser": "./dist/react/index.js",
-      "import": "./dist/react/index.js",
-      "require": "./dist/react/index.cjs"
+    "exports": {
+        ".": {
+            "browser": "./dist/index.js",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        },
+        "./react": {
+            "browser": "./dist/react/index.js",
+            "import": "./dist/react/index.js",
+            "require": "./dist/react/index.cjs"
+        }
+    },
+    "typesVersions": {
+        "*": {
+            "*": ["dist/index.d.ts"],
+            "react": ["dist/react/index.d.ts"]
+        }
+    },
+    "types": "dist/index.d.ts",
+    "keywords": ["loglib", "event tracker", "web analytics", "analytics"],
+    "author": "",
+    "license": "MIT",
+    "files": ["dist", "package.json", "LICENSE", "README.md"],
+    "devDependencies": {
+        "@changesets/changelog-git": "^0.1.14",
+        "@changesets/changelog-github": "^0.4.8",
+        "@changesets/cli": "^2.26.1",
+        "@types/jest": "^29.5.1",
+        "@types/node": "^18.15.13",
+        "@types/react": "^18.2.0",
+        "@types/testing-library__jest-dom": "^5.14.5",
+        "@vitest/browser": "^0.31.1",
+        "happy-dom": "^9.20.3",
+        "react": "^18.2.0",
+        "sinon": "^15.0.4",
+        "terser": "^5.17.3",
+        "tsup": "^6.7.0",
+        "typescript": "^5.0.4",
+        "vitest": "^0.31.0",
+        "webdriverio": "^8.10.5"
+    },
+    "peerDependencies": {
+        "react": "^16.8||^17||^18"
     }
-  },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "dist/index.d.ts"
-      ],
-      "react": [
-        "dist/react/index.d.ts"
-      ]
-    }
-  },
-  "types": "dist/index.d.ts",
-  "keywords": [
-    "loglib",
-    "event tracker",
-    "web analytics",
-    "analytics"
-  ],
-  "author": "",
-  "license": "MIT",
-  "files": [
-    "dist",
-    "package.json",
-    "LICENSE",
-    "README.md"
-  ],
-  "devDependencies": {
-    "@changesets/changelog-git": "^0.1.14",
-    "@changesets/changelog-github": "^0.4.8",
-    "@changesets/cli": "^2.26.1",
-    "@types/jest": "^29.5.1",
-    "@types/node": "^18.15.13",
-    "@types/react": "^18.2.0",
-    "@types/testing-library__jest-dom": "^5.14.5",
-    "@vitest/browser": "^0.31.1",
-    "happy-dom": "^9.20.3",
-    "react": "^18.2.0",
-    "sinon": "^15.0.4",
-    "terser": "^5.17.3",
-    "tsup": "^6.7.0",
-    "typescript": "^5.0.4",
-    "vitest": "^0.31.0",
-    "webdriverio": "^8.10.5"
-  },
-  "peerDependencies": {
-    "react": "^16.8||^17||^18"
-  }
 }
