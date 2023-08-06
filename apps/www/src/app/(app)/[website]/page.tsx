@@ -36,9 +36,9 @@ export default async function Page({
         .execute();
     const website = dbWebsite.find((d) => d.id === params.website);
     const isAuthed = dbWebsite.find((d) => d.user_id === user?.id || d.team_user_id === user?.id);
-    // if (!website || (!isAuthed && !dbWebsite[0].public)) {
-    //     return redirect("/");
-    // }
+    if (!website || (!isAuthed && !dbWebsite[0].public)) {
+        return redirect("/");
+    }
     const isPublic = !isAuthed ? true : false;
     const showSetup = isPublic
         ? false

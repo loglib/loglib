@@ -36,7 +36,6 @@ export async function getLocation(ip: string, req: HonoRequest) {
     }
     const result = lookup.get(ip);
     if (result) {
-        console.log(result.location?.time_zone?.split("/")[1].replace("_", " "));
         return {
             country: result.country?.iso_code ?? result?.registered_country?.iso_code ?? null,
             city:
