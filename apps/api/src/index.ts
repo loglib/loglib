@@ -66,6 +66,7 @@ app.get("/", async (c) => {
             3,
             4,
         );
+        console.log(events.length);
         const tack = performance.now();
         console.log(tack - tick, "ms taken to query");
         const filters = JSON.parse(queries.data.filter) as Filter<LoglibEvent>[];
@@ -76,6 +77,7 @@ app.get("/", async (c) => {
                     .where(f.key, f.operator, f.value)
                     .execute();
             });
+
         const insightData = getInsight(events as LoglibEvent[], lastEvents as LoglibEvent[]);
         const tableData = getTablesData(
             events as LoglibEvent[],

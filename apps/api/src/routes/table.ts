@@ -30,6 +30,7 @@ const transformData = (events: LoglibEvent[]) => {
     const onlineVisitors = new Set<string>();
     const utmSources: { utmSource: string; visits: number }[] = [];
     const utmCampaigns: { utmCampaign: string; visits: number }[] = [];
+    const uniqueVisitorsSet = new Set();
     for (let i = 0; i < hits.length; i++) {
         const timestamp = new Date(hits[i].timestamp);
         const event = hits[i];
@@ -49,6 +50,7 @@ const transformData = (events: LoglibEvent[]) => {
         const utmCampaign = queryParams.utm_campaign;
         const utmSourceIndex = utmSources.findIndex((a) => utmSource === a.utmSource);
         const utmCampaignIndex = utmCampaigns.findIndex((c) => utmCampaign === c.utmCampaign);
+        const isUniqueUser = !uniqueVisitorsSet.has(event.visitorId);
         if (Date.now() - timestamp.getTime() < 1000 * 60) {
             onlineVisitors.add(event.visitorId);
         }
@@ -66,17 +68,9 @@ const transformData = (events: LoglibEvent[]) => {
                 visits: 1,
             });
         } else {
-            device[deviceIndex].visits++;
+            isUniqueUser && device[deviceIndex].visits++;
         }
-        if (cityIndex === -1) {
-            byCity.push({
-                location: city,
-                country,
-                visits: 1,
-            });
-        } else {
-            byCity[cityIndex].visits++;
-        }
+
         if (countryIndex === -1) {
             byCountry.push({
                 location: country,
@@ -84,8 +78,19 @@ const transformData = (events: LoglibEvent[]) => {
                 visits: 1,
             });
         } else {
-            byCountry[countryIndex].visits++;
+            isUniqueUser && byCountry[countryIndex].visits++;
         }
+
+        if (cityIndex === -1) {
+            byCity.push({
+                location: city,
+                country,
+                visits: 1,
+            });
+        } else {
+            isUniqueUser && byCity[cityIndex].visits++;
+        }
+
         if (refIndex === -1) {
             refDomain &&
                 referrer.push({
@@ -94,7 +99,7 @@ const transformData = (events: LoglibEvent[]) => {
                     visits: 1,
                 });
         } else {
-            referrer[refIndex].visits++;
+            isUniqueUser && referrer[refIndex].visits++;
         }
         if (browserIndex === -1) {
             browsers.push({
@@ -102,7 +107,9 @@ const transformData = (events: LoglibEvent[]) => {
                 visits: 1,
             });
         } else {
-            browsers[browserIndex].visits++;
+            if (!uniqueVisitorsSet.has(event.visitorId)) {
+                isUniqueUser && browsers[browserIndex].visits++;
+            }
         }
         if (osIndex === -1) {
             os.push({
@@ -110,7 +117,7 @@ const transformData = (events: LoglibEvent[]) => {
                 visits: 1,
             });
         } else {
-            os[osIndex].visits++;
+            isUniqueUser && os[osIndex].visits++;
         }
         if (utmSourceIndex === -1) {
             utmSource &&
@@ -118,6 +125,8 @@ const transformData = (events: LoglibEvent[]) => {
                     utmSource,
                     visits: 1,
                 });
+        } else {
+            isUniqueUser && utmSources[utmSourceIndex].visits++;
         }
         if (utmCampaignIndex === -1) {
             utmCampaign &&
@@ -125,7 +134,11 @@ const transformData = (events: LoglibEvent[]) => {
                     utmCampaign,
                     visits: 1,
                 });
+        } else {
+            isUniqueUser && utmCampaigns[utmCampaignIndex].visits++;
         }
+
+        uniqueVisitorsSet.add(event.visitorId);
     }
     const pageVisitsSorted = pageViews.sort((a, b) => b.visits - a.visits);
     const deviceSorted = device.sort((a, b) => b.visits - a.visits);
