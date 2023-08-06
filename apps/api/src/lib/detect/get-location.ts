@@ -16,11 +16,10 @@ export async function getLocation(ip: string, req: HonoRequest) {
             city: city ? decodeURIComponent(city) : null,
         };
     }
-    console.log(req.headers);
     //cloudflare
-    if (req.headers["cf-ipcountry"]) {
-        const country = req.headers["cf-ipcountry"] as string;
-        const city = req.headers["cf-ipcity"] as string;
+    if (req.headers.get("cf-ipcountry")) {
+        const country = req.headers.get("cf-ipcountry") as string;
+        const city = req.headers.get("cf-ipcity") as string;
         return {
             country,
             city: city,
