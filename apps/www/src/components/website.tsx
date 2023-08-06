@@ -46,7 +46,7 @@ export function Website({ site, visitors, key, setSelected, setIsOpen }: Website
                         <p className="  font-bold">{visitors} Visitors</p>
                     </div>
                 </div>
-                <Link href={`/${site.id}`}>
+                <Link href={`/s/${site.id}`}>
                     <Button
                         variant="outline"
                         className=" "
