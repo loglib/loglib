@@ -4,10 +4,14 @@ Thank you for your interest in contributing to loglib! We welcome contributions 
 
 ### Services
 
-There are a few 3rd party services that are required to run the app:
+There are few services that are required to run the app:
 
-- [Planetscale](https://planetscale.com?ref=loglib): Database
-- [Upstash/Redis](https://upstash.com?ref=loglib): Rate Limiting
+- **[Planetscale](https://planetscale.com?ref=loglib):** Database
+- **Clickhouse Database:** you can run clickhouse db locally using docker
+  
+```sh-session
+docker run -d --name clickhouse-server -p 9000:9000 --ulimit nofile=262144:262144 yandex/clickhouse-server
+```
 
 You will need to set environment variables in /apps/www/.env and/or /apps/api/.env respectively and populate the values from the services above. You can use the following commands to copy the example files:
 
@@ -29,6 +33,13 @@ Push the database schema to Planetscale:
 ```sh-session
 cd apps/www
 pnpm prisma db push
+```
+
+create needed tables in clickhouse:
+
+```sh-session
+cd apps/api
+pnpm setup:clickhouse
 ```
 
 ## Build

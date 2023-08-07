@@ -1,10 +1,12 @@
 {
     "name": "@loglib/api",
     "version": "0.0.1",
+    "private": true,
     "scripts": {
         "dev": "tsx watch src/index.ts",
         "build": "tsup",
-        "setup": "node setup/index.js",
+        "setup:geo": "tsx setup/geo.ts",
+        "setup:clickhouse": "dotenv tsx setup/clickhouse-db.ts",
         "serve": "pm2 start server dist/index.js"
     },
     "main": "src/index.ts",
@@ -15,7 +17,9 @@
         "@clickhouse/client": "^0.1.1",
         "@clickhouse/client-web": "^0.2.0",
         "@hono/node-server": "^1.1.1",
+        "@loglib/setup": "workspace:*",
         "@types/request-ip": "^0.0.38",
+        "@types/tar": "^6.1.5",
         "detect-browser": "^5.3.0",
         "dotenv": "^16.3.1",
         "hono": "^3.3.4",
