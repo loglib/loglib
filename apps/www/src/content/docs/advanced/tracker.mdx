@@ -1,5 +1,5 @@
 ---
-title: Tracker
+title: Setting up tracker
 description: Loglib tracker
 ---
 
@@ -32,7 +32,6 @@ usage with nextjs
             <LogLib
               config={
                 {
-                 host: "https://api.loglib.io",
                  id: //your website Id
                 }
               }
@@ -72,8 +71,7 @@ if you're not using next js or react you can use the vanilla version of the trac
   import {loglib} from '@loglib/tracker';
   loglib.record(
   {
-    id: "1",
-    host: "https://loglib.io",
+    id: //your website id,
   })
 </script>
 ```
@@ -95,7 +93,7 @@ To use loglib via the CDN, simply copy the following code into your script tag a
     const a = document.getElementsByTagName("script")[0]
     a.parentNode.insertBefore(r, a)
     r.onload = () => {
-      loglib.record({ host: "https://loglib.io" })
+      loglib.record({ id: "your website id" })
     }
   </script>
 </head>

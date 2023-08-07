@@ -10,8 +10,6 @@ import {
     gruvboxLight as darkTheme,
 } from "react-syntax-highlighter/dist/esm/styles/prism";
 
-import { siteConfig } from "@/config/site";
-
 import { CopyToClipboard } from "./copy-to-clipboard";
 import { Icons } from "./icons";
 import { Button } from "./ui/button";
@@ -27,18 +25,18 @@ export default function RootLayout({
     children: React.ReactNode;
   }) {
     return (
-      <html lang="en">
-        <body>
-          {children}
-          <Loglib config={{
-            id: "${id}",
-            host: "${siteConfig.url}",
-          }} />
-          </>
-        </body>
-      </html>
-    );
-  }     
+        <html lang="en">
+            <body>
+                {children}
+                <Loglib
+                    config={{
+                        id: "${id}",
+                    }}
+                />
+            </body>
+        </html>
+        );
+}      
   `,
         icon: Icons.typescript,
         fileName: "app/layout.tsx",
@@ -51,18 +49,18 @@ export default function RootLayout({
     children,
   }) {
     return (
-      <html lang="en">
-        <body>
-          {children}
-          <Loglib config={{
-            id: "${id}",
-            host: "${siteConfig.url}",
-          }} />
-          </>
-        </body>
-      </html>
+        <html lang="en">
+            <body>
+                {children}
+                <Loglib
+                    config={{
+                        id: "${id}",
+                    }}
+                />
+            </body>
+        </html>
     );
-  }     
+}     
   `,
         icon: Icons.javascript,
         fileName: "app/layout.js",
@@ -70,18 +68,20 @@ export default function RootLayout({
     },
     {
         name: "nextjs-tsx",
-        getCode: (id: string) => `import Loglib from "@loglib/tracker/react"
+        getCode: (id: string) => `import Loglib from "@loglib/tracker/react";
 export default function App({ Component, pageProps }: AppProps) {
-  return <>
-    <Component {...pageProps} />
-    <Loglib config={{
-        id: "${id}",
-        host: "${siteConfig.url}"
-      }} />
-      </>
-  </>
+     return (
+        <>
+            <Component {...pageProps} />
+            <Loglib
+                config={{
+                    id: "${id}",
+                }}
+            />
+        </>
+    );
 }
-  `,
+`,
         icon: Icons.typescript,
         fileName: "pages/_app.tsx",
         description: "Copy the following code in your main app file:",
@@ -90,13 +90,14 @@ export default function App({ Component, pageProps }: AppProps) {
         name: "nextjs-jsx",
         getCode: (id: string) => `import Loglib from "@loglib/tracker/react"
 export default function App({ Component, pageProps }) {
-  return <>
-  <Component {...pageProps} />
-  <Loglib config={{
-    id: "${id}",
-    host: "${siteConfig.url}",
-  }} />
-  </>
+    return (
+        <>
+            <Component {...pageProps} />
+            <Loglib config={{
+                id: "${id}" 
+            }} />
+        </>
+    );
 }
   `,
         icon: Icons.javascript,
@@ -108,8 +109,7 @@ export default function App({ Component, pageProps }) {
         getCode: (id: string) => `import {loglib} from "@loglib/tracker"
 
 loglib.record({
-    id: "${id}",
-    host: "${siteConfig.url}",
+    id: "${id}" 
 })
   `,
         icon: Icons.javascript,
@@ -121,8 +121,7 @@ loglib.record({
         getCode: (id: string) => `import {loglib} from "@loglib/tracker"
 
 loglib.record({
-    id: "${id}",
-    host: "${siteConfig.url}",
+    id: "${id}" 
 })
     `,
         icon: Icons.typescript,
