@@ -29,12 +29,4 @@ export default defineConfig([
             };
         },
     },
-    {
-        format: "iife",
-        entry: {
-            index: "src/cdn.ts",
-        },
-        outDir: "dist",
-        minify: true,
-    },
 ]);
