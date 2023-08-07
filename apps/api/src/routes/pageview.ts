@@ -1,11 +1,11 @@
-import { z } from "zod";
 import { apiResponse } from "../lib/api-response";
+import { client } from "../lib/db/clickhouse";
+import { getIpAddress } from "../lib/detect/get-ip-address";
+import { getLocation } from "../lib/detect/get-location";
+import { setVisitorId } from "../lib/set-visitor-id";
 import { RouteType } from "./type";
 import { browserName, detectOS } from "detect-browser";
-import { client } from "../lib/db/clickhouse";
-import { getLocation } from "../lib/detect/get-location";
-import { getIpAddress } from "../lib/detect/get-ip-address";
-import { setVisitorId } from "../lib/set-visitor-id";
+import { z } from "zod";
 
 export const pageViewSchema = z.object({
     data: z.object({

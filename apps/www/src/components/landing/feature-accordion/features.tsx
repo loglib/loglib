@@ -3,7 +3,6 @@
 import Link from "next/link";
 
 import MaxWidthWrapper from "@/components/max-width-wrapper";
-import { useState } from "react";
 import {
     Accordion,
     AccordionContent,
@@ -11,6 +10,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 
 import { Filter, MousePointerClick, Users } from "lucide-react";
 import { BarChart } from "lucide-react";

@@ -50,7 +50,7 @@ const renderSubComponent = ({ row }: { row: Row<EventsWithData[0]> }) => {
                                     key={key}
                                 >
                                     <div className="font-bold">{key}: </div>
-                   
+
                                     <div>{allProperties[key as keyof typeof allProperties]}</div>
                                 </div>
                             );
@@ -67,7 +67,6 @@ const renderSubComponent = ({ row }: { row: Row<EventsWithData[0]> }) => {
                                 >
                                     <div className="font-bold">{key}: </div>
                                     <div>
-                      
                                         {automaticProperties[key as keyof typeof allProperties]}
                                     </div>
                                 </div>

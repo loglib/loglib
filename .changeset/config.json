@@ -7,7 +7,8 @@
     "ignore": [
         "web",
         "@loglib/api",
-        "@loglib/types"
+        "@loglib/types",
+        "@loglib/setup"
     ],
     "changelog": "@changesets/cli/changelog"
 }

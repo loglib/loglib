@@ -1,20 +1,20 @@
-import "dotenv/config";
-import { createClient } from "@clickhouse/client";
-import { Hono } from "hono";
-import { cors } from "hono/cors";
+import { client, customEventsQuery, getDataQuery, hitsQuery } from "./lib/db/clickhouse";
+import { db } from "./lib/db/kysley";
+import { retryFunction } from "./lib/retry";
+import { filter } from "./lib/small-filter";
 import { convertDate, convertToUTC } from "./lib/utils";
+import { router } from "./routes";
 import { getInsight } from "./routes/insight";
 import { getTablesData } from "./routes/table";
-import { Filter, LoglibEvent, Path } from "./type";
-import { router } from "./routes";
 import { apiQuery, envSchema, insightSchema } from "./schema";
-import { client, customEventsQuery, getDataQuery, hitsQuery } from "./lib/db/clickhouse";
-import { filter } from "./lib/small-filter";
-import { retryFunction } from "./lib/retry";
+import { Filter, LoglibEvent, Path } from "./type";
+import { createClient } from "@clickhouse/client";
 import { serve } from "@hono/node-server";
-import jwt from "jsonwebtoken";
+import "dotenv/config";
+import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { logger } from "hono/logger";
-import { db } from "./lib/db/kysley";
+import jwt from "jsonwebtoken";
 
 const app = new Hono();
 
@@ -34,6 +34,7 @@ app.post("/", async (c) => {
     if (res.status !== 200) {
         console.log(path, res.status, body.data);
     }
+    console.log(res);
     return c.json(JSON.stringify(res.data), res.status);
 });
 
@@ -71,7 +72,6 @@ app.get("/", async (c) => {
             3,
             4,
         );
-        console.log(events.length);
         const tack = performance.now();
         console.log(tack - tick, "ms taken to query");
         const filters = JSON.parse(queries.data.filter) as Filter<LoglibEvent>[];
@@ -82,7 +82,6 @@ app.get("/", async (c) => {
                     .where(f.key, f.operator, f.value)
                     .execute();
             });
-
         const insightData = getInsight(events as LoglibEvent[], lastEvents as LoglibEvent[]);
         const tableData = getTablesData(
             events as LoglibEvent[],

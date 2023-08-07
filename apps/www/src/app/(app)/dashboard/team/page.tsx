@@ -1,7 +1,5 @@
 import { getTeams } from "@/server/query";
 
-import { getCurrentUser } from "@/lib/session";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { EmptyPlaceholder } from "@/components/empty-placeholder";
 import { StoreSetter } from "@/components/store-setter";
 import { TeamCreateButton } from "@/components/team-create-button";
@@ -10,6 +8,8 @@ import { TeamHeader } from "@/components/team-header";
 import { TeamJoinedToast } from "@/components/team-joined-toast";
 import { TeamMembersTable } from "@/components/team-members-table";
 import { TeamUpdateForm } from "@/components/team-update-form";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { getCurrentUser } from "@/lib/session";
 
 const Page = async ({
     searchParams,

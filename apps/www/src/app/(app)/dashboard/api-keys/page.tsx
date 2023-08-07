@@ -1,8 +1,8 @@
-import { redirect } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
+import { redirect } from "next/navigation";
 
-import { db } from "@/lib/db";
-import { getCurrentUser } from "@/lib/session";
+import { DeleteKeys, GenerateKeys } from "@/components/api-key-generate-buttons";
+import { GenerateApiKey } from "@/components/api-key-generate-modal";
 import {
     Card,
     CardContent,
@@ -20,8 +20,8 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { DeleteKeys, GenerateKeys } from "@/components/api-key-generate-buttons";
-import { GenerateApiKey } from "@/components/api-key-generate-modal";
+import { db } from "@/lib/db";
+import { getCurrentUser } from "@/lib/session";
 
 const apiKeys = async () => {
     const user = await getCurrentUser();

@@ -1,4 +1,3 @@
-import { OperatingSystem } from "detect-browser";
 import {
     DESKTOP_OS,
     DESKTOP_SCREEN_WIDTH,
@@ -6,6 +5,7 @@ import {
     MOBILE_OS,
     MOBILE_SCREEN_WIDTH,
 } from "./constants";
+import { OperatingSystem } from "detect-browser";
 
 export function getDevice(screenWidth: number, os: OperatingSystem) {
     if (!screenWidth) return null;

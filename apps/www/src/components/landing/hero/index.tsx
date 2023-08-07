@@ -97,7 +97,7 @@ export const HeroSection = () => {
                                 "dark:text-white/80 text-slate-900 border-[none] after:absolute after:content-[''] after:w-0 after:h-full after:z-[-1] after:shadow-[-7px_-7px_20px_0px_#1a237e,-4px_-4px_5px_0px_#000,7px_7px_20px_0px_#0002,4px_4px_5px_0px_#0001] after:transition-all after:duration-[0.3s] after:ease-[ease] after:left-0 after:top-0 hover:text-black hover:after:w-full border-slate-300 dark:border-slate-800 hover:dark:text-white hover:after:left-auto hover:after:right-0 active:top-0.2 border w-max",
                             )}
                             href="/login"
-                            onClick={()=>loglib.track("get started",{from:"hero section"})}
+                            onClick={() => loglib.track("get started", { from: "hero section" })}
                         >
                             Get Started
                         </Link>

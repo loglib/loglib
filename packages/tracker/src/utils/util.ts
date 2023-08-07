@@ -96,22 +96,13 @@ export function q(e: ServerEvents) {
 
 export function getUrl() {
     if (typeof process === "undefined") {
-        return "/api/loglib";
+        return "https://api.loglib.io";
     }
     if (process.env.NEXT_PUBLIC_LOGLIB_URL || process.env.LOGLIB_URL) {
         const url = process.env.NEXT_PUBLIC_LOGLIB_URL ?? process.env.LOGLIB_URL;
         return `${url}"/api/loglib"`;
     }
-    if (process.env.NODE_ENV === "development") {
-        return `${location.origin}/api/loglib`;
-    }
-    if (process.env.VERCEL_URL) {
-        return "/api/loglib";
-    }
-    if (process.env.NEXT_PUBLIC_VERCEL_URL) {
-        return "/api/loglib";
-    }
-    return "/api/loglib";
+    return "https://api.loglib.io";
 }
 
 export const parseHost = (url: string) => {

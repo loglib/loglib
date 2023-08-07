@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { ReactNode } from "react";
 
 export const Tip = ({
     children,

@@ -40,7 +40,7 @@ export default function Changelog() {
     );
 }
 
-const DesktopChangelogEntry = ({ post }: {post: ChangelogPost}) => (
+const DesktopChangelogEntry = ({ post }: { post: ChangelogPost }) => (
     <Link
         href={`/changelog/${post.slug}`}
         className="group hidden md:flex items-center justify-center gap-2"
@@ -57,7 +57,7 @@ const DesktopChangelogEntry = ({ post }: {post: ChangelogPost}) => (
     </Link>
 );
 
-const MobileChangelogEntry = ({ post }: {post: ChangelogPost}) => (
+const MobileChangelogEntry = ({ post }: { post: ChangelogPost }) => (
     <Link
         href={`/changelog/${post.slug}`}
         className="flex items-center space-x-4 rounded-lg active:bg-gray-100 md:hidden"

@@ -60,7 +60,7 @@ export async function GET(_: Request) {
             <div tw="flex w-full pt-10 pl-28">
                 <p tw="text-gray-200">{formatDate(post.publishedAt)}</p>
                 <div tw="flex flex-col ml-24">
-                    <img src={post.image} tw="rounded-lg h-96" alt=""/>
+                    <img src={post.image} tw="rounded-lg h-96" alt="" />
                 </div>
             </div>
         </div>,

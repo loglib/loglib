@@ -1,13 +1,13 @@
+import { apiResponse } from "../lib/api-response";
+import { client } from "../lib/db/clickhouse";
+import { getDevice } from "../lib/detect/get-device";
+import { getIpAddress } from "../lib/detect/get-ip-address";
+import { getLocation } from "../lib/detect/get-location";
+import { setVisitorId } from "../lib/set-visitor-id";
+import { RouteType } from "./type";
 import { browserName, detectOS } from "detect-browser";
 import isbot from "isbot";
 import { z } from "zod";
-import { apiResponse } from "../lib/api-response";
-import { getDevice } from "../lib/detect/get-device";
-import { setVisitorId } from "../lib/set-visitor-id";
-import { RouteType } from "./type";
-import { getIpAddress } from "../lib/detect/get-ip-address";
-import { getLocation } from "../lib/detect/get-location";
-import { client } from "../lib/db/clickhouse";
 
 export const sessionSchema = z.object({
     data: z.object({

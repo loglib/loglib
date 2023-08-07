@@ -6,7 +6,8 @@ export type Path =
     | "/event"
     | "/visitor"
     | "/test"
-    | "/insight";
+    | "/insight"
+    | "/hits";
 
 export type Filter<T> = {
     key: keyof T;

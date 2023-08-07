@@ -1,7 +1,7 @@
 import { Dashboard } from "@/components/dashboard";
+import { getIsWebsiteActive } from "@/lib/clickhouse";
 import { generateToken } from "@/lib/generate-token";
 import { getCurrentUser } from "@/lib/session";
-import { getIsWebsiteActive } from "@/lib/clickhouse";
 import { db } from "@/server/db";
 import { redirect } from "next/navigation";
 import React from "react";

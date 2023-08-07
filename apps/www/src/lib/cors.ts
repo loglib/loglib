@@ -66,7 +66,7 @@ function getAllowedHeaders(req: Request, allowed?: string | string[]) {
     const headers = new Headers();
 
     if (!allowed) {
-        allowed = req.headers.get("Access-Control-Request-Headers")!;
+        allowed = req.headers.get("Access-Control-Request-Headers") ?? "";
         headers.append("Vary", "Access-Control-Request-Headers");
     } else if (Array.isArray(allowed)) {
         // If the allowed headers is an array, turn it into a string

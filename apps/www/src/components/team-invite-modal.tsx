@@ -67,7 +67,6 @@ export const TeamInviteForm = () => {
                 title: "Success!",
                 description: "Your team invite has been sent.",
             });
-            // rome-ignore lint/suspicious/noExplicitAny: <explanation>
         } catch (e: any) {
             toast({
                 title: e.message ?? "Uh oh!",

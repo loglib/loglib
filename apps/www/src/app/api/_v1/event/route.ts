@@ -1,11 +1,10 @@
 import { z } from "zod";
 
-import { encrypt } from "@/lib/crypto";
+import cors, { corsHeaders } from "@/lib/cors";
 import { db } from "@/lib/db";
 import { apiErrorMessages } from "@/lib/messages";
 import { rateLimitCheck } from "@/lib/rate-limit";
 import { rootApiSchema } from "@/lib/validations/api";
-import cors, { corsHeaders } from "@/lib/cors";
 
 const eventsApiSchema = rootApiSchema.merge(
     z.object({
@@ -34,7 +33,7 @@ const eventsApiSchema = rootApiSchema.merge(
 
 export const POST = async (req: Request) => {
     try {
-        const body = await req.json().catch((e) => {
+        const body = await req.json().catch((_e) => {
             throw new Error(apiErrorMessages["JSON-parse-error"]);
         });
         const schema = eventsApiSchema.safeParse(body);

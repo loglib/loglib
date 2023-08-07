@@ -73,7 +73,7 @@ export const TeamWebsiteModal = () => {
             team.TeamWebsite.length && setSelected(team.TeamWebsite[0]?.websiteId);
         }
     }, [team]);
-    const [user] = useAtom(userAtom);
+    const [_user] = useAtom(userAtom);
     return (
         <AnimatePresence>
             {modal ? (

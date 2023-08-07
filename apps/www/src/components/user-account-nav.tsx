@@ -1,10 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import { useAtom } from "jotai";
-import { Settings } from "lucide-react";
 import { User } from "next-auth";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 
 import {
     DropdownMenu,

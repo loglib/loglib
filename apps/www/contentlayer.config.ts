@@ -129,7 +129,6 @@ export default makeSource({
                 rehypePrettyCode,
                 {
                     theme: "github-dark",
-                    // rome-ignore lint/suspicious/noExplicitAny: <explanation>
                     onVisitLine(node: { children: string | any[] }) {
                         // Prevent lines from collapsing in `display: grid` mode, and allow empty
                         // lines to be copy/pasted
