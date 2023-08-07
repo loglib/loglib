@@ -1,10 +1,10 @@
 import { ClickHouseClient } from "@clickhouse/client";
 
 export const setupClickhouseDb = async (client: ClickHouseClient) => {
-    await client.command({
+    await client.exec({
         query: "CREATE DATABASE loglib",
     });
-    await client.command({
+    await client.exec({
         query: `CREATE TABLE loglib.event (
             id String,
             event String,

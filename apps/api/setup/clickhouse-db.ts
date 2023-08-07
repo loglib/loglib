@@ -9,4 +9,5 @@ const client = createClient({
 
 const spinner = ora("Setting up clickhouse db").start();
 setupClickhouseDb(client);
+console.log("done setting up db");
 spinner.stop();

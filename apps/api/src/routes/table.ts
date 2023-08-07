@@ -31,6 +31,7 @@ const transformData = (events: LoglibEvent[]) => {
     const utmSources: { utmSource: string; visits: number }[] = [];
     const utmCampaigns: { utmCampaign: string; visits: number }[] = [];
     const uniqueVisitorsSet = new Set();
+    const uniqueSessionsSet = new Set();
     for (let i = 0; i < hits.length; i++) {
         const timestamp = new Date(hits[i].timestamp);
         const event = hits[i];
@@ -51,11 +52,12 @@ const transformData = (events: LoglibEvent[]) => {
         const utmSourceIndex = utmSources.findIndex((a) => utmSource === a.utmSource);
         const utmCampaignIndex = utmCampaigns.findIndex((c) => utmCampaign === c.utmCampaign);
         const isUniqueUser = !uniqueVisitorsSet.has(event.visitorId);
+        const isUniqueSession = !uniqueSessionsSet.has(event.sessionId);
         if (Date.now() - timestamp.getTime() < 1000 * 60) {
             onlineVisitors.add(event.visitorId);
         }
         if (pageIndex === -1) {
-            pageViews.push({
+           page && pageViews.push({
                 page,
                 visits: 1,
             });
@@ -88,7 +90,7 @@ const transformData = (events: LoglibEvent[]) => {
                 visits: 1,
             });
         } else {
-            isUniqueUser && byCity[cityIndex].visits++;
+            isUniqueSession && byCity[cityIndex].visits++;
         }
 
         if (refIndex === -1) {
@@ -99,7 +101,7 @@ const transformData = (events: LoglibEvent[]) => {
                     visits: 1,
                 });
         } else {
-            isUniqueUser && referrer[refIndex].visits++;
+            isUniqueSession && referrer[refIndex].visits++;
         }
         if (browserIndex === -1) {
             browsers.push({
@@ -108,7 +110,7 @@ const transformData = (events: LoglibEvent[]) => {
             });
         } else {
             if (!uniqueVisitorsSet.has(event.visitorId)) {
-                isUniqueUser && browsers[browserIndex].visits++;
+                isUniqueSession && browsers[browserIndex].visits++;
             }
         }
         if (osIndex === -1) {
@@ -117,7 +119,7 @@ const transformData = (events: LoglibEvent[]) => {
                 visits: 1,
             });
         } else {
-            isUniqueUser && os[osIndex].visits++;
+            isUniqueSession && os[osIndex].visits++;
         }
         if (utmSourceIndex === -1) {
             utmSource &&
@@ -126,7 +128,7 @@ const transformData = (events: LoglibEvent[]) => {
                     visits: 1,
                 });
         } else {
-            isUniqueUser && utmSources[utmSourceIndex].visits++;
+            isUniqueSession && utmSources[utmSourceIndex].visits++;
         }
         if (utmCampaignIndex === -1) {
             utmCampaign &&
@@ -135,10 +137,11 @@ const transformData = (events: LoglibEvent[]) => {
                     visits: 1,
                 });
         } else {
-            isUniqueUser && utmCampaigns[utmCampaignIndex].visits++;
+            isUniqueSession && utmCampaigns[utmCampaignIndex].visits++;
         }
 
         uniqueVisitorsSet.add(event.visitorId);
+        uniqueSessionsSet.add(event.sessionId);
     }
     const pageVisitsSorted = pageViews.sort((a, b) => b.visits - a.visits);
     const deviceSorted = device.sort((a, b) => b.visits - a.visits);

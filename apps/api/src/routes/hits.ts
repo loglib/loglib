@@ -51,7 +51,6 @@ export const createHits: RouteType = async ({ req, rawBody }) => {
         queryParams,
         duration,
     } = body.data;
-    console.log(body.data);
     const ref = !referrerDomain || referrerDomain.includes(host) ? "direct" : referrerDomain;
     const ip = getIpAddress(req);
     const { city, country } = await getLocation(ip, req);
@@ -59,7 +58,7 @@ export const createHits: RouteType = async ({ req, rawBody }) => {
     const browser = browserName(userAgent) ?? "unknown";
     const os = detectOS(userAgent) ?? "Mac OS";
     const device = os ? getDevice(screenWidth, os) ?? "desktop" : "unknown";
-    await client
+    const res = await client
         .insert({
             table: "loglib.event",
             values: [
@@ -83,10 +82,14 @@ export const createHits: RouteType = async ({ req, rawBody }) => {
                         currentPath,
                         referrerPath,
                     }),
+                    sign: 1,
                 },
             ],
             format: "JSONEachRow",
         })
-        .then((res) => console.log(res))
-        .catch((e) => console.log(e));
+        .then((res) => res);
+    return {
+        status: 200,
+        data: res,
+    };
 };
