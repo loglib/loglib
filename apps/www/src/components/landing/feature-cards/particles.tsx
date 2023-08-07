@@ -5,7 +5,7 @@
 import MousePosition from "@/hooks/use-mouse-pos";
 import React, { useEffect, useRef } from "react";
 
-interface ParticlesProps {
+type ParticlesProps = {
     className?: string;
     quantity?: number;
     staticity?: number;
@@ -14,7 +14,7 @@ interface ParticlesProps {
     color?: string;
     vx?: number;
     vy?: number;
-}
+};
 function hexToRgb(hex: string): number[] {
     // Remove the "#" character from the beginning of the hex color code
     hex = hex.replace("#", "");
