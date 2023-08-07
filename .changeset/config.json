@@ -4,9 +4,5 @@
     "linked": [],
     "access": "public",
     "baseBranch": "main",
-    "ignore": [
-        "@loglib/web",
-        "@loglib/api"
-    ],
     "changelog": "@changesets/cli/changelog"
 }
