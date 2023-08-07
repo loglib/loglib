@@ -1,5 +1,13 @@
 # @loglib/tracker
 
+## 0.5.0
+
+### Minor Changes
+
+- 694f5de: - now loglib uses one route to send events
+  - by default it'll send to loglib domain without specifying host
+  - add js docs
+
 ## 0.4.3
 
 ### Patch Changes
