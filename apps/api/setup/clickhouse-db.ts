@@ -1,5 +1,5 @@
-import { setupClickhouseDb } from "@loglib/setup";
 import { createClient } from "@clickhouse/client";
+import { setupClickhouseDb } from "@loglib/setup";
 import ora from "ora";
 
 const client = createClient({

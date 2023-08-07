@@ -1,7 +1,7 @@
-import { z } from "zod";
-import { RouteType } from "./type";
 import { apiResponse } from "../lib/api-response";
 import { client } from "../lib/db/clickhouse";
+import { RouteType } from "./type";
+import { z } from "zod";
 
 const visitorInput = z.object({
     data: z.record(z.any()),

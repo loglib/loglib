@@ -1,10 +1,10 @@
 "use client";
 
-import * as React from "react";
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
+import * as React from "react";
 
-import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const AlertDialog = AlertDialogPrimitive.Root;
 
@@ -26,6 +26,7 @@ AlertDialogPortal.displayName = AlertDialogPrimitive.Portal.displayName;
 const AlertDialogOverlay = React.forwardRef<
     React.ElementRef<typeof AlertDialogPrimitive.Overlay>,
     React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Overlay>
+    // rome-ignore lint/correctness/noUnusedVariables: <explanation>
 >(({ className, children, ...props }, ref) => (
     <AlertDialogPrimitive.Overlay
         className={cn(

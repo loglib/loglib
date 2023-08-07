@@ -1,5 +1,5 @@
-import { convertToUTC } from "../utils";
 import { LoglibEvent } from "../../type";
+import { convertToUTC } from "../utils";
 import { createClient } from "@clickhouse/client";
 
 export const hitsQuery = (startDate: string, endDate: string, websiteId: string) =>

@@ -16,13 +16,13 @@ import { cn, fetcher } from "@/lib/utils";
 
 import { AddTracker } from "../add-tracker";
 import { CalendarDateRangePicker, DatePicker } from "./date-picker";
+import Events from "./events";
 import { InsightCard } from "./insight/card";
 import LocationMap from "./insight/location-map";
 import { InsightTables } from "./insight/tables";
 import { Graph } from "./insight/visitor-graph";
 import { Filter, FilterProp, TimeRange } from "./type";
 import { env } from "env.mjs";
-import Events from "./events";
 
 export const Dashboard = ({
     website,
@@ -69,14 +69,14 @@ export const Dashboard = ({
         isFilterActive,
     };
 
-    const timezones = {
+    const _timezones = {
         ...ct.getAllTimezones(),
         "Africa/Addis_Ababa": { name: "Africa/Addis_Ababa" },
     };
 
     const [curTableTab, setCurTableTab] = useState("");
     const [viCardSwitch, setViCardSwitch] = useState(false);
-    console.log(data)
+    console.log(data);
 
     return (
         <main>

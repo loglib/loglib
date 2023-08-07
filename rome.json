@@ -28,14 +28,14 @@
                 "useKeyWithClickEvents": "off"
             }
         },
-        "ignore": ["node_modules", ".next", "dist"]
+        "ignore": ["node_modules", ".next", "dist", "generated", ".contentlayer"]
     },
     "formatter": {
         "indentStyle": "space",
         "indentSize": 4,
         "enabled": true,
         "lineWidth": 100,
-        "ignore": ["node_modules", ".next", "dist"]
+        "ignore": ["node_modules", ".next", "dist", "generated", ".contentlayer"]
     },
     "organizeImports": {
         "enabled": true

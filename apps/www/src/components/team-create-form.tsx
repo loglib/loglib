@@ -1,6 +1,6 @@
 "use client";
 
-import { createTeamModalAtom, websitesAtom } from "@/jotai/store";
+import { createTeamModalAtom } from "@/jotai/store";
 import { createTeam } from "@/server/actions/team";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "framer-motion";

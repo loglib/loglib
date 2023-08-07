@@ -1,8 +1,8 @@
-import { CityResponse, Reader } from "maxmind";
-import path from "path";
-import maxmind from "maxmind";
-import { HonoRequest } from "hono";
 import { ApiRequest } from "../../routes/type";
+import { HonoRequest } from "hono";
+import { CityResponse, Reader } from "maxmind";
+import maxmind from "maxmind";
+import path from "path";
 
 let lookup: Reader<CityResponse> | null;
 export async function getLocation(ip: string, req: ApiRequest) {

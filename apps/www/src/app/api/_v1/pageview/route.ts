@@ -1,10 +1,10 @@
 import { z } from "zod";
 
+import { corsHeaders } from "@/lib/cors";
 import { db } from "@/lib/db";
 import { apiErrorMessages } from "@/lib/messages";
 import { rateLimitCheck } from "@/lib/rate-limit";
-import { rootApiSchema, rootWhereSchema, transformToISO } from "@/lib/validations/api";
-import cors, { corsHeaders } from "@/lib/cors";
+import { rootApiSchema, transformToISO } from "@/lib/validations/api";
 
 const pageviewApiSchema = rootApiSchema.merge(
     z.object({
@@ -45,7 +45,7 @@ const pageviewApiSchema = rootApiSchema.merge(
 
 export const POST = async (req: Request) => {
     try {
-        const body = await req.json().catch((e) => {
+        const body = await req.json().catch((_e) => {
             throw new Error(apiErrorMessages["JSON-parse-error"]);
         });
         const schema = pageviewApiSchema.safeParse(body);
@@ -142,7 +142,7 @@ export const POST = async (req: Request) => {
     }
 };
 
-export async function OPTIONS(request: Request) {
+export async function OPTIONS(_request: Request) {
     return new Response(null, {
         status: 204,
         headers: corsHeaders,

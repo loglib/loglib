@@ -1,11 +1,11 @@
-import { ReactNode } from "react";
-import { redirect } from "next/navigation";
 import { getWebsite } from "@/server/query/website";
+import { redirect } from "next/navigation";
+import { ReactNode } from "react";
 
-import { getCurrentUser } from "@/lib/session";
 import DashboardNav from "@/components/side-nav";
 import { DashboardHeader } from "@/components/site-header";
 import { StoreSetter } from "@/components/store-setter";
+import { getCurrentUser } from "@/lib/session";
 
 export default async function DashboardSideBarLayout({
     children,

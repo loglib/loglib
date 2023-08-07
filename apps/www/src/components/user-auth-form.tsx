@@ -1,12 +1,12 @@
 "use client";
 
-import * as React from "react";
-import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
+import * as React from "react";
 
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
 import { Icons } from "@/components/icons";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function UserAuthForm({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
     const [isLoading, setIsLoading] = React.useState<boolean>(false);

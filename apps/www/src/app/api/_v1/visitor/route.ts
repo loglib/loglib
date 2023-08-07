@@ -1,10 +1,10 @@
 import { z } from "zod";
 
+import cors, { corsHeaders } from "@/lib/cors";
 import { db } from "@/lib/db";
 import { apiErrorMessages } from "@/lib/messages";
 import { rateLimitCheck } from "@/lib/rate-limit";
 import { transformToISO } from "@/lib/validations/api";
-import cors, { corsHeaders } from "@/lib/cors";
 
 const visitorApiSchema = z.object({
     apiKey: z.string({

@@ -1,11 +1,11 @@
-import { z } from "zod";
 import { apiResponse } from "../lib/api-response";
-import { RouteType } from "./type";
-import { setVisitorId } from "../lib/set-visitor-id";
-import { browserName, detectOS } from "detect-browser";
+import { client } from "../lib/db/clickhouse";
 import { getIpAddress } from "../lib/detect/get-ip-address";
 import { getLocation } from "../lib/detect/get-location";
-import { client } from "../lib/db/clickhouse";
+import { setVisitorId } from "../lib/set-visitor-id";
+import { RouteType } from "./type";
+import { browserName, detectOS } from "detect-browser";
+import { z } from "zod";
 
 export const eventSchema = z.object({
     data: z.array(

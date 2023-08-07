@@ -57,10 +57,11 @@ const transformData = (events: LoglibEvent[]) => {
             onlineVisitors.add(event.visitorId);
         }
         if (pageIndex === -1) {
-           page && pageViews.push({
-                page,
-                visits: 1,
-            });
+            page &&
+                pageViews.push({
+                    page,
+                    visits: 1,
+                });
         } else {
             pageViews[pageIndex].visits++;
         }

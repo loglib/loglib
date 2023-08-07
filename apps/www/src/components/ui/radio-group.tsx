@@ -1,8 +1,8 @@
 "use client";
 
-import * as React from "react";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { Circle } from "lucide-react";
+import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -19,6 +19,7 @@ RadioGroup.displayName = RadioGroupPrimitive.Root.displayName;
 const RadioGroupItem = React.forwardRef<
     React.ElementRef<typeof RadioGroupPrimitive.Item>,
     React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>
+    // rome-ignore lint/correctness/noUnusedVariables: <explanation>
 >(({ className, children, ...props }, ref) => {
     return (
         <RadioGroupPrimitive.Item

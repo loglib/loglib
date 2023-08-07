@@ -1,12 +1,12 @@
-import isbot from "isbot";
-import { RouteType } from "./type";
-import { z } from "zod";
 import { apiResponse } from "../lib/api-response";
-import { browserName, detectOS } from "detect-browser";
-import { getDevice } from "../lib/detect/get-device";
 import { client } from "../lib/db/clickhouse";
-import { getLocation } from "../lib/detect/get-location";
+import { getDevice } from "../lib/detect/get-device";
 import { getIpAddress } from "../lib/detect/get-ip-address";
+import { getLocation } from "../lib/detect/get-location";
+import { RouteType } from "./type";
+import { browserName, detectOS } from "detect-browser";
+import isbot from "isbot";
+import { z } from "zod";
 
 const schema = z.object({
     id: z.string(),

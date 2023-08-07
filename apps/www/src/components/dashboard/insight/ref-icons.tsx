@@ -1,3 +1,5 @@
+import { Icons } from "@/components/icons";
+import { getHostName } from "@/lib/utils";
 import {
     ArrowUpRight,
     Facebook,
@@ -10,8 +12,6 @@ import {
     Twitch,
     Youtube,
 } from "lucide-react";
-import { Icons } from "@/components/icons";
-import { getHostName } from "@/lib/utils";
 
 export const RefIcons = {
     vercel: () => (

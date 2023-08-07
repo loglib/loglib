@@ -1,7 +1,7 @@
 "use client";
+import styles from "./hero.module.css";
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
-import styles from "./hero.module.css";
 
 export const Hero = () => {
     useEffect(() => {

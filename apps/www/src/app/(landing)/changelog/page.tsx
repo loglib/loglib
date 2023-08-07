@@ -1,11 +1,10 @@
+import { MDX } from "@/components/blog-mdx";
+import { Icons } from "@/components/icons";
 import BlurImage from "@/components/ui/blur-image";
 import { getBlurDataURL } from "@/lib/image";
-import { ChangelogPost, allChangelogPosts } from "contentlayer/generated";
 import { constructMetadata, formatDate } from "@/lib/utils";
+import { ChangelogPost, allChangelogPosts } from "contentlayer/generated";
 import Link from "next/link";
-import { MDX } from "@/components/blog-mdx";
-import { Twitter } from "lucide-react";
-import { Icons } from "@/components/icons";
 
 export const metadata = constructMetadata({
     title: "Changelog - Loglib",

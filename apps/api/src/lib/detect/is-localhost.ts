@@ -1,6 +1,6 @@
-import { isIP, isIPv4 } from "net";
-import { createSocket, Socket } from "dgram";
+import { Socket, createSocket } from "dgram";
 import { ADDRCONFIG, lookup } from "dns";
+import { isIP, isIPv4 } from "net";
 
 /**
  * Addresses reserved for private networks

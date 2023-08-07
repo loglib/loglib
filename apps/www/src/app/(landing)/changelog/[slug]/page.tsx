@@ -1,13 +1,11 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { allChangelogPosts } from "contentlayer/generated";
 import { MDX } from "@/components/blog-mdx";
-import Link from "next/link";
-import { formatDate } from "@/lib/utils";
-import { getBlurDataURL } from "@/lib/image";
 import BlurImage from "@/components/ui/blur-image";
-import { Facebook, Linkedin, Twitter } from "lucide-react";
-import { Icons } from "@/components/icons";
+import { getBlurDataURL } from "@/lib/image";
+import { formatDate } from "@/lib/utils";
+import { allChangelogPosts } from "contentlayer/generated";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
     return allChangelogPosts.map((post) => ({

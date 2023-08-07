@@ -1,4 +1,4 @@
-import { leaveTeamModalAtom, userAtom, websiteDeleteModalAtom } from "@/jotai/store";
+import { leaveTeamModalAtom, userAtom } from "@/jotai/store";
 import { leaveTeam } from "@/server/actions/team";
 import { useAtom } from "jotai";
 import { useRouter } from "next/navigation";

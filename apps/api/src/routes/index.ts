@@ -1,6 +1,6 @@
 import { createEvents } from "./event";
 import { createHits } from "./hits";
-import { updatePageDuration, createPageview } from "./pageview";
+import { createPageview, updatePageDuration } from "./pageview";
 import { createSession } from "./session";
 import { RouterType } from "./type";
 import { createVisitor } from "./visitor";

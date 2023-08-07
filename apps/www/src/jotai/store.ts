@@ -1,7 +1,7 @@
-import { atom } from "jotai";
 import { Teams } from "@/server/query";
-import { User } from "next-auth";
 import { Website } from "generated/client";
+import { atom } from "jotai";
+import { User } from "next-auth";
 
 export const userAtom = atom<(User & { id: string }) | null>(null);
 export const trackerModalAtom = atom(false);
