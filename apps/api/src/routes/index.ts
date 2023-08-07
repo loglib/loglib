@@ -1,4 +1,5 @@
-import { createEvents } from "./events";
+import { createEvents } from "./event";
+import { createHits } from "./hits";
 import { updatePageDuration, createPageview } from "./pageview";
 import { createSession } from "./session";
 import { RouterType } from "./type";
@@ -16,6 +17,8 @@ export const router: RouterType = async ({ path, ...rest }) => {
             return await createEvents(rest);
         case "/visitor":
             return await createVisitor(rest);
+        case "/hits":
+            return await createHits(rest);
         default:
             return {
                 data: {

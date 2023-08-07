@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { clickHandler } from "./handlers/clickHandler";
-import { send } from "./server";
+import { send, sendEvents, sendPageView } from "./server";
 import { Config } from "./types";
 import {
     addInterval,
@@ -8,16 +8,11 @@ import {
     detectEnvironment,
     flush,
     getPath,
-    getSessionDuration,
     getUrl,
-    getUrlParams,
-    getVisitorId,
     guid,
     hook,
     parseHost,
-    setSessionStartTime,
 } from "./utils/util";
-import { logger } from "./utils/logger";
 
 /**
  * Initializes the web analytics tracker with the specified configuration options.
@@ -42,11 +37,8 @@ export function record(config?: Partial<Config>) {
         }
     }
     window.llc = config ? { ...defaultConfig, ...config } : defaultConfig;
-
     //Set Internal
     const now = Date.now();
-    setSessionStartTime(now);
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const packageJson = require("../package.json") as { version: string };
     window.lli = {
         eventsBank: [],
@@ -59,8 +51,7 @@ export function record(config?: Partial<Config>) {
         intervals: [],
         sdkVersion: packageJson.version,
     };
-
-    logger.log("start recording...");
+    console.log("start recording...");
     //Auto Tracker
     if (window.llc.autoTrack) {
         window.addEventListener("click", clickHandler);
@@ -69,36 +60,16 @@ export function record(config?: Partial<Config>) {
         const env = detectEnvironment();
         window.llc.env = env;
     }
-
     const eventsInterval = setInterval(() => {
         send(window.lli.eventsBank, "/event", flush);
     }, window.llc.postInterval * 1000);
     addInterval(eventsInterval);
-
-    //Session Start
-    const InitInfo = initSession();
-    send(InitInfo, "/session");
-
     //Navigation Handler
     history.pushState = hook(history, "pushState", navigationHandler);
     history.replaceState = hook(history, "replaceState", navigationHandler);
-
     //Session End
     sessionEndHandler();
 }
-
-export const initSession = () => {
-    window.lli.startTime = Date.now();
-    const initInfo = {
-        pathname: location.pathname,
-        host: location.hostname,
-        referrer: document.referrer,
-        queryParams: getUrlParams(),
-        screenWidth: window.screen.width,
-        language: navigator.language,
-    };
-    return initInfo;
-};
 
 export const navigationHandler = (_: string, __: string, url: string) => {
     if (!url) return;
@@ -107,67 +78,26 @@ export const navigationHandler = (_: string, __: string, url: string) => {
     window.lli.currentRef = window.lli.currentUrl;
     window.lli.currentUrl = getPath(url.toString());
     if (currentUrl !== currentRef) {
-        window.lli.eventsBank.length && send(window.lli.eventsBank, "/event", flush);
+        sendPageView(currentUrl, currentRef);
+        sendEvents();
         window.lli.pageId = guid();
         window.lli.timeOnPage = Date.now();
-        send(
-            {
-                currentUrl,
-                currentRef,
-                queryParams: getUrlParams(),
-                duration: 0,
-            },
-            "/pageview",
-        );
-        send(
-            {
-                pageDuration: (Date.now() - window.lli.timeOnPage) / 1000,
-                duration: getSessionDuration(),
-            },
-            "/session/pulse",
-            flush,
-        );
-        // send(
-        //     {
-        //         id: guid(),
-        //         screenWidth: window.screen.width,
-        //         language: navigator.language,
-        //         currentUrl: currentUrl,
-        //         referrerUrl: currentRef,
-        //         queryParams: getUrlParams(),
-        //         duration: (Date.now() - window.lli.timeOnPage) / 1000,
-        //         host: location.hostname,
-        //         sessionId: window.lli.sessionId,
-        //         sdkVersion: window.lli.sdkVersion,
-        //         visitorId: getVisitorId(),
-        //     },
-        //     "/event",
-        //     flush,
-        // );
     }
 };
 
 const sessionEndHandler = async () => {
-    document.addEventListener("visibilitychange", () => {
+    document.onvisibilitychange = () => {
         if (document.visibilityState === "hidden") {
-            if (window.lli.eventsBank.length) {
-                send(window.lli.eventsBank, "/event", flush);
-            }
-            send(
-                {
-                    pageDuration: (Date.now() - window.lli.timeOnPage) / 1000,
-                    duration: getSessionDuration(),
-                },
-                "/session/pulse",
-                flush,
-            );
-
+            sendEvents();
+            const currentRef = window.lli.currentRef;
+            const currentUrl = window.lli.currentUrl;
+            sendPageView(currentRef, currentUrl);
             clearIntervals();
         } else {
-            window.lli.timeOnPage = Date.now();
-            window.lli.intervals.forEach((interval) => {
-                addInterval(interval);
-            });
+            //there should be already a config
+            if (window.llc) {
+                record(window.llc);
+            }
         }
-    });
+    };
 };

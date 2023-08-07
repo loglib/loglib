@@ -4,15 +4,16 @@ import { Config, Internal } from "../types";
 import { loglib } from "../lib";
 
 interface Props {
-  config?: Partial<Config>;
+    config?: Partial<Config>;
 }
 
 declare global {
-  interface Window {
-    llc: Config;
-    lli: Internal;
-    logLib: typeof loglib;
-  }
+    interface Window {
+        llc: Config;
+        lli: Internal;
+        i;
+        logLib: typeof loglib;
+    }
 }
 
 /**
@@ -21,9 +22,9 @@ declare global {
  * @see [Documentation](https://loglib.io/docs) for details.
  */
 function LogLib({ config }: Props) {
-  useEffect(() => {
-    record(config);
-  }, []);
-  return null;
+    useEffect(() => {
+        record(config);
+    }, []);
+    return null;
 }
 export default LogLib;
