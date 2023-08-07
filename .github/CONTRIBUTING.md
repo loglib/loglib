@@ -6,8 +6,8 @@ Thank you for your interest in contributing to loglib! We welcome contributions 
 
 There are few services that are required to run the app:
 
-- [Planetscale](https://planetscale.com?ref=loglib): Database
-- Clickhouse Database: you can run clickhouse db locally using docker
+- **[Planetscale](https://planetscale.com?ref=loglib):** Database
+- **Clickhouse Database:** you can run clickhouse db locally using docker
   
 ```sh-session
 docker run -d --name clickhouse-server -p 9000:9000 --ulimit nofile=262144:262144 yandex/clickhouse-server

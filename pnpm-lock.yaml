@@ -83,6 +83,9 @@ importers:
       '@types/request-ip':
         specifier: ^0.0.38
         version: 0.0.38
+      '@types/tar':
+        specifier: ^6.1.5
+        version: 6.1.5
       detect-browser:
         specifier: ^5.3.0
         version: 5.3.0
@@ -5168,6 +5171,13 @@ packages:
   /@types/stack-utils@2.0.1:
     resolution: {integrity: sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==}
     dev: true
+
+  /@types/tar@6.1.5:
+    resolution: {integrity: sha512-qm2I/RlZij5RofuY7vohTpYNaYcrSQlN2MyjucQc7ZweDwaEWkdN/EeNh6e9zjK6uEm6PwjdMXkcj05BxZdX1Q==}
+    dependencies:
+      '@types/node': 20.4.2
+      minipass: 4.2.8
+    dev: false
 
   /@types/testing-library__jest-dom@5.14.5:
     resolution: {integrity: sha512-SBwbxYoyPIvxHbeHxTZX2Pe/74F/tX2/D3mMvzabdeJ25bBojfW0TyB8BHrbq/9zaaKICJZjLP+8r6AeZMFCuQ==}
@@ -10592,6 +10602,11 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       yallist: 4.0.0
+    dev: false
+
+  /minipass@4.2.8:
+    resolution: {integrity: sha512-fNzuVyifolSLFL4NzpF+wEF4qrgqaaKX0haXPQEdQ7NKAN+WecoKMHV09YcuL/DHxrUsYQOK3MiuDf7Ip2OXfQ==}
+    engines: {node: '>=8'}
     dev: false
 
   /minipass@5.0.0:

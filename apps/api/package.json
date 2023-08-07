@@ -5,7 +5,7 @@
     "scripts": {
         "dev": "tsx watch src/index.ts",
         "build": "tsup",
-        "setup:geo": "node setup/index.js",
+        "setup:geo": "tsx setup/geo.ts",
         "setup:clickhouse": "dotenv tsx setup/clickhouse-db.ts",
         "serve": "pm2 start server dist/index.js"
     },
@@ -17,7 +17,9 @@
         "@clickhouse/client": "^0.1.1",
         "@clickhouse/client-web": "^0.2.0",
         "@hono/node-server": "^1.1.1",
+        "@loglib/setup": "workspace:*",
         "@types/request-ip": "^0.0.38",
+        "@types/tar": "^6.1.5",
         "detect-browser": "^5.3.0",
         "dotenv": "^16.3.1",
         "hono": "^3.3.4",
@@ -30,8 +32,7 @@
         "request-ip": "^3.3.0",
         "tar": "^6.1.15",
         "tsx": "^3.12.7",
-        "zod": "^3.21.4",
-        "@loglib/setup": "workspace:*"
+        "zod": "^3.21.4"
     },
     "devDependencies": {
         "@types/jsonwebtoken": "^9.0.2"
