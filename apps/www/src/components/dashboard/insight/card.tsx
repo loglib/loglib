@@ -56,20 +56,22 @@ export function InsightCard({
             data.current ? data.current.toLocaleString() : 0
           } ${valuePrefix ?? ""}`}</div>
           <div className=" flex justify-between">
-            {data.change && (
-              <div className=" flex text-xs">
-                {increase ? (
-                  <ArrowUpIcon className=" text-green-500" size={16} />
-                ) : (
-                  <ArrowDown className=" text-red-500" size={16} />
-                )}
-                <div>
-                  {" "}
-                  {changePrefix ?? ""}
-                  {data.change && data.change.toLocaleString() + " %"}{" "}
+            <div>
+              {data.change ? (
+                <div className=" flex text-xs">
+                  {increase ? (
+                    <ArrowUpIcon className=" text-green-500" size={16} />
+                  ) : (
+                    <ArrowDown className=" text-red-500" size={16} />
+                  )}
+                  <div>
+                    {" "}
+                     {changePrefix ?? ""}
+                    {data.change && data.change.toLocaleString() + " %"}{" "}
+                  </div>
                 </div>
-              </div>
-            )}
+              ) : null}
+            </div>
             {/* @ts-ignore */}
             {BottomChildren ? <BottomChildren /> : null}
           </div>
