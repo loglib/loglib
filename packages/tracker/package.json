@@ -61,7 +61,7 @@
         "sinon": "^15.0.4",
         "terser": "^5.17.3",
         "tsup": "^6.7.0",
-        "typescript": "^5.0.4",
+        "typescript": "^5.1.6",
         "vitest": "^0.31.0",
         "webdriverio": "^8.10.5"
     },

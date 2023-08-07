@@ -33,7 +33,7 @@
         "@ianvs/prettier-plugin-sort-imports": "^4.0.2",
         "@manypkg/cli": "^0.20.0",
         "@prisma/client": "^4.14.0",
-        "@types/node": "^20.4.2",
+        "@types/node": "^18.15.13",
         "@types/prettier": "^2.7.3",
         "dotenv-cli": "^7.2.1",
         "prettier": "^2.8.8",
