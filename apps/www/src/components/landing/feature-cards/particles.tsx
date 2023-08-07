@@ -1,3 +1,4 @@
+// million-ignore
 //this is from highstorm by @chronark
 "use client";
 
@@ -30,6 +31,7 @@ function hexToRgb(hex: string): number[] {
     return [red, green, blue];
 }
 
+// million-ignore
 export const Particles: React.FC<ParticlesProps> = ({
     className = "",
     quantity = 50,

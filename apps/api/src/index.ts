@@ -46,6 +46,9 @@ app.get("/", async (c) => {
     const { startDate, endDate, timeZone, websiteId, token } = queries.data;
     try {
         jwt.verify(token, env.NEXTAUTH_SECRET, (err, decoded) => {
+            if (err) {
+                throw err;
+            }
             //@ts-ignore
             if (decoded.website !== websiteId) {
                 throw Error;
@@ -149,7 +152,7 @@ app.get("/events", async (c) => {
 });
 
 //api/v1
-app.use("/v1/*", async (c, next) => {
+app.use("/v1/*", async (_, next) => {
     return await next();
 });
 

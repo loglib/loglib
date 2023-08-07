@@ -1,6 +1,5 @@
 import { env } from "./env.mjs"
 import { withContentlayer } from "next-contentlayer"
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
