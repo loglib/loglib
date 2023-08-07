@@ -32,8 +32,7 @@
         "request-ip": "^3.3.0",
         "tar": "^6.1.15",
         "tsx": "^3.12.7",
-        "zod": "^3.21.4",
-        "@loglib/setup": "workspace:*"
+        "zod": "^3.21.4"
     },
     "devDependencies": {
         "@types/jsonwebtoken": "^9.0.2"
