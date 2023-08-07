@@ -5,6 +5,7 @@ import { browserName, detectOS } from "detect-browser";
 import { client } from "../lib/db/clickhouse";
 import { getLocation } from "../lib/detect/get-location";
 import { getIpAddress } from "../lib/detect/get-ip-address";
+import { setVisitorId } from "../lib/set-visitor-id";
 
 export const pageViewSchema = z.object({
     data: z.object({
@@ -23,10 +24,9 @@ export const pageViewSchema = z.object({
 export const createPageview: RouteType = async ({ rawBody, req }) => {
     const body = pageViewSchema.safeParse(rawBody);
     if (body.success) {
-        if (!body.data.visitorId) {
-            body.data.visitorId = req.headers.get("cf-connecting-ip") as string;
-        }
-        const { websiteId, data, pageId, sessionId, visitorId } = body.data;
+        const ip = getIpAddress(req);
+        const visitorId = setVisitorId(body.data.visitorId, ip);
+        const { websiteId, data, pageId, sessionId } = body.data;
         const { currentUrl, currentRef, queryParams, duration } = data;
         const session = await client
             .query({
@@ -34,7 +34,6 @@ export const createPageview: RouteType = async ({ rawBody, req }) => {
                 format: "JSONEachRow",
             })
             .then(async (res) => await res.json());
-        const ip = getIpAddress(req);
         const { city, country } = await getLocation(ip, req);
         const userAgent = (req.headers["user-agent"] as string) ?? "unknown";
         const browser = browserName(userAgent) ?? "unknown";

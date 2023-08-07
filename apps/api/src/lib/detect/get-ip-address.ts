@@ -1,7 +1,7 @@
-import { HonoRequest } from "hono";
 import requestIp from "request-ip";
+import { ApiRequest } from "../../routes/type";
 
-export function getIpAddress(req: HonoRequest) {
+export function getIpAddress(req: ApiRequest) {
     // manual override
     if (process.env.CLIENT_IP_ADDRESS as string) {
         return process.env.CLIENT_IP_ADDRESS;

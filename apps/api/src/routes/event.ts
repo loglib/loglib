@@ -5,6 +5,8 @@ import { apiResponse } from "../lib/api-response";
 import { browserName, detectOS } from "detect-browser";
 import { getDevice } from "../lib/detect/get-device";
 import { client } from "../lib/db/clickhouse";
+import { getLocation } from "../lib/detect/get-location";
+import { getIpAddress } from "../lib/detect/get-ip-address";
 
 const schema = z.object({
     id: z.string(),
@@ -47,8 +49,8 @@ export const createEvent: RouteType = async ({ req, rawBody }) => {
         duration,
         websiteId,
     } = body.data;
-    const city = (req.headers["cf-ipcity"] as string) ?? "unknown";
-    const country = (req.headers["cf-ipcountry"] as string) ?? "unknown";
+    const ip = getIpAddress(req);
+    const { city, country } = await getLocation(ip, req);
     const userAgent = (req.headers["user-agent"] as string) ?? "unknown";
     const browser = browserName(userAgent) ?? "unknown";
     const os = detectOS(userAgent) ?? "Mac OS";

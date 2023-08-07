@@ -2,9 +2,10 @@ import { CityResponse, Reader } from "maxmind";
 import path from "path";
 import maxmind from "maxmind";
 import { HonoRequest } from "hono";
+import { ApiRequest } from "../../routes/type";
 
 let lookup: Reader<CityResponse> | null;
-export async function getLocation(ip: string, req: HonoRequest) {
+export async function getLocation(ip: string, req: ApiRequest) {
     //vercel
     if (req.headers["x-vercel-ip-country"]) {
         const country = req.headers["x-vercel-ip-country"] as string;
@@ -17,9 +18,9 @@ export async function getLocation(ip: string, req: HonoRequest) {
         };
     }
     //cloudflare
-    if (req.headers.get("cf-ipcountry")) {
-        const country = req.headers.get("cf-ipcountry") as string;
-        const city = req.headers.get("cf-ipcity") as string;
+    if (req.headers["cf-ipcountry"]) {
+        const country = req.headers["cf-ipcountry"] as string;
+        const city = req.headers["cf-ipcity"] as string;
         return {
             country,
             city: city,
