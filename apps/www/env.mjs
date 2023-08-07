@@ -21,7 +21,6 @@ export const env = createEnv({
         CLICKHOUSE_HOST: z.string().min(1),
         CLICKHOUSE_PASSWORD: z.string().min(1),
         NEXT_PUBLIC_API_URL: z.string().min(1),
-        TINYBIRD_TOKEN: z.string().min(1),
     },
     client: {
         NEXT_PUBLIC_APP_URL: z.string().min(1),
@@ -45,6 +44,5 @@ export const env = createEnv({
         CLICKHOUSE_HOST: process.env.CLICKHOUSE_HOST,
         CLICKHOUSE_PASSWORD: process.env.CLICKHOUSE_PASSWORD,
         NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
-        TINYBIRD_TOKEN: process.env.TINYBIRD_TOKEN,
     },
 });
