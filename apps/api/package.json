@@ -1,10 +1,12 @@
 {
     "name": "@loglib/api",
     "version": "0.0.1",
+    "private": true,
     "scripts": {
         "dev": "tsx watch src/index.ts",
         "build": "tsup",
-        "setup": "node setup/index.js",
+        "setup:geo": "node setup/index.js",
+        "setup:clickhouse": "dotenv tsx setup/clickhouse-db.ts",
         "serve": "pm2 start server dist/index.js"
     },
     "main": "src/index.ts",
@@ -28,7 +30,8 @@
         "request-ip": "^3.3.0",
         "tar": "^6.1.15",
         "tsx": "^3.12.7",
-        "zod": "^3.21.4"
+        "zod": "^3.21.4",
+        "@loglib/setup": "workspace:*"
     },
     "devDependencies": {
         "@types/jsonwebtoken": "^9.0.2"

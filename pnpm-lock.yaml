@@ -77,6 +77,9 @@ importers:
       '@hono/node-server':
         specifier: ^1.1.1
         version: 1.1.1
+      '@loglib/setup':
+        specifier: workspace:*
+        version: link:../../packages/setup
       '@types/request-ip':
         specifier: ^0.0.38
         version: 0.0.38
@@ -499,6 +502,12 @@ importers:
       typescript:
         specifier: ^5.1.6
         version: 5.1.6
+
+  packages/setup:
+    dependencies:
+      '@clickhouse/client':
+        specifier: ^0.1.1
+        version: 0.1.1
 
   packages/tracker:
     devDependencies:

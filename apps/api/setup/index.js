@@ -1,4 +1,5 @@
-import tar, { Parse } from "tar";
+// @ts-nocheck
+import tar from "tar";
 import https from "https";
 import fs from "fs";
 import path from "path";
