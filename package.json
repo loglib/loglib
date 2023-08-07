@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "build:tracker": "turbo --filter tracker",
-        "build": "pnpm build:api && pnpm build:web && pnpm build:tracker",
+        "build": "pnpm turbo build",
         "build:api": "turbo --filter api build",
         "build:web": "turbo --filter web build",
         "dev:tracker": "turbo --filter \"./packages/*\" dev",
