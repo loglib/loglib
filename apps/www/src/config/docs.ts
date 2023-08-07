@@ -61,6 +61,10 @@ export const docsConfig: DocsConfig = {
                     title: "Next.js Proxy",
                     href: "/docs/advanced/next-proxy",
                 },
+                {
+                    title: "Astro Proxy",
+                    href: "/docs/advanced/astro-proxy",
+                },
                 // {
                 //     title: "Send Data to your own server",
                 //     href: "/docs/advanced/send-data-to-your-own-server",
