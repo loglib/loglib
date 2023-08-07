@@ -11,6 +11,7 @@ import {
     getSessionDuration,
     getUrl,
     getUrlParams,
+    getVisitorId,
     guid,
     hook,
     parseHost,
@@ -128,6 +129,7 @@ export const navigationHandler = (_: string, __: string, url: string) => {
         );
         // send(
         //     {
+        //         id: guid(),
         //         screenWidth: window.screen.width,
         //         language: navigator.language,
         //         currentUrl: currentUrl,
