@@ -1,5 +1,3 @@
-// million-ignore
-//this is from highstorm by @chronark
 "use client";
 
 import MousePosition from "@/hooks/use-mouse-pos";
@@ -31,7 +29,6 @@ function hexToRgb(hex: string): number[] {
     return [red, green, blue];
 }
 
-// million-ignore
 export const Particles: React.FC<ParticlesProps> = ({
     className = "",
     quantity = 50,
