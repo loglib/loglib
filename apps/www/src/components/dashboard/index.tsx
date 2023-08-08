@@ -23,6 +23,10 @@ import { InsightTables } from "./insight/tables";
 import { Graph } from "./insight/visitor-graph";
 import { Filter, FilterProp, TimeRange } from "./type";
 import { env } from "env.mjs";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { MoreHorizontal } from "lucide-react";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { Label } from "../ui/label";
 
 export const Dashboard = ({
     website,
@@ -75,7 +79,9 @@ export const Dashboard = ({
     };
 
     const [curTableTab, setCurTableTab] = useState("");
-    const [viCardSwitch, setViCardSwitch] = useState(false);
+    const [viCardSwitch, setViCardSwitch] = useState<
+        "New Visitors" | "Unique Visitors" | "Retaining Visitors"
+    >("Unique Visitors");
     console.log(data);
 
     return (
@@ -150,45 +156,82 @@ export const Dashboard = ({
                                 <TabsContent value="insights" className="space-y-4">
                                     <div className="grid gap-4 md:grid-cols-2 grid-cols-2 lg:grid-cols-4">
                                         <InsightCard
-                                            title={
-                                                viCardSwitch ? "New Visitors" : "Unique Visitors"
-                                            }
+                                            title={viCardSwitch}
                                             Icon={UserIcon}
                                             data={
                                                 data
-                                                    ? viCardSwitch
+                                                    ? viCardSwitch === "New Visitors"
                                                         ? data.insight.newVisitors
-                                                        : data.insight.uniqueVisitors
+                                                        : viCardSwitch === "Unique Visitors"
+                                                        ? data.insight.uniqueVisitors
+                                                        : viCardSwitch === "Retaining Visitors"
+                                                        ? data.insight.returningVisitor
+                                                        : { change: 0, current: 0 }
                                                     : { change: 0, current: 0 }
                                             }
                                             isLoading={isLoading}
                                             tooltip={
-                                                viCardSwitch
-                                                    ? "The number of first-time visitors to your website."
-                                                    : "The number of unique visitors to your website."
+                                                viCardSwitch === "New Visitors"
+                                                    ? "The number of people visiting your website for the first time."
+                                                    : viCardSwitch === "Unique Visitors"
+                                                    ? "The total number of different people who visited your website."
+                                                    : viCardSwitch === "Retaining Visitors"
+                                                    ? "The number of visitors who returned to your website multiple times."
+                                                    : ""
                                             }
                                             BottomChildren={() => (
-                                                <div>
-                                                    <TooltipProvider>
-                                                        <Tooltip>
-                                                            <TooltipTrigger asChild>
-                                                                <div>
-                                                                    <Switch
-                                                                        onCheckedChange={(v) =>
-                                                                            setViCardSwitch(v)
-                                                                        }
-                                                                        checked={viCardSwitch}
-                                                                    />
-                                                                </div>
-                                                            </TooltipTrigger>
-                                                            <TooltipContent>
-                                                                <p>
-                                                                    Switch between unique visitors
-                                                                    and new visitors
-                                                                </p>
-                                                            </TooltipContent>
-                                                        </Tooltip>
-                                                    </TooltipProvider>
+                                                <div className=" cursor-pointer">
+                                                    <div>
+                                                        <Popover>
+                                                            <PopoverTrigger asChild>
+                                                                <MoreHorizontal className="h-4 w-4" />
+                                                            </PopoverTrigger>
+                                                            <PopoverContent className="w-48 ">
+                                                                <RadioGroup
+                                                                    onValueChange={(
+                                                                        v:
+                                                                            | "New Visitors"
+                                                                            | "Unique Visitors"
+                                                                            | "Retaining Visitors",
+                                                                    ) => {
+                                                                        setViCardSwitch(v);
+                                                                    }}
+                                                                    defaultValue={viCardSwitch}
+                                                                    className="grid gap-4"
+                                                                >
+                                                                    <div className="flex items-center space-x-2">
+                                                                        <RadioGroupItem
+                                                                            value="Unique Visitors"
+                                                                            id="r2"
+                                                                        />
+                                                                        <Label htmlFor="r2">
+                                                                            Unique Visitors
+                                                                        </Label>
+                                                                    </div>
+
+                                                                    <div className="flex items-center space-x-2">
+                                                                        <RadioGroupItem
+                                                                            value="New Visitors"
+                                                                            id="r1"
+                                                                        />
+                                                                        <Label htmlFor="r1">
+                                                                            New Visitors
+                                                                        </Label>
+                                                                    </div>
+
+                                                                    <div className="flex items-center space-x-2">
+                                                                        <RadioGroupItem
+                                                                            value="Retaining Visitors"
+                                                                            id="r3"
+                                                                        />
+                                                                        <Label htmlFor="r3">
+                                                                            Retaining Visitors
+                                                                        </Label>
+                                                                    </div>
+                                                                </RadioGroup>
+                                                            </PopoverContent>
+                                                        </Popover>
+                                                    </div>
                                                 </div>
                                             )}
                                         />

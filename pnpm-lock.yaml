@@ -261,6 +261,9 @@ importers:
       '@t3-oss/env-nextjs':
         specifier: ^0.2.2
         version: 0.2.2(zod@3.21.4)
+      '@tailwindcss/container-queries':
+        specifier: ^0.1.1
+        version: 0.1.1(tailwindcss@3.3.3)
       '@tailwindcss/line-clamp':
         specifier: ^0.4.4
         version: 0.4.4(tailwindcss@3.3.3)
@@ -4737,6 +4740,14 @@ packages:
     dependencies:
       '@t3-oss/env-core': 0.2.2(zod@3.21.4)
       zod: 3.21.4
+    dev: false
+
+  /@tailwindcss/container-queries@0.1.1(tailwindcss@3.3.3):
+    resolution: {integrity: sha512-p18dswChx6WnTSaJCSGx6lTmrGzNNvm2FtXmiO6AuA1V4U5REyoqwmT6kgAsIMdjo07QdAfYXHJ4hnMtfHzWgA==}
+    peerDependencies:
+      tailwindcss: '>=3.2.0'
+    dependencies:
+      tailwindcss: 3.3.3
     dev: false
 
   /@tailwindcss/line-clamp@0.4.4(tailwindcss@3.3.3):

@@ -22,7 +22,7 @@ export const WebsitesList = () => {
     return (
         <>
             {websites.length ? (
-                <div className=" mt-3 grid grid-cols-1 gap-4 md:grid-cols-3">
+                <div className=" mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
                     {websites.map((website) => (
                         <Website
                             key={website.id}

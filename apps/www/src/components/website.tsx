@@ -22,7 +22,7 @@ export function Website({ site, visitors, key, setSelected, setIsOpen }: Website
     return (
         <Card
             key={key}
-            className=" border-slate-400/20 bg-gradient-to-tr shadow-sm shadow-orange-800/40 dark:from-black dark:to-slate-900/30"
+            className="@container/card border-slate-400/20 bg-gradient-to-tr shadow-sm shadow-orange-800/40 dark:from-black dark:to-slate-900/30"
         >
             <div className="card__layer1"></div>
             <div className="card__layer2"></div>
@@ -39,17 +39,17 @@ export function Website({ site, visitors, key, setSelected, setIsOpen }: Website
                 </div>
                 <p className="">{site.url}</p>
             </CardHeader>
-            <CardContent className=" flex items-center justify-between gap-2">
+            <CardContent className=" flex flex-col @[320px]/card:flex-row @[320px]/card:items-center justify-between gap-2">
                 <div>
                     <div className=" flex items-center gap-2 text-orange-400">
                         <User2 size={20} className=" " />
                         <p className="  font-bold">{visitors} Visitors</p>
                     </div>
                 </div>
-                <Link href={`/${site.id}`}>
+                <Link className=" w-full @[320px]/card:w-fit " href={`/${site.id}`}>
                     <Button
                         variant="outline"
-                        className=" "
+                        className=" w-full @[320px]/card:w-fit"
                         onClick={() => {
                             setIsLoading(true);
                         }}
