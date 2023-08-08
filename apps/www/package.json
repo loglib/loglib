@@ -60,6 +60,7 @@
         "@react-email/components": "0.0.6",
         "@react-email/html": "0.0.4",
         "@t3-oss/env-nextjs": "^0.2.2",
+        "@tailwindcss/container-queries": "^0.1.1",
         "@tailwindcss/line-clamp": "^0.4.4",
         "@tailwindcss/typography": "^0.5.9",
         "@tanstack/react-table": "^8.9.1",
