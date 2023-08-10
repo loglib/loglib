@@ -100,19 +100,15 @@ export function getUrl() {
     }
     if (process.env.NEXT_PUBLIC_LOGLIB_URL || process.env.LOGLIB_URL) {
         const url = process.env.NEXT_PUBLIC_LOGLIB_URL ?? process.env.LOGLIB_URL;
-        return `${url}"/api/loglib"`;
+        return `${url}/api/loglib`;
     }
     return "https://api.loglib.io";
 }
 
 export const parseHost = (url: string) => {
-    if (url.startsWith("http") || url.startsWith("https")) {
-        if (url.split("/").length > 4) {
-            return url;
-        } else {
-            const host = new URL(url);
-            return `${host.origin}/api/loglib`;
-        }
+    //this is incase they update the tracker but didn't remove the host
+    if (url === "https://loglib.io" || url === "https://www.loglib.io") {
+        return "https://loglib.io/api/loglib";
     } else {
         return url;
     }

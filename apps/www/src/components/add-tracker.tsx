@@ -131,18 +131,7 @@ loglib.record({
     {
         name: "cdn",
         getCode: (id: string) => `<head>
-  <script>
-    const r = window.document.createElement("script");
-    r.type = "text/javascript";
-    r.async = !0;
-    r.src =
-      "https://cdn.jsdelivr.net/npm/@loglib/tracker@latest/dist/index.global.js";
-    const a = document.getElementsByTagName("script")[0];
-    a.parentNode.insertBefore(r, a);
-    r.onload = () => {
-      loglib.record({ host: "https://loglib.io", id:"${id}" });
-    };
-  </script>
+        <script src="https://cdn.jsdelivr.net/npm/@loglib/tracker@latest/dist/index.global.js" data-id=${id}></script>
 </head>
   `,
         icon: Icons.htmlLogo,

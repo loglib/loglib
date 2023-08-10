@@ -51,7 +51,7 @@ export function record(config?: Partial<Config>) {
         intervals: [],
         sdkVersion: packageJson.version,
     };
-    console.log("start recording...");
+    console.log("start recording...", window.llc);
     //Auto Tracker
     if (window.llc.autoTrack) {
         window.addEventListener("click", clickHandler);
