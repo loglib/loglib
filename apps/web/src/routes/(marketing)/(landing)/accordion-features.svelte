@@ -5,8 +5,6 @@
   import AccordionItem from "$lib/components/ui/accordion/AccordionItem.svelte";
   import AccordionTrigger from "$lib/components/ui/accordion/AccordionTrigger.svelte";
   import { BarChart, Filter, MousePointerClick, Users } from "lucide-svelte";
-  import { slide } from "svelte/transition";
-  import FeatureCard from "./feature-card.svelte";
   const featureList = [
     {
       key: "analytics",
@@ -49,12 +47,8 @@
   let activeFeature = featureList[0];
   let demo = featureList[0].demo;
   let value = "analytics";
-  $: {
-    activeFeature = featureList.find((f) => f.key === value) ?? featureList[0];
-    demo =
-      featureList.find((f) => f.key === value)?.demo ?? featureList[0].demo;
-    console.log(demo);
-  }
+
+  //TODO: Video doesn't change yet
 </script>
 
 <MaxWidthWrapper>
