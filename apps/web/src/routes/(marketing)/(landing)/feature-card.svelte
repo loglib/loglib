@@ -3,6 +3,7 @@
   import InsightTable from "./insight-table.svelte";
   import Particles from "./particles.svelte";
   import { slide } from "svelte/transition";
+  //maybe we should change this to svelte built in alt or something
   import Motion from "svelte-motion/src/motion/MotionSSR.svelte";
 </script>
 

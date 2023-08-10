@@ -9,8 +9,38 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
-		"rootDir": ".",
+		"paths": {
+			"$lib": [
+				"./src/lib"
+			],
+			"$lib/*": [
+				"./src/lib/*"
+			],
+			"contentlayer/generated": [
+				"./.contentlayer/generated"
+			]
+		}
 	},
+	"include": [
+		"./svelte-kit/ambient.d.ts",
+		"./svelte-kit/types/**/$types.d.ts",
+		"./vite.config.ts",
+		"./src/**/*.js",
+		"./src/**/*.ts",
+		"./src/**/*.svelte",
+		"./tests/**/*.js",
+		"./tests/**/*.ts",
+		"./tests/**/*.svelte",
+		".contentlayer/generated",
+	],
+	"exclude": [
+		"./node_modules/**",
+		"./svelte-kit/[!ambient.d.ts]**",
+		"./src/service-worker.js",
+		"./src/service-worker.ts",
+		"./src/service-worker.d.ts",
+		".contentlayer/generated",
+	]
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
 	//
 	// If you want to overwrite includes/excludes, make sure to copy over the relevant includes/excludes

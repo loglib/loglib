@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   let stars = 27;
   let contributors = 0;
   async function getGitHubStars() {
@@ -25,8 +26,10 @@
       .then((result) => JSON.parse(result).length)
       .catch((error) => console.log("error", error));
   }
-  getGitHubStars();
-  getGitHubContributors();
+  onMount(() => {
+    getGitHubStars();
+    getGitHubContributors();
+  });
 </script>
 
 <section

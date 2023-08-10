@@ -1,5 +1,8 @@
-<script>
+<script lang="ts">
   import MaxWidthWrapper from "$lib/components/max-width-wrapper.svelte";
+  import { formatDate } from "$lib/utils";
+  import type { ChangelogPost } from "contentlayer/generated";
+  export let allChangelogPosts: ChangelogPost[];
 </script>
 
 <MaxWidthWrapper className="space-y-5 pt-20 md:space-y-10 relative">
@@ -19,6 +22,30 @@
     </p>
   </div>
   <ul class="max-w-2xl md:mx-auto">
+    {#each allChangelogPosts as post}
+      <li>
+        <a
+          href={`/changelog/${post.slug}`}
+          class="group hidden md:flex items-center justify-center gap-2"
+        >
+          <dl>
+            <dt class="sr-only">Published on</dt>
+            <dd
+              class="text-base font-medium underline text-gray-400 transition-colors group-hover:text-gray-700"
+            >
+              <time dateTime={post.publishedAt}
+                >{formatDate(post.publishedAt)}</time
+              >
+            </dd>
+          </dl>
+          <h3
+            class="text-2xl font-medium tracking-tight text-slate-700 dark:text-slate-400 transition-colors group-hover:dark:text-slate-100 group-hover:text-black/80"
+          >
+            {post.title}
+          </h3>
+        </a>
+      </li>
+    {/each}
     <!-- {allChangelogPosts
             .sort(
                 (a, b) => Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt)),
