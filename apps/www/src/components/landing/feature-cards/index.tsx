@@ -29,6 +29,7 @@ export const FeatureCard = () => {
                         customizable. fast. lightweight. privacy. privacy.
                     </motion.p>
                     <Particles />
+
                     <div className=""></div>
                 </div>
             </section>

@@ -90,7 +90,7 @@
         "jsonwebtoken": "^9.0.0",
         "kysely": "^0.26.1",
         "kysely-planetscale": "^1.3.0",
-        "lucide-react": "^0.220.0",
+        "lucide-react": "0.263.1",
         "mdast-util-toc": "^6.1.1",
         "million": "2.5.4-beta.2",
         "next": "13.4.14-canary.0",
