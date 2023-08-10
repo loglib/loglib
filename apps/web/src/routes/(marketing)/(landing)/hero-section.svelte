@@ -1,5 +1,5 @@
 <script>
-  import GridBackground from "../../../components/grid-background.svelte";
+  import GridBackground from "$lib/components/grid-background.svelte";
   import LandingGraph from "./landing-graph.svelte";
   import MagicText from "./magic-text.svelte";
 </script>

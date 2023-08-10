@@ -1,7 +1,7 @@
 <script lang="ts">
   import { fade } from "svelte/transition";
   import { inview } from "svelte-inview";
-
+  import AccordionFeatures from "./accordion-features.svelte";
   let isInView = false;
 </script>
 
@@ -14,21 +14,19 @@
   <div
     class=" space-y-8 md:space-y-16 w-full flex items-center flex-col justify-center relative"
   >
-    {#if isInView}
-      <div class=" space-y-6 text-center" in:fade>
-        <h2 class=" font-medium text-3xl encbSy">
-          <span class="magic-text">Beyond</span>{" "}
-          <span class=" text-white">
-            <span class=" font-bold">the basics</span>
-          </span>
-        </h2>
-        <p class=" text-slate-300">
-          Loglib is beyond a basic analytics tool, it&apos;s a powerful tool
-          that can help you understand your users and your product better.
-        </p>
-      </div>
-      <!-- <Features /> -->
-    {/if}
+    <div class=" space-y-6 text-center" in:fade>
+      <h2 class=" font-medium text-3xl encbSy">
+        <span class="magic-text">Beyond</span>{" "}
+        <span class=" text-white">
+          <span class=" font-bold">the basics</span>
+        </span>
+      </h2>
+      <p class=" text-slate-300">
+        Loglib is beyond a basic analytics tool, it&apos;s a powerful tool that
+        can help you understand your users and your product better.
+      </p>
+    </div>
+    <AccordionFeatures />
   </div>
 </div>
 
