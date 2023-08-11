@@ -20,7 +20,6 @@ export default async function Page({
         .selectFrom("website")
         .leftJoin("team_website", "team_website.website_id", "website.id")
         .leftJoin("team_users", "team_website.team_id", "team_users.team_id")
-        .leftJoin("web_session", "website.id", "web_session.website_id")
         .select([
             "website.id",
             "website.public",
@@ -43,21 +42,21 @@ export default async function Page({
     const showSetup = isPublic
         ? false
         : website.active === 1
-        ? false
-        : await (async () => {
-              const haveSession = (await getIsWebsiteActive({ websiteId: params.website })).length;
-              if (haveSession) {
-                  await db
-                      .updateTable("website")
-                      .set({
-                          active: 1,
-                      })
-                      .where("id", "=", params.website)
-                      .executeTakeFirst();
-                  return false;
-              }
-              return true;
-          })();
+            ? false
+            : await (async () => {
+                const haveSession = (await getIsWebsiteActive({ websiteId: params.website })).length;
+                if (haveSession) {
+                    await db
+                        .updateTable("website")
+                        .set({
+                            active: 1,
+                        })
+                        .where("id", "=", params.website)
+                        .executeTakeFirst();
+                    return false;
+                }
+                return true;
+            })();
     return (
         <main>
             <Dashboard website={website} isPublic={isPublic} showSetup={showSetup} token={token} />
