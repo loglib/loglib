@@ -29,10 +29,8 @@ export function formatDate(input: string | number): string {
     });
 }
 
-export const fetcher = (url: string) => axios.get(url).then((res) => res.data);
-
 export function absoluteUrl(path: string) {
-    return `${env.NEXT_PUBLIC_APP_URL}${path}`;
+    return `${process.env.NEXT_PUBLIC_APP_URL}${path}`;
 }
 
 export function constructMetadata({
@@ -43,7 +41,7 @@ export function constructMetadata({
     title?: string;
     description?: string;
     image?: string;
-}): Metadata {
+}) {
     return {
         title,
         description,

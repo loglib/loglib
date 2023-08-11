@@ -1,0 +1,224 @@
+datasource db {
+    provider     = "mysql"
+    url          = env("DATABASE_URL")
+    relationMode = "prisma"
+}
+
+generator kysely {
+    provider     = "prisma-kysely"
+    output       = "../src/lib/services/db"
+    fileName     = "types.ts"
+    enumFileName = "enums.ts"
+}
+
+model Account {
+    id                String   @id @default(cuid())
+    userId            String
+    type              String
+    provider          String
+    providerAccountId String
+    refresh_token     String?  @db.Text
+    access_token      String?  @db.Text
+    expires_at        Int?
+    token_type        String?
+    scope             String?
+    id_token          String?  @db.Text
+    session_state     String?
+    createdAt         DateTime @default(now()) @map(name: "created_at")
+    updatedAt         DateTime @default(now()) @map(name: "updated_at")
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([provider, providerAccountId])
+    @@index([userId])
+    @@map(name: "accounts")
+}
+
+model Session {
+    id           String   @id @default(cuid())
+    sessionToken String   @unique
+    userId       String
+    expires      DateTime
+    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@index([userId])
+    @@map(name: "sessions")
+}
+
+model AuthSession {
+    id             String @id @default(uuid())
+    user_id        String
+    active_expires BigInt
+    idle_expires   BigInt
+
+    User User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+    @@index([user_id])
+    @@map(name: "auth_session")
+}
+
+model AuthKey {
+    id              String  @id
+    user_id         String
+    hashed_password String?
+
+    User User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+    @@index([user_id])
+    @@map("auth_key")
+}
+
+model User {
+    id            String    @id @default(cuid())
+    name          String?
+    email         String?   @unique
+    emailVerified DateTime?
+    image         String?
+    createdAt     DateTime  @default(now()) @map(name: "created_at")
+    updatedAt     DateTime  @default(now()) @map(name: "updated_at")
+
+    accounts Account[]
+    sessions Session[]
+
+    stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
+    stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
+    stripePriceId          String?   @map(name: "stripe_price_id")
+    stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
+
+    Website        Website[]
+    ApiKey         ApiKey[]
+    TeamUser       TeamUser[]
+    TeamUserInvite TeamUserInvite[]
+    AuthSession    AuthSession[]
+    AuthKey        AuthKey[]
+
+    @@map(name: "users")
+}
+
+model VerificationToken {
+    identifier String
+    token      String   @unique
+    expires    DateTime
+
+    @@unique([identifier, token])
+    @@map(name: "verification_tokens")
+}
+
+model Website {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+    url       String   @unique @map("url")
+    title     String?  @map("title")
+    userId    String   @map("user_id")
+    active    Boolean  @default(false)
+    public    Boolean  @default(false)
+
+    User        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+    ApiKey      ApiKey[]
+    TeamWebsite TeamWebsite[]
+
+    @@index([userId])
+    @@map("website")
+}
+
+model ApiKey {
+    id        String    @id @default(cuid())
+    userId    String
+    name      String
+    websiteId String
+    key       String    @default(cuid())
+    createdAt DateTime  @default(now()) @map(name: "created_at")
+    deletedAt DateTime? @map(name: "deleted_at")
+    expires   DateTime
+
+    user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    website Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+
+    @@index([userId])
+    @@index([websiteId])
+    @@map("api_key")
+}
+
+model Team {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now()) @map(name: "created_at")
+    updatedAt DateTime @updatedAt @map(name: "updated_at")
+    name      String   @map(name: "name")
+
+    TeamWebsite    TeamWebsite[]
+    TeamUser       TeamUser[]
+    TeamUserInvite TeamUserInvite[]
+
+    @@map(name: "team")
+}
+
+model TeamWebsite {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now()) @map(name: "created_at")
+    updatedAt DateTime @updatedAt @map(name: "updated_at")
+    teamId    String   @map(name: "team_id")
+    websiteId String   @map(name: "website_id")
+
+    Team    Team    @relation(fields: [teamId], references: [id], onDelete: Cascade)
+    Website Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+
+    @@index([teamId])
+    @@index([websiteId])
+    @@map(name: "team_website")
+}
+
+model TeamUser {
+    id        String   @id @default(cuid())
+    teamId    String   @map(name: "team_id")
+    userId    String   @map(name: "user_id")
+    role      ROLE     @default(owner)
+    accepted  Boolean  @default(false)
+    createdAt DateTime @default(now()) @map(name: "created_at")
+    updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+    Team           Team             @relation(fields: [teamId], references: [id], onDelete: Cascade)
+    User           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+    TeamUserInvite TeamUserInvite[]
+
+    @@index([teamId])
+    @@index([userId])
+    @@map(name: "team_users")
+}
+
+model TeamUserInvite {
+    id         String        @id @default(cuid())
+    teamId     String        @map(name: "team_id")
+    userId     String        @map(name: "user_id")
+    teamUserId String        @map(name: "team_user_id")
+    token      String        @map(name: "token")
+    status     INVITE_STATUS @default(sent)
+    createdAt  DateTime      @default(now()) @map(name: "created_at")
+    updatedAt  DateTime      @updatedAt @map(name: "updated_at")
+
+    Team     Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+    User     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    TeamUser TeamUser @relation(fields: [teamUserId], references: [id], onDelete: Cascade)
+
+    @@index([teamId])
+    @@index([userId])
+    @@index([teamUserId])
+    @@map(name: "team_user_invite")
+}
+
+model Disallowed {
+    id       String @id @default(cuid())
+    identity String
+}
+
+enum ROLE {
+    owner
+    admin
+    viewer
+}
+
+enum INVITE_STATUS {
+    sent
+    accepted
+    expired
+}

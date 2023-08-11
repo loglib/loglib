@@ -26,7 +26,6 @@ const computedFields = {
 export const Doc = defineDocumentType(() => ({
     name: "Doc",
     filePathPattern: "docs/**/*.md",
-    contentType: "mdx",
     fields: {
         title: {
             type: "string",
@@ -80,8 +79,24 @@ export const ChangelogPost = defineDocumentType(() => ({
 }));
 
 
+export const LegalPost = defineDocumentType(()=>({
+    name: "LegalPost",
+    filePathPattern: "**/legal/*.md",
+    fields: {
+        title: {
+          type: "string",
+          required: true,
+        },
+        updatedAt: {
+          type: "string",
+          required: true,
+        },
+      },
+}))
+
+
 export default makeSource({
 	contentDirPath: './content',
-	documentTypes: [ChangelogPost],
+	documentTypes: [ChangelogPost, LegalPost, Doc],
 	disableImportAliasWarning: true
 });

@@ -1,0 +1,39 @@
+---
+title: Custom Events
+descirption: collecting custome events 
+---
+
+If you want to track a specific event, you can use the `track` method.
+
+example in nextjs/react app
+
+```js
+import { loglib } from "@loglib/tracker"
+export default function page() {
+  return (
+    <>
+      <button onClick={() => loglib.track("search", { term: "iphone" })}>
+        Search
+      </button>
+    </>
+  )
+}
+```
+
+## User Concent
+
+| options        | type    | default     | description                                                           |
+| -------------- | ------- | ----------- | --------------------------------------------------------------------- |
+| `autoTrack`    | boolean | `false`     | Automatically track click events with onclick handlers and on buttons |
+| `consent`      | string  | `"granted"` | The consent status of the user                                        |
+| `debug`        | boolean | `false`     | Enable debug mode                                                     |
+| `env`          | string  | `"auto"`    | The environment of the tracker                                        |
+| `postInterval` | number  | `5`         | The interval to send events to the server                             |
+
+<Callout>
+  NOTE: Currently you can't use loglib server or dashboard in other frameworks
+  other than next js or react but you can attach the dashboard on astro since
+  you can use react in astro and we'll provide astro server soon. And you can
+  always deploy a new next js project separated from your main project and use
+  it as a dashboard and a server. See the example folder for more.
+</Callout>

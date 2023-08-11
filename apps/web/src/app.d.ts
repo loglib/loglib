@@ -1,11 +1,24 @@
-// See https://kit.svelte.dev/docs/types#app
-// for information about these interfaces
+/// <reference types="@sveltejs/kit" />
+/// <reference types="svelte" />
+/// <reference types="vite/client"
+/// <reference types="lucia" />
+
 declare global {
+    namespace Lucia {
+        type Auth = import("$lib/services/auth/lucia").Auth;
+        type DatabaseUserAttributes = {
+            name: string | null;
+            email: string | null;
+            image: string | null;
+            createdAt?: Date;
+            updatedAt?: Date;
+        };
+        type DatabaseSessionAttributes = Record<string, never>;
+    }
     namespace App {
-        // interface Error {}
-        // interface Locals {}
-        // interface PageData {}
-        // interface Platform {}
+        interface Locals {
+            auth: import("lucia").AuthRequest;
+        }
     }
 }
 
