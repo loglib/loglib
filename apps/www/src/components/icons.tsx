@@ -9,7 +9,7 @@ import {
     File,
     FileText,
     HelpCircle,
-    type Icon as LucideIcon,
+    LucideIcon,
     Image,
     KeyIcon,
     Laptop,

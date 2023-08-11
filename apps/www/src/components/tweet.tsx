@@ -70,10 +70,6 @@ export default function Tweet({
                                 src={user.profile_image_url_https}
                                 className={cn(
                                     "h-10 w-10 overflow-hidden rounded-full border border-gray-200 transition-all ease-in-out hover:scale-105",
-                                    {
-                                        "rounded-full": user.profile_image_shape === "Circle",
-                                        "rounded-md": user.profile_image_shape === "Square",
-                                    },
                                 )}
                             />
                         </a>
