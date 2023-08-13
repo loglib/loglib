@@ -40,22 +40,32 @@ app.get("/", async (c) => {
     const env = envSchema.parse(process.env);
     //authentication
     const queries = insightSchema.safeParse(c.req.query());
-    if (!queries.success) {
+    if (!queries.success || (queries.data.apiKey && queries.data.token)) {
         return c.json(null, 400);
     }
     const { startDate, endDate, timeZone, websiteId, token } = queries.data;
-    try {
-        jwt.verify(token, env.NEXTAUTH_SECRET, (err, decoded) => {
-            if (err) {
-                throw err;
-            }
-            //@ts-ignore
-            if (decoded.website !== websiteId) {
-                throw Error;
-            }
-        });
-    } catch {
-        return c.json(null, 401);
+    if (queries.data.token) {
+        try {
+            jwt.verify(token, env.NEXTAUTH_SECRET, (err, decoded) => {
+                if (err) {
+                    throw err;
+                }
+                //@ts-ignore
+                if (decoded.website !== websiteId) {
+                    throw Error;
+                }
+            });
+        } catch {
+
+            return c.json(null, 401);
+        }
+    } else {
+        const apiKey = queries.data.apiKey
+        const site = await db.selectFrom("api_key").where("key", "=", apiKey).selectAll().executeTakeFirst();
+        console.log(site)
+        if (!site || site.websiteId !== websiteId) {
+            return c.json(null, 401);
+        }
     }
     const startDateObj = new Date(startDate);
     const endDateObj = new Date(endDate);

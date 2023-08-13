@@ -7,7 +7,8 @@ export const insightSchema = z.object({
     websiteId: z.string(),
     timeZone: z.string(),
     filter: z.string(),
-    token: z.string(),
+    token: z.string().optional(),
+    apiKey: z.string().optional()
 });
 
 export const rootTrackerSchema = z.object({
