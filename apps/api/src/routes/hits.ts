@@ -91,7 +91,20 @@ export const createHits: RouteType = async ({ req, rawBody }) => {
             .then((res) => res);
         return {
             status: 200,
-            data: res,
+            data: {
+                ...res,
+                country,
+                city,
+                referrerDomain,
+                referrerPath,
+                currentPath,
+                language,
+                screenWidth,
+                queryParams,
+                duration,
+                sessionId,
+                visitorId
+            },
         };
     } catch (e) {
         console.log(e, "error hits")
