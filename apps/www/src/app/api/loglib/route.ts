@@ -2,9 +2,8 @@ import { env } from "env.mjs"
 
 export const POST = async (req: Request) => {
     const headers = Object.fromEntries(req.headers)
-    const body = await req.json()
     const res = await fetch(env.NEXT_PUBLIC_API_URL, {
-        body: JSON.stringify(body),
+        body: await req.text(),
         method: "POST",
         headers: {
             "Content-Type": "application/json",
