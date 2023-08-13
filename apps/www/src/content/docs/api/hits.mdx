@@ -1,18 +1,26 @@
 ---
 title: Hits
-desctiption: Hits are raw events that are automatically collected via the tracker
 ---
 
-**path: /api/v1/hits**
+Hits are raw events that are automatically collected via the tracker
+
+
+```bash
+GET https://api.loglib.io/v1/hits
+```
 
 **method:** GET
 
 **quer paramters:**
 
-```json
-startDate
-endDate
-```
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+startDate | string | start date of the hits
+endDate | string | end date of the hits
+
+**Header:**
+
+**x-api-key**: API key of the website you want to fetch. You can create one it in your [dashbaord](https://loglib.io/dashboard/api-keys).
 
 example returend response 
 ```json
