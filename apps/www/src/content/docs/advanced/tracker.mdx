@@ -11,7 +11,7 @@ Start by installing the package
 pnpm i @loglib/tracker
 ```
 
-## NextJS
+## React/NextJS
 
 usage with nextjs
 
@@ -52,7 +52,11 @@ usage with nextjs
     export default function App({ Component, pageProps }: AppProps) {
       return (
         <>
-          <LogLib config={{}} />
+          <LogLib config={
+              {
+                 id: //your website Id
+              }
+          } />
           <Component {...pageProps} />
         </>
       );

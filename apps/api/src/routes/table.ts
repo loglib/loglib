@@ -57,7 +57,7 @@ const transformData = (events: LoglibEvent[]) => {
             onlineVisitors.add(event.visitorId);
         }
         if (pageIndex === -1) {
-            page &&
+            page && page.startsWith("/") &&
                 pageViews.push({
                     page,
                     visits: 1,
@@ -71,7 +71,7 @@ const transformData = (events: LoglibEvent[]) => {
                 visits: 1,
             });
         } else {
-            isUniqueUser && device[deviceIndex].visits++;
+            isUniqueSession && device[deviceIndex].visits++;
         }
 
         if (countryIndex === -1) {
@@ -81,7 +81,7 @@ const transformData = (events: LoglibEvent[]) => {
                 visits: 1,
             });
         } else {
-            isUniqueUser && byCountry[countryIndex].visits++;
+            isUniqueSession && byCountry[countryIndex].visits++;
         }
 
         if (cityIndex === -1) {

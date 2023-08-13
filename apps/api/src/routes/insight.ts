@@ -1,3 +1,4 @@
+import { env } from "../../env";
 import { LoglibEvent } from "../type";
 
 export const getInsight = (events: LoglibEvent[], pastEvents: LoglibEvent[]) => {
@@ -23,6 +24,10 @@ const transformData = (events: LoglibEvent[], pastEvents: LoglibEvent[]) => {
     let duration = 0;
     for (let i = 0; i < events.length; i++) {
         const event = events[i];
+        console.log(event.visitorId)
+        if (!event.visitorId || event.visitorId === env.CLIENT_IP_ADDRESS) {
+            event.visitorId = event.sessionId
+        }
         uniqueValues.add(event.visitorId);
         event.duration < 10 && bounces++;
         duration += event.duration;
@@ -33,6 +38,9 @@ const transformData = (events: LoglibEvent[], pastEvents: LoglibEvent[]) => {
     let pastDuration = 0;
     for (let i = 0; i < pastEvents.length; i++) {
         const event = pastEvents[i];
+        if (!event.visitorId || event.visitorId === env.CLIENT_IP_ADDRESS) {
+            event.visitorId = event.country
+        }
         pastUniqueValues.add(event.visitorId);
         event.duration < 10 && pastBounces++;
         pastDuration += event.duration;
@@ -47,9 +55,8 @@ const transformData = (events: LoglibEvent[], pastEvents: LoglibEvent[]) => {
         if (seconds < 60) {
             return isNaN(seconds) ? "0 sec" : `${seconds} sec`;
         } else {
-            return `${isNaN(minutes) ? 0 : minutes} min ${
-                isNaN(remainingSeconds) ? 0 : remainingSeconds
-            } sec`;
+            return `${isNaN(minutes) ? 0 : minutes} min ${isNaN(remainingSeconds) ? 0 : remainingSeconds
+                } sec`;
         }
     }
     return {
