@@ -1,5 +1,12 @@
 # @loglib/tracker
 
+## 0.5.1
+
+### Patch Changes
+
+- 5fb883e: - better cdn support
+  - back compatibility for using host with the new tracker
+
 ## 0.5.0
 
 ### Minor Changes
