@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "private": true,
     "scripts": {
-        "dev": "tsx watch src/index.ts",
+        "dev": "tsx env.ts && tsx watch src/index.ts",
         "build": "tsup",
         "setup:geo": "tsx setup/geo.ts",
         "setup:clickhouse": "dotenv tsx setup/clickhouse-db.ts",
@@ -18,6 +18,7 @@
         "@clickhouse/client-web": "^0.2.0",
         "@hono/node-server": "^1.1.1",
         "@loglib/setup": "1.0.0",
+        "@t3-oss/env-core": "^0.6.0",
         "@types/request-ip": "^0.0.38",
         "@types/tar": "^6.1.5",
         "detect-browser": "^5.3.0",

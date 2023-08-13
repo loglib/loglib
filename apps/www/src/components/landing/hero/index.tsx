@@ -9,7 +9,7 @@ import Link from "next/link";
 
 export const HeroSection = () => {
     return (
-        <div className=" relative flex  max-w-8xl card bg-gradient-radial  w-full justify-between px-8 py-10 pb-8 from-gray-50 to-gray-200 border dark:border-slate-800 dark:from-slate-700/10 dark:to-[#080812] sm:min-h-fit md:px-16 md:py-12  md:pt-16 rounded-3xl">
+        <div className=" relative flex  max-w-8xl card bg-gradient-radial  w-full justify-between px-8 py-10 pb-8 from-gray-50 to-gray-200 border dark:border-slate-900 dark:from-slate-800/10 dark:to-[#080812] sm:min-h-fit md:px-16 md:py-12  md:pt-16 rounded-3xl">
             <section className="flex flex-col  space-y-8  ">
                 <Background />
                 <div
@@ -37,7 +37,6 @@ export const HeroSection = () => {
                             </h2>
                         </div>
                     </Link>
-
                     <Hero />
                 </div>
                 <div className=" mt-8 space-y-4">
@@ -45,7 +44,7 @@ export const HeroSection = () => {
                         <p className="max-w-xl text-left text-xl tracking-wider text-orange-500">
                             3 Easy Step To Setup
                         </p>
-                        <div className="text-md flex flex-col gap-4 text-black dark:text-white sm:flex-row sm:text-lg">
+                        <div className="text-md flex flex-col gap-4 text-black dark:text-white sm:flex-row 2xl:text-lg">
                             <div className="flex gap-2">
                                 <span className="bg-gradient-to-br from-indigo-300 to-orange-600 bg-clip-text text-transparent">
                                     01

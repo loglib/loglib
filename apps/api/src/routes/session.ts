@@ -37,7 +37,6 @@ export const createSession: RouteType = async ({ req, rawBody }) => {
         const { sessionId, data, visitorId, websiteId, pageId } = body.data;
         const { referrer, language, queryParams, screenWidth, pathname } = data;
         const userAgent = req.headers["user-agent"];
-        console.log(userAgent, visitorId);
         const { city, country } = await getLocation(ip, req);
         const browser = browserName(userAgent) ?? "unknown";
         const os = detectOS(userAgent) ?? "Mac OS";

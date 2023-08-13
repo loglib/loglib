@@ -10,7 +10,6 @@ import { apiQuery, envSchema, insightSchema } from "./schema";
 import { Filter, LoglibEvent, Path } from "./type";
 import { createClient } from "@clickhouse/client";
 import { serve } from "@hono/node-server";
-import "dotenv/config";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";

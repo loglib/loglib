@@ -9,6 +9,7 @@
 }
 
 @keyframes scale {
+
   from,
   to {
     transform: scale(0);
@@ -29,12 +30,7 @@
   }
 }
 
-.magic {
-  display: inline-block;
-  position: relative;
-}
-
-.magicStar {
+.star {
   --size: clamp(20px, 1.5vw, 30px);
 
   animation: scale 700ms ease forwards;
@@ -46,13 +42,13 @@
   width: var(--size);
 }
 
-.magicStar > svg {
+.star>svg {
   animation: rotate 1000ms linear infinite;
   display: block;
   opacity: 0.7;
 }
 
-.magicStar > svg > path {
+.star>svg>path {
   fill: #a912d3;
 }
 
@@ -61,13 +57,11 @@
   --violet: rgb(103, 58, 183);
   --pink: rgb(244, 143, 177);
   animation: background-pan 3s linear infinite;
-  background: linear-gradient(
-    to right,
-    var(--purple),
-    var(--violet),
-    var(--pink),
-    var(--purple)
-  );
+  background: linear-gradient(to right,
+      var(--purple),
+      var(--violet),
+      var(--pink),
+      var(--purple));
   background-size: 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
