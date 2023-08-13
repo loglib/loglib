@@ -1,0 +1,107 @@
+---
+title: Insight
+---
+
+This endpoint provides similar data to your Insight dashboard. It can be used to display calculated data in your own admin dashboard or website.
+
+
+## Get Insight
+
+```bash
+GET https://api.loglib.io
+```
+
+### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+startDate | string | The start date of the data to retrieve. Format: YYYY-MM-DDT00:00:00
+endDate | string | The end date of the data to retrieve. Format: YYYY-MM-DDT00:00:00
+timezone | string | The timezone to use for the data. Format: Continent/City
+apiKey | string | Your API key. You can create one it in your [dashbaord](https://loglib.io/dashboard/api-keys).
+
+### Returns
+
+```ts
+{
+    insight: {
+        uniqueVisitors: {
+            current: number;
+            change: number; //this is a change from comparable time range in the past. 
+        };
+        totalPageViews: {
+            current: number;
+            change: number;
+        };
+        averageTime: {
+            current: string;
+            change: number;
+        };
+        bounceRate: {
+            current: number;
+            change: number;
+        };
+        newVisitors: {
+            current: number;
+            change: number;
+        };
+        returningVisitor: {
+            current: number;
+            change: number;
+        };
+    };
+    data: {
+        pages: {
+            page: string;
+            visits: number;
+        }[];
+        devices: {
+            device: string;
+            visits: number;
+        }[];
+        referrer: {
+            referrer: string;
+            visits: number;
+            referrerDomain: string;
+        }[];
+        locations: {
+            city: {
+                location: string;
+                visits: number;
+                country: string;
+            }[];
+            country: {
+                location: string;
+                visits: number;
+            }[];
+        };
+        os: {
+            os: string;
+            visits: number;
+        }[];
+        browser: {
+            browser: string;
+            visits: number;
+        }[];
+        utmSources: {
+            utmSource: string;
+            visits: number;
+        }[];
+        utmCampaigns: {
+            utmCampaign: string;
+            visits: number;
+        }[];
+        onlineVisitors: number;
+    };
+    graph: {
+        uniqueVisitorsByDate: {
+            date: string;
+            visits: number;
+        }[];
+        uniqueSessionByDate: {
+            date: string;
+            visits: number;
+        }[];
+    };
+};
+```

@@ -43,7 +43,7 @@ app.get("/", async (c) => {
     if (!queries.success || (queries.data.apiKey && queries.data.token)) {
         return c.json(null, 400);
     }
-    const { startDate, endDate, timeZone, websiteId, token } = queries.data;
+    let { startDate, endDate, timeZone, websiteId, token } = queries.data;
     if (queries.data.token) {
         try {
             jwt.verify(token, env.NEXTAUTH_SECRET, (err, decoded) => {
@@ -56,16 +56,12 @@ app.get("/", async (c) => {
                 }
             });
         } catch {
-
             return c.json(null, 401);
         }
     } else {
         const apiKey = queries.data.apiKey
         const site = await db.selectFrom("api_key").where("key", "=", apiKey).selectAll().executeTakeFirst();
-        console.log(site)
-        if (!site || site.websiteId !== websiteId) {
-            return c.json(null, 401);
-        }
+        websiteId = site.websiteId
     }
     const startDateObj = new Date(startDate);
     const endDateObj = new Date(endDate);

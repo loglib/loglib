@@ -83,6 +83,10 @@ export const docsConfig: DocsConfig = {
                     href: "/docs/api",
                 },
                 {
+                    title: "Insight",
+                    href: "/docs/api/insight",
+                },
+                {
                     title: "Hits",
                     href: "/docs/api/hits",
                 },

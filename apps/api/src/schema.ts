@@ -4,9 +4,9 @@ import { z } from "zod";
 export const insightSchema = z.object({
     startDate: z.string(),
     endDate: z.string(),
-    websiteId: z.string(),
+    websiteId: z.string().optional(),
     timeZone: z.string(),
-    filter: z.string(),
+    filter: z.string().default("[]"),
     token: z.string().optional(),
     apiKey: z.string().optional()
 });
