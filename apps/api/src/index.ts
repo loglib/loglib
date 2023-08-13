@@ -100,7 +100,7 @@ app.get("/", async (c) => {
             200,
         );
     } catch (e) {
-        console.log(e);
+        return c.json(e, 500);
     }
 });
 
