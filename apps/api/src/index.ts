@@ -45,19 +45,19 @@ app.get("/", async (c) => {
         return c.json(null, 400);
     }
     const { startDate, endDate, timeZone, websiteId, token } = queries.data;
-    // try {
-    //     jwt.verify(token, env.NEXTAUTH_SECRET, (err, decoded) => {
-    //         if (err) {
-    //             throw err;
-    //         }
-    //         //@ts-ignore
-    //         if (decoded.website !== websiteId) {
-    //             throw Error;
-    //         }
-    //     });
-    // } catch {
-    //     return c.json(null, 401);
-    // }
+    try {
+        jwt.verify(token, env.NEXTAUTH_SECRET, (err, decoded) => {
+            if (err) {
+                throw err;
+            }
+            //@ts-ignore
+            if (decoded.website !== websiteId) {
+                throw Error;
+            }
+        });
+    } catch {
+        return c.json(null, 401);
+    }
     const startDateObj = new Date(startDate);
     const endDateObj = new Date(endDate);
     const duration = endDateObj.getTime() - startDateObj.getTime();
