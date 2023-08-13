@@ -101,8 +101,6 @@ export default function RootLayout({
                         config={{
                             id: "loglib",
                             consent: "granted",
-                            host: "http://localhost:3000/api/loglib",
-                            env: "prod"
                         }}
                     />
                     <Toaster />
