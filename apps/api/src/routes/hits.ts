@@ -108,5 +108,11 @@ export const createHits: RouteType = async ({ req, rawBody }) => {
         };
     } catch (e) {
         console.log(e, "error hits")
+        return {
+            status: 500,
+            data: {
+                message: "internal server error",
+            }
+        }
     }
 };
