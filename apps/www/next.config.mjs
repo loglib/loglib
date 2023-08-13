@@ -1,5 +1,5 @@
 // rome-ignore lint/correctness/noUnusedVariables: <explanation>
-import  { env } from "./env.mjs";
+import { env } from "./env.mjs";
 import { withContentlayer } from "next-contentlayer";
 import million from "million/compiler"
 
@@ -18,12 +18,6 @@ const nextConfig = {
             },
         ],
     },
-    rewrites: async () => [
-        {
-            destination: process.env.NEXT_PUBLIC_API_URL,
-            source: "/api/loglib",
-        },
-    ],
     experimental: {
         serverComponentsExternalPackages: ["generated/client"],
         serverActions: true,
