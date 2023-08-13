@@ -24,9 +24,6 @@ const transformData = (events: LoglibEvent[], pastEvents: LoglibEvent[]) => {
     let duration = 0;
     for (let i = 0; i < events.length; i++) {
         const event = events[i];
-        if (!event.visitorId || event.visitorId === env.CLIENT_IP_ADDRESS) {
-            event.visitorId = event.sessionId
-        }
         uniqueValues.add(event.visitorId);
         event.duration < 10 && bounces++;
         duration += event.duration;
@@ -37,9 +34,6 @@ const transformData = (events: LoglibEvent[], pastEvents: LoglibEvent[]) => {
     let pastDuration = 0;
     for (let i = 0; i < pastEvents.length; i++) {
         const event = pastEvents[i];
-        if (!event.visitorId || event.visitorId === env.CLIENT_IP_ADDRESS) {
-            event.visitorId = event.country
-        }
         pastUniqueValues.add(event.visitorId);
         event.duration < 10 && pastBounces++;
         pastDuration += event.duration;

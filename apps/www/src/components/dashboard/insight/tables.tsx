@@ -206,7 +206,7 @@ export const InsightTables = ({
                                                     })
                                                 }
                                             >
-                                                {location.location === "Unknown" ? (
+                                                {location.location === "Unknown" || !location.location ? (
                                                     <>
                                                         <Link2Icon />
                                                         Unknown
@@ -298,7 +298,7 @@ export const InsightTables = ({
                                                     {refs.referrer.split(".").length > 1
                                                         ? refs.referrer
                                                         : refs.referrer.charAt(0).toUpperCase() +
-                                                          refs.referrer.slice(1)}
+                                                        refs.referrer.slice(1)}
                                                 </Link>
                                             </TableCell>
                                             <TableCell className="text-right">
@@ -404,8 +404,8 @@ export const InsightTables = ({
                     <CardContent>
                         <Tabs className=" w-full" defaultValue="general">
                             {isFilterActive("device") ||
-                            isFilterActive("os") ||
-                            isFilterActive("browser") ? (
+                                isFilterActive("os") ||
+                                isFilterActive("browser") ? (
                                 <ClearFilter
                                     onClick={() => {
                                         clearFilter("device");

@@ -27,10 +27,21 @@ export type ApiKey = {
     userId: string;
     name: string;
     websiteId: string;
-    key: string;
     created_at: Generated<Timestamp>;
     deleted_at: Timestamp | null;
     expires: Timestamp;
+    key: string;
+};
+export type auth_key = {
+    id: string;
+    user_id: string;
+    hashed_password: string | null;
+};
+export type auth_session = {
+    id: string;
+    user_id: string;
+    active_expires: number;
+    idle_expires: number;
 };
 export type Disallowed = {
     id: string;
@@ -53,19 +64,19 @@ export type TeamUser = {
     team_id: string;
     user_id: string;
     role: Generated<ROLE>;
-    accepted: Generated<number>;
     created_at: Generated<Timestamp>;
     updated_at: Timestamp;
+    accepted: Generated<number>;
 };
 export type TeamUserInvite = {
     id: string;
     team_id: string;
-    user_id: string;
-    team_user_id: string;
-    token: string;
-    status: Generated<INVITE_STATUS>;
     created_at: Generated<Timestamp>;
     updated_at: Timestamp;
+    token: string;
+    user_id: string;
+    team_user_id: string;
+    status: Generated<INVITE_STATUS>;
 };
 export type TeamWebsite = {
     id: string;
@@ -92,46 +103,6 @@ export type VerificationToken = {
     token: string;
     expires: Timestamp;
 };
-export type WebEvent = {
-    id: string;
-    created_at: Generated<Timestamp>;
-    updated_at: Timestamp;
-    event_type: string;
-    event_name: string;
-    payload: Generated<string>;
-    page_id: string;
-    web_session_id: string;
-    user_id: string;
-    website_id: string;
-};
-export type WebPageview = {
-    id: string;
-    created_at: Generated<Timestamp>;
-    updated_at: Timestamp;
-    page: string;
-    referrer: Generated<string>;
-    query_params: Generated<string>;
-    duration: Generated<number>;
-    web_session_id: string;
-    user_id: string;
-    website_id: string;
-};
-export type WebSession = {
-    id: string;
-    created_at: Generated<Timestamp>;
-    updated_at: Timestamp;
-    referrer: Generated<string>;
-    query_params: Generated<string>;
-    duration: Generated<number>;
-    country: string | null;
-    city: string | null;
-    device: string | null;
-    os: string | null;
-    browser: string | null;
-    language: string | null;
-    user_id: string;
-    website_id: string;
-};
 export type Website = {
     id: string;
     created_at: Generated<Timestamp>;
@@ -142,16 +113,11 @@ export type Website = {
     active: Generated<number>;
     public: Generated<number>;
 };
-export type WebVisitor = {
-    id: string;
-    data: Generated<string>;
-    created_at: Generated<Timestamp>;
-    updated_at: Timestamp;
-    website_id: string;
-};
 export type DB = {
     accounts: Account;
     api_key: ApiKey;
+    auth_key: auth_key;
+    auth_session: auth_session;
     Disallowed: Disallowed;
     sessions: Session;
     team: Team;
@@ -160,9 +126,5 @@ export type DB = {
     team_website: TeamWebsite;
     users: User;
     verification_tokens: VerificationToken;
-    web_event: WebEvent;
-    web_pageview: WebPageview;
-    web_session: WebSession;
-    web_user: WebVisitor;
     website: Website;
 };

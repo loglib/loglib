@@ -71,7 +71,7 @@ const transformData = (events: LoglibEvent[]) => {
                 visits: 1,
             });
         } else {
-            isUniqueSession && device[deviceIndex].visits++;
+            isUniqueUser && device[deviceIndex].visits++;
         }
 
         if (countryIndex === -1) {
@@ -81,7 +81,7 @@ const transformData = (events: LoglibEvent[]) => {
                 visits: 1,
             });
         } else {
-            isUniqueSession && byCountry[countryIndex].visits++;
+            isUniqueUser && byCountry[countryIndex].visits++;
         }
 
         if (cityIndex === -1) {
@@ -91,7 +91,7 @@ const transformData = (events: LoglibEvent[]) => {
                 visits: 1,
             });
         } else {
-            isUniqueSession && byCity[cityIndex].visits++;
+            isUniqueUser && byCity[cityIndex].visits++;
         }
 
         if (refIndex === -1) {
@@ -102,7 +102,7 @@ const transformData = (events: LoglibEvent[]) => {
                     visits: 1,
                 });
         } else {
-            isUniqueSession && referrer[refIndex].visits++;
+            isUniqueUser && referrer[refIndex].visits++;
         }
         if (browserIndex === -1) {
             browsers.push({
@@ -120,7 +120,7 @@ const transformData = (events: LoglibEvent[]) => {
                 visits: 1,
             });
         } else {
-            isUniqueSession && os[osIndex].visits++;
+            isUniqueUser && os[osIndex].visits++;
         }
         if (utmSourceIndex === -1) {
             utmSource &&
