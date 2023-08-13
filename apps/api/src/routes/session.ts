@@ -76,6 +76,11 @@ export const createSession: RouteType = async ({ req, rawBody }) => {
                     data: {
                         country,
                         city,
+                        language,
+                        screenWidth,
+                        queryParams,
+                        sessionId,
+                        visitorId
                     },
                 },
                 status: 200,
