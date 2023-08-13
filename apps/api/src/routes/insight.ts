@@ -24,7 +24,6 @@ const transformData = (events: LoglibEvent[], pastEvents: LoglibEvent[]) => {
     let duration = 0;
     for (let i = 0; i < events.length; i++) {
         const event = events[i];
-        console.log(event.visitorId)
         if (!event.visitorId || event.visitorId === env.CLIENT_IP_ADDRESS) {
             event.visitorId = event.sessionId
         }
