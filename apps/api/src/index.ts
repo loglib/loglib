@@ -25,14 +25,13 @@ app.post("/", async (c) => {
     const body = await c.req.json();
     const headers = Object.fromEntries(c.req.headers);
     const query = c.req.query();
+    console.log(body)
     if (!body.path) {
         return c.json(null, 200);
     }
     const path: Path = body.path;
     const res = await router({ path, rawBody: body, req: { headers, query } });
-    if (res.status !== 200) {
-        console.log(path, res.status, body.data);
-    }
+    console.log(path, res.status, body.data);
     return c.json(JSON.stringify(res.data), res.status);
 });
 

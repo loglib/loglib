@@ -29,19 +29,18 @@ export const createSession: RouteType = async ({ req, rawBody }) => {
     if (isbot(req.headers["user-agent"])) {
         return { data: { message: "bot" }, status: 200 };
     }
-    //if GDPR compliance is enabled, use ip address as user id
     const body = sessionSchema.safeParse(rawBody);
     if (body.success) {
-        const ip = getIpAddress(req);
-        body.data.visitorId = setVisitorId(body.data.visitorId, ip);
-        const { sessionId, data, visitorId, websiteId, pageId } = body.data;
-        const { referrer, language, queryParams, screenWidth, pathname } = data;
-        const userAgent = req.headers["user-agent"];
-        const { city, country } = await getLocation(ip, req);
-        const browser = browserName(userAgent) ?? "unknown";
-        const os = detectOS(userAgent) ?? "Mac OS";
-        const device = os ? getDevice(screenWidth, os) ?? "desktop" : "unknown";
         try {
+            const ip = getIpAddress(req);
+            body.data.visitorId = setVisitorId(body.data.visitorId, ip);
+            const { sessionId, data, visitorId, websiteId, pageId } = body.data;
+            const { referrer, language, queryParams, screenWidth, pathname } = data;
+            const userAgent = req.headers["user-agent"];
+            const { city, country } = await getLocation(ip, req);
+            const browser = browserName(userAgent) ?? "unknown";
+            const os = detectOS(userAgent) ?? "Mac OS";
+            const device = os ? getDevice(screenWidth, os) ?? "desktop" : "unknown";
             await client
                 .insert({
                     table: "loglib.event",
@@ -82,7 +81,7 @@ export const createSession: RouteType = async ({ req, rawBody }) => {
                 status: 200,
             };
         } catch (e) {
-            console.log(e, "error");
+            console.log(e, "session error");
             return apiResponse.serverError;
         }
     } else {

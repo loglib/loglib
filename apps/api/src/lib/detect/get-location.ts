@@ -29,6 +29,13 @@ export async function getLocation(ip: string, req: ApiRequest) {
         };
     }
     console.log("maxmind")
+    if (!ip) {
+        return {
+            country: "unknown",
+            city: "unknown",
+            region: null,
+        };
+    }
     // Database lookup
     if (!lookup) {
         try {
@@ -57,15 +64,3 @@ export async function getLocation(ip: string, req: ApiRequest) {
         };
     }
 }
-
-export const checkLocationConfig = async (req: HonoRequest) => {
-    if (req.headers["x-vercel-ip-country"]) return;
-    const dir = path.join(process.cwd(), "geo");
-    try {
-        await maxmind.open(path.resolve(dir, "GeoLite2-City.mmdb"));
-    } catch {
-        throw new Error(
-            "LogLib encountered an error while trying to resolve the location of the user. To resolve this issue, you can either set up the MaxMind database by running 'loglib setup:maxmind', or provide a custom implementation. Alternatively, you can disable location resolution from IP by modifying the server configuration.",
-        );
-    }
-};

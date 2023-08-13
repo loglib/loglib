@@ -100,6 +100,7 @@ export default function RootLayout({
                     <Loglib
                         config={{
                             id: "loglib",
+                            host: "https://loglib.io",
                         }}
                     />
                     <Toaster />
