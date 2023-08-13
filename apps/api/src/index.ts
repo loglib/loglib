@@ -31,7 +31,7 @@ app.post("/", async (c) => {
     }
     const path: Path = body.path;
     const res = await router({ path, rawBody: body, req: { headers, query } });
-    console.log(path, res.status, body.data);
+    console.log(path, res);
     return c.json(JSON.stringify(res.data), res.status);
 });
 
