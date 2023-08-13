@@ -22,6 +22,7 @@ const nextConfig = {
         {
             destination: process.env.NEXT_PUBLIC_API_URL,
             source: "/api/loglib",
+
         },
     ],
     experimental: {
