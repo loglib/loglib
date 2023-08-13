@@ -15,12 +15,11 @@ export const GET = async (req: Request) => {
 //older sdk uses this endpoint
 export const POST = async (req: Request) => {
     const header = Object.fromEntries(req.headers)
-    const body = await req.json()
     return new NextResponse(null, {
         status: 307,
         headers: {
             ...header,
-            location: env.NEXT_PUBLIC_API_URL + "?" + body.query
+            location: env.NEXT_PUBLIC_API_URL
         }
     })
 }
