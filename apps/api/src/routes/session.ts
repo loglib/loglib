@@ -33,8 +33,8 @@ export const createSession: RouteType = async ({ req, rawBody }) => {
     if (body.success) {
         try {
             const ip = getIpAddress(req);
-            body.data.visitorId = setVisitorId(body.data.visitorId, ip);
-            const { sessionId, data, visitorId, websiteId, pageId } = body.data;
+            const visitorId = setVisitorId(body.data.visitorId, ip);
+            const { sessionId, data, websiteId, pageId } = body.data;
             const { referrer, language, queryParams, screenWidth, pathname } = data;
             const userAgent = req.headers["user-agent"];
             const { city, country } = await getLocation(ip, req);
