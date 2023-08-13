@@ -7,6 +7,7 @@ import { RouteType } from "./type";
 import { browserName, detectOS } from "detect-browser";
 import isbot from "isbot";
 import { z } from "zod";
+import { setVisitorId } from "../lib/set-visitor-id";
 
 const schema = z.object({
     id: z.string(),
@@ -41,7 +42,6 @@ export const createHits: RouteType = async ({ req, rawBody }) => {
         const {
             websiteId,
             sessionId,
-            visitorId,
             host,
             id,
             screenWidth,
@@ -59,6 +59,7 @@ export const createHits: RouteType = async ({ req, rawBody }) => {
         const browser = browserName(userAgent) ?? "unknown";
         const os = detectOS(userAgent) ?? "Mac OS";
         const device = os ? getDevice(screenWidth, os) ?? "desktop" : "unknown";
+        const visitorId = setVisitorId(body.data.visitorId, ip)
         const res = await client
             .insert({
                 table: "loglib.event",
