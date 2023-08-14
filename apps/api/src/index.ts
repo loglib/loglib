@@ -196,7 +196,6 @@ app.get("/v1/inisght", async (c) => {
     }
     const { startDate, endDate, timeZone } = queries.data;
     const apiKey = queries.data.apiKey;
-
     const isRateLimited = await rateLimitCheck(apiKey);
     if (isRateLimited) {
         return c.json(
