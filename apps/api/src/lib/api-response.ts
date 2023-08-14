@@ -11,4 +11,10 @@ export const apiResponse = {
         },
         status: 500,
     },
+    unAuthorized: {
+        data: {
+            message: "Seems like you're not authorized!",
+        },
+        status: 401,
+    },
 };

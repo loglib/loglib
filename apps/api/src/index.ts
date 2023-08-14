@@ -1,12 +1,13 @@
 import { client, customEventsQuery, getDataQuery, hitsQuery } from "./lib/db/clickhouse";
 import { db } from "./lib/db/kysley";
+import { rateLimitCheck } from "./lib/rate-limit";
 import { retryFunction } from "./lib/retry";
 import { filter } from "./lib/small-filter";
 import { convertDate, convertToUTC } from "./lib/utils";
 import { router } from "./routes";
 import { getInsight } from "./routes/insight";
 import { getTablesData } from "./routes/table";
-import { apiQuery, envSchema, insightSchema } from "./schema";
+import { apiQuery, envSchema, insightPubApiSchema, insightSchema } from "./schema";
 import { Filter, LoglibEvent, Path } from "./type";
 import { createClient } from "@clickhouse/client";
 import { serve } from "@hono/node-server";
@@ -25,7 +26,7 @@ app.post("/", async (c) => {
     const body = await c.req.json();
     const headers = Object.fromEntries(c.req.headers);
     const query = c.req.query();
-    console.log(body)
+    console.log(body);
     if (!body.path) {
         return c.json(null, 200);
     }
@@ -40,28 +41,22 @@ app.get("/", async (c) => {
     const env = envSchema.parse(process.env);
     //authentication
     const queries = insightSchema.safeParse(c.req.query());
-    if (!queries.success || (queries.data.apiKey && queries.data.token)) {
+    if (!queries.success) {
         return c.json(null, 400);
     }
-    let { startDate, endDate, timeZone, websiteId, token } = queries.data;
-    if (queries.data.token) {
-        try {
-            jwt.verify(token, env.NEXTAUTH_SECRET, (err, decoded) => {
-                if (err) {
-                    throw err;
-                }
-                //@ts-ignore
-                if (decoded.website !== websiteId) {
-                    throw Error;
-                }
-            });
-        } catch {
-            return c.json(null, 401);
-        }
-    } else {
-        const apiKey = queries.data.apiKey
-        const site = await db.selectFrom("api_key").where("key", "=", apiKey).selectAll().executeTakeFirst();
-        websiteId = site.websiteId
+    const { startDate, endDate, timeZone, websiteId, token } = queries.data;
+    try {
+        jwt.verify(token, env.NEXTAUTH_SECRET, (err, decoded) => {
+            if (err) {
+                throw err;
+            }
+            //@ts-ignore
+            if (decoded.website !== websiteId) {
+                throw Error;
+            }
+        });
+    } catch {
+        return c.json(null, 401);
     }
     const startDateObj = new Date(startDate);
     const endDateObj = new Date(endDate);
@@ -192,6 +187,74 @@ app.get("/v1/hits", async (c) => {
     }
     const res = await retryFunction(getData, [], 3, 4);
     return c.json(res, 200);
+});
+
+app.get("/v1/inisght", async (c) => {
+    const queries = insightPubApiSchema.safeParse(c.req.query());
+    if (!queries.success) {
+        return c.json(null, 400);
+    }
+    const { startDate, endDate, timeZone } = queries.data;
+    const apiKey = queries.data.apiKey;
+
+    const isRateLimited = await rateLimitCheck(apiKey);
+    if (isRateLimited) {
+        return c.json(
+            JSON.stringify({
+                message: "Rate limit exceeded",
+            }),
+            429,
+        );
+    }
+    const site = await db
+        .selectFrom("api_key")
+        .where("key", "=", apiKey)
+        .selectAll()
+        .executeTakeFirst();
+    const websiteId = site.websiteId;
+    const today = new Date();
+    const startDateObj = new Date(
+        startDate ??
+            new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()).toISOString(),
+    );
+    const endDateObj = new Date(endDate ?? today);
+    const duration = endDateObj.getTime() - startDateObj.getTime();
+    const pastEndDateObj = new Date(startDateObj.getTime() - duration);
+    try {
+        const tick = performance.now();
+        let [events, lastEvents] = await retryFunction(
+            getDataQuery,
+            [startDateObj, endDateObj, pastEndDateObj, websiteId],
+            3,
+            4,
+        );
+        const tack = performance.now();
+        console.log(tack - tick, "ms taken to query");
+        const filters = JSON.parse(queries.data.filter) as Filter<LoglibEvent>[];
+        filters.length &&
+            filters.forEach((f) => {
+                events = filter(events).where(f.key, f.operator, f.value).execute();
+                lastEvents = filter(lastEvents as LoglibEvent[])
+                    .where(f.key, f.operator, f.value)
+                    .execute();
+            });
+        const insightData = getInsight(events as LoglibEvent[], lastEvents as LoglibEvent[]);
+        const tableData = getTablesData(
+            events as LoglibEvent[],
+            startDateObj,
+            endDateObj,
+            timeZone,
+        );
+        return c.json(
+            {
+                insight: insightData,
+                ...tableData,
+            },
+            200,
+        );
+    } catch (e) {
+        return c.json(e, 500);
+    }
 });
 
 serve(

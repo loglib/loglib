@@ -4,11 +4,18 @@ import { z } from "zod";
 export const insightSchema = z.object({
     startDate: z.string(),
     endDate: z.string(),
-    websiteId: z.string().optional(),
+    websiteId: z.string(),
     timeZone: z.string(),
     filter: z.string().default("[]"),
-    token: z.string().optional(),
-    apiKey: z.string().optional()
+    token: z.string(),
+});
+
+export const insightPubApiSchema = z.object({
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
+    timeZone: z.string().optional(),
+    filter: z.string().default("[]"),
+    apiKey: z.string(),
 });
 
 export const rootTrackerSchema = z.object({

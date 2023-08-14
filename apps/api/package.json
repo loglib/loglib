@@ -21,6 +21,7 @@
         "@t3-oss/env-core": "^0.6.0",
         "@types/request-ip": "^0.0.38",
         "@types/tar": "^6.1.5",
+        "@vercel/kv": "^0.2.1",
         "detect-browser": "^5.3.0",
         "dotenv": "^16.3.1",
         "hono": "^3.3.4",

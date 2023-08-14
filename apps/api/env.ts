@@ -11,6 +11,11 @@ export const env = createEnv({
         CLICKHOUSE_PASSWORD: z.string(),
         NEXTAUTH_SECRET: z.string(),
         CLIENT_IP_ADDRESS: z.string().optional(),
+
+        //this is for rate limiting
+        KV_REST_API_URL: z.string().optional(),
+        KV_REST_API_TOKEN: z.string().optional(),
+        KV_REST_API_READ_ONLY_TOKEN: z.string().optional(),
     },
     runtimeEnv: {
         DATABASE_HOST: process.env.DATABASE_HOST,
