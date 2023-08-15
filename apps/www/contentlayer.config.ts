@@ -3,7 +3,6 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
-import GithubSlugger from "github-slugger";
 
 /** @type {import('contentlayer/source-files').ComputedFields} */
 
@@ -11,55 +10,47 @@ const capitalize = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-const computedFields = (type: "blog" | "changelog" | "help" | "legal") => ({
+const computedFields = (type: string) => ({
     slug: {
         type: "string",
-        resolve: (doc) => doc._raw.flattenedPath.replace(`${type}/`, ""),
+        resolve: (doc: { _raw: { flattenedPath: string } }) =>
+            doc._raw.flattenedPath.split("/").slice(1).join("/"),
     },
-    tableOfContents: {
-        type: "array",
-        resolve: (doc) => {
-            // get all markdown heading 2 nodes (##)
-            const headings = doc.body.raw.match(/^##\s.+/gm);
-            const slugger = new GithubSlugger();
-            return (
-                headings?.map((heading) => {
-                    const title = heading.replace(/^##\s/, "");
-                    return {
-                        title,
-                        slug: slugger.slug(title),
-                    };
-                }) || []
-            );
-        },
+    slugAsParams: {
+        type: "string",
+        resolve: (doc: { _raw: { flattenedPath: string } }) =>
+            doc._raw.flattenedPath.split("/").slice(1).join("/"),
     },
     images: {
         type: "array",
-        resolve: (doc) => {
-            return (
-                doc.body.raw.match(/(?<=<Image[^>]*\bsrc=")[^"]+(?="[^>]*\/>)/g) || []
-            );
+        resolve: (doc: { body: { raw: string } }) => {
+            return doc.body.raw.match(/(?<=<BlurImage[^>]*\bsrc=")[^"]+(?="[^>]*\/>)/g);
         },
     },
     tweetIds: {
         type: "array",
-        resolve: (doc) => {
-            const tweetMatches = doc.body.raw.match(/<Tweet\sid="[0-9]+"\s\/>/g);
-            return tweetMatches?.map((tweet) => tweet.match(/[0-9]+/g)[0]) || [];
+        resolve: (doc: { body: { raw: string } }) => {
+            const tweetMatches = doc.body.raw.match(/<StaticTweet\sid="[0-9]+"\s\/>/g);
+            return tweetMatches?.map((tweet) => tweet.match(/[0-9]+/g)?.[0]) || [];
         },
     },
     githubRepos: {
         type: "array",
-        resolve: (doc) => {
+        resolve: (doc: { body: { raw: string } }) => {
             // match all <GithubRepo url=""/> and extract the url
-            return doc.body.raw.match(
-                /(?<=<GithubRepo[^>]*\burl=")[^"]+(?="[^>]*\/>)/g,
-            );
+            return doc.body.raw.match(/(?<=<GithubRepo[^>]*\burl=")[^"]+(?="[^>]*\/>)/g);
         },
     },
     structuredData: {
         type: "object",
-        resolve: (doc) => ({
+        resolve: (doc: {
+            title: string;
+            publishedAt: string;
+            summary: string;
+            image: string;
+            _raw: { flattenedPath: string };
+            author: string;
+        }) => ({
             "@context": "https://schema.org",
             "@type": `${capitalize(type)}Posting`,
             headline: doc.title,
@@ -67,7 +58,7 @@ const computedFields = (type: "blog" | "changelog" | "help" | "legal") => ({
             dateModified: doc.publishedAt,
             description: doc.summary,
             image: doc.image,
-            url: `https://dub.sh/${doc._raw.flattenedPath}`,
+            url: `https://lgolib.io/${doc._raw.flattenedPath}`,
             author: {
                 "@type": "Person",
                 name: doc.author,
@@ -141,7 +132,7 @@ export const LegalPost = defineDocumentType(() => ({
             required: true,
         },
     },
-    // @ts-ignore
+    //@ts-ignore
     computedFields: computedFields("legal"),
 }))
 
