@@ -1,4 +1,5 @@
 import { authOptions } from "@/lib/auth";
+import { removeWebsiteData } from "@/lib/clickhouse";
 import { db } from "@/lib/db";
 import { websiteFormSchema } from "@/lib/validations/website";
 import { getServerSession } from "next-auth";
@@ -100,6 +101,8 @@ export const DELETE = async (_: Request, context: z.infer<typeof routeContextSch
                 id,
             },
         });
+        //delete events
+        await removeWebsiteData({ websiteId: id })
         return new Response(null, { status: 200 });
     } catch {
         return new Response(null, { status: 500 });

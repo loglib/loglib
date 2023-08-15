@@ -13,3 +13,11 @@ export const getIsWebsiteActive = async ({ websiteId }: { websiteId: string }) =
             format: "JSONEachRow",
         })
         .then(async (res) => (await res.json()) as { id: string }[]);
+
+export const removeWebsiteData = async ({ websiteId }: { websiteId: string }) => {
+    const res = await client.query({
+        query: `ALTER TABLE loglib.event_2 DELETE WHERE websiteId = = ${websiteId}`
+    })
+    console.log(res)
+    return res
+}
