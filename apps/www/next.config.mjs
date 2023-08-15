@@ -20,7 +20,7 @@ const nextConfig = {
     },
     rewrites: async () => [
         {
-            destination: process.env.NEXT_PUBLIC_API_URL,
+            destination: env.NEXT_PUBLIC_API_URL,
             source: "/api/loglib",
         },
     ],

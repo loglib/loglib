@@ -4,9 +4,8 @@ import { motion } from "framer-motion";
 
 export const LandingGraph = () => {
     return (
-        <div className=" md:flex items-center justify-center hidden">
+        <div className="items-center justify-center hidden lg:flex w-1/3">
             <svg
-                className={styles.mainSvg}
                 viewBox="0 0 800 600"
                 height={400}
                 xmlns="http://www.w3.org/2000/svg"

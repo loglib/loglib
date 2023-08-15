@@ -15,7 +15,14 @@ export function SiteHeader({ user }: { user?: User }) {
     const _switchOnRef = useRef<HTMLAudioElement>(null);
     const _switchOffRef = useRef<HTMLAudioElement>(null);
     return (
-        <header className="flex items-center justify-between top-0 md:px-16 px-4 max-w-8xl sticky mb-16 w-full z-50 bg-white/60 backdrop-blur-sm  dark:bg-slate-950/80 py-4 border-b dark:border-slate-800 border-slate-300">
+        <header className="flex items-center justify-between top-0 md:px-16 px-4 max-w-8xl sticky mb-16 w-full z-50 bg-white/60 backdrop-blur-sm  dark:bg-slate-950/80 py-4">
+            <div
+                className=" absolute h-1 bottom-0 w-full"
+                style={{
+                    background:
+                        "radial-gradient(62.87% 100% at 50% 100%,rgba(255,255,255,.12) 0%,rgba(255,255,255,0) 100%)",
+                }}
+            />
             <Icons.logoWithLetter />
             <div className=" hidden md:block">
                 <LandingNav />

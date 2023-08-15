@@ -13,7 +13,7 @@ export function UserAuthForm({ className, ...props }: React.HTMLAttributes<HTMLD
     const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false);
     const searchParams = useSearchParams();
     return (
-        <div className={cn("grid gap-4", className)} {...props}>
+        <div className={cn("grid gap-4 ", className)} {...props}>
             <div className="relative">
                 <div className="absolute inset-0 flex items-center">
                     <span className="w-full border-t" />

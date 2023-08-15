@@ -10,7 +10,7 @@ import Link from "next/link";
 export const HeroSection = () => {
     return (
         <div className=" relative flex  max-w-8xl card bg-gradient-radial  w-full justify-between px-8 py-10 pb-8 from-gray-50 to-gray-200 border dark:border-slate-900 dark:from-slate-800/10 dark:to-[#080812] sm:min-h-fit md:px-16 md:py-12  md:pt-16 rounded-3xl">
-            <section className="flex flex-col  space-y-8  ">
+            <section className="flex flex-col space-y-8">
                 <Background />
                 <div
                     className=" space-y-4"
@@ -93,7 +93,7 @@ export const HeroSection = () => {
                         <Link
                             className={cn(
                                 "  text-white cursor-pointer font-bold transition-all duration-[0.3s] ease-[ease] relative inline-block shadow-[inset_2px_2px_2px_0px_rgba(255,255,255,0.1),7px_7px_20px_0px_rgba(26, 35, 126, 0.3),4px_4px_5px_0px_rgba(0,0,0,0.1)] px-4 md:px-[25px] py-2.5 rounded-[5px] bg-transparent",
-                                "dark:text-white/80 text-slate-900 border-[none] after:absolute after:content-[''] after:w-0 after:h-full after:z-[-1] after:shadow-[-7px_-7px_20px_0px_#1a237e,-4px_-4px_5px_0px_#000,7px_7px_20px_0px_#0002,4px_4px_5px_0px_#0001] after:transition-all after:duration-[0.3s] after:ease-[ease] after:left-0 after:top-0 hover:text-black hover:after:w-full border-slate-300 dark:border-slate-800 hover:dark:text-white hover:after:left-auto hover:after:right-0 active:top-0.2 border w-max",
+                                "dark:text-white text-slate-900 border-[none] after:absolute after:content-[''] after:w-0 after:h-full after:z-[-1] after:shadow-[-7px_-7px_20px_0px_#1a237e,-4px_-4px_5px_0px_#000,7px_7px_20px_0px_#0002,4px_4px_5px_0px_#0001] after:transition-all after:duration-[0.3s] after:ease-[ease] after:left-0 after:top-0 hover:text-black hover:after:w-full border-slate-100 dark:border-slate-700 hover:dark:text-white hover:after:left-auto hover:after:right-0 active:top-0.2 border w-max",
                             )}
                             href="/login"
                             onClick={() => loglib.track("get started", { from: "hero section" })}

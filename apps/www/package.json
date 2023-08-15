@@ -17,6 +17,7 @@
         "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
     },
     "dependencies": {
+        "@auth/kysely-adapter": "^0.1.1",
         "@chronark/zod-bird": "^0.1.1",
         "@clickhouse/client": "^0.1.1",
         "@hookform/resolvers": "^3.1.1",
@@ -83,6 +84,7 @@
         "cssnano": "^6.0.1",
         "date-fns": "^2.30.0",
         "framer-motion": "^10.12.16",
+        "github-slugger": "^2.0.0",
         "gsap": "^3.12.2",
         "jotai": "^2.2.0",
         "jotai-cache": "^0.3.0",

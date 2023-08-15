@@ -16,7 +16,7 @@ async function getGitHubStars() {
             return null;
         }
         const json = await response.json();
-        const stars = parseInt(json["stargazers_count"]).toLocaleString();
+        const stars = parseInt(json.stargazers_count).toLocaleString();
         return stars;
     } catch {
         return null;
@@ -53,9 +53,9 @@ export default async function IndexPage() {
             <section className="max-w-8xl to-50 flex-col mx-auto mt-10 w-full rounded-3xl flex  md:flex-row md:justify-between justify-center md:items-start items-center  bg-gradient-to-br from-gray-100 px-4 dark:from-slate-900/80 dark:to-[#080812] sm:px-16 ">
                 <div className="flex h-min px-2  flex-col justify-center gap-8 py-12">
                     <h1 className="font-heading max-w-3xl text-3xl font-bold sm:text-6xl">
-                        Supported by the
+                        Supported by{" "}
                         <span className="from-logo bg-gradient-to-br to-orange-600 bg-clip-text font-black uppercase text-transparent">
-                            Dope
+                            Dope{" "}
                         </span>
                         #community
                     </h1>
@@ -93,6 +93,15 @@ export default async function IndexPage() {
                 </div>
             </section>
             <footer className=" border-t !w-full py-10 my-9 justify-between flex items-center">
+                <div className=" flex  gap-2 text-sm font-medium items-center">
+                    <Link href="/privacy" className=" underline">
+                        <span>Privacy</span>
+                    </Link>
+                    <span className=" w-1 h-1 rounded-full bg-slate-200" />
+                    <Link href="/terms" className=" underline">
+                        <span>Terms</span>
+                    </Link>
+                </div>
                 <span className="  text-slate-300 font-light text-sm">
                     {new Date().getFullYear()} © Loglib
                 </span>

@@ -26,11 +26,14 @@ export default function LoginPage() {
                     Back
                 </>
             </Link>
-            <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-                <div className=" mx-auto flex items-end gap-2">
-                    <Icons.logo className=" h-10 w-10" />
-                    <h2 className=" text-3xl font-bold">LOGLIB</h2>
+            <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]  rounded-md">
+                <div className="flex flex-col items-center">
+                    <div className=" mx-auto flex items-end gap-2">
+                        <Icons.logo className=" h-10 w-10" />
+                        <h2 className="  text-3xl font-bold">LOGLIB</h2>
+                    </div>
                 </div>
+
                 <UserAuthForm />
             </div>
         </div>
