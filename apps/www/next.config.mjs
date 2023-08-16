@@ -32,4 +32,9 @@ const nextConfig = {
     },
     transpilePackages: ["@loglib/tracker", "@loglib/api"],
 };
-export default withContentlayer(nextConfig);
+export default million.next(withContentlayer(nextConfig), {
+    auto:{
+        rsc: true,
+        threshold: 0.3
+    }
+});

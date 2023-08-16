@@ -12,7 +12,6 @@ export interface DocsSidebarNavProps {
 
 export function DocsSidebarNav({ items }: DocsSidebarNavProps) {
     const pathname = usePathname();
-
     return items.length ? (
         <div className="w-full scrollbar-none">
             {items.map((item) => (
