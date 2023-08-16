@@ -1,0 +1,12 @@
+{
+    "name": "@loglib/types",
+    "private": true,
+    "type": "module",
+    "types": "index.ts",
+    "version": "0.0.1",
+    "main": "index.ts",
+    "exports": {
+        ".": "./index.ts",
+        "./models": "./models.ts"
+    }
+}

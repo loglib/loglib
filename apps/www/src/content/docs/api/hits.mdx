@@ -1,0 +1,43 @@
+---
+title: Hits
+---
+
+Hits are raw events that are automatically collected via the tracker
+
+
+```bash
+GET https://api.loglib.io/v1/hits
+```
+
+**method:** GET
+
+**quer paramters:**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+startDate | string | start date of the hits
+endDate | string | end date of the hits
+
+**Header:**
+
+**x-api-key**: API key of the website you want to fetch. You can create one it in your [dashbaord](https://loglib.io/dashboard/api-keys).
+
+example returend response 
+```json
+		"id": "0014bc95-44fb-45fc-9719-008f2744cc07",
+		"sessionId": "f50b9fdc-60e7-4bcd-9acc-8bd5998af2ba",
+		"visitorId": "7ffa5605-7707-470f-9dde-1d6b6ca95be9",
+		"city": "Montreal",
+		"country": "CA",
+		"browser": "ios-webview",
+		"locale": "en-CA",
+		"referrerPath": "https://www.linkedin.com/",
+		"currentPath": "/docs",
+		"referrerDomain": "https://www.linkedin.com/",
+		"queryParams": "{}",
+		"device": "mobile",
+		"duration": 400,
+		"os": "iOS",
+		"event": "hits",
+		"timestamp": "2023-07-31 13:37:43"
+```

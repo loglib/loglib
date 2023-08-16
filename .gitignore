@@ -58,3 +58,10 @@ geo/
 .mmdb
 .contentlayer
 @prisma/
+
+
+#cloudflare
+.dev.vars
+
+#tinybird
+.tinyb

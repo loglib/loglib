@@ -1,0 +1,27 @@
+---
+title: Send Data to Your Own Server
+description: How to send data to your own server while using Loglib.
+---
+
+On this page, we will learn how to send data to your own server while using Loglib.
+
+## Introduction
+
+You can store your data in your own database while using loglib. For whatever reason if you want to store the data to your own database while using loglib you can do that. You can send the data to your own server and let our server and adapter sdks handle the data for you or you can also handle the data yourself.
+
+This is basically attaching loglib to your own app. But you still are able to get the benefits of using the hosted version of loglib.
+
+## How to send data to your own server
+
+1. Create a new project in your loglib dashboard and copy your project id.
+2. Create a new tracker instance with your project id and pass array of hosts to the tracker. One of the host should be your own server. You can also pass "/" if the tracker is hosted on the same server as your app. See the example below.
+
+```ts
+import { loglib } from "@loglib/tracker"
+
+loglib.record({
+  host: ["https://loglib.io", "https://your-own-server.com"],
+  id: "your-project-id",
+})
+```
+3. Now the data is being sent to your server at /api/loglib path. You can handle the data yourself or if we have sdks for your server you can use them to handle the data for you and store it in your database.
