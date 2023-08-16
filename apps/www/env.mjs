@@ -19,7 +19,7 @@ export const env = createEnv({
         DATABASE_USERNAME: z.string().min(1),
         DATABASE_PASSWORD: z.string().min(1),
         CLICKHOUSE_HOST: z.string().min(1),
-        CLICKHOUSE_PASSWORD: z.string().min(1),
+        CLICKHOUSE_PASSWORD: z.string().min(0),
         NEXT_PUBLIC_API_URL: z.string().min(1),
     },
     client: {

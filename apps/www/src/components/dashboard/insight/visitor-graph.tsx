@@ -104,7 +104,7 @@ export function Graph({
                                         rel="noreferrer"
                                     >
                                         docs
-                                    </a>{" "}
+                                    </a>
                                     how to do that.
                                 </p>
                             </>

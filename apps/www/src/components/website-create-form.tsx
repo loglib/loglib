@@ -39,8 +39,8 @@ export const WebsiteForm = () => {
             body: JSON.stringify(values),
         });
         if (!res.ok) {
+            setIsLoading(false);
             if (res.status === 409) {
-                setIsLoading(false);
                 return toast({
                     title: "Uh oh!",
                     description:

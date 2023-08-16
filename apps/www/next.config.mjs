@@ -25,7 +25,6 @@ const nextConfig = {
         },
     ],
     experimental: {
-        serverComponentsExternalPackages: ["generated/client"],
         serverActions: true,
     },
     eslint: {
