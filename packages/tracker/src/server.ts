@@ -13,7 +13,7 @@ export function sendPageView(currentRef: string, currentUrl: string) {
 
 export function sendEvents() {
     if (window.lli.eventsBank.length) {
-        send({ events: window.lli.eventsBank }, "/event", flush);
+        send({ events: window.lli.eventsBank, pageId: window.lli.pageId }, "/event", flush);
     }
 }
 
@@ -55,7 +55,7 @@ export async function send(
     const maxRetries = 3;
     async function sendRequest(host: string) {
         try {
-            if (window.llc.useFetch) {
+            if (!window.llc.useBeacon) {
                 // eslint-disable-next-line @typescript-eslint/no-floating-promises
                 await fetch(host, {
                     body: JSON.stringify(dataToSend),

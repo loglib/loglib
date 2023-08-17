@@ -101,7 +101,6 @@ export default function RootLayout({
                         config={{
                             id: "loglib",
                             consent: "granted",
-                            useFetch: true,
                         }}
                     />
                     <Toaster />
