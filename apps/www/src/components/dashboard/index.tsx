@@ -3,7 +3,16 @@
 import { GetInsightResponse } from "@loglib/types";
 import ct from "countries-and-timezones";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
-import { Activity, Eye, Laptop2, TimerIcon, UserIcon, Users2 } from "lucide-react";
+import {
+    Activity,
+    BarChart,
+    Eye,
+    Laptop2,
+    LineChart,
+    TimerIcon,
+    UserIcon,
+    Users2,
+} from "lucide-react";
 import React, { Fragment, useState } from "react";
 import useSWR from "swr";
 
@@ -48,7 +57,8 @@ export const Dashboard = ({
     const [timezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
     const url = env.NEXT_PUBLIC_API_URL;
     const { data, isLoading } = useSWR<GetInsightResponse>(
-        `${url}?websiteId=${website.id
+        `${url}?websiteId=${
+            website.id
         }&startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&timeZone=${timezone}&filter=${JSON.stringify(
             filters,
         )}&token=${token}`,
@@ -80,7 +90,7 @@ export const Dashboard = ({
     const [viCardSwitch, setViCardSwitch] = useState<
         "New Visitors" | "Unique Visitors" | "Retaining Visitors"
     >("Unique Visitors");
-    console.log(data);
+    const [isBar, setIsBar] = useState(false);
 
     return (
         <main>
@@ -160,10 +170,10 @@ export const Dashboard = ({
                                                     ? viCardSwitch === "New Visitors"
                                                         ? data.insight.newVisitors
                                                         : viCardSwitch === "Unique Visitors"
-                                                            ? data.insight.uniqueVisitors
-                                                            : viCardSwitch === "Retaining Visitors"
-                                                                ? data.insight.returningVisitor
-                                                                : { change: 0, current: 0 }
+                                                        ? data.insight.uniqueVisitors
+                                                        : viCardSwitch === "Retaining Visitors"
+                                                        ? data.insight.returningVisitor
+                                                        : { change: 0, current: 0 }
                                                     : { change: 0, current: 0 }
                                             }
                                             isLoading={isLoading}
@@ -171,10 +181,10 @@ export const Dashboard = ({
                                                 viCardSwitch === "New Visitors"
                                                     ? "The number of people visiting your website for the first time."
                                                     : viCardSwitch === "Unique Visitors"
-                                                        ? "The total number of different people who visited your website."
-                                                        : viCardSwitch === "Retaining Visitors"
-                                                            ? "The number of visitors who returned to your website multiple times."
-                                                            : ""
+                                                    ? "The total number of different people who visited your website."
+                                                    : viCardSwitch === "Retaining Visitors"
+                                                    ? "The number of visitors who returned to your website multiple times."
+                                                    : ""
                                             }
                                             BottomChildren={() => (
                                                 <div className=" cursor-pointer">
@@ -270,7 +280,7 @@ export const Dashboard = ({
                                         />
                                     </div>
                                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 grid-cols-1">
-                                        <Card className="md:col-span-4 ">
+                                        <Card className="md:col-span-4 bg-stone-950">
                                             {curTableTab === "locations" ? (
                                                 <Fragment>
                                                     <CardHeader className=" flex flex-row gap-2 items-end">
@@ -281,7 +291,7 @@ export const Dashboard = ({
                                                     <CardContent
                                                         className={cn(
                                                             curTableTab === "locations" &&
-                                                            "zoom-in-95",
+                                                                "zoom-in-95",
                                                         )}
                                                     >
                                                         <LocationMap
@@ -294,28 +304,48 @@ export const Dashboard = ({
                                                     </CardContent>
                                                 </Fragment>
                                             ) : (
-                                                <Tabs defaultValue="visitors">
+                                                <Tabs
+                                                    defaultValue="visitors"
+                                                    className=" bg-gradient-to-tr from-stone-950 to-stone-950/40"
+                                                >
                                                     <CardHeader className=" flex flex-row justify-between items-center">
                                                         <CardTitle className="text-base">
-                                                            Visitors
+                                                            <TabsList className=" bg-stone-900">
+                                                                <TabsTrigger value="visitors">
+                                                                    Visitors
+                                                                </TabsTrigger>
+                                                                <TabsTrigger value="sessions">
+                                                                    Sessions
+                                                                </TabsTrigger>
+                                                            </TabsList>
                                                         </CardTitle>
-                                                        <TabsList>
-                                                            <TabsTrigger value="visitors">
-                                                                Visitors
-                                                            </TabsTrigger>
-                                                            <TabsTrigger value="sessions">
-                                                                Sessions
-                                                            </TabsTrigger>
-                                                        </TabsList>
+                                                        <div className=" flex items-center gap-2">
+                                                            <Tabs
+                                                                defaultValue="line"
+                                                                onValueChange={(v) =>
+                                                                    setIsBar(v === "bar")
+                                                                }
+                                                            >
+                                                                <TabsList className=" bg-stone-900">
+                                                                    <TabsTrigger value="line">
+                                                                        <LineChart size={16} />
+                                                                    </TabsTrigger>
+                                                                    <TabsTrigger value="bar">
+                                                                        <BarChart size={16} />
+                                                                    </TabsTrigger>
+                                                                </TabsList>
+                                                            </Tabs>
+                                                        </div>
                                                     </CardHeader>
                                                     <CardContent>
                                                         <div className="pl-2">
                                                             <TabsContent value="visitors">
                                                                 <Graph
+                                                                    bar={isBar}
                                                                     data={
                                                                         data
                                                                             ? data.graph
-                                                                                .uniqueVisitorsByDate
+                                                                                  .uniqueVisitorsByDate
                                                                             : []
                                                                     }
                                                                     name="Visitors"
@@ -332,13 +362,14 @@ export const Dashboard = ({
                                                                     data={
                                                                         data
                                                                             ? data.graph
-                                                                                .uniqueSessionByDate
+                                                                                  .uniqueSessionByDate
                                                                             : []
                                                                     }
                                                                     name="Sessions"
                                                                     Icon={Laptop2}
                                                                     isLoading={isLoading}
                                                                     setTimeRange={setTimeRange}
+                                                                    bar={isBar}
                                                                 />
                                                             </TabsContent>
                                                         </div>

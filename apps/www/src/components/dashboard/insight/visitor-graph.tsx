@@ -1,7 +1,16 @@
 import { TimeRange } from "../type";
 import { LucideIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import {
+    Bar,
+    BarChart,
+    Line,
+    LineChart,
+    ResponsiveContainer,
+    Tooltip,
+    XAxis,
+    YAxis,
+} from "recharts";
 
 export function Graph({
     data,
@@ -9,22 +18,25 @@ export function Graph({
     isLoading,
     setTimeRange,
     Icon,
+    bar,
 }: {
     data: { date: string; visits: number }[];
     name: string;
     Icon: LucideIcon;
     isLoading: boolean;
     setTimeRange: (range: TimeRange) => void;
+    bar: boolean;
 }) {
     const [isMobile, setIsMobile] = useState<boolean>();
     const [, setFilter] = useState(false);
     useEffect(() => {
         setIsMobile(window.innerWidth < 768);
     }, []);
+    const ParentDiv = bar ? BarChart : LineChart;
     return (
         <ResponsiveContainer width="100%" height={isMobile ? 250 : 350}>
             {data.length ? (
-                <LineChart
+                <ParentDiv
                     data={data}
                     onClick={(e) => {
                         if (!data) return;
@@ -56,25 +68,38 @@ export function Graph({
                     />
                     <YAxis
                         stroke="#888888"
+                        interval="preserveStartEnd"
                         fontSize={12}
                         tickLine={false}
+                        width={30}
                         axisLine={false}
+                        tickMargin={0}
                         tickFormatter={(value) => `${value}`}
                     />
-                    <Line dataKey="visits" fill="#fff" label="Visitors" />
+                    {bar ? (
+                        <Bar
+                            dataKey="visits"
+                            fill="#1b1917"
+                            color="#000"
+                            label="Visitors"
+                            stroke="#110F04"
+                        />
+                    ) : (
+                        <Line dataKey="visits" fill="#fff" label="Visitors" stroke="#494141" />
+                    )}
+
                     <Tooltip
                         contentStyle={{
                             backgroundColor: "black",
                             borderRadius: "10px",
-                        }}
-                        itemStyle={{
-                            color: "white",
+                            color: "black",
                         }}
                         label="visitors"
+                        cursor={bar ? false : true}
                         content={({ active, payload, label }) => {
                             if (active && payload && payload.length) {
                                 return (
-                                    <div className="custom-tooltip dark:bg-black bg-white/80 px-2 border rounded-md border-gray-700 py-2">
+                                    <div className="custom-tooltip dark:bg-black bg-white/10 px-2 border rounded-md border-gray-700 py-2">
                                         <div className=" flex items-center gap-2 dark:text-emphasis text-black">
                                             <Icon size={16} />
                                             <p className=" font-medium">{`${payload[0]?.value} ${name}`}</p>
@@ -86,7 +111,7 @@ export function Graph({
                             return null;
                         }}
                     />
-                </LineChart>
+                </ParentDiv>
             ) : (
                 <div className=" flex flex-col justify-center gap-2">
                     <div className="text-2xl font-bold text-center ">

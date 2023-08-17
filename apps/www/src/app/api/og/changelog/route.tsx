@@ -53,7 +53,7 @@ export async function GET(_: Request) {
                 >
                     Changelog
                 </h1>
-                <p tw="text-lg text-slate-200">
+                <p tw="text-lg text-stone-200">
                     All the latest updates, improvements, and fixes to Loglib.
                 </p>
             </div>

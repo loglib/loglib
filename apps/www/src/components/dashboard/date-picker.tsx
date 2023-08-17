@@ -52,7 +52,7 @@ export function CalendarDateRangePicker({
                         size="sm"
                         className={cn(
                             "w-max justify-start text-left font-normal",
-                            !date && " text-slate-800",
+                            !date && " text-stone-800",
                         )}
                     >
                         <CalendarIcon className="mr-2 h-4 w-4" />
@@ -70,7 +70,7 @@ export function CalendarDateRangePicker({
                         )}
                     </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto bg-slate-950" align="start">
+                <PopoverContent className="w-auto bg-stone-950" align="start">
                     <Calendar
                         initialFocus
                         mode="range"

@@ -23,7 +23,7 @@ export function ReachOut() {
                     <div className=" ">
                         <Link
                             href="https://cal.com/loglib/30min"
-                            className="rounded-sm bg-slate-900 p-3 text-white hover:bg-slate-950 dark:bg-[#cac5c1] dark:text-black dark:hover:bg-gray-300/80"
+                            className="rounded-sm bg-stone-900 p-3 text-white hover:bg-stone-950 dark:bg-[#cac5c1] dark:text-black dark:hover:bg-gray-300/80"
                             id="lets_meet"
                         >
                             Let&apos;s Meet

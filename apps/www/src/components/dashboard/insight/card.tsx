@@ -31,7 +31,7 @@ export function InsightCard({
 }: InsightType) {
     const increase = negative ? data.change <= 0 : data.change >= 0;
     return (
-        <Card className=" bg-gradient-to-tr dark:to-black  dark:from-slate-900/30 border from-white to-gray-100">
+        <Card className=" bg-gradient-to-tr dark:to-stone-900/70  dark:from-stone-950 border from-white to-gray-100">
             <CardHeader className=" flex flex-row  items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">{title}</CardTitle>
                 <TooltipProvider>

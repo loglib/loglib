@@ -209,7 +209,7 @@ export const AddTracker = ({
                         content: {},
                     }}
                 >
-                    <div className=" animate-in relative flex h-max flex-col rounded-md  border bg-gradient-to-tr from-gray-50 to-gray-200  px-4 pb-6 dark:border-slate-800 dark:from-black dark:to-gray-800/20">
+                    <div className=" animate-in relative flex h-max flex-col rounded-md  border bg-gradient-to-tr from-gray-50 to-gray-200  px-4 pb-6 dark:border-stone-800 dark:from-black dark:to-gray-800/20">
                         <div className=" flex items-center justify-between  py-2">
                             <div className=" flex items-center gap-2">
                                 {/* <div className=" w-2 h-2 bg-gradient-to-tr from-logo to-yellow-600 animate-pulse rounded-full" /> */}
@@ -227,7 +227,7 @@ export const AddTracker = ({
                         </div>
                         <div className="py-2">
                             <div className="group relative flex items-center">
-                                <span className="relative z-10 flex h-4 w-4  items-center justify-center rounded-full border p-4 dark:border-slate-800">
+                                <span className="relative z-10 flex h-4 w-4  items-center justify-center rounded-full border p-4 dark:border-stone-800">
                                     1
                                 </span>
                                 <span className="flex min-w-0 flex-col">
@@ -252,10 +252,10 @@ export const AddTracker = ({
                             </div>
                         </div>
                         <div className="group relative flex items-start gap-2">
-                            <span className="relative z-10 flex h-4 w-4 items-center justify-center rounded-full border p-4 dark:border-slate-800">
+                            <span className="relative z-10 flex h-4 w-4 items-center justify-center rounded-full border p-4 dark:border-stone-800">
                                 2
                             </span>
-                            <div className=" bg-gradient-br animate-in relative flex h-max w-[600px] flex-col rounded-md  border from-gray-100 to-gray-300 pb-6 dark:border-slate-800 dark:from-black dark:to-gray-800/20 ">
+                            <div className=" bg-gradient-br animate-in relative flex h-max w-[600px] flex-col rounded-md  border from-gray-100 to-gray-300 pb-6 dark:border-stone-800 dark:from-black dark:to-gray-800/20 ">
                                 <div className=" flex  items-center justify-between space-y-2 border-b p-4 md:py-2">
                                     <div className=" flex items-center gap-2">
                                         <selected.icon />

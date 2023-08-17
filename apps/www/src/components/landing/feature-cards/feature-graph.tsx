@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export const Graph = () => {
     return (
-        <div className="rounded-xl md:rounded-3xl border dark:border-slate-800 border-slate-100 relative bg-slate-950/40 overflow-hidden h-full">
+        <div className="rounded-xl md:rounded-3xl border dark:border-stone-800 border-stone-100 relative bg-stone-950/40 overflow-hidden h-full">
             <svg
                 width="325"
                 height="351"
@@ -98,8 +98,8 @@ export const Graph = () => {
                 </defs>
             </svg>
             <div className="p-5 md:p-10 h-full flex flex-col">
-                <h3 className="text-slate-200 text-xl md:text-3xl font-medium mb-4">
-                    Visualize <span className=" text-slate-300">Your data</span>
+                <h3 className="text-stone-200 text-xl md:text-3xl font-medium mb-4">
+                    Visualize <span className=" text-stone-300">Your data</span>
                 </h3>
                 <p className="text-white/50 text-base md:text-lg font-medium mb-8 max-w-md">
                     Get a clear picture of your website visitors with our beautiful graphs
@@ -134,7 +134,7 @@ export const Graph = () => {
                 </div>
             </div>
             <div className=" rounded-full absolute top-2 right-2">
-                <div className="md:h-14 md:w-14 h-10 w-10 border border-slate-800/[0.2] bg-background flex flex-shrink-0 items-center justify-center rounded-full relative">
+                <div className="md:h-14 md:w-14 h-10 w-10 border border-stone-800/[0.2] bg-background flex flex-shrink-0 items-center justify-center rounded-full relative">
                     <div className="h-8 md:h-12 md:w-12 w-8 rounded-full  border-2 border-orange-500/60 relative overflow-hidden  flex items-center justify-center">
                         <svg
                             width="52"
@@ -235,7 +235,7 @@ export const Graph = () => {
                                 ></rect>
                             </g>
                         </svg>
-                        <div className="absolute h-full flex items-center justify-center rounded-full w-full bg-slate-900">
+                        <div className="absolute h-full flex items-center justify-center rounded-full w-full bg-stone-900">
                             <MapIcon size={18} className=" text-orange-400" />
                         </div>
                     </div>

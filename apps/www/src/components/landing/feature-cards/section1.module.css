@@ -6,29 +6,25 @@
   margin: 0px auto;
   height: 250px;
   overflow: hidden;
-  -webkit-mask-image: radial-gradient(
-    circle at center center,
-    black,
-    transparent 80%
-  );
+  -webkit-mask-image: radial-gradient(circle at center center,
+      black,
+      transparent 80%);
 }
 
 .bg::before {
   content: "";
   position: absolute;
   inset: 0px;
-  background: radial-gradient(
-    circle at bottom center,
-    #1d1c2e,
-    transparent 70%
-  );
+  background: radial-gradient(circle at bottom center,
+      #1d1c2e,
+      transparent 70%);
   opacity: 0.4;
 }
 
 .bg::after {
   content: "";
   position: absolute;
-  background: rgba(31, 8, 52, 0.9);
+  background: rgba(15, 5, 5, 0.9);
   width: 200%;
   left: -50%;
   aspect-ratio: 1 / 0.7;

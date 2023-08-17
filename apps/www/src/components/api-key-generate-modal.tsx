@@ -104,7 +104,7 @@ export const GenerateApiKey = ({ websites }: { websites: Website[] }) => {
                             ease: "easeInOut",
                             duration: 0.3,
                         }}
-                        className=" animate-in relative mx-6 flex flex-grow flex-col   rounded-md border bg-gradient-to-tr from-white to-white/90 px-8 pb-10 pt-4 dark:from-black dark:to-slate-900/20 md:mx-0 md:flex-initial"
+                        className=" animate-in relative mx-6 flex flex-grow flex-col   rounded-md border bg-gradient-to-tr from-white to-white/90 px-8 pb-10 pt-4 dark:from-black dark:to-stone-900/20 md:mx-0 md:flex-initial"
                     >
                         {key ? (
                             <div className=" flex flex-col gap-2">

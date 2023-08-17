@@ -147,6 +147,9 @@ importers:
       '@clickhouse/client':
         specifier: ^0.1.1
         version: 0.1.1
+      '@heroicons/react':
+        specifier: 1.0.6
+        version: 1.0.6(react@18.2.0)
       '@hookform/resolvers':
         specifier: ^3.1.1
         version: 3.1.1(react-hook-form@7.44.3)
@@ -2163,6 +2166,14 @@ packages:
       client-only: 0.0.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@heroicons/react@1.0.6(react@18.2.0):
+    resolution: {integrity: sha512-JJCXydOFWMDpCP4q13iEplA503MQO3xLoZiKum+955ZCtHINWnx26CUxVxxFQu/uLb4LW3ge15ZpzIkXKkJ8oQ==}
+    peerDependencies:
+      react: '>= 16'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /@hono/node-server@1.1.1:

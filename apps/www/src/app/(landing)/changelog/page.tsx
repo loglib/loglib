@@ -102,7 +102,7 @@ async function BlurredImage({ post, idx }: { post: ChangelogPost; idx: number })
             priority={idx === 0} // since it's above the fold
             placeholder="blur"
             blurDataURL={blurDataURL}
-            className="border border-gray-100 dark:border-slate-800 md:rounded-2xl"
+            className="border border-gray-100 dark:border-stone-800 md:rounded-2xl"
         />
     );
 }

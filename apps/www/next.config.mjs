@@ -1,7 +1,5 @@
-// rome-ignore lint/correctness/noUnusedVariables: <explanation>
 import { env } from "./env.mjs";
 import { withContentlayer } from "next-contentlayer";
-import million from "million/compiler"
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -32,9 +30,4 @@ const nextConfig = {
     },
     transpilePackages: ["@loglib/tracker", "@loglib/api"],
 };
-export default million.next(withContentlayer(nextConfig), {
-    auto:{
-        rsc: true,
-        threshold: 0.3
-    }
-});
+export default withContentlayer(nextConfig)

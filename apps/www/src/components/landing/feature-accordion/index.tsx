@@ -18,7 +18,7 @@ export const FeatureAccordion = () => {
                     </span>
                 </h2>
 
-                <p className=" text-slate-300">
+                <p className=" text-stone-300">
                     Loglib is beyond a basic analytics tool, it&apos;s a powerful tool that can help
                     you understand your users and your product better.
                 </p>

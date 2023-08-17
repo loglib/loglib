@@ -88,7 +88,7 @@ export const TeamForm = () => {
                             ease: "easeInOut",
                             duration: 0.3,
                         }}
-                        className=" animate-in relative flex w-11/12 flex-col  justify-center rounded-md border bg-gradient-to-tr from-gray-100 to-gray-200 px-8 pb-10 pt-4 dark:from-black dark:to-slate-900/20 md:w-3/12"
+                        className=" animate-in relative flex w-11/12 flex-col  justify-center rounded-md border bg-gradient-to-tr from-gray-100 to-gray-200 px-8 pb-10 pt-4 dark:from-black dark:to-stone-900/20 md:w-3/12"
                     >
                         <Form {...form}>
                             <form

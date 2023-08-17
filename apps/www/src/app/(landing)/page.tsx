@@ -50,7 +50,7 @@ export default async function IndexPage() {
                 </section>
             </section>
 
-            <section className="max-w-8xl to-50 flex-col mx-auto mt-10 w-full rounded-3xl flex  md:flex-row md:justify-between justify-center md:items-start items-center  bg-gradient-to-br from-gray-100 px-4 dark:from-slate-900/80 dark:to-[#080812] sm:px-16 ">
+            <section className="max-w-8xl to-50 flex-col mx-auto mt-10 w-full rounded-3xl flex  md:flex-row md:justify-between justify-center md:items-start items-center  bg-gradient-to-br from-gray-100 px-4 dark:from-stone-900/80 dark:to-[#080812] sm:px-16 ">
                 <div className="flex h-min px-2  flex-col justify-center gap-8 py-12">
                     <h1 className="font-heading max-w-3xl text-3xl font-bold sm:text-6xl">
                         Supported by{" "}
@@ -97,12 +97,12 @@ export default async function IndexPage() {
                     <Link href="/privacy" className=" underline">
                         <span>Privacy</span>
                     </Link>
-                    <span className=" w-1 h-1 rounded-full bg-slate-200" />
+                    <span className=" w-1 h-1 rounded-full bg-stone-200" />
                     <Link href="/terms" className=" underline">
                         <span>Terms</span>
                     </Link>
                 </div>
-                <span className="  text-slate-300 font-light text-sm">
+                <span className="  text-stone-300 font-light text-sm">
                     {new Date().getFullYear()} © Loglib
                 </span>
                 <div className=" flex items-center gap-2">
