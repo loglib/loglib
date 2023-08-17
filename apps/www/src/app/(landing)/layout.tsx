@@ -8,7 +8,7 @@ export default async function marketingLayout({
     children: ReactNode;
 }) {
     return (
-        <main>
+        <main className=" overflow-x-hidden">
             <SiteHeader />
             <div className=" px-4 md:px-16">{children}</div>
         </main>

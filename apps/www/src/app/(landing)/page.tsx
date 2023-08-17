@@ -39,7 +39,7 @@ export default async function IndexPage() {
     const stars = await getGitHubStars();
     const contributors = await getGitHubContributors();
     return (
-        <main className="  grid place-items-center  space-y-10 md:space-y-20">
+        <main className="grid place-items-center space-y-10 md:space-y-20">
             <HeroSection />
             <FeatureCard />
             <FeatureAccordion />
