@@ -8,6 +8,8 @@ const nextConfig = {
     compiler: {
         removeConsole: process.env.NODE_ENV === "production",
     },
+    siteUrl: env.NEXTAUTH_URL ?? "https://loglib.io",
+    generateRobotsTxt: true,
     images: {
         remotePatterns: [
             {
@@ -30,4 +32,4 @@ const nextConfig = {
     },
     transpilePackages: ["@loglib/tracker", "@loglib/api"],
 };
-export default withContentlayer(nextConfig)
+export default withContentlayer(nextConfig);
