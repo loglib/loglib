@@ -1,5 +1,13 @@
 # @loglib/tracker
 
+## 0.6.0
+
+### Minor Changes
+
+- 6f67223: - Track View heplper component for reach
+  - Track Click Helper component for react
+  - Uses Fetch by default insted of beacon
+
 ## 0.5.0
 
 ### Minor Changes
