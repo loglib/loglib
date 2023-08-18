@@ -4,8 +4,7 @@ generator client {
 
 generator kysely {
   provider     = "prisma-kysely"
-  camelCase    = true
-  output       = "../../../packages/db/types"
+  output       = "../src/server/db"
   fileName     = "types.ts"
   enumFileName = "enums.ts"
 }

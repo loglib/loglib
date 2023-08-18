@@ -12,7 +12,6 @@ const config = {
 
 export const db = new Kysely<DB>({
     dialect: new PlanetScaleDialect(config),
-    plugins: [new CamelCasePlugin()]
 });
 
 export const psDb = connect(config);
