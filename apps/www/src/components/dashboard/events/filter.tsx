@@ -204,7 +204,7 @@ export const EventFilter = ({ data, setData }: { data: EventsWithData, setData: 
                                                     {
                                                         d.data.map((item) => (
                                                             <SelectItem value={item} key={item}>
-                                                                {item}
+                                                                {d.title === "Country" ? COUNTRIES[item] : item}
                                                             </SelectItem>
                                                         ))
                                                     }
