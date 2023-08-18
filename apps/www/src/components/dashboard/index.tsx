@@ -36,6 +36,7 @@ import { MoreHorizontal } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
 import { TrackClick } from "@loglib/tracker/react";
+import { loglib } from "@loglib/tracker";
 
 export const Dashboard = ({
     website,
@@ -58,8 +59,7 @@ export const Dashboard = ({
     const [timezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
     const url = env.NEXT_PUBLIC_API_URL;
     const { data, isLoading } = useSWR<GetInsightResponse>(
-        `${url}?websiteId=${
-            website.id
+        `${url}?websiteId=${website.id
         }&startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&timeZone=${timezone}&filter=${JSON.stringify(
             filters,
         )}&token=${token}`,
@@ -114,13 +114,20 @@ export const Dashboard = ({
                                 <TabsTrigger
                                     value="events"
                                     className=" dark:data-[state=active]:text-emphasis data-[state=active]:text-emphasis"
+                                    onClick={() => loglib.track("events-tab-clicked", {
+                                        websiteId: website.id,
+                                    })}
                                 >
                                     Events
                                 </TabsTrigger>
                             </TabsList>
                         ) : null}
                         <div className=" flex justify-between">
-                            <div className=" flex gap-2 items-center">
+                            <div className=" flex gap-2 items-center"
+                                onClick={() => loglib.track("date-picker-clicked", {
+                                    websiteId: website.id,
+                                })}
+                            >
                                 <DatePicker
                                     setTimeRange={setTimeRange}
                                     setCustomTime={setCustomTime}
@@ -171,10 +178,10 @@ export const Dashboard = ({
                                                     ? viCardSwitch === "New Visitors"
                                                         ? data.insight.newVisitors
                                                         : viCardSwitch === "Unique Visitors"
-                                                        ? data.insight.uniqueVisitors
-                                                        : viCardSwitch === "Retaining Visitors"
-                                                        ? data.insight.returningVisitor
-                                                        : { change: 0, current: 0 }
+                                                            ? data.insight.uniqueVisitors
+                                                            : viCardSwitch === "Retaining Visitors"
+                                                                ? data.insight.returningVisitor
+                                                                : { change: 0, current: 0 }
                                                     : { change: 0, current: 0 }
                                             }
                                             isLoading={isLoading}
@@ -182,10 +189,10 @@ export const Dashboard = ({
                                                 viCardSwitch === "New Visitors"
                                                     ? "The number of people visiting your website for the first time."
                                                     : viCardSwitch === "Unique Visitors"
-                                                    ? "The total number of different people who visited your website."
-                                                    : viCardSwitch === "Retaining Visitors"
-                                                    ? "The number of visitors who returned to your website multiple times."
-                                                    : ""
+                                                        ? "The total number of different people who visited your website."
+                                                        : viCardSwitch === "Retaining Visitors"
+                                                            ? "The number of visitors who returned to your website multiple times."
+                                                            : ""
                                             }
                                             BottomChildren={() => (
                                                 <div className=" cursor-pointer">
@@ -206,6 +213,11 @@ export const Dashboard = ({
                                                                     }}
                                                                     defaultValue={viCardSwitch}
                                                                     className="grid gap-4"
+                                                                    onClick={() => loglib.track("visitor-card-switched", {
+                                                                        websiteId: website.id,
+                                                                        switch: viCardSwitch
+                                                                    })}
+
                                                                 >
                                                                     <div className="flex items-center space-x-2">
                                                                         <RadioGroupItem
@@ -292,7 +304,7 @@ export const Dashboard = ({
                                                     <CardContent
                                                         className={cn(
                                                             curTableTab === "locations" &&
-                                                                "zoom-in-95",
+                                                            "zoom-in-95",
                                                         )}
                                                     >
                                                         <LocationMap
@@ -346,7 +358,7 @@ export const Dashboard = ({
                                                                     data={
                                                                         data
                                                                             ? data.graph
-                                                                                  .uniqueVisitorsByDate
+                                                                                .uniqueVisitorsByDate
                                                                             : []
                                                                     }
                                                                     name="Visitors"
@@ -363,7 +375,7 @@ export const Dashboard = ({
                                                                     data={
                                                                         data
                                                                             ? data.graph
-                                                                                  .uniqueSessionByDate
+                                                                                .uniqueSessionByDate
                                                                             : []
                                                                     }
                                                                     name="Sessions"

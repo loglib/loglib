@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import COUNTRIES from "@/lib/constants";
+import { loglib } from "@loglib/tracker";
 import { GetInsightResponse } from "@loglib/types";
 import { Asterisk, Link2Icon, MapPin, MonitorSmartphone, PanelTop } from "lucide-react";
 import Link from "next/link";
@@ -36,7 +37,12 @@ export const InsightTables = ({
     }
     return (
         <Card className=" md:col-span-3 bg-gradient-to-tr from-stone-950 to-stone-900/80">
-            <Tabs defaultValue="pages" onValueChange={(val) => setCurrentTableTab(val)}>
+            <Tabs defaultValue="pages" onValueChange={(val) => {
+                setCurrentTableTab(val)
+                loglib.track("change-insight-table", {
+                    table: val
+                })
+            }}>
                 <TabsList className="md:w-full space-x-2 md:justify-start grid grid-cols-4">
                     <TabsTrigger value="pages" className=" space-x-2 ">
                         <PanelTop size={16} />
@@ -210,7 +216,7 @@ export const InsightTables = ({
                                                 }
                                             >
                                                 {location.location === "Unknown" ||
-                                                !location.location ? (
+                                                    !location.location ? (
                                                     <>
                                                         <Link2Icon />
                                                         Unknown
@@ -302,7 +308,7 @@ export const InsightTables = ({
                                                     {refs.referrer.split(".").length > 1
                                                         ? refs.referrer
                                                         : refs.referrer.charAt(0).toUpperCase() +
-                                                          refs.referrer.slice(1)}
+                                                        refs.referrer.slice(1)}
                                                 </Link>
                                             </TableCell>
                                             <TableCell className="text-right">
@@ -408,8 +414,8 @@ export const InsightTables = ({
                     <CardContent className=" bg-stone-950/30">
                         <Tabs className=" w-full" defaultValue="general">
                             {isFilterActive("device") ||
-                            isFilterActive("os") ||
-                            isFilterActive("browser") ? (
+                                isFilterActive("os") ||
+                                isFilterActive("browser") ? (
                                 <ClearFilter
                                     onClick={() => {
                                         clearFilter("device");

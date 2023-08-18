@@ -105,6 +105,7 @@ export const HeroSection = () => {
                             href="https://loglib.io/demo"
                             className=" flex items-center gap-4 rounded-md bg-gradient-to-tr from-stone-700/80 to-orange-600/60 bg-clip-text text-transparent transition-all duration-500 hover:gap-8 hover:text-gray-800 dark:from-white/70 dark:to-purple-700 hover:dark:text-gray-400"
                             target="_blank"
+                            onClick={() => loglib.track("live demo", { from: "hero section" })}
                         >
                             <span>Live Demo</span>
                             <svg
