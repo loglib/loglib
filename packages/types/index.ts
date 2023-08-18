@@ -1,5 +1,3 @@
-import { PageView } from "./models";
-
 export type GetInsightResponse = {
     insight: {
         uniqueVisitors: {

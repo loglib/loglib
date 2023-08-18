@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
-import { ROLE } from "generated/client";
+import { ROLE } from "@prisma/client";
 import { User } from "next-auth";
 
 export const protectedAction = async <T>(

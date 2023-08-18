@@ -1,4 +1,4 @@
-import { flush, getUrlParams, getVisitorId, isDevelopment } from "./utils/util";
+import { flush, getSessionDuration, getUrlParams, getVisitorId, isDevelopment } from "./utils/util";
 
 export function sendPageView(currentRef: string, currentUrl: string) {
     send(
@@ -13,7 +13,7 @@ export function sendPageView(currentRef: string, currentUrl: string) {
 
 export function sendEvents() {
     if (window.lli.eventsBank.length) {
-        send({ events: window.lli.eventsBank, pageId: window.lli.pageId }, "/event", flush);
+        send({ events: window.lli.eventsBank, pageId: window.lli.pageId, duration: getSessionDuration() }, "/event", flush);
     }
 }
 

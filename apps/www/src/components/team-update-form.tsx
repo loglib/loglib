@@ -56,7 +56,6 @@ export const TeamUpdateForm = () => {
 
     useEffect(() => {
         form.setValue("name", team?.name ?? "");
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [team]);
     const role = useUserRole();
     return (

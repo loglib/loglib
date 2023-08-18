@@ -1,6 +1,6 @@
 "use server";
 
-import { ROLE } from "generated/client";
+import { ROLE } from "@prisma/client";
 import { z } from "zod";
 
 import { TeamInviteEmail } from "@/components/emails/team-invite-email";

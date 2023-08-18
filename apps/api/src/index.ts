@@ -127,17 +127,19 @@ app.get("/events", async (c) => {
         const events = (res as EventRes[])
             .map((s) => {
                 const properties = JSON.parse(s.properties);
+                console.log(properties)
                 return {
+                    ...properties,
                     id: s.id,
                     event: s.event,
                     sessionId: s.sessionId,
                     websiteId: s.websiteId,
                     visitorId: s.visitorId,
                     timestamp: s.timestamp,
-                    ...properties,
+                    duration: properties.duration ?? 0,
                 };
             })
-            .sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+            .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
         return c.json(events, 200);
     } catch {
         return c.json(null, 500);

@@ -35,6 +35,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { MoreHorizontal } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
+import { TrackClick } from "@loglib/tracker/react";
 
 export const Dashboard = ({
     website,
@@ -328,10 +329,10 @@ export const Dashboard = ({
                                                             >
                                                                 <TabsList className=" bg-stone-900">
                                                                     <TabsTrigger value="line">
-                                                                        <LineChart size={16} />
+                                                                        <LineChart size={18} />
                                                                     </TabsTrigger>
                                                                     <TabsTrigger value="bar">
-                                                                        <BarChart size={16} />
+                                                                        <BarChart size={18} />
                                                                     </TabsTrigger>
                                                                 </TabsList>
                                                             </Tabs>
@@ -386,13 +387,20 @@ export const Dashboard = ({
                                         />
                                     </div>
                                 </TabsContent>
-                                <TabsContent value="events">
-                                    <Events
-                                        startDate={timeRange.startDate}
-                                        endDate={timeRange.endDate}
-                                        websiteId={website.id}
-                                    />
-                                </TabsContent>
+                                <TrackClick
+                                    name="event-visited"
+                                    payload={{
+                                        websiteId: website.id,
+                                    }}
+                                >
+                                    <TabsContent value="events">
+                                        <Events
+                                            startDate={timeRange.startDate}
+                                            endDate={timeRange.endDate}
+                                            websiteId={website.id}
+                                        />
+                                    </TabsContent>
+                                </TrackClick>
                             </motion.div>
                         </AnimatePresence>
                     </Tabs>

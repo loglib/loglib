@@ -1,7 +1,7 @@
 import { DB } from "./types";
 import { connect } from "@planetscale/database";
 import { env } from "env.mjs";
-import { Kysely } from "kysely";
+import { CamelCasePlugin, Kysely } from "kysely";
 import { PlanetScaleDialect } from "kysely-planetscale";
 
 const config = {
@@ -12,6 +12,7 @@ const config = {
 
 export const db = new Kysely<DB>({
     dialect: new PlanetScaleDialect(config),
+    plugins: [new CamelCasePlugin()]
 });
 
 export const psDb = connect(config);

@@ -2,7 +2,6 @@
 import Background from "./grid-background/background";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Button } from "../ui/button";
 
 export const RepurposeYourData = () => {
     const [borderHeight, setBorderHeight] = useState(0);

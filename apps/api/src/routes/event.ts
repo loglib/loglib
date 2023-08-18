@@ -21,6 +21,7 @@ export const eventSchema = z.object({
     sessionId: z.string(),
     visitorId: z.string().optional(),
     websiteId: z.string(),
+    duration: z.number().default(0)
 });
 
 export const createEvents: RouteType = async ({ rawBody, req }) => {
@@ -28,7 +29,7 @@ export const createEvents: RouteType = async ({ rawBody, req }) => {
     console.log(body)
     if (body.success) {
         const ipAddress = getIpAddress(req);
-        const { visitorId, websiteId, sessionId, events, pageId } = body.data;
+        const { visitorId, websiteId, sessionId, events, pageId, duration } = body.data;
         const session = await client
             .query({
                 query: `select * from loglib.event where sessionId = '${sessionId}' limit 1`,
@@ -69,6 +70,7 @@ export const createEvents: RouteType = async ({ rawBody, req }) => {
                         pageId,
                         city,
                         country,
+                        duration,
                         browser,
                         os,
                         device,

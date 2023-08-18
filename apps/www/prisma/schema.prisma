@@ -1,11 +1,11 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/client"
 }
 
 generator kysely {
   provider     = "prisma-kysely"
-  output       = "../src/server/db"
+  camelCase    = true
+  output       = "../../../packages/db/types"
   fileName     = "types.ts"
   enumFileName = "enums.ts"
 }

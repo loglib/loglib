@@ -89,17 +89,20 @@ export const TeamHeader = ({ teams }: Props) => {
 
                 {teams.length ? (
                     <div className="ml-auto flex items-center gap-2">
-                        <button
-                            onClick={() => {
-                                setTeamSitesModal(true);
-                            }}
-                            className={cn(buttonVariants({ variant: "outline" }), "gap-2")}
-                        >
-                            <Icons.layout className="h-4 w-4 " />
-                            <span className="">
-                                {selectedTeam?.TeamWebsite.length ? "Change" : "Add"} Team Website
-                            </span>
-                        </button>
+                        {role === "owner" && (
+                            <button
+                                onClick={() => {
+                                    setTeamSitesModal(true);
+                                }}
+                                className={cn(buttonVariants({ variant: "outline" }), "gap-2")}
+                            >
+                                <Icons.layout className="h-4 w-4 " />
+                                <span className="">
+                                    {selectedTeam?.TeamWebsite.length ? "Change" : "Add"} Team
+                                    Website
+                                </span>
+                            </button>
+                        )}
                     </div>
                 ) : (
                     <div className="ml-auto flex items-center gap-2">

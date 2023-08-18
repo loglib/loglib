@@ -1,0 +1,20 @@
+---
+title: Track Click
+---
+
+Track click is a react helper that let you track when a user clicks on a component. This is useful for tracking interaction on a server component without a need to change it a client one
+
+## Usage
+
+```tsx
+import { TrackClick } from '@loglib/tracker/react';
+const MyComponent = () => {
+  return (
+    <TrackClick name="my-componet" payload={{
+        foo: "bar"
+    }}>
+      <div>My Component</div>
+    </TrackClick>
+  );
+};
+```

@@ -21,27 +21,6 @@ export const docsConfig: DocsConfig = {
                 },
             ],
         },
-        // {
-        //     title: "Self Hosted",
-        //     items: [
-        //         {
-        //             title: "Quick Setup",
-        //             href: "/docs/quick-setup",
-        //         },
-        //         {
-        //             title: "Next Js with Prisma",
-        //             href: "/docs/self-host/nextjs-with-prisma",
-        //         },
-        //         {
-        //             title: "Next Js with Supabase",
-        //             href: "/docs/self-host/nextjs-with-supabase",
-        //         },
-        //         {
-        //             title: "Upgrading",
-        //             href: "/docs/self-host/upgrading",
-        //         },
-        //     ],
-        // },
         {
             title: "Tracker",
             items: [
@@ -56,6 +35,14 @@ export const docsConfig: DocsConfig = {
                 {
                     title: "Custom Events",
                     href: "/docs/advanced/custom-events",
+                },
+                {
+                    title: "Track View",
+                    href: "/docs/advanced/track-view",
+                },
+                {
+                    title: "Track Click",
+                    href: "/docs/advanced/track-click",
                 },
                 {
                     title: "Next.js Proxy",

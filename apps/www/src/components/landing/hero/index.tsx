@@ -9,7 +9,7 @@ import Link from "next/link";
 
 export const HeroSection = () => {
     return (
-        <div className=" relative flex  max-w-8xl card bg-gradient-radial w-full justify-between px-8 py-10 pb-8 from-gray-50 to-gray-200 border dark:border-stone-900 dark:from-stone-900/60 dark:to-stone-950/60 sm:min-h-fit md:px-16 md:py-12  md:pt-16 rounded-3xl">
+        <div className=" relative flex  max-w-8xl card bg-gradient-circle w-full justify-between px-8 py-10 pb-8 from-gray-50 to-gray-200 border dark:border-stone-900 dark:from-brand-900/20 dark:to-stone-950/80 sm:min-h-fit md:px-16 md:py-12  md:pt-16 rounded-3xl">
             <section className="flex flex-col space-y-8">
                 <Background />
                 <div

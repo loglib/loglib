@@ -41,9 +41,8 @@ export const getWebsite = async () => {
     const sites = userWebsites.map(async (web) => {
         const before24Hour = new Date(new Date().getTime() - 24 * 60 * 60 * 1000);
         const sessionsCount = await client.query({
-            query: `select visitorId as id from loglib.event where websiteId='${
-                web.id
-            }' AND timestamp >= '${before24Hour.toISOString().slice(0, 19).replace("T", " ")}'`,
+            query: `select visitorId as id from loglib.event where websiteId='${web.id
+                }' AND timestamp >= '${before24Hour.toISOString().slice(0, 19).replace("T", " ")}'`,
             format: "JSONEachRow",
         });
         const s = (await sessionsCount.json()) as { id: string }[];
@@ -56,9 +55,8 @@ export const getWebsite = async () => {
     const teamSites = teamWebsites.map(async (web) => {
         const before24Hour = new Date(new Date().getTime() - 24 * 60 * 60 * 1000);
         const sessionsCount = await client.query({
-            query: `select visitorId as id from loglib.event where websiteId='${
-                web.Website.id
-            }' AND timestamp >= '${before24Hour.toISOString().slice(0, 19).replace("T", " ")}'`,
+            query: `select visitorId as id from loglib.event where websiteId='${web.Website.id
+                }' AND timestamp >= '${before24Hour.toISOString().slice(0, 19).replace("T", " ")}'`,
             format: "JSONEachRow",
         });
         const s = (await sessionsCount.json()) as { id: string }[];

@@ -18,23 +18,23 @@ export default async function Page({
     });
     const dbWebsite = await db
         .selectFrom("website")
-        .leftJoin("team_website", "team_website.website_id", "website.id")
-        .leftJoin("team_users", "team_website.team_id", "team_users.team_id")
+        .leftJoin("teamWebsite", "teamWebsite.websiteId", "website.id")
+        .leftJoin("teamUsers", "teamWebsite.id", "teamUsers.teamId")
         .select([
             "website.id",
             "website.public",
             "website.title",
             "website.active",
-            "website.user_id",
+            "website.userId",
             "website.url",
-            "team_website.team_id",
-            "team_users.user_id as team_user_id",
-            "team_users.role",
+            "teamWebsite.teamId",
+            "teamUsers.userId as teamUserId",
+            "teamUsers.role",
         ])
         .where("website.id", "=", params.website)
         .execute();
     const website = dbWebsite.find((d) => d.id === params.website);
-    const isAuthed = dbWebsite.find((d) => d.user_id === user?.id || d.team_user_id === user?.id);
+    const isAuthed = dbWebsite.find((d) => d.userId === user?.id || d.teamUserId === user?.id);
     if (!website || (!isAuthed && !dbWebsite[0].public)) {
         return redirect("/");
     }
@@ -42,21 +42,21 @@ export default async function Page({
     const showSetup = isPublic
         ? false
         : website.active === 1
-            ? false
-            : await (async () => {
-                const haveSession = (await getIsWebsiteActive({ websiteId: params.website })).length;
-                if (haveSession) {
-                    await db
-                        .updateTable("website")
-                        .set({
-                            active: 1,
-                        })
-                        .where("id", "=", params.website)
-                        .executeTakeFirst();
-                    return false;
-                }
-                return true;
-            })();
+        ? false
+        : await (async () => {
+              const haveSession = (await getIsWebsiteActive({ websiteId: params.website })).length;
+              if (haveSession) {
+                  await db
+                      .updateTable("website")
+                      .set({
+                          active: 1,
+                      })
+                      .where("id", "=", params.website)
+                      .executeTakeFirst();
+                  return false;
+              }
+              return true;
+          })();
     return (
         <main>
             <Dashboard website={website} isPublic={isPublic} showSetup={showSetup} token={token} />

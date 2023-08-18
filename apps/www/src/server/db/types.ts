@@ -1,7 +1,7 @@
 import type { ColumnType } from "kysely";
 export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
-  ? ColumnType<S, I | undefined, U>
-  : ColumnType<T, T | undefined, T>;
+    ? ColumnType<S, I | undefined, U>
+    : ColumnType<T, T | undefined, T>;
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
 import type { ROLE, INVITE_STATUS } from "./enums";
@@ -12,36 +12,36 @@ export type Account = {
     type: string;
     provider: string;
     providerAccountId: string;
-    refresh_token: string | null;
-    access_token: string | null;
-    expires_at: number | null;
-    token_type: string | null;
+    refreshToken: string | null;
+    accessToken: string | null;
+    expiresAt: number | null;
+    tokenType: string | null;
     scope: string | null;
-    id_token: string | null;
-    session_state: string | null;
-    created_at: Generated<Timestamp>;
-    updated_at: Generated<Timestamp>;
+    idToken: string | null;
+    sessionState: string | null;
+    createdAt: Generated<Timestamp>;
+    updatedAt: Generated<Timestamp>;
 };
 export type ApiKey = {
     id: string;
     userId: string;
     name: string;
     websiteId: string;
-    created_at: Generated<Timestamp>;
-    deleted_at: Timestamp | null;
+    createdAt: Generated<Timestamp>;
+    deletedAt: Timestamp | null;
     expires: Timestamp;
     key: string;
 };
 export type auth_key = {
     id: string;
-    user_id: string;
-    hashed_password: string | null;
+    userId: string;
+    hashedPassword: string | null;
 };
 export type auth_session = {
     id: string;
-    user_id: string;
-    active_expires: number;
-    idle_expires: number;
+    userId: string;
+    activeExpires: number;
+    idleExpires: number;
 };
 export type Disallowed = {
     id: string;
@@ -55,35 +55,35 @@ export type Session = {
 };
 export type Team = {
     id: string;
-    created_at: Generated<Timestamp>;
-    updated_at: Timestamp;
+    createdAt: Generated<Timestamp>;
+    updatedAt: Timestamp;
     name: string;
 };
 export type TeamUser = {
     id: string;
-    team_id: string;
-    user_id: string;
+    teamId: string;
+    userId: string;
     role: Generated<ROLE>;
-    created_at: Generated<Timestamp>;
-    updated_at: Timestamp;
+    createdAt: Generated<Timestamp>;
+    updatedAt: Timestamp;
     accepted: Generated<number>;
 };
 export type TeamUserInvite = {
     id: string;
-    team_id: string;
-    created_at: Generated<Timestamp>;
-    updated_at: Timestamp;
+    teamId: string;
+    createdAt: Generated<Timestamp>;
+    updatedAt: Timestamp;
     token: string;
-    user_id: string;
-    team_user_id: string;
+    userId: string;
+    teamUserId: string;
     status: Generated<INVITE_STATUS>;
 };
 export type TeamWebsite = {
     id: string;
-    created_at: Generated<Timestamp>;
-    updated_at: Timestamp;
-    team_id: string;
-    website_id: string;
+    createdAt: Generated<Timestamp>;
+    updatedAt: Timestamp;
+    teamId: string;
+    websiteId: string;
 };
 export type User = {
     id: string;
@@ -91,12 +91,12 @@ export type User = {
     email: string | null;
     emailVerified: Timestamp | null;
     image: string | null;
-    created_at: Generated<Timestamp>;
-    updated_at: Generated<Timestamp>;
-    stripe_customer_id: string | null;
-    stripe_subscription_id: string | null;
-    stripe_price_id: string | null;
-    stripe_current_period_end: Timestamp | null;
+    createdAt: Generated<Timestamp>;
+    updatedAt: Generated<Timestamp>;
+    stripeCustomerId: string | null;
+    stripeSubscriptionId: string | null;
+    stripePriceId: string | null;
+    stripeCurrentPeriodEnd: Timestamp | null;
 };
 export type VerificationToken = {
     identifier: string;
@@ -105,26 +105,26 @@ export type VerificationToken = {
 };
 export type Website = {
     id: string;
-    created_at: Generated<Timestamp>;
-    updated_at: Timestamp;
+    createdAt: Generated<Timestamp>;
+    updatedAt: Timestamp;
     url: string;
     title: string | null;
-    user_id: string;
+    userId: string;
     active: Generated<number>;
     public: Generated<number>;
 };
 export type DB = {
     accounts: Account;
-    api_key: ApiKey;
-    auth_key: auth_key;
-    auth_session: auth_session;
+    apiKey: ApiKey;
+    authKey: auth_key;
+    authSession: auth_session;
     Disallowed: Disallowed;
     sessions: Session;
     team: Team;
-    team_user_invite: TeamUserInvite;
-    team_users: TeamUser;
-    team_website: TeamWebsite;
+    teamUserInvite: TeamUserInvite;
+    teamUsers: TeamUser;
+    teamWebsite: TeamWebsite;
     users: User;
-    verification_tokens: VerificationToken;
+    verificationTokens: VerificationToken;
     website: Website;
 };

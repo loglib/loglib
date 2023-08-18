@@ -23,7 +23,8 @@ import {
     useReactTable,
 } from "@tanstack/react-table";
 import { AnimatePresence, motion } from "framer-motion";
-import React, { Fragment, ReactNode } from "react";
+import React, { Fragment, ReactNode, useEffect, useState } from "react";
+import { EventFilter } from "./filter";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -46,6 +47,14 @@ function DataTable<TData, TValue>({
         pageSize: 40,
     });
 
+    const [localData, setLocalData] = useState(data)
+
+    useEffect(() => {
+        if (data) {
+            setLocalData(data)
+        }
+    }, [data])
+
     const pagination = React.useMemo(
         () => ({
             pageIndex,
@@ -55,7 +64,7 @@ function DataTable<TData, TValue>({
     );
 
     const table = useReactTable({
-        data,
+        data: localData,
         columns,
         getCoreRowModel: getCoreRowModel(),
         getExpandedRowModel: getExpandedRowModel(),
@@ -82,7 +91,7 @@ function DataTable<TData, TValue>({
                 events
             </p>
             <motion.div className="rounded-md border dark:border-gray-800 scrollbar-hide">
-                <div className="flex items-center py-4 px-2">
+                <div className="flex items-center py-4 px-2 justify-between">
                     <Input
                         placeholder="Search Events..."
                         value={(table.getColumn("eventName")?.getFilterValue() as string) ?? ""}
@@ -91,6 +100,8 @@ function DataTable<TData, TValue>({
                         }
                         className="max-w-sm"
                     />
+                    {/* @ts-ignore */}
+                    <EventFilter data={data} setData={setLocalData} />
                 </div>
                 <Table className=" scrollbar-hide">
                     <TableHeader>
@@ -102,9 +113,9 @@ function DataTable<TData, TValue>({
                                             {header.isPlaceholder
                                                 ? null
                                                 : (flexRender(
-                                                      header.column.columnDef.header,
-                                                      header.getContext(),
-                                                  ) as ReactNode)}
+                                                    header.column.columnDef.header,
+                                                    header.getContext(),
+                                                ) as ReactNode)}
                                         </TableHead>
                                     );
                                 })}
