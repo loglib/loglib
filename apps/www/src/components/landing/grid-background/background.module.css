@@ -28,7 +28,7 @@
   width: 100%;
   height: 100%;
   top: 0;
-  opacity: 0.4;
+  opacity: 0.5;
   filter: invert(1);
 }
 
@@ -40,8 +40,8 @@
   background-image: radial-gradient(at 27% 37%,
       hsla(215, 98%, 61%, 1) 0px,
       transparent 0%),
-    radial-gradient(at 97% 21%, rgb(54, 35, 6) 0px, transparent 50%),
-    radial-gradient(at 52% 99%, rgb(33, 12, 56) 0px, transparent 50%),
+    radial-gradient(at 97% 21%, rgb(80, 52, 11) 0px, transparent 50%),
+    radial-gradient(at 52% 99%, rgb(59, 49, 12) 0px, transparent 50%),
     radial-gradient(at 10% 29%, rgb(70, 18, 2) 0px, transparent 50%),
     radial-gradient(at 97% 96%, rgb(50, 42, 29) 0px, transparent 50%),
     radial-gradient(at 33% 50%, rgb(23, 26, 33) 0px, transparent 50%),
