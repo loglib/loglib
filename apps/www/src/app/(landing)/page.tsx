@@ -63,15 +63,15 @@ export default async function IndexPage() {
                     <div className="flex flex-col gap-10 font-semibold sm:flex-row sm:gap-20">
                         <div className="flex flex-col items-center justify-center rounded-lg  border border-gray-900 px-16 py-4 transition-colors duration-500 hover:border-gray-800">
                             <div>
-                                <h1 className="font-heading bg-gradient-to-bl from-red-500 to-indigo-700 bg-clip-text text-5xl font-black text-transparent ">
-                                    0{stars}
+                                <h1 className="font-heading bg-gradient-to-bl from-orange-500 to-brand-700 bg-clip-text text-5xl font-black text-transparent ">
+                                    {stars}
                                 </h1>
                                 <p className="text-md  font-thin opacity-75">GitHub Stars</p>
                             </div>
                         </div>
                         <div className="flex flex-col items-center justify-center rounded-lg  border border-gray-900 px-16 py-4 transition-colors duration-500 hover:border-gray-800">
                             <div>
-                                <h1 className="font-heading bg-gradient-to-tr from-red-500 to-indigo-700 bg-clip-text text-5xl font-black text-transparent ">
+                                <h1 className="font-heading bg-gradient-to-tr from-orange-500 to-brand-700 bg-clip-text text-5xl font-black text-transparent ">
                                     127
                                 </h1>
                                 <p className="text-md  font-thin opacity-75">Community</p>
@@ -80,7 +80,7 @@ export default async function IndexPage() {
 
                         <div className="flex flex-col items-center justify-center rounded-lg  border border-gray-900 px-16 py-4 transition-colors duration-500 hover:border-gray-800">
                             <div>
-                                <h1 className="font-heading bg-gradient-to-br from-red-500 to-indigo-700 bg-clip-text text-5xl font-black text-transparent ">
+                                <h1 className="font-heading bg-gradient-to-br from-orange-500 to-brand-700 bg-clip-text text-5xl font-black text-transparent ">
                                     {contributors <= 10
                                         ? `00${contributors}`
                                         : contributors <= 100
