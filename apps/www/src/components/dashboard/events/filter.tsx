@@ -24,6 +24,7 @@ import { useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { filter } from "./small-filter";
+import { loglib } from "@loglib/tracker";
 
 export const EventFilter = ({ data, setData }: { data: EventsWithData, setData: (state: EventsWithData) => void }) => {
     const getUnqiueValue = (input: string[]) => {
@@ -106,7 +107,12 @@ export const EventFilter = ({ data, setData }: { data: EventsWithData, setData: 
     return (
         <Dialog open={open} onOpenChange={(o) => setOpen(o)}>
             <DialogTrigger>
-                <Button variant="outline" className=" flex items-center relative gap-2 font-medium">
+                <Button onClick={() => {
+                    loglib.track("filter open", {
+                        activeFilters: activeFilter.length,
+                        eventsCount: data.length
+                    })
+                }} variant="outline" className=" flex items-center relative gap-2 font-medium">
                     <SlidersHorizontal size={14} />
                     Filter
                     <div className=" absolute -top-3 -right-1">
