@@ -23,11 +23,11 @@ export const LandingNav = () => {
                         left: "0px",
                     }}
                 ></div>
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-tr backdrop-blur-md dark:from-slate-950  dark:to-slate-950/80"></div>
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-tr backdrop-blur-md dark:from-stone-950  dark:to-stone-950/80"></div>
                 <div className="relative">
                     <div
                         className={cn(
-                            "bg-black/39 dark:bg-logo/30 absolute bottom-0 left-0 h-1/3 w-7 translate-x-2 translate-y-full rounded-full blur-md transition-[width,transform] duration-500",
+                            "bg-black/39 dark:bg-logo/30 absolute bottom-0 left-0 h-1/3 w-7 translate-x-2  rounded-full blur-md transition-[width,transform] duration-500",
                             pathname === "/" && "translate-x-2",
                             pathname === "/pricing" && "translate-x-20",
                             pathname?.includes("/changelog") && "translate-x-44",

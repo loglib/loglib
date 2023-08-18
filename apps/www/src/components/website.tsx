@@ -22,7 +22,7 @@ export function Website({ site, visitors, key, setSelected, setIsOpen }: Website
     return (
         <Card
             key={key}
-            className="@container/card border-slate-400/20 bg-gradient-to-tr shadow-sm shadow-orange-800/40 dark:from-black dark:to-slate-900/30"
+            className="@container/card border-stone-400/20 bg-gradient-to-tr shadow-sm shadow-orange-800/40 dark:from-black dark:to-stone-900/30"
         >
             <div className="card__layer1"></div>
             <div className="card__layer2"></div>

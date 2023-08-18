@@ -35,7 +35,7 @@ export const InsightTables = ({
         });
     }
     return (
-        <Card className=" md:col-span-3">
+        <Card className=" md:col-span-3 bg-gradient-to-tr from-stone-950 to-stone-900/80">
             <Tabs defaultValue="pages" onValueChange={(val) => setCurrentTableTab(val)}>
                 <TabsList className="md:w-full space-x-2 md:justify-start grid grid-cols-4">
                     <TabsTrigger value="pages" className=" space-x-2 ">
@@ -55,8 +55,11 @@ export const InsightTables = ({
                         <p>Devices</p>
                     </TabsTrigger>
                 </TabsList>
-                <TabsContent value="pages">
-                    <CardContent>
+                <TabsContent
+                    value="pages"
+                    className=" bg-gradient-to-tr from-stone-950 to-stone-900/50"
+                >
+                    <CardContent className=" bg-gradient-to-tr from-stone-950 to-stone-900/50">
                         {isFilterActive("currentPath") ? (
                             <ClearFilter onClick={() => clearFilter("currentPath")} />
                         ) : null}
@@ -101,8 +104,8 @@ export const InsightTables = ({
                 </TabsContent>
 
                 {/* Locations */}
-                <TabsContent value="locations">
-                    <CardContent>
+                <TabsContent value="locations" className=" bg-stone-950">
+                    <CardContent className=" bg-stone-950">
                         <Tabs className=" w-full" defaultValue="country">
                             {isFilterActive("country") || isFilterActive("city") ? (
                                 <ClearFilter
@@ -206,7 +209,8 @@ export const InsightTables = ({
                                                     })
                                                 }
                                             >
-                                                {location.location === "Unknown" || !location.location ? (
+                                                {location.location === "Unknown" ||
+                                                !location.location ? (
                                                     <>
                                                         <Link2Icon />
                                                         Unknown
@@ -237,8 +241,8 @@ export const InsightTables = ({
                 </TabsContent>
 
                 {/* Referrer */}
-                <TabsContent value="ref">
-                    <CardContent>
+                <TabsContent value="ref" className=" bg-stone-950">
+                    <CardContent className=" bg-stone-950">
                         {isFilterActive("referrerDomain") || isFilterActive("utmCampaign") ? (
                             <ClearFilter
                                 onClick={() => {
@@ -248,7 +252,7 @@ export const InsightTables = ({
                             />
                         ) : null}
 
-                        <Tabs defaultValue="referrer">
+                        <Tabs defaultValue="referrer" className=" bg-stone-950">
                             <TabsList>
                                 <TabsTrigger value="referrer">Referrer</TabsTrigger>
                                 <TabsTrigger value="sources">UTM Sources</TabsTrigger>
@@ -298,7 +302,7 @@ export const InsightTables = ({
                                                     {refs.referrer.split(".").length > 1
                                                         ? refs.referrer
                                                         : refs.referrer.charAt(0).toUpperCase() +
-                                                        refs.referrer.slice(1)}
+                                                          refs.referrer.slice(1)}
                                                 </Link>
                                             </TableCell>
                                             <TableCell className="text-right">
@@ -400,12 +404,12 @@ export const InsightTables = ({
                 </TabsContent>
 
                 {/* device */}
-                <TabsContent value="device">
-                    <CardContent>
+                <TabsContent value="device" className=" bg-stone-950/30">
+                    <CardContent className=" bg-stone-950/30">
                         <Tabs className=" w-full" defaultValue="general">
                             {isFilterActive("device") ||
-                                isFilterActive("os") ||
-                                isFilterActive("browser") ? (
+                            isFilterActive("os") ||
+                            isFilterActive("browser") ? (
                                 <ClearFilter
                                     onClick={() => {
                                         clearFilter("device");

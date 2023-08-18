@@ -18,13 +18,13 @@ Loglib is a **Open Source** and **Privacy-First** web analytics that aims to pro
 
 ## Why Loglib?
 
-- **Privacy first**: We take privacy seriously, so we made sure Loglib is GDPR compliant out of the box. And if you want to customize your privacy settings, we won't judge. We'll just give you the options you need.
+- **Privacy first**: Loglib is GDPR compliant out of the box. And if you want to customize your privacy settings and use cookie notices you have that option too.
 
-- **Own your data**: We believe you should be in control of your data, so we made it easy for you to get your data back anytime you want with our simple APIs. It's your data, after all.
+- **Own your data**: We think you should be in control of your data, so we made it easy for you to get your data back anytime you want with our simple APIs. 
 
 - **Events and product analysis features**: We offer powerful event and product analysis features that go beyond simple pageviews. But if you're not into that kind of thing, no worries. Loglib can be as simple or as complex as you need it to be.
 
-- **Developer friendly**: Easy to add to your apps and frameworks.
+- **Developer friendly**: Almost zero config to get started and easy to add to your apps and frameworks.
 
 - **Your mom will be impressed**: Maybe not really, but we think it worth trying.
 

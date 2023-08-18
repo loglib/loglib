@@ -9,7 +9,6 @@ import { getInsight } from "./routes/insight";
 import { getTablesData } from "./routes/table";
 import { apiQuery, envSchema, insightPubApiSchema, insightSchema } from "./schema";
 import { Filter, LoglibEvent, Path } from "./type";
-import { createClient } from "@clickhouse/client";
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
@@ -101,14 +100,9 @@ app.get("/", async (c) => {
 
 //TODO: should be changed the json to be parsed from clickhouse than js
 app.get("/events", async (c) => {
-    const env = envSchema.parse(c.env);
     const startDateObj = new Date(c.req.query("startDate"));
     const endDateObj = new Date(c.req.query("endDate"));
     const websiteId = c.req.query("websiteId");
-    const client = createClient({
-        host: env.CLICKHOUSE_HOST,
-        password: env.CLICKHOUSE_PASSWORD,
-    });
     try {
         const res = await client
             .query({
@@ -214,7 +208,7 @@ app.get("/v1/inisght", async (c) => {
     const today = new Date();
     const startDateObj = new Date(
         startDate ??
-            new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()).toISOString(),
+        new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()).toISOString(),
     );
     const endDateObj = new Date(endDate ?? today);
     const duration = endDateObj.getTime() - startDateObj.getTime();

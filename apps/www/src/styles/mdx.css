@@ -16,13 +16,13 @@
   color: gray;
 }
 [data-rehype-pretty-code-fragment] .line--highlighted {
-  @apply bg-slate-300 bg-opacity-10;
+  @apply bg-stone-300 bg-opacity-10;
 }
 [data-rehype-pretty-code-fragment] .line-highlighted span {
   @apply relative;
 }
 [data-rehype-pretty-code-fragment] .word--highlighted {
-  @apply rounded-md bg-slate-300 bg-opacity-10 p-1;
+  @apply rounded-md bg-stone-300 bg-opacity-10 p-1;
 }
 [data-rehype-pretty-code-title] {
   @apply mt-4 py-2 px-4 text-sm font-medium;

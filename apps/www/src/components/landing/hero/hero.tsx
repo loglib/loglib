@@ -26,8 +26,8 @@ export const Hero = () => {
         }
     }, []);
     return (
-        <div className="font-heading max-w-3xl text-4xl font-bold text-slate-800 dark:text-slate-300">
-            <h1 className=" hover:opacity-95 flex flex-wrap flex-col md:flex-row items-start md:item gap-2 dark:text-slate-100/80 2xl:text-4xl md:text-3xl text-lg">
+        <div className="font-heading max-w-3xl text-4xl font-bold text-stone-800 dark:text-stone-300">
+            <h1 className=" hover:opacity-95 flex flex-wrap flex-col md:flex-row items-start md:item gap-2 dark:text-stone-100/80 2xl:text-4xl md:text-3xl text-lg">
                 <span className=" relative inline-block">
                     <span className={styles.star}>
                         <svg viewBox="0 0 512 512">
@@ -46,10 +46,10 @@ export const Hero = () => {
                     </span>
                     <span className={styles.magicText}>Crafted with care.</span>
                 </span>{" "}
-                <span className="  bg-gradient-to-tr dark:from-slate-300 from-slate-500 to-slate-600 dark:to-slate-400 bg-clip-text text-transparent">
+                <span className=" hidden md:block  bg-gradient-to-tr dark:from-stone-300 from-stone-500 to-stone-600 dark:to-stone-400 bg-clip-text text-transparent">
                     Privacy First.
                 </span>
-                <span className="  bg-gradient-to-tr dark:from-slate-300 from-slate-500 to-slate-600 dark:to-slate-400 bg-clip-text text-transparent">
+                <span className=" hidden md:block  bg-gradient-to-tr dark:from-stone-300 from-stone-500 to-stone-600 dark:to-stone-400 bg-clip-text text-transparent">
                     Open Source.
                 </span>
             </h1>

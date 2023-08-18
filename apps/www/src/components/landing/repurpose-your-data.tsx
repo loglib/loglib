@@ -2,6 +2,7 @@
 import Background from "./grid-background/background";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Button } from "../ui/button";
 
 export const RepurposeYourData = () => {
     const [borderHeight, setBorderHeight] = useState(0);
@@ -24,12 +25,11 @@ export const RepurposeYourData = () => {
             ).observe(document.getElementById("border") as HTMLElement);
     }, []);
     return (
-        <section className=" w-full bg-slate-950 ">
+        <section className=" w-full bg-stone-950 ">
             <Background />
-
-            <div className="border-y border-slate-900 py-16 md:py-20 relative">
+            <div className="border-y border-stone-900 py-16 md:py-20 relative">
                 <div
-                    className=" bg-[#303a75]  border-t border-slate-800 transition-all duration-500 w-full absolute bottom-0 blur-md"
+                    className=" bg-[#303a75]  border-t border-stone-800 transition-all duration-500 w-full absolute bottom-0 blur-md"
                     id="border"
                     style={{
                         height: borderHeight,
@@ -75,15 +75,15 @@ export const RepurposeYourData = () => {
                         </Link>
                     </div>
                     <div className="relative aspect-square mx-auto order-1 md:order-none">
-                        <div className="absolute inset-0 blur-2xl scale-110 rounded-full animate-spin-slow bg-gradient-to-tl from-slate-800 to-slate-500 opacity-40"></div>
-                        <div className="p-px bg-gradient-to-t from-slate-800/60 to-slate-700/60 rounded-3xl overflow backdrop-blur-sm">
+                        <div className="absolute inset-0 blur-2xl scale-110 rounded-full animate-spin-slow bg-gradient-to-tl from-stone-800 to-stone-500 opacity-40"></div>
+                        <div className="p-px bg-gradient-to-t from-stone-800/60 to-stone-700/60 rounded-3xl overflow backdrop-blur-sm">
                             <div className="bg-black/30 grid place-items-center p-7 md:p-12 rounded-3xl ">
                                 <svg
                                     width="71"
                                     height="71"
                                     viewBox="0 0 71 71"
                                     fill="none"
-                                    className="h-20 md:h-32 w-20 md:w-32 fill-slate-300"
+                                    className="h-20 md:h-32 w-20 md:w-32 fill-stone-300"
                                     xmlns="http://www.w3.org/2000/svg"
                                 >
                                     <path

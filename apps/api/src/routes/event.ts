@@ -8,7 +8,7 @@ import { browserName, detectOS } from "detect-browser";
 import { z } from "zod";
 
 export const eventSchema = z.object({
-    data: z.array(
+    events: z.array(
         z.object({
             id: z.string(),
             eventName: z.string(),
@@ -17,7 +17,7 @@ export const eventSchema = z.object({
             page: z.string(),
         }),
     ),
-    pageId: z.string(),
+    pageId: z.string().optional(),
     sessionId: z.string(),
     visitorId: z.string().optional(),
     websiteId: z.string(),
@@ -25,9 +25,10 @@ export const eventSchema = z.object({
 
 export const createEvents: RouteType = async ({ rawBody, req }) => {
     const body = eventSchema.safeParse(rawBody);
+    console.log(body)
     if (body.success) {
         const ipAddress = getIpAddress(req);
-        const { visitorId, websiteId, sessionId, data, pageId } = body.data;
+        const { visitorId, websiteId, sessionId, events, pageId } = body.data;
         const session = await client
             .query({
                 query: `select * from loglib.event where sessionId = '${sessionId}' limit 1`,
@@ -49,7 +50,7 @@ export const createEvents: RouteType = async ({ rawBody, req }) => {
         const queryParams = properties.queryParams;
         const referrerPath = properties.referrerPath;
         const referrerDomain = properties.referrerDomain ?? "unknown";
-        data.map(async (event) => {
+        events.map(async (event) => {
             await client.insert({
                 table: "loglib.event",
                 values: {
@@ -76,7 +77,7 @@ export const createEvents: RouteType = async ({ rawBody, req }) => {
                     sign: 1,
                 },
                 format: "JSONEachRow",
-            });
+            }).then(res => console.log(res));
         });
         return {
             data: {

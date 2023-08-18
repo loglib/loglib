@@ -32,7 +32,7 @@ export default function Changelog() {
             </ul>
             <Link
                 href="/changelog"
-                className="mx-auto block max-w-fit rounded-full border border-black hover:bg-slate-950  px-4 py-1.5 text-sm text-black hover:text-white bg-slate-100/90 "
+                className="mx-auto block max-w-fit rounded-full border border-black hover:bg-stone-950  px-4 py-1.5 text-sm text-black hover:text-white bg-stone-100/90 "
             >
                 Full changelog
             </Link>
@@ -51,7 +51,7 @@ const DesktopChangelogEntry = ({ post }: { post: ChangelogPost }) => (
                 <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
             </dd>
         </dl>
-        <h3 className="text-2xl font-medium tracking-tight text-slate-700 dark:text-slate-400 transition-colors group-hover:dark:text-slate-100 group-hover:text-black/80">
+        <h3 className="text-2xl font-medium tracking-tight text-stone-700 dark:text-stone-400 transition-colors group-hover:dark:text-stone-100 group-hover:text-black/80">
             {post.title}
         </h3>
     </Link>

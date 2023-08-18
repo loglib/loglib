@@ -22,18 +22,18 @@ module.exports = {
             },
             colors: {
                 brand: {
-                    '50': '#fffbe7',
-                    '100': '#fff5c1',
-                    '200': '#ffe885',
-                    '300': '#ffd240',
-                    '400': '#ffb90c',
-                    '500': '#f3a000',
-                    '600': '#d27800',
-                    '700': '#a75201',
-                    '800': '#8a4009',
-                    '900': '#75350e',
-                    '950': '#130701',
-                },                
+                    50: "#fffbe7",
+                    100: "#fff5c1",
+                    200: "#ffe885",
+                    300: "#ffd240",
+                    400: "#ffb90c",
+                    500: "#f3a000",
+                    600: "#d27800",
+                    700: "#a75201",
+                    800: "#8a4009",
+                    900: "#75350e",
+                    950: "#130701",
+                },
                 border: "hsl(var(--border))",
                 input: "hsl(var(--input))",
                 ring: "hsl(var(--ring))",
@@ -70,11 +70,7 @@ module.exports = {
                     foreground: "hsl(var(--card-foreground))",
                 },
             },
-            borderRadius: {
-                lg: "var(--radius)",
-                md: "calc(var(--radius) - 2px)",
-                sm: "calc(var(--radius) - 4px)",
-            },
+
             fontFamily: {
                 sans: ["var(--font-satoshi)", ...fontFamily.sans],
                 heading: ["var(--font-heading)", ...fontFamily.sans],
@@ -152,9 +148,13 @@ module.exports = {
                 "background-pan": "background-pan 3s linear infinite",
                 "spin-slow": "spin-slow 10s linear infinite",
             },
+            borderRadius: {
+                lg: "var(--radius)",
+                md: "calc(var(--radius) - 2px)",
+                sm: "calc(var(--radius) - 4px)",
+            },
         },
     },
-
     plugins: [
         // @ts-ignore
         require("tailwindcss-animate"),

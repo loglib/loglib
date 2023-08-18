@@ -19,13 +19,13 @@ const featureList = [
     {
         key: "analytics",
         title: "Analytics that matter",
-        icon: <BarChart className="h-5 w-5 text-slate-400" />,
+        icon: <BarChart className="h-5 w-5 text-stone-400" />,
         description: "Get insights into your users, their devices, and their locations.",
         cta: (
             <Link
                 href="https://demo.loglib.io"
                 target="_blank"
-                className="block max-w-fit rounded-full border border-slate-900 bg-slate-200 px-4 py-1.5 text-sm text-slate-950 transition-all hover:bg-white hover:text-black"
+                className="block max-w-fit rounded-full border border-stone-900 bg-stone-200 px-4 py-1.5 text-sm text-stone-950 transition-all hover:bg-white hover:text-black"
             >
                 View demo
             </Link>
@@ -36,14 +36,14 @@ const featureList = [
     {
         key: "filters",
         title: "Advanced Filters",
-        icon: <Filter className="h-5 w-5 text-slate-400" />,
+        icon: <Filter className="h-5 w-5 text-stone-400" />,
         description: "Combine multiple filters to create advanced filters for your data.",
         cta: (
             <Link
                 href="/dashboard"
                 target="_blank"
                 rel="noreferrer"
-                className="block max-w-fit rounded-full border border-slate-900 bg-slate-200 px-4 py-1.5 text-sm text-slate-950 transition-all hover:bg-white hover:text-black"
+                className="block max-w-fit rounded-full border border-stone-900 bg-stone-200 px-4 py-1.5 text-sm text-stone-950 transition-all hover:bg-white hover:text-black"
             >
                 Add Your Website
             </Link>
@@ -53,7 +53,7 @@ const featureList = [
     {
         key: "events",
         title: "Custom Events",
-        icon: <MousePointerClick className="h-5 w-5 text-slate-400" />,
+        icon: <MousePointerClick className="h-5 w-5 text-stone-400" />,
         description: "Track custom events on your website and filter by them in your dashboard",
         cta: null,
         demo: "/assets/features/events.mp4",
@@ -61,14 +61,14 @@ const featureList = [
     {
         key: "team",
         title: "Collaborate with your team",
-        icon: <Users className="h-5 w-5 text-slate-400" />,
+        icon: <Users className="h-5 w-5 text-stone-400" />,
         description: "With Loglib, you can invite your teammates to collaborate on your websites.",
         cta: (
             <a
                 href="https://loglib.io/dashboard"
                 target="_blank"
                 rel="noreferrer"
-                className="block max-w-fit rounded-full border border-slate-900 bg-slate-200 px-4 py-1.5 text-sm text-slate-950 transition-all hover:bg-white hover:text-black"
+                className="block max-w-fit rounded-full border border-stone-900 bg-stone-200 px-4 py-1.5 text-sm text-stone-950 transition-all hover:bg-white hover:text-black"
             >
                 Invite your teammates
             </a>
@@ -87,7 +87,7 @@ export default function Features() {
                 <link key={key} rel="preload" as="video" href={demo} />
             ))}
             <MaxWidthWrapper className="pb-10">
-                <div className="my-10  w-full overflow-hidden text-white rounded-xl border relative  bg-slate-950/40 shadow-[inset_10px_-50px_94px_0_rgb(112, 128, 144, 0.2)] backdrop-blur h-max">
+                <div className="my-10  w-full overflow-hidden text-white rounded-xl border relative  bg-stone-950/40 shadow-[inset_10px_-50px_94px_0_rgb(112, 128, 144, 0.2)] backdrop-blur h-max">
                     <div className="grid grid-cols-1 gap-10 p-5 lg:grid-cols-3">
                         <Accordion
                             type="single"
@@ -101,14 +101,14 @@ export default function Features() {
                                     <AccordionTrigger>
                                         <div className="flex items-center space-x-3 p-3">
                                             {icon}
-                                            <h3 className="text-base font-semibold text-slate-100">
+                                            <h3 className="text-base font-semibold text-stone-100">
                                                 {title}
                                             </h3>
                                         </div>
                                     </AccordionTrigger>
                                     <AccordionContent>
                                         <div className="p-3">
-                                            <p className="mb-4 text-sm text-slate-200">
+                                            <p className="mb-4 text-sm text-stone-200">
                                                 {description}
                                             </p>
                                             {cta}
@@ -140,7 +140,7 @@ export default function Features() {
                                                 }}
                                                 className="relative min-h-[200px] w-full overflow-hidden flex h-full items-center justify-center px-6 rounded-md lg:w-[700px]"
                                             >
-                                                {/* <div className=" absolute top-0 w-full h-full bg-gradient-to-tr from-slate-900 to-slate-900  blur-2xl scale-125 "></div> */}
+                                                {/* <div className=" absolute top-0 w-full h-full bg-gradient-to-tr from-stone-900 to-stone-900  blur-2xl scale-125 "></div> */}
                                                 <video
                                                     autoPlay
                                                     muted

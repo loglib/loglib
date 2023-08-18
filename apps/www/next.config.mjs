@@ -1,7 +1,5 @@
-// rome-ignore lint/correctness/noUnusedVariables: <explanation>
 import { env } from "./env.mjs";
 import { withContentlayer } from "next-contentlayer";
-import million from "million/compiler"
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -10,6 +8,8 @@ const nextConfig = {
     compiler: {
         removeConsole: process.env.NODE_ENV === "production",
     },
+    siteUrl: env.NEXTAUTH_URL ?? "https://loglib.io",
+    generateRobotsTxt: true,
     images: {
         remotePatterns: [
             {
@@ -25,7 +25,6 @@ const nextConfig = {
         },
     ],
     experimental: {
-        serverComponentsExternalPackages: ["generated/client"],
         serverActions: true,
     },
     eslint: {

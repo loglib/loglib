@@ -90,7 +90,7 @@ export default function RootLayout({
             </head>
             <body
                 className={cn(
-                    " bg-gradient-to-tr from-white to-gray-100 font-sans antialiased dark:from-slate-950 via-black dark:to-slate-950/30 transition-all duration-300",
+                    " bg-gradient-to-tr from-white to-gray-100 font-sans antialiased dark:from-stone-950 via-black dark:to-stone-950/30 transition-all duration-300",
                     fontSatoshi.variable,
                     fontHeading.variable,
                 )}

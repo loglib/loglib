@@ -57,7 +57,7 @@ const transformData = (events: LoglibEvent[]) => {
             onlineVisitors.add(event.visitorId);
         }
         if (pageIndex === -1) {
-            page && page.startsWith("/") &&
+            page?.startsWith("/") &&
                 pageViews.push({
                     page,
                     visits: 1,

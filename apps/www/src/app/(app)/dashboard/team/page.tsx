@@ -34,7 +34,7 @@ const Page = async ({
                     <TeamCreateButton teamsCount={teams.length} />
                 </EmptyPlaceholder>
             ) : (
-                <Card className=" bg-gradient-to-tr from-white/80 to-white dark:from-slate-900/30 dark:to-black">
+                <Card className=" bg-gradient-to-tr from-white/80 to-white dark:from-stone-900/30 dark:to-black">
                     <CardHeader>
                         <TeamUpdateForm />
                     </CardHeader>
