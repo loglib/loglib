@@ -195,7 +195,7 @@ export const Dashboard = ({
                                                             : ""
                                             }
                                             BottomChildren={() => (
-                                                <div className=" cursor-pointer">
+                                                <div className=" cursor-pointer z-10">
                                                     <div>
                                                         <Popover>
                                                             <PopoverTrigger asChild>
@@ -210,14 +210,13 @@ export const Dashboard = ({
                                                                             | "Retaining Visitors",
                                                                     ) => {
                                                                         setViCardSwitch(v);
+                                                                        loglib.track("visitor-card-switched", {
+                                                                            websiteId: website.id,
+                                                                            switch: viCardSwitch
+                                                                        })
                                                                     }}
                                                                     defaultValue={viCardSwitch}
                                                                     className="grid gap-4"
-                                                                    onClick={() => loglib.track("visitor-card-switched", {
-                                                                        websiteId: website.id,
-                                                                        switch: viCardSwitch
-                                                                    })}
-
                                                                 >
                                                                     <div className="flex items-center space-x-2">
                                                                         <RadioGroupItem
