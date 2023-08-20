@@ -1,7 +1,7 @@
 import type { ColumnType } from "kysely";
 export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
-  ? ColumnType<S, I | undefined, U>
-  : ColumnType<T, T | undefined, T>;
+    ? ColumnType<S, I | undefined, U>
+    : ColumnType<T, T | undefined, T>;
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
 import type { ROLE, INVITE_STATUS } from "./enums";
@@ -31,17 +31,6 @@ export type ApiKey = {
     deleted_at: Timestamp | null;
     expires: Timestamp;
     key: string;
-};
-export type auth_key = {
-    id: string;
-    user_id: string;
-    hashed_password: string | null;
-};
-export type auth_session = {
-    id: string;
-    user_id: string;
-    active_expires: number;
-    idle_expires: number;
 };
 export type Disallowed = {
     id: string;
@@ -113,11 +102,15 @@ export type Website = {
     active: Generated<number>;
     public: Generated<number>;
 };
+export type WebsiteGoals = {
+    id: string;
+    website_id: string;
+    metric: string;
+    trigger: string;
+};
 export type DB = {
     accounts: Account;
     api_key: ApiKey;
-    auth_key: auth_key;
-    auth_session: auth_session;
     Disallowed: Disallowed;
     sessions: Session;
     team: Team;
@@ -127,4 +120,5 @@ export type DB = {
     users: User;
     verification_tokens: VerificationToken;
     website: Website;
+    website_goals: WebsiteGoals;
 };

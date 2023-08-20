@@ -59,7 +59,7 @@ export const WebsiteForm = () => {
         setModal(false);
         router.refresh();
     }
-    // Define the animation variants
+
     const modalVariants = {
         hidden: {
             opacity: 0,

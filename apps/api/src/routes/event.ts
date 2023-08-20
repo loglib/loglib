@@ -21,12 +21,11 @@ export const eventSchema = z.object({
     sessionId: z.string(),
     visitorId: z.string().optional(),
     websiteId: z.string(),
-    duration: z.number().default(0)
+    duration: z.number().default(0),
 });
 
 export const createEvents: RouteType = async ({ rawBody, req }) => {
     const body = eventSchema.safeParse(rawBody);
-    console.log(body)
     if (body.success) {
         const ipAddress = getIpAddress(req);
         const { visitorId, websiteId, sessionId, events, pageId, duration } = body.data;

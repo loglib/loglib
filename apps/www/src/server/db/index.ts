@@ -1,7 +1,7 @@
 import { DB } from "./types";
 import { connect } from "@planetscale/database";
 import { env } from "env.mjs";
-import { CamelCasePlugin, Kysely } from "kysely";
+import { Kysely } from "kysely";
 import { PlanetScaleDialect } from "kysely-planetscale";
 
 const config = {

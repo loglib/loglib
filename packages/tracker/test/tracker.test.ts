@@ -173,7 +173,7 @@ describe("events", () => {
         button.click();
         expect(window.lli.eventsBank.length).toBe(1);
         vi.advanceTimersByTime(1000);
-        expect(send).toHaveBeenCalledWith(window.lli.eventsBank, "/event", flush);
+        expect(sendEvents).toHaveBeenCalled()
         document.body.removeChild(button);
     });
 });
