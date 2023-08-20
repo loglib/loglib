@@ -30,8 +30,8 @@ export function sendEvents() {
             websiteId: window.llc.id,
             visitorId: getVisitorId(),
             sessionId: window.lli.sessionId,
-            pageId: window.lli.pageId,
-            duration: getSessionDuration(),
+            screenWidth: window.screen.width,
+            language: navigator.language ?? "en",
         };
         send(eventToSend, flush);
     }
