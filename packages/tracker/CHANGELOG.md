@@ -1,5 +1,12 @@
 # @loglib/tracker
 
+## 0.6.2
+
+### Patch Changes
+
+- c5cf8b2: - event payload fix
+- c5cf8b2: - logging fix
+
 ## 0.6.1
 
 ### Patch Changes
