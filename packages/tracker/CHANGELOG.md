@@ -1,5 +1,11 @@
 # @loglib/tracker
 
+## 0.6.1
+
+### Patch Changes
+
+- 232c7d7: - logging fix
+
 ## 0.6.0
 
 ### Minor Changes
