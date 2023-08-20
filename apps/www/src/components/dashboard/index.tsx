@@ -1,7 +1,6 @@
 "use client";
 
 import { GetInsightResponse } from "@loglib/types";
-import ct from "countries-and-timezones";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import {
     Activity,
@@ -13,7 +12,7 @@ import {
     UserIcon,
     Users2,
 } from "lucide-react";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import useSWR from "swr";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -37,6 +36,9 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
 import { TrackClick } from "@loglib/tracker/react";
 import { loglib } from "@loglib/tracker";
+import { Celebrate } from "./celebrate";
+import { useAtom } from "jotai";
+import { localSettingAtom } from "@/jotai/store";
 
 export const Dashboard = ({
     website,
@@ -56,13 +58,15 @@ export const Dashboard = ({
     });
     const [customTime, setCustomTime] = useState(false);
     const [filters, setFilters] = useState<Filter[]>([]);
-    const [timezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const [setting] = useAtom(localSettingAtom);
     const url = env.NEXT_PUBLIC_API_URL;
     const { data, isLoading } = useSWR<GetInsightResponse>(
-        `${url}?websiteId=${website.id
-        }&startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&timeZone=${timezone}&filter=${JSON.stringify(
-            filters,
-        )}&token=${token}`,
+        `${url}?websiteId=${
+            website.id
+        }&startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&timeZone=${
+            setting.timezone ?? timezone
+        }&filter=${JSON.stringify(filters)}&token=${token}`,
         fetcher,
     );
 
@@ -82,16 +86,16 @@ export const Dashboard = ({
         isFilterActive,
     };
 
-    const _timezones = {
-        ...ct.getAllTimezones(),
-        "Africa/Addis_Ababa": { name: "Africa/Addis_Ababa" },
-    };
-
     const [curTableTab, setCurTableTab] = useState("");
     const [viCardSwitch, setViCardSwitch] = useState<
         "New Visitors" | "Unique Visitors" | "Retaining Visitors"
     >("Unique Visitors");
-    const [isBar, setIsBar] = useState(false);
+    const [isBar, setIsBar] = useState(setting.graph === "bar-graph");
+    useEffect(() => {
+        if (setting) {
+            setIsBar(setting.graph === "bar-graph");
+        }
+    }, [setting]);
 
     return (
         <main>
@@ -104,29 +108,43 @@ export const Dashboard = ({
                 >
                     <Tabs defaultValue="insights" className="space-y-4">
                         {!isPublic ? (
-                            <TabsList>
-                                <TabsTrigger
-                                    value="insights"
-                                    className=" dark:data-[state=active]:text-emphasis data-[state=active]:text-emphasis"
-                                >
-                                    Insights
-                                </TabsTrigger>
-                                <TabsTrigger
-                                    value="events"
-                                    className=" dark:data-[state=active]:text-emphasis data-[state=active]:text-emphasis"
-                                    onClick={() => loglib.track("events-tab-clicked", {
-                                        websiteId: website.id,
-                                    })}
-                                >
-                                    Events
-                                </TabsTrigger>
-                            </TabsList>
+                            <div className=" flex items-center justify-between">
+                                <TabsList>
+                                    <TabsTrigger
+                                        value="insights"
+                                        className=" dark:data-[state=active]:text-emphasis data-[state=active]:text-emphasis"
+                                    >
+                                        Insights
+                                    </TabsTrigger>
+                                    <TabsTrigger
+                                        value="events"
+                                        className=" dark:data-[state=active]:text-emphasis data-[state=active]:text-emphasis"
+                                        onClick={() =>
+                                            loglib.track("events-tab-clicked", {
+                                                websiteId: website.id,
+                                            })
+                                        }
+                                    >
+                                        Events
+                                    </TabsTrigger>
+                                </TabsList>
+                                <div>
+                                    <Celebrate
+                                        pageview={data?.insight.totalPageViews.current}
+                                        uniqVisitor={data?.insight.uniqueVisitors.current}
+                                        websiteId={website.id}
+                                    />
+                                </div>
+                            </div>
                         ) : null}
                         <div className=" flex justify-between">
-                            <div className=" flex gap-2 items-center"
-                                onClick={() => loglib.track("date-picker-clicked", {
-                                    websiteId: website.id,
-                                })}
+                            <div
+                                className=" flex gap-2 items-center"
+                                onClick={() =>
+                                    loglib.track("date-picker-clicked", {
+                                        websiteId: website.id,
+                                    })
+                                }
                             >
                                 <DatePicker
                                     setTimeRange={setTimeRange}
@@ -178,10 +196,10 @@ export const Dashboard = ({
                                                     ? viCardSwitch === "New Visitors"
                                                         ? data.insight.newVisitors
                                                         : viCardSwitch === "Unique Visitors"
-                                                            ? data.insight.uniqueVisitors
-                                                            : viCardSwitch === "Retaining Visitors"
-                                                                ? data.insight.returningVisitor
-                                                                : { change: 0, current: 0 }
+                                                        ? data.insight.uniqueVisitors
+                                                        : viCardSwitch === "Retaining Visitors"
+                                                        ? data.insight.returningVisitor
+                                                        : { change: 0, current: 0 }
                                                     : { change: 0, current: 0 }
                                             }
                                             isLoading={isLoading}
@@ -189,10 +207,10 @@ export const Dashboard = ({
                                                 viCardSwitch === "New Visitors"
                                                     ? "The number of people visiting your website for the first time."
                                                     : viCardSwitch === "Unique Visitors"
-                                                        ? "The total number of different people who visited your website."
-                                                        : viCardSwitch === "Retaining Visitors"
-                                                            ? "The number of visitors who returned to your website multiple times."
-                                                            : ""
+                                                    ? "The total number of different people who visited your website."
+                                                    : viCardSwitch === "Retaining Visitors"
+                                                    ? "The number of visitors who returned to your website multiple times."
+                                                    : ""
                                             }
                                             BottomChildren={() => (
                                                 <div className=" cursor-pointer z-10">
@@ -210,10 +228,14 @@ export const Dashboard = ({
                                                                             | "Retaining Visitors",
                                                                     ) => {
                                                                         setViCardSwitch(v);
-                                                                        loglib.track("visitor-card-switched", {
-                                                                            websiteId: website.id,
-                                                                            switch: viCardSwitch
-                                                                        })
+                                                                        loglib.track(
+                                                                            "visitor-card-switched",
+                                                                            {
+                                                                                websiteId:
+                                                                                    website.id,
+                                                                                switch: viCardSwitch,
+                                                                            },
+                                                                        );
                                                                     }}
                                                                     defaultValue={viCardSwitch}
                                                                     className="grid gap-4"
@@ -291,7 +313,7 @@ export const Dashboard = ({
                                             tooltip=" The percentage of visitors who quickly exit your website without exploring further."
                                         />
                                     </div>
-                                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 grid-cols-1">
+                                    <div className="grid gap-4 min-h-max md:grid-cols-2 lg:grid-cols-7 grid-cols-1">
                                         <Card className="md:col-span-4 bg-stone-950">
                                             {curTableTab === "locations" ? (
                                                 <Fragment>
@@ -303,7 +325,7 @@ export const Dashboard = ({
                                                     <CardContent
                                                         className={cn(
                                                             curTableTab === "locations" &&
-                                                            "zoom-in-95",
+                                                                "zoom-in-95",
                                                         )}
                                                     >
                                                         <LocationMap
@@ -333,16 +355,25 @@ export const Dashboard = ({
                                                         </CardTitle>
                                                         <div className=" flex items-center gap-2">
                                                             <Tabs
-                                                                defaultValue="line"
+                                                                defaultValue={
+                                                                    isBar
+                                                                        ? "bar-graph"
+                                                                        : "line-graph"
+                                                                }
                                                                 onValueChange={(v) =>
-                                                                    setIsBar(v === "bar")
+                                                                    setIsBar(v === "bar-graph")
+                                                                }
+                                                                value={
+                                                                    isBar
+                                                                        ? "bar-graph"
+                                                                        : "line-graph"
                                                                 }
                                                             >
                                                                 <TabsList className=" bg-stone-900">
-                                                                    <TabsTrigger value="line">
+                                                                    <TabsTrigger value="line-graph">
                                                                         <LineChart size={18} />
                                                                     </TabsTrigger>
-                                                                    <TabsTrigger value="bar">
+                                                                    <TabsTrigger value="bar-graph">
                                                                         <BarChart size={18} />
                                                                     </TabsTrigger>
                                                                 </TabsList>
@@ -351,13 +382,16 @@ export const Dashboard = ({
                                                     </CardHeader>
                                                     <CardContent>
                                                         <div className="pl-2">
-                                                            <TabsContent value="visitors">
+                                                            <TabsContent
+                                                                value="visitors"
+                                                                className=" rounded-lg"
+                                                            >
                                                                 <Graph
                                                                     bar={isBar}
                                                                     data={
                                                                         data
                                                                             ? data.graph
-                                                                                .uniqueVisitorsByDate
+                                                                                  .uniqueVisitorsByDate
                                                                             : []
                                                                     }
                                                                     name="Visitors"
@@ -374,7 +408,7 @@ export const Dashboard = ({
                                                                     data={
                                                                         data
                                                                             ? data.graph
-                                                                                .uniqueSessionByDate
+                                                                                  .uniqueSessionByDate
                                                                             : []
                                                                     }
                                                                     name="Sessions"
@@ -398,6 +432,7 @@ export const Dashboard = ({
                                         />
                                     </div>
                                 </TabsContent>
+
                                 <TrackClick
                                     name="event-visited"
                                     payload={{

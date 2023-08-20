@@ -414,6 +414,9 @@ importers:
       react-animate-on-scroll:
         specifier: ^2.1.7
         version: 2.1.7(classnames@2.3.2)(react@18.2.0)
+      react-canvas-confetti:
+        specifier: ^1.4.0
+        version: 1.4.0(react@18.2.0)
       react-country-flag:
         specifier: ^3.1.0
         version: 3.1.0(react@18.2.0)
@@ -5196,6 +5199,10 @@ packages:
       '@types/node': 18.15.13
     dev: true
 
+  /@types/canvas-confetti@1.6.0:
+    resolution: {integrity: sha512-Yq6rIccwcco0TLD5SMUrIM7Fk7Fe/C0jmNRxJJCLtAF6gebDkPuUjK5EHedxecm69Pi/aA+It39Ux4OHmFhjRw==}
+    dev: false
+
   /@types/chai-subset@1.3.3:
     resolution: {integrity: sha512-frBecisrNGz+F4T6bcc+NLeolfiojh5FxW2klu669+8BARtyQv2C/GkNW6FUodVe4BroGMP/wER/YDGc7rEllw==}
     dependencies:
@@ -6213,6 +6220,10 @@ packages:
 
   /caniuse-lite@1.0.30001519:
     resolution: {integrity: sha512-0QHgqR+Jv4bxHMp8kZ1Kn8CH55OikjKJ6JmKkZYP1F3D7w+lnFXF70nG5eNfsZS89jadi5Ywy5UCSKLAglIRkg==}
+    dev: false
+
+  /canvas-confetti@1.6.0:
+    resolution: {integrity: sha512-ej+w/m8Jzpv9Z7W7uJZer14Ke8P2ogsjg4ZMGIuq4iqUOqY2Jq8BNW42iGmNfRwREaaEfFIczLuZZiEVSYNHAA==}
     dev: false
 
   /caseless@0.12.0:
@@ -12632,6 +12643,16 @@ packages:
       classnames: 2.3.2
       lodash.throttle: 4.1.1
       prop-types: 15.8.1
+      react: 18.2.0
+    dev: false
+
+  /react-canvas-confetti@1.4.0(react@18.2.0):
+    resolution: {integrity: sha512-ByBdSsNGUxlcJuOqSgbZw1VWNNO3b7njTmnuM1Y36mvwdCkCRs8rLkRAjn6MQK96LgWcfDVhr6ZT5olm2w8Zwg==}
+    peerDependencies:
+      react: '*'
+    dependencies:
+      '@types/canvas-confetti': 1.6.0
+      canvas-confetti: 1.6.0
       react: 18.2.0
     dev: false
 

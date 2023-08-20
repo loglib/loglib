@@ -2,6 +2,7 @@
 import { clickHandler } from "./handlers/clickHandler";
 import { send, sendEvents, sendPageView } from "./server";
 import { Config } from "./types";
+import { Logger } from "./utils/logger";
 import {
     addInterval,
     clearIntervals,
@@ -51,7 +52,8 @@ export function record(config?: Partial<Config>) {
         intervals: [],
         sdkVersion: packageJson.version,
     };
-    console.log("start recording...", window.llc);
+    const logger = new Logger(window.llc.debug)
+    logger.log("start recording...", window.llc);
     //Auto Tracker
     if (window.llc.autoTrack) {
         window.addEventListener("click", clickHandler);

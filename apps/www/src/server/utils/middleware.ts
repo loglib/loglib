@@ -21,6 +21,8 @@ export const protectedAction = async <T>(
     }
 };
 
+
+
 export const checkRole = async (user: User, teamId: string, role: ROLE[]) => {
     const teamUser = await db.teamUser.findFirst({
         where: {

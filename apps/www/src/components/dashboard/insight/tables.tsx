@@ -12,7 +12,7 @@ import { Asterisk, Link2Icon, MapPin, MonitorSmartphone, PanelTop } from "lucide
 import Link from "next/link";
 import ReactCountryFlag from "react-country-flag";
 
-type InsightTablesProps = {
+export type InsightTablesProps = {
     data?: GetInsightResponse;
     isLoading: boolean;
     setCurrentTableTab: (state: string) => void;
@@ -36,13 +36,16 @@ export const InsightTables = ({
         });
     }
     return (
-        <Card className=" md:col-span-3 bg-gradient-to-tr from-stone-950 to-stone-900/80">
-            <Tabs defaultValue="pages" onValueChange={(val) => {
-                setCurrentTableTab(val)
-                loglib.track("change-insight-table", {
-                    table: val
-                })
-            }}>
+        <Card className=" md:col-span-3 bg-gradient-to-tr from-stone-950 to-stone-900/50 ">
+            <Tabs
+                defaultValue="pages"
+                onValueChange={(val) => {
+                    setCurrentTableTab(val);
+                    loglib.track("change-insight-table", {
+                        table: val,
+                    });
+                }}
+            >
                 <TabsList className="md:w-full space-x-2 md:justify-start grid grid-cols-4">
                     <TabsTrigger value="pages" className=" space-x-2 ">
                         <PanelTop size={16} />
@@ -61,11 +64,8 @@ export const InsightTables = ({
                         <p>Devices</p>
                     </TabsTrigger>
                 </TabsList>
-                <TabsContent
-                    value="pages"
-                    className=" bg-gradient-to-tr from-stone-950 to-stone-900/50"
-                >
-                    <CardContent className=" bg-gradient-to-tr from-stone-950 to-stone-900/50">
+                <TabsContent value="pages" className=" p-0">
+                    <div className=" px-6 h-full p-0">
                         {isFilterActive("currentPath") ? (
                             <ClearFilter onClick={() => clearFilter("currentPath")} />
                         ) : null}
@@ -94,7 +94,15 @@ export const InsightTables = ({
                                         }
                                     >
                                         <a
-                                            href={websiteUrl ? `${websiteUrl}/${d.page}` : d.page}
+                                            href={
+                                                websiteUrl
+                                                    ? `${
+                                                          websiteUrl.endsWith("/")
+                                                              ? websiteUrl
+                                                              : `${websiteUrl}/`
+                                                      }${d.page}`
+                                                    : d.page
+                                            }
                                             className=" hover:underline"
                                         >
                                             {d.page}
@@ -106,12 +114,11 @@ export const InsightTables = ({
                             tip="Your pages and how many times they are visited :)"
                             isLoading={isLoading}
                         />
-                    </CardContent>
+                    </div>
                 </TabsContent>
-
                 {/* Locations */}
-                <TabsContent value="locations" className=" bg-stone-950">
-                    <CardContent className=" bg-stone-950">
+                <TabsContent value="locations">
+                    <CardContent>
                         <Tabs className=" w-full" defaultValue="country">
                             {isFilterActive("country") || isFilterActive("city") ? (
                                 <ClearFilter
@@ -216,7 +223,7 @@ export const InsightTables = ({
                                                 }
                                             >
                                                 {location.location === "Unknown" ||
-                                                    !location.location ? (
+                                                !location.location ? (
                                                     <>
                                                         <Link2Icon />
                                                         Unknown
@@ -308,7 +315,7 @@ export const InsightTables = ({
                                                     {refs.referrer.split(".").length > 1
                                                         ? refs.referrer
                                                         : refs.referrer.charAt(0).toUpperCase() +
-                                                        refs.referrer.slice(1)}
+                                                          refs.referrer.slice(1)}
                                                 </Link>
                                             </TableCell>
                                             <TableCell className="text-right">
@@ -414,8 +421,8 @@ export const InsightTables = ({
                     <CardContent className=" bg-stone-950/30">
                         <Tabs className=" w-full" defaultValue="general">
                             {isFilterActive("device") ||
-                                isFilterActive("os") ||
-                                isFilterActive("browser") ? (
+                            isFilterActive("os") ||
+                            isFilterActive("browser") ? (
                                 <ClearFilter
                                     onClick={() => {
                                         clearFilter("device");

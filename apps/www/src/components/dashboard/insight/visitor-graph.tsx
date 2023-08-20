@@ -34,7 +34,7 @@ export function Graph({
     }, []);
     const ParentDiv = bar ? BarChart : LineChart;
     return (
-        <ResponsiveContainer width="100%" height={isMobile ? 250 : 350}>
+        <ResponsiveContainer width="100%" height={isMobile ? 250 : 400} className=" rounded-lg">
             {data.length ? (
                 <ParentDiv
                     data={data}

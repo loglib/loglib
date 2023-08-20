@@ -1,3 +1,4 @@
+import { Logger } from "./utils/logger";
 import { flush, getSessionDuration, getUrlParams, getVisitorId, isDevelopment } from "./utils/util";
 
 export function sendPageView(currentRef: string, currentUrl: string) {
@@ -23,13 +24,14 @@ export async function send(
     onSuccess?: () => void,
     onError?: () => void,
 ) {
+    const logger = new Logger(window.llc.debug)
     const url = window.llc.host;
     if (!data || (Array.isArray(data) && data.length === 0)) {
-        console.log("skipping empty request...");
+        logger.log("skipping empty request...");
         return;
     }
     if (isDevelopment()) {
-        console.log("skipping development logs...");
+        logger.log("skipping development logs...");
         return;
     }
     const currentUrl = window.lli.currentUrl;
@@ -50,7 +52,7 @@ export async function send(
         duration: (Date.now() - window.lli.timeOnPage) / 1000,
         ...data,
     };
-    console.log("sending...", dataToSend);
+    logger.log("sending...", dataToSend);
     let retryCount = 0;
     const maxRetries = 3;
     async function sendRequest(host: string) {
@@ -79,12 +81,12 @@ export async function send(
                 } else {
                     await retry();
                 }
-                console.error(xhr.statusText);
+                logger.error(xhr.statusText);
             };
             xhr.onerror = async () => {
                 onError?.();
                 await retry();
-                console.error("Couldn't send request to the server. See the XHR error.");
+                logger.error("Couldn't send request to the server. See the XHR error.");
             };
             xhr.send(JSON.stringify(dataToSend));
         }
@@ -92,10 +94,10 @@ export async function send(
     async function retry() {
         if (retryCount < maxRetries) {
             retryCount++;
-            console.log(`Retrying request. Attempt ${retryCount} of ${maxRetries}...`);
+            logger.log(`Retrying request. Attempt ${retryCount} of ${maxRetries}...`);
             await new Promise((resolve) => setTimeout(resolve, 1000 * retryCount));
         } else {
-            console.error("Request failed after multiple retries.");
+            logger.error("Request failed after multiple retries.");
         }
     }
     if (Array.isArray(url)) {
