@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { sendVisitor } from "./server";
-import { guid, q } from "./utils/util";
+import { getSessionDuration, getUrlParams, guid, q } from "./utils/util";
 
 export const track = (name: string, payload: Record<string, any> = {}) => {
     const event = {
@@ -9,6 +9,11 @@ export const track = (name: string, payload: Record<string, any> = {}) => {
         eventType: "manual",
         payload,
         page: window.location.pathname,
+        referrerPath: window.lli.currentUrl,
+        referrerDomain: window.lli.currentRef,
+        duration: getSessionDuration(),
+        pageId: window.lli.pageId,
+        queryParams: getUrlParams(),
     };
     q(event);
 };
