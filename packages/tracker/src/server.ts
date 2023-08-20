@@ -55,7 +55,7 @@ export async function send(
     onSuccess?: () => void,
     onError?: () => void,
 ) {
-    const logger = new Logger(window.llc.debug);
+    const logger = Logger(window.llc.debug);
     const url = window.llc.host;
     if (!data || (Array.isArray(data) && data.length === 0)) {
         logger.log("skipping empty request...");

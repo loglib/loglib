@@ -1,14 +1,12 @@
-export class Logger {
-    debug: boolean
-    constructor(debug: boolean) {
-        this.debug = debug
-    }
-    log(...args: any[]) {
-        this.debug &&
-            console.log(...args)
-    }
-    error(...args: any[]) {
-        this.debug &&
-            console.error(...args)
+export const Logger = (debug: boolean) => {
+    return {
+        log(...args: any[]) {
+            debug &&
+                console.log(...args)
+        },
+        error(...args: any[]) {
+            debug &&
+                console.error(...args)
+        }
     }
 }

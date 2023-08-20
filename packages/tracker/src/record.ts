@@ -51,7 +51,7 @@ export function record(config?: Partial<Config>) {
         intervals: [],
         sdkVersion: packageJson.version,
     };
-    const logger = new Logger(window.llc.debug)
+    const logger = Logger(window.llc.debug)
     logger.log("start recording...", window.llc);
     //Auto Tracker
     if (window.llc.autoTrack) {
