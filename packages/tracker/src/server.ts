@@ -2,42 +2,11 @@ import { Logger } from "./utils/logger";
 import { flush, getSessionDuration, getUrlParams, getVisitorId, isDevelopment } from "./utils/util";
 
 export function sendPageView(currentRef: string, currentUrl: string) {
-    send(
-        {
-            id: window.lli.pageId,
-            currentPath: currentUrl,
-            referrerPath: currentRef,
-        },
-        "/hits",
-    );
-}
-
-export function sendEvents() {
-    if (window.lli.eventsBank.length) {
-        send({ events: window.lli.eventsBank, pageId: window.lli.pageId, duration: getSessionDuration() }, "/event", flush);
-    }
-}
-
-export async function send(
-    data: Record<string, any> | Array<Record<string, any>>,
-    path: string,
-    onSuccess?: () => void,
-    onError?: () => void,
-) {
-    const logger = new Logger(window.llc.debug)
-    const url = window.llc.host;
-    if (!data || (Array.isArray(data) && data.length === 0)) {
-        logger.log("skipping empty request...");
-        return;
-    }
-    if (isDevelopment()) {
-        logger.log("skipping development logs...");
-        return;
-    }
-    const currentUrl = window.lli.currentUrl;
-    const currentRef = window.lli.currentRef;
     const dataToSend = {
-        path,
+        id: window.lli.pageId,
+        path: "/hits",
+        currentPath: currentUrl,
+        referrerPath: currentRef,
         referrerDomain: document.referrer,
         websiteId: window.llc.id,
         host: location.href,
@@ -47,20 +16,63 @@ export async function send(
         screenWidth: window.screen.width,
         language: navigator.language,
         queryParams: getUrlParams(),
-        currentPath: currentUrl,
-        referrerPath: currentRef,
+        pageId: window.lli.pageId,
         duration: (Date.now() - window.lli.timeOnPage) / 1000,
-        ...data,
     };
-    logger.log("sending...", dataToSend);
+    send(dataToSend);
+}
+
+export function sendEvents() {
+    if (window.lli.eventsBank.length) {
+        const eventToSend = {
+            path: "/event",
+            events: window.lli.eventsBank,
+            websiteId: window.llc.id,
+            visitorId: getVisitorId(),
+            sessionId: window.lli.sessionId,
+            pageId: window.lli.pageId,
+            duration: getSessionDuration(),
+        };
+        send(eventToSend, flush);
+    }
+}
+
+export function sendVisitor(payload: Record<string, string>) {
+    const visitorToSend = {
+        path: "/visitor",
+        data: payload,
+        websiteId: window.llc.id,
+        visitorId: getVisitorId(),
+        sessionId: window.lli.sessionId,
+        pageId: window.lli.pageId,
+        duration: getSessionDuration(),
+    };
+    send(visitorToSend);
+}
+
+export async function send(
+    data: Record<string, any> | Array<Record<string, any>>,
+    onSuccess?: () => void,
+    onError?: () => void,
+) {
+    const logger = new Logger(window.llc.debug);
+    const url = window.llc.host;
+    if (!data || (Array.isArray(data) && data.length === 0)) {
+        logger.log("skipping empty request...");
+        return;
+    }
+    if (isDevelopment()) {
+        logger.log("skipping development logs...");
+        return;
+    }
+    logger.log("sending...", data);
     let retryCount = 0;
     const maxRetries = 3;
     async function sendRequest(host: string) {
         try {
             if (!window.llc.useBeacon) {
-                // eslint-disable-next-line @typescript-eslint/no-floating-promises
                 await fetch(host, {
-                    body: JSON.stringify(dataToSend),
+                    body: JSON.stringify(data),
                     method: "POST",
                     keepalive: true,
                     headers: {
@@ -68,7 +80,7 @@ export async function send(
                     },
                 }).then(() => onSuccess?.());
             } else {
-                navigator.sendBeacon(host, JSON.stringify(dataToSend));
+                navigator.sendBeacon(host, JSON.stringify(data));
                 onSuccess?.();
             }
         } catch {
@@ -88,7 +100,7 @@ export async function send(
                 await retry();
                 logger.error("Couldn't send request to the server. See the XHR error.");
             };
-            xhr.send(JSON.stringify(dataToSend));
+            xhr.send(JSON.stringify(data));
         }
     }
     async function retry() {

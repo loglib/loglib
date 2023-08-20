@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { clickHandler } from "./handlers/clickHandler";
-import { send, sendEvents, sendPageView } from "./server";
+import { sendEvents, sendPageView } from "./server";
 import { Config } from "./types";
 import { Logger } from "./utils/logger";
 import {
     addInterval,
     clearIntervals,
     detectEnvironment,
-    flush,
     getPath,
     getUrl,
     guid,
@@ -63,7 +62,7 @@ export function record(config?: Partial<Config>) {
         window.llc.env = env;
     }
     const eventsInterval = setInterval(() => {
-        send(window.lli.eventsBank, "/event", flush);
+        sendEvents()
     }, window.llc.postInterval * 1000);
     addInterval(eventsInterval);
     //Navigation Handler
