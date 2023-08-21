@@ -1,6 +1,6 @@
 import { env } from "./env.mjs";
 import { withContentlayer } from "next-contentlayer";
-import million from "million/compiler"
+import million from "million/compiler";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
@@ -33,8 +33,8 @@ const nextConfig = {
     transpilePackages: ["@loglib/tracker", "@loglib/api"],
 };
 export default million.next(withContentlayer(nextConfig), {
-    auto:{
+    auto: {
         rsc: true,
-        threshold: 0.5
-    }
-})
+        threshold: 0.5,
+    },
+});

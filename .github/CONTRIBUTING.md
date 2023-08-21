@@ -42,7 +42,7 @@ cd apps/api
 pnpm setup:clickhouse
 ```
 
-## Build
+## Build the packages
 
 ```sh-session
 pnpm build
