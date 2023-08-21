@@ -1,5 +1,12 @@
 # @loglib/tracker
 
+## 0.6.3
+
+### Patch Changes
+
+- 483b047: - event payload fix
+- f1a892d: - logging fix
+
 ## 0.6.2
 
 ### Patch Changes
