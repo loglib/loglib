@@ -10,7 +10,7 @@ const LocationMap = ({
         value: d.visits,
     }));
     return (
-        <div className=" flex justify-center items-center animate-in ">
+        <div className=" flex justify-center items-center animate-in min-h-[400px]">
             {!data.length ? (
                 <div className=" flex items-center h-full justify-center relative">
                     <p className=" text-center animate-pulse bg-gradient-to-tr from-emphasis absolute to-white/80 text-transparent bg-clip-text">

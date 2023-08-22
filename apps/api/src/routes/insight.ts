@@ -1,4 +1,3 @@
-import { env } from "../../env";
 import { LoglibEvent } from "../type";
 
 export const getInsight = (events: LoglibEvent[], pastEvents: LoglibEvent[]) => {

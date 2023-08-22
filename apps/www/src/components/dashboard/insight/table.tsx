@@ -48,7 +48,7 @@ export function InsightTable<T>({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [term, data]);
     return (
-        <ScrollArea className=" md:h-96 h-72">
+        <ScrollArea className=" md:h-96 xl:h-[450px] h-80">
             <Table>
                 <TableCaption>{tip}</TableCaption>
                 <TableHeader>

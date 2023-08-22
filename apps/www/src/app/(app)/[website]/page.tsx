@@ -38,25 +38,25 @@ export default async function Page({
     if (!website || (!isAuthed && !dbWebsite[0].public)) {
         return redirect("/");
     }
-    const isPublic = !isAuthed ? true : false;
+    const isPublic = website.public === 1;
     const showSetup = isPublic
         ? false
         : website.active === 1
-            ? false
-            : await (async () => {
-                const haveSession = (await getIsWebsiteActive({ websiteId: params.website })).length;
-                if (haveSession) {
-                    await db
-                        .updateTable("website")
-                        .set({
-                            active: 1,
-                        })
-                        .where("id", "=", params.website)
-                        .executeTakeFirst();
-                    return false;
-                }
-                return true;
-            })();
+        ? false
+        : await (async () => {
+              const haveSession = (await getIsWebsiteActive({ websiteId: params.website })).length;
+              if (haveSession) {
+                  await db
+                      .updateTable("website")
+                      .set({
+                          active: 1,
+                      })
+                      .where("id", "=", params.website)
+                      .executeTakeFirst();
+                  return false;
+              }
+              return true;
+          })();
     return (
         <main>
             <Dashboard website={website} isPublic={isPublic} showSetup={showSetup} token={token} />

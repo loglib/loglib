@@ -56,7 +56,7 @@ export const LandingGraph = () => {
                         400 Visitors
                     </text>
                 </g>
-                <g id="horizontalLinesGroup" fill="none" stroke="#FFF" stroke-miterlimit="10">
+                <g id="horizontalLinesGroup" fill="none" stroke="#FFF" strokeMiterlimit="10">
                     <motion.line
                         x1="780"
                         y1="481.7"

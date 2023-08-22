@@ -31,9 +31,11 @@ export function InsightCard({
 }: InsightType) {
     const increase = negative ? data.change <= 0 : data.change >= 0;
     return (
-        <Card className=" bg-gradient-to-tr dark:to-stone-900/70  dark:from-stone-950 border from-white to-gray-100">
+        <Card className=" bg-gradient-to-tr relative dark:to-stone-900/70  dark:from-stone-950 border from-white to-gray-100">
+            <span className=" absolute h-1/2 blur-xl bg-gradient-to-tr from-stone-900/60 rounded-md to-brand-950/30 top-10 right-2 w-1/2"></span>
+            <span className="absolute top-0 h-px blur-sm left-1/2 w-1/2 bg-gradient-circle from-stone-500/60 rounded-md to-brand-800/30"></span>
             <CardHeader className=" flex flex-row  items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">{title}</CardTitle>
+                <CardTitle className="text-sm font-medium xl:text-base">{title}</CardTitle>
                 <TooltipProvider>
                     <Tooltip>
                         <TooltipTrigger asChild className=" cursor-pointer">
@@ -47,16 +49,16 @@ export function InsightCard({
             </CardHeader>
             {!isLoading && data ? (
                 <CardContent className="">
-                    <div className="text-2xl font-bold">{`${
+                    <div className="text-2xl xl:text-3xl font-bold">{`${
                         data.current ? data.current.toLocaleString() : 0
                     } ${valuePrefix ?? ""}`}</div>
-                    <div className=" flex justify-between">
+                    <div className=" flex justify-between items-center">
                         {data.change ? (
-                            <div className=" flex text-xs">
+                            <div className=" flex text-xs xl:text-sm items-center">
                                 {increase ? (
-                                    <ArrowUpIcon className=" text-green-500" size={16} />
+                                    <ArrowUpIcon className=" text-green-500 w-4 xl:w-5" />
                                 ) : (
-                                    <ArrowDown className=" text-red-500" size={16} />
+                                    <ArrowDown className=" text-red-500 w-4 xl:w-5" />
                                 )}
                                 <div>
                                     {" "}

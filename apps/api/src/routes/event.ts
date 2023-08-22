@@ -1,5 +1,6 @@
 import { apiResponse } from "../lib/api-response";
 import { client } from "../lib/db/clickhouse";
+import { getDevice } from "../lib/detect/get-device";
 import { getIpAddress } from "../lib/detect/get-ip-address";
 import { getLocation } from "../lib/detect/get-location";
 import { setVisitorId } from "../lib/set-visitor-id";
@@ -15,41 +16,31 @@ export const eventSchema = z.object({
             eventType: z.string(),
             payload: z.record(z.any()).optional(),
             page: z.string(),
+            referrerPath: z.string(),
+            referrerDomain: z.string(),
+            duration: z.number().default(0),
+            pageId: z.string().optional(),
+            queryParams: z.record(z.any()),
         }),
     ),
-    pageId: z.string().optional(),
     sessionId: z.string(),
     visitorId: z.string().optional(),
     websiteId: z.string(),
+    screenWidth: z.number(),
+    language: z.string(),
 });
 
 export const createEvents: RouteType = async ({ rawBody, req }) => {
     const body = eventSchema.safeParse(rawBody);
-    console.log(body)
+    console.log(body, rawBody)
     if (body.success) {
         const ipAddress = getIpAddress(req);
-        const { visitorId, websiteId, sessionId, events, pageId } = body.data;
-        const session = await client
-            .query({
-                query: `select * from loglib.event where sessionId = '${sessionId}' limit 1`,
-                format: "JSONEachRow",
-            })
-            .then(async (res) => await res.json());
+        const { visitorId, websiteId, sessionId, language, events, screenWidth } = body.data;
         const { city, country } = await getLocation(ipAddress, req);
         const userAgent = req.headers["user-agent"] ?? "unknown";
         const browser = browserName(userAgent) ?? "unknown";
         const os = detectOS(userAgent) ?? "Mac OS";
-        if (!session[0])
-            return {
-                data: { message: "session not found" },
-                status: 200,
-            };
-        const properties = JSON.parse(session[0].properties);
-        const device = properties.device ?? "desktop";
-        const language = properties.language ?? "en";
-        const queryParams = properties.queryParams;
-        const referrerPath = properties.referrerPath;
-        const referrerDomain = properties.referrerDomain ?? "unknown";
+        const device = getDevice(screenWidth, os);
         events.map(async (event) => {
             await client.insert({
                 table: "loglib.event",
@@ -62,17 +53,18 @@ export const createEvents: RouteType = async ({ rawBody, req }) => {
                     properties: JSON.stringify({
                         payload: event.payload ?? {},
                         currentPath: event.page,
-                        referrerPath,
-                        referrerDomain,
+                        referrerPath: event.referrerPath,
+                        referrerDomain: event.referrerDomain,
                         type: event.eventType,
-                        queryParams,
-                        pageId,
+                        queryParams: event.queryParams ? JSON.stringify(event.queryParams) : "{}",
+                        pageId: event.pageId,
                         city,
                         country,
+                        duration: event.duration,
                         browser,
                         os,
                         device,
-                        language,
+                        language: language ?? "en",
                     }),
                     sign: 1,
                 },

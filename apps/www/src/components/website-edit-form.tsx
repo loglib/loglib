@@ -19,7 +19,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 import { toast } from "./ui/use-toast";
 import { siteConfig } from "@/config/site";
-import { Website } from "generated/client";
+import { Website } from "@prisma/client";
 import Link from "next/link";
 
 export const EditWebsiteForm = ({
@@ -218,7 +218,7 @@ export const EditWebsiteForm = ({
                                                             </TooltipTrigger>
                                                             <TooltipContent>
                                                                 <p className=" text-sm">
-                                                                    Public page is will make your
+                                                                    Public page will make your
                                                                     website public and accessible to
                                                                     anyone with the link.
                                                                 </p>

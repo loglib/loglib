@@ -1,15 +1,11 @@
-# LogLib
+# Loglib
 
-## The web analytics you will actually use
+## Crafted with care, privacy first, open source web analytics
 
 ![npm](https://img.shields.io/npm/v/@loglib/tracker) ![npm bundle size](https://img.shields.io/bundlephobia/min/@loglib/tracker) ![GitHub license](https://img.shields.io/github/license/LogLib/loglib) ![GitHub issues](https://img.shields.io/github/issues/LogLib/loglib) ![GitHub stars](https://img.shields.io/github/stars/LogLib/loglib)
 
 <p align="center" class="dark-mode">
-  <img src="./images/dark-logo-v1.png#gh-dark-mode-only" alt="screenshot" height="350" />
-</p>
-
-<p align="center" class="light-mode">
-  <img src="./images/dark-logo-v1.png#gh-light-mode-only" alt="screenshot" height="350" />
+  <img src="./images/dashboard.png" alt="screenshot" height="450" />
 </p>
 
 ## What is Loglib?

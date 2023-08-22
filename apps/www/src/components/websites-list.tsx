@@ -9,7 +9,7 @@ import { Website } from "./website";
 import { WebsiteCreateButton } from "./website-create-button";
 import { DeleteWebsiteAlert } from "./website-delete-alert";
 import { EditWebsiteForm } from "./website-edit-form";
-import { Website as WebsiteType } from "generated/client";
+import { Website as WebsiteType } from "@prisma/client";
 
 export const WebsitesList = () => {
     const [websites] = useAtom(websitesAtom);

@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/client"
 }
 
 generator kysely {
@@ -179,23 +178,6 @@ model TeamUserInvite {
 model Disallowed {
   id       String @id @default(cuid())
   identity String
-}
-
-model auth_key {
-  id              String  @id
-  user_id         String
-  hashed_password String?
-
-  @@index([user_id])
-}
-
-model auth_session {
-  id             String @id
-  user_id        String
-  active_expires BigInt
-  idle_expires   BigInt
-
-  @@index([user_id])
 }
 
 enum ROLE {

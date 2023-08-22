@@ -10,7 +10,7 @@ There are few services that are required to run the app:
 - **Clickhouse Database:** you can run clickhouse db locally using docker
   
 ```sh-session
-docker run -d --name clickhouse-server -p 9000:9000 --ulimit nofile=262144:262144 yandex/clickhouse-server
+docker run -d --name clickhouse-server -p 8123:8123 --ulimit nofile=262144:262144 yandex/clickhouse-server
 ```
 
 You will need to set environment variables in /apps/www/.env and/or /apps/api/.env respectively and populate the values from the services above. You can use the following commands to copy the example files:
@@ -42,7 +42,7 @@ cd apps/api
 pnpm setup:clickhouse
 ```
 
-## Build
+## Build the packages
 
 ```sh-session
 pnpm build
@@ -53,7 +53,7 @@ pnpm build
 Add a `.env` file in `/apps/api/.env` and populate the values from the services above.
 
 ```sh-session
-cp apps/api/.dev.vars.example apps/api/.dev.vars
+cp apps/api/.env.example apps/api/.env
 ```
 
 Then run the api:

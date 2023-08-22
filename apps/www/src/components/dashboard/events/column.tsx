@@ -4,7 +4,6 @@ import COUNTRIES from "@/lib/constants";
 import { EventsWithData } from "@loglib/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { ChevronDown, ChevronRight, ChevronsUpDown, UnfoldVertical } from "lucide-react";
-
 export const columns: ColumnDef<EventsWithData[0]>[] = [
     {
         id: "expander",
@@ -53,9 +52,7 @@ export const columns: ColumnDef<EventsWithData[0]>[] = [
             );
         },
         cell: ({ row }) => {
-            const currentDate = new Date();
-            const eventDate = new Date(row.original.timestamp);
-            const diff = currentDate.getTime() - eventDate.getTime();
+            const diff = Date.now() - Date.parse(row.original.timestamp as unknown as string);
             const hours = Math.floor(diff / (1000 * 60 * 60));
             const minutes = Math.floor(diff / (1000 * 60));
             const seconds = Math.floor(diff / 1000);

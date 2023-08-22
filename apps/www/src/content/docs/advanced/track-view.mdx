@@ -1,0 +1,20 @@
+---
+title: Track View
+---
+
+Track view is a react helper that let you track element in a view. You just wrap your component with TrackView and it will automatically track the element in the view.
+
+## Usage
+
+```tsx
+import { TrackView } from '@loglib/tracker/react';
+const MyComponent = () => {
+  return (
+    <TrackView name="my-componet" payload={{
+        foo: "bar"
+    }}>
+      <div>My Component</div>
+    </TrackView>
+  );
+};
+```
