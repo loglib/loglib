@@ -53,7 +53,7 @@ pnpm build
 Add a `.env` file in `/apps/api/.env` and populate the values from the services above.
 
 ```sh-session
-cp apps/api/.dev.vars.example apps/api/.dev.vars
+cp apps/api/.env.example apps/api/.env
 ```
 
 Then run the api:
