@@ -8,7 +8,14 @@ import { Icons } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-export function UserAuthForm({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
+    className?: string;
+    activeStrategy: {
+        github?: boolean,
+        google?: boolean
+    }
+}
+export function UserAuthForm({ className, activeStrategy, ...props }: Props) {
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
     const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false);
     const searchParams = useSearchParams();
@@ -22,42 +29,46 @@ export function UserAuthForm({ className, ...props }: React.HTMLAttributes<HTMLD
                     <span className="bg-background text-muted-foreground px-2">continue with</span>
                 </div>
             </div>
-            <button
-                type="button"
-                className={cn(buttonVariants({ variant: "outline" }))}
-                onClick={() => {
-                    setIsGitHubLoading(true);
-                    signIn("github", {
-                        callbackUrl: searchParams?.get("from") || "/dashboard",
-                    });
-                }}
-                disabled={isLoading || isGitHubLoading}
-            >
-                {isGitHubLoading ? (
-                    <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-                ) : (
-                    <Icons.gitHub className="mr-2 h-4 w-4" />
-                )}{" "}
-                Github
-            </button>
-            <button
-                type="button"
-                className={cn(buttonVariants({ variant: "outline" }))}
-                onClick={() => {
-                    setIsLoading(true);
-                    signIn("google", {
-                        callbackUrl: "/dashboard",
-                    });
-                }}
-                disabled={isLoading || isGitHubLoading}
-            >
-                {isLoading ? (
-                    <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-                ) : (
-                    <Icons.google className="mr-2 h-4 w-4 dark:fill-white" />
-                )}{" "}
-                Google
-            </button>
+            {
+                activeStrategy.github && <button
+                    type="button"
+                    className={cn(buttonVariants({ variant: "outline" }))}
+                    onClick={() => {
+                        setIsGitHubLoading(true);
+                        signIn("github", {
+                            callbackUrl: searchParams?.get("from") || "/dashboard",
+                        });
+                    }}
+                    disabled={isLoading || isGitHubLoading}
+                >
+                    {isGitHubLoading ? (
+                        <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                    ) : (
+                        <Icons.gitHub className="mr-2 h-4 w-4" />
+                    )}
+                    Github
+                </button>
+            }
+            {
+                activeStrategy.google && <button
+                    type="button"
+                    className={cn(buttonVariants({ variant: "outline" }))}
+                    onClick={() => {
+                        setIsLoading(true);
+                        signIn("google", {
+                            callbackUrl: "/dashboard",
+                        });
+                    }}
+                    disabled={isLoading || isGitHubLoading}
+                >
+                    {isLoading ? (
+                        <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                    ) : (
+                        <Icons.google className="mr-2 h-4 w-4 dark:fill-white" />
+                    )}
+                    Google
+                </button>
+            }
         </div>
     );
 }

@@ -4,8 +4,8 @@
 
 ![npm](https://img.shields.io/npm/v/@loglib/tracker) ![npm bundle size](https://img.shields.io/bundlephobia/min/@loglib/tracker) ![GitHub license](https://img.shields.io/github/license/LogLib/loglib) ![GitHub issues](https://img.shields.io/github/issues/LogLib/loglib) ![GitHub stars](https://img.shields.io/github/stars/LogLib/loglib)
 
-<p align="center" class="dark-mode">
-  <img src="./images/dashboard.png" alt="screenshot" height="450" />
+<p align="center">
+  <img src="./images/dashboard.png" alt="screenshot" height="300" />
 </p>
 
 ## What is Loglib?

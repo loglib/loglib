@@ -5,6 +5,7 @@ import { Icons } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { UserAuthForm } from "@/components/user-auth-form";
 import { cn } from "@/lib/utils";
+import { env } from "env.mjs";
 
 export const metadata: Metadata = {
     title: "Login",
@@ -12,6 +13,10 @@ export const metadata: Metadata = {
 };
 
 export default function LoginPage() {
+    const active = {
+        github: !!env.GITHUB_CLIENT_ID,
+        google: !!env.GOOGLE_CLIENT_ID,
+    }
     return (
         <div className="container  flex h-screen w-screen flex-col items-center justify-center">
             <Link
@@ -33,8 +38,7 @@ export default function LoginPage() {
                         <h2 className="  text-3xl font-bold">LOGLIB</h2>
                     </div>
                 </div>
-
-                <UserAuthForm />
+                <UserAuthForm activeStrategy={active} />
             </div>
         </div>
     );
