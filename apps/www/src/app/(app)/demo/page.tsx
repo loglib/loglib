@@ -4,11 +4,11 @@ import { generateToken } from "@/lib/generate-token";
 const DemoPage = () => {
     const token = generateToken({ website: "loglib", name: "", id: "loglib" });
     return (
-
         <Dashboard
             website={{
                 id: "loglib",
                 url: "https://loglib.io",
+                title: "Loglib",
             }}
             showSetup={false}
             token={token}

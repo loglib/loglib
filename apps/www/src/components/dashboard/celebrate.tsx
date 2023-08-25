@@ -1,5 +1,5 @@
-import { PartyPopper, Settings } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Download, EyeIcon, PartyPopper, Settings, User } from "lucide-react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactCanvasConfetti from "react-canvas-confetti";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
@@ -13,22 +13,36 @@ import { AnimatePresence, motion } from "framer-motion";
 import { getLast24Hour } from "@/lib/time-helper";
 import { block } from "million/react";
 import { loglib } from "@loglib/tracker";
+import { InsightCard } from "./insight/card";
+import { getToday } from "../../lib/time-helper";
+import { Icons } from "../icons";
+import html2canvas from "html2canvas";
 
 function getAnimationSettings(angle: number, originX: number) {
     return {
-        particleCount: 1,
+        particleCount: 4,
         angle,
-        spread: 40,
+        spread: 90,
         origin: { x: originX },
-        colors: ["#d27800", "#ffffff"],
+        colors: ["#d27800", "#f5a623", "#f8c471", "#ffffff", "#8cbe3f "],
     };
 }
 
-export function CelebrateFn({
-    pageview,
-    uniqVisitor,
-    websiteId,
-}: { pageview?: number; uniqVisitor?: number; websiteId?: string }) {
+type Props = {
+    pageview: {
+        change: number;
+        current: number;
+    };
+    uniqVisitor: {
+        change: number;
+        current: number;
+    };
+    websiteId?: string;
+    time?: string;
+    title?: string;
+};
+
+export function CelebrateFn({ pageview, uniqVisitor, websiteId, time, title }: Props) {
     const refAnimationInstance = useRef<confetti.CreateTypes | null>();
     const [intervalId, setIntervalId] = useState<any>();
     const [show, setShow] = useState(false);
@@ -68,7 +82,7 @@ export function CelebrateFn({
         if (intervalId) {
             setTimeout(() => {
                 pauseAnimation();
-            }, 5000);
+            }, 20000);
         }
     }, [intervalId]);
 
@@ -76,7 +90,8 @@ export function CelebrateFn({
         if (cSetting.enabled && uniqVisitor) {
             const last24 = getLast24Hour();
             const shownToday = cSetting.lastShown > last24.getTime();
-            if (!shownToday && uniqVisitor >= cSetting.uniqueVisitors) {
+            if (!shownToday && uniqVisitor.current >= cSetting.uniqueVisitors) {
+                setMsg("Yooo! today your site stats have been 🤯");
                 setShow(true);
                 startAnimation();
                 setCSetting((p) => ({
@@ -91,6 +106,42 @@ export function CelebrateFn({
             }
         }
     }, [cSetting.lastShown, uniqVisitor]);
+
+    const handleDownloadImage = async () => {
+        const element = document.getElementById("stat");
+        if (!element) {
+            throw new Error("Element not found");
+        }
+        const canvas = await html2canvas(element);
+        const data = canvas.toDataURL("image/jpg");
+        const link = document.createElement("a");
+
+        link.href = data;
+        link.download = "downloaded-image.jpg";
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+    function getTimeString() {
+        switch (time) {
+            case "24hr":
+                return "Today";
+            case "7days":
+                return "Last 7 days";
+            case "thisWeek":
+                return "This Week";
+            case "last30":
+                return "Last 30 days";
+            case "thisMonth":
+                return "This Month";
+            case "last90":
+                return "Last 90 days";
+            default:
+                return "";
+        }
+    }
+    const [msg, setMsg] = useState(`Yooo! ${getTimeString()} your site stats have been 🤯`);
     return (
         <>
             <div className="flex items-center gap-2">
@@ -100,6 +151,7 @@ export function CelebrateFn({
                     className=" flex items-center gap-2"
                     onClick={() => {
                         startAnimation();
+                        setShow(true);
                         loglib.track("celebrate-animation-clicked", {
                             uniqVisitor,
                             websiteId,
@@ -148,6 +200,7 @@ export function CelebrateFn({
                     <Modal
                         isOpen={show}
                         onRequestClose={() => {
+                            startAnimation();
                             setShow(false);
                             pauseAnimation();
                         }}
@@ -161,6 +214,7 @@ export function CelebrateFn({
                         }}
                     >
                         <motion.div
+                            id="stat"
                             variants={{
                                 hidden: {
                                     opacity: 0,
@@ -181,15 +235,60 @@ export function CelebrateFn({
                                 ease: "easeInOut",
                                 duration: 0.3,
                             }}
-                            className="animate-in relative flex w-11/12 flex-col  justify-center rounded-md border bg-gradient-to-tr from-gray-100 to-gray-200 px-8 pb-10 pt-4 dark:from-black dark:to-stone-900/20 md:w-3/12"
+                            className="animate-in relative flex w-11/12 flex-col  justify-center rounded-md border bg-gradient-to-tr from-gray-100 to-gray-200 px-8 pb-10 pt-4 dark:from-black dark:to-stone-900/80 md:w-max"
                         >
-                            {/* TODO: Imporve this make it more intersting */}
-                            <h3 className=" text-2xl text-center">
-                                Yooo! today your site stats have been 🤯{" "}
-                                <h4 className=" text-brand-600 font-bold text-xl">
-                                    {uniqVisitor} Unique Visitor & {pageview} Page Views
-                                </h4>
-                            </h3>
+                            <div className=" text-lg text-center">
+                                <p className=" my-4 font-bold">{msg}</p>
+                                <div className=" font-bold text-xl flex flex-col space-y-2">
+                                    <div>
+                                        <InsightCard
+                                            title="Unique Visitors"
+                                            Icon={User}
+                                            data={{
+                                                current: uniqVisitor.current,
+                                                change:
+                                                    uniqVisitor.change > 0 ? uniqVisitor.change : 0,
+                                            }}
+                                        />
+                                    </div>
+                                    <div>
+                                        <InsightCard
+                                            title="Page Views"
+                                            Icon={EyeIcon}
+                                            data={{
+                                                current: pageview.current,
+                                                change: pageview.change > 0 ? pageview.change : 0,
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className=" mt-2 flex items-center justify-between">
+                                <div className=" border border-stone-800 bg-stone-900/40 p-2 space-x-2 flex items-center text-brand-100 w-max rounded-sm">
+                                    <Icons.logo className=" w-4 h-4" />
+                                    <p className=" font-medium text-brand-100 text-xs">
+                                        {title ?? websiteId}
+                                    </p>
+                                    <p className=" text-xs font-bold border-l px-2">
+                                        {getToday().toLocaleString(undefined, {
+                                            day: "numeric",
+                                            year: "numeric",
+                                            month: "numeric",
+                                        })}
+                                    </p>
+                                </div>
+                                <div
+                                    role="button"
+                                    className=" space-x-2  cursor-pointer hover:bg-stone-900 p-2 flex items-center  text-brand-100 w-max rounded-sm"
+                                    onClick={() => {
+                                        handleDownloadImage();
+                                    }}
+                                >
+                                    <p className=" font-medium text-white text-xs">
+                                        {title ?? websiteId} *
+                                    </p>
+                                </div>
+                            </div>
                         </motion.div>
                     </Modal>
                 ) : null}
@@ -197,5 +296,9 @@ export function CelebrateFn({
         </>
     );
 }
+
+export const ShareStat = ({ children }: { children: React.ReactNode }) => {
+    return <div>{children}</div>;
+};
 
 export const Celebrate = block(CelebrateFn);

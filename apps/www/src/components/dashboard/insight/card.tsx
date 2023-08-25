@@ -32,7 +32,7 @@ export function InsightCard({
     const increase = negative ? data.change <= 0 : data.change >= 0;
     return (
         <Card className=" bg-gradient-to-tr relative dark:to-stone-900/70  dark:from-stone-950 border from-white to-gray-100">
-            <span className=" absolute h-1/2 blur-xl bg-gradient-to-tr from-stone-900/60 rounded-md to-brand-950/30 top-10 right-2 w-1/2"></span>
+            {/* <span className=" absolute h-1/2 blur-xl bg-gradient-to-tr from-stone-900/60 rounded-md to-brand-950/30 top-10 right-2 w-1/2"></span> */}
             <span className="absolute top-0 h-px blur-sm left-1/2 w-1/2 bg-gradient-circle from-stone-500/60 rounded-md to-brand-800/30"></span>
             <CardHeader className=" flex flex-row  items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium xl:text-base">{title}</CardTitle>
