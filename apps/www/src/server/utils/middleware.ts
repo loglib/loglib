@@ -1,4 +1,4 @@
-import { db } from "@/lib/drizzle";
+import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
 import { ROLE } from "@loglib/types/models";
 import { inArray } from "drizzle-orm";

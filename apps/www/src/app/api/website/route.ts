@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth";
 
 import { authOptions } from "@/lib/auth";
 import cors from "@/lib/cors";
-import { db } from "@/lib/drizzle";
+import { db } from "@/lib/db";
 import { websiteFormSchema } from "@/lib/validations/website";
 import { schema } from "@loglib/db";
 import { eq } from "drizzle-orm";

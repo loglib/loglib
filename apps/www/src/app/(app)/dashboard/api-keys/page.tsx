@@ -20,7 +20,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { db } from "@/lib/drizzle";
+import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
 
 const apiKeys = async () => {
