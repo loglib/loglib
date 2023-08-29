@@ -14,7 +14,6 @@ export default withAuth(
             }
             return null;
         }
-
         if (!isAuth) {
             let from = req.nextUrl.pathname;
             if (req.nextUrl.search) {

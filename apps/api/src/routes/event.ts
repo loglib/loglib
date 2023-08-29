@@ -1,5 +1,5 @@
 import { apiResponse } from "../lib/api-response";
-import { client } from "../lib/db/clickhouse";
+import { client } from "../db/clickhouse";
 import { getDevice } from "../lib/detect/get-device";
 import { getIpAddress } from "../lib/detect/get-ip-address";
 import { getLocation } from "../lib/detect/get-location";
@@ -7,6 +7,7 @@ import { setVisitorId } from "../lib/set-visitor-id";
 import { RouteType } from "./type";
 import { browserName, detectOS } from "detect-browser";
 import { z } from "zod";
+import { eventDB } from "../db";
 
 export const eventSchema = z.object({
     events: z.array(
@@ -70,6 +71,28 @@ export const createEvents: RouteType = async ({ rawBody, req }) => {
                 },
                 format: "JSONEachRow",
             }).then(res => console.log(res));
+            await eventDB.insertEvent({
+                id: event.id,
+                sessionId,
+                visitorId: setVisitorId(visitorId, ipAddress),
+                websiteId,
+                event: event.eventName ?? "custom",
+                payload: JSON.stringify(event.payload),
+                currentPath: event.page,
+                referrerPath: event.referrerPath,
+                referrerDomain: event.referrerDomain,
+                type: event.eventType,
+                queryParams: event.queryParams ? JSON.stringify(event.queryParams) : "{}",
+                pageId: event.pageId,
+                city,
+                country,
+                duration: event.duration,
+                browser,
+                os,
+                device,
+                language: language ?? "en",
+                timestamp: new Date().toISOString().slice(0, 19).replace("T", " ")
+            })
         });
         return {
             data: {

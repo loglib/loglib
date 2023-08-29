@@ -7,25 +7,29 @@ import { TeamInviteEmail } from "@/components/emails/team-invite-email";
 import { siteConfig } from "@/config/site";
 import { resend } from "@/lib/resend";
 
-import { db } from "../../lib/db";
+import { db } from "../../lib/drizzle";
 import { teamInviteSchema, teamSchema } from "../../lib/validations/team";
 import { protectedAction } from "../utils/middleware";
+import { schema } from "@loglib/db";
+import { and, eq, gte } from "drizzle-orm";
 
 export async function createTeam(data: z.infer<typeof teamSchema>) {
     return await protectedAction(async (user) => {
-        const team = await db.team.create({
-            data: {
-                name: data.name,
-                TeamUser: {
-                    create: {
-                        userId: user.id,
-                        role: "owner",
-                        accepted: true,
-                    },
-                },
-            },
-        });
-        return team;
+        const team = await db.insert(schema.team).values({
+            name: data.name,
+            slug: data.name.toLowerCase().replace(/\s/g, "-"),
+            type: "free"
+        }).returning()
+        const teamUser = await db.insert(schema.teamMember).values({
+            teamId: team[0].id,
+            role: "owner",
+            accepted: true,
+            email: user.email ?? ""
+        }).returning()
+        return {
+            ...team[0],
+            TeamMembers: teamUser[0]
+        }
     });
 }
 
@@ -36,22 +40,30 @@ export async function inviteTeam(
 ) {
     return await protectedAction(
         async (user) => {
-            const team = await db.team.findUnique({
-                where: {
-                    id: teamId,
+            const team = await db.query.team.findFirst({
+                where(fields, operators) {
+                    return operators.eq(fields.id, teamId)
                 },
-            });
+            })
             if (!team) {
                 throw new Error("Team not found");
             }
             const inviteToken =
                 Math.random().toString(36).substring(2, 15) +
                 Math.random().toString(36).substring(2, 15);
-            const invitedUser = await db.user.findUnique({
-                where: {
-                    email: data.email,
+            const invitedUser = await db.query.users.findFirst({
+                where(fields, operators) {
+                    return operators.eq(fields.email, data.email)
                 },
             });
+            const invites = await db.query.teamInvitation.findMany({
+                where(fields, operators) {
+                    return operators.and(
+                        operators.eq(fields.teamId, teamId),
+                        gte(fields.createdAt, new Date(new Date().getTime() - 24 * 60 * 60 * 1000))
+                    )
+                },
+            })
             const sendEmail = async () => {
                 await resend.sendEmail({
                     to: [data.email],
@@ -66,84 +78,88 @@ export async function inviteTeam(
                     from: "no-reply@loglib.io",
                 });
             };
-            const invites = await db.teamUserInvite.findMany({
-                where: {
-                    teamId,
-                    createdAt: {
-                        gte: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
-                    },
-                },
-            });
             if (invites.length > 3) {
                 throw new Error("Invite limit reached.");
             }
             if (invitedUser) {
                 if (toResend) {
-                    const teamUser = await db.teamUser.findFirst({
-                        where: {
-                            userId: invitedUser.id,
-                            teamId: teamId,
+                    const teamUser = await db.query.teamMember.findFirst({
+                        where(fields, operators) {
+                            return operators.and(
+                                operators.eq(fields.teamId, teamId),
+                                operators.eq(fields.userId, invitedUser.id)
+                            )
                         },
                     });
                     if (teamUser) {
-                        await db.teamUserInvite.updateMany({
-                            where: {
-                                teamId,
-                                userId: invitedUser.id,
-                            },
-                            data: {
-                                status: "expired",
-                            },
-                        });
-                        await db.teamUserInvite.create({
-                            data: {
-                                teamId,
-                                userId: invitedUser.id,
-                                teamUserId: teamUser?.id,
-                                token: inviteToken,
-                            },
-                        });
+                        await db.update(schema.teamInvitation).set({
+                            status: "expired"
+                        }).where(and(eq(schema.teamInvitation.teamId, teamId), eq(schema.teamInvitation.email, invitedUser.email)))
+                        await db.insert(schema.teamInvitation).values({
+                            teamId,
+                            email: invitedUser.email,
+                            status: "pending",
+                            token: inviteToken,
+                            createdAt: new Date(),
+                            userId: invitedUser.id
+                        })
                     } else {
                         throw new Error("Team user doesn't exists");
                     }
                     return await sendEmail();
                 } else {
-                    const teamUser = await db.teamUser
-                        .create({
-                            data: {
-                                teamId,
-                                userId: invitedUser.id,
-                                role: data.role,
-                                accepted: false,
-                            },
-                            select: {
-                                id: true,
-                                accepted: true,
-                                role: true,
-                                userId: true,
-                                createdAt: true,
-                                User: {
-                                    select: {
-                                        name: true,
-                                        email: true,
-                                        id: true,
-                                    },
-                                },
-                            },
-                        })
-                        .then((res) => ({
-                            ...res,
-                            name: res.User.name,
-                            email: res.User.email,
-                        }));
-                    await db.teamUserInvite.create({
-                        data: {
-                            teamId,
-                            userId: invitedUser.id,
-                            teamUserId: teamUser.id,
-                            token: inviteToken,
+                    // const teamUser = await db.teamUser
+                    //     .create({
+                    //         data: {
+                    //             teamId,
+                    //             userId: invitedUser.id,
+                    //             role: data.role,
+                    //             accepted: false,
+                    //         },
+                    //         select: {
+                    //             id: true,
+                    //             accepted: true,
+                    //             role: true,
+                    //             userId: true,
+                    //             createdAt: true,
+                    //             User: {
+                    //                 select: {
+                    //                     name: true,
+                    //                     email: true,
+                    //                     id: true,
+                    //                 },
+                    //             },
+                    //         },
+                    //     })
+                    //     .then((res) => ({
+                    //         ...res,
+                    //         name: res.User.name,
+                    //         email: res.User.email,
+                    //     }));
+                    const teamUserInsert = await db.insert(schema.teamMember).values({
+                        teamId,
+                        userId: invitedUser.id,
+                        role: data.role as "owner",
+                        accepted: false,
+                        email: data.email
+                    }).returning()
+
+                    const teamUser = await db.query.teamMember.findFirst({
+                        where(fields, operators) {
+                            return operators.and(
+                                operators.eq(fields.id, teamUserInsert[0].id)
+                            )
                         },
-                    });
+                        with: {
+                            users: true
+                        }
+                    })
+                    await db.insert(schema.teamInvitation).values({
+                        teamId,
+                        userId: invitedUser.id,
+                        email: invitedUser.email,
+                        token: inviteToken
+                    })
                     await sendEmail();
                     return teamUser;
                 }
@@ -166,18 +182,9 @@ export async function leaveTeam(data: {
     return await protectedAction(
         async () => {
             if (data.deleteTeam) {
-                await db.team.delete({
-                    where: {
-                        id: data.teamId,
-                    },
-                });
+                await db.delete(schema.team).where(eq(schema.team.id, data.teamId))
             }
-            await db.teamUser.deleteMany({
-                where: {
-                    teamId: data.teamId,
-                    userId: data.userId,
-                },
-            });
+            await db.delete(schema.teamMember).where(and(eq(schema.teamMember.teamId, data.teamId), eq(schema.teamMember.userId, data.userId)))
             return true;
         },
         {
@@ -190,27 +197,27 @@ export async function leaveTeam(data: {
 export async function updateTeam(data: z.infer<typeof teamSchema>, id: string) {
     return await protectedAction(
         async () => {
-            const res = await db.team.update({
-                where: {
-                    id,
+            await db.update(schema.team).set({
+                name: data.name
+            }).where(eq(schema.team.id, id))
+            const updated = await db.query.team.findFirst({
+                where(fields, operators) {
+                    return operators.eq(fields.id, id)
                 },
-                data: {
-                    name: data.name,
-                },
-                include: {
-                    TeamWebsite: {
-                        include: {
-                            Website: {
-                                select: {
+                with: {
+                    teamWebsites: {
+                        with: {
+                            website: {
+                                columns: {
                                     id: true,
-                                    title: true,
-                                },
-                            },
-                        },
-                    },
-                },
-            });
-            return res;
+                                    title: true
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+            return updated;
         },
         {
             role: ["owner", "admin"],
@@ -222,11 +229,7 @@ export async function updateTeam(data: z.infer<typeof teamSchema>, id: string) {
 export const removeTeamUser = async (id: string, teamId: string) => {
     protectedAction(
         async () => {
-            await db.teamUser.delete({
-                where: {
-                    id,
-                },
-            });
+            await db.delete(schema.teamMember).where(eq(schema.teamMember.id, id))
         },
         {
             role: ["owner", "admin"],
@@ -238,28 +241,21 @@ export const removeTeamUser = async (id: string, teamId: string) => {
 export const addWebsiteToTeam = async (teamId: string, websiteId: string) => {
     return await protectedAction(
         async () => {
-            const isWebsiteAlreadyAdded = await db.teamWebsite.findFirst({
-                where: {
-                    AND: {
-                        teamId,
-                        websiteId,
-                    },
+            const isWebsiteAlreadyAdded = await db.query.teamWebsites.findFirst({
+                where(fields, operators) {
+                    return operators.and(operators.eq(fields.teamId, teamId), operators.eq(
+                        fields.websiteId, websiteId
+                    ))
                 },
-            });
+            })
             if (isWebsiteAlreadyAdded) {
                 return null;
             }
-            await db.teamWebsite.deleteMany({
-                where: {
-                    teamId,
-                },
-            });
-            const res = await db.teamWebsite.create({
-                data: {
-                    teamId,
-                    websiteId,
-                },
-            });
+            await db.delete(schema.teamWebsites).where(eq(schema.teamWebsites.teamId, teamId))
+            const res = await db.insert(schema.teamWebsites).values({
+                teamId,
+                websiteId
+            })
             return res;
         },
         {
@@ -272,11 +268,9 @@ export const addWebsiteToTeam = async (teamId: string, websiteId: string) => {
 export const removeAllTeamWebsites = async (teamId: string) => {
     return await protectedAction(
         async () => {
-            await db.teamWebsite.deleteMany({
-                where: {
-                    teamId,
-                },
-            });
+            await db.delete(schema.teamWebsites).where(
+                eq(schema.teamWebsites.teamId, teamId)
+            )
             return true;
         },
         {
@@ -289,14 +283,9 @@ export const removeAllTeamWebsites = async (teamId: string) => {
 export const updateTeamUser = async (id: string, data: { role?: ROLE }, teamId: string) => {
     protectedAction(
         async () => {
-            await db.teamUser.update({
-                where: {
-                    id,
-                },
-                data: {
-                    role: data.role,
-                },
-            });
+            await db.update(schema.teamMember).set({
+                role: data.role as "member"
+            }).where(eq(schema.teamMember.id, id))
         },
         {
             role: ["owner", "admin"],

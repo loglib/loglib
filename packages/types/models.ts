@@ -1,3 +1,13 @@
+import { schema } from "@loglib/db";
+
+export type Website = typeof schema.website.$inferSelect
+export type ApiKey = typeof schema.apiKey.$inferSelect
+export type Team = typeof schema.team.$inferSelect
+export type TeamMember = typeof schema.teamMember.$inferSelect
+export type TeamWebsite = typeof schema.teamWebsites.$inferSelect
+export type TeamInvitation = typeof schema.teamInvitation.$inferSelect
+export type User = typeof schema.users.$inferSelect
+
 export type Visitor = {
     id: string;
     createdAt: Date;
@@ -47,13 +57,4 @@ export type Events = {
     sessionId: string;
     visitorId: string;
     websiteId?: string | null;
-};
-
-export type Website = {
-    id: string;
-    createdAt: Date;
-    updatedAt: Date;
-    title: string | null;
-    url: string;
-    visitorId: string;
 };

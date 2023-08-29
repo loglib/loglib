@@ -1,5 +1,4 @@
 import { apiResponse } from "../lib/api-response";
-import { client } from "../lib/db/clickhouse";
 import { getDevice } from "../lib/detect/get-device";
 import { getIpAddress } from "../lib/detect/get-ip-address";
 import { getLocation } from "../lib/detect/get-location";
@@ -8,8 +7,9 @@ import { browserName, detectOS } from "detect-browser";
 import isbot from "isbot";
 import { z } from "zod";
 import { setVisitorId } from "../lib/set-visitor-id";
+import { eventDB } from "../db";
 
-const schema = z.object({
+export const schema = z.object({
     id: z.string(),
     currentPath: z.string(),
     referrerPath: z.string(),
@@ -24,6 +24,8 @@ const schema = z.object({
     websiteId: z.string(),
     sdkVersion: z.string(),
 });
+
+export type HitsRouteSchema = z.infer<typeof schema>;
 
 /**
  *
@@ -60,36 +62,25 @@ export const createHits: RouteType = async ({ req, rawBody }) => {
         const os = detectOS(userAgent) ?? "Mac OS";
         const device = os ? getDevice(screenWidth, os) ?? "desktop" : "unknown";
         const visitorId = setVisitorId(body.data.visitorId, ip)
-        const res = await client
-            .insert({
-                table: "loglib.event",
-                values: [
-                    {
-                        id,
-                        sessionId,
-                        visitorId,
-                        websiteId,
-                        event: "hits",
-                        timestamp: new Date().toISOString().slice(0, 19).replace("T", " "),
-                        properties: JSON.stringify({
-                            queryParams: queryParams ? JSON.stringify(queryParams) : "{}",
-                            referrerDomain: ref,
-                            country,
-                            city,
-                            language,
-                            device,
-                            os,
-                            browser,
-                            duration,
-                            currentPath,
-                            referrerPath,
-                        }),
-                        sign: 1,
-                    },
-                ],
-                format: "JSONEachRow",
-            })
-            .then((res) => res);
+        const res = await eventDB.insertEvent({
+            id,
+            sessionId,
+            visitorId,
+            websiteId,
+            event: "hits",
+            timestamp: new Date().toISOString().slice(0, 19).replace("T", " "),
+            queryParams: queryParams ? JSON.stringify(queryParams) : "{}",
+            referrerDomain: ref,
+            country,
+            city,
+            language,
+            device,
+            os,
+            browser,
+            duration,
+            currentPath,
+            referrerPath,
+        })
         return {
             status: 200,
             data: {

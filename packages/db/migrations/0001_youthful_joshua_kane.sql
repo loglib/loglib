@@ -1,0 +1,1 @@
+ALTER TABLE teamInvitation ADD `userId` text REFERENCES user(id);

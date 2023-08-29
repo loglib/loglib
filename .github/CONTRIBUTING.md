@@ -67,3 +67,7 @@ pnpm turbo run dev --filter=api
 ```sh-session
 pnpm turbo run dev --filter=web
 ```
+
+
+1. Run migration by filter db migrate //this will create a sqlite db in the pacakges/db folder.
+
