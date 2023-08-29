@@ -9,7 +9,7 @@ export async function retryFunction<
         if (maxRetries <= 0) {
             throw error;
         }
-        console.log("retry...", " \n remaining retries: ", maxRetries);
+        console.log("retry...", " \n remaining retries: ", maxRetries, error);
         await new Promise((resolve) => setTimeout(resolve, delayMs));
         return retryFunction(func, inputs, maxRetries - 1, delayMs);
     }

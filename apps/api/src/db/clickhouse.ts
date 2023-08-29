@@ -1,6 +1,4 @@
-import { env } from "../../../env";
-import { LoglibEvent } from "../../type";
-import { convertToUTC } from "../utils";
+import { env } from "../../env";
 import { createClient } from "@clickhouse/client";
 
 export const hitsQuery = (startDate: string, endDate: string, websiteId: string) =>
@@ -13,31 +11,3 @@ export const client = createClient({
     host: env.CLICKHOUSE_HOST,
     password: env.CLICKHOUSE_PASSWORD,
 });
-
-export async function getDataQuery(
-    startDateObj: Date,
-    endDateObj: Date,
-    pastEndDateObj: Date,
-    websiteId: string,
-) {
-    return await Promise.all([
-        client
-            .query({
-                query: hitsQuery(convertToUTC(startDateObj), convertToUTC(endDateObj), websiteId),
-                format: "JSONEachRow",
-            })
-            .then(async (res) => (await res.json()) as LoglibEvent[]),
-        client
-            .query({
-                query: hitsQuery(
-                    convertToUTC(pastEndDateObj),
-                    convertToUTC(startDateObj),
-                    websiteId,
-                ),
-                format: "JSONEachRow",
-            })
-            .then(async (res) => (await res.json()) as LoglibEvent[]),
-    ]);
-}
-
-

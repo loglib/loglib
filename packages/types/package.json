@@ -8,5 +8,8 @@
     "exports": {
         ".": "./index.ts",
         "./models": "./models.ts"
+    },
+    "dependencies": {
+        "@loglib/db": "^1.0.0"
     }
 }

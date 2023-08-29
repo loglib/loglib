@@ -1,5 +1,5 @@
 import { apiResponse } from "../lib/api-response";
-import { client } from "../lib/db/clickhouse";
+import { client } from "../db/clickhouse";
 import { getIpAddress } from "../lib/detect/get-ip-address";
 import { getLocation } from "../lib/detect/get-location";
 import { setVisitorId } from "../lib/set-visitor-id";

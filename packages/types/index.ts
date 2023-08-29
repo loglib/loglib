@@ -80,10 +80,32 @@ export type GetInsightResponse = {
     };
 };
 
-export type EventsWithData = {
+export type LoglibEvent = {
+    id: string;
+    timestamp: string;
+    event: "hits" | string;
+    sessionId: string;
+    city: string;
+    country: string;
+    browser: string;
+    language: string;
+    currentPath: string;
+    referrerPath: string;
+    referrerDomain: string;
+    queryParams: string;
+    device: string;
+    duration: number;
+    os: string;
+    visitorId: string;
+    websiteId: string
+    payload?: string,
+    type?: string
+};
+
+export type LoglibCustomEvent = {
     currentPath: string | undefined;
     id: string;
-    timestamp: Date;
+    timestamp: string;
     queryParams?: Record<string, any> | null | undefined;
     referrerPath?: string | undefined;
     referrerDomain?: string;
@@ -100,7 +122,7 @@ export type EventsWithData = {
     type: string;
     payload: Record<string, string> | null;
     sessionId: string;
-}[];
+}
 
 type StringOperator = "is" | "isNot" | "contains" | "notContains";
 type NumberOperator = "lte" | "gte" | "lt" | "gt" | "is" | "isNot";

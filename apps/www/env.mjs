@@ -10,12 +10,15 @@ export const env = createEnv({
         GOOGLE_CLIENT_ID: z.string().min(1).optional(),
         GOOGLE_CLIENT_SECRET: z.string().min(1).optional(),
         DATABASE_URL: z.string().min(1),
+        DATABASE_AUTH_TOKEN: z.string().optional(),
         RESEND_EMAIL_SECRET: z.string().min(1).optional(),
+        //remove this
         DATABASE_HOST: z.string().min(1),
         DATABASE_USERNAME: z.string().min(1),
         DATABASE_PASSWORD: z.string().min(1),
-        CLICKHOUSE_HOST: z.string().min(1),
-        CLICKHOUSE_PASSWORD: z.string().min(0),
+        //
+        CLICKHOUSE_HOST: z.string().min(1).optional(),
+        CLICKHOUSE_PASSWORD: z.string().min(0).optional(),
         NEXT_PUBLIC_API_URL: z.string().min(1),
     },
     client: {
@@ -30,6 +33,7 @@ export const env = createEnv({
         GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
         GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
         DATABASE_URL: process.env.DATABASE_URL,
+        DATABASE_AUTH_TOKEN: process.env.DATABASE_AUTH_TOKEN,
         NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
         RESEND_EMAIL_SECRET: process.env.RESEND_EMAIL_SECRET,
         DATABASE_HOST: process.env.DATABASE_HOST,
