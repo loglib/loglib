@@ -7,7 +7,7 @@ import { TeamInviteEmail } from "@/components/emails/team-invite-email";
 import { siteConfig } from "@/config/site";
 import { resend } from "@/lib/resend";
 
-import { db } from "../../lib/drizzle";
+import { db } from "@/lib/drizzle";
 import { teamInviteSchema, teamSchema } from "../../lib/validations/team";
 import { protectedAction } from "../utils/middleware";
 import { schema } from "@loglib/db";
@@ -24,7 +24,8 @@ export async function createTeam(data: z.infer<typeof teamSchema>) {
             teamId: team[0].id,
             role: "owner",
             accepted: true,
-            email: user.email ?? ""
+            email: user.email ?? "",
+            userId: user.id
         }).returning()
         return {
             ...team[0],
@@ -86,11 +87,19 @@ export async function inviteTeam(
                     const teamUser = await db.query.teamMember.findFirst({
                         where(fields, operators) {
                             return operators.and(
-                                operators.eq(fields.teamId, teamId),
-                                operators.eq(fields.userId, invitedUser.id)
+                                operators.eq(fields.id, invitedUser.id)
                             )
                         },
-                    });
+                        with: {
+                            users: true
+                        }
+                    }).then(res => ({
+                        // rome-ignore lint/style/noNonNullAssertion: <explanation>
+                        ...res!,
+                        name: res?.users?.name as string,
+                        email: res?.users?.email as string,
+                        role: res?.role as "owner"
+                    }))
                     if (teamUser) {
                         await db.update(schema.teamInvitation).set({
                             status: "expired"
@@ -106,36 +115,9 @@ export async function inviteTeam(
                     } else {
                         throw new Error("Team user doesn't exists");
                     }
-                    return await sendEmail();
+                    await sendEmail();
+                    return teamUser
                 } else {
-                    // const teamUser = await db.teamUser
-                    //     .create({
-                    //         data: {
-                    //             teamId,
-                    //             userId: invitedUser.id,
-                    //             role: data.role,
-                    //             accepted: false,
-                    //         },
-                    //         select: {
-                    //             id: true,
-                    //             accepted: true,
-                    //             role: true,
-                    //             userId: true,
-                    //             createdAt: true,
-                    //             User: {
-                    //                 select: {
-                    //                     name: true,
-                    //                     email: true,
-                    //                     id: true,
-                    //                 },
-                    //             },
-                    //         },
-                    //     })
-                    //     .then((res) => ({
-                    //         ...res,
-                    //         name: res.User.name,
-                    //         email: res.User.email,
-                    //     }));
                     const teamUserInsert = await db.insert(schema.teamMember).values({
                         teamId,
                         userId: invitedUser.id,
@@ -153,7 +135,12 @@ export async function inviteTeam(
                         with: {
                             users: true
                         }
-                    })
+                    }).then(res => ({
+                        // rome-ignore lint/style/noNonNullAssertion: <explanation>
+                        ...res!,
+                        name: res?.users?.name as string,
+                        email: res?.users?.email as string,
+                    }))
                     await db.insert(schema.teamInvitation).values({
                         teamId,
                         userId: invitedUser.id,
@@ -207,12 +194,7 @@ export async function updateTeam(data: z.infer<typeof teamSchema>, id: string) {
                 with: {
                     teamWebsites: {
                         with: {
-                            website: {
-                                columns: {
-                                    id: true,
-                                    title: true
-                                }
-                            }
+                            website: true
                         }
                     }
                 }
@@ -284,7 +266,7 @@ export const updateTeamUser = async (id: string, data: { role?: ROLE }, teamId: 
     protectedAction(
         async () => {
             await db.update(schema.teamMember).set({
-                role: data.role as "member"
+                role: data.role as "viewer"
             }).where(eq(schema.teamMember.id, id))
         },
         {

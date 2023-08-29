@@ -9,7 +9,10 @@ export const authOptions: NextAuthOptions = {
     adapter: DrizzleAdapter(db) as any,
     session: {
         strategy: "jwt",
+        maxAge: 30 * 24 * 60 * 60,
+
     },
+    secret: env.NEXTAUTH_SECRET,
     pages: {
         signIn: "/dashboard",
     },
@@ -17,6 +20,8 @@ export const authOptions: NextAuthOptions = {
         GitHubProvider({
             clientId: env.GITHUB_CLIENT_ID ?? "",
             clientSecret: env.GITHUB_CLIENT_SECRET ?? "",
+            allowDangerousEmailAccountLinking: true
+
         }),
         GoogleProvider({
             clientId: env.GOOGLE_CLIENT_ID ?? "",
@@ -28,7 +33,9 @@ export const authOptions: NextAuthOptions = {
                     response_type: "code",
                 },
             },
+            allowDangerousEmailAccountLinking: true
         }),
+
     ],
     callbacks: {
         async session({ token, session }) {

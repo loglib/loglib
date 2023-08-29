@@ -1,10 +1,12 @@
 import { Dashboard } from "@/components/dashboard";
-import { getIsWebsiteActive } from "@/lib/clickhouse";
 import { generateToken } from "@/lib/generate-token";
 import { getCurrentUser } from "@/lib/session";
-import { db } from "@/server/db";
+import { db } from "@/lib/drizzle";
 import { redirect } from "next/navigation";
 import React from "react";
+import { schema } from "@loglib/db";
+import { eq } from "drizzle-orm";
+import { queires } from "@/server/query/queires";
 
 export default async function Page({
     params,
@@ -16,47 +18,40 @@ export default async function Page({
         id: user?.id ?? "public",
         website: params.website as string,
     });
-    const dbWebsite = await db
-        .selectFrom("website")
-        .leftJoin("team_website", "team_website.website_id", "website.id")
-        .leftJoin("team_users", "team_website.team_id", "team_users.team_id")
-        .select([
-            "website.id",
-            "website.public",
-            "website.title",
-            "website.active",
-            "website.user_id",
-            "website.url",
-            "team_website.team_id",
-            "team_users.user_id as team_user_id",
-            "team_users.role",
-        ])
-        .where("website.id", "=", params.website)
-        .execute();
-    const website = dbWebsite.find((d) => d.id === params.website);
-    const isAuthed = dbWebsite.find((d) => d.user_id === user?.id || d.team_user_id === user?.id);
-    if (!website || (!isAuthed && !dbWebsite[0].public)) {
+    const websites = await db.query.website.findMany({
+        with: {
+            teamWebsites: {
+                with: {
+                    team: {
+                        with: {
+                            teamMembers: true
+                        }
+                    }
+                }
+            }
+        }
+    })
+
+    const website = websites.find((d) => d.id === params.website || d.teamWebsites.find(tw => tw.websiteId === params.website));
+    const isAuthed = websites.find((d) => d.userId === user?.id);
+    if (!website || (!isAuthed && website.public)) {
         return redirect("/");
     }
-    const isPublic = website.public === 1;
+    const isPublic = website.public;
     const showSetup = isPublic
         ? false
-        : website.active === 1
-        ? false
-        : await (async () => {
-              const haveSession = (await getIsWebsiteActive({ websiteId: params.website })).length;
-              if (haveSession) {
-                  await db
-                      .updateTable("website")
-                      .set({
-                          active: 1,
-                      })
-                      .where("id", "=", params.website)
-                      .executeTakeFirst();
-                  return false;
-              }
-              return true;
-          })();
+        : website.active
+            ? false
+            : await (async () => {
+                const haveSession = (await queires.getIsWebsiteActive(params.website)).length;
+                if (haveSession) {
+                    await db.update(schema.website).set({
+                        active: true
+                    }).where(eq(schema.website.id, params.website));
+                    return false;
+                }
+                return true;
+            })();
     return (
         <main>
             <Dashboard website={website} isPublic={isPublic} showSetup={showSetup} token={token} />

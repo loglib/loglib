@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "274da268-c544-4a84-aecf-20325b91943d",
+  "id": "3054367d-66b2-4484-9ab6-a0bdfb0e19a1",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "apiKey": {
@@ -513,6 +513,20 @@
           "notNull": false,
           "autoincrement": false
         },
+        "userId": {
+          "name": "userId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "teamMemberId": {
+          "name": "teamMemberId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "createdAt": {
           "name": "createdAt",
           "type": "integer",
@@ -544,6 +558,32 @@
           "tableTo": "team",
           "columnsFrom": [
             "teamId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "teamInvitation_userId_user_id_fk": {
+          "name": "teamInvitation_userId_user_id_fk",
+          "tableFrom": "teamInvitation",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "teamInvitation_teamMemberId_teamMember_id_fk": {
+          "name": "teamInvitation_teamMemberId_teamMember_id_fk",
+          "tableFrom": "teamInvitation",
+          "tableTo": "teamMember",
+          "columnsFrom": [
+            "teamMemberId"
           ],
           "columnsTo": [
             "id"

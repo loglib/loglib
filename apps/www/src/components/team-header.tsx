@@ -45,7 +45,7 @@ export const TeamHeader = ({ teams }: Props) => {
             if (!selectedTeam) {
                 return setSelectedTeam(teams[0]);
             }
-            const team = teams.find((team) => team.id === selectedTeam.id);
+            const team = teams.find((team) => team?.id === selectedTeam.id);
             if (!team) {
                 setSelectedTeam(teams[0]);
             } else {
@@ -73,7 +73,7 @@ export const TeamHeader = ({ teams }: Props) => {
                                             setSelectedTeam(team);
                                         }}
                                     >
-                                        {team.name}
+                                        {team?.name}
                                     </DropdownMenuItem>
                                 ))}
                             <DropdownMenuSeparator />
@@ -98,7 +98,7 @@ export const TeamHeader = ({ teams }: Props) => {
                             >
                                 <Icons.layout className="h-4 w-4 " />
                                 <span className="">
-                                    {selectedTeam?.TeamWebsite.length ? "Change" : "Add"} Team
+                                    {selectedTeam?.websites.length ? "Change" : "Add"} Team
                                     Website
                                 </span>
                             </button>
@@ -113,7 +113,7 @@ export const TeamHeader = ({ teams }: Props) => {
                     </div>
                 )}
             </div>
-            {!teams.length || selectedTeam?.TeamWebsite.length || role === "viewer" ? null : (
+            {!teams.length || selectedTeam?.websites.length || role === "viewer" ? null : (
                 <Alert className=" text-logo">
                     <Terminal size={16} className=" animate-pulse" />
                     <AlertTitle>Hey there!</AlertTitle>

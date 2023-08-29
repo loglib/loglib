@@ -12,7 +12,7 @@ export function boolean(name: string) {
 export function date(name: string) {
     return integer(name, {
         mode: "timestamp"
-    })
+    }).$defaultFn(() => new Date()).notNull()
 }
 
 export function id(name?: string) {
@@ -20,5 +20,5 @@ export function id(name?: string) {
 }
 
 export function userId() {
-    return text("userId").references(() => users.id, { onDelete: "cascade" })
+    return text("userId").references(() => users.id, { onDelete: "cascade" }).notNull()
 }

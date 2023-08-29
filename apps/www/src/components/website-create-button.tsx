@@ -5,11 +5,10 @@ import { useAtom } from "jotai";
 import * as React from "react";
 
 import { Icons } from "@/components/icons";
-import { Button, ButtonProps, buttonVariants } from "@/components/ui/button";
+import { Button, ButtonProps } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
-import { cn } from "@/lib/utils";
 
-export function WebsiteCreateButton({ variant, ...props }: ButtonProps) {
+export function WebsiteCreateButton({ ...props }: ButtonProps) {
     const [websites] = useAtom(userWebsitesAtom);
     const [, setCreateWebsite] = useAtom(websiteFormAtom);
     async function onClick() {
