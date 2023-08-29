@@ -1,6 +1,6 @@
 import { authOptions } from "@/lib/auth";
 import { removeWebsiteData } from "@/lib/clickhouse";
-import { db } from "@/lib/drizzle";
+import { db } from "@/lib/db";
 import { websiteFormSchema } from "@/lib/validations/website";
 import { schema } from "@loglib/db";
 import { eq } from "drizzle-orm";

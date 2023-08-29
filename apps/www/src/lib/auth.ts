@@ -1,5 +1,5 @@
 import { env } from "../../env.mjs";
-import { db } from "@/lib/drizzle";
+import { db } from "@/lib/db";
 import { NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
@@ -10,7 +10,6 @@ export const authOptions: NextAuthOptions = {
     session: {
         strategy: "jwt",
         maxAge: 30 * 24 * 60 * 60,
-
     },
     secret: env.NEXTAUTH_SECRET,
     pages: {

@@ -7,7 +7,7 @@ import { TeamInviteEmail } from "@/components/emails/team-invite-email";
 import { siteConfig } from "@/config/site";
 import { resend } from "@/lib/resend";
 
-import { db } from "@/lib/drizzle";
+import { db } from "@/lib/db";
 import { teamInviteSchema, teamSchema } from "../../lib/validations/team";
 import { protectedAction } from "../utils/middleware";
 import { schema } from "@loglib/db";

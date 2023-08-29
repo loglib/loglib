@@ -1,5 +1,5 @@
 import { client, getIsWebsiteActive } from "@/lib/clickhouse";
-import { db } from "@/lib/drizzle";
+import { db } from "@/lib/db";
 import { sql } from "drizzle-orm";
 import { env } from "env.mjs";
 

@@ -1,20 +1,23 @@
-// import { PrismaClient } from "@prisma/client";
-
-// declare global {
-//     // eslint-disable-next-line no-var
-//     // rome-ignore lint/style/noVar: <explanation>
-//     var cachedPrisma: PrismaClient;
-// }
-
-// let prisma: PrismaClient;
-// if (process.env.NODE_ENV === "production") {
-//     prisma = new PrismaClient();
-// } else {
-//     if (!global.cachedPrisma) {
-//         global.cachedPrisma = new PrismaClient();
-//     }
-//     prisma = global.cachedPrisma;
-// }
+import { drizzle } from 'drizzle-orm/libsql';
+import { createClient } from '@libsql/client';
+import { schema } from '@loglib/db';
+import { env } from 'env.mjs';
 
 
-// export const db = prisma;
+export const getDbUrl = () => {
+    if (process.env.NODE_ENV === "production" || env.DATABASE_AUTH_TOKEN) return env.DATABASE_URL
+    const workDir = process.cwd()
+    const dir = workDir.split("/")
+    const dbPath = `file:${dir.slice(0, dir.length - 2).join("/")}/packages/db/db.sqlite`
+    console.log("⌗ [Database]:", dbPath)
+    return dbPath
+}
+
+const client = createClient({
+    url: getDbUrl(),
+    authToken: env.DATABASE_AUTH_TOKEN
+})
+
+export const db = drizzle(client, {
+    schema
+})

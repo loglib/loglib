@@ -1,4 +1,4 @@
-import { db } from "@/lib/drizzle";
+import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
 import { apiKeySchema } from "@/lib/validations/api-key";
 import { schema } from "@loglib/db";

@@ -1,7 +1,7 @@
 import { Dashboard } from "@/components/dashboard";
 import { generateToken } from "@/lib/generate-token";
 import { getCurrentUser } from "@/lib/session";
-import { db } from "@/lib/drizzle";
+import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import React from "react";
 import { schema } from "@loglib/db";

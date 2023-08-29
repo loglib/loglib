@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { db } from "@/lib/drizzle";
+import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
 import { schema } from "@loglib/db";
 import { eq } from "drizzle-orm";
