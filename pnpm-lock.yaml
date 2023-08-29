@@ -172,11 +172,11 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1(bufferutil@4.0.7)(encoding@0.1.13)(utf-8-validate@6.0.3)
       '@loglib/db':
-        specifier: ^1.0.0
+        specifier: 'workspace: *'
         version: link:../../packages/db
       '@loglib/tracker':
         specifier: 0.6.2
-        version: link:../../packages/tracker
+        version: 0.6.2(react@18.2.0)
       '@lottiefiles/react-lottie-player':
         specifier: ^3.5.3
         version: 3.5.3(react@18.2.0)
@@ -192,9 +192,6 @@ importers:
       '@planetscale/database':
         specifier: ^1.8.0
         version: 1.8.0
-      '@prisma/client':
-        specifier: ^4.14.0
-        version: 4.14.0(prisma@4.14.0)
       '@radix-ui/colors':
         specifier: ^1.0.0
         version: 1.0.0
@@ -441,9 +438,6 @@ importers:
       prism-react-renderer:
         specifier: ^2.0.6
         version: 2.0.6(react@18.2.0)
-      prisma:
-        specifier: ^4.14.0
-        version: 4.14.0
       prisma-kysely:
         specifier: ^1.5.0
         version: 1.5.0(encoding@0.1.13)
@@ -530,10 +524,10 @@ importers:
         version: 3.21.4
     devDependencies:
       '@loglib/api':
-        specifier: 0.0.1
+        specifier: 'workspace: *'
         version: link:../api
       '@loglib/types':
-        specifier: 0.0.1
+        specifier: 'workspace: *'
         version: link:../../packages/types
       '@types/bcrypt':
         specifier: ^5.0.0
@@ -2440,6 +2434,14 @@ packages:
       - utf-8-validate
     dev: false
 
+  /@loglib/tracker@0.6.2(react@18.2.0):
+    resolution: {integrity: sha512-0lo4Ug85W2i7VYmyOFqFZIW9suIIbhmCafa+xcJNtuROsT5p1iAppXfO/0l4XDEJlntuok7Z6fPEYbcI3vdVKQ==}
+    peerDependencies:
+      react: ^16.8||^17||^18
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /@lottiefiles/react-lottie-player@3.5.3(react@18.2.0):
     resolution: {integrity: sha512-6pGbiTMjGnPddR1ur8M/TIDCiogZMc1aKIUbMEKXKAuNeYwZ2hvqwBJ+w5KRm88ccdcU88C2cGyLVsboFlSdVQ==}
     peerDependencies:
@@ -2718,7 +2720,7 @@ packages:
       '@prisma/client': '>=2.26.0 || >=3'
       next-auth: ^4
     dependencies:
-      '@prisma/client': 4.14.0(prisma@4.14.0)
+      '@prisma/client': 4.14.0
       next-auth: 4.22.1(next@13.4.14-canary.0)(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
@@ -3179,6 +3181,19 @@ packages:
 
   /@popperjs/core@2.11.8:
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
+    dev: false
+
+  /@prisma/client@4.14.0:
+    resolution: {integrity: sha512-MK/XaA2sFdfaOa7I9MjNKz6dxeIEdeZlnpNRoF2w3JuRLlFJLkpp6cD3yaqw2nUUhbrn3Iqe3ZpVV+VuGGil7Q==}
+    engines: {node: '>=14.17'}
+    requiresBuild: true
+    peerDependencies:
+      prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+    dependencies:
+      '@prisma/engines-version': 4.14.0-67.d9a4c5988f480fa576d43970d5a23641aa77bc9c
     dev: false
 
   /@prisma/client@4.14.0(prisma@4.14.0):

@@ -1,6 +1,7 @@
-import { db } from "@/lib/db";
+import { db } from "@/lib/drizzle";
 import { getCurrentUser } from "@/lib/session";
-import { ROLE } from "@prisma/client";
+import { ROLE } from "@loglib/types/models";
+import { inArray } from "drizzle-orm";
 import { User } from "next-auth";
 
 export const protectedAction = async <T>(
@@ -21,18 +22,16 @@ export const protectedAction = async <T>(
     }
 };
 
-
-
 export const checkRole = async (user: User, teamId: string, role: ROLE[]) => {
-    const teamUser = await db.teamUser.findFirst({
-        where: {
-            AND: {
-                userId: user.id,
-                teamId,
-                role: {
-                    in: role,
-                },
-            },
+    const teamUser = await db.query.teamMember.findFirst({
+        where(fields, operators) {
+            return (
+                operators.and(
+                    operators.eq(fields.userId, user.id),
+                    operators.eq(fields.teamId, teamId),
+                    inArray(fields.role, role)
+                )
+            )
         },
     });
     return teamUser;

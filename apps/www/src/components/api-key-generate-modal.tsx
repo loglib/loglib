@@ -27,7 +27,7 @@ import {
     SelectValue,
 } from "./ui/select";
 import { toast } from "./ui/use-toast";
-import { Website } from "@prisma/client";
+import { Website } from "@loglib/types/models";
 
 export const GenerateApiKey = ({ websites }: { websites: Website[] }) => {
     const [isLoading, setIsLoading] = useState(false);

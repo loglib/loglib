@@ -47,7 +47,7 @@ export const TeamInviteForm = () => {
                 });
             }
 
-            if (team.TeamUser.find((tu) => tu.email === values.email)) {
+            if (team.teamMember.find((tu) => tu.email === values.email)) {
                 throw new Error("User is already on the team", {
                     cause: "The user is already a member of the team",
                 });
@@ -61,7 +61,7 @@ export const TeamInviteForm = () => {
             }
             setTeam({
                 ...team,
-                TeamUser: [...team.TeamUser, res],
+                teamMember: [...team.teamMember, res],
             });
             toast({
                 title: "Success!",

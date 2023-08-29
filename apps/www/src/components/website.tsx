@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Icons } from "./icons";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader } from "./ui/card";
-import { Website as WebsiteType } from "@prisma/client";
+import { Website as WebsiteType } from "@loglib/types/models";
 
 interface WebsiteProps {
     site: WebsiteType;

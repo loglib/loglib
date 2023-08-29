@@ -25,7 +25,7 @@ export const teamMember = sqliteTable("teamMember", {
     websiteId: text("websiteId").references(() => website.id, { onDelete: "cascade" }),
     accepted: boolean("accepted").default(false),
     role: text("text", {
-        enum: ["owner", "admin", "member"]
+        enum: ["owner", "admin", "viewer"]
     }),
     createdAt: date("createdAt"),
     updatedAt: date("updatedAt")
@@ -54,10 +54,16 @@ export const teamWebsites = sqliteTable("teamWebsites", {
 })
 
 
-export const teamWebsitesRelations = relations(teamWebsites, ({ one }) => {
+export const teamWebsitesRelations = relations(teamWebsites, ({ one, many }) => {
     return {
-        team: one(team),
-        website: one(website)
+        team: one(team, {
+            fields: [teamWebsites.teamId],
+            references: [team.id]
+        }),
+        website: one(website, {
+            fields: [teamWebsites.websiteId],
+            references: [website.id]
+        }),
     }
 })
 export const teamMemberRelations = relations(teamMember, ({ one }) => {

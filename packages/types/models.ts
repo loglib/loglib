@@ -8,6 +8,9 @@ export type TeamWebsite = typeof schema.teamWebsites.$inferSelect
 export type TeamInvitation = typeof schema.teamInvitation.$inferSelect
 export type User = typeof schema.users.$inferSelect
 
+//ENUMS
+export type ROLE = NonNullable<typeof schema.teamMember.$inferSelect.role>
+
 export type Visitor = {
     id: string;
     createdAt: Date;

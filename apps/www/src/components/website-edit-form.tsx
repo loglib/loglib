@@ -2,7 +2,7 @@ import { websiteDeleteModalAtom } from "@/jotai/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAtom } from "jotai";
-import { ExternalLink, Info, Trash2 } from "lucide-react";
+import { ExternalLink, Info, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
@@ -19,7 +19,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 import { toast } from "./ui/use-toast";
 import { siteConfig } from "@/config/site";
-import { Website } from "@prisma/client";
+import { Website } from "@loglib/types/models";
 import Link from "next/link";
 
 export const EditWebsiteForm = ({
@@ -122,17 +122,8 @@ export const EditWebsiteForm = ({
                         }}
                         className="animate-in relative flex w-11/12 flex-col  justify-center rounded-md border bg-gradient-to-tr from-gray-100 to-gray-200 px-8 pb-10 pt-4 dark:border-stone-800 dark:from-black dark:to-stone-900/20 md:w-3/12"
                     >
-                        <div className=" ml-auto">
-                            <Button
-                                variant="outline"
-                                className=""
-                                onClick={() => {
-                                    setIsOpen(false);
-                                    setDeleteAlert(true);
-                                }}
-                            >
-                                <Trash2 size={16} className=" text-red-500" />
-                            </Button>
+                        <div className=" ml-auto" role="button" onClick={() => setIsOpen(false)}>
+                            <X size={20} />
                         </div>
                         <Form {...form}>
                             <form
@@ -272,7 +263,7 @@ export const EditWebsiteForm = ({
                                     )}
                                 />
 
-                                <div className=" space-x-2">
+                                <div className=" space-x-2 flex items-center">
                                     <Button type="submit" disabled={isLoading}>
                                         {isLoading ? (
                                             <Icons.spinner className="h-4 w-4 animate-spin" />
@@ -282,11 +273,15 @@ export const EditWebsiteForm = ({
                                     </Button>
                                     <Button
                                         type="button"
-                                        variant="outline"
-                                        className=""
-                                        onClick={() => setIsOpen(false)}
+                                        variant="destructive"
+                                        className=" flex items-center gap-2"
+                                        onClick={() => {
+                                            setIsOpen(false);
+                                            setDeleteAlert(true);
+                                        }}
                                     >
-                                        Cancel
+                                        <Trash2 size={16} />
+                                        Delete
                                     </Button>
                                 </div>
                             </form>

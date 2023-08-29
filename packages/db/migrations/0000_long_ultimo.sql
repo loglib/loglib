@@ -76,9 +76,13 @@ CREATE TABLE `teamInvitation` (
 	`teamId` text,
 	`token` text NOT NULL,
 	`status` text,
+	`userId` text,
+	`teamMemberId` text,
 	`createdAt` integer,
 	`updatedAt` integer,
-	FOREIGN KEY (`teamId`) REFERENCES `team`(`id`) ON UPDATE no action ON DELETE cascade
+	FOREIGN KEY (`teamId`) REFERENCES `team`(`id`) ON UPDATE no action ON DELETE cascade,
+	FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE cascade,
+	FOREIGN KEY (`teamMemberId`) REFERENCES `teamMember`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `teamMember` (
