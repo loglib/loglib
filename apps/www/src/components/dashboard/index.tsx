@@ -46,7 +46,7 @@ export const Dashboard = ({
     token,
     showSetup,
 }: {
-    website: { id: string; url: string };
+    website: { id: string; url: string; title: string | null };
     isPublic: boolean;
     showSetup?: boolean;
     token: string;
@@ -129,11 +129,15 @@ export const Dashboard = ({
                                     </TabsTrigger>
                                 </TabsList>
                                 <div>
-                                    <Celebrate
-                                        pageview={data?.insight.totalPageViews.current}
-                                        uniqVisitor={data?.insight.uniqueVisitors.current}
-                                        websiteId={website.id}
-                                    />
+                                    {data && (
+                                        <Celebrate
+                                            pageview={data.insight.totalPageViews}
+                                            uniqVisitor={data.insight.uniqueVisitors}
+                                            websiteId={website.id}
+                                            time={timeRange.stringValue}
+                                            title={website.title ?? undefined}
+                                        />
+                                    )}
                                 </div>
                             </div>
                         ) : null}

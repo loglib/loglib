@@ -10,9 +10,9 @@ const tiers = [
             "Upto 2 website",
             "Upto 1M page views per month",
             "Upto 10k api requests per month",
-            "Throw in there 1 team",
+            "Team upto 2 members",
         ],
-        notIncluded: ["Custom Email Notification"],
+        notIncluded: ["Email Notification"],
     },
     {
         name: "Pro",
