@@ -1,7 +1,7 @@
-import { Team, TeamUser, User } from "@prisma/client";
+import { Team, TeamMember, User } from "@loglib/types/models";
 
 export type TeamWithUsers = Team & {
-    TeamUser: (TeamUser & {
+    TeamUser: (TeamMember & {
         User: User;
     })[];
 };

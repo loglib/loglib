@@ -32,9 +32,6 @@ importers:
       '@manypkg/cli':
         specifier: ^0.20.0
         version: 0.20.0
-      '@prisma/client':
-        specifier: ^4.14.0
-        version: 4.14.0
       '@types/node':
         specifier: ^18.15.13
         version: 18.15.13
@@ -81,7 +78,7 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1(bufferutil@4.0.7)(encoding@0.1.13)(utf-8-validate@6.0.3)
       '@loglib/db':
-        specifier: ^1.0.0
+        specifier: workspace:*
         version: link:../../packages/db
       '@loglib/setup':
         specifier: 1.0.0
@@ -142,7 +139,7 @@ importers:
         version: 3.21.4
     devDependencies:
       '@loglib/types':
-        specifier: workspace:*
+        specifier: 'workspace: *'
         version: link:../../packages/types
       '@types/jsonwebtoken':
         specifier: ^9.0.2
@@ -166,7 +163,7 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1(bufferutil@4.0.7)(encoding@0.1.13)(utf-8-validate@6.0.3)
       '@loglib/db':
-        specifier: 'workspace: *'
+        specifier: workspace:*
         version: link:../../packages/db
       '@loglib/tracker':
         specifier: 0.6.2
@@ -512,10 +509,10 @@ importers:
         version: 3.21.4
     devDependencies:
       '@loglib/api':
-        specifier: 'workspace: *'
+        specifier: workspace:*
         version: link:../api
       '@loglib/types':
-        specifier: 'workspace: *'
+        specifier: workspace:*
         version: link:../../packages/types
       '@types/bcrypt':
         specifier: ^5.0.0

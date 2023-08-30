@@ -1,5 +1,5 @@
 import { Teams } from "@/server/query";
-import { Website } from "@prisma/client";
+import { Website } from "@loglib/types/models";
 import { atom } from "jotai";
 import { User } from "next-auth";
 import { atomWithStorage } from 'jotai/utils'

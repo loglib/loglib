@@ -23,7 +23,7 @@
         "@heroicons/react": "1.0.6",
         "@hookform/resolvers": "^3.1.1",
         "@libsql/client": "^0.3.1",
-        "@loglib/db": "workspace: *",
+        "@loglib/db": "workspace:*",
         "@loglib/tracker": "0.6.2",
         "@lottiefiles/react-lottie-player": "^3.5.3",
         "@mdx-js/mdx": "^2.3.0",
@@ -140,8 +140,8 @@
         "zod": "^3.21.4"
     },
     "devDependencies": {
-        "@loglib/api": "workspace: *",
-        "@loglib/types": "workspace: *",
+        "@loglib/api": "workspace:*",
+        "@loglib/types": "workspace:*",
         "@types/bcrypt": "^5.0.0",
         "@types/js-cookie": "^3.0.3",
         "@types/jsonwebtoken": "^9.0.2",
