@@ -54,7 +54,7 @@ export const teamWebsites = sqliteTable("teamWebsites", {
 })
 
 
-export const teamWebsitesRelations = relations(teamWebsites, ({ one, many }) => {
+export const teamWebsitesRelations = relations(teamWebsites, ({ one }) => {
     return {
         team: one(team, {
             fields: [teamWebsites.teamId],
@@ -87,6 +87,5 @@ export const teamRelations = relations(team, ({ many }) => {
     return {
         teamMembers: many(teamMember),
         teamWebsites: many(teamWebsites),
-        websites: many(website)
     }
 })
