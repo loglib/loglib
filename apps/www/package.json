@@ -12,8 +12,7 @@
         "start": "next start",
         "lint": "next lint",
         "typecheck": "tsc --noEmit",
-        "preview": "next build && next start",
-        "postinstall": "prisma generate"
+        "preview": "next build && next start"
     },
     "prisma": {
         "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
