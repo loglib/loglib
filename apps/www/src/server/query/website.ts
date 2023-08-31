@@ -41,7 +41,7 @@ export const getWebsite = async () => {
         return {
             // rome-ignore lint/style/noNonNullAssertion: <explanation>
             ...web.website!,
-            visitors: await queires.getTodayVisitorsCount(web.id)
+            visitors: await queires.getTodayVisitorsCount(web.websiteId)
         };
     });
     return {

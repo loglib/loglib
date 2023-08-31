@@ -8,8 +8,7 @@ export const getTodayVisitorsCount = (websiteId: string) => {
     return {
         clickhouse: async () => {
             const sessionsCount = await client.query({
-                query: `select visitorId as id from loglib.event where websiteId='${websiteId
-                    }' AND timestamp >= '${before24Hour.toISOString().slice(0, 19).replace("T", " ")}'`,
+                query: `select visitorId as id from loglib.event where websiteId='${websiteId}' AND timestamp >= '${before24Hour.toISOString().slice(0, 19).replace("T", " ")}'`,
                 format: "JSONEachRow",
             });
             const s = (await sessionsCount.json()) as { id: string }[];
@@ -43,6 +42,7 @@ export const DatabaseQueries = (dbType: "clickhouse" | "sqlite") => {
         getTodayVisitorsCount: async (websiteId: string) => {
             const { sqlite, clickhouse } = getTodayVisitorsCount(websiteId)
             if (dbType === "clickhouse") {
+                console.log(dbType)
                 return await clickhouse()
             } else {
                 return await sqlite()
