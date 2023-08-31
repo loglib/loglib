@@ -1,13 +1,15 @@
-import { client, customEventsQuery, getDataQuery, hitsQuery } from "./lib/db/clickhouse";
-import { db } from "./lib/db/kysley";
+import { env } from "../env";
+import { eventDB } from "./db";
+import { client, hitsQuery } from "./db/clickhouse";
+import { db } from "./db/drizzle";
 import { rateLimitCheck } from "./lib/rate-limit";
 import { retryFunction } from "./lib/retry";
 import { filter } from "./lib/small-filter";
-import { convertDate, convertToUTC } from "./lib/utils";
+import { convertToUTC } from "./lib/utils";
 import { router } from "./routes";
 import { getInsight } from "./routes/insight";
 import { getTablesData } from "./routes/table";
-import { apiQuery, envSchema, insightPubApiSchema, insightSchema } from "./schema";
+import { apiQuery, insightPubApiSchema, insightSchema } from "./schema";
 import { Filter, LoglibEvent, Path } from "./type";
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
@@ -21,7 +23,6 @@ app.use("*", logger());
 app.use("*", cors());
 
 app.post("/", async (c) => {
-    envSchema.parse(process.env);
     const body = await c.req.json();
     const headers = Object.fromEntries(c.req.headers);
     const query = c.req.query();
@@ -32,12 +33,10 @@ app.post("/", async (c) => {
     const path: Path = body.path;
     const res = await router({ path, rawBody: body, req: { headers, query } });
     console.log(path, res);
-    return c.json(JSON.stringify(res.data), res.status);
+    return c.json(null, res.status);
 });
 
 app.get("/", async (c) => {
-    //check env
-    const env = envSchema.parse(process.env);
     //authentication
     const queries = insightSchema.safeParse(c.req.query());
     if (!queries.success) {
@@ -64,7 +63,7 @@ app.get("/", async (c) => {
     try {
         const tick = performance.now();
         let [events, lastEvents] = await retryFunction(
-            getDataQuery,
+            eventDB.getHits,
             [startDateObj, endDateObj, pastEndDateObj, websiteId],
             3,
             4,
@@ -104,42 +103,8 @@ app.get("/events", async (c) => {
     const endDateObj = new Date(c.req.query("endDate"));
     const websiteId = c.req.query("websiteId");
     try {
-        const res = await client
-            .query({
-                query: customEventsQuery(
-                    convertDate(startDateObj),
-                    convertDate(endDateObj),
-                    websiteId,
-                ),
-                format: "JSONEachRow",
-            })
-            .then(async (res) => await res.json())
-            .catch((e) => console.log(e));
-        type EventRes = {
-            id: string;
-            event: string;
-            sessionId: string;
-            visitorId: string;
-            properties: string;
-            timestamp: string;
-            websiteId: string;
-        };
-        const events = (res as EventRes[])
-            .map((s) => {
-                const properties = JSON.parse(s.properties);
-                console.log(properties)
-                return {
-                    ...properties,
-                    id: s.id,
-                    event: s.event,
-                    sessionId: s.sessionId,
-                    websiteId: s.websiteId,
-                    visitorId: s.visitorId,
-                    timestamp: s.timestamp,
-                    duration: properties.duration ?? 0,
-                };
-            })
-            .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+        const res = await eventDB.getCustomEvents(startDateObj, endDateObj, websiteId);
+        const events = res.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
         return c.json(events, 200);
     } catch {
         return c.json(null, 500);
@@ -157,11 +122,11 @@ app.get("/v1/hits", async (c) => {
     if (!apiKey) {
         return c.json({ message: "Unauthorized" }, 401);
     }
-    const site = await db
-        .selectFrom("api_key")
-        .selectAll()
-        .where("key", "=", apiKey)
-        .executeTakeFirst();
+    const site = await db.query.apiKey.findFirst({
+        where(fields, operators) {
+            return operators.and(operators.eq(fields.token, apiKey));
+        },
+    })
     if (!site) {
         return c.json({ message: "Unauthorized" }, 401);
     }
@@ -201,11 +166,11 @@ app.get("/v1/inisght", async (c) => {
             429,
         );
     }
-    const site = await db
-        .selectFrom("api_key")
-        .where("key", "=", apiKey)
-        .selectAll()
-        .executeTakeFirst();
+    const site = await db.query.apiKey.findFirst({
+        where(fields, operators) {
+            return operators.and(operators.eq(fields.token, apiKey));
+        },
+    })
     const websiteId = site.websiteId;
     const today = new Date();
     const startDateObj = new Date(
@@ -218,7 +183,7 @@ app.get("/v1/inisght", async (c) => {
     try {
         const tick = performance.now();
         let [events, lastEvents] = await retryFunction(
-            getDataQuery,
+            eventDB.getHits,
             [startDateObj, endDateObj, pastEndDateObj, websiteId],
             3,
             4,

@@ -53,9 +53,11 @@ export function record(config?: Partial<Config>) {
     };
     const logger = Logger(window.llc.debug)
     logger.log("start recording...", window.llc);
+
     //Auto Tracker
     if (window.llc.autoTrack) {
         window.addEventListener("click", clickHandler);
+        //TODO: Add more auto trackers for d/t events
     }
     if (window.llc.env === "auto") {
         const env = detectEnvironment();

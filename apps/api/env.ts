@@ -7,8 +7,8 @@ export const env = createEnv({
         DATABASE_HOST: z.string(),
         DATABASE_USERNAME: z.string(),
         DATABASE_PASSWORD: z.string(),
-        CLICKHOUSE_HOST: z.string(),
-        CLICKHOUSE_PASSWORD: z.string(),
+        CLICKHOUSE_HOST: z.string().optional(),
+        CLICKHOUSE_PASSWORD: z.string().optional(),
         NEXTAUTH_SECRET: z.string(),
         CLIENT_IP_ADDRESS: z.string().optional(),
 

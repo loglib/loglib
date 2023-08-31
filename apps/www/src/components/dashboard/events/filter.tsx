@@ -17,7 +17,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import COUNTRIES from "@/lib/constants";
-import { EventsWithData } from "@loglib/types";
+import { LoglibCustomEvent } from "@loglib/types";
 import { Equal, EqualNot, SlidersHorizontal } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
 import { useState } from "react";
@@ -28,7 +28,7 @@ import { loglib } from "@loglib/tracker";
 export const EventFilter = ({
     data,
     setData,
-}: { data: EventsWithData; setData: (state: EventsWithData) => void }) => {
+}: { data: LoglibCustomEvent[]; setData: (state: LoglibCustomEvent[]) => void }) => {
     const getUnqiueValue = (input: string[]) => {
         const set = new Set(input);
         return Array.from(set);

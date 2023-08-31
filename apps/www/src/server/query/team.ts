@@ -6,57 +6,46 @@ export const getTeams = async () => {
     if (!user) {
         throw new Error("User not found");
     }
-    const teams = await db.team
-        .findMany({
-            where: {
-                TeamUser: {
-                    some: {
-                        AND: {
-                            userId: user.id,
-                            accepted: true,
-                        },
+    const teams = await db.query.teamMember.findMany({
+        where(fields, operators) {
+            return operators.and(
+                operators.eq(fields.userId, user.id),
+                operators.eq(fields.accepted, true)
+            )
+        },
+        with: {
+            team: {
+                with: {
+                    teamMembers: {
+                        with: {
+                            users: true
+                        }
                     },
-                },
+                    teamWebsites: {
+                        with: {
+                            website: true
+                        }
+                    }
+                }
             },
-            include: {
-                TeamUser: {
-                    select: {
-                        id: true,
-                        accepted: true,
-                        role: true,
-                        userId: true,
-                        createdAt: true,
-                        User: {
-                            select: {
-                                name: true,
-                                email: true,
-                                id: true,
-                            },
-                        },
-                    },
-                },
-                TeamWebsite: {
-                    include: {
-                        Website: {
-                            select: {
-                                id: true,
-                                title: true,
-                            },
-                        },
-                    },
-                },
-            },
-        })
-        .then((res) =>
-            res.map((team) => ({
-                ...team,
-                TeamUser: team.TeamUser.map((teamUser) => ({
-                    ...teamUser,
-                    name: teamUser.User.name,
-                    email: teamUser.User.email,
-                })),
-            })),
-        );
+        }
+    }).then((res) => res.map((teamProps) => {
+        if (!teamProps.team) {
+            return null;
+        }
+        const { teamWebsites, teamMembers, ...rest } = teamProps.team
+        return {
+            ...rest,
+            websites: teamWebsites ?? [],
+            teamMember: teamMembers.map(t => ({
+                ...t,
+                name: t.users.name,
+                email: t.users.email
+            })) ?? []
+        }
+    }));
     return teams;
 };
 export type Teams = Awaited<ReturnType<typeof getTeams>>;
+
+

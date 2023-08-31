@@ -1,8 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
-const db = new PrismaClient();
-
-const paths = [
+export const DISALLOWED = [
     "dashboard",
     "signup",
     "sign-up",
@@ -60,14 +56,3 @@ const paths = [
     "assets",
     "as",
 ];
-
-async function main() {
-    await db.disallowed.createMany({
-        data: paths.map((identity) => ({ identity })),
-    });
-}
-
-main().catch((e) => {
-    console.error(e);
-    process.exit(1);
-});

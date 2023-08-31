@@ -12,7 +12,6 @@ import { toast } from "./ui/use-toast";
 
 export const GenerateKeys = ({ disabled }: { disabled: boolean }) => {
     const [, setModal] = useAtom(apiKeyGenerateModalAtom);
-
     return (
         <Button
             onClick={() => {

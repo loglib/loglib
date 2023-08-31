@@ -1,0 +1,29 @@
+{
+    "name": "@loglib/db",
+    "version": "1.0.0",
+    "description": "",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "keywords": [],
+    "author": "Bereket Engida",
+    "license": "ISC",
+    "scripts": {
+        "generate": "drizzle-kit generate:sqlite",
+        "studio": "dotenv drizzle-kit studio",
+        "migrate": "tsx src/migrate.ts",
+        "build": "tsup",
+        "dev": "tsup --watch"
+    },
+    "dependencies": {
+        "@auth/core": "^0.12.0",
+        "@libsql/client": "^0.3.1",
+        "@paralleldrive/cuid2": "^2.2.2",
+        "dotenv": "^16.3.1",
+        "drizzle-kit": "^0.19.13",
+        "drizzle-orm": "^0.28.5",
+        "tsx": "^3.12.7"
+    },
+    "devDependencies": {
+        "@loglib/config": "workspace:*"
+    }
+}

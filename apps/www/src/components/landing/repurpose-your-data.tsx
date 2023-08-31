@@ -58,7 +58,7 @@ export const RepurposeYourData = () => {
                             <svg
                                 stroke="currentColor"
                                 fill="currentColor"
-                                stroke-width="0"
+                                strokeWidth="0"
                                 viewBox="0 0 20 20"
                                 className="relative transition–all duration-200 left-0.5 group-focus:left-1 group-hover:left-1 w-4 h-4 ml-1"
                                 height="1em"

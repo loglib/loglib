@@ -70,7 +70,7 @@ export const TeamWebsiteModal = () => {
     };
     useEffect(() => {
         if (team) {
-            team.TeamWebsite.length && setSelected(team.TeamWebsite[0]?.websiteId);
+            team.websites.length && setSelected(team.websites[0]?.id);
         }
     }, [team]);
     const [_user] = useAtom(userAtom);
@@ -119,7 +119,7 @@ export const TeamWebsiteModal = () => {
                                 ))}
                             </SelectContent>
                         </Select>
-                        {team?.TeamWebsite.length ? (
+                        {team?.websites.length ? (
                             <div>
                                 <Button
                                     className=" justify-start p-0 text-sm text-red-500"

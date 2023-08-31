@@ -2,10 +2,10 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import COUNTRIES from "@/lib/constants";
-import { EventsWithData } from "@loglib/types";
+import { LoglibCustomEvent } from "@loglib/types";
 import { Row } from "@tanstack/react-table";
 
-const renderSubComponent = ({ row }: { row: Row<EventsWithData[0]> }) => {
+const renderSubComponent = ({ row }: { row: Row<LoglibCustomEvent> }) => {
     const data = row.original;
     const automaticProperties = {
         Browser: data.browser,

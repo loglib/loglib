@@ -1,5 +1,5 @@
 import { AvatarProps } from "@radix-ui/react-avatar";
-import { User } from "@prisma/client";
+import { User } from "@loglib/types/models";
 
 import { Icons } from "@/components/icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
