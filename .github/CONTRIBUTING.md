@@ -46,7 +46,7 @@ this will crate a sqlite database in packages/db folder that'll be used across t
 Run clickhouse in docker using this command.
 
 ```sh-session
-
+docker run -d --name clickhouse-server -p 8123:8123 --ulimit nofile=262144:262144 yandex/clickhouse-server
 ```
 
 Now we haven't setup our env variables to this point so first let's change .env.example to .env on both apps (web and api).
