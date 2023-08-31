@@ -37,7 +37,7 @@ With our passion to make loglib very easy to contibute and run in dev environmen
 **Step 1**: Migrate the shcema and setup local database
 
 ```sh-session
-pnpm db migrate
+pnpm migrate
 ```
 
 this will crate a sqlite database in packages/db folder that'll be used across the whole project including as a clickhouse queries if you don't provide clickhouse crentials.
