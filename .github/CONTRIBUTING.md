@@ -32,7 +32,7 @@ We use turporepo to manage the project. If you're not familar with turbo repo sk
 
 ### Setting up databse
 
-With our passion to make loglib very easy to contibute and run in dev environment we made sure you can run most of loglib without needing to signup for 3rd party service or run a docker instance that hogs up your memory. All you need is a sqlite database to run loglib.
+We really want loglib to be easy for everyone who want to contribute and use in their own development setup. We've worked hard to make sure you don't have to sign up for external services or deal with complicated Docker setups that can slow down your pc. All you need is a basic sqlite database to run loglib.
 
 **Step 1**: Migrate the shcema and setup local database
 
@@ -42,7 +42,7 @@ pnpm migrate
 
 this will crate a sqlite database in packages/db folder that'll be used across the whole project including as a clickhouse queries if you don't provide clickhouse crentials.
 
-**Step 2**: Setting up clickhouse (optional)
+**Step 2** (optional): Setting up clickhouse
 Run clickhouse in docker using this command.
 
 ```sh-session
