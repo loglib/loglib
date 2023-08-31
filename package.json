@@ -13,7 +13,9 @@
         "fmt": "pnpm rome check . && pnpm rome format . --write",
         "test": "turbo test",
         "typecheck": "turbo typecheck",
-        "deploy:api": "turbo --filter api deploy"
+        "deploy:api": "turbo --filter api deploy",
+        "migrate": "turbo --filter db migrate",
+        "migrate:clickhouse": "turbo --filter api setup:clickhouse"
     },
     "pnpm": {
         "overrides": {
