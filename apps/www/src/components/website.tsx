@@ -12,17 +12,16 @@ import { Website as WebsiteType } from "@loglib/types/models";
 interface WebsiteProps {
     site: WebsiteType;
     visitors: number;
-    key: string;
     setSelected: (id: string) => void;
     setIsOpen: (state: boolean) => void;
 }
 
-export function Website({ site, visitors, key, setSelected, setIsOpen }: WebsiteProps) {
+export function Website({ site, visitors, setSelected, setIsOpen }: WebsiteProps) {
     const [isLoading, setIsLoading] = useState(false);
     return (
         <Card
-            key={key}
             className="@container/card border-stone-400/20 bg-gradient-to-tr shadow-sm shadow-orange-800/40 dark:from-black dark:to-stone-900/30"
+            key={site.id}
         >
             <div className="card__layer1"></div>
             <div className="card__layer2"></div>

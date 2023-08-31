@@ -81,12 +81,12 @@ export const RefIcons = {
             className="w-5 h-5"
             fill="#000000"
         >
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+            <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
             <g id="SVGRepo_iconCarrier">
                 {" "}
                 <title>Android_2_line</title>{" "}
-                <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="页面-1" stroke="none" strokeWidth="1" fill="none" fill-rule="evenodd">
                     {" "}
                     <g id="Logo" transform="translate(0.000000, -96.000000)" fill-rule="nonzero">
                         {" "}
