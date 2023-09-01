@@ -48,9 +48,10 @@ function AppWindow({
       role="presentation"
       className={clsx(
         'border-divider-light pointer-events-none flex h-full w-full select-none flex-col overflow-hidden rounded-xl border bg-white',
-        'dark:border-divider-dark dark:bg-[#0c1222]'
+        'dark:border-divider-dark  from-stone-900 bg-gradient-to-br to-[#080812]   '
       )}
     >
+    
       <div
         className={clsx(
           'border-divider-light relative box-border border-b',
@@ -102,7 +103,7 @@ function AppWindow({
           </>
         )}
       </div>
-      <div className={clsx('flex-1 overflow-hidden')}>{children}</div>
+      <div className={clsx('flex-1 overflow-hidden ')}>{children}</div>
     </div>
   );
 }
