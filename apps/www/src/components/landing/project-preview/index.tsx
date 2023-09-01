@@ -69,7 +69,7 @@ function ProjectsContents() {
                 >
                   {currentState === 'github' && (
                     <GitHubWireframe
-                      author="loglob"
+                      author="loglib"
                       license="MIT"
                       repository="loglib"
                       description="Yet another web analytics tool"

@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "@auth/kysely-adapter": "^0.1.1",
+        "@babel/preset-react": "^7.22.5",
         "@chronark/zod-bird": "^0.1.1",
         "@clickhouse/client": "^0.1.1",
         "@heroicons/react": "1.0.6",
