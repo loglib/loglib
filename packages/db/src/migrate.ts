@@ -19,5 +19,5 @@ async function main() {
 main().then(() => {
     console.log("✅: [Migration Complete]")
 }).catch(e => {
-    console.log(e, "[Migration Failed]")
+    console.log(e, "❗️:[Migration Failed]")
 })

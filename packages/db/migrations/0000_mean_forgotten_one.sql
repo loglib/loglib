@@ -1,12 +1,12 @@
 CREATE TABLE `apiKey` (
 	`id` text PRIMARY KEY NOT NULL,
-	`userId` text,
+	`userId` text NOT NULL,
 	`name` text NOT NULL,
 	`websiteId` text,
 	`token` text NOT NULL,
-	`expiresAt` integer,
-	`createdAt` integer,
-	`updatedAt` integer,
+	`expiresAt` integer NOT NULL,
+	`createdAt` integer NOT NULL,
+	`updatedAt` integer NOT NULL,
 	FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE cascade,
 	FOREIGN KEY (`websiteId`) REFERENCES `website`(`id`) ON UPDATE no action ON DELETE cascade
 );
@@ -49,7 +49,8 @@ CREATE TABLE `user` (
 	`name` text,
 	`email` text NOT NULL,
 	`emailVerified` integer,
-	`image` text
+	`image` text,
+	`createdAt` integer NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE `verificationToken` (
@@ -66,8 +67,8 @@ CREATE TABLE `team` (
 	`type` text DEFAULT 'free',
 	`description` text,
 	`image` text,
-	`createdAt` integer,
-	`updatedAt` integer
+	`createdAt` integer NOT NULL,
+	`updatedAt` integer NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE `teamInvitation` (
@@ -76,10 +77,10 @@ CREATE TABLE `teamInvitation` (
 	`teamId` text,
 	`token` text NOT NULL,
 	`status` text,
-	`userId` text,
+	`userId` text NOT NULL,
 	`teamMemberId` text,
-	`createdAt` integer,
-	`updatedAt` integer,
+	`createdAt` integer NOT NULL,
+	`updatedAt` integer NOT NULL,
 	FOREIGN KEY (`teamId`) REFERENCES `team`(`id`) ON UPDATE no action ON DELETE cascade,
 	FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE cascade,
 	FOREIGN KEY (`teamMemberId`) REFERENCES `teamMember`(`id`) ON UPDATE no action ON DELETE cascade
@@ -87,15 +88,15 @@ CREATE TABLE `teamInvitation` (
 --> statement-breakpoint
 CREATE TABLE `teamMember` (
 	`id` text PRIMARY KEY NOT NULL,
-	`userId` text,
+	`userId` text NOT NULL,
 	`email` text NOT NULL,
 	`name` text,
 	`teamId` text,
 	`websiteId` text,
 	`accepted` integer DEFAULT false,
 	`text` text,
-	`createdAt` integer,
-	`updatedAt` integer,
+	`createdAt` integer NOT NULL,
+	`updatedAt` integer NOT NULL,
 	FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE cascade,
 	FOREIGN KEY (`teamId`) REFERENCES `team`(`id`) ON UPDATE no action ON DELETE cascade,
 	FOREIGN KEY (`websiteId`) REFERENCES `website`(`id`) ON UPDATE no action ON DELETE cascade
@@ -103,8 +104,8 @@ CREATE TABLE `teamMember` (
 --> statement-breakpoint
 CREATE TABLE `teamWebsites` (
 	`id` text PRIMARY KEY NOT NULL,
-	`createdAt` integer,
-	`updatedAt` integer,
+	`createdAt` integer NOT NULL,
+	`updatedAt` integer NOT NULL,
 	`teamId` text,
 	`websiteId` text,
 	FOREIGN KEY (`teamId`) REFERENCES `team`(`id`) ON UPDATE no action ON DELETE cascade,
@@ -113,12 +114,12 @@ CREATE TABLE `teamWebsites` (
 --> statement-breakpoint
 CREATE TABLE `website` (
 	`id` text PRIMARY KEY NOT NULL,
-	`updatedAt` integer,
+	`createdAt` integer NOT NULL,
 	`url` text NOT NULL,
 	`title` text,
-	`userId` text,
-	`active` integer,
-	`public` integer,
+	`userId` text NOT NULL,
+	`active` integer DEFAULT false NOT NULL,
+	`public` integer DEFAULT false NOT NULL,
 	FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
