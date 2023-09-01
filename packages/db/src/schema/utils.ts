@@ -12,7 +12,7 @@ export function boolean(name: string) {
 export function date(name: string) {
     return integer(name, {
         mode: "timestamp"
-    }).$defaultFn(() => new Date()).notNull()
+    }).$defaultFn(() => new Date())
 }
 
 export function id(name?: string) {
