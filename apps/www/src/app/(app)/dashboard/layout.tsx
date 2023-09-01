@@ -46,6 +46,12 @@ export default async function DashboardSideBarLayout({
                                 icon: "key",
                                 href: "/dashboard/api-keys",
                             },
+                            {
+                                title: "Setting",
+                                icon: "settings",
+                                href: "/dashboard/settings",
+                                useInclude: true
+                            }
                         ]}
                     />
                 </aside>

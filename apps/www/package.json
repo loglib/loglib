@@ -13,7 +13,8 @@
         "start": "next start",
         "lint": "next lint",
         "typecheck": "tsc --noEmit",
-        "preview": "next build && next start"
+        "preview": "next build && next start",
+        "email:dev": "email dev --dir src/components/emails -p 3001"
     },
     "prisma": {
         "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
@@ -63,6 +64,7 @@
         "@react-email/button": "0.0.9",
         "@react-email/components": "0.0.6",
         "@react-email/html": "0.0.4",
+        "@stripe/stripe-js": "^2.1.0",
         "@t3-oss/env-nextjs": "^0.2.2",
         "@tailwindcss/container-queries": "^0.1.1",
         "@tailwindcss/line-clamp": "^0.4.4",
@@ -79,6 +81,7 @@
         "better-sqlite3": "^8.5.2",
         "bufferutil": "^4.0.7",
         "class-variance-authority": "^0.6.0",
+        "classnames": "^2.3.2",
         "clickhouse": "^2.6.0",
         "clsx": "^1.2.1",
         "cmdk": "^0.2.0",
@@ -135,6 +138,7 @@
         "request": "2.79.0",
         "resend": "^0.16.0",
         "shiki": "^0.14.2",
+        "stripe": "^13.4.0",
         "swr": "^2.1.5",
         "tailwind-merge": "^1.13.0",
         "utf-8-validate": "^6.0.3",

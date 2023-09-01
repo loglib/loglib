@@ -4,12 +4,22 @@ import { NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
+import { schema } from "@loglib/db";
+import { guid } from '../../../../packages/tracker/src/utils/util';
 
 export const authOptions: NextAuthOptions = {
-    adapter: DrizzleAdapter(db) as any,
+    adapter: {
+        ...DrizzleAdapter(db) as any,
+        async createUser(user) {
+            await db.insert(schema.users).values({
+                id: guid(),
+                ...user,
+                createdAt: new Date()
+            }).returning().get()
+        },
+    },
     session: {
         strategy: "jwt",
-        maxAge: 30 * 24 * 60 * 60,
     },
     secret: env.NEXTAUTH_SECRET,
     pages: {
@@ -20,7 +30,6 @@ export const authOptions: NextAuthOptions = {
             clientId: env.GITHUB_CLIENT_ID ?? "",
             clientSecret: env.GITHUB_CLIENT_SECRET ?? "",
             allowDangerousEmailAccountLinking: true
-
         }),
         GoogleProvider({
             clientId: env.GOOGLE_CLIENT_ID ?? "",
