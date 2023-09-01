@@ -16,10 +16,12 @@ function GitHubWireframe({
   description,
 }: GithubWireframeProps) {
   return (
+
+  
     <div
       className={clsx(
         'h-full w-full bg-white p-4 text-sm text-slate-600',
-        'dark:bg-slate-900 dark:text-slate-400'
+        ' from-stone-900 bg-gradient-to-br to-[#080812] dark:text-slate-400'
       )}
     >
       <div className={clsx('flex items-center gap-1')}>

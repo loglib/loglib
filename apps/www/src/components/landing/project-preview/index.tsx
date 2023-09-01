@@ -19,7 +19,7 @@ function ProjectsContents() {
 
     <main className='w-11/12 m-30'>
 
-      <SectionTitle
+      {/* <SectionTitle
         title="Yet Another Way To Boost "
         caption="LOGLIB"
         description="Introducing a privacy-centric web analytics platform designed for everyone. Gain valuable insights into your website visitors while prioritizing their privacy. Additionally, we offer free plans that allow you to access and enhance your website's performance."
@@ -27,7 +27,7 @@ function ProjectsContents() {
           title: 'learn more',
           href: '/docs',
         }}
-        />
+        /> */}
       </main>
       <SectionContent>
         <div className={clsx('flex', 'lg:gap-12')}>
