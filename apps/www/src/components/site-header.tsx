@@ -11,28 +11,28 @@ import { Button } from "./ui/button";
 import { UserAccountNav } from "./user-account-nav";
 
 export function SiteHeader({ user }: { user?: User }) {
-    // const { setTheme, theme } = useTheme();
-    const _switchOnRef = useRef<HTMLAudioElement>(null);
-    const _switchOffRef = useRef<HTMLAudioElement>(null);
-    return (
-        <header className="flex items-center justify-between top-0 md:px-16 px-4 max-w-8xl sticky mb-16 w-full z-50 bg-white/60 backdrop-blur-sm  dark:bg-stone-950/80 py-4">
-            <div
-                className=" absolute h-1 bottom-0 w-full"
-                style={{
-                    background:
-                        "radial-gradient(62.87% 100% at 50% 100%,rgba(255,255,255,.12) 0%,rgba(255,255,255,0) 100%)",
-                }}
-            />
-            <Icons.logoWithLetter />
-            <div className=" hidden md:block">
-                <LandingNav />
-            </div>
-            <div className="flex items-center gap-2 font-medium">
-                <Link href={user ? "/dashboard" : "/login"}>
-                    <Button variant="outline">{user ? "Dashboard" : "Login"}</Button>
-                </Link>
+	// const { setTheme, theme } = useTheme();
+	const _switchOnRef = useRef<HTMLAudioElement>(null);
+	const _switchOffRef = useRef<HTMLAudioElement>(null);
+	return (
+		<header className="flex items-center justify-between top-0 md:px-16 px-4 max-w-8xl sticky mb-16 w-full z-50 bg-white/60 backdrop-blur-sm  dark:bg-stone-950/80 py-4">
+			<div
+				className=" absolute h-1 bottom-0 w-full"
+				style={{
+					background:
+						"radial-gradient(62.87% 100% at 50% 100%,rgba(255,255,255,.12) 0%,rgba(255,255,255,0) 100%)",
+				}}
+			/>
+			<Icons.logoWithLetter />
+			<div className=" hidden md:block">
+				<LandingNav />
+			</div>
+			<div className="flex items-center gap-2 font-medium">
+				<Link href={user ? "/dashboard" : "/login"}>
+					<Button variant="outline">{user ? "Dashboard" : "Login"}</Button>
+				</Link>
 
-                {/* <div className="relative col-span-1 select-none flex-col items-center justify-center self-center lg:flex">
+				{/* <div className="relative col-span-1 select-none flex-col items-center justify-center self-center lg:flex">
           <Button
             variant="outline"
             id="dark-switch"
@@ -72,21 +72,21 @@ export function SiteHeader({ user }: { user?: User }) {
             src="/audio/switch-off.mp3"
           ></audio>
         </div> */}
-            </div>
-        </header>
-    );
+			</div>
+		</header>
+	);
 }
 
 export function DashboardHeader({ user }: { user: User }) {
-    // const { setTheme, theme } = useTheme();
-    const _switchOnRef = useRef<HTMLAudioElement>(null);
-    const _switchOffRef = useRef<HTMLAudioElement>(null);
-    return (
-        <header className="mt-4 flex items-center justify-between border-b pb-4 dark:border-gray-800">
-            <Icons.logoWithLetter />
-            <div className="flex items-center gap-2 font-medium">
-                <div className="relative col-span-1 select-none flex-col items-center justify-center self-center lg:flex">
-                    {/* <Button
+	// const { setTheme, theme } = useTheme();
+	const _switchOnRef = useRef<HTMLAudioElement>(null);
+	const _switchOffRef = useRef<HTMLAudioElement>(null);
+	return (
+		<header className="mt-4 flex items-center justify-between border-b pb-4 dark:border-gray-800">
+			<Icons.logoWithLetter />
+			<div className="flex items-center gap-2 font-medium">
+				<div className="relative col-span-1 select-none flex-col items-center justify-center self-center lg:flex">
+					{/* <Button
             variant="ghost"
             id="dark-switch"
             onClick={() => {
@@ -124,19 +124,19 @@ export function DashboardHeader({ user }: { user: User }) {
             ref={switchOffRef}
             src="/audio/switch-off.mp3"
           ></audio> */}
-                </div>
-                <UserAccountNav user={user} />
-            </div>
-        </header>
-    );
+				</div>
+				<UserAccountNav user={user} />
+			</div>
+		</header>
+	);
 }
 export function PublicDashboardHeader() {
-    return (
-        <header className="mt-4 flex items-center justify-between border-b pb-4 dark:border-gray-800">
-            <Icons.logoWithLetter />
-            <div className="flex items-center gap-2 font-medium">
-                <div className="relative col-span-1 select-none flex-col items-center justify-center self-center lg:flex"></div>
-            </div>
-        </header>
-    );
+	return (
+		<header className="mt-4 flex items-center justify-between border-b pb-4 dark:border-gray-800">
+			<Icons.logoWithLetter />
+			<div className="flex items-center gap-2 font-medium">
+				<div className="relative col-span-1 select-none flex-col items-center justify-center self-center lg:flex"></div>
+			</div>
+		</header>
+	);
 }

@@ -1,14 +1,9 @@
 {
-    "commit": false,
-    "updateInternalDependencies": "patch",
-    "linked": [],
-    "access": "public",
-    "baseBranch": "main",
-    "ignore": [
-        "web",
-        "@loglib/api",
-        "@loglib/types",
-        "@loglib/setup"
-    ],
-    "changelog": "@changesets/cli/changelog"
+	"commit": false,
+	"updateInternalDependencies": "patch",
+	"linked": [],
+	"access": "public",
+	"baseBranch": "main",
+	"ignore": ["web", "@loglib/api", "@loglib/types", "@loglib/setup"],
+	"changelog": "@changesets/cli/changelog"
 }

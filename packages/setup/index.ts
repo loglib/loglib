@@ -1,11 +1,11 @@
 import { ClickHouseClient } from "@clickhouse/client";
 
 export const setupClickhouseDb = async (client: ClickHouseClient) => {
-    await client.exec({
-        query: "CREATE DATABASE loglib",
-    });
-    await client.exec({
-        query: `CREATE TABLE loglib.event (
+	await client.exec({
+		query: "CREATE DATABASE loglib",
+	});
+	await client.exec({
+		query: `CREATE TABLE loglib.event (
             id String,
             event String,
             sessionId String,
@@ -16,5 +16,5 @@ export const setupClickhouseDb = async (client: ClickHouseClient) => {
             sign Int8
         ) ENGINE = CollapsingMergeTree(sign)
         ORDER BY (id)`,
-    });
+	});
 };

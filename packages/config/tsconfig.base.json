@@ -1,22 +1,19 @@
 {
-    "compilerOptions": {
-        "target": "ES6",
-        "forceConsistentCasingInFileNames": true,
-        "allowJs": true,
-        "moduleResolution": "Bundler",
-        "skipLibCheck": true,
-        "noEmit": true,
-        "strict": true,
-        "outDir": "dist",
-        "declaration": true,
-        "declarationMap": true,
-        "sourceMap": true,
-        "removeComments": true,
-        "useDefineForClassFields": true,
-        "module": "ESNext"
-    },
-    "exclude": [
-        "node_modules",
-        "dist"
-    ]
+	"compilerOptions": {
+		"target": "ES6",
+		"forceConsistentCasingInFileNames": true,
+		"allowJs": true,
+		"moduleResolution": "Bundler",
+		"skipLibCheck": true,
+		"noEmit": true,
+		"strict": true,
+		"outDir": "dist",
+		"declaration": true,
+		"declarationMap": true,
+		"sourceMap": true,
+		"removeComments": true,
+		"useDefineForClassFields": true,
+		"module": "ESNext"
+	},
+	"exclude": ["node_modules", "dist"]
 }
