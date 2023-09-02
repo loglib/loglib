@@ -7,7 +7,7 @@ export const hitsQuery = (startDate: string, endDate: string, websiteId: string)
 export const customEventsQuery = (startDate: string, endDate: string, websiteId: string) =>
     `select * from loglib.event WHERE timestamp >= '${startDate}' AND timestamp <= '${endDate}' AND websiteId = '${websiteId}' AND event != 'hits'`;
 
-export const client = createClient({
+export const client = env.CLICKHOUSE_HOST ? createClient({
     host: env.CLICKHOUSE_HOST,
     password: env.CLICKHOUSE_PASSWORD,
-});
+}) : null

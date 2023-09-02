@@ -27,20 +27,30 @@ We use turporepo to manage the project. If you're not familar with turbo repo sk
 ### Basics
 
 **Step 1**: Clone or fork the repo
-**Step 2**: Run pnpm install on the root
-**Step 3**: Run pnpm build (to build packages)
+**Step 2**: Run ` pnpm install`` on the root
+**Step 3**: Run  `pnpm build` (to build packages)
+**Step 4**: Set environment variables respectively and populate the values.
 
-### Setting up databse
+> Make sure you set similar NEXT_AUTH_SECRET on both api and www. You can run `openssl rand -base64 64` to generate good jwt secret.
+
+> You also need either **Github** or **Google** auth in order to login. So make sure to set at least one of those.
+
+```sh-session
+cp apps/www/.env.example apps/www/.env
+cp apps/api/.env.example apps/api/.env
+```
+
+### Setting up database
 
 We really want loglib to be easy for everyone who want to contribute and use in their own development setup. We've worked hard to make sure you don't have to sign up for external services or deal with complicated Docker setups that can slow down your pc. All you need is a basic sqlite database to run loglib.
 
-**Step 1**: Migrate the shcema and setup local database
+**Step 1**: Migrate the schema and setup local database
 
 ```sh-session
 pnpm migrate
 ```
 
-this will crate a sqlite database in packages/db folder that'll be used across the whole project including as a clickhouse queries if you don't provide clickhouse crentials.
+this will crate a sqlite database in packages/db folder that'll be used across the whole project including as a clickhouse queries if you don't provide clickhouse credentials.
 
 **Step 2** (optional): Setting up clickhouse
 Run clickhouse in docker using this command.
