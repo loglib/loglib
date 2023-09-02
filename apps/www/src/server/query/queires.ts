@@ -28,10 +28,33 @@ export const getTodayVisitorsCount = (websiteId: string) => {
     }
 }
 
+const getTotalEventsCount = async (websiteIds: string[], startDate: Date, endDate: Date) => {
+    return {
+        clickhouse: async () => {
+            websiteIds = ["loglib", "xyz"]
+            const sessionsCount = await client.query({
+                query: `select * from loglib.event where websiteId IN (${websiteIds.map(w => `'${w}'`)}) AND timestamp >='${startDate.toISOString().slice(0, 19).replace("T", " ")}' AND timestamp <='${endDate.toISOString().slice(0, 19).replace("T", " ")}'`,
+                format: "JSONEachRow"
+            }).then(async (res) => await res.json() as { event: string }[])
+            return {
+                pageViews: sessionsCount.filter(s => s.event === "hits").length,
+                customEvents: sessionsCount.filter(s => s.event !== "hits").length
+            }
+        },
+        sqlite: async () => {
+            //TODO: to be done
+            return {
+                pageViews: 0,
+                customEvents: 0
+            }
+        }
+    }
+}
+
 
 export const isWebsiteActive = (websiteId: string) => ({
     sqlite: async () => {
-
+        //TODO: to be done
     },
     clickhouse: getIsWebsiteActive({ websiteId })
 })
@@ -42,7 +65,14 @@ export const DatabaseQueries = (dbType: "clickhouse" | "sqlite") => {
         getTodayVisitorsCount: async (websiteId: string) => {
             const { sqlite, clickhouse } = getTodayVisitorsCount(websiteId)
             if (dbType === "clickhouse") {
-                console.log(dbType)
+                return await clickhouse()
+            } else {
+                return await sqlite()
+            }
+        },
+        getTotalUsageCount: async (websiteIds: string[], startDate: Date, endDate: Date) => {
+            const { clickhouse, sqlite } = await getTotalEventsCount(websiteIds, startDate, endDate)
+            if (dbType === "clickhouse") {
                 return await clickhouse()
             } else {
                 return await sqlite()

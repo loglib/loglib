@@ -3,6 +3,7 @@ import { Website } from "@loglib/types/models";
 import { atom } from "jotai";
 import { User } from "next-auth";
 import { atomWithStorage } from 'jotai/utils'
+import { Usage } from "@/server/actions/billing";
 
 export const userAtom = atom<(User & { id: string }) | null>(null);
 export const trackerModalAtom = atom(false);
@@ -18,6 +19,7 @@ export const userWebsitesAtom = atom<(Website & { visitors: number })[]>([]);
 export const teamWebsitesAtom = atom<(Website & { visitors: number })[]>([]);
 export const teamsAtom = atom<Teams>([]);
 export const selectedTeamAtom = atom<Teams[0] | null>(null);
+export const usageAtom = atom<Usage | null>(null)
 
 export const localSettingAtom = atomWithStorage<{
     graph: string | null,

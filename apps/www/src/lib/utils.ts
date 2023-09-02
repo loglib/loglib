@@ -79,6 +79,11 @@ export function nFormatter(num?: number, digits?: number) {
     return item ? (num / item.value).toFixed(digits || 1).replace(rx, "$1") + item.symbol : "0";
 }
 
+export function nCommaFormat(num?: number) {
+    if (!num) return "0";
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 export const truncate = (str: string | null, length: number) => {
     if (!str || str.length <= length) return str;
     return `${str.slice(0, length - 3)}...`;

@@ -9,6 +9,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { usageAtom } from "@/jotai/store";
 import {
     getLast24Hour,
     getLastNinetyDays,
@@ -22,6 +23,7 @@ import {
 } from "@/lib/time-helper";
 import { cn } from "@/lib/utils";
 import { format, subMonths } from "date-fns";
+import { useAtom } from "jotai";
 import { CalendarDays } from "lucide-react";
 import { Calendar as CalendarIcon } from "lucide-react";
 import React from "react";
@@ -112,6 +114,7 @@ export const DatePicker = ({
     setCustomTime: (state: boolean) => void;
     customTime: boolean;
 }) => {
+    const [usage] = useAtom(usageAtom)
     function setTime(value: string) {
         setCustomTime(false);
         switch (value) {
@@ -194,7 +197,9 @@ export const DatePicker = ({
                     <SelectItem value="thisMonth">This Month</SelectItem>
                     <SelectItem value="last30">Last 30 Days</SelectItem>
                     <SelectItem value="last90">Last 90 Days</SelectItem>
-                    <SelectItem value="thisYear">This Year</SelectItem>
+                    {
+                        usage && usage.plan.slug !== "free" && <SelectItem value="thisYear">This Year</SelectItem>
+                    }
                     <Separator className="my-2" />
                     <SelectItem value="custom">Custom</SelectItem>
                 </SelectContent>

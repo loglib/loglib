@@ -1,6 +1,6 @@
 "use client";
 
-import { userWebsitesAtom, websiteFormAtom } from "@/jotai/store";
+import { usageAtom, websiteFormAtom } from "@/jotai/store";
 import { useAtom } from "jotai";
 import * as React from "react";
 
@@ -9,17 +9,20 @@ import { Button, ButtonProps } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 
 export function WebsiteCreateButton({ ...props }: ButtonProps) {
-    const [websites] = useAtom(userWebsitesAtom);
     const [, setCreateWebsite] = useAtom(websiteFormAtom);
+    const [usage] = useAtom(usageAtom)
     async function onClick() {
-        if (websites.length > 1) {
-            return toast({
-                title: "Limit of 2 websites reached.",
-                description: "We currently only support 2 websites per account.",
-                variant: "destructive",
-            });
+        if (usage) {
+            const limitReached = usage.websites >= usage.plan.quota.websites
+            if (limitReached) {
+                return toast({
+                    title: `Limit of ${usage.plan.quota.websites} websites reached.`,
+                    description: usage.plan.slug === "plus" ? `we currently only support ${usage.plan.quota.websites} websites. If you need more please contact us.` : `Please upgrade to ${usage.plan.slug === "free" ? "Pro or Plus" : "Plus"}`,
+                    variant: "destructive",
+                });
+            }
+            setCreateWebsite(true);
         }
-        setCreateWebsite(true);
     }
     return (
         <Button onClick={onClick} {...props}>

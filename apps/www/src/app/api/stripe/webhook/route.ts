@@ -49,8 +49,7 @@ export const POST = async (req: Request) => {
                 await db.update(schema.users).set({
                     billingCycleStart: new Date().getDate(),
                     stripeId: checkoutSession.customer.toString(),
-                }).where(eq(schema.users.id, checkoutSession.client_reference_id))
-
+                }).where(eq(schema.users.id, checkoutSession.client_reference_id)).returning()
             } else if (event.type === "customer.subscription.updated") {
                 const subscriptionUpdated = event.data.object as Stripe.Subscription;
                 const priceId = subscriptionUpdated.items.data[0].price.id;
@@ -65,6 +64,7 @@ export const POST = async (req: Request) => {
                 const data = await db.update(schema.users).set({
                     plan: plan.slug
                 }).where(eq(schema.users.stripeId, stripeId)).returning()
+
                 if (!data) {
                     console.log("User could not found in Stripe webhook `customer.subscription.created` callback")
                     return

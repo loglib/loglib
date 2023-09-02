@@ -62,10 +62,8 @@ export const Dashboard = ({
     const [setting] = useAtom(localSettingAtom);
     const url = env.NEXT_PUBLIC_API_URL;
     const { data, isLoading } = useSWR<GetInsightResponse>(
-        `${url}?websiteId=${
-            website.id
-        }&startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&timeZone=${
-            setting.timezone ?? timezone
+        `${url}?websiteId=${website.id
+        }&startDate=${timeRange.startDate.toUTCString()}&endDate=${timeRange.endDate.toUTCString()}&timeZone=${setting.timezone ?? timezone
         }&filter=${JSON.stringify(filters)}&token=${token}`,
         fetcher,
     );
@@ -200,10 +198,10 @@ export const Dashboard = ({
                                                     ? viCardSwitch === "New Visitors"
                                                         ? data.insight.newVisitors
                                                         : viCardSwitch === "Unique Visitors"
-                                                        ? data.insight.uniqueVisitors
-                                                        : viCardSwitch === "Retaining Visitors"
-                                                        ? data.insight.returningVisitor
-                                                        : { change: 0, current: 0 }
+                                                            ? data.insight.uniqueVisitors
+                                                            : viCardSwitch === "Retaining Visitors"
+                                                                ? data.insight.returningVisitor
+                                                                : { change: 0, current: 0 }
                                                     : { change: 0, current: 0 }
                                             }
                                             isLoading={isLoading}
@@ -211,10 +209,10 @@ export const Dashboard = ({
                                                 viCardSwitch === "New Visitors"
                                                     ? "The number of people visiting your website for the first time."
                                                     : viCardSwitch === "Unique Visitors"
-                                                    ? "The total number of different people who visited your website."
-                                                    : viCardSwitch === "Retaining Visitors"
-                                                    ? "The number of visitors who returned to your website multiple times."
-                                                    : ""
+                                                        ? "The total number of different people who visited your website."
+                                                        : viCardSwitch === "Retaining Visitors"
+                                                            ? "The number of visitors who returned to your website multiple times."
+                                                            : ""
                                             }
                                             BottomChildren={() => (
                                                 <div className=" cursor-pointer z-10">
@@ -329,7 +327,7 @@ export const Dashboard = ({
                                                     <CardContent
                                                         className={cn(
                                                             curTableTab === "locations" &&
-                                                                "zoom-in-95",
+                                                            "zoom-in-95",
                                                         )}
                                                     >
                                                         <LocationMap
@@ -395,7 +393,7 @@ export const Dashboard = ({
                                                                     data={
                                                                         data
                                                                             ? data.graph
-                                                                                  .uniqueVisitorsByDate
+                                                                                .uniqueVisitorsByDate
                                                                             : []
                                                                     }
                                                                     name="Visitors"
@@ -412,7 +410,7 @@ export const Dashboard = ({
                                                                     data={
                                                                         data
                                                                             ? data.graph
-                                                                                  .uniqueSessionByDate
+                                                                                .uniqueSessionByDate
                                                                             : []
                                                                     }
                                                                     name="Sessions"

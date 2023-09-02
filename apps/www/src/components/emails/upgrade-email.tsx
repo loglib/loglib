@@ -14,7 +14,6 @@ import {
 
 export default function UpgradeEmail({
     name = "Brendon Urie",
-    email = "panic@thedis.co",
     plan = "Pro",
 }: {
     name: string | null;
@@ -42,13 +41,13 @@ export default function UpgradeEmail({
                         <Heading className="mx-0 my-7 p-0 text-center text-xl font-semibold text-black">
                             Thank you for upgrading to Loglib {plan}!
                         </Heading>
-                        <Section className="my-8">
+                        {/* <Section className="my-8">
                             <Img
                                 src="https://vgssydupjvshgeeeqjvo.supabase.co/storage/v1/object/public/images/Black%20Sky%20Galaxy%20Stars%20Desktop%20Wallpaper.gif"
                                 alt="Thank you"
                                 className="max-w-[500px]"
                             />
-                        </Section>
+                        </Section> */}
                         <Text className="text-sm leading-6 text-black">
                             Hey{name && ` ${name}`}!
                         </Text>

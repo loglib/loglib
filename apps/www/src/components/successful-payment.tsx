@@ -1,39 +1,26 @@
 "use client"
-import { Check, X } from "lucide-react"
-import { Dialog, DialogContent } from "./ui/dialog"
-import { useEffect, useState } from "react"
-import { useSearchParams } from "next/navigation"
+import { useEffect } from "react"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useAtom } from "jotai"
+import { usageAtom } from "@/jotai/store"
+import { toast } from "./ui/use-toast"
 
 
 export const SuccessfulPayment = () => {
+    const [plan] = useAtom(usageAtom)
     const searchparams = useSearchParams()
     const success = !!searchparams.get("success")
     const cancel = !!searchparams.get("canceled")
-    const [open, setOpen] = useState(false)
+    const router = useRouter()
+    const pathname = usePathname()
     useEffect(() => {
-        setOpen(success || cancel)
+        if (success || cancel) {
+            toast({
+                title: "Payment Succeed",
+                description: `Thanks for Subscribing to Loglib ${plan?.plan.name}`
+            })
+            router.push(pathname)
+        }
     }, [])
-    return (
-        <Dialog open={open} onOpenChange={(o) => setOpen(o)}>
-            <DialogContent>
-
-                {
-                    success ?
-                        <div className=" flex items-center gap-2">
-                            <Check className=" text-green-700" />
-                            <p className=" font-bold">
-                                Payment Succeed
-                            </p>
-                        </div>
-                        :
-                        <div className=" flex items-center gap-2">
-                            <X className=" text-red-700" />
-                            <p className=" font-bold">
-                                Payment Canceled
-                            </p>
-                        </div>
-                }
-            </DialogContent>
-        </Dialog>
-    )
+    return null
 }
