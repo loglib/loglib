@@ -97,9 +97,9 @@ export type LoglibEvent = {
     duration: number;
     os: string;
     visitorId: string;
-    websiteId: string
-    payload?: string,
-    type?: string
+    websiteId: string;
+    payload?: string;
+    type?: string;
 };
 
 export type LoglibCustomEvent = {
@@ -122,7 +122,7 @@ export type LoglibCustomEvent = {
     type: string;
     payload: Record<string, string> | null;
     sessionId: string;
-}
+};
 
 type StringOperator = "is" | "isNot" | "contains" | "notContains";
 type NumberOperator = "lte" | "gte" | "lt" | "gt" | "is" | "isNot";

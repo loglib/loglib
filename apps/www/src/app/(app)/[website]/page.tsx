@@ -24,15 +24,18 @@ export default async function Page({
                 with: {
                     team: {
                         with: {
-                            teamMembers: true
-                        }
-                    }
-                }
-            }
-        }
-    })
+                            teamMembers: true,
+                        },
+                    },
+                },
+            },
+        },
+    });
 
-    const website = websites.find((d) => d.id === params.website || d.teamWebsites.find(tw => tw.websiteId === params.website));
+    const website = websites.find(
+        (d) =>
+            d.id === params.website || d.teamWebsites.find((tw) => tw.websiteId === params.website),
+    );
     const isAuthed = websites.find((d) => d.userId === user?.id);
     if (!website || (!isAuthed && website.public)) {
         return redirect("/");
@@ -41,17 +44,20 @@ export default async function Page({
     const showSetup = isPublic
         ? false
         : website.active
-            ? false
-            : await (async () => {
-                const haveSession = (await queires.getIsWebsiteActive(params.website)).length;
-                if (haveSession) {
-                    await db.update(schema.website).set({
-                        active: true
-                    }).where(eq(schema.website.id, params.website));
-                    return false;
-                }
-                return true;
-            })();
+        ? false
+        : await (async () => {
+              const haveSession = (await queires.getIsWebsiteActive(params.website)).length;
+              if (haveSession) {
+                  await db
+                      .update(schema.website)
+                      .set({
+                          active: true,
+                      })
+                      .where(eq(schema.website.id, params.website));
+                  return false;
+              }
+              return true;
+          })();
     return (
         <main>
             <Dashboard website={website} isPublic={isPublic} showSetup={showSetup} token={token} />

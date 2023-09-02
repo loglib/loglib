@@ -2,7 +2,7 @@ import { Teams } from "@/server/query";
 import { Website } from "@loglib/types/models";
 import { atom } from "jotai";
 import { User } from "next-auth";
-import { atomWithStorage } from 'jotai/utils'
+import { atomWithStorage } from "jotai/utils";
 
 export const userAtom = atom<(User & { id: string }) | null>(null);
 export const trackerModalAtom = atom(false);
@@ -20,14 +20,14 @@ export const teamsAtom = atom<Teams>([]);
 export const selectedTeamAtom = atom<Teams[0] | null>(null);
 
 export const localSettingAtom = atomWithStorage<{
-    graph: string | null,
-    timezone: string | null,
+    graph: string | null;
+    timezone: string | null;
 }>("setting", {
     graph: null,
-    timezone: null
-})
+    timezone: null,
+});
 export const celebrateSettingAtom = atomWithStorage("c-setting", {
     uniqueVisitors: 100,
     lastShown: 0,
-    enabled: false
-})
+    enabled: false,
+});

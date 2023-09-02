@@ -19,8 +19,7 @@ export const authOptions: NextAuthOptions = {
         GitHubProvider({
             clientId: env.GITHUB_CLIENT_ID ?? "",
             clientSecret: env.GITHUB_CLIENT_SECRET ?? "",
-            allowDangerousEmailAccountLinking: true
-
+            allowDangerousEmailAccountLinking: true,
         }),
         GoogleProvider({
             clientId: env.GOOGLE_CLIENT_ID ?? "",
@@ -32,9 +31,8 @@ export const authOptions: NextAuthOptions = {
                     response_type: "code",
                 },
             },
-            allowDangerousEmailAccountLinking: true
+            allowDangerousEmailAccountLinking: true,
         }),
-
     ],
     callbacks: {
         async session({ token, session }) {
@@ -49,7 +47,7 @@ export const authOptions: NextAuthOptions = {
         async jwt({ token, user }) {
             const dbUser = await db.query.users.findFirst({
                 where(fields, operators) {
-                    return operators.eq(fields.email, token.email as string)
+                    return operators.eq(fields.email, token.email as string);
                 },
             });
             if (!dbUser) {

@@ -24,7 +24,11 @@ const transformData = (events: LoglibEvent[]) => {
     const device: { device: string; visits: number }[] = [];
     const byCountry: { location: string; country: string; visits: number }[] = [];
     const byCity: { location: string; country: string; visits: number }[] = [];
-    const referrer: { referrer: string; referrerDomain: string; visits: number }[] = [];
+    const referrer: {
+        referrer: string;
+        referrerDomain: string;
+        visits: number;
+    }[] = [];
     const browsers: { browser: string; visits: number }[] = [];
     const os: { os: string; visits: number }[] = [];
     const onlineVisitors = new Set<string>();
@@ -221,8 +225,16 @@ export const getVisitorsByDate = (
         formatOptions.month = "short";
     }
 
-    const uniqueSessionByDate: { originalDate: Date; date: string; visits: number }[] = [];
-    const uniqueVisitorsByDate: { originalDate: Date; date: string; visits: number }[] = [];
+    const uniqueSessionByDate: {
+        originalDate: Date;
+        date: string;
+        visits: number;
+    }[] = [];
+    const uniqueVisitorsByDate: {
+        originalDate: Date;
+        date: string;
+        visits: number;
+    }[] = [];
     const uniqueVisitorsSet = new Set<string>();
     const uniqueSessionsSet = new Set<string>();
     for (let i = 0; i < events.length; i++) {

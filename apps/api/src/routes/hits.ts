@@ -61,7 +61,7 @@ export const createHits: RouteType = async ({ req, rawBody }) => {
         const browser = browserName(userAgent) ?? "unknown";
         const os = detectOS(userAgent) ?? "Mac OS";
         const device = os ? getDevice(screenWidth, os) ?? "desktop" : "unknown";
-        const visitorId = setVisitorId(body.data.visitorId, ip)
+        const visitorId = setVisitorId(body.data.visitorId, ip);
         const res = await eventDB.insertEvent({
             id,
             sessionId,
@@ -80,7 +80,7 @@ export const createHits: RouteType = async ({ req, rawBody }) => {
             duration,
             currentPath,
             referrerPath,
-        })
+        });
         return {
             status: 200,
             data: {
@@ -95,16 +95,16 @@ export const createHits: RouteType = async ({ req, rawBody }) => {
                 queryParams,
                 duration,
                 sessionId,
-                visitorId
+                visitorId,
             },
         };
     } catch (e) {
-        console.log(e, "error hits")
+        console.log(e, "error hits");
         return {
             status: 500,
             data: {
                 message: "internal server error",
-            }
-        }
+            },
+        };
     }
 };

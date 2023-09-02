@@ -8,13 +8,13 @@ export const team = sqliteTable("team", {
     slug: text("slug").notNull(),
     name: text("name").notNull(),
     type: text("type", {
-        enum: ["free", "pro", "entrprise"]
+        enum: ["free", "pro", "entrprise"],
     }).default("free"),
     description: text("description"),
     image: text("image"),
     createdAt: date("createdAt"),
-    updatedAt: date("updatedAt")
-})
+    updatedAt: date("updatedAt"),
+});
 
 export const teamMember = sqliteTable("teamMember", {
     id: id(),
@@ -22,14 +22,16 @@ export const teamMember = sqliteTable("teamMember", {
     email: text("email").notNull(),
     name: text("name"),
     teamId: text("teamId").references(() => team.id, { onDelete: "cascade" }),
-    websiteId: text("websiteId").references(() => website.id, { onDelete: "cascade" }),
+    websiteId: text("websiteId").references(() => website.id, {
+        onDelete: "cascade",
+    }),
     accepted: boolean("accepted").default(false),
     role: text("text", {
-        enum: ["owner", "admin", "viewer"]
+        enum: ["owner", "admin", "viewer"],
     }),
     createdAt: date("createdAt"),
-    updatedAt: date("updatedAt")
-})
+    updatedAt: date("updatedAt"),
+});
 
 export const teamInvitation = sqliteTable("teamInvitation", {
     id: id(),
@@ -37,55 +39,58 @@ export const teamInvitation = sqliteTable("teamInvitation", {
     teamId: text("teamId").references(() => team.id, { onDelete: "cascade" }),
     token: text("token").notNull().unique(),
     status: text("status", {
-        enum: ['pending', 'accepted', 'rejected', 'expired']
+        enum: ["pending", "accepted", "rejected", "expired"],
     }),
     userId: userId(),
-    teamMemberId: text("teamMemberId").references(() => teamMember.id, { onDelete: "cascade" }),
+    teamMemberId: text("teamMemberId").references(() => teamMember.id, {
+        onDelete: "cascade",
+    }),
     createdAt: date("createdAt"),
-    updatedAt: date("updatedAt")
-})
+    updatedAt: date("updatedAt"),
+});
 
 export const teamWebsites = sqliteTable("teamWebsites", {
     id: id(),
     createdAt: date("createdAt"),
     updatedAt: date("updatedAt"),
     teamId: text("teamId").references(() => team.id, { onDelete: "cascade" }),
-    websiteId: text("websiteId").references(() => website.id, { onDelete: "cascade" })
-})
-
+    websiteId: text("websiteId").references(() => website.id, {
+        onDelete: "cascade",
+    }),
+});
 
 export const teamWebsitesRelations = relations(teamWebsites, ({ one }) => {
     return {
         team: one(team, {
             fields: [teamWebsites.teamId],
-            references: [team.id]
+            references: [team.id],
         }),
         website: one(website, {
             fields: [teamWebsites.websiteId],
-            references: [website.id]
+            references: [website.id],
         }),
-    }
-})
+    };
+});
 export const teamMemberRelations = relations(teamMember, ({ one }) => {
     return {
         team: one(team, {
             fields: [teamMember.teamId],
-            references: [team.id]
+            references: [team.id],
         }),
         website: one(website, {
             fields: [teamMember.websiteId],
-            references: [website.id]
+            references: [website.id],
         }),
         users: one(users, {
             fields: [teamMember.userId],
-            references: [users.id]
-        })
-    }
-})
+            references: [users.id],
+        }),
+    };
+});
 
 export const teamRelations = relations(team, ({ many }) => {
     return {
         teamMembers: many(teamMember),
         teamWebsites: many(teamWebsites),
-    }
-})
+    };
+});

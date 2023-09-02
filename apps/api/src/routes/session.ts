@@ -80,7 +80,7 @@ export const createSession: RouteType = async ({ req, rawBody }) => {
                         screenWidth,
                         queryParams,
                         sessionId,
-                        visitorId
+                        visitorId,
                     },
                 },
                 status: 200,
