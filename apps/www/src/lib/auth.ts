@@ -6,6 +6,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { schema } from "@loglib/db";
 import { guid } from '../../../../packages/tracker/src/utils/util';
+import { AdapterAccount } from "next-auth/adapters";
 
 export const authOptions: NextAuthOptions = {
     adapter: {
@@ -16,6 +17,36 @@ export const authOptions: NextAuthOptions = {
                 ...user,
                 createdAt: new Date()
             }).returning().get()
+        },
+        async linkAccount(rawAccount) {
+            const updatedAccount = await db
+                .insert(schema.accounts)
+                .values(rawAccount)
+                .returning()
+                .get().catch(async (e) => {
+                    const res = await db.query.accounts.findFirst({
+                        where(fields, operators) {
+                            return operators.and(operators.eq(fields.userId, rawAccount.userId), operators.eq(fields.providerAccountId, rawAccount.providerAccountId))
+                        },
+                    })
+                    if (!res) {
+                        console.log(e)
+                        throw Error(e)
+                    }
+                    return res
+                })
+            const account: AdapterAccount = {
+                ...updatedAccount,
+                type: updatedAccount.type,
+                access_token: updatedAccount.access_token ?? undefined,
+                token_type: updatedAccount.token_type ?? undefined,
+                id_token: updatedAccount.id_token ?? undefined,
+                refresh_token: updatedAccount.refresh_token ?? undefined,
+                scope: updatedAccount.scope ?? undefined,
+                expires_at: updatedAccount.expires_at ?? undefined,
+                session_state: updatedAccount.session_state ?? undefined,
+            }
+            return account
         },
     },
     session: {
