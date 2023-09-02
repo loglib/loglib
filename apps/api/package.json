@@ -18,7 +18,7 @@
         "@clickhouse/client-web": "^0.2.0",
         "@hono/node-server": "^1.1.1",
         "@libsql/client": "^0.3.1",
-        "@loglib/db": "workspace:*",
+        "@loglib/db": "1.0.0",
         "@loglib/setup": "1.0.0",
         "@t3-oss/env-core": "^0.6.0",
         "@types/request-ip": "^0.0.38",
@@ -40,8 +40,8 @@
         "zod": "^3.21.4"
     },
     "devDependencies": {
-        "@types/jsonwebtoken": "^9.0.2",
-        "@loglib/types": "workspace: *"
+        "@loglib/types": "0.0.1",
+        "@types/jsonwebtoken": "^9.0.2"
     },
     "exports": {
         ".": {
