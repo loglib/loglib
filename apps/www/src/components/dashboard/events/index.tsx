@@ -3,7 +3,7 @@ import { columns } from "./column";
 import { renderSubComponent } from "./detail-modal";
 import { DataTable } from "./table-data";
 import { fetcher } from "@/lib/utils";
-import { EventsWithData } from "@loglib/types";
+import { LoglibCustomEvent } from "@loglib/types";
 import { env } from "env.mjs";
 import useSWR from "swr";
 
@@ -18,7 +18,7 @@ const Events = ({
 }) => {
     console.log(websiteId, "event");
     const url = env.NEXT_PUBLIC_API_URL;
-    const { data, isLoading } = useSWR<EventsWithData>(
+    const { data, isLoading } = useSWR<LoglibCustomEvent[]>(
         `${url}/events?websiteId=${websiteId}&startDate=${startDate}&endDate=${endDate}`,
         fetcher,
     );

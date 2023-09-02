@@ -37,7 +37,7 @@ export const Graph = () => {
                         transform="matrix(1 0 0 -1 158.643 192.812)"
                         stroke="url(#paint2_linear_295_3421)"
                         stroke-opacity="0.3"
-                        stroke-width="5.09167"
+                        strokeWidth="5.09167"
                     ></circle>
                 </g>
                 <defs>
@@ -159,7 +159,7 @@ export const Graph = () => {
                                     height="21.125"
                                     stroke="white"
                                     stroke-opacity="0.2"
-                                    stroke-width="0.541667"
+                                    strokeWidth="0.541667"
                                 ></rect>
                                 <path
                                     d="M15.166 -5.95833H36.8327V-7.04167H15.166V-5.95833ZM36.8327 14.625H15.166V15.7083H36.8327V14.625Z"
@@ -180,7 +180,7 @@ export const Graph = () => {
                                     height="21.125"
                                     stroke="white"
                                     stroke-opacity="0.2"
-                                    stroke-width="0.541667"
+                                    strokeWidth="0.541667"
                                 ></rect>
                                 <path
                                     d="M14.625 15.1666V36.8333H15.7083V15.1666H14.625ZM-5.95833 36.8333V15.1666H-7.04167V36.8333H-5.95833Z"
@@ -210,7 +210,7 @@ export const Graph = () => {
                                     height="21.125"
                                     stroke="white"
                                     stroke-opacity="0.2"
-                                    stroke-width="0.541667"
+                                    strokeWidth="0.541667"
                                 ></rect>
                                 <path
                                     d="M15.166 37.375H36.8327V36.2917H15.166V37.375ZM36.8327 57.9584H15.166V59.0417H36.8327V57.9584Z"
@@ -231,7 +231,7 @@ export const Graph = () => {
                                     height="21.125"
                                     stroke="white"
                                     stroke-opacity="0.2"
-                                    stroke-width="0.541667"
+                                    strokeWidth="0.541667"
                                 ></rect>
                             </g>
                         </svg>

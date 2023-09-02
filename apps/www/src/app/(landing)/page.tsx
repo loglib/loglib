@@ -91,8 +91,8 @@ export default async function IndexPage() {
                                     {contributors <= 10
                                         ? `00${contributors}`
                                         : contributors <= 100
-                                        ? `0${contributors}`
-                                        : contributors}
+                                            ? `0${contributors}`
+                                            : contributors}
                                 </h1>
 
                                 <p className="text-md font-thin opacity-75">Contributors</p>
@@ -156,11 +156,11 @@ export default async function IndexPage() {
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
                             >
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                                 <g
                                     id="SVGRepo_tracerCarrier"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
                                 ></g>
                                 <g id="SVGRepo_iconCarrier">
                                     <path
@@ -177,11 +177,11 @@ export default async function IndexPage() {
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
                             >
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                                 <g
                                     id="SVGRepo_tracerCarrier"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
                                 ></g>
                                 <g id="SVGRepo_iconCarrier">
                                     {" "}

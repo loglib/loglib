@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "private": true,
     "scripts": {
-        "dev": "tsx env.ts && tsx watch src/index.ts",
+        "dev": "tsx watch src/index.ts",
         "build": "tsup",
         "setup:geo": "tsx setup/geo.ts",
         "setup:clickhouse": "dotenv tsx setup/clickhouse-db.ts",
@@ -17,6 +17,8 @@
         "@clickhouse/client": "^0.1.1",
         "@clickhouse/client-web": "^0.2.0",
         "@hono/node-server": "^1.1.1",
+        "@libsql/client": "^0.3.1",
+        "@loglib/db": "workspace:*",
         "@loglib/setup": "1.0.0",
         "@t3-oss/env-core": "^0.6.0",
         "@types/request-ip": "^0.0.38",
@@ -24,6 +26,7 @@
         "@vercel/kv": "^0.2.1",
         "detect-browser": "^5.3.0",
         "dotenv": "^16.3.1",
+        "drizzle-orm": "^0.28.5",
         "hono": "^3.3.4",
         "isbot": "^3.6.10",
         "jsonwebtoken": "^9.0.0",
@@ -37,7 +40,8 @@
         "zod": "^3.21.4"
     },
     "devDependencies": {
-        "@types/jsonwebtoken": "^9.0.2"
+        "@types/jsonwebtoken": "^9.0.2",
+        "@loglib/types": "workspace: *"
     },
     "exports": {
         ".": {

@@ -65,3 +65,6 @@ geo/
 
 #tinybird
 .tinyb
+
+#sqlite
+*.sqlite

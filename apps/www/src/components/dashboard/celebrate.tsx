@@ -1,4 +1,4 @@
-import { Download, EyeIcon, PartyPopper, Settings, User } from "lucide-react";
+import { EyeIcon, PartyPopper, Settings, User } from "lucide-react";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactCanvasConfetti from "react-canvas-confetti";
 import { Button } from "../ui/button";

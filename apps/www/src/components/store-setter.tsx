@@ -8,6 +8,8 @@ import {
     websitesAtom,
 } from "@/jotai/store";
 import { useAtom } from "jotai";
+import { useEffect } from "react";
+import { flushSync } from "react-dom";
 
 const stores = {
     website: websitesAtom,
@@ -23,7 +25,10 @@ export function StoreSetter<T extends keyof Stores, K extends Stores[T]["init"]>
     data,
 }: { store: T; data: K }) {
     const [, setData] = useAtom(stores[store]);
-    // @ts-ignore //it give us what we want which is typing the input it's okay to ignore this for staying sane
-    setData(data);
+
+    useEffect(() => {
+        // @ts-ignore //it give us what we want which is typing the input it's okay to ignore this for staying sane
+        flushSync(() => setData(data))
+    }, [])
     return null;
 }

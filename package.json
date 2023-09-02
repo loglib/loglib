@@ -13,7 +13,9 @@
         "fmt": "pnpm rome check . && pnpm rome format . --write",
         "test": "turbo test",
         "typecheck": "turbo typecheck",
-        "deploy:api": "turbo --filter api deploy"
+        "deploy:api": "turbo --filter api deploy",
+        "migrate": "turbo --filter db migrate",
+        "migrate:clickhouse": "turbo --filter api setup:clickhouse"
     },
     "pnpm": {
         "overrides": {
@@ -32,7 +34,6 @@
         "@commitlint/config-conventional": "^17.6.6",
         "@ianvs/prettier-plugin-sort-imports": "^4.0.2",
         "@manypkg/cli": "^0.20.0",
-        "@prisma/client": "^4.14.0",
         "@types/node": "^18.15.13",
         "@types/prettier": "^2.7.3",
         "dotenv-cli": "^7.2.1",

@@ -1,15 +1,17 @@
 import { env } from "../../env.mjs";
 import { db } from "@/lib/db";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import { DrizzleAdapter } from "@auth/drizzle-adapter";
 
 export const authOptions: NextAuthOptions = {
-    adapter: PrismaAdapter(db as any),
+    adapter: DrizzleAdapter(db) as any,
     session: {
         strategy: "jwt",
+        maxAge: 30 * 24 * 60 * 60,
     },
+    secret: env.NEXTAUTH_SECRET,
     pages: {
         signIn: "/dashboard",
     },
@@ -17,6 +19,8 @@ export const authOptions: NextAuthOptions = {
         GitHubProvider({
             clientId: env.GITHUB_CLIENT_ID ?? "",
             clientSecret: env.GITHUB_CLIENT_SECRET ?? "",
+            allowDangerousEmailAccountLinking: true
+
         }),
         GoogleProvider({
             clientId: env.GOOGLE_CLIENT_ID ?? "",
@@ -28,7 +32,9 @@ export const authOptions: NextAuthOptions = {
                     response_type: "code",
                 },
             },
+            allowDangerousEmailAccountLinking: true
         }),
+
     ],
     callbacks: {
         async session({ token, session }) {
@@ -38,13 +44,12 @@ export const authOptions: NextAuthOptions = {
                 session.user.email = token.email;
                 session.user.image = token.picture;
             }
-
             return session;
         },
         async jwt({ token, user }) {
-            const dbUser = await db.user.findFirst({
-                where: {
-                    email: token.email,
+            const dbUser = await db.query.users.findFirst({
+                where(fields, operators) {
+                    return operators.eq(fields.email, token.email as string)
                 },
             });
             if (!dbUser) {

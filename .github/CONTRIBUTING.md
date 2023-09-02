@@ -1,69 +1,68 @@
 # Contributing
 
-Thank you for your interest in contributing to loglib! We welcome contributions from anyone, regardless of their level of experience or background.
+We really appericate any kind of contibution regardless of your coding skills. We beleive loglib should be really easy for anyone who wants to get into contributing for open source projects. So if this your first time conctribution we'd love to support you in anyway to get in there. Read the above instruction to get the project overview better.
 
-### Services
+## Main Tech Stack Used Currently
 
-There are few services that are required to run the app:
+- Language - Typescript
+- Metaframework - Next JS App Route (with server actions)
+- Styling - Tailwind, Shadcn, Radix
+- State Mangement - Jotai, SWR
+- Authentication - Nextauth
+- API Framework - Hono JS
+- Markdown - Contentlayer
+- Databases - Drizzle ORM, Local Sqlite Database For developement and turso (libsql on edge) for porduction, Clickhouse (OLAP Database) for analytics data
+- Emails - Resend
 
-- **[Planetscale](https://planetscale.com?ref=loglib):** Database // you can also use your own mysql database
-- **Clickhouse Database:** you can run clickhouse db locally using docker
-  
+## Folder Structure
+
+We use turporepo to manage the project. If you're not familar with turbo repo skim through the docs the basic will be enough for most tasks.
+
+1. Apps - Contains two other folders: api(hono js api that serves as api for analytics data and to recive data from the tracker) and www/web(next js app route project that serve as the main application framework)
+
+2. Packgaes - Contains shared packages across the two apps and published tracker npm package.
+
+## Setting up loglib for development
+
+### Basics
+
+**Step 1**: Clone or fork the repo
+**Step 2**: Run pnpm install on the root
+**Step 3**: Run pnpm build (to build packages)
+
+### Setting up databse
+
+We really want loglib to be easy for everyone who want to contribute and use in their own development setup. We've worked hard to make sure you don't have to sign up for external services or deal with complicated Docker setups that can slow down your pc. All you need is a basic sqlite database to run loglib.
+
+**Step 1**: Migrate the shcema and setup local database
+
+```sh-session
+pnpm migrate
+```
+
+this will crate a sqlite database in packages/db folder that'll be used across the whole project including as a clickhouse queries if you don't provide clickhouse crentials.
+
+**Step 2** (optional): Setting up clickhouse
+Run clickhouse in docker using this command.
+
 ```sh-session
 docker run -d --name clickhouse-server -p 8123:8123 --ulimit nofile=262144:262144 yandex/clickhouse-server
 ```
 
-You will need to set environment variables in /apps/www/.env and/or /apps/api/.env respectively and populate the values from the services above. You can use the following commands to copy the example files:
+Now we haven't setup our env variables to this point so first let's change .env.example to .env on both apps (web and api).
+
+Then make sure to add your locally running clickhouse credentials there.
+
+Now let's migrate our schema to clickhouse
 
 ```sh-session
-cp apps/www/.env.example apps/web/.env
-cp apps/api/.dev.vars.example apps/api/.dev.vars
+pnpm db migrate:clickhouse
 ```
 
-### 0. Install
+That's it! now you can run loglib for dev enviroment with
 
-```sh-session
-pnpm install
+```
+pnpm dev
 ```
 
-### 1. Prepare databases
-
-Push the database schema to Planetscale:
-
-```sh-session
-cd apps/www
-pnpm prisma db push
-```
-
-create needed tables in clickhouse:
-
-```sh-session
-cd apps/api
-pnpm setup:clickhouse
-```
-
-## Build the packages
-
-```sh-session
-pnpm build
-```
-
-## Run API
-
-Add a `.env` file in `/apps/api/.env` and populate the values from the services above.
-
-```sh-session
-cp apps/api/.env.example apps/api/.env
-```
-
-Then run the api:
-
-```sh-session
-pnpm turbo run dev --filter=api
-```
-
-## Run app
-
-```sh-session
-pnpm turbo run dev --filter=web
-```
+> Please open an issue or a pr if this contribtuion guide isn't working anymore for your setup or if you think we should update it for some reason.

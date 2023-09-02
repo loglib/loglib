@@ -1,10 +1,10 @@
 "use client";
 
 import COUNTRIES from "@/lib/constants";
-import { EventsWithData } from "@loglib/types";
+import { LoglibCustomEvent } from "@loglib/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { ChevronDown, ChevronRight, ChevronsUpDown, UnfoldVertical } from "lucide-react";
-export const columns: ColumnDef<EventsWithData[0]>[] = [
+export const columns: ColumnDef<LoglibCustomEvent>[] = [
     {
         id: "expander",
         header: () => <UnfoldVertical />,

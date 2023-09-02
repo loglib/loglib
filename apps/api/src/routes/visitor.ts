@@ -1,5 +1,5 @@
 import { apiResponse } from "../lib/api-response";
-import { client } from "../lib/db/clickhouse";
+import { client } from "../db/clickhouse";
 import { RouteType } from "./type";
 import { z } from "zod";
 

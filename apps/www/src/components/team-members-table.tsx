@@ -3,7 +3,6 @@
 
 import { inviteTeamModalAtom, leaveTeamModalAtom, selectedTeamAtom, userAtom } from "@/jotai/store";
 import { inviteTeam, removeTeamUser, updateTeamUser } from "@/server/actions/team";
-import { Teams } from "@/server/query";
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -43,13 +42,13 @@ import { TeamLeaveAlert } from "./team-leave-alert";
 import { TeamWebsiteModal } from "./team-website";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { toast } from "./ui/use-toast";
+import { TeamMember } from '@loglib/types/models';
 
-export const columns: ColumnDef<Teams[0]["TeamUser"][0]>[] = [
+export const columns: ColumnDef<TeamMember>[] = [
     {
         id: "name",
-        accessorKey: "name",
         header: "Name",
-        cell: ({ row }) => <div className="capitalize">{row.getValue("name")}</div>,
+        cell: ({ row }) => <div className="capitalize">{row.original.name ?? "unknown"}</div>,
     },
     {
         id: "email",
@@ -163,7 +162,7 @@ export const columns: ColumnDef<Teams[0]["TeamUser"][0]>[] = [
                                     if (team) {
                                         setTeam({
                                             ...team,
-                                            TeamUser: team.TeamUser.filter((u) => u.id !== id),
+                                            teamMember: team.teamMember.filter((u) => u.id !== id),
                                         });
                                     }
                                     toast({
@@ -192,7 +191,7 @@ export const columns: ColumnDef<Teams[0]["TeamUser"][0]>[] = [
                                             await inviteTeam(
                                                 {
                                                     email: row.original.email ?? "",
-                                                    role,
+                                                    role: role ?? "viewer",
                                                 },
                                                 team.id,
                                                 true,
@@ -230,7 +229,7 @@ export function TeamMembersTable() {
     const [rowSelection, setRowSelection] = React.useState({});
     const [, setInviteModal] = useAtom(inviteTeamModalAtom);
     const table = useReactTable({
-        data: data?.TeamUser ?? [],
+        data: data?.teamMember ?? [],
         columns,
         onSortingChange: setSorting,
         onColumnFiltersChange: setColumnFilters,
@@ -250,9 +249,9 @@ export function TeamMembersTable() {
 
     const [user] = useAtom(userAtom);
     const [, setLeaveTeamModal] = useAtom(leaveTeamModalAtom);
-    const isOwner = () => data?.TeamUser.find((u) => u.userId === user?.id)?.role === "owner";
+    const isOwner = () => data?.teamMember.find((u) => u.userId === user?.id)?.role === "owner";
     const isTheOnlyOwner = () =>
-        data?.TeamUser.filter((u) => {
+        data?.teamMember.filter((u) => {
             return u.role === "owner";
         }).length === 1;
     return (

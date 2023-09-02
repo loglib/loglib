@@ -28,21 +28,21 @@ const apiKeys = async () => {
     if (!user) {
         return redirect("/login");
     }
-    const keys = await db.apiKey
+    const keys = await db.query.apiKey
         .findMany({
-            where: {
-                userId: user.id,
+            where(fields, operators) {
+                return operators.eq(fields.userId, user.id)
             },
         })
         .then((res) => {
             return res.map((key) => ({
                 ...key,
-                key: key.key.slice(0, 5) + "*".repeat(key.key.length - 7) + key.key.slice(-2),
+                token: key.token.slice(0, 5) + "*".repeat(key.token.length - 7) + key.token.slice(-2),
             }));
         });
-    const websites = await db.website.findMany({
-        where: {
-            userId: user.id,
+    const websites = await db.query.website.findMany({
+        where(fields, operators) {
+            return operators.eq(fields.userId, user.id)
         },
     });
     return (
@@ -73,9 +73,9 @@ const apiKeys = async () => {
                                         }
                                     </TableCell>
                                     <TableCell className=" ll-ctc flex items-center">
-                                        <div className="ll-ctc">{key.key}</div>
+                                        <div className="ll-ctc">{key.token}</div>
                                     </TableCell>
-                                    <TableCell>{formatDistanceToNow(key.expires)}</TableCell>
+                                    <TableCell>{formatDistanceToNow(key.expiresAt)}</TableCell>
                                     <TableCell className=" flex cursor-pointer justify-end">
                                         <DeleteKeys id={key.id} />
                                     </TableCell>
