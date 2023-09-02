@@ -16,7 +16,7 @@ export default function page() {
                     Start For Free. Scale as you grow.
                 </p>
             </div>
-            <div className=" flex items-start justify-center gap-10">
+            <div className=" flex-col md:flex-row flex items-center md:items-start justify-center space-y-2 md:space-y-0 md:gap-10">
                 <div className=" rounded-lg border border-stone-300/10">
                     <PricingCard tier={PLANS[0]} />
                 </div>

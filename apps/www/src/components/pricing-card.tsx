@@ -41,7 +41,7 @@ export function PricingCard({ tier, user, currentPlan }: PricingCardProps) {
                         {tier.name}
                     </h3>
                 </div>
-                <div className="mt-4 flex items-baseline text-6xl font-extrabold  text-stone-900 dark:text-stone-100">
+                <div className="mt-4 flex items-baseline text-3xl md:text-6xl font-extrabold  text-stone-900 dark:text-stone-100">
                     {tier.priceMonthly === "Free" ? (
                         "Free"
                     ) : (
@@ -85,7 +85,7 @@ export function PricingCard({ tier, user, currentPlan }: PricingCardProps) {
                         - 17%
                     </Badge>
                 }
-                <p className="mt-5 text-lg text-stone-500">{tier.description}</p>
+                <p className="mt-5 md:text-lg text-sm text-stone-500">{tier.description}</p>
             </div>
             <div className="flex flex-1 flex-col justify-between space-y-6 bg-stone-100 px-6 pb-8 pt-6 dark:bg-stone-950/80 sm:p-10 sm:pt-6">
                 <ul role="list" className="space-y-4">
@@ -97,7 +97,7 @@ export function PricingCard({ tier, user, currentPlan }: PricingCardProps) {
                                     aria-hidden="true"
                                 />
                             </div>
-                            <p className="ml-3 text-base text-stone-700 dark:text-stone-300">
+                            <p className="ml-3 text-sm md:text-base text-stone-700 dark:text-stone-300">
                                 {feature}
                             </p>
                         </li>
@@ -139,7 +139,7 @@ export function PricingCard({ tier, user, currentPlan }: PricingCardProps) {
                             :
                             <Link
                                 href={tier.href}
-                                className=" tex-white  from-logo/10 flex items-center justify-center rounded-md border border-transparent bg-gradient-to-tr to-white/80 px-5 py-3  text-base font-bold hover:bg-stone-950 dark:to-stone-950/80"
+                                className=" tex-white  from-logo/10 flex items-center justify-center rounded-md border border-transparent bg-gradient-to-tr to-white/80 px-5 py-3  text-xs md:text-base font-bold hover:bg-stone-950 dark:to-stone-950/80"
                                 aria-describedby="tier-standard"
                             >
                                 Get started

@@ -45,7 +45,7 @@ export default async function IndexPage() {
             <HeroSection />
             <FeatureCard />
             <FeatureAccordion />
-            <ProjectsContents />
+            {/* <ProjectsContents /> */}
             <section className="w-full">
                 <RepurposeYourData />
                 <section className="w-full">
