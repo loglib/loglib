@@ -64,7 +64,7 @@ const Setting = async ({ params }: { params: { slug: string[] } }) => {
                                 {`${getMonthName(lastMonth)} ${startDate}`} -  {`${getMonthName(thisMonth)} ${startDate}`}
                             </p>
                         </CardHeader>
-                        <CardContent className=" flex items-center justify-between gap-4">
+                        <CardContent className=" flex md:flex-row flex-col md:items-center md:justify-between gap-4">
                             <div className=" flex-grow">
                                 <div className=" flex items-center gap-2">
                                     <Layout size={14} />
@@ -137,7 +137,7 @@ const Setting = async ({ params }: { params: { slug: string[] } }) => {
                             }
                         </CardFooter>
                     </Card>
-                    <div className=" mt-6 flex items-center gap-8 pb-4">
+                    <div className=" mt-6 flex-col md:flex-row flex items-center gap-8 pb-4">
                         <PricingCard tier={PLANS[0]} user={{
                             ...user,
                             portalUrl
