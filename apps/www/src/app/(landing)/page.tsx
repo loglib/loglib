@@ -45,7 +45,7 @@ export default async function IndexPage() {
             <HeroSection />
             <FeatureCard />
             <FeatureAccordion />
-            {/* <ProjectsContents /> */}
+            <ProjectsContents />
             <section className="w-full">
                 <RepurposeYourData />
                 <section className="w-full">
@@ -164,7 +164,7 @@ export default async function IndexPage() {
                                 </g>
                             </svg>
                         </Link>
-                        <Link href="https://discord.gg/vBkrdDER">
+                        <Link href="https://discord.gg/SPjPCsED">
                             <svg
                                 className=" w-5 h-5"
                                 viewBox="0 0 24 24"
