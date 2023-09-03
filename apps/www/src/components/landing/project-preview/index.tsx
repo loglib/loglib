@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { GitHubIcon, NpmIcon } from '@/components/extra-icons';
 import { SectionButton } from '@/components/sections/SectionButton';
 import SectionContent from '@/components/sections/SectionContent';
-import SectionTitle from '@/components/sections/SectionTitle';
 import AppWindow from '@/components/wireframes/AppWindow';
 import GitHubWireframe from '@/components/wireframes/Github';
 import NpmWireframe from '@/components/wireframes/Npm';
