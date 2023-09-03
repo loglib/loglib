@@ -3,8 +3,8 @@ import { createClient } from '@libsql/client';
 import { drizzle } from 'drizzle-orm/libsql';
 
 async function main() {
-    const arg1 = process.argv[2] ?? "file:./db.sqlite"
-    const arg2 = process.argv[3]
+    const arg1 = process.env.DATABASE_URL ?? "file:./db.sqlite"
+    const arg2 = process.env.DATABASE_AUTH_TOKEN
     console.log("⌗ Starting Migration", "[Database]:", arg1, "[Auth Token]:", arg2)
     const client = createClient({
         url: arg1,

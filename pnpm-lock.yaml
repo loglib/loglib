@@ -77,12 +77,15 @@ importers:
       '@libsql/client':
         specifier: ^0.3.1
         version: 0.3.1(bufferutil@4.0.7)(encoding@0.1.13)(utf-8-validate@6.0.3)
+      '@loglib/clickhouse':
+        specifier: workspace:*
+        version: link:../../packages/clickhouse
       '@loglib/db':
         specifier: 1.0.0
         version: link:../../packages/db
       '@loglib/setup':
         specifier: 1.0.0
-        version: link:../../packages/setup
+        version: 1.0.0
       '@t3-oss/env-core':
         specifier: ^0.6.0
         version: 0.6.0(typescript@5.1.6)(zod@3.21.4)
@@ -113,6 +116,9 @@ importers:
       jsonwebtoken:
         specifier: ^9.0.0
         version: 9.0.0
+      kafkajs:
+        specifier: ^2.2.4
+        version: 2.2.4
       kysely:
         specifier: ^0.26.1
         version: 0.26.1
@@ -565,6 +571,25 @@ importers:
       typescript:
         specifier: ^5.1.6
         version: 5.1.6
+
+  packages/clickhouse:
+    dependencies:
+      '@clickhouse/client':
+        specifier: ^0.1.1
+        version: 0.1.1
+      dotenv:
+        specifier: ^16.3.1
+        version: 16.3.1
+      kafkajs:
+        specifier: ^2.2.4
+        version: 2.2.4
+      tsx:
+        specifier: ^3.12.7
+        version: 3.12.7
+    devDependencies:
+      '@loglib/config':
+        specifier: workspace:*
+        version: link:../config
 
   packages/config: {}
 
@@ -2373,6 +2398,12 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+    dev: false
+
+  /@loglib/setup@1.0.0:
+    resolution: {integrity: sha512-T/Kt9E+TM5OQAe9a7WBFXAdmyH+IMhU4duvicmJgT5e5xBV8tWv4TYJs5njWVyUrpkykO8uyj7mo4cG5LKyQ4g==}
+    dependencies:
+      '@clickhouse/client': 0.1.1
     dev: false
 
   /@lottiefiles/react-lottie-player@3.5.3(react@18.2.0):
@@ -10062,6 +10093,11 @@ packages:
     dependencies:
       jwa: 1.4.1
       safe-buffer: 5.2.1
+    dev: false
+
+  /kafkajs@2.2.4:
+    resolution: {integrity: sha512-j/YeapB1vfPT2iOIUn/vxdyKEuhuY2PxMBvf5JWux6iSaukAccrMtXEY/Lb7OvavDhOWME589bpLrEdnVHjfjA==}
+    engines: {node: '>=14.0.0'}
     dev: false
 
   /katex@0.16.8:

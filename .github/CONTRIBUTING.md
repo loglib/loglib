@@ -1,17 +1,17 @@
 # Contributing
 
-We really appericate any kind of contibution regardless of your coding skills. We beleive loglib should be really easy for anyone who wants to get into contributing for open source projects. So if this your first time conctribution we'd love to support you in anyway to get in there. Read the above instruction to get the project overview better.
+We really appreciate any kind of contribution regardless of your coding skills. We believe loglib should be really easy for anyone who wants to get into contributing for open source projects. So if this your first time contribution we'd love to support you in anyway to get in there. Read the above instruction to get the project overview better.s
 
 ## Main Tech Stack Used Currently
 
 - Language - Typescript
 - Metaframework - Next JS App Route (with server actions)
 - Styling - Tailwind, Shadcn, Radix
-- State Mangement - Jotai, SWR
+- State Management - Jotai, SWR
 - Authentication - Nextauth
 - API Framework - Hono JS
 - Markdown - Contentlayer
-- Databases - Drizzle ORM, Local Sqlite Database For developement and turso (libsql on edge) for porduction, Clickhouse (OLAP Database) for analytics data
+- Databases - Drizzle ORM, Local Sqlite Database For development and turso (libsql on edge) for production, Clickhouse (OLAP Database) for analytics data
 - Emails - Resend
 
 ## Folder Structure
@@ -20,7 +20,7 @@ We use turporepo to manage the project. If you're not familar with turbo repo sk
 
 1. Apps - Contains two other folders: api(hono js api that serves as api for analytics data and to recive data from the tracker) and www/web(next js app route project that serve as the main application framework)
 
-2. Packgaes - Contains shared packages across the two apps and published tracker npm package.
+2. Packages - Contains shared packages across the two apps and published tracker npm package.
 
 ## Setting up loglib for development
 
@@ -36,8 +36,7 @@ We use turporepo to manage the project. If you're not familar with turbo repo sk
 > You also need either **Github** or **Google** auth in order to login. So make sure to set at least one of those.
 
 ```sh-session
-cp apps/www/.env.example apps/www/.env
-cp apps/api/.env.example apps/api/.env
+cp .env.example .env
 ```
 
 ### Setting up database
@@ -59,20 +58,16 @@ Run clickhouse in docker using this command.
 docker run -d --name clickhouse-server -p 8123:8123 --ulimit nofile=262144:262144 yandex/clickhouse-server
 ```
 
-Now we haven't setup our env variables to this point so first let's change .env.example to .env on both apps (web and api).
-
-Then make sure to add your locally running clickhouse credentials there.
-
 Now let's migrate our schema to clickhouse
 
 ```sh-session
-pnpm db migrate:clickhouse
+pnpm db clickhouse:migrate
 ```
 
-That's it! now you can run loglib for dev enviroment with
+That's it! now you can run loglib for dev environment with
 
 ```
 pnpm dev
 ```
 
-> Please open an issue or a pr if this contribtuion guide isn't working anymore for your setup or if you think we should update it for some reason.
+> Please open an issue or a pr if this contribution guide isn't working anymore for your setup or if you think we should update it for some reason.

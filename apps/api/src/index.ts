@@ -1,6 +1,7 @@
+import { hitsQuery } from './db/queries';
 import { env } from "../env";
 import { eventDB } from "./db";
-import { client, hitsQuery } from "./db/clickhouse";
+import { client } from "./db/clickhouse";
 import { db } from "./db/drizzle";
 import { rateLimitCheck } from "./lib/rate-limit";
 import { retryFunction } from "./lib/retry";
