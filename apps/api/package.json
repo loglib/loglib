@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "private": true,
     "scripts": {
-        "dev": "tsx watch src/index.ts",
+        "dev": "dotenv -e ../../.env -- tsx watch src/index.ts",
         "build": "tsup",
         "setup:geo": "tsx setup/geo.ts",
         "setup:clickhouse": "dotenv tsx setup/clickhouse-db.ts",

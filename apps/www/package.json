@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "private": true,
     "scripts": {
-        "dev": "concurrently \"contentlayer dev\" \"next dev\"",
+        "dev": "dotenv -e ../../.env -- concurrently \"contentlayer dev\" \"next dev\"",
         "dev:next": "next dev",
         "build": "contentlayer build && next build",
         "postbuild": "next-sitemap",
@@ -90,6 +90,7 @@
         "cssnano": "^6.0.1",
         "date-fns": "^2.30.0",
         "date-fns-tz": "^2.0.0",
+        "dotenv": "^16.3.1",
         "drizzle-kit": "^0.19.13",
         "drizzle-orm": "^0.28.5",
         "encoding": "^0.1.13",
