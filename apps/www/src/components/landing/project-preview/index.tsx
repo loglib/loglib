@@ -15,7 +15,7 @@ function ProjectsContents() {
 
   return (
     <>
-      <main className='w-11/12 m-30 hidden md:block'>
+      <main className='w-11/12 m-30'>
         {/* <SectionTitle
         title="Yet Another Way To Boost "
         caption="LOGLIB"
