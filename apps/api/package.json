@@ -18,7 +18,7 @@
         "@clickhouse/client-web": "^0.2.0",
         "@hono/node-server": "^1.1.1",
         "@libsql/client": "^0.3.1",
-        "@loglib/clickhouse": "workspace:*",
+        "@loglib/clickhouse": "1.0.0",
         "@loglib/db": "1.0.0",
         "@loglib/setup": "1.0.0",
         "@t3-oss/env-core": "^0.6.0",
