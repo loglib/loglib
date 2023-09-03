@@ -6,7 +6,8 @@ import { redirect } from "next/navigation";
 import React from "react";
 import { schema } from "@loglib/db";
 import { eq } from "drizzle-orm";
-import { queires } from "@/server/query/queires";
+import { queries } from "@/server/query/queries";
+import { PLAN } from "@loglib/types/models";
 
 export default async function Page({
     params,
@@ -28,6 +29,11 @@ export default async function Page({
                         }
                     }
                 }
+            },
+            user: {
+                columns: {
+                    plan: true
+                }
             }
         }
     })
@@ -43,7 +49,7 @@ export default async function Page({
         : website.active
             ? false
             : await (async () => {
-                const haveSession = (await queires.getIsWebsiteActive(params.website)).length;
+                const haveSession = (await queries.getIsWebsiteActive(params.website)).length;
                 if (haveSession) {
                     await db.update(schema.website).set({
                         active: true
@@ -54,7 +60,10 @@ export default async function Page({
             })();
     return (
         <main>
-            <Dashboard website={website} isPublic={isPublic} showSetup={showSetup} token={token} />
+            <Dashboard website={{
+                ...website,
+                plan: website.user.plan as PLAN
+            }} isPublic={isPublic} showSetup={showSetup} token={token} />
         </main>
     );
 }

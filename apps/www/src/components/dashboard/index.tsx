@@ -39,6 +39,7 @@ import { loglib } from "@loglib/tracker";
 import { Celebrate } from "./celebrate";
 import { useAtom } from "jotai";
 import { localSettingAtom } from "@/jotai/store";
+import { PLAN, Website } from "@loglib/types/models";
 
 export const Dashboard = ({
     website,
@@ -46,11 +47,14 @@ export const Dashboard = ({
     token,
     showSetup,
 }: {
-    website: { id: string; url: string; title: string | null };
+    website: Website & {
+        plan: PLAN
+    };
     isPublic: boolean;
     showSetup?: boolean;
     token: string;
 }) => {
+    const plan = website.plan
     const [timeRange, setTimeRange] = useState<TimeRange>({
         startDate: getLast24Hour(),
         endDate: new Date(),
@@ -153,6 +157,7 @@ export const Dashboard = ({
                                     setCustomTime={setCustomTime}
                                     timeRange={timeRange}
                                     customTime={customTime}
+                                    plan={plan}
                                 />
                             </div>
                             <div className=" flex flex-col items-end">

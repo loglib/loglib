@@ -9,7 +9,6 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { usageAtom } from "@/jotai/store";
 import {
     getLast24Hour,
     getLastNinetyDays,
@@ -22,11 +21,11 @@ import {
     getYesterday,
 } from "@/lib/time-helper";
 import { cn } from "@/lib/utils";
+import { PLAN } from "@loglib/types/models";
 import { format, subMonths } from "date-fns";
-import { useAtom } from "jotai";
 import { CalendarDays } from "lucide-react";
 import { Calendar as CalendarIcon } from "lucide-react";
-import React from "react";
+import React, { Fragment } from "react";
 import { DateRange } from "react-day-picker";
 
 export function CalendarDateRangePicker({
@@ -43,7 +42,6 @@ export function CalendarDateRangePicker({
     className?: string;
 }) {
     const lastMonth = subMonths(new Date(), 1);
-
     return (
         <div className={cn("grid gap-2", className)}>
             <Popover>
@@ -102,6 +100,7 @@ export const DatePicker = ({
     setCustomTime,
     timeRange,
     customTime,
+    plan
 }: {
     setTimeRange: React.Dispatch<
         React.SetStateAction<{
@@ -113,8 +112,8 @@ export const DatePicker = ({
     timeRange: { startDate: Date; endDate: Date; stringValue?: string };
     setCustomTime: (state: boolean) => void;
     customTime: boolean;
+    plan: PLAN
 }) => {
-    const [usage] = useAtom(usageAtom)
     function setTime(value: string) {
         setCustomTime(false);
         switch (value) {
@@ -198,10 +197,14 @@ export const DatePicker = ({
                     <SelectItem value="last30">Last 30 Days</SelectItem>
                     <SelectItem value="last90">Last 90 Days</SelectItem>
                     {
-                        usage && usage.plan.slug !== "free" && <SelectItem value="thisYear">This Year</SelectItem>
+                        plan !== "free" && <SelectItem value="thisYear">This Year</SelectItem>
                     }
-                    <Separator className="my-2" />
-                    <SelectItem value="custom">Custom</SelectItem>
+                    {
+                        plan !== "plus" && <Fragment>
+                            <Separator className="my-2" />
+                            <SelectItem value="custom">Custom</SelectItem>
+                        </Fragment>
+                    }
                 </SelectContent>
             </Select>
         </div>

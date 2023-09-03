@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session"
 import { stripe } from "@/lib/stripe";
 import { env } from "env.mjs";
-import { queires as queries } from "../query/queires";
+import { queries } from "../query/queries";
 import { PLANS } from "@/lib/stripe/plans";
 
 //TODO: look into this

@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
-import { queires } from "./queires";
+import { queries } from "./queries";
 
 export const getWebsite = async () => {
     const user = await getCurrentUser();
@@ -10,6 +10,13 @@ export const getWebsite = async () => {
     const userWebsites = await db.query.website.findMany({
         where(fields, operators) {
             return operators.eq(fields.userId, user.id)
+        },
+        with: {
+            user: {
+                columns: {
+                    plan: true
+                }
+            }
         }
     })
     const ids = userWebsites.map((website) => website.id);
@@ -27,21 +34,31 @@ export const getWebsite = async () => {
                     },
                 }
             },
-            website: true,
+            website: {
+                with: {
+                    user: {
+                        columns: {
+                            plan: true
+                        }
+                    }
+                }
+            },
         }
     }).then(res => res.filter(r => r.team?.teamMembers?.length && r.websiteId && !ids.includes(r.websiteId)))
 
     const sites = userWebsites.map(async (web) => {
         return {
             ...web,
-            visitors: await queires.getTodayVisitorsCount(web.id)
+            visitors: await queries.getTodayVisitorsCount(web.id),
+            plan: web.user.plan ?? "free"
         };
     });
     const teamSites = teamWebsites.map(async (web) => {
         return {
             // rome-ignore lint/style/noNonNullAssertion: <explanation>
             ...web.website!,
-            visitors: await queires.getTodayVisitorsCount(web.websiteId as string)
+            visitors: await queries.getTodayVisitorsCount(web.websiteId as string),
+            plan: web.website?.user.plan ?? "free"
         };
     });
     return {

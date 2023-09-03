@@ -96,4 +96,4 @@ export const DatabaseQueries = (dbType: "clickhouse" | "sqlite") => {
     }
 }
 
-export const queires = DatabaseQueries(env.CLICKHOUSE_HOST ? "clickhouse" : "sqlite")
+export const queries = DatabaseQueries(env.CLICKHOUSE_HOST ? "clickhouse" : "sqlite")

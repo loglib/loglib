@@ -10,6 +10,7 @@ export type User = typeof schema.users.$inferSelect
 
 //ENUMS
 export type ROLE = NonNullable<typeof schema.teamMember.$inferSelect.role>
+export type PLAN = "free" | "pro" | "plus"
 
 export type Visitor = {
     id: string;
