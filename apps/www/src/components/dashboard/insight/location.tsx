@@ -12,10 +12,9 @@ import LocationMap from "./location-map";
 
 
 export const Location = ({ filter: { isFilterActive, clearFilter, addFilter }, data, isLoading }: Omit<InsightTablesProps, "setCurrentTableTab">) => {
-    function searchFn(key: string, term: string, data: "session" | "pageview") {
+    function searchFn(key: string, term: string) {
         addFilter({
             operator: "contains",
-            data,
             key,
             value: term,
         });
@@ -56,7 +55,7 @@ export const Location = ({ filter: { isFilterActive, clearFilter, addFilter }, d
                                         (cty) => COUNTRIES[cty] === t,
                                     );
                                     if (term) {
-                                        searchFn("country", term, "session");
+                                        searchFn("country", term);
                                     }
                                 }}
                                 hideSearchBar={data && data?.data.locations.country.length < 10}
@@ -71,7 +70,6 @@ export const Location = ({ filter: { isFilterActive, clearFilter, addFilter }, d
                                                     key: "country",
                                                     value: location.ogLocation,
                                                     operator: "is",
-                                                    data: "session",
                                                 })
                                             }
                                         >
@@ -110,7 +108,7 @@ export const Location = ({ filter: { isFilterActive, clearFilter, addFilter }, d
                                     valueLabel: "Visits",
                                 }}
                                 searchPlaceholder="Search City..."
-                                searchFn={(t) => searchFn("city", t, "session")}
+                                searchFn={(t) => searchFn("city", t)}
                                 hideSearchBar={data && data?.data.locations.city.length < 10}
                                 isLoading={isLoading}
                                 tip="Your visitors city and how many times they are visited :)"
@@ -123,7 +121,6 @@ export const Location = ({ filter: { isFilterActive, clearFilter, addFilter }, d
                                                     key: "country",
                                                     value: location.location,
                                                     operator: "is",
-                                                    data: "session",
                                                 })
                                             }
                                         >
