@@ -198,7 +198,8 @@ export function loglibDb(db: "sqlite" | "clickhouse") {
         },
         async getCustomEvents(startDateObj: Date, endDateObj: Date, websiteId: string) {
             const query = await getCustomEventData(startDateObj, endDateObj, websiteId)
-            return await query[db]()
+            const events = await query[db]()
+            return events
         }
     }
 }

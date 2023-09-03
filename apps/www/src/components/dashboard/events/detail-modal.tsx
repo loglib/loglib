@@ -27,7 +27,7 @@ const renderSubComponent = ({ row }: { row: Row<LoglibCustomEvent> }) => {
         Time: new Date(data.timestamp).toLocaleString(),
     };
     const customProperties = {
-        ...data.payload,
+        ...JSON.parse(data.payload as unknown as string),
     };
     const allProperties = {
         ...automaticProperties,

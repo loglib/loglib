@@ -72,6 +72,23 @@ app.get("/", async (c) => {
         const tack = performance.now();
         console.log(tack - tick, "ms taken to query");
         const filters = JSON.parse(queries.data.filter) as Filter<LoglibEvent>[];
+        console.log(filters, "filters")
+        //add utm as a key in session
+        events = events.map((s) => {
+            const queryParams = JSON.parse(s.queryParams)
+            const utmCampaign = queryParams?.utm_campaign ?? "";
+            const utmSource = queryParams?.utm_source ?? "";
+            return { ...s, utmCampaign, utmSource };
+        });
+
+        //add utm as a key in session
+        lastEvents = lastEvents.map((s) => {
+            const queryParams = JSON.parse(s.queryParams)
+            const utmCampaign = queryParams?.utm_campaign ?? "";
+            const utmSource = queryParams?.utm_source ?? "";
+            return { ...s, utmCampaign, utmSource };
+        });
+
         filters.length &&
             filters.forEach((f) => {
                 events = filter(events).where(f.key, f.operator, f.value).execute();
