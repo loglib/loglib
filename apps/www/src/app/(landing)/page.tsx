@@ -48,14 +48,13 @@ export default async function IndexPage() {
             <div className="hidden md:block">
                 <ProjectsContents />
             </div>
-
             <section className="w-full">
                 <RepurposeYourData />
                 <section className="w-full">
                     <Changelog />
                 </section>
             </section>
-            <section className="max-w-8xl to-50 flex-col mx-auto mt-10 w-full rounded-3xl flex  md:flex-row md:justify-between justify-center md:items-start items-center  bg-gradient-to-br from-gray-100 px-4 dark:from-stone-900/80 dark:to-[#080812] sm:px-16 ">
+            <section className="max-w-8xl to-50 flex-col mx-auto mt-10 w-full rounded-3xl flex  md:flex-row md:justify-between justify-center md:items-start items-center  bg-gradient-to-br from-gray-100 px-4 dark:from-stone-900/80 dark:to-[#080812] sm:px-16">
                 <div className="flex h-min px-2  flex-col justify-center gap-8 py-12">
                     <h1 className="font-heading max-w-3xl text-3xl font-bold sm:text-6xl">
                         Supported by{" "}

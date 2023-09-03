@@ -42,7 +42,7 @@ CREATE MATERIALIZED VIEW loglib.event_queue_mv TO loglib.event AS
         sign
         FROM loglib.event_queue;
 
- CREATE MATERIALIZED VIEW loglib.event_errors_mv
+CREATE MATERIALIZED VIEW loglib.event_errors_mv
         (
             error String,
             raw String
