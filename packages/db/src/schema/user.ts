@@ -1,6 +1,10 @@
+<<<<<<< HEAD
+import { sqliteTable, text, integer, primaryKey } from "drizzle-orm/sqlite-core";
+=======
 import { sqliteTable, text, integer, primaryKey, int } from 'drizzle-orm/sqlite-core';
+>>>>>>> original/main
 import type { AdapterAccount } from "@auth/core/adapters";
-import { date } from './utils';
+import { date } from "./utils";
 
 export const users = sqliteTable("user", {
     id: text("id").notNull().primaryKey(),
@@ -8,10 +12,14 @@ export const users = sqliteTable("user", {
     email: text("email").notNull(),
     emailVerified: integer("emailVerified", { mode: "timestamp_ms" }),
     image: text("image"),
+<<<<<<< HEAD
+    createdAt: date("createdAt"),
+=======
     plan: text("plan").default("free"),
     stripeId: text("stripeId"),
     billingCycleStart: int("billingCycleStart"),
     createdAt: date("createdAt")
+>>>>>>> original/main
 });
 
 export const accounts = sqliteTable(
@@ -33,9 +41,8 @@ export const accounts = sqliteTable(
     },
     (account) => ({
         compoundKey: primaryKey(account.provider, account.providerAccountId),
-    })
+    }),
 );
-
 
 export const sessions = sqliteTable("session", {
     sessionToken: text("sessionToken").notNull().primaryKey(),
@@ -54,5 +61,9 @@ export const verificationTokens = sqliteTable(
     },
     (vt) => ({
         compoundKey: primaryKey(vt.identifier, vt.token),
+<<<<<<< HEAD
+    }),
+=======
     })
+>>>>>>> original/main
 );

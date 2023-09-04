@@ -1,14 +1,19 @@
-import { type Config } from 'drizzle-kit';
+import { type Config } from "drizzle-kit";
 
 const config: Config = {
-    out: './migrations',
-    schema: './src/schema',
+    out: "./migrations",
+    schema: "./src/schema",
     breakpoints: true,
     driver: "turso",
     dbCredentials: {
         url: process.env.DATABASE_URL ?? "file:./db.sqlite",
-        authToken: process.env.DATABASE_AUTH_TOKEN
+        authToken: process.env.DATABASE_AUTH_TOKEN,
     },
+<<<<<<< HEAD
+};
+export default config;
+=======
 
 }
 export default config
+>>>>>>> original/main

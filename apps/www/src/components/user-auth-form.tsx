@@ -11,9 +11,9 @@ import { cn } from "@/lib/utils";
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     className?: string;
     activeStrategy: {
-        github?: boolean,
-        google?: boolean
-    }
+        github?: boolean;
+        google?: boolean;
+    };
 }
 export function UserAuthForm({ className, activeStrategy, ...props }: Props) {
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
@@ -29,8 +29,8 @@ export function UserAuthForm({ className, activeStrategy, ...props }: Props) {
                     <span className="bg-background text-muted-foreground px-2">continue with</span>
                 </div>
             </div>
-            {
-                activeStrategy.github && <button
+            {activeStrategy.github && (
+                <button
                     type="button"
                     className={cn(buttonVariants({ variant: "outline" }))}
                     onClick={() => {
@@ -48,9 +48,9 @@ export function UserAuthForm({ className, activeStrategy, ...props }: Props) {
                     )}
                     Github
                 </button>
-            }
-            {
-                activeStrategy.google && <button
+            )}
+            {activeStrategy.google && (
+                <button
                     type="button"
                     className={cn(buttonVariants({ variant: "outline" }))}
                     onClick={() => {
@@ -68,7 +68,7 @@ export function UserAuthForm({ className, activeStrategy, ...props }: Props) {
                     )}
                     Google
                 </button>
-            }
+            )}
         </div>
     );
 }

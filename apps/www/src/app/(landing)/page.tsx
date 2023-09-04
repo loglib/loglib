@@ -87,8 +87,8 @@ export default async function IndexPage() {
                                     {contributors <= 10
                                         ? `00${contributors}`
                                         : contributors <= 100
-                                            ? `0${contributors}`
-                                            : contributors}
+                                        ? `0${contributors}`
+                                        : contributors}
                                 </h1>
 
                                 <p className="text-md font-thin opacity-75">Contributors</p>

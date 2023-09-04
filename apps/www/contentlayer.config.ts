@@ -140,7 +140,7 @@ export const LegalPost = defineDocumentType(() => ({
     },
     //@ts-ignore
     computedFields: computedFields("legal"),
-}))
+}));
 
 export default makeSource({
     contentDirPath: "src/content",

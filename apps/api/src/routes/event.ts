@@ -33,7 +33,7 @@ export const eventSchema = z.object({
 
 export const createEvents: RouteType = async ({ rawBody, req }) => {
     const body = eventSchema.safeParse(rawBody);
-    console.log(body, rawBody)
+    console.log(body, rawBody);
     if (body.success) {
         const ipAddress = getIpAddress(req);
         const { visitorId, websiteId, sessionId, language, events, screenWidth } = body.data;
@@ -43,34 +43,38 @@ export const createEvents: RouteType = async ({ rawBody, req }) => {
         const os = detectOS(userAgent) ?? "Mac OS";
         const device = getDevice(screenWidth, os);
         events.map(async (event) => {
-            await client.insert({
-                table: "loglib.event",
-                values: {
-                    id: event.id,
-                    sessionId,
-                    visitorId: setVisitorId(visitorId, ipAddress),
-                    websiteId,
-                    event: event.eventName ?? "custom",
-                    properties: JSON.stringify({
-                        payload: event.payload ?? {},
-                        currentPath: event.page,
-                        referrerPath: event.referrerPath,
-                        referrerDomain: event.referrerDomain,
-                        type: event.eventType,
-                        queryParams: event.queryParams ? JSON.stringify(event.queryParams) : "{}",
-                        pageId: event.pageId,
-                        city,
-                        country,
-                        duration: event.duration,
-                        browser,
-                        os,
-                        device,
-                        language: language ?? "en",
-                    }),
-                    sign: 1,
-                },
-                format: "JSONEachRow",
-            }).then(res => console.log(res));
+            await client
+                .insert({
+                    table: "loglib.event",
+                    values: {
+                        id: event.id,
+                        sessionId,
+                        visitorId: setVisitorId(visitorId, ipAddress),
+                        websiteId,
+                        event: event.eventName ?? "custom",
+                        properties: JSON.stringify({
+                            payload: event.payload ?? {},
+                            currentPath: event.page,
+                            referrerPath: event.referrerPath,
+                            referrerDomain: event.referrerDomain,
+                            type: event.eventType,
+                            queryParams: event.queryParams
+                                ? JSON.stringify(event.queryParams)
+                                : "{}",
+                            pageId: event.pageId,
+                            city,
+                            country,
+                            duration: event.duration,
+                            browser,
+                            os,
+                            device,
+                            language: language ?? "en",
+                        }),
+                        sign: 1,
+                    },
+                    format: "JSONEachRow",
+                })
+                .then((res) => console.log(res));
             await eventDB.insertEvent({
                 id: event.id,
                 sessionId,
@@ -91,8 +95,8 @@ export const createEvents: RouteType = async ({ rawBody, req }) => {
                 os,
                 device,
                 language: language ?? "en",
-                timestamp: new Date().toISOString().slice(0, 19).replace("T", " ")
-            })
+                timestamp: new Date().toISOString().slice(0, 19).replace("T", " "),
+            });
         });
         return {
             data: {

@@ -9,10 +9,19 @@ import { Link2Icon } from "lucide-react";
 import ReactCountryFlag from "react-country-flag";
 import LocationMap from "./location-map";
 
+<<<<<<< HEAD
+export const Location = ({
+    filter: { isFilterActive, clearFilter, addFilter },
+    data,
+    isLoading,
+}: Omit<InsightTablesProps, "setCurrentTableTab">) => {
+    function searchFn(key: string, term: string, data: "session" | "pageview") {
+=======
 
 
 export const Location = ({ filter: { isFilterActive, clearFilter, addFilter }, data, isLoading }: Omit<InsightTablesProps, "setCurrentTableTab">) => {
     function searchFn(key: string, term: string) {
+>>>>>>> original/main
         addFilter({
             operator: "contains",
             key,
@@ -125,7 +134,7 @@ export const Location = ({ filter: { isFilterActive, clearFilter, addFilter }, d
                                             }
                                         >
                                             {location.location === "Unknown" ||
-                                                !location.location ? (
+                                            !location.location ? (
                                                 <>
                                                     <Link2Icon />
                                                     Unknown
@@ -156,17 +165,9 @@ export const Location = ({ filter: { isFilterActive, clearFilter, addFilter }, d
             </Card>
             <Card className="md:col-span-4 bg-stone-950">
                 <CardContent>
-                    <LocationMap
-                        data={
-                            data
-                                ? data.data.locations.country
-                                : []
-                        }
-                    />
+                    <LocationMap data={data ? data.data.locations.country : []} />
                 </CardContent>
             </Card>
-
         </div>
-
-    )
-}
+    );
+};

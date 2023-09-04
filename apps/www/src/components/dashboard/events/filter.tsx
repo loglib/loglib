@@ -28,7 +28,10 @@ import { loglib } from "@loglib/tracker";
 export const EventFilter = ({
     data,
     setData,
-}: { data: LoglibCustomEvent[]; setData: (state: LoglibCustomEvent[]) => void }) => {
+}: {
+    data: LoglibCustomEvent[];
+    setData: (state: LoglibCustomEvent[]) => void;
+}) => {
     const getUnqiueValue = (input: string[]) => {
         const set = new Set(input);
         return Array.from(set);

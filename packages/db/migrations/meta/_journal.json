@@ -1,4 +1,18 @@
 {
+<<<<<<< HEAD
+    "version": "5",
+    "dialect": "sqlite",
+    "entries": [
+        {
+            "idx": 0,
+            "version": "5",
+            "when": 1693423562807,
+            "tag": "0000_mean_forgotten_one",
+            "breakpoints": true
+        }
+    ]
+}
+=======
   "version": "5",
   "dialect": "sqlite",
   "entries": [
@@ -18,3 +32,4 @@
     }
   ]
 }
+>>>>>>> original/main

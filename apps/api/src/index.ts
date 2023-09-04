@@ -122,7 +122,9 @@ app.get("/events", async (c) => {
     const websiteId = c.req.query("websiteId");
     try {
         const res = await eventDB.getCustomEvents(startDateObj, endDateObj, websiteId);
-        const events = res.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+        const events = res.sort(
+            (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
+        );
         return c.json(events, 200);
     } catch {
         return c.json(null, 500);
@@ -144,7 +146,7 @@ app.get("/v1/hits", async (c) => {
         where(fields, operators) {
             return operators.and(operators.eq(fields.token, apiKey));
         },
-    })
+    });
     if (!site) {
         return c.json({ message: "Unauthorized" }, 401);
     }
@@ -188,6 +190,9 @@ app.get("/v1/insight", async (c) => {
         where(fields, operators) {
             return operators.and(operators.eq(fields.token, apiKey));
         },
+<<<<<<< HEAD
+    });
+=======
     })
     if (new Date().getTime() >= site.expiresAt.getTime()) {
         return c.json({
@@ -204,11 +209,12 @@ app.get("/v1/insight", async (c) => {
             message: "Unauthorized"
         }, 401)
     }
+>>>>>>> original/main
     const websiteId = site.websiteId;
     const today = new Date();
     const startDateObj = new Date(
         startDate ??
-        new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()).toISOString(),
+            new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()).toISOString(),
     );
     const endDateObj = new Date(endDate ?? today);
     const duration = endDateObj.getTime() - startDateObj.getTime();

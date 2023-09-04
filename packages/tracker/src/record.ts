@@ -51,7 +51,7 @@ export function record(config?: Partial<Config>) {
         intervals: [],
         sdkVersion: packageJson.version,
     };
-    const logger = Logger(window.llc.debug)
+    const logger = Logger(window.llc.debug);
     logger.log("start recording...", window.llc);
 
     //Auto Tracker
@@ -64,7 +64,7 @@ export function record(config?: Partial<Config>) {
         window.llc.env = env;
     }
     const eventsInterval = setInterval(() => {
-        sendEvents()
+        sendEvents();
     }, window.llc.postInterval * 1000);
     addInterval(eventsInterval);
     //Navigation Handler
