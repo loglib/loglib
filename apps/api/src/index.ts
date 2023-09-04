@@ -189,7 +189,11 @@ app.get("/v1/insight", async (c) => {
             return operators.and(operators.eq(fields.token, apiKey));
         },
     })
-    console.log(site.createdAt, site.expiresAt)
+    if (new Date().getTime() >= site.expiresAt.getTime()) {
+        return c.json({
+            message: "API key expired!"
+        }, 400)
+    }
     if (site.createdAt >= site.expiresAt) {
         return c.json({
             message: "API Token Expired!"
