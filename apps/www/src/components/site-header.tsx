@@ -12,7 +12,7 @@ import { UserAccountNav } from "./user-account-nav";
 
 export function SiteHeader({ user }: { user?: User }) {
   return (
-    <div className="flex items-center justify-between md:mx-16 sticky top-0 mb-16 z-50 bg-white/60 backdrop-blur-sm dark:bg-stone-950/80 py-4">
+    <div className="flex items-center justify-between md:mx-16 sticky top-0 mb-16 z-50 bg-white/60 backdrop-blur-sm dark:bg-stone-950/80 py-4 px-4 md:px-0">
       <div
         className=" absolute h-1 bottom-0 w-full"
         style={{
