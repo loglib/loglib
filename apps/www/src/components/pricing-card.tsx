@@ -32,7 +32,7 @@ export function PricingCard({ tier, user, currentPlan }: PricingCardProps) {
                 "bg-gradient-to-br from-slate-900 border to-[#080812] relative flex max-w-sm flex-col overflow-hidden rounded-lg shadow-lg ",
             )}
         >
-            <div className="bg-stone-50 px-6 py-8 dark:bg-stone-900/80 sm:p-10 sm:pb-6  relative">
+            <div className="mx-0 bg-stone-50 px-6 py-8 dark:bg-stone-900/80 sm:p-10 sm:pb-6  relative">
                 <div>
                     <h3
                         className="text-logo inline-flex rounded-full bg-stone-800 px-4 py-1 text-sm font-semibold uppercase tracking-wide"

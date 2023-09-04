@@ -1,9 +1,11 @@
 import Changelog from "@/components/changelog";
+
 import { FeatureAccordion } from "@/components/landing/feature-accordion";
 import { FeatureCard } from "@/components/landing/feature-cards";
 import { HeroSection } from "@/components/landing/hero";
 import ProjectsContents from "@/components/landing/project-preview";
 import { RepurposeYourData } from "@/components/landing/repurpose-your-data";
+import { Community } from "@/components/marketing/community";
 import { TrackView } from "@loglib/tracker/react";
 import Link from "next/link";
 
@@ -48,6 +50,7 @@ export default async function IndexPage() {
             <div className="hidden md:block">
                 <ProjectsContents />
             </div>
+      
             <section className="w-full">
                 <RepurposeYourData />
                 <section className="w-full">
@@ -97,12 +100,16 @@ export default async function IndexPage() {
                     </div>
                 </div>
             </section>
+
+            
+            <Community /> 
             <TrackView
                 name="footer-reached"
                 payload={{
                     from: "landing page",
                 }}
             >
+
                 <footer className=" border-t !w-full py-10 my-9 justify-between flex items-center">
                     <div className=" flex  gap-2 text-sm font-medium items-center">
                         <Link href="/privacy" className=" underline">
@@ -190,6 +197,7 @@ export default async function IndexPage() {
                         </Link>
                     </div>
                 </footer>
+
             </TrackView>
         </main>
     );
