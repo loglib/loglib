@@ -55,7 +55,7 @@ export const PLANS = [
         priceAnnually: "Free",
         description: "Ideal to get started and for your personal projects.",
         features: [
-            "2 website",
+            "2 websites",
             "2 Team Members",
             "100k monthly page views",
             "10k Custom Events",
@@ -105,7 +105,7 @@ export const PLANS = [
         priceAnnually: "10",
         description:
             "Everything on the free, plus",
-        features: ["5 Websites", "Unlimited Team Member", "1 Million Monthly PageView", "500k Custom Events", "All Time Reporting Windows", "Unlimited Monthly Page Views", "Unlimited Data Retention", "50k API Requests", "Monthly Ingested Email"],
+        features: ["5 Websites", "Unlimited Team Members", "1 Million Monthly PageViews", "500k Custom Events", "All Time Reporting Windows", "Unlimited Monthly Page Views", "Unlimited Data Retention", "50k API Requests", "Monthly Ingested Email"],
         notIncluded: [],
     },
     {
@@ -116,7 +116,7 @@ export const PLANS = [
         priceAnnually: "Nan",
         description:
             "Everything on the pro, plus",
-        features: ["20 Website", "Unlimited Custom Events", "Unlimited API Requests", "Configurable Ingested Email"],
+        features: ["20 Websites", "Unlimited Custom Events", "Unlimited API Requests", "Configurable Ingested Email"],
         price: {
             monthly: {
                 amount: 49,
