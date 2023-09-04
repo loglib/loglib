@@ -168,7 +168,7 @@ app.get("/v1/hits", async (c) => {
     return c.json(res, 200);
 });
 
-app.get("/v1/inisght", async (c) => {
+app.get("/v1/insight", async (c) => {
     const queries = insightPubApiSchema.safeParse(c.req.query());
     if (!queries.success) {
         return c.json(null, 400);
@@ -178,9 +178,9 @@ app.get("/v1/inisght", async (c) => {
     const isRateLimited = await rateLimitCheck(apiKey);
     if (isRateLimited) {
         return c.json(
-            JSON.stringify({
+            {
                 message: "Rate limit exceeded",
-            }),
+            },
             429,
         );
     }
@@ -189,6 +189,17 @@ app.get("/v1/inisght", async (c) => {
             return operators.and(operators.eq(fields.token, apiKey));
         },
     })
+    console.log(site.createdAt, site.expiresAt)
+    if (site.createdAt >= site.expiresAt) {
+        return c.json({
+            message: "API Token Expired!"
+        }, 400)
+    }
+    if (!site) {
+        return c.json({
+            message: "Unauthorized"
+        }, 401)
+    }
     const websiteId = site.websiteId;
     const today = new Date();
     const startDateObj = new Date(
