@@ -21,8 +21,13 @@ export function SiteHeader({ user }: { user?: User }) {
         }}
       />
       <Icons.logoWithLetter />
-      <div className=" hidden md:block">
+      {/* for medium or large screens */}
+      <div className="hidden md:block">
         <LandingNav />
+      </div>
+      {/* for small screens(mobile view) */}
+      <div className="block md:hidden">
+        <LandingNav mobileView />
       </div>
       <div className="flex items-center gap-2 font-medium">
         <Link href={user ? "/dashboard" : "/login"}>
