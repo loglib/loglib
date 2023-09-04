@@ -82,7 +82,7 @@ export function CelebrateFn({ pageview, uniqVisitor, websiteId, time, title }: P
         if (intervalId) {
             setTimeout(() => {
                 pauseAnimation();
-            }, 20000);
+            }, 5000);
         }
     }, [intervalId]);
 

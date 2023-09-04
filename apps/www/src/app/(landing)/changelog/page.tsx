@@ -40,7 +40,7 @@ export default async function Changelog() {
             </div>
 
             <div className="divide-y divide-gray-200">
-                {allChangelogPosts
+                {allChangelogPosts.filter(post => !post.draft)
                     .sort((a, b) => {
                         if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
                             return -1;

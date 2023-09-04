@@ -5,21 +5,20 @@ export const env = createEnv({
     server: {
         NEXTAUTH_URL: z.string().url().optional(),
         NEXTAUTH_SECRET: z.string().min(1),
-        GITHUB_CLIENT_ID: z.string().min(1).optional(),
-        GITHUB_CLIENT_SECRET: z.string().min(1).optional(),
-        GOOGLE_CLIENT_ID: z.string().min(1).optional(),
-        GOOGLE_CLIENT_SECRET: z.string().min(1).optional(),
-        DATABASE_URL: z.string().min(1),
+        GITHUB_CLIENT_ID: z.string().min(0).optional(),
+        GITHUB_CLIENT_SECRET: z.string().min(0).optional(),
+        GOOGLE_CLIENT_ID: z.string().min(0).optional(),
+        GOOGLE_CLIENT_SECRET: z.string().min(0).optional(),
+        DATABASE_URL: z.string().optional(),
         DATABASE_AUTH_TOKEN: z.string().optional(),
-        RESEND_EMAIL_SECRET: z.string().min(1).optional(),
-        //remove this
-        DATABASE_HOST: z.string().min(1),
-        DATABASE_USERNAME: z.string().min(1),
-        DATABASE_PASSWORD: z.string().min(1),
-        //
-        CLICKHOUSE_HOST: z.string().min(1).optional(),
+        RESEND_EMAIL_SECRET: z.string().min(0).optional(),
+        CLICKHOUSE_HOST: z.string().min(0).optional(),
         CLICKHOUSE_PASSWORD: z.string().min(0).optional(),
         NEXT_PUBLIC_API_URL: z.string().min(1),
+        //Stripe
+        STRIPE_SECRET_KEY: z.string().min(0).optional(),
+        STRIPE_WEBHOOK_SECRET: z.string().min(0).optional(),
+        NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(0).optional(),
     },
     client: {
         NEXT_PUBLIC_APP_URL: z.string().min(1),

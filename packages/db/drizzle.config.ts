@@ -9,5 +9,11 @@ const config: Config = {
         url: process.env.DATABASE_URL ?? "file:./db.sqlite",
         authToken: process.env.DATABASE_AUTH_TOKEN,
     },
+<<<<<<< HEAD
 };
 export default config;
+=======
+
+}
+export default config
+>>>>>>> original/main

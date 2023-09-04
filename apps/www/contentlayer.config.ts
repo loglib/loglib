@@ -50,6 +50,7 @@ const computedFields = (type: string) => ({
             image: string;
             _raw: { flattenedPath: string };
             author: string;
+            draft?: boolean;
         }) => ({
             "@context": "https://schema.org",
             "@type": `${capitalize(type)}Posting`,
@@ -57,6 +58,7 @@ const computedFields = (type: string) => ({
             datePublished: doc.publishedAt,
             dateModified: doc.publishedAt,
             description: doc.summary,
+            draft: doc.draft,
             image: doc.image,
             url: `https://lgolib.io/${doc._raw.flattenedPath}`,
             author: {
@@ -82,7 +84,7 @@ export const Doc = defineDocumentType(() => ({
         published: {
             type: "boolean",
             default: true,
-        },
+        }
     },
     //@ts-ignore
     computedFields: computedFields("docs"),
@@ -113,6 +115,10 @@ export const ChangelogPost = defineDocumentType(() => ({
             type: "string",
             required: true,
         },
+        draft: {
+            type: "boolean",
+            default: false
+        }
     },
     // @ts-ignore
     computedFields: computedFields("changelog"),

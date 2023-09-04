@@ -76,7 +76,7 @@ const apiKeys = async () => {
                                     <TableCell className=" ll-ctc flex items-center">
                                         <div className="ll-ctc">{key.token}</div>
                                     </TableCell>
-                                    <TableCell>{formatDistanceToNow(key.expiresAt)}</TableCell>
+                                    <TableCell>{formatDistanceToNow(key.expiresAt ?? new Date())}</TableCell>
                                     <TableCell className=" flex cursor-pointer justify-end">
                                         <DeleteKeys id={key.id} />
                                     </TableCell>

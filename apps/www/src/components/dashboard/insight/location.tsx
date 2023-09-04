@@ -9,15 +9,21 @@ import { Link2Icon } from "lucide-react";
 import ReactCountryFlag from "react-country-flag";
 import LocationMap from "./location-map";
 
+<<<<<<< HEAD
 export const Location = ({
     filter: { isFilterActive, clearFilter, addFilter },
     data,
     isLoading,
 }: Omit<InsightTablesProps, "setCurrentTableTab">) => {
     function searchFn(key: string, term: string, data: "session" | "pageview") {
+=======
+
+
+export const Location = ({ filter: { isFilterActive, clearFilter, addFilter }, data, isLoading }: Omit<InsightTablesProps, "setCurrentTableTab">) => {
+    function searchFn(key: string, term: string) {
+>>>>>>> original/main
         addFilter({
             operator: "contains",
-            data,
             key,
             value: term,
         });
@@ -58,7 +64,7 @@ export const Location = ({
                                         (cty) => COUNTRIES[cty] === t,
                                     );
                                     if (term) {
-                                        searchFn("country", term, "session");
+                                        searchFn("country", term);
                                     }
                                 }}
                                 hideSearchBar={data && data?.data.locations.country.length < 10}
@@ -73,7 +79,6 @@ export const Location = ({
                                                     key: "country",
                                                     value: location.ogLocation,
                                                     operator: "is",
-                                                    data: "session",
                                                 })
                                             }
                                         >
@@ -112,7 +117,7 @@ export const Location = ({
                                     valueLabel: "Visits",
                                 }}
                                 searchPlaceholder="Search City..."
-                                searchFn={(t) => searchFn("city", t, "session")}
+                                searchFn={(t) => searchFn("city", t)}
                                 hideSearchBar={data && data?.data.locations.city.length < 10}
                                 isLoading={isLoading}
                                 tip="Your visitors city and how many times they are visited :)"
@@ -125,7 +130,6 @@ export const Location = ({
                                                     key: "country",
                                                     value: location.location,
                                                     operator: "is",
-                                                    data: "session",
                                                 })
                                             }
                                         >

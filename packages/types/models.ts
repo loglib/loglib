@@ -9,7 +9,12 @@ export type TeamInvitation = typeof schema.teamInvitation.$inferSelect;
 export type User = typeof schema.users.$inferSelect;
 
 //ENUMS
+<<<<<<< HEAD
 export type ROLE = NonNullable<typeof schema.teamMember.$inferSelect.role>;
+=======
+export type ROLE = NonNullable<typeof schema.teamMember.$inferSelect.role>
+export type PLAN = "free" | "pro" | "plus"
+>>>>>>> original/main
 
 export type Visitor = {
     id: string;

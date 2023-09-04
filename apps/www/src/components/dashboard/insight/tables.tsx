@@ -27,10 +27,9 @@ export const InsightTables = ({
     setCurrentTableTab,
     filter: { isFilterActive, addFilter, clearFilter },
 }: InsightTablesProps) => {
-    function searchFn(key: string, term: string, data: "session" | "pageview") {
+    function searchFn(key: string, term: string) {
         addFilter({
             operator: "contains",
-            data,
             key,
             value: term,
         });
@@ -77,7 +76,7 @@ export const InsightTables = ({
                                 nameLabel: "Page",
                                 valueLabel: "Visits",
                             }}
-                            searchFn={(t) => searchFn("page", t, "pageview")}
+                            searchFn={(t) => searchFn("page", t)}
                             hideSearchBar={data && data?.data.pages.length < 10}
                             searchPlaceholder="Search Page..."
                             Row={(d) => (
@@ -89,18 +88,16 @@ export const InsightTables = ({
                                                 key: "currentPath",
                                                 value: d.page,
                                                 operator: "is",
-                                                data: "pageview",
                                             })
                                         }
                                     >
                                         <a
                                             href={
                                                 websiteUrl
-                                                    ? `${
-                                                          websiteUrl.endsWith("/")
-                                                              ? websiteUrl
-                                                              : `${websiteUrl}/`
-                                                      }${d.page}`
+                                                    ? `${websiteUrl.endsWith("/")
+                                                        ? websiteUrl
+                                                        : `${websiteUrl}/`
+                                                    }${d.page}`
                                                     : d.page
                                             }
                                             className=" hover:underline"
@@ -151,7 +148,7 @@ export const InsightTables = ({
                                             (cty) => COUNTRIES[cty] === t,
                                         );
                                         if (term) {
-                                            searchFn("country", term, "session");
+                                            searchFn("country", term);
                                         }
                                     }}
                                     hideSearchBar={data && data?.data.locations.country.length < 10}
@@ -166,7 +163,6 @@ export const InsightTables = ({
                                                         key: "country",
                                                         value: location.ogLocation,
                                                         operator: "is",
-                                                        data: "session",
                                                     })
                                                 }
                                             >
@@ -205,7 +201,7 @@ export const InsightTables = ({
                                         valueLabel: "Visits",
                                     }}
                                     searchPlaceholder="Search City..."
-                                    searchFn={(t) => searchFn("city", t, "session")}
+                                    searchFn={(t) => searchFn("city", t)}
                                     hideSearchBar={data && data?.data.locations.city.length < 10}
                                     isLoading={isLoading}
                                     tip="Your visitors city and how many times they are visited :)"
@@ -218,12 +214,11 @@ export const InsightTables = ({
                                                         key: "country",
                                                         value: location.location,
                                                         operator: "is",
-                                                        data: "session",
                                                     })
                                                 }
                                             >
                                                 {location.location === "Unknown" ||
-                                                !location.location ? (
+                                                    !location.location ? (
                                                     <>
                                                         <Link2Icon />
                                                         Unknown
@@ -256,11 +251,12 @@ export const InsightTables = ({
                 {/* Referrer */}
                 <TabsContent value="ref" className=" bg-stone-950">
                     <CardContent className=" bg-stone-950">
-                        {isFilterActive("referrerDomain") || isFilterActive("utmCampaign") ? (
+                        {isFilterActive("referrerDomain") || isFilterActive("utmCampaign") || isFilterActive("utmSource") ? (
                             <ClearFilter
                                 onClick={() => {
                                     clearFilter("referrerDomain");
                                     clearFilter("utmCampaign");
+                                    clearFilter("utmSource");
                                 }}
                             />
                         ) : null}
@@ -282,7 +278,7 @@ export const InsightTables = ({
                                     }}
                                     hideSearchBar={data && data?.data.referrer.length < 10}
                                     isLoading={isLoading}
-                                    searchFn={(t) => searchFn("referrer", t, "session")}
+                                    searchFn={(t) => searchFn("referrer", t)}
                                     tip="Your referees and how many time your website is visited from them :)"
                                     Row={(refs) => (
                                         <TableRow
@@ -293,7 +289,6 @@ export const InsightTables = ({
                                                         ? refs.referrerDomain
                                                         : "direct",
                                                     operator: "is",
-                                                    data: "session",
                                                 });
                                             }}
                                             className=" cursor-pointer"
@@ -315,7 +310,7 @@ export const InsightTables = ({
                                                     {refs.referrer.split(".").length > 1
                                                         ? refs.referrer
                                                         : refs.referrer.charAt(0).toUpperCase() +
-                                                          refs.referrer.slice(1)}
+                                                        refs.referrer.slice(1)}
                                                 </Link>
                                             </TableCell>
                                             <TableCell className="text-right">
@@ -334,7 +329,7 @@ export const InsightTables = ({
                                         valueLabel: "Visits",
                                     }}
                                     searchPlaceholder="Search Source..."
-                                    searchFn={(t) => searchFn("utmSource", t, "session")}
+                                    searchFn={(t) => searchFn("utmSource", t)}
                                     tip="Your UTM sources and how many time your website is visited from them :)"
                                     hideSearchBar={data && data?.data.utmSources.length < 10}
                                     isLoading={isLoading}
@@ -342,10 +337,9 @@ export const InsightTables = ({
                                         <TableRow
                                             onClick={() => {
                                                 addFilter({
-                                                    key: "referrerDomain",
+                                                    key: "utmSource",
                                                     value: refs.utmSource,
                                                     operator: "is",
-                                                    data: "session",
                                                 });
                                             }}
                                             className=" cursor-pointer"
@@ -388,7 +382,6 @@ export const InsightTables = ({
                                                     key: "referrerDomain",
                                                     value: refs.utmCampaign,
                                                     operator: "is",
-                                                    data: "session",
                                                 });
                                             }}
                                             className=" cursor-pointer"
@@ -421,8 +414,8 @@ export const InsightTables = ({
                     <CardContent className=" bg-stone-950/30">
                         <Tabs className=" w-full" defaultValue="general">
                             {isFilterActive("device") ||
-                            isFilterActive("os") ||
-                            isFilterActive("browser") ? (
+                                isFilterActive("os") ||
+                                isFilterActive("browser") ? (
                                 <ClearFilter
                                     onClick={() => {
                                         clearFilter("device");
@@ -457,7 +450,7 @@ export const InsightTables = ({
                                                         key: "device",
                                                         value: d.device,
                                                         operator: "is",
-                                                        data: "session",
+
                                                     })
                                                 }
                                             >
@@ -490,7 +483,7 @@ export const InsightTables = ({
                                                         key: "device",
                                                         value: d.os,
                                                         operator: "is",
-                                                        data: "session",
+
                                                     })
                                                 }
                                             >
@@ -522,7 +515,7 @@ export const InsightTables = ({
                                                         key: "device",
                                                         value: d.browser,
                                                         operator: "is",
-                                                        data: "session",
+
                                                     })
                                                 }
                                             >

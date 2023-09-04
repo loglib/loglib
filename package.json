@@ -6,8 +6,8 @@
     "scripts": {
         "build:tracker": "turbo --filter tracker",
         "build": "turbo --filter \"./packages/*\" build",
-        "build:api": "turbo --filter api build",
-        "build:web": "turbo --filter web build",
+        "api:build": "turbo --filter api build",
+        "web:build": "turbo --filter web build",
         "dev:tracker": "turbo --filter \"./packages/*\" dev",
         "dev": "turbo --filter \"./apps/*\" dev",
         "checkfmt": "npx biome check .",
@@ -15,8 +15,9 @@
         "test": "turbo test",
         "typecheck": "turbo typecheck",
         "deploy:api": "turbo --filter api deploy",
-        "migrate": "turbo --filter db migrate",
-        "migrate:clickhouse": "turbo --filter api setup:clickhouse"
+        "migrate": "dotenv -- turbo --filter db migrate",
+        "clickhouse:migrate": "dotenv -- turbo --filter clickhouse migrate",
+        "studio": "pnpm --filter db studio"
     },
     "pnpm": {
         "overrides": {

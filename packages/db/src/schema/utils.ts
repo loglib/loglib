@@ -10,10 +10,15 @@ export function boolean(name: string) {
 
 export function date(name: string) {
     return integer(name, {
+<<<<<<< HEAD
         mode: "timestamp",
     })
         .$defaultFn(() => new Date())
         .notNull();
+=======
+        mode: "timestamp"
+    }).$defaultFn(() => new Date())
+>>>>>>> original/main
 }
 
 export function id(name?: string) {

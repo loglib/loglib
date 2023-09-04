@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 import { index, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { boolean, date, id, userId } from "./utils";
 import { relations } from "drizzle-orm";
 import { teamMember } from ".";
+=======
+import { index, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { boolean, date, id, userId } from './utils';
+import { relations } from 'drizzle-orm';
+import { teamMember, users } from '.';
+>>>>>>> original/main
 
 export const website = sqliteTable(
     "website",
@@ -19,8 +26,17 @@ export const website = sqliteTable(
     }),
 );
 
-export const websiteRealtions = relations(website, ({ many }) => {
+export const websiteRelations = relations(website, ({ many, one }) => {
     return {
         teamWebsites: many(teamMember),
+<<<<<<< HEAD
     };
 });
+=======
+        user: one(users, {
+            fields: [website.userId],
+            references: [users.id]
+        })
+    }
+})
+>>>>>>> original/main

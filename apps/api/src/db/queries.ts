@@ -4,12 +4,21 @@ import { db } from "./drizzle";
 import { schema } from "@loglib/db";
 import { convertToUTC } from "../lib/utils";
 import { sql } from "drizzle-orm";
+<<<<<<< HEAD
 import { LoglibEvent } from "../type";
 
 const hitsQuery = (startDate: string, endDate: string, websiteId: string) =>
     `select id, sessionId, visitorId, JSONExtract(properties, 'city', 'String') as city, JSONExtract(properties, 'country', 'String') as country,JSONExtract(properties, 'browser', 'String') as browser,JSONExtract(properties, 'language', 'String') as locale,JSONExtract(properties, 'referrerPath', 'String') as referrerPath, JSONExtract(properties, 'currentPath', 'String') as currentPath, JSONExtract(properties, 'referrerDomain', 'String') as referrerDomain, JSONExtract(properties, 'queryParams', 'String') as queryParams, JSONExtract(properties, 'device', 'String') as device, JSONExtract(properties, 'duration', 'Float32') as duration, JSONExtract(properties, 'os', 'String') as os, event, timestamp from loglib.event WHERE ${
         startDate && `timestamp >= '${startDate}' AND`
     } timestamp <= '${endDate}' AND websiteId = '${websiteId}' AND event = 'hits'`;
+=======
+import { LoglibEvent } from '../type';
+import { kafka } from "@loglib/clickhouse";
+
+
+export const hitsQuery = (startDate: string, endDate: string, websiteId: string) =>
+    `select id, sessionId, visitorId, JSONExtract(properties, 'city', 'String') as city, JSONExtract(properties, 'country', 'String') as country,JSONExtract(properties, 'browser', 'String') as browser,JSONExtract(properties, 'language', 'String') as locale,JSONExtract(properties, 'referrerPath', 'String') as referrerPath, JSONExtract(properties, 'currentPath', 'String') as currentPath, JSONExtract(properties, 'referrerDomain', 'String') as referrerDomain, JSONExtract(properties, 'queryParams', 'String') as queryParams, JSONExtract(properties, 'device', 'String') as device, JSONExtract(properties, 'duration', 'Float32') as duration, JSONExtract(properties, 'os', 'String') as os, event, timestamp from loglib.event WHERE ${startDate && `timestamp >= '${startDate}' AND`} timestamp <= '${endDate}' AND websiteId = '${websiteId}' AND event = 'hits'`;
+>>>>>>> original/main
 
 export const customEventsQuery = (startDate: string, endDate: string, websiteId: string) =>
     `select * from loglib.event WHERE timestamp >= '${startDate}' AND timestamp <= '${endDate}' AND websiteId = '${websiteId}' AND event != 'hits'`;
@@ -41,6 +50,7 @@ const createEvent = () => {
         type?: string;
     }) => {
         return {
+<<<<<<< HEAD
             clickhouse: async () =>
                 await client
                     .insert({
@@ -77,14 +87,25 @@ const createEvent = () => {
                     .then((res) => res),
             sqlite: async () =>
                 db.insert(schema.events).values({
+=======
+            clickhouse: async () => {
+                const { enabled, sendMessages, connect } = kafka
+                const value = {
+>>>>>>> original/main
                     id,
                     sessionId,
                     visitorId,
                     websiteId,
                     event,
+<<<<<<< HEAD
                     timestamp: new Date(),
                     properites: {
                         queryParams,
+=======
+                    timestamp: new Date().toISOString().slice(0, 19).replace("T", " "),
+                    properties: JSON.stringify({
+                        queryParams: queryParams ? JSON.stringify(queryParams) : "{}",
+>>>>>>> original/main
                         referrerDomain,
                         country,
                         city,
@@ -95,11 +116,59 @@ const createEvent = () => {
                         duration,
                         currentPath,
                         referrerPath,
+<<<<<<< HEAD
                     },
                 }),
         };
     };
 };
+=======
+                        payload,
+                        type,
+                        pageId
+                    }),
+                    sign: 1,
+                }
+                if (enabled) {
+                    await connect()
+                    await sendMessages([value], "events")
+                } else {
+                    await client
+                        .insert({
+                            table: "loglib.event",
+                            values: [
+                                value
+                            ],
+                            format: "JSONEachRow",
+                        })
+                        .then((res) => res)
+                }
+            },
+            sqlite: async () => db.insert(schema.events).values({
+                id,
+                sessionId,
+                visitorId,
+                websiteId,
+                event,
+                timestamp: new Date(),
+                properites: {
+                    queryParams,
+                    referrerDomain,
+                    country,
+                    city,
+                    language,
+                    device,
+                    os,
+                    browser,
+                    duration,
+                    currentPath,
+                    referrerPath,
+                }
+            })
+        }
+    }
+}
+>>>>>>> original/main
 
 async function getHitsData(startDateObj: Date, endDateObj: Date, websiteId: string) {
     return {
@@ -222,8 +291,17 @@ export function loglibDb(db: "sqlite" | "clickhouse") {
             return await Promise.all([query1[db](), query2[db]()]);
         },
         async getCustomEvents(startDateObj: Date, endDateObj: Date, websiteId: string) {
+<<<<<<< HEAD
             const query = await getCustomEventData(startDateObj, endDateObj, websiteId);
             return await query[db]();
         },
     };
 }
+=======
+            const query = await getCustomEventData(startDateObj, endDateObj, websiteId)
+            const events = await query[db]()
+            return events
+        }
+    }
+}
+>>>>>>> original/main
