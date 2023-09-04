@@ -5,9 +5,10 @@ import { schema } from "@loglib/db";
 import { convertToUTC } from "../lib/utils";
 import { sql } from "drizzle-orm";
 import { LoglibEvent } from '../type';
+import { kafka } from "@loglib/clickhouse";
 
 
-const hitsQuery = (startDate: string, endDate: string, websiteId: string) =>
+export const hitsQuery = (startDate: string, endDate: string, websiteId: string) =>
     `select id, sessionId, visitorId, JSONExtract(properties, 'city', 'String') as city, JSONExtract(properties, 'country', 'String') as country,JSONExtract(properties, 'browser', 'String') as browser,JSONExtract(properties, 'language', 'String') as locale,JSONExtract(properties, 'referrerPath', 'String') as referrerPath, JSONExtract(properties, 'currentPath', 'String') as currentPath, JSONExtract(properties, 'referrerDomain', 'String') as referrerDomain, JSONExtract(properties, 'queryParams', 'String') as queryParams, JSONExtract(properties, 'device', 'String') as device, JSONExtract(properties, 'duration', 'Float32') as duration, JSONExtract(properties, 'os', 'String') as os, event, timestamp from loglib.event WHERE ${startDate && `timestamp >= '${startDate}' AND`} timestamp <= '${endDate}' AND websiteId = '${websiteId}' AND event = 'hits'`;
 
 export const customEventsQuery = (startDate: string, endDate: string, websiteId: string) =>
@@ -42,39 +43,48 @@ const createEvent = () => {
         },
     ) => {
         return {
-            clickhouse: async () => await client
-                .insert({
-                    table: "loglib.event",
-                    values: [
-                        {
-                            id,
-                            sessionId,
-                            visitorId,
-                            websiteId,
-                            event,
-                            timestamp: new Date().toISOString().slice(0, 19).replace("T", " "),
-                            properties: JSON.stringify({
-                                queryParams: queryParams ? JSON.stringify(queryParams) : "{}",
-                                referrerDomain,
-                                country,
-                                city,
-                                language,
-                                device,
-                                os,
-                                browser,
-                                duration,
-                                currentPath,
-                                referrerPath,
-                                payload,
-                                type,
-                                pageId
-                            }),
-                            sign: 1,
-                        },
-                    ],
-                    format: "JSONEachRow",
-                })
-                .then((res) => res),
+            clickhouse: async () => {
+                const { enabled, sendMessages, connect } = kafka
+                const value = {
+                    id,
+                    sessionId,
+                    visitorId,
+                    websiteId,
+                    event,
+                    timestamp: new Date().toISOString().slice(0, 19).replace("T", " "),
+                    properties: JSON.stringify({
+                        queryParams: queryParams ? JSON.stringify(queryParams) : "{}",
+                        referrerDomain,
+                        country,
+                        city,
+                        language,
+                        device,
+                        os,
+                        browser,
+                        duration,
+                        currentPath,
+                        referrerPath,
+                        payload,
+                        type,
+                        pageId
+                    }),
+                    sign: 1,
+                }
+                if (enabled) {
+                    await connect()
+                    await sendMessages([value], "events")
+                } else {
+                    await client
+                        .insert({
+                            table: "loglib.event",
+                            values: [
+                                value
+                            ],
+                            format: "JSONEachRow",
+                        })
+                        .then((res) => res)
+                }
+            },
             sqlite: async () => db.insert(schema.events).values({
                 id,
                 sessionId,
@@ -188,7 +198,8 @@ export function loglibDb(db: "sqlite" | "clickhouse") {
         },
         async getCustomEvents(startDateObj: Date, endDateObj: Date, websiteId: string) {
             const query = await getCustomEventData(startDateObj, endDateObj, websiteId)
-            return await query[db]()
+            const events = await query[db]()
+            return events
         }
     }
 }

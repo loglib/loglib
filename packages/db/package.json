@@ -9,7 +9,7 @@
     "license": "ISC",
     "scripts": {
         "generate": "drizzle-kit generate:sqlite",
-        "studio": "dotenv drizzle-kit studio",
+        "studio": "dotenv -e ../../.env drizzle-kit studio",
         "migrate": "tsx src/migrate.ts",
         "build": "tsup",
         "dev": "tsup --watch"
@@ -24,6 +24,6 @@
         "tsx": "^3.12.7"
     },
     "devDependencies": {
-        "@loglib/config": "workspace:*"
+        "@loglib/config": "0.0.0"
     }
 }

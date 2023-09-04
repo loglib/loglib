@@ -10,7 +10,6 @@ export type Filter = {
     key: string;
     value: string;
     operator: OperatorType<any>;
-    data: string;
 };
 
 export type FilterProp = {

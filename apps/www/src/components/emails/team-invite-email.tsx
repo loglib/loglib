@@ -23,14 +23,13 @@ interface TeamInviteEmailProps {
     inviteLink?: string;
 }
 
-export const TeamInviteEmail = ({
-    invitedByUsername,
-    invitedByEmail,
-    teamName,
-    inviteLink,
+const TeamInviteEmail = ({
+    invitedByUsername = "bekacru",
+    invitedByEmail = "bekacru@gmail.com",
+    teamName = "loglib",
+    inviteLink = "https://loglib.io/dashbaord/team/invite/token",
 }: TeamInviteEmailProps) => {
     const previewText = `Join ${invitedByUsername} on Vercel`;
-
     return (
         <Html>
             <Head />
@@ -93,3 +92,5 @@ export const TeamInviteEmail = ({
         </Html>
     );
 };
+
+export default TeamInviteEmail

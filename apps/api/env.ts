@@ -4,14 +4,10 @@ import "dotenv/config";
 
 export const env = createEnv({
     server: {
-        DATABASE_HOST: z.string(),
-        DATABASE_USERNAME: z.string(),
-        DATABASE_PASSWORD: z.string(),
         CLICKHOUSE_HOST: z.string().optional(),
         CLICKHOUSE_PASSWORD: z.string().optional(),
         NEXTAUTH_SECRET: z.string(),
         CLIENT_IP_ADDRESS: z.string().optional(),
-
         //this is for rate limiting
         KV_REST_API_URL: z.string().optional(),
         KV_REST_API_TOKEN: z.string().optional(),

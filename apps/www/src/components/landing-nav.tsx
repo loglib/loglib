@@ -60,7 +60,7 @@ export const LandingNav = () => {
                                     className={cn(
                                         "text-black/6 0 px-4 py-1 text-sm font-light transition-[text-shadow,color] duration-200 hover:text-black/80 focus:outline-none dark:text-white/60 dark:hover:text-white/75",
                                         pathname === "/pricing" &&
-                                            "text-black/80 dark:text-white/75",
+                                        "text-black/80 dark:text-white/75",
                                     )}
                                 >
                                     Pricing
@@ -75,7 +75,7 @@ export const LandingNav = () => {
                                     className={cn(
                                         "px-4 py-1 text-sm font-light text-black/60 transition-[text-shadow,color] duration-200 hover:text-black/80 focus:outline-none dark:text-white/60 dark:hover:text-white/75",
                                         pathname?.includes("/docs") &&
-                                            "text-black/80 dark:text-white/75",
+                                        "text-black/80 dark:text-white/75",
                                     )}
                                 >
                                     Changelog
@@ -89,7 +89,7 @@ export const LandingNav = () => {
                                     className={cn(
                                         "px-4 py-1 text-sm font-light text-black/60 transition-[text-shadow,color] duration-200 hover:text-black/80 focus:outline-none dark:text-white/60 dark:hover:text-white/75",
                                         pathname?.includes("/docs") &&
-                                            "text-black/80 dark:text-white/75",
+                                        "text-black/80 dark:text-white/75",
                                     )}
                                 >
                                     Docs

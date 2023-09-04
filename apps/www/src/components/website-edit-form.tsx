@@ -181,7 +181,7 @@ export const EditWebsiteForm = ({
                                             <FormControl>
                                                 <div className="border-input flex items-center  rounded-md border px-1 focus-within:outline-none">
                                                     <span className="flex h-10 items-center border-r px-2 text-sm dark:border-stone-800">
-                                                        loglib.io/
+                                                        loglib.io/s/
                                                     </span>
                                                     <input
                                                         placeholder="site_name"
