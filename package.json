@@ -17,7 +17,8 @@
         "typecheck": "turbo typecheck",
         "deploy:api": "turbo --filter api deploy",
         "migrate": "dotenv -- turbo --filter db migrate",
-        "clickhouse:migrate": "dotenv -- turbo --filter clickhouse migrate"
+        "clickhouse:migrate": "dotenv -- turbo --filter clickhouse migrate",
+        "studio": "pnpm --filter db studio"
     },
     "pnpm": {
         "overrides": {
