@@ -5,7 +5,7 @@ import {tv} from "tailwind-variants";
 import {Card, CardHeader, CardBody, LinkProps, SlotsToClasses} from "@nextui-org/react";
 import {useRouter} from "next/navigation";
 import {LinkIcon} from "@nextui-org/shared-icons";
-import { DiscordIcon, GithubIcon, TwitterIcon2 } from "../extra-icons";
+import { DiscordIcon, GithubIcon, Telegram, TwitterIcon2, TwitterXIcons } from "../extra-icons";
 import { TwitterIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -67,9 +67,10 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({features, classNames,
         >
           <CardHeader className={slots.header({class: classNames?.header})}>
             <div className={slots.iconWrapper({class: classNames?.iconWrapper})}>
-                {feat.icon == "twitter" && <TwitterIcon className="text-[#00ACEE]" size={32} />}
-                {feat.icon == "discord" &&  <DiscordIcon className="text-[#7289DA]" size={32} />}
-                {feat.icon == "github" && <GithubIcon className="text-[#333] dark:text-[#E7E7E7]" size={32} />}
+                {feat.icon == "twitter" && <TwitterXIcons className="text-[#ffffff]" width={'30px'} height={'30px'} />}
+                {feat.icon == "discord" &&  <DiscordIcon className="text-[#ffffff]" size={32} />}
+                {feat.icon == "github" && <GithubIcon className="text-[#fff] dark:text-[#E7E7E7]" size={32} />}
+                {feat.icon == "telegram" && <Telegram className="text-[#fff] dark:text-[#E7E7E7]" size={32} />}
             </div>
             <p className={slots.title({class: classNames?.title})}>{feat.title}</p>
             {feat.isExternal && <LinkIcon className="text-white" height={18} width={18} />}

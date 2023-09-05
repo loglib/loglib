@@ -7,7 +7,7 @@ import { sectionWrapper, titleWrapper, title, subtitle } from "../primitive";
 import { FeaturesGrid } from "./feature-grid";
 import { communityAccounts } from "@/lib/constant";
 import Background from "../landing/grid-background/background";
-
+import styles from "./community.module.css";
 export const Community = () => {
   return (
     <section
@@ -16,29 +16,28 @@ export const Community = () => {
       })}
     >
       <Background />
-      <div className="max-w-4xl flex flex-col gap-8">
+      <div className="max-w-full flex flex-col gap-8">
         <div>
-          <div className={titleWrapper({ class: "items-center" })}>
-            <div className="inline-flex items-center">
-              <h1 className={title({ size: "lg" })}>Community</h1>&nbsp;&nbsp;
-            </div>
+          <div className=" space-y-6 text-center mb-[-20px]">
+            <h2 className=" font-medium text-3xl encbSy">
+              <span className={styles.magicText}>EveryOne is</span>{" "}
+              <span className=" ">
+                <span className=" font-bold">Welcomed</span>
+              </span>
+            </h2>
           </div>
-          <p
-            className={subtitle({
-              class: "md:w-full text-center flex justify-center items-center",
-            })}
-          >
-            Get involved in our community. Everyone is welcome!
-          </p>
           <Spacer y={12} />
-          <FeaturesGrid
-            classNames={{
-              base: "lg:grid-cols-3",
-              iconWrapper: "bg-transparent",
-              body: "pt-0",
-            }}
-            features={communityAccounts}
-          />
+
+          <div className="max-w-6xl">
+            <FeaturesGrid
+              classNames={{
+                base: "lg:grid-cols-4",
+                iconWrapper: "bg-transparent",
+                body: "pt-0",
+              }}
+              features={communityAccounts}
+            />
+          </div>
         </div>
       </div>
     </section>

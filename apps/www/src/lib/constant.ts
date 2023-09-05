@@ -26,4 +26,11 @@ export const communityAccounts = [
     href: "https://github.com/loglib/loglib",
     isExternal: true,
   },
+  {
+    title: "Telegram",
+    description: "More discussion with related topics and idea sharing",
+    icon:'telegram',
+    href: "https://t.me/loglib_community",
+    isExternal: true,
+  },
 ];
