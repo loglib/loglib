@@ -5,7 +5,7 @@ import { Spacer } from "@nextui-org/react";
 import { sectionWrapper, titleWrapper, title, subtitle } from "../primitive";
 
 import { FeaturesGrid } from "./feature-grid";
-import { communityAccounts } from "@/lib/constant";
+import { communityAccounts } from "@/lib/social-constant";
 import Background from "../landing/grid-background/background";
 import styles from "./community.module.css";
 export const Community = () => {

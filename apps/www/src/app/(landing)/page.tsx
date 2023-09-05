@@ -130,7 +130,7 @@ export default async function IndexPage() {
 
           <div className=" flex items-center gap-2">
             <Link href="https://twiiter.com/loglib_io">
-                <TwitterXIcons width={'18px'} height={'18px'} />
+                <TwitterXIcons width={15} height={15} size={15} />
               {/* <svg
                 width="18px"
                 height="18px"
