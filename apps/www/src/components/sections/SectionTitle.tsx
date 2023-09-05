@@ -1,8 +1,6 @@
 import clsx from "clsx";
 import Link from "next/link";
 
-import { ChevronRightIcon } from "@/components/extra-icons";
-
 import type { ReactNode } from "react";
 
 interface SectionTitleProps {
@@ -65,8 +63,6 @@ function SectionTitle({
         <div className={clsx("mt-1", "md:mt-6")}>
           <Link href={button.href} className={clsx("button button--soft")}>
             <div className="flex  gap-1 justify-start items-center">
-              {/* {button.title} */}
-              {/* <ChevronRightIcon className="mt-0.5 h-3 w-3 from-logo bg-gradient-to-br to-orange-600 bg-clip-text " /> */}
             </div>
             <div className="relative">
               <div className="absolute h-2 w-32  from-logo bg-gradient-to-br to-orange-600 bottom-0"></div>
