@@ -9,10 +9,10 @@ const genericHamburgerLine = `h-1 w-8 my-1 rounded-full bg-gray-100 transition e
 
 const Humburger = ({onClick,mobileView,className}:{onClick:Function,mobileView:boolean,className?:string}) => {
   return (
-    <div className={twMerge("humberger z-50 flex",className)} onClick={()=>onClick}>
+    <div className="humberger z-50 flex md:hidden " onClick={()=>onClick(!mobileView)}>
                             <button
                             className="flex flex-col h-12 w-12  rounded justify-center items-center group"
-                            onClick={() => onClick}
+                            onClick={() => onClick(!mobileView)}
                             >
                                     <div
                                     className={`${genericHamburgerLine} ${
@@ -21,7 +21,11 @@ const Humburger = ({onClick,mobileView,className}:{onClick:Function,mobileView:b
                                     : "opacity-50 group-hover:opacity-100"
                                     }`}
                                     />
-
+                                    <div
+                                    className={`${genericHamburgerLine} ${
+                                    mobileView ? "opacity-0" : "opacity-50 group-hover:opacity-100"
+                                    }`}
+                                    />
                                     <div
                                     className={`${genericHamburgerLine} ${
                                     mobileView
@@ -30,7 +34,7 @@ const Humburger = ({onClick,mobileView,className}:{onClick:Function,mobileView:b
                                     }`}
                                     />
                             </button>
-                    </div>
+        </div>
   )
 }
 
