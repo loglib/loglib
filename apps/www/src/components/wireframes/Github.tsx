@@ -1,3 +1,5 @@
+'use client'
+
 import clsx from "clsx";
 import { ExternalLink, Link } from "lucide-react";
 
@@ -43,8 +45,11 @@ function GitHubWireframe({
             "dark:font-semibold dark:text-blue-500"
           )}
         >
-          <div className="flex gap-1 justify-center items-center cursor-pointer" onClick={()=> alert("Hello i am clickd ")}> 
-            {repository}
+
+          
+          <div className="flex gap-1 justify-center items-center cursor-pointer" onClick={() => alert("COnsolel")}>
+
+            {repository} 
 
            <ExternalLink className="w-3 h-4" />
           </div>
