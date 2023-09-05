@@ -3,10 +3,9 @@
 import clsx from 'clsx';
 import { useState } from 'react';
 
-import { GitHubIcon, NpmIcon } from '@/components/ExtraIcons';
+import { GitHubIcon, NpmIcon } from '@/components/extra-icons';
 import { SectionButton } from '@/components/sections/SectionButton';
 import SectionContent from '@/components/sections/SectionContent';
-import SectionTitle from '@/components/sections/SectionTitle';
 import AppWindow from '@/components/wireframes/AppWindow';
 import GitHubWireframe from '@/components/wireframes/Github';
 import NpmWireframe from '@/components/wireframes/Npm';
@@ -16,10 +15,8 @@ function ProjectsContents() {
 
   return (
     <>
-
-    <main className='w-11/12 m-30'>
-
-      {/* <SectionTitle
+      <main className='w-11/12 m-30'>
+        {/* <SectionTitle
         title="Yet Another Way To Boost "
         caption="LOGLIB"
         description="Introducing a privacy-centric web analytics platform designed for everyone. Gain valuable insights into your website visitors while prioritizing their privacy. Additionally, we offer free plans that allow you to access and enhance your website's performance."

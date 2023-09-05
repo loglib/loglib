@@ -42,7 +42,7 @@
     ".next/types/**/*.ts",
     ".contentlayer/generated",
     "src/lib/tinybird.js"
-, "drizzle.config.mjs", "drizzle.config.mjs"  ],
+, "drizzle.config.mjs", "drizzle.config.mjs", "src/components/successful-payment"  ],
   "exclude": [
     "node_modules"
   ]

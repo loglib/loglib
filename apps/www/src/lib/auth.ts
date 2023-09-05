@@ -4,12 +4,53 @@ import { NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
+import { schema } from "@loglib/db";
+import { guid } from '../../../../packages/tracker/src/utils/util';
+import { AdapterAccount } from "next-auth/adapters";
 
 export const authOptions: NextAuthOptions = {
-    adapter: DrizzleAdapter(db) as any,
+    adapter: {
+        ...DrizzleAdapter(db) as any,
+        async createUser(user) {
+            await db.insert(schema.users).values({
+                id: guid(),
+                ...user,
+                createdAt: new Date()
+            }).returning().get()
+        },
+        async linkAccount(rawAccount) {
+            const updatedAccount = await db
+                .insert(schema.accounts)
+                .values(rawAccount)
+                .returning()
+                .get().catch(async (e) => {
+                    const res = await db.query.accounts.findFirst({
+                        where(fields, operators) {
+                            return operators.and(operators.eq(fields.userId, rawAccount.userId), operators.eq(fields.providerAccountId, rawAccount.providerAccountId))
+                        },
+                    })
+                    if (!res) {
+                        console.log(e)
+                        throw Error(e)
+                    }
+                    return res
+                })
+            const account: AdapterAccount = {
+                ...updatedAccount,
+                type: updatedAccount.type,
+                access_token: updatedAccount.access_token ?? undefined,
+                token_type: updatedAccount.token_type ?? undefined,
+                id_token: updatedAccount.id_token ?? undefined,
+                refresh_token: updatedAccount.refresh_token ?? undefined,
+                scope: updatedAccount.scope ?? undefined,
+                expires_at: updatedAccount.expires_at ?? undefined,
+                session_state: updatedAccount.session_state ?? undefined,
+            }
+            return account
+        },
+    },
     session: {
         strategy: "jwt",
-        maxAge: 30 * 24 * 60 * 60,
     },
     secret: env.NEXTAUTH_SECRET,
     pages: {
@@ -20,7 +61,6 @@ export const authOptions: NextAuthOptions = {
             clientId: env.GITHUB_CLIENT_ID ?? "",
             clientSecret: env.GITHUB_CLIENT_SECRET ?? "",
             allowDangerousEmailAccountLinking: true
-
         }),
         GoogleProvider({
             clientId: env.GOOGLE_CLIENT_ID ?? "",
@@ -54,7 +94,7 @@ export const authOptions: NextAuthOptions = {
             });
             if (!dbUser) {
                 if (user) {
-                    token.id = user?.id;
+                    token.id = user?.id
                 }
                 return token;
             }

@@ -8,7 +8,9 @@
         "web",
         "@loglib/api",
         "@loglib/types",
-        "@loglib/setup"
+        "@loglib/db",
+        "@loglib/config",
+        "@loglib/clickhouse"
     ],
     "changelog": "@changesets/cli/changelog"
 }

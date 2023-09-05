@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-import { TypeScriptIcon } from "@/components/ExtraIcons";
+import { TypeScriptIcon } from "@/components/extra-icons";
 import { ExternalLink } from "lucide-react";
 import { SkeletonSm } from "@/components/wireframes/Skeletons";
 

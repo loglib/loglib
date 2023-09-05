@@ -1,3 +1,5 @@
+import { Website } from "./models";
+
 export type GetInsightResponse = {
     insight: {
         uniqueVisitors: {
@@ -138,3 +140,5 @@ export type OperatorType<T> = T extends string
     : T extends Array<any>
     ? ArrayOperator
     : never;
+
+export type FullWebsite = Website & { visitors: number, plan: string }

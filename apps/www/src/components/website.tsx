@@ -45,7 +45,7 @@ export function Website({ site, visitors, setSelected, setIsOpen }: WebsiteProps
                         <p className="  font-bold">{visitors} Visitors</p>
                     </div>
                 </div>
-                <Link className=" w-full @[320px]/card:w-fit " href={`/${site.id}`}>
+                <Link className=" w-full @[320px]/card:w-fit " href={`/s/${site.id}`}>
                     <Button
                         variant="outline"
                         className=" w-full @[320px]/card:w-fit"

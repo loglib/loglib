@@ -3,6 +3,7 @@
 import {
     teamWebsitesAtom,
     teamsAtom,
+    usageAtom,
     userAtom,
     userWebsitesAtom,
     websitesAtom,
@@ -17,6 +18,7 @@ const stores = {
     userWebsites: userWebsitesAtom,
     user: userAtom,
     teams: teamsAtom,
+    usage: usageAtom
 };
 type Stores = typeof stores;
 

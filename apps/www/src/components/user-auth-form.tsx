@@ -56,7 +56,7 @@ export function UserAuthForm({ className, activeStrategy, ...props }: Props) {
                     onClick={() => {
                         setIsLoading(true);
                         signIn("google", {
-                            callbackUrl: "/dashboard",
+                            callbackUrl: searchParams?.get("from") || "/dashboard",
                         });
                     }}
                     disabled={isLoading || isGitHubLoading}

@@ -2,7 +2,7 @@ const { fontFamily } = require("tailwindcss/defaultTheme");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: ["./src/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./ui/**/*.{ts,tsx}"],
+    content: ["./src/**/*.{ts,tsx}"],
     darkMode: ["class"],
     theme: {
         container: {
@@ -70,7 +70,6 @@ module.exports = {
                     foreground: "hsl(var(--card-foreground))",
                 },
             },
-
             fontFamily: {
                 sans: ["var(--font-satoshi)", ...fontFamily.sans],
                 heading: ["var(--font-heading)", ...fontFamily.sans],
@@ -119,7 +118,6 @@ module.exports = {
                         transform: "translateX(600px)",
                     },
                 },
-
                 "background-pan": {
                     from: {
                         "background-position": "0% center",

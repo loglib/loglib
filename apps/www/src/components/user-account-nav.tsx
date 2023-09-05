@@ -1,5 +1,4 @@
 "use client";
-
 import { User } from "next-auth";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
@@ -12,9 +11,13 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { UserAvatar } from "@/components/user-avatar";
+import { Badge } from "./ui/badge";
+import { cn } from "@/lib/utils";
 
 interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
-    user: Pick<User, "name" | "image" | "email">;
+    user: User & {
+        plan: string
+    }
 }
 
 export function UserAccountNav({ user }: UserAccountNavProps) {
@@ -36,6 +39,12 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
                             </p>
                         )}
                     </div>
+                    <Badge className={cn(" mt-2", user.plan !== "free" && "border border-amber-600")} style={{
+                        background: user.plan === "free" ? "white" : user.plan !== "pro" ? "#1b1917" : "#1b1917",
+                        color: user.plan === "free" ? "black" : "goldenrod"
+                    }}>
+                        {user.plan.charAt(0).toUpperCase() + user.plan.slice(1)}
+                    </Badge>
                 </div>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild className=" cursor-pinter flex items-center gap-2">
@@ -43,13 +52,6 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
                         Dashboard
                     </Link>
                 </DropdownMenuItem>
-                {/* <DropdownMenuItem asChild className=" cursor-pinter flex items-center gap-2">
-          <button
-            className="w-full cursor-pointer"
-          >
-            Setting
-          </button>
-        </DropdownMenuItem> */}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                     className="cursor-pointer"
