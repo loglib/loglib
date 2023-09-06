@@ -6,7 +6,7 @@ import { convertToUTC } from "../lib/utils";
 import { sql } from "drizzle-orm";
 import { LoglibEvent } from '../type';
 import { kafka } from "@loglib/clickhouse";
-import { VitalData } from "../../../../packages/types/tracker";
+import { VitalData, VitalDateWithSession } from '@loglib/types/tracker';
 
 export const hitsQuery = (startDate: string, endDate: string, websiteId: string) =>
     `select id, sessionId, visitorId, JSONExtract(properties, 'city', 'String') as city, JSONExtract(properties, 'country', 'String') as country,JSONExtract(properties, 'browser', 'String') as browser,JSONExtract(properties, 'language', 'String') as locale,JSONExtract(properties, 'referrerPath', 'String') as referrerPath, JSONExtract(properties, 'currentPath', 'String') as currentPath, JSONExtract(properties, 'referrerDomain', 'String') as referrerDomain, JSONExtract(properties, 'queryParams', 'String') as queryParams, JSONExtract(properties, 'device', 'String') as device, JSONExtract(properties, 'duration', 'Float32') as duration, JSONExtract(properties, 'os', 'String') as os, event, timestamp from loglib.event WHERE ${startDate && `timestamp >= '${startDate}' AND`} timestamp <= '${endDate}' AND websiteId = '${websiteId}' AND event = 'hits'`;
@@ -189,7 +189,7 @@ async function getHitsData(
     }
 }
 
-async function getSiteVitals(websiteId: string, startDate: Date, endDate: Date) {
+function getSiteVitals(websiteId: string, startDate: Date, endDate: Date) {
     return {
         sqlite: async () => {
             const event = schema.events
@@ -205,7 +205,7 @@ async function getSiteVitals(websiteId: string, startDate: Date, endDate: Date) 
                     query: vitalsQuery(convertToUTC(startDate), convertToUTC(endDate), websiteId),
                     format: "JSONEachRow",
                 })
-                .then(async (res) => (await res.json()) as VitalData[])
+                .then(async (res) => (await res.json()) as VitalDateWithSession[])
         }
     }
 }
@@ -278,7 +278,8 @@ export function loglibDb(db: "sqlite" | "clickhouse") {
             return events
         },
         async getVital(startDateObj: Date, endDateObj: Date, websiteId: string) {
-            return await getSiteVitals(websiteId, startDateObj, endDateObj)[db]
+            const res = await getSiteVitals(websiteId, startDateObj, endDateObj)[db]()
+            return res
         }
     }
 }

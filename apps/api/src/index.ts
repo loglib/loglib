@@ -17,8 +17,9 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import jwt from "jsonwebtoken";
-import { VitalData } from '../../../packages/types/tracker';
+import { VitalData, VitalDateWithSession } from '@loglib/types/tracker';
 import { detect } from './lib/detect';
+import { getVitalsByDate } from './routes/vitals';
 
 const app = new Hono();
 
@@ -68,10 +69,51 @@ app.get("/vitals", async (c) => {
     const endDateObj = new Date(c.req.query("endDate"));
     const websiteId = c.req.query("websiteId");
     const timezone = c.req.query("timezone")
-
     try {
-        const res = await eventDB.getVital(startDateObj, endDateObj, websiteId)
-        return c.json(res, 200)
+        const res = await eventDB.getVital(startDateObj, endDateObj, websiteId) as VitalDateWithSession[]
+        const vitalsByDate = getVitalsByDate(res, startDateObj, endDateObj, timezone)
+        let cls = new Map()
+        let lcp = new Map()
+        let fid = new Map()
+        let inp = new Map()
+        let fcp = new Map()
+        for (let vital of res) {
+            switch (vital.name) {
+                case "CLS":
+                    cls.set(vital.id, vital.value)
+                    break
+                case "LCP":
+                    lcp.set(vital.id, vital.value)
+                    break
+                case "FID":
+                    fid.set(vital.id, vital.value)
+                    break
+                case "INP":
+                    inp.set(vital.id, vital.value)
+                    break
+                case "FCP":
+                    fcp.set(vital.id, vital.value)
+                    break
+            }
+        }
+        let CLS = 0
+        let LCP = 0
+        let FID = 0
+        let INP = 0
+        let FCP = 0
+        cls.forEach(v => CLS += v)
+        lcp.forEach(v => LCP += v)
+        fid.forEach(v => FID += v)
+        inp.forEach(v => INP += v)
+        fcp.forEach(v => FCP += v)
+        return c.json({
+            cls: (CLS / cls.size) * 1000,
+            lcp: (LCP / lcp.size) / 1000,
+            fid: (FID / fid.size) / 1000,
+            inp: (INP / inp.size) / 1000,
+            fcp: (FCP / fcp.size) / 1000,
+            vitalsByDate
+        }, 200)
     } catch {
         return c.json(null, 500)
     }
