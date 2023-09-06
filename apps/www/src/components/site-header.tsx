@@ -9,7 +9,7 @@ import { Icons } from "./icons";
 import { LandingNav } from "./landing-nav";
 import { Button } from "./ui/button";
 import { UserAccountNav } from "./user-account-nav";
-import Humburger from '../../.react-email/src/components/humburger';
+import Humburger from './landing/humburger';
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
