@@ -1,6 +1,6 @@
 # Contributing
 
-We really appreciate any kind of contribution regardless of your coding skills. We believe loglib should be really easy for anyone who wants to get into contributing for open source projects. So if this your first time contribution we'd love to support you in anyway to get in there. Read the above instruction to get the project overview better.s
+We really appreciate any kind of contribution regardless of your coding skills. We believe loglib should be really easy for anyone who wants to get into contributing to open-source projects. So if this is your first-time contribution we'd love to support you in any way to get in there. Read the above instructions to get the project overview better.s
 
 ## Main Tech Stack Used Currently
 
@@ -18,7 +18,7 @@ We really appreciate any kind of contribution regardless of your coding skills. 
 
 We use turporepo to manage the project. If you're not familar with turbo repo skim through the docs the basic will be enough for most tasks.
 
-1. Apps - Contains two other folders: api(hono js api that serves as api for analytics data and to recive data from the tracker) and www/web(next js app route project that serve as the main application framework)
+1. Apps - Contains two other folders: API(hono js API that serves as API for analytics data and to receive data from the tracker) and www/web(next js app route project that serve as the main application framework)
 
 2. Packages - Contains shared packages across the two apps and published tracker npm package.
 
@@ -26,12 +26,12 @@ We use turporepo to manage the project. If you're not familar with turbo repo sk
 
 ### Basics
 
-**Step 1**: Clone or fork the repo
-**Step 2**: Run ` pnpm install`` on the root
-**Step 3**: Run  `pnpm build` (to build packages)
-**Step 4**: Set environment variables respectively and populate the values.
+- **Step 1**: Clone or fork the repo
+- **Step 2**: Run `pnpm install` on the root
+- **Step 3**: Run  `pnpm build` (to build packages)
+- **Step 4**: Set environment variables respectively and populate the values.
 
-> Make sure you set similar NEXT_AUTH_SECRET on both api and www. You can run `openssl rand -base64 64` to generate good jwt secret.
+> Make sure you set similar NEXT_AUTH_SECRET on both API and www. You can run `openssl rand -base64 64` to generate a good jwt secret.
 
 > You also need either **Github** or **Google** auth in order to login. So make sure to set at least one of those.
 
@@ -49,7 +49,7 @@ We really want loglib to be easy for everyone who want to contribute and use in 
 pnpm migrate
 ```
 
-this will crate a sqlite database in packages/db folder that'll be used across the whole project including as a clickhouse queries if you don't provide clickhouse credentials.
+this will create a sqlite database in packages/db folder that'll be used across the whole project including as a clickhouse queries if you don't provide clickhouse credentials.
 
 **Step 2** (optional): Setting up clickhouse
 Run clickhouse in docker using this command.
