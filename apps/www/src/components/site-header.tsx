@@ -3,14 +3,34 @@
 import { User } from "next-auth";
 // import { useTheme } from "next-themes";
 import Link from "next/link";
-import { useRef } from "react";
+import React,{ useRef } from "react";
 
 import { Icons } from "./icons";
 import { LandingNav } from "./landing-nav";
 import { Button } from "./ui/button";
 import { UserAccountNav } from "./user-account-nav";
+import { usePathname } from "next/navigation";
+
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 export function SiteHeader({ user }: { user?: User }) {
+
+  const [open,setOpen] = React.useState(false);
+  const [mobileView,setMobileView] = React.useState(false);
+  const pathname  = usePathname();
+
+  const genericHamburgerLine = `h-1 w-8 my-1 rounded-full bg-gray-900 dark:bg-gray-100 transition ease-in transform duration-300`;
+  const variants = {
+    open: { opacity: 1, x: 0 },
+    closed: { opacity: 0, x: "-100%" },
+  }
+
+  React.useEffect(()=>{
+    setMobileView(false);
+  },[pathname]);
+
+
   return (
     <div className="flex items-center justify-between md:mx-16 sticky top-0 mb-16 z-50 bg-white/60 backdrop-blur-sm dark:bg-stone-950/80 py-4 px-4 md:px-0">
       <div
@@ -21,15 +41,54 @@ export function SiteHeader({ user }: { user?: User }) {
         }}
       />
       <Icons.logoWithLetter />
-      <div className=" hidden md:block">
+      {/* for medium or large screens */}
+      <div className="hidden md:block">
         <LandingNav />
       </div>
-      <div className="flex items-center gap-2 font-medium">
+      {/* for small screens(mobile view) */}
+
+      <div className="flex items-center gap-4 font-medium">
         <Link href={user ? "/dashboard" : "/login"}>
           <Button variant="outline">{user ? "Dashboard" : "Login"}</Button>
         </Link>
+        <div className="humberger z-50 flex md:hidden " onClick={()=>setMobileView(!mobileView)}>
+                            <button
+                            className="flex flex-col h-12 w-12  rounded justify-center items-center group"
+                            onClick={() => setMobileView(!mobileView)}
+                            >
+                                    <div
+                                    className={`${genericHamburgerLine} ${
+                                    mobileView
+                                    ? "rotate-45 translate-y-3 opacity-50 group-hover:opacity-100"
+                                    : "opacity-50 group-hover:opacity-100"
+                                    }`}
+                                    />
+                                    <div
+                                    className={`${genericHamburgerLine} ${
+                                    mobileView ? "opacity-0" : "opacity-50 group-hover:opacity-100"
+                                    }`}
+                                    />
+                                    <div
+                                    className={`${genericHamburgerLine} ${
+                                    mobileView
+                                    ? "-rotate-45 -translate-y-3 opacity-50 group-hover:opacity-100"
+                                    : "opacity-50 group-hover:opacity-100"
+                                    }`}
+                                    />
+                            </button>
+        </div>
+        <motion.nav className="fixed md:hidden top-0 left-0 min-h-screen flex w-full dark:bg-stone-950/80 backdrop-blur-[10px]"
+        animate={mobileView ? "open" : "closed"}
+        variants={variants}
+        >
+          <LandingNav mobileView />
+
+        </motion.nav>
+        </div>
+
+
       </div>
-    </div>
+
   );
 }
 
