@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { AvatarGroup } from "@nextui-org/react";
 import Image from "next/image";
 import { useState } from "react";
-import ContributorCard from "./contributor-card";
+
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 export default function ContributorsAvatar() {
   const [images, setImages] = useState([]);
