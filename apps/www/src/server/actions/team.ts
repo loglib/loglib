@@ -5,7 +5,7 @@ import { z } from "zod";
 
 import TeamInviteEmail from "@/components/emails/team-invite-email";
 import { siteConfig } from "@/config/site";
-import { resend } from "@/lib/resend";
+import { sendEmail } from "@/lib/resend";
 
 import { db } from "@/lib/db";
 import { teamInviteSchema, teamSchema } from "../../lib/validations/team";
@@ -65,20 +65,6 @@ export async function inviteTeam(
                     )
                 },
             })
-            const sendEmail = async () => {
-                await resend.sendEmail({
-                    to: [data.email],
-                    subject: "You've been invited to join a team",
-                    react: TeamInviteEmail({
-                        invitedByEmail: user.email ?? "",
-                        teamName: team.name,
-                        invitedByUsername: user.name ?? "",
-                        inviteLink: `${siteConfig.url}/dashboard/team/invite/${inviteToken}`,
-                        userImage: user.image ?? "",
-                    }),
-                    from: "no-reply@loglib.io",
-                });
-            };
             if (invites.length > 3) {
                 throw new Error("Invite limit reached.");
             }
@@ -94,7 +80,7 @@ export async function inviteTeam(
                             users: true
                         }
                     }).then(res => ({
-                        // rome-ignore lint/style/noNonNullAssertion: <explanation>
+                        // biome-ignore lint/style/noNonNullAssertion: <explanation>
                         ...res!,
                         name: res?.users?.name as string,
                         email: res?.users?.email as string,
@@ -115,7 +101,17 @@ export async function inviteTeam(
                     } else {
                         throw new Error("Team user doesn't exists");
                     }
-                    await sendEmail();
+                    await sendEmail({
+                        email: data.email,
+                        subject: "You've been invited to join a team",
+                        react: TeamInviteEmail({
+                            invitedByEmail: user.email ?? "",
+                            teamName: team.name,
+                            invitedByUsername: user.name ?? "",
+                            inviteLink: `${siteConfig.url}/dashboard/team/invite/${inviteToken}`,
+                            userImage: user.image ?? "",
+                        }),
+                    });
                     return teamUser
                 } else {
                     const teamUserInsert = await db.insert(schema.teamMember).values({
@@ -136,7 +132,7 @@ export async function inviteTeam(
                             users: true
                         }
                     }).then(res => ({
-                        // rome-ignore lint/style/noNonNullAssertion: <explanation>
+                        // biome-ignore lint/style/noNonNullAssertion: <explanation>
                         ...res!,
                         name: res?.users?.name as string,
                         email: res?.users?.email as string,
@@ -147,7 +143,17 @@ export async function inviteTeam(
                         email: invitedUser.email,
                         token: inviteToken
                     })
-                    await sendEmail();
+                    await sendEmail({
+                        email: data.email,
+                        subject: "You've been invited to join a team",
+                        react: TeamInviteEmail({
+                            invitedByEmail: user.email ?? "",
+                            teamName: team.name,
+                            invitedByUsername: user.name ?? "",
+                            inviteLink: `${siteConfig.url}/dashboard/team/invite/${inviteToken}`,
+                            userImage: user.image ?? "",
+                        }),
+                    });
                     return teamUser;
                 }
             } else {

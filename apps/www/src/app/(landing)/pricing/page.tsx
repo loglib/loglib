@@ -16,19 +16,18 @@ export default function page() {
           Start For Free. Scale as you grow.
         </p>
       </div>
-      {/* <div className="grid grod-col-1 sm:grid-col-1 md:grid-col-2"> */}
-        <div className=" flex-col md:flex-row flex items-center md:items-start justify-center space-y-2 md:space-y-0 md:gap-10 ">
-          <div className=" rounded-lg border border-stone-300/10">
-            <PricingCard tier={PLANS[0]} />
-          </div>
-
-          <div className="rounded-lg border-stone-900 mt-[-40px] relative">
-            <PricingCard tier={PLANS[1]} />
-          </div>
-          <div className="rounded-lg border border-stone-900">
-            <PricingCard tier={PLANS[2]} />
-          </div>
+      <div className=" flex-col md:flex-row flex items-center md:items-start justify-center space-y-2 md:space-y-0 md:gap-10 ">
+        <div className=" rounded-lg border border-stone-300/10">
+          <PricingCard tier={PLANS[0]} />
         </div>
+
+        <div className="rounded-lg border-stone-900 mt-[-40px] relative">
+          <PricingCard tier={PLANS[1]} />
+        </div>
+        <div className="rounded-lg border border-stone-900">
+          <PricingCard tier={PLANS[2]} />
+        </div>
+      </div>
       {/* </div> */}
     </div>
   );
