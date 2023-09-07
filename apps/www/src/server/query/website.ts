@@ -55,7 +55,7 @@ export const getWebsite = async () => {
     });
     const teamSites = teamWebsites.map(async (web) => {
         return {
-            // rome-ignore lint/style/noNonNullAssertion: <explanation>
+            // biome-ignore lint/style/noNonNullAssertion: <explanation>
             ...web.website!,
             visitors: await queries.getTodayVisitorsCount(web.websiteId as string),
             plan: web.website?.user.plan ?? "free"

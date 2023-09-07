@@ -55,7 +55,7 @@ export const PATCH = async (request: Request, context: z.infer<typeof routeConte
             const isSiteInTeam = await db.query.teamWebsites.findFirst({
                 where(fields, operators) {
                     return operators.and(
-                        // rome-ignore lint/style/noNonNullAssertion: <explanation>
+                        // biome-ignore lint/style/noNonNullAssertion: <explanation>
                         operators.eq(fields.teamId, body.team!),
                         operators.eq(fields.websiteId, body.id)
                     )
