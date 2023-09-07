@@ -92,7 +92,7 @@ const createEvent = () => {
                 websiteId,
                 event,
                 timestamp: new Date(),
-                properites: {
+                properties: {
                     queryParams,
                     referrerDomain,
                     country,
@@ -119,10 +119,10 @@ async function getHitsData(
         sqlite: async () => {
             const event = schema.events
             return await db.select().from(event).where(sql`${event.websiteId} = ${websiteId} and event = 'hits' and ${event.timestamp} >= ${new Date(startDateObj.getTime())} and ${event.timestamp} <= ${new Date(endDateObj).getTime()}`).then(res => res.map(event => {
-                const { properites, timestamp, ...rest } = event
+                const { properties, timestamp, ...rest } = event
                 return {
                     ...rest,
-                    ...properites,
+                    ...properties,
                     timestamp: timestamp.toISOString().slice(0, 19).replace("T", " ")
                 }
             }))
@@ -147,10 +147,10 @@ async function getCustomEventData(
         sqlite: async () => {
             const event = schema.events
             return await db.select().from(event).where(sql`${event.websiteId} = ${websiteId} and event != 'hits' and ${event.timestamp} >= ${new Date(startDateObj.getTime())} and ${event.timestamp} <= ${new Date(endDateObj).getTime()}`).then(res => res.map(event => {
-                const { properites, timestamp, ...rest } = event
+                const { properties, timestamp, ...rest } = event
                 return {
                     ...rest,
-                    ...properites,
+                    ...properties,
                     timestamp: timestamp.toISOString().slice(0, 19).replace("T", " ")
                 }
             }))

@@ -9,22 +9,14 @@ import SectionContent from '@/components/sections/SectionContent';
 import AppWindow from '@/components/wireframes/AppWindow';
 import GitHubWireframe from '@/components/wireframes/Github';
 import NpmWireframe from '@/components/wireframes/Npm';
+import { GitFork, Star } from 'lucide-react';
 
-function ProjectsContents() {
+function ProjectsContents({ gitForks, githubStars, npmSize, npmVersion }: { githubStars: number, gitForks: number, npmVersion: number, npmSize: number }) {
   const [currentState, setCurrentState] = useState<'npm' | 'github'>('github');
 
   return (
     <>
       <main className='w-11/12 m-30'>
-        {/* <SectionTitle
-        title="Yet Another Way To Boost "
-        caption="LOGLIB"
-        description="Introducing a privacy-centric web analytics platform designed for everyone. Gain valuable insights into your website visitors while prioritizing their privacy. Additionally, we offer free plans that allow you to access and enhance your website's performance."
-        button={{
-          title: 'learn more',
-          href: '/docs',
-        }}
-        /> */}
       </main>
       <SectionContent>
         <div className={clsx('flex', 'lg:gap-12')}>
@@ -36,6 +28,18 @@ function ProjectsContents() {
                 description="Access powerful and flexible package on GitHub with MIT license."
                 active={currentState === 'github'}
                 onClick={() => setCurrentState('github')}
+                BottomChildren={() => (
+                  <div className=' flex items-center gap-2'>
+                    <div className=' flex items-center gap-2 mt-2'>
+                      <Star size={16} />
+                      {githubStars}
+                    </div>
+                    <div className=' flex items-center gap-2 mt-2'>
+                      <GitFork size={16} />
+                      {gitForks}
+                    </div>
+                  </div>
+                )}
               />
               <SectionButton
                 title="npm package"
@@ -43,6 +47,27 @@ function ProjectsContents() {
                 description="Install and use the package with ease thanks to its typed options."
                 active={currentState === 'npm'}
                 onClick={() => setCurrentState('npm')}
+                BottomChildren={() => (
+                  <div className=' flex items-center gap-2 mt-2'>
+                    <div className=' bg-orange-500 p-1 px-2 rounded-sm font-bold'>
+                      <p className=" text-xs">
+                        v {npmVersion}
+                      </p>
+                    </div>
+                    <div className=' flex items-center'>
+                      <div className=" bg-stone-900 p-1 px-2 rounded-l-sm">
+                        <p className=" text-xs font-bold">
+                          Minified Size
+                        </p>
+                      </div>
+                      <div className=' bg-blue-700 p-1 px-2 rounded-r-sm'>
+                        <p className=" text-xs font-bold">
+                          {npmSize} kb
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
               />
             </div>
           </div>

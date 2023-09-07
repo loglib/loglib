@@ -8,6 +8,7 @@ interface SectionButtonProps {
   icon?: ReactNode;
   active?: boolean;
   onClick?: () => void;
+  BottomChildren?: () => JSX.Element
 }
 
 
@@ -17,7 +18,8 @@ export function SectionButton({
   description = '',
   icon = null,
   active = false,
-  onClick = () => {},
+  onClick = () => { },
+  BottomChildren
 }: SectionButtonProps) {
   return (
     <button
@@ -62,10 +64,13 @@ export function SectionButton({
               'dark:text-slate-400'
             )}
           >
-            
+
             {description}
           </span>
         )}
+        {
+          BottomChildren && <BottomChildren />
+        }
       </span>
     </button>
   );
@@ -75,7 +80,7 @@ export function SectionButtonSmall({
   title,
   icon = null,
   active = false,
-  onClick = () => {},
+  onClick = () => { },
 }: Omit<SectionButtonProps, 'description'>) {
   return (
     <button
