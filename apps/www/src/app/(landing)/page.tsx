@@ -50,6 +50,8 @@ async function getGitHubStars() {
 async function getGitHubContributors() {
   return await fetch(
     "https://api.github.com/repos/loglib/loglib/contributors",
+  )
+}
 
 async function getGitHubForks() {
   return await fetch(
@@ -66,8 +68,8 @@ async function getGitHubForks() {
     .then((response) => response.text())
     .then((result) => JSON.parse(result).length)
     .catch((error) => console.log("error", error));
-}
 
+  }
 export default async function IndexPage() {
   const stars = await getGitHubStars();
 
@@ -89,8 +91,7 @@ export default async function IndexPage() {
       <section className="w-full">
         <RepurposeYourData />
 
-      <section className="w-full">
-        <RepurposeYourData />
+      
 
 
         <section className="w-full">
@@ -150,13 +151,12 @@ export default async function IndexPage() {
       </section>
 
       <Community />
-
+     
       <section className="flex flex-col justify-center items-center gap-4">
         <p>Made Possible By</p>
         <ContributorsAvatar />
 
-          <Community />
-        </div>
+        
 
 
       </section>
