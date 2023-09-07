@@ -53,9 +53,8 @@ export default async function IndexPage() {
       <FeatureCard />
       <FeatureAccordion />
       <div className="hidden md:block">
-        <ProjectsContents />
+        <ProjectsContents gitForks={forks} githubStars={stars ? parseInt(stars) : 100} npmSize={npm?.packageSize ?? 1} npmVersion={npm?.version ?? "0.6.2"} />
       </div>
-
       <section className="w-full">
         <RepurposeYourData />
         <section className="w-full">
@@ -106,20 +105,7 @@ export default async function IndexPage() {
           <div className=" flex items-center gap-2">
             <Link href="https://twiiter.com/loglib_io">
               <TwitterXIcons width={15} height={15} size={15} />
-              {/* <svg
-                width="18px"
-                height="18px"
-                viewBox="0 0 24 24"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                xlink="http://www.w3.org/1999/xlink"
-                preserveAspectRatio="xMidYMid"
-              >
-                <path
-                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
-                  fill="#ffffff"
-                ></path>
-              </svg> */}
+             
             </Link>
             <Link href="https://github.com/loglib">
               <svg
