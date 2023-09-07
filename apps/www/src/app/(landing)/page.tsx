@@ -1,7 +1,7 @@
 
 import Changelog from "@/components/changelog";
 import { TwitterXIcons } from "@/components/extra-icons";
-
+import ContributorsAvatar from "@/components/contributors";
 import { FeatureAccordion } from "@/components/landing/feature-accordion";
 import { FeatureCard } from "@/components/landing/feature-cards";
 import { HeroSection } from "@/components/landing/hero";
