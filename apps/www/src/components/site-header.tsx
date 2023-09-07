@@ -3,7 +3,7 @@
 import { User } from "next-auth";
 // import { useTheme } from "next-themes";
 import Link from "next/link";
-import React,{ useRef } from "react";
+import React,{useEffect,useState, useRef } from "react";
 
 import { Icons } from "./icons";
 import { LandingNav } from "./landing-nav";
@@ -16,8 +16,9 @@ import { cn } from "@/lib/utils";
 
 export function SiteHeader({ user }: { user?: User }) {
 
-  const [open,setOpen] = React.useState(false);
+  const [open,setOpen] = useState(false);
   const [mobileView,setMobileView] = React.useState(false);
+  const [initialRender, setInitialRender] = useState(true);
   const pathname  = usePathname();
 
   const genericHamburgerLine = `h-1 w-8 my-1 rounded-full bg-gray-900 dark:bg-gray-100 transition ease-in transform duration-300`;
@@ -26,10 +27,16 @@ export function SiteHeader({ user }: { user?: User }) {
     closed: { opacity: 0, x: "-100%" },
   }
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     setMobileView(false);
-  },[pathname]);
+    setInitialRender(false);
+  }, []);
 
+  React.useEffect(() => {
+    if (!initialRender) {
+      setMobileView(false);
+    }
+  }, [pathname, initialRender]);
 
   return (
     <div className="flex items-center justify-between md:mx-16 sticky top-0 mb-16 z-50 bg-white/60 backdrop-blur-sm dark:bg-stone-950/80 py-4 px-4 md:px-0">
@@ -78,6 +85,7 @@ export function SiteHeader({ user }: { user?: User }) {
                             </button>
         </div>
         <motion.nav className="fixed md:hidden top-0 left-0 min-h-screen flex w-full dark:bg-stone-950/80 backdrop-blur-[10px]"
+        initial = {"closed"}
         animate={mobileView ? "open" : "closed"}
         variants={variants}
         >
