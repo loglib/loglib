@@ -47,6 +47,8 @@ async function getGitHubContributors() {
 export default async function IndexPage() {
   const stars = await getGitHubStars();
   const contributors = await getGitHubContributors();
+  const forks = await getGitHubForks();
+  const npm = await getPackageInfo("@loglib/tracker")
   return (
     <main className="grid place-items-center space-y-10 md:space-y-20">
       <HeroSection />
