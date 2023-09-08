@@ -85,7 +85,7 @@ export function SiteHeader({ user }: { user?: User }) {
                             </button>
         </div>
         <motion.nav className="fixed md:hidden top-0 left-0 min-h-screen flex w-full dark:bg-stone-950/80 backdrop-blur-[10px]"
-        initial = {"closed"}
+        
         animate={mobileView ? "open" : "closed"}
         variants={variants}
         >
