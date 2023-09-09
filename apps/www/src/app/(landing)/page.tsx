@@ -10,7 +10,7 @@ import { RepurposeYourData } from "@/components/landing/repurpose-your-data";
 import { Community } from "@/components/marketing/community";
 import { TrackView } from "@loglib/tracker/react";
 import Link from "next/link";
-import lang from '@/components/code-sample'
+// import lang from '@/components/code-sample'
 // import CardForCode from "@/components/code-card";
 // import CodeInstallation from "@/components/code-installation";
 interface ContributorsProps {
