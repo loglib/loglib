@@ -17,6 +17,8 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import jwt from "jsonwebtoken";
+import { VitalData } from '../../../packages/types/tracker';
+import { detect } from './lib/detect';
 
 const app = new Hono();
 
@@ -36,6 +38,44 @@ app.post("/", async (c) => {
     console.log(path, res);
     return c.json(null, res.status);
 });
+
+app.post("/vitals", async (c) => {
+    const body = await c.req.json<VitalData[]>();
+    const headers = Object.fromEntries(c.req.headers);
+    const query = c.req.query();
+    const sessionData = await detect({ headers, query }, body[0].screenWidth)
+    await eventDB.insertEvents(body.map(data => {
+        const { sessionId, visitorId, id, websiteId, ...rest } = data
+        return {
+            properties: JSON.stringify({
+                ...sessionData,
+                ...rest
+            }),
+            timestamp: new Date().toISOString().slice(0, 19).replace("T", " "),
+            event: "vitals",
+            sessionId,
+            visitorId,
+            websiteId,
+            id: id,
+            sign: 1
+        }
+    }))
+    return c.json(null, 200)
+})
+
+app.get("/vitals", async (c) => {
+    const startDateObj = new Date(c.req.query("startDate"));
+    const endDateObj = new Date(c.req.query("endDate"));
+    const websiteId = c.req.query("websiteId");
+    const timezone = c.req.query("timezone")
+
+    try {
+        const res = await eventDB.getVital(startDateObj, endDateObj, websiteId)
+        return c.json(res, 200)
+    } catch {
+        return c.json(null, 500)
+    }
+})
 
 app.get("/", async (c) => {
     //authentication

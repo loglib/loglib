@@ -40,6 +40,7 @@ import { Celebrate } from "./celebrate";
 import { useAtom } from "jotai";
 import { localSettingAtom } from "@/jotai/store";
 import { PLAN, Website } from "@loglib/types/models";
+import { SpeedInsight } from "./speed-insight";
 
 export const Dashboard = ({
     website,
@@ -128,6 +129,12 @@ export const Dashboard = ({
                                         }
                                     >
                                         Events
+                                    </TabsTrigger>
+                                    <TabsTrigger value="speed" className="flex items-center gap-1 dark:data-[state=active]:text-emphasis data-[state=active]:text-emphasis">
+                                        Speed Insights
+                                        <Label className="text-purple-600 text-xs mt-1">
+                                            Beta
+                                        </Label>
                                     </TabsTrigger>
                                 </TabsList>
                                 <div>
@@ -454,6 +461,9 @@ export const Dashboard = ({
                                         />
                                     </TabsContent>
                                 </TrackClick>
+                                <TabsContent value="speed">
+                                    <SpeedInsight />
+                                </TabsContent>
                             </motion.div>
                         </AnimatePresence>
                     </Tabs>

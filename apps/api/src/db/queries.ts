@@ -6,13 +6,23 @@ import { convertToUTC } from "../lib/utils";
 import { sql } from "drizzle-orm";
 import { LoglibEvent } from '../type';
 import { kafka } from "@loglib/clickhouse";
-
+import { VitalData } from "../../../../packages/types/tracker";
 
 export const hitsQuery = (startDate: string, endDate: string, websiteId: string) =>
     `select id, sessionId, visitorId, JSONExtract(properties, 'city', 'String') as city, JSONExtract(properties, 'country', 'String') as country,JSONExtract(properties, 'browser', 'String') as browser,JSONExtract(properties, 'language', 'String') as locale,JSONExtract(properties, 'referrerPath', 'String') as referrerPath, JSONExtract(properties, 'currentPath', 'String') as currentPath, JSONExtract(properties, 'referrerDomain', 'String') as referrerDomain, JSONExtract(properties, 'queryParams', 'String') as queryParams, JSONExtract(properties, 'device', 'String') as device, JSONExtract(properties, 'duration', 'Float32') as duration, JSONExtract(properties, 'os', 'String') as os, event, timestamp from loglib.event WHERE ${startDate && `timestamp >= '${startDate}' AND`} timestamp <= '${endDate}' AND websiteId = '${websiteId}' AND event = 'hits'`;
 
 export const customEventsQuery = (startDate: string, endDate: string, websiteId: string) =>
     `select * from loglib.event WHERE timestamp >= '${startDate}' AND timestamp <= '${endDate}' AND websiteId = '${websiteId}' AND event != 'hits'`;
+
+const getStringJsonExtract = (q: string[]) => {
+    return q.map((val) => `JSONExtract(properties, ${val}, "String") as ${val}`).join(",")
+}
+
+export const vitalsQuery = (startDate: string, endDate: string, websiteId: string) => {
+    const json = getStringJsonExtract(["country", "city", "browser", "language", "currentPath", "delta", "navigationType", "rating", "value", "name", "os"])
+    console.log(json)
+    return `select id, sessionId, visitorId, ${json} from loglib.event WHERE timestamp >= '${startDate}' AND timestamp <= '${endDate}' AND websiteId = '${websiteId}' AND event = 'vitals'`
+}
 
 const createEvent = () => {
     return async (
@@ -110,6 +120,47 @@ const createEvent = () => {
     }
 }
 
+
+type InsertEventParams = {
+    id: string
+    sessionId: string
+    visitorId: string
+    websiteId: string
+    event: string
+    properties: string,
+    timestamp: string
+    sign: 1 | -1
+}
+
+const createEvents = (data: InsertEventParams[]) => {
+
+    return {
+        clickhouse: async () => {
+            const { enabled, sendMessages, connect } = kafka
+            if (enabled) {
+                await connect()
+                await sendMessages(data, "events")
+            } else {
+                await client
+                    .insert({
+                        table: "loglib.event",
+                        values: data,
+                        format: "JSONEachRow",
+                    })
+                    .then((res) => res)
+            }
+        },
+        sqlite: async () => {
+            await db.insert(schema.events).values(data.map(d => ({
+                ...d,
+                timestamp: new Date(),
+                properties: JSON.parse(d.properties)
+            })))
+        }
+    }
+
+}
+
 async function getHitsData(
     startDateObj: Date,
     endDateObj: Date,
@@ -134,6 +185,27 @@ async function getHitsData(
                     format: "JSONEachRow",
                 })
                 .then(async (res) => (await res.json()) as LoglibEvent[])
+        }
+    }
+}
+
+async function getSiteVitals(websiteId: string, startDate: Date, endDate: Date) {
+    return {
+        sqlite: async () => {
+            const event = schema.events
+            return await db.select().from(event).where(sql`${event.websiteId} = ${websiteId} and event = 'vitals' and ${event.timestamp} >= ${new Date(startDate.getTime())} and ${event.timestamp} <= ${new Date(endDate).getTime()}`).then(res => res.map(r => ({
+                ...r,
+                ...r.properties,
+                timestamp: r.timestamp.toISOString().slice(0, 19).replace("T", " ")
+            })))
+        },
+        clickhouse: async () => {
+            return await client
+                .query({
+                    query: vitalsQuery(convertToUTC(startDate), convertToUTC(endDate), websiteId),
+                    format: "JSONEachRow",
+                })
+                .then(async (res) => (await res.json()) as VitalData[])
         }
     }
 }
@@ -189,9 +261,13 @@ export function loglibDb(db: "sqlite" | "clickhouse") {
             const insert = await hits(data)
             return await insert[db]()
         },
-        async getHits(startDateObj: Date, endDateObj: Date, pastEndDateObj: Date, websiteId: string) {
-            console.log("db client")
+        async insertEvents(data: InsertEventParams[]) {
+            console.log(data)
+            const insert = createEvents(data)
             console.log(db)
+            await insert[db]()
+        },
+        async getHits(startDateObj: Date, endDateObj: Date, pastEndDateObj: Date, websiteId: string) {
             const query1 = await getHitsData(startDateObj, endDateObj, websiteId)
             const query2 = await getHitsData(endDateObj, pastEndDateObj, websiteId)
             return await Promise.all([query1[db](), query2[db]()])
@@ -200,6 +276,9 @@ export function loglibDb(db: "sqlite" | "clickhouse") {
             const query = await getCustomEventData(startDateObj, endDateObj, websiteId)
             const events = await query[db]()
             return events
+        },
+        async getVital(startDateObj: Date, endDateObj: Date, websiteId: string) {
+            return await getSiteVitals(websiteId, startDateObj, endDateObj)[db]
         }
     }
 }

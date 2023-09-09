@@ -1,19 +1,31 @@
+import { VitalData } from '@loglib/types/tracker';
+
 export type Config = {
     /** The ID of the tracker instance */
-    id?: string;
+    id: string;
     /** Whether to automatically track events. Currently only supports click events with onclick handlers or clicks on a button. */
-    autoTrack: boolean;
+    autoTrack?: boolean;
+    /** Collect web vitals for speed insights. True by default. */
+    webVitals?: boolean;
+    /**
+     * Collect page analytics for page insights. This true by default.
+     */
+    pageAnalytics?: boolean;
+    /**
+     * custom events collected using the tracker will be ignored if you turn this off.
+     */
+    customEvents?: boolean;
     /** Whether to enable debug logging. */
-    debug: boolean;
+    debug?: boolean;
     /** The environment to use for tracking. */
-    env: "auto" | "prod" | "dev";
+    env?: "auto" | "prod" | "dev";
     /** The interval (in milliseconds) for sending data to the server. */
-    postInterval: number;
+    postInterval?: number;
     /** The hostname or array of hostnames to send data to. By default it sends to the api.loglib.io */
-    host: string | string[];
+    host?: string | string[];
     /** The user's consent status for tracking. If not granted if uses hashed version of the user ip address as user id. If granted it store userId on local storage. By default it's denied. You can set it globally here or You can change the user consent using the setConsent method exported from the tracker.. @example import {setConsent} from "@loglib/tracker"
      * setConsent("granted") */
-    consent: "granted" | "denied";
+    consent?: "granted" | "denied";
     useServerPath?: boolean;
     useBeacon?: boolean;
 };
@@ -39,6 +51,7 @@ export interface Internal {
     sessionId: string;
     intervals: NodeJS.Timer[];
     sdkVersion: string;
+    vitalQueue: Set<VitalData>
 }
 
 export interface InitInfo {

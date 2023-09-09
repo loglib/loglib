@@ -20,6 +20,7 @@ export const WebsitesList = ({ websites }: { websites: (WebsiteType & { visitors
                 <div className=" mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
                     {websites.map((website) => (
                         <Website
+                            key={website.id}
                             site={website}
                             visitors={website.visitors}
                             setSelected={setSelected}

@@ -5,8 +5,7 @@ import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { schema } from "@loglib/db";
-
-import { guid } from '../../../../packages/tracker/src/utils/util';
+import { guid } from '@/lib/utils';
 import { AdapterAccount } from "next-auth/adapters";
 
 export const authOptions: NextAuthOptions = {

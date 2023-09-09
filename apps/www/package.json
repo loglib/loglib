@@ -151,6 +151,7 @@
         "tailwind-merge": "^1.13.0",
         "tailwind-variants": "^0.1.14",
         "utf-8-validate": "^6.0.3",
+        "web-vitals": "^3.4.0",
         "zod": "^3.21.4"
     },
     "devDependencies": {

@@ -21,7 +21,7 @@ export default function DashboardNav({ items }: DashboardNavProps) {
         return item.useInclude ? path?.includes(item.href ?? "") : path === item.href;
     };
     return (
-        <nav className="grid items-start gap-2">
+        <nav className="grid items-start gap-2 top-24 sticky">
             {items.map((item) => {
                 const Icon = Icons[item.icon || "arrowRight"];
                 return (
