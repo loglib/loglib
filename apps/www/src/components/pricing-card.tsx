@@ -12,24 +12,25 @@ import { useState } from "react";
 import { PLANS } from "@/lib/stripe/plans";
 import { useRouter } from "next/navigation";
 import { Badge } from "./ui/badge";
+import { loglib } from "@loglib/tracker";
 
 interface PricingCardProps {
-    tier: typeof PLANS[0]
+    tier: (typeof PLANS)[0];
     user?: User & {
-        portalUrl?: string
-    }
-    currentPlan?: boolean
+        portalUrl?: string;
+    };
+    currentPlan?: boolean;
 }
 export function PricingCard({ tier, user, currentPlan }: PricingCardProps) {
-    const router = useRouter()
-    const [annually, setAnnually] = useState(false)
+    const router = useRouter();
+    const [annually, setAnnually] = useState(false);
     return (
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className={cn(
-                "bg-gradient-to-br from-slate-900 border to-[#080812] relative flex max-w-sm flex-col overflow-hidden rounded-lg shadow-lg ",
+                "bg-gradient-to-br from-slate-900 border to-[#080812] relative flex max-w-sm flex-col overflow-hidden rounded-lg shadow-lg "
             )}
         >
             <div className="mx-0 bg-stone-50 px-6 py-8 dark:bg-stone-900/80 sm:p-10 sm:pb-6  relative">
@@ -47,13 +48,17 @@ export function PricingCard({ tier, user, currentPlan }: PricingCardProps) {
                     ) : (
                         <div className="flex flex-col">
                             <div>
-                                <Tabs defaultValue="monthly" className="w-[400px]"
+                                <Tabs
+                                    defaultValue="monthly"
+                                    className="w-[400px]"
                                     onValueChange={(v) => {
-                                        setAnnually(v === "annually")
+                                        setAnnually(v === "annually");
                                     }}
                                 >
                                     <TabsList className="absolute right-2 top-1  bg-transparent">
-                                        <TabsTrigger value="monthly" className="">Monthly</TabsTrigger>
+                                        <TabsTrigger value="monthly" className="">
+                                            Monthly
+                                        </TabsTrigger>
                                         <TabsTrigger value="annually">Annually</TabsTrigger>
                                     </TabsList>
                                     <TabsContent value="monthly">
@@ -72,20 +77,21 @@ export function PricingCard({ tier, user, currentPlan }: PricingCardProps) {
                             </div>
                         </div>
                     )}
-
                 </div>
 
-                {
-                    currentPlan && <Badge className=" mt-2" variant="outline">
+                {currentPlan && (
+                    <Badge className=" mt-2" variant="outline">
                         Current Plan
                     </Badge>
-                }
-                {
-                    annually && !currentPlan && <Badge className=" mt-2" variant="secondary">
+                )}
+                {annually && !currentPlan && (
+                    <Badge className=" mt-2" variant="secondary">
                         - 17%
                     </Badge>
-                }
-                <p className="mt-5 md:text-lg text-sm text-stone-500">{tier.description}</p>
+                )}
+                <p className="mt-5 md:text-lg text-sm text-stone-500">
+                    {tier.description}
+                </p>
             </div>
             <div className="flex flex-1 flex-col justify-between space-y-6 bg-stone-100 px-6 pb-8 pt-6 dark:bg-stone-950/80 sm:p-10 sm:pt-6">
                 <ul role="list" className="space-y-4">
@@ -114,38 +120,45 @@ export function PricingCard({ tier, user, currentPlan }: PricingCardProps) {
                     ))}
                 </ul>
                 <div className="rounded-md shadow bg-gradient-to-br from-slate-900 to-#080812">
-                    {
-                        user ? <button
+                    {user ? (
+                        <button
                             className=" tex-white from-logo/10 flex items-center justify-center rounded-md border border-transparent bg-gradient-to-tr to-white/80 px-5 py-3 transition-all duration-200  text-base font-bold hover:bg-stone-950/90 dark:to-stone-950/80 w-full disabled:opacity-50 disabled:hover:bg-inherit"
                             disabled={currentPlan}
                             onClick={async () => {
+                                loglib.track("Tier Change", {
+                                    from: currentPlan,
+                                    tier: tier.slug,
+                                });
                                 if (tier.slug === "free" && user.portalUrl) {
-                                    router.push(user.portalUrl)
+                                    router.push(user.portalUrl);
                                 }
                                 const env =
-                                    process.env.NEXT_PUBLIC_VERCEL_ENV === "production" ? "production" : "test";
-                                const priceId = annually ? tier.price?.yearly.priceIds[env] : tier.price?.monthly.priceIds[env]
-                                const session = await createCheckoutSession(
-                                    [{ price: priceId as string, quantity: 1 }]
-                                )
+                                    process.env.NEXT_PUBLIC_VERCEL_ENV === "production"
+                                        ? "production"
+                                        : "test";
+                                const priceId = annually
+                                    ? tier.price?.yearly.priceIds[env]
+                                    : tier.price?.monthly.priceIds[env];
+                                const session = await createCheckoutSession([
+                                    { price: priceId as string, quantity: 1 },
+                                ]);
                                 if (!session?.url) {
-                                    return
+                                    return;
                                 }
-                                router.push(session.url)
+                                router.push(session.url);
                             }}
                         >
                             Change Plan
                         </button>
-                            :
-                            <Link
-                                href={tier.href}
-                                className=" tex-white  from-logo/10 flex items-center justify-center rounded-md border border-transparent bg-gradient-to-tr to-white/80 px-5 py-3  text-xs md:text-base font-bold hover:bg-stone-950 dark:to-stone-950/80"
-                                aria-describedby="tier-standard"
-                            >
-                                Get started
-                            </Link>
-                    }
-
+                    ) : (
+                        <Link
+                            href={tier.href}
+                            className=" tex-white  from-logo/10 flex items-center justify-center rounded-md border border-transparent bg-gradient-to-tr to-white/80 px-5 py-3  text-xs md:text-base font-bold hover:bg-stone-950 dark:to-stone-950/80"
+                            aria-describedby="tier-standard"
+                        >
+                            Get started
+                        </Link>
+                    )}
                 </div>
             </div>
         </motion.div>

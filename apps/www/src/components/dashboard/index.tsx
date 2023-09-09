@@ -132,9 +132,6 @@ export const Dashboard = ({
                                     </TabsTrigger>
                                     <TabsTrigger value="speed" className="flex items-center gap-1 dark:data-[state=active]:text-emphasis data-[state=active]:text-emphasis">
                                         Speed Insights
-                                        <Label className="text-purple-600 text-xs mt-1">
-                                            Beta
-                                        </Label>
                                     </TabsTrigger>
                                 </TabsList>
                                 <div>

@@ -11,7 +11,7 @@ export const setupClickhouseDb = async (client: ClickHouseClient, brokerList: st
             event String,
             sessionId String,
             visitorId String,
-            properties String DEFAULT '{}',
+            properties String,
             timestamp DateTime DEFAULT now(),
             websiteId String,
             sign Int8
@@ -25,8 +25,8 @@ export const setupClickhouseDb = async (client: ClickHouseClient, brokerList: st
             event String,
             sessionId String,
             visitorId String,
-            properties String DEFAULT '{}',
-            timestamp DateTime DEFAULT now(),
+            properties String,
+            timestamp DateTime,
             websiteId String,
             sign Int8,
             --virtual columns

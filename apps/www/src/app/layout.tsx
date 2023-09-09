@@ -101,10 +101,10 @@ export default function RootLayout({
                         config={{
                             id: "loglib",
                             consent: "granted",
-                            pageAnalytics: false,
-                            customEvents: false,
-                            host: "http://localhost:8000",
-                            env: "prod"
+                            // pageAnalytics: false,
+                            // customEvents: false,
+                            // host: "http://localhost:8000",
+                            // env: "prod"
                         }}
                     />
                     <Toaster />
