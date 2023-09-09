@@ -10,6 +10,30 @@ import { RepurposeYourData } from "@/components/landing/repurpose-your-data";
 import { Community } from "@/components/marketing/community";
 import { TrackView } from "@loglib/tracker/react";
 import Link from "next/link";
+import CardForCode from "@/components/code-card";
+import CodeInstallation from "@/components/code-installation";
+interface ContributorsProps {
+  login: string;
+  id: number;
+  node_id: string;
+  avatar_url: string;
+  gravatar_id: string;
+  url: string;
+  html_url: string;
+  followers_url: string;
+  following_url: string;
+  gists_url: string;
+  starred_url: string;
+  subscriptions_url: string;
+  organizations_url: string;
+  repos_url: string;
+  events_url: string;
+  received_events_url: string;
+  type: string;
+  site_admin: boolean;
+  contributions: number;
+};
+
 
 async function getPackageInfo(packageName: string) {
   try {
@@ -27,6 +51,27 @@ async function getPackageInfo(packageName: string) {
 }
 
 
+
+async function getGitHubContributors() {
+  try {
+    const response = await fetch('https://api.github.com/repos/loglib/loglib/contributors' , {
+      next: {
+        revalidate:60
+      }
+    })
+
+    if(!response?.ok) {
+      return null;
+      
+    }
+    const contributorsData: ContributorsProps = await response.json()
+    return contributorsData;
+    // console.log(contributorsData)
+    
+  }catch(e){
+    console.log("Error while fetching contributors: " , e)
+  }
+}
 async function getGitHubStars() {
   try {
     const response = await fetch("https://api.github.com/repos/loglib/loglib", {
@@ -63,7 +108,8 @@ async function getGitHubForks() {
 export default async function IndexPage() {
   const stars = await getGitHubStars();
   const forks = await getGitHubForks();
-  const npm = await getPackageInfo("@loglib/tracker")
+  const contributors = await getGitHubContributors();
+  const npm = await getPackageInfo("@loglib/tracker");
   return (
     <main className="grid place-items-center space-y-10 md:space-y-20">
       <HeroSection />
@@ -80,6 +126,10 @@ export default async function IndexPage() {
       <div className="hidden md:block">
         <ProjectsContents gitForks={forks} githubStars={stars ? parseInt(stars) : 100} npmSize={npm?.packageSize ?? 1} npmVersion={npm?.version ?? "0.6.2"} />
       </div>
+      <section className="flex justify-between items-center gap-10">
+        <CodeInstallation />
+        <CardForCode />
+      </section>
       <section className="max-w-8xl to-50 flex-col mx-auto mt-10 w-full rounded-3xl flex  md:flex-row md:justify-between justify-center md:items-start items-center  bg-gradient-to-br from-gray-100 px-4 dark:from-stone-950/80 dark:to-[#080812] sm:px-16">
         <div className="flex h-min px-2  flex-col justify-center gap-8 py-12">
           <h1 className="font-heading max-w-3xl text-3xl font-bold sm:text-6xl">
@@ -93,9 +143,9 @@ export default async function IndexPage() {
         </div>
 
       </section>
-      <section className="flex flex-col justify-center items-center gap-4">
+      <section className="flex flex-col justify-center items-center gap-4 mt-32">
         <p>Made Possible By</p>         
-        <ContributorsAvatar />      
+        <ContributorsAvatar contributions={contributors} />      
       </section>
       <TrackView
         name="footer-reached"
