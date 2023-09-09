@@ -3,6 +3,7 @@ import { AvatarGroup } from "@nextui-org/react";
 import Image from "next/image";
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import Link from "next/link";
 
 interface ContributorProps {
   login: string;
@@ -29,14 +30,18 @@ interface ContributorsProps {
   contributors : ContributorProps[]
 }
 const  ContributorsAvatar = ({contributions}) => {
+  const filteredUsers = contributions.filter((user)=> user.login != "github-actions[bot]")
    
   return (
     <AvatarGroup isBordered max={9}>
-      {contributions.map((image: any) => {
+      {filteredUsers.map((image: any) => {
         return (
+          
           <Avatar className="mx-[40px]">
+            <Link href={image.html_url} target="_blank">
             <AvatarImage src={image.avatar_url} />
             <AvatarFallback>{image.login.slice(0, 2)}</AvatarFallback>
+            </Link>
           </Avatar>
         );
       })}
