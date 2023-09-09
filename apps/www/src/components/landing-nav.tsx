@@ -5,9 +5,9 @@ import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 
-export const LandingNav = () => {
+export const LandingNav = ({mobileView}:{mobileView?:boolean}) => {
     const pathname = usePathname();
-    return (
+   if(!mobileView){ return (
         <div className=" sticky top-1 overflow-hidden rounded-xl [--duration:500ms]  [transform:translateZ(0)]">
             <nav className="relative w-full rounded-xl border border-black/10 p-2 dark:border-white/10">
                 <div
@@ -101,4 +101,75 @@ export const LandingNav = () => {
             </nav>
         </div>
     );
+    }
+    else{
+      return (
+              <ul className="relative flex flex-col gap-6 pl-[1.5rem] pt-[10rem]">
+                  <li className="">
+                      <Link href="/">
+                          <button
+                              type="button"
+                              className={cn(
+                                  "px-4 py-1 text-lg font-light text-black/60 transition-[text-shadow,color] duration-200 hover:text-black/80 focus:outline-none dark:text-white/60 dark:hover:text-white/75",
+                                  pathname === "/" && "text-black/80 dark:text-white/75 font-bold",
+                              )}
+                          >
+                              Home
+                          </button>
+                      </Link>
+                  </li>
+
+                  <li className="">
+                      <Link href="/pricing">
+                          <button
+                              type="button"
+                              className={cn(
+                                  "text-black/6 0 px-4 py-1 text-lg font-light transition-[text-shadow,color] duration-200 hover:text-black/80 focus:outline-none dark:text-white/60 dark:hover:text-white/75",
+                                  pathname === "/pricing" &&
+                                  "text-black/80 dark:text-white/75 font-bold",
+                              )}
+                          >
+                              Pricing
+                          </button>
+                      </Link>
+                  </li>
+
+                  <li className="">
+                      <Link href="/changelog">
+                          <button
+                              type="button"
+                              className={cn(
+                                  "px-4 py-1 text-lg font-light text-black/60 transition-[text-shadow,color] duration-200 hover:text-black/80 focus:outline-none dark:text-white/60 dark:hover:text-white/75",
+                                  pathname?.includes("/docs") &&
+                                  "text-black/80 dark:text-white/75 font-bold",
+                              )}
+                          >
+                              Changelog
+                          </button>
+                      </Link>
+                  </li>
+                  <li className="">
+                      <Link href="/docs">
+                          <button
+                              type="button"
+                              className={cn(
+                                  "px-4 py-1 text-lg font-light text-black/60 transition-[text-shadow,color] duration-200 hover:text-black/80 focus:outline-none dark:text-white/60 dark:hover:text-white/75",
+                                  pathname?.includes("/docs") &&
+                                  "text-black/80 dark:text-white/75 font-bold",
+                              )}
+                          >
+                              Docs
+                          </button>
+                      </Link>
+                  </li>
+              </ul>
+
+      )
+    }
+
 };
+{
+  /**
+   * flex items-center justify-between md:mx-16 sticky top-0 mb-16 z-50 bg-white/60 backdrop-blur-sm dark:bg-stone-950
+   */
+}
