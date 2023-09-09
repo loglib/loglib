@@ -31,6 +31,15 @@ export function SiteHeader({ user }: { user?: User }) {
     setMobileView(false);
     setInitialRender(false);
   }, []);
+  
+  React.useEffect(()=>{
+    if (mobileView){
+      document.body.classList.add("overflow-y-hidden")
+    }
+    else{
+      document.body.classList.remove("overflow-y-hidden")
+    }
+  },[mobileView])
 
   React.useEffect(() => {
     if (!initialRender) {
@@ -84,7 +93,7 @@ export function SiteHeader({ user }: { user?: User }) {
                                     />
                             </button>
         </div>
-        <motion.nav className="fixed md:hidden top-0 left-0 min-h-screen flex w-full dark:bg-stone-950/80 backdrop-blur-[10px]"
+        <motion.nav className="fixed md:hidden top-0 left-0 min-h-screen h-[100%] flex w-full dark:bg-stone-950/80 backdrop-blur-[10px]"
         initial = {"closed"}
         animate={mobileView ? "open" : "closed"}
         variants={variants}
