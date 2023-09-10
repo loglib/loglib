@@ -71,7 +71,9 @@ const renderSubComponent = ({ row }: { row: Row<LoglibCustomEvent> }) => {
                                 >
                                     <div className="font-bold">{key}: </div>
                                     <div>
-                                        {automaticProperties[key as keyof typeof allProperties]}
+                                        {JSON.stringify(
+                                            allProperties[key as keyof typeof allProperties],
+                                        )}
                                     </div>
                                 </div>
                             );
