@@ -131,7 +131,7 @@ export const Dashboard = ({
                                         Events
                                     </TabsTrigger>
                                     <TabsTrigger value="speed" className="flex items-center gap-1 dark:data-[state=active]:text-emphasis data-[state=active]:text-emphasis">
-                                        Speed Insights
+                                        Speed
                                     </TabsTrigger>
                                 </TabsList>
                                 <div>
@@ -459,7 +459,17 @@ export const Dashboard = ({
                                     </TabsContent>
                                 </TrackClick>
                                 <TabsContent value="speed">
-                                    <SpeedInsight />
+                                    <SpeedInsight
+                                        website={website}
+                                        timeRange={timeRange}
+                                        setting={{
+                                            timezone: setting.timezone ?? timezone,
+                                            graph: setting.graph
+                                        }}
+                                        filters={filters}
+                                        token={token}
+                                        url={url}
+                                    />
                                 </TabsContent>
                             </motion.div>
                         </AnimatePresence>

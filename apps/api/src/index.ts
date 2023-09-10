@@ -72,12 +72,12 @@ app.get("/vitals", async (c) => {
     try {
         const res = await eventDB.getVital(startDateObj, endDateObj, websiteId) as VitalDateWithSession[]
         const vitalsByDate = getVitalsByDate(res, startDateObj, endDateObj, timezone)
-        let cls = new Map()
-        let lcp = new Map()
-        let fid = new Map()
-        let inp = new Map()
-        let fcp = new Map()
-        for (let vital of res) {
+        const cls = new Map()
+        const lcp = new Map()
+        const fid = new Map()
+        const inp = new Map()
+        const fcp = new Map()
+        for (const vital of res) {
             switch (vital.name) {
                 case "CLS":
                     cls.set(vital.id, vital.value)
@@ -101,11 +101,11 @@ app.get("/vitals", async (c) => {
         let FID = 0
         let INP = 0
         let FCP = 0
-        cls.forEach(v => CLS += v)
-        lcp.forEach(v => LCP += v)
-        fid.forEach(v => FID += v)
-        inp.forEach(v => INP += v)
-        fcp.forEach(v => FCP += v)
+        cls.forEach(v => { CLS += v })
+        lcp.forEach(v => { LCP += v })
+        fid.forEach(v => { FID += v })
+        inp.forEach(v => { INP += v })
+        fcp.forEach(v => { FCP += v })
         return c.json({
             cls: (CLS / cls.size) * 1000,
             lcp: (LCP / lcp.size) / 1000,
