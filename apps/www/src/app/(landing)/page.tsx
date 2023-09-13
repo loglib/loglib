@@ -71,12 +71,10 @@ export default async function IndexPage() {
       <FeatureAccordion />
       <section className="w-full">
         <RepurposeYourData />
-
         <section className="w-full">
           <Changelog />
         </section>
       </section>
-
       <div className="hidden md:block">
         <ProjectsContents gitForks={forks} githubStars={stars ? parseInt(stars) : 100} npmSize={npm?.packageSize ?? 1} npmVersion={npm?.version ?? "0.6.2"} />
       </div>
@@ -91,7 +89,6 @@ export default async function IndexPage() {
           </h1>
           <Community />
         </div>
-
       </section>
       <TrackView
         name="footer-reached"

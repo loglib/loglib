@@ -150,6 +150,7 @@
         "swr": "^2.1.5",
         "tailwind-merge": "^1.13.0",
         "tailwind-variants": "^0.1.14",
+        "tier": "^5.10.0",
         "utf-8-validate": "^6.0.3",
         "zod": "^3.21.4"
     },
