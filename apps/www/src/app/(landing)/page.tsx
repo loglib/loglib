@@ -1,6 +1,7 @@
+// import CTA from "../../components/landing/cta/CTA";
+import TwitterTestimonial from "@/components/TwitterTestimonialSection";
 import Changelog from "@/components/changelog";
 import { TwitterXIcons } from "@/components/extra-icons";
-import ContributorsAvatar from "@/components/contributors";
 import { FeatureAccordion } from "@/components/landing/feature-accordion";
 import { FeatureCard } from "@/components/landing/feature-cards";
 import { HeroSection } from "@/components/landing/hero";
@@ -9,8 +10,6 @@ import { RepurposeYourData } from "@/components/landing/repurpose-your-data";
 import { Community } from "@/components/marketing/community";
 import { TrackView } from "@loglib/tracker/react";
 import Link from "next/link";
-// import CTA from "../../components/landing/cta/CTA";
-import TwitterTestimonial from "@/components/TwitterTestimonialSection";
 // import lang from '@/components/code-sample'
 // import CardForCode from "@/components/code-card";
 // import CodeInstallation from "@/components/code-installation";
@@ -115,12 +114,10 @@ export default async function IndexPage() {
       <FeatureAccordion />
       <section className="w-full">
         <RepurposeYourData />
-
         <section className="w-full">
           <Changelog />
         </section>
       </section>
-
       <div className="hidden md:block">
         <ProjectsContents
           gitForks={forks}
@@ -132,8 +129,8 @@ export default async function IndexPage() {
       {/* <section>
         <CTA />
       </section> */}
-      
-        
+
+
       <div className="sm:py-18 container relative mx-auto px-6 py-16 md:py-24 lg:px-16 lg:py-24 xl:px-20">
         <TwitterTestimonial />
       </div>
@@ -152,10 +149,6 @@ export default async function IndexPage() {
           </h1>
           <Community />
         </div>
-      </section>
-      <section className="flex flex-col justify-center items-center gap-4 mt-32">
-        <p>Made Possible By</p>
-        <ContributorsAvatar contributions={contributors} />
       </section>
       <TrackView
         name="footer-reached"

@@ -187,8 +187,3 @@ export const LandingNav = ({ mobileView }: { mobileView?: boolean }) => {
   }
 
 };
-{
-  /**
-   * flex items-center justify-between md:mx-16 sticky top-0 mb-16 z-50 bg-white/60 backdrop-blur-sm dark:bg-stone-950
-   */
-}
