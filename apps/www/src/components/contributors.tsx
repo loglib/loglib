@@ -31,7 +31,8 @@ interface ContributorsProps {
 }
 const  ContributorsAvatar = ({contributions}) => {
   const filteredUsers = contributions.filter((user)=> user.login != "github-actions[bot]")
-   
+  const captain = "Bekacru"
+
   return (
     <AvatarGroup isBordered max={9}>
       {filteredUsers.map((image: any) => {
