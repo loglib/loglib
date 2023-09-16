@@ -1,4 +1,3 @@
-
 import Changelog from "@/components/changelog";
 import { TwitterXIcons } from "@/components/extra-icons";
 import ContributorsAvatar from "@/components/contributors";
@@ -10,6 +9,7 @@ import { RepurposeYourData } from "@/components/landing/repurpose-your-data";
 import { Community } from "@/components/marketing/community";
 import { TrackView } from "@loglib/tracker/react";
 import Link from "next/link";
+import TwitterTestimonial from "@/components/TwitterTestimonialSection";
 // import lang from '@/components/code-sample'
 // import CardForCode from "@/components/code-card";
 // import CodeInstallation from "@/components/code-installation";
@@ -33,44 +33,43 @@ interface ContributorsProps {
   type: string;
   site_admin: boolean;
   contributions: number;
-};
-
+}
 
 async function getPackageInfo(packageName: string) {
   try {
     const response = await fetch(`https://registry.npmjs.org/${packageName}`);
     const packageData = await response.json();
-    const { version, dist } = packageData.versions[packageData['dist-tags'].latest];
+    const { version, dist } =
+      packageData.versions[packageData["dist-tags"].latest];
     const packageSize = dist.unpackedSize;
     return {
       version,
-      packageSize: Math.floor(packageSize / 1024)
-    }
+      packageSize: Math.floor(packageSize / 1024),
+    };
   } catch (error) {
     console.error(`Error fetching package info: ${error}`);
   }
 }
 
-
-
 async function getGitHubContributors() {
   try {
-    const response = await fetch('https://api.github.com/repos/loglib/loglib/contributors' , {
-      next: {
-        revalidate:60
+    const response = await fetch(
+      "https://api.github.com/repos/loglib/loglib/contributors",
+      {
+        next: {
+          revalidate: 60,
+        },
       }
-    })
+    );
 
-    if(!response?.ok) {
+    if (!response?.ok) {
       return null;
-      
     }
-    const contributorsData: ContributorsProps = await response.json()
+    const contributorsData: ContributorsProps = await response.json();
     return contributorsData;
     // console.log(contributorsData)
-    
-  }catch(e){
-    console.log("Error while fetching contributors: " , e)
+  } catch (e) {
+    console.log("Error while fetching contributors: ", e);
   }
 }
 async function getGitHubStars() {
@@ -91,16 +90,13 @@ async function getGitHubStars() {
   }
 }
 async function getGitHubForks() {
-  return await fetch(
-    "https://api.github.com/repos/loglib/loglib/forks",
-    {
-      method: "GET",
-      redirect: "follow",
-      next: {
-        revalidate: 60,
-      },
-    }
-  )
+  return await fetch("https://api.github.com/repos/loglib/loglib/forks", {
+    method: "GET",
+    redirect: "follow",
+    next: {
+      revalidate: 60,
+    },
+  })
     .then((response) => response.text())
     .then((result) => JSON.parse(result).length)
     .catch((error) => console.log("error", error));
@@ -125,7 +121,16 @@ export default async function IndexPage() {
       </section>
 
       <div className="hidden md:block">
-        <ProjectsContents gitForks={forks} githubStars={stars ? parseInt(stars) : 100} npmSize={npm?.packageSize ?? 1} npmVersion={npm?.version ?? "0.6.2"} />
+        <ProjectsContents
+          gitForks={forks}
+          githubStars={stars ? parseInt(stars) : 100}
+          npmSize={npm?.packageSize ?? 1}
+          npmVersion={npm?.version ?? "0.6.2"}
+        />
+      </div>
+
+      <div className="sm:py-18 container relative mx-auto px-6 py-16 md:py-24 lg:px-16 lg:py-24 xl:px-20">
+        <TwitterTestimonial />
       </div>
       {/* <section className="flex justify-between items-center gap-10">
         <CodeInstallation />
@@ -142,11 +147,10 @@ export default async function IndexPage() {
           </h1>
           <Community />
         </div>
-
       </section>
       <section className="flex flex-col justify-center items-center gap-4 mt-32">
-        <p>Made Possible By</p>         
-        <ContributorsAvatar contributions={contributors} />      
+        <p>Made Possible By</p>
+        <ContributorsAvatar contributions={contributors} />
       </section>
       <TrackView
         name="footer-reached"

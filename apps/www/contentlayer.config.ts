@@ -123,7 +123,70 @@ export const ChangelogPost = defineDocumentType(() => ({
     // @ts-ignore
     computedFields: computedFields("changelog"),
 }));
+export const Author = defineDocumentType(() => ({
+    name: "Author",
+    filePathPattern: `**/authors/*.mdx`,
+    contentType: "mdx",
+    fields: {
+      title: {
+        type: "string",
+        required: true,
+      },
+      description: {
+        type: "string",
+      },
+      avatar: {
+        type: "string",
+        required: true,
+      },
+      twitter: {
+        type: "string",
+        required: true,
+      },
+    },
+    // @ts-ignore
+    computedFields: computedFields("author"),
+  }))
 
+
+export const BlogPost = defineDocumentType(() => ({
+    name: "BlogPost",
+    filePathPattern: `**/blogs/*.mdx`,
+    contentType: "mdx",
+    fields: {
+      title: {
+        type: "string",
+        required: true,
+      },
+      description: {
+        type: "string",
+      },
+      date: {
+        type: "date",
+        required: true,
+      },
+      published: {
+        type: "boolean",
+        default: true,
+      },
+      image: {
+        type: "string",
+        required: true,
+      },
+      authors: {
+        // Reference types are not embedded.
+        // Until this is fixed, we can use a simple list.
+        // type: "reference",
+        // of: Author,
+        type: "list",
+        of: { type: "string" },
+        required: true,
+      },
+    },
+    // @ts-ignore
+    computedFields: computedFields("blogs")
+  }))
+  
 export const LegalPost = defineDocumentType(() => ({
     name: "LegalPost",
     filePathPattern: "**/legal/*.mdx",
@@ -142,9 +205,10 @@ export const LegalPost = defineDocumentType(() => ({
     computedFields: computedFields("legal"),
 }))
 
+
 export default makeSource({
     contentDirPath: "src/content",
-    documentTypes: [Doc, ChangelogPost, LegalPost],
+    documentTypes: [Doc, ChangelogPost, LegalPost , BlogPost , Author],
     mdx: {
         remarkPlugins: [remarkGfm],
         rehypePlugins: [
