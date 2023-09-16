@@ -16,7 +16,7 @@
         "test": "turbo test",
         "typecheck": "turbo typecheck",
         "deploy:api": "turbo --filter api deploy",
-        "generate":"dotenv -- turbo --filter db generate",
+        "generate": "dotenv -- turbo --filter db generate",
         "migrate": "dotenv -- turbo --filter db migrate",
         "clickhouse:migrate": "dotenv -- turbo --filter clickhouse migrate",
         "studio": "pnpm --filter db studio"

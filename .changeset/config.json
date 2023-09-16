@@ -10,7 +10,8 @@
         "@loglib/types",
         "@loglib/db",
         "@loglib/config",
-        "@loglib/clickhouse"
+        "@loglib/clickhouse",
+        "@loglib/email"
     ],
     "changelog": "@changesets/cli/changelog"
 }
