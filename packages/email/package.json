@@ -13,10 +13,11 @@
         "preview": "email dev --dir src/emails -p 3001"
     },
     "devDependencies": {
-        "@loglib/config": "workspace:^",
-        "@types/node": "^20.5.7",
-        "@types/react": "18.2.13",
-        "typescript": "^5.2.2"
+        "@loglib/config": "0.0.0",
+        "@types/node": "^18.15.13",
+        "@types/react": "^18.2.0",
+        "react": "^18.2.0",
+        "typescript": "^5.1.6"
     },
     "dependencies": {
         "@loglib/types": "0.0.1",
