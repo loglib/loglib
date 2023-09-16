@@ -67,7 +67,7 @@ export default async function DashboardSideBarLayout({
                         ]}
                     />
                 </aside>
-                <main className="flex w-full  flex-col">{children}</main>
+                <main className="flex w-full flex-col">{children}</main>
             </main>
         </div>
     );

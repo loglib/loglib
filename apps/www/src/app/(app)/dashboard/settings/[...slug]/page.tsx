@@ -118,7 +118,9 @@ const Setting = async ({ params }: { params: { slug: string[] } }) => {
                                     {`${nCommaFormat(usage.customEvents)}/${nCommaFormat(plan?.quota.customEvents)}`}
                                 </p>
                                 <Progress
-                                    value={10}
+                                    value={
+                                        ((usage.customEvents as number / (plan.quota.customEvents as number)) * 100)
+                                    }
                                     className=" h-2 mt-2"
                                 />
                                 <p className=" text-xs mt-2 text-ston-400">
@@ -216,7 +218,9 @@ const Setting = async ({ params }: { params: { slug: string[] } }) => {
                                     {`${nCommaFormat(usage.customEvents)}/${nCommaFormat(plan?.quota.customEvents)}`}
                                 </p>
                                 <Progress
-                                    value={10}
+                                    value={
+                                        ((usage.customEvents as number / (plan.quota.customEvents as number)) * 100)
+                                    }
                                     className=" h-2 mt-2"
                                 />
                                 <p className=" text-xs mt-2 text-ston-400">

@@ -8,6 +8,8 @@ export const env = createEnv({
         CLICKHOUSE_PASSWORD: z.string().optional(),
         NEXTAUTH_SECRET: z.string(),
         CLIENT_IP_ADDRESS: z.string().optional(),
+        RESEND_EMAIL_SECRET: z.string().optional(),
+        NEXT_PUBLIC_APP_URL: z.string().optional(),
         //this is for rate limiting
         KV_REST_API_URL: z.string().optional(),
         KV_REST_API_TOKEN: z.string().optional(),
@@ -21,5 +23,7 @@ export const env = createEnv({
         CLICKHOUSE_PASSWORD: process.env.CLICKHOUSE_PASSWORD,
         NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
         CLIENT_IP_ADDRESS: process.env.CLIENT_IP_ADDRESS,
+        RESEND_EMAIL_SECRET: process.env.RESEND_EMAIL_SECRET,
+        NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL
     },
 });

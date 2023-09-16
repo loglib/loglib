@@ -87,3 +87,12 @@ export const apiQuery = z.object({
     startDate: z.string(),
     endDate: z.string(),
 });
+
+
+export const ingestQuerySchema = z.object({
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
+    websiteId: z.string(),
+    email: z.string(),
+    timezone: z.string()
+})
