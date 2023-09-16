@@ -3,7 +3,7 @@
 import { User } from "next-auth";
 // import { useTheme } from "next-themes";
 import Link from "next/link";
-import React,{useEffect,useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 
 import { Icons } from "./icons";
 import { LandingNav } from "./landing-nav";
@@ -12,16 +12,13 @@ import { UserAccountNav } from "./user-account-nav";
 import { usePathname } from "next/navigation";
 
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
 
 export function SiteHeader({ user }: { user?: User }) {
-
-  const [open,setOpen] = useState(false);
-  const [mobileView,setMobileView] = React.useState(false);
+  const [mobileView, setMobileView] = React.useState(false);
   const [initialRender, setInitialRender] = useState(true);
-  const pathname  = usePathname();
+  const pathname = usePathname();
 
-  const genericHamburgerLine = `h-1 w-8 my-1 rounded-full bg-gray-900 dark:bg-gray-100 transition ease-in transform duration-300`;
+  const genericHamburgerLine = "h-1 w-8 my-1 rounded-full bg-gray-900 dark:bg-gray-100 transition ease-in transform duration-300";
   const variants = {
     open: { opacity: 1, x: 0 },
     closed: { opacity: 0, x: "-100%" },
@@ -31,15 +28,15 @@ export function SiteHeader({ user }: { user?: User }) {
     setMobileView(false);
     setInitialRender(false);
   }, []);
-  
-  React.useEffect(()=>{
-    if (mobileView){
+
+  React.useEffect(() => {
+    if (mobileView) {
       document.body.classList.add("overflow-y-hidden")
     }
-    else{
+    else {
       document.body.classList.remove("overflow-y-hidden")
     }
-  },[mobileView])
+  }, [mobileView])
 
   React.useEffect(() => {
     if (!initialRender) {
@@ -57,6 +54,7 @@ export function SiteHeader({ user }: { user?: User }) {
         }}
       />
       <Icons.logoWithLetter />
+
       {/* for medium or large screens */}
       <div className="hidden md:block">
         <LandingNav />
@@ -67,45 +65,39 @@ export function SiteHeader({ user }: { user?: User }) {
         <Link href={user ? "/dashboard" : "/login"}>
           <Button variant="outline">{user ? "Dashboard" : "Login"}</Button>
         </Link>
-        <div className="humberger z-50 flex md:hidden " onClick={()=>setMobileView(!mobileView)}>
-                            <button
-                            className="flex flex-col h-12 w-12  rounded justify-center items-center group"
-                            onClick={() => setMobileView(!mobileView)}
-                            >
-                                    <div
-                                    className={`${genericHamburgerLine} ${
-                                    mobileView
-                                    ? "rotate-45 translate-y-3 opacity-50 group-hover:opacity-100"
-                                    : "opacity-50 group-hover:opacity-100"
-                                    }`}
-                                    />
-                                    <div
-                                    className={`${genericHamburgerLine} ${
-                                    mobileView ? "opacity-0" : "opacity-50 group-hover:opacity-100"
-                                    }`}
-                                    />
-                                    <div
-                                    className={`${genericHamburgerLine} ${
-                                    mobileView
-                                    ? "-rotate-45 -translate-y-3 opacity-50 group-hover:opacity-100"
-                                    : "opacity-50 group-hover:opacity-100"
-                                    }`}
-                                    />
-                            </button>
+        <div className="humberger z-50 flex md:hidden " onClick={() => setMobileView(!mobileView)}>
+          <button
+            className="flex flex-col h-12 w-12  rounded justify-center items-center group"
+            onClick={() => setMobileView(!mobileView)}
+          >
+            <div
+              className={`${genericHamburgerLine} ${mobileView
+                ? "rotate-45 translate-y-3 opacity-50 group-hover:opacity-100"
+                : "opacity-50 group-hover:opacity-100"
+                }`}
+            />
+            <div
+              className={`${genericHamburgerLine} ${mobileView ? "opacity-0" : "opacity-50 group-hover:opacity-100"
+                }`}
+            />
+            <div
+              className={`${genericHamburgerLine} ${mobileView
+                ? "-rotate-45 -translate-y-3 opacity-50 group-hover:opacity-100"
+                : "opacity-50 group-hover:opacity-100"
+                }`}
+            />
+          </button>
         </div>
         <motion.nav className="fixed md:hidden top-0 left-0 min-h-screen h-[100%] flex w-full dark:bg-stone-950/80 backdrop-blur-[10px]"
-        initial = {"closed"}
-        animate={mobileView ? "open" : "closed"}
-        variants={variants}
+          initial={"closed"}
+          animate={mobileView ? "open" : "closed"}
+          variants={variants}
         >
           <LandingNav mobileView />
 
         </motion.nav>
-        </div>
-
-
       </div>
-
+    </div>
   );
 }
 
@@ -114,7 +106,7 @@ export function DashboardHeader({ user }: { user: User & { plan: string } }) {
   const _switchOnRef = useRef<HTMLAudioElement>(null);
   const _switchOffRef = useRef<HTMLAudioElement>(null);
   return (
-    <header className="mt-4 flex items-center justify-between border-b pb-4 dark:border-gray-800">
+    <header className="mt-4 flex sticky bg-stone-950 z-50 top-0 py-4 items-center justify-between border-b dark:border-gray-800">
       <Icons.logoWithLetter />
       <div className="flex items-center gap-2 font-medium">
         <div className="relative col-span-1 select-none flex-col items-center justify-center self-center lg:flex">

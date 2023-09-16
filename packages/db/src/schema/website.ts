@@ -1,4 +1,4 @@
-import { index, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { index, int, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { boolean, date, id, userId } from './utils';
 import { relations } from 'drizzle-orm';
 import { teamMember, users } from '.';
@@ -21,6 +21,24 @@ export const websiteRelations = relations(website, ({ many, one }) => {
         user: one(users, {
             fields: [website.userId],
             references: [users.id]
+        })
+    }
+})
+
+
+export const websiteEmails = sqliteTable("emails", {
+    id: id(),
+    lastSent: date("lastSent"),
+    sendingInterval: int("sendingInterval").default(30),
+    reportInterval: int("reportInterval").default(30),
+    websiteId: text("websiteId").references(() => website.id, { onDelete: "cascade" }),
+})
+
+export const websiteEmailsRelation = relations(websiteEmails, ({ one }) => {
+    return {
+        website: one(website, {
+            fields: [websiteEmails.websiteId],
+            references: [website.id]
         })
     }
 })

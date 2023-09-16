@@ -68,3 +68,5 @@ geo/
 
 #sqlite
 *.sqlite
+
+.react-email/

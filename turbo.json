@@ -27,6 +27,9 @@
         },
         "migrate":{
             "cache": false
+        },
+        "generate":{
+            "cache": false
         }
     }
 }

@@ -10,13 +10,14 @@ import { convertToUTC } from "./lib/utils";
 import { router } from "./routes";
 import { getInsight } from "./routes/insight";
 import { getTablesData } from "./routes/table";
-import { apiQuery, insightPubApiSchema, insightSchema } from "./schema";
+import { apiQuery, ingestQuerySchema, insightPubApiSchema, insightSchema } from "./schema";
 import { Filter, LoglibEvent, Path } from "./type";
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import jwt from "jsonwebtoken";
+import { mail } from './lib/email';
 
 const app = new Hono();
 
@@ -128,6 +129,60 @@ app.get("/events", async (c) => {
         return c.json(null, 500);
     }
 });
+
+app.post("/send-ingest", async (c) => {
+    const body = await c.req.json()
+    const data = ingestQuerySchema.parse(body)
+    const apiKey = c.req.headers.get("x-api-key");
+    if (apiKey !== env.NEXTAUTH_SECRET) {
+        return c.json(null, 500)
+    }
+    const today = new Date()
+    const before30Days = new Date()
+    before30Days.setMonth(before30Days.getMonth() - 1)
+    const startDate = data.startDate ? new Date(body.startDate) : before30Days
+    const endDate = data.endDate ? new Date(body.endDate) : today
+    const duration = endDate.getTime() - startDate.getTime();
+    const pastEndDate = new Date(startDate.getTime() - duration);
+    try {
+        const website = await db.query.website.findFirst({
+            where(fields, operators) {
+                return operators.eq(fields.id, data.websiteId)
+            },
+        })
+        const tick = performance.now();
+        const [events, lastEvents] = await retryFunction(
+            eventDB.getHits,
+            [startDate, endDate, pastEndDate, data.websiteId],
+            3,
+            4,
+        );
+        const tack = performance.now();
+        console.log(tack - tick, "ms taken to query");
+        const insightData = getInsight(events as LoglibEvent[], lastEvents as LoglibEvent[]);
+        const tableData = getTablesData(
+            events as LoglibEvent[],
+            startDate,
+            endDate,
+            data.timezone,
+        );
+        await mail.sendIngestedEmail({
+            to: data.email,
+            website: website,
+            stats: insightData,
+            topPages: tableData.data.pages.slice(0, 5)
+        }).then(res => console.log(res))
+        return c.json(
+            {
+                insight: insightData,
+            },
+            200,
+        );
+    } catch (e) {
+        console.log(e)
+        return c.json(e, 500);
+    }
+})
 
 //api/v1
 app.use("/v1/*", async (_, next) => {
