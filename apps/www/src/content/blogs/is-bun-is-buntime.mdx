@@ -1,0 +1,167 @@
+---
+title: Is Bun A Drop In Replacement 
+description: This will be a brief discussion about bun being a replacement
+image: /blogs/bun.png
+date: "2023-09-16"
+authors: 
+  - KINFISH
+---
+
+
+# Bun: A Fast and Comprehensive Toolkit
+
+
+<Callout>
+> A wise man once told me, "When you start eating Bun, Node.js will feel bland".
+</Callout>
+
+Bun is a fast and comprehensive toolkit for JavaScript and TypeScript development. It is designed to handle various tasks involved in the development process, including running, building, testing, and debugging applications. Bun aims to provide a streamlined experience by allowing developers to work with JavaScript and TypeScript projects of different scales. Whether you're working on a small single-file project or a larger full-stack application, Bun aims to be a versatile tool that can handle the necessary tasks efficiently.
+
+## Naming Issue - Theo
+
+The creator of T3, Theo, warned them about not using the name "buntime," but it seems they didn't heed the advice. This decision had consequences, as Bun became a compiler, package manager, and bundler.
+
+## What Makes Bun Different?
+
+What sets Bun apart from other primitive JavaScript runtimes? The goal of Bun is to eliminate slowness and complexity while retaining the great features of JavaScript. It ensures that your favorite libraries and frameworks continue to work, and you don't need to unlearn the conventions you're already familiar with.
+
+One notable difference is that Bun drops the use of Node.js's primitive JavaScript engine, Chrome V8, and instead utilizes the JavaScript core engine (Apple), which is optimized for startup time. Additionally, as a YC-funded company, Bun's long-term sustainability may be a concern, making it challenging for Jarred, the creator of Bun, to pay developers and recruit more creative developers to the team except for OSS guys.
+
+Furthermore, while the camel was wandering with me, it shared a piece of advice: to use OCaml for building such runtimes and compilers due to its functional and powerful type safety features. However, it seems Zig was chosen instead, as Zig made the development process a "bun-dle" of joy, while OCaml and C++ couldn't "knead" up the same level of fun! Rest assured, Jarred Sumner was present during the camel's storytelling—just kidding! 😆
+
+
+## Behind the Drama: Exploring the Bun Ecosystem
+
+Zig covers over 43% of Bun's codebase, alongside C++, both being performant choices for building runtimes and compilers.  However, let me share a secret: ThePrimeage, a somewhat average Rust user, is quite pissed off. This doesn't necessarily mean Zig is faster than the C++ on which Node.js is built. Also, keep in mind C++ is fast, but that doesn't mean any code written in C++ will be. Perhaps I'm more sensitive to the peculiar friction within the Node.js space. So, let's dive deeper into what's happening behind this drama.
+
+### Test Runner and Development Tools
+
+- Is the built-in test runner in Bun legitimate, or do you need something else?
+- What are people using nowadays? Is npm still the go-to package manager, or should you consider Yarn or pnpm? 
+-  what about workspaces? Do people still rely on ts-node, or does nodemon suffice, even though it's not well-documented? Do you still need ts-watch or node-watch?
+
+### tsconfig and package.json
+
+- What new additions have been made to tsconfig? 
+- Should you start using modules yet? Are there any new fields in package.json, 
+-  what should you be doing with the "targets" field if you're building a library? Should you stick with tsc, or is there a better alternative that everyone is using?
+
+### Express and ORM/Query Builders
+
+- Is Express 5 already out? Just kidding! Well, the beta version seems to work, so can you just use that? 
+-  speaking of which, what's the new ORM/query builder/driver du jour? Is the one you used a few months ago considered abandonware? Can you opt for something different? Is it production-ready?
+
+### Bun's Solutions
+
+Surprisingly, all these questions are answered by Bun. Bun provides access to a faster runtime, which enhances the entire ecosystem that our projects rely on. It significantly speeds up test suites, bundlers, linters, and all the developer tooling that supports modern JavaScript development.
+
+Let me ask you something: Do you consider the database as a bottleneck? While performing queries doesn't block the main thread, running JS does. However, performance is definitely a selling point for the Bun team. It's a way to provide the Node.js community with a better experience and address the performance obsession.
+
+What about the network? Can that be a bottleneck too? Both caching mechanisms are employed. The great thing about Bun is that it doesn't check the network when installing packages. It relies on the oldy versions, possible number that can be represented by the caret (^) symbol, and it also ignores the latest package versions (@latest).
+
+Some argue that all these benchmarks and comparisons are nitpicks and often unfair. The true value Bun offers is an improved developer experience (DX) with built-in TypeScript support.
+
+Now, I'm curious to hear your thoughts. What do you think about all of this?
+
+
+## What Bun Replaces in Node.js
+
+- Bunx: Bunx is five times faster than npx and eliminates the need for modules like dotenv and cross-env. It provides faster dependency installation and includes a default watch mode with websocket support.
+
+- Transpiler: Bun can run various file types such as `.js`, `.ts`, `.cjs`, .`mjs`, .`jsx`, and `.tsx`. This eliminates the need for tools like esbuild, Webpack, Parcel, and Rollup.
+
+- Node.js Compatibility: Bun aims for complete compatibility with the Node.js API. Most npm packages intended for Node.js environments can work seamlessly with Bun. Check the list of supported Node.js built-in modules on [the Bun documentation](https://bun.sh/docs/runtime/nodejs-apis).
+
+- APIs: Bun implements a set of native APIs on the Bun global object and through built-in modules. These APIs are highly optimized and introduce new APIs primarily for server-side tasks where no standard exists. See the list of supported Bun APIs on [the Bun documentation](https://bun.sh/docs/runtime/bun-apis).
+
+- Package Manager: Bun is an npm-compatible package manager that reads your package.json and writes to node_modules.
+
+- Testing: Bun is Jest compatible, providing snapshot testing, mocking, and code coverage.
+
+Bun also offers ESM and CommonJS compatibility, allowing you to use both module systems within the same file without complex configuration.
+
+For more information, you can visit the Bun documentation links provided.
+
+
+
+Bun is a fast JavaScript runtime. Its goal is to make the experience of building software faster, less frustrating, and more fun. Bun has been benchmarked in the cloud as well as locally, and it outperforms the Node.js runtime. It is on par with other server-side languages like Rust in terms of performance. For example, when benchmarked using wrk:
+
+The source code for this test can be found at: [github](https://github.com/emilpriver/go-rust-bun)
+
+
+### Bun Benchmark
+```bash
+➜  ~ wrk -t16 -c1000 -d30 http://IP_ADDRESS:3000                                         [23/09/11|06:20pm]
+Running 30s test @ http://IP_ADDRESS:3000
+  16 threads and 1000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    42.61ms   15.20ms 647.53ms   95.99%
+    Req/Sec     1.48k   173.54     2.17k    80.20%
+  707302 requests in 30.10s, 88.36MB read
+  Socket errors: connect 0, read 83, write 0, timeout 0
+Requests/sec:  23497.18
+Transfer/sec:      2.94MB
+```
+
+### Nodeje Benchmark
+```bash
+➜  ~ wrk -t16 -c1000 -d30 http://IP_ADDRESS:3000                                         [23/09/11|06:21pm]
+Running 30s test @ http://IP_ADDRESS:3000
+  16 threads and 1000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    52.50ms   77.15ms   2.00s    98.27%
+    Req/Sec     1.23k   235.30     2.54k    78.12%
+  587719 requests in 30.10s, 91.92MB read
+  Socket errors: connect 0, read 0, write 0, timeout 434
+Requests/sec:  19524.73
+Transfer/sec:      3.05MB
+```
+Some other benchmarks record 
+
+## Results
+
+For results suffix with `-node` means that the framework is run in Node, otherwise is using Bun.
+
+These results are measured in req/s:
+
+| Framework              | Average     | Get (/)    | Params, query & header | Post JSON  |
+| ---------------------- | ----------- | ---------- | ---------------------- | ---------- |
+| uws (node)             | 369,192.103 | 457,538.99 | 389,308.63             | 260,728.69 |
+| stricjs (bun)          | 268,422.07  | 323,535.76 | 262,470.15             | 219,260.3  |
+| bun (bun)              | 262,250.81  | 325,012.5  | 238,600.42             | 223,139.51 |
+| elysia (bun)           | 261,538.61  | 321,378.82 | 248,866.5              | 214,370.51 |
+| vixeny (bun)           | 260,097.983 | 321,361.76 | 250,442.26             | 208,489.93 |
+| hyper-express (node)   | 241,177.05  | 350,373.13 | 274,099.12             | 99,058.9   |
+| hono (bun)             | 238,294.85  | 295,794.19 | 227,806.78             | 191,283.58 |
+| bun-web-standard (bun) | 233,734.623 | 282,952.77 | 220,206.67             | 198,044.43 |
+| nhttp (bun)            | 232,273.04  | 300,289.39 | 213,002.07             | 183,527.66 |
+| hyperbun (bun)         | 162,952.447 | 218,591.35 | 158,992.25             | 111,273.74 |
+| nbit (bun)             | 149,914.61  | 190,477.31 | 147,009.36             | 112,257.16 |
+| baojs (bun)            | 148,991.963 | 187,599.82 | 144,528.44             | 114,847.63 |
+| hono (deno)            | 132,527.407 | 167,513.6  | 137,757.28             | 92,311.34  |
+| h3 (node)              | 109,805.423 | 134,438.55 | 97,886.93              | 97,090.79  |
+| fast (deno)            | 94,872.417  | 111,352.95 | 94,498.72              | 78,765.58  |
+| cheetah (deno)         | 65,816.437  | 123,169.82 | 56,127.76              | 18,151.73  |
+| fastify (node)         | 65,813.137  | 78,048.68  | 67,553.99              | 51,836.74  |
+| oak (deno)             | 49,623.603  | 58,177.14  | 50,212.64              | 40,481.03  |
+| abc (deno)             | 42,806.143  | 54,345.39  | 45,928.65              | 28,144.39  |
+| koa (node)             | 39,195.18   | 45,212.34  | 40,435.12              | 31,938.08  |
+| express (bun)          | 29,432.237  | 38,914.36  | 33,669.54              | 15,712.81  |
+| hapi (node)            | 28,066.047  | 42,783.67  | 15,394.81              | 26,019.66  |
+| adonis (node)          | 23,047.5    | 22,368.91  | 21,316.67              | 25,456.92  |
+| express (node)         | 16,791.037  | 18,300.92  | 17,711.03              | 14,361.16  |
+| hono (node)            | 15,607.28   | 17,964.72  | 16,495.52              | 12,361.6   |
+| nest (node)            | 15,139.233  | 17,054.97  | 15,822.37              | 12,540.36  |
+| acorn (deno)           | 3,217.67    | 5,340.93   | 2,452.29               | 1,859.79   |
+
+
+
+See more detail in [results](https://github.com/SaltyAom/bun-http-framework-benchmark/tree/main/results)
+
+# Conclussion
+
+Despite the impressive performance of Bun, it's important to note that it's not necessary to replace your current tech stack with Bun. Both Bun and Node.js have their strengths and are capable of fulfilling their respective roles effectively. It's possible that Node.js is working hard to keep up with the demands of the ecosystem. Ultimately, the choice of technology depends on your specific requirements and preferences.
+
+For more information, you can visit the Bun documentation links provided.
+
+help us [editing the page](https://github.com/Kinfe123/loglib/blob/featix-ui/apps/www/src/content/blogs/is-bun-is-buntime.mdx)

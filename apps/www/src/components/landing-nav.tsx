@@ -15,7 +15,8 @@ export const LandingNav = () => {
             "dark:bg-logo/95 absolute bottom-0 left-0 h-1/2 w-[var(--width)] translate-x-2 bg-black/75 blur-xl transition-[width,transform] duration-500",
             pathname === "/" && "translate-x-2",
             pathname === "/pricing" && "translate-x-20",
-            pathname === "/blog" && "translate-x-44",
+            // pathname === "/blog" && "translate-x-44",
+            pathname?.includes("/blog") && "translate-x-44",
             pathname?.includes("/changelog") && "translate-x-72",
             pathname?.includes("/docs") && " translate-x-96"
           )}
@@ -31,7 +32,7 @@ export const LandingNav = () => {
               "bg-black/39 dark:bg-logo/30 absolute bottom-0 left-0 h-1/3 w-7 translate-x-2  rounded-full blur-md transition-[width,transform] duration-500",
               pathname === "/" && "translate-x-2",
               pathname === "/pricing" && "translate-x-20",
-              pathname === "/blog" && "translate-x-44",
+              pathname?.includes("/blog") && "translate-x-44",
               pathname?.includes("/changelog") && "translate-x-72",
               pathname?.includes("/docs") && " translate-x-96"
             )}
