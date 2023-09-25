@@ -1,9 +1,9 @@
+import { Search } from "lucide-react";
+import { useEffect, useState } from "react";
 import { ScrollArea } from "../../ui/scroll-area";
 import { Table, TableBody, TableCaption, TableHead, TableHeader, TableRow } from "../../ui/table";
 import { TableLoading } from "../table-loading";
 import { Tip } from "../tooltip";
-import { Search } from "lucide-react";
-import { useEffect, useState } from "react";
 
 type InsightProps<T> = {
     isLoading: boolean;

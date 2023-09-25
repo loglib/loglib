@@ -1,10 +1,12 @@
 import { LucideIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Area, AreaChart, Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
-
-
-export const SpeedChart = ({ data, Icon, name }: { data: { name: string, uv: string }[], Icon: LucideIcon; name: string }) => {
+export const SpeedChart = ({
+    data,
+    Icon,
+    name,
+}: { data: { name: string; uv: string }[]; Icon: LucideIcon; name: string }) => {
     const [isMobile, setIsMobile] = useState<boolean>();
     useEffect(() => {
         setIsMobile(window.innerWidth < 768);
@@ -23,8 +25,6 @@ export const SpeedChart = ({ data, Icon, name }: { data: { name: string, uv: str
                     bottom: 0,
                 }}
             > */}
-
-
             <BarChart width={150} height={40} data={data}>
                 <CartesianGrid strokeDasharray="3 3" className=" opacity-20" />
                 <Bar dataKey="uv" fill="#8884d8" />
@@ -72,5 +72,5 @@ export const SpeedChart = ({ data, Icon, name }: { data: { name: string, uv: str
             {/* <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" /> */}
             {/* </AreaChart> */}
         </ResponsiveContainer>
-    )
-}
+    );
+};

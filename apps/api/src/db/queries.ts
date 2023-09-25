@@ -21,7 +21,7 @@ const getStringJsonExtract = (q: string[]) => {
 export const vitalsQuery = (startDate: string, endDate: string, websiteId: string) => {
     const json = getStringJsonExtract(["country", "city", "browser", "language", "currentPath", "delta", "navigationType", "rating", "value", "name", "os"])
     console.log(json)
-    return `select id, sessionId, visitorId, ${json} from loglib.event WHERE timestamp >= '${startDate}' AND timestamp <= '${endDate}' AND websiteId = '${websiteId}' AND event = 'vitals'`
+    return `select id, sessionId, visitorId, properties, timestamp from loglib.event WHERE timestamp >= '${startDate}' AND timestamp <= '${endDate}' AND websiteId = '${websiteId}' AND event = 'vitals'`
 }
 
 const createEvent = () => {
