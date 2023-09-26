@@ -9,7 +9,7 @@ import { RepurposeYourData } from "@/components/landing/repurpose-your-data";
 import { Community } from "@/components/marketing/community";
 import { TrackView } from "@loglib/tracker/react";
 import Link from "next/link";
-import CTA from "../../components/landing/cta/CTA";
+// import CTA from "../../components/landing/cta/CTA";
 import TwitterTestimonial from "@/components/TwitterTestimonialSection";
 // import lang from '@/components/code-sample'
 // import CardForCode from "@/components/code-card";
@@ -129,9 +129,9 @@ export default async function IndexPage() {
           npmVersion={npm?.version ?? "0.6.2"}
         />
       </div>
-      <section>
+      {/* <section>
         <CTA />
-      </section>
+      </section> */}
       
          Twitter testimonial section goes here
       <div className="sm:py-18 container relative mx-auto px-6 py-16 md:py-24 lg:px-16 lg:py-24 xl:px-20">
