@@ -4,14 +4,6 @@
     "linked": [],
     "access": "public",
     "baseBranch": "main",
-    "ignore": [
-        "web",
-        "@loglib/api",
-        "@loglib/types",
-        "@loglib/db",
-        "@loglib/config",
-        "@loglib/clickhouse",
-        "@loglib/email"
-    ],
+    "ignore": ["web", "@loglib/api", "@loglib/clickhouse", "@loglib/email"],
     "changelog": "@changesets/cli/changelog"
 }

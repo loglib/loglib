@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "es6",
+        "target": "es5",
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
         "skipLibCheck": true,
@@ -16,7 +16,7 @@
         "incremental": true,
         "baseUrl": ".",
         "paths": {
-            "@/*": ["/src/*"],
+            "@/*": ["./src/*"],
             "contentlayer/generated": ["./.contentlayer/generated"]
         },
         "plugins": [

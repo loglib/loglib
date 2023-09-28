@@ -93,7 +93,7 @@ export function InsightTable<T>({
         ) : (
           <TableBody>
             {lData.map((d, i) => {
-              // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+              // rome-ignore lint/suspicious/noArrayIndexKey: <explanation>
               return <Row {...d} key={i} />;
             })}
           </TableBody>
