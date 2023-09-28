@@ -1,10 +1,31 @@
-import { send } from "./server"
-import { CLSMetricWithAttribution, FIDMetricWithAttribution, TTFBMetricWithAttribution, LCPMetricWithAttribution, FCPMetricWithAttribution, INPMetricWithAttribution, onCLS, onFCP, onFID, onINP, onTTFB, onLCP } from 'web-vitals/attribution';
+import {
+    CLSMetricWithAttribution,
+    FCPMetricWithAttribution,
+    FIDMetricWithAttribution,
+    INPMetricWithAttribution,
+    LCPMetricWithAttribution,
+    TTFBMetricWithAttribution,
+    onCLS,
+    onFCP,
+    onFID,
+    onINP,
+    onLCP,
+    onTTFB,
+} from "web-vitals/attribution";
+import { send } from "./server";
 import { getUrlParams, getVisitorId } from "./utils/util";
 
 export function recordWebVitals() {
-    const queue = window.lli.vitalQueue
-    function addToQueue(metric: CLSMetricWithAttribution | FIDMetricWithAttribution | LCPMetricWithAttribution | FCPMetricWithAttribution | INPMetricWithAttribution | TTFBMetricWithAttribution) {
+    const queue = window.lli.vitalQueue;
+    function addToQueue(
+        metric:
+            | CLSMetricWithAttribution
+            | FIDMetricWithAttribution
+            | LCPMetricWithAttribution
+            | FCPMetricWithAttribution
+            | INPMetricWithAttribution
+            | TTFBMetricWithAttribution,
+    ) {
         const data = {
             visitorId: getVisitorId(),
             sessionId: window.lli.sessionId,
@@ -19,22 +40,22 @@ export function recordWebVitals() {
             name: metric.name,
             rating: metric.rating,
             navigationType: metric.navigationType,
-            websiteId: window.llc.id
-        }
-        queue.add(data)
+            websiteId: window.llc.id,
+        };
+        queue.add(data);
     }
-    onCLS(addToQueue)
-    onFCP(addToQueue)
-    onFID(addToQueue)
-    onINP(addToQueue)
-    onTTFB(addToQueue)
-    onLCP(addToQueue)
+    onCLS(addToQueue);
+    onFCP(addToQueue);
+    onFID(addToQueue);
+    onINP(addToQueue);
+    onTTFB(addToQueue);
+    onLCP(addToQueue);
 }
 
 export function flushVitalQueue() {
-    const queue = window.lli.vitalQueue
+    const queue = window.lli.vitalQueue;
     if (queue.size > 0) {
-        send([...queue], undefined, undefined, "/vitals")
-        queue.clear()
+        send([...queue], undefined, undefined, "/vitals");
+        queue.clear();
     }
 }
