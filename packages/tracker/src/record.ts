@@ -32,7 +32,7 @@ export function record(config?: Partial<Config>) {
         consent: "denied",
         webVitals: true,
         pageAnalytics: true,
-        customEvents: true
+        customEvents: true,
     };
     if (config?.host) {
         if (Array.isArray(config.host)) {
@@ -58,7 +58,7 @@ export function record(config?: Partial<Config>) {
         intervals: [],
         sdkVersion: packageJson.version,
     };
-    const logger = Logger(window.llc.debug)
+    const logger = Logger(window.llc.debug);
     logger.log("start recording...", window.llc);
 
     //Set environment
@@ -73,20 +73,23 @@ export function record(config?: Partial<Config>) {
         //TODO: Add more auto trackers for d/t events
     }
 
-
     //vitals
     if (window.llc.webVitals) {
-        recordWebVitals()
-        sessionEndHandler(flushVitalQueue)
+        recordWebVitals();
+        const eventsInterval = setInterval(() => {
+            flushVitalQueue();
+        }, window.llc.postInterval * 1000);
+        addInterval(eventsInterval);
+        sessionEndHandler(flushVitalQueue);
     }
 
     //Custom events
     if (window.llc.customEvents) {
         const eventsInterval = setInterval(() => {
-            sendEvents()
+            sendEvents();
         }, window.llc.postInterval * 1000);
         addInterval(eventsInterval);
-        sessionEndHandler(sendEvents)
+        sessionEndHandler(sendEvents);
     }
 
     //page views
@@ -117,7 +120,7 @@ export const navigationHandler = (_: string, __: string, url: string) => {
 const sessionEndHandler = async (fn: () => void) => {
     document.onvisibilitychange = () => {
         if (document.visibilityState === "hidden") {
-            fn()
+            fn();
             sendEvents();
             clearIntervals();
         } else {
@@ -127,4 +130,4 @@ const sessionEndHandler = async (fn: () => void) => {
             }
         }
     };
-}
+};
