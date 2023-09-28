@@ -1,3 +1,5 @@
+import { Search } from "lucide-react";
+import { useEffect, useState } from "react";
 import { ScrollArea } from "../../ui/scroll-area";
 import {
   Table,
@@ -9,8 +11,6 @@ import {
 } from "../../ui/table";
 import { TableLoading } from "../table-loading";
 import { Tip } from "../tooltip";
-import { Search } from "lucide-react";
-import { useEffect, useState } from "react";
 
 type InsightProps<T> = {
   isLoading: boolean;
@@ -93,7 +93,7 @@ export function InsightTable<T>({
         ) : (
           <TableBody>
             {lData.map((d, i) => {
-              // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+              // rome-ignore lint/suspicious/noArrayIndexKey: <explanation>
               return <Row {...d} key={i} />;
             })}
           </TableBody>

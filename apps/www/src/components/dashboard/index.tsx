@@ -12,7 +12,7 @@ import {
     UserIcon,
     Users2,
 } from "lucide-react";
-import React, { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import useSWR from "swr";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,25 +21,27 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getLast24Hour } from "@/lib/time-helper";
 import { cn, fetcher } from "@/lib/utils";
 
+import { localSettingAtom } from "@/jotai/store";
+import { loglib } from "@loglib/tracker";
+import { TrackClick } from "@loglib/tracker/react";
+import { PLAN, Website } from "@loglib/types/models";
+import { env } from "env.mjs";
+import { useAtom } from "jotai";
+import { MoreHorizontal } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { AddTracker } from "../add-tracker";
+import { Label } from "../ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { Celebrate } from "./celebrate";
 import { CalendarDateRangePicker, DatePicker } from "./date-picker";
 import Events from "./events";
 import { InsightCard } from "./insight/card";
 import LocationMap from "./insight/location-map";
 import { InsightTables } from "./insight/tables";
 import { Graph } from "./insight/visitor-graph";
+import { SpeedInsight } from "./speed-insight";
 import { Filter, FilterProp, TimeRange } from "./type";
-import { env } from "env.mjs";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { MoreHorizontal } from "lucide-react";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { Label } from "../ui/label";
-import { TrackClick } from "@loglib/tracker/react";
-import { loglib } from "@loglib/tracker";
-import { Celebrate } from "./celebrate";
-import { useAtom } from "jotai";
-import { localSettingAtom } from "@/jotai/store";
-import { PLAN, Website } from "@loglib/types/models";
 
 export const Dashboard = ({
     website,
@@ -98,7 +100,9 @@ export const Dashboard = ({
             setIsBar(setting.graph === "bar-graph");
         }
     }, [setting]);
-
+    const router = useRouter()
+    const params = useSearchParams()
+    const defaultValue = params.get("tab") ?? "insights"
     return (
         <main>
             <AddTracker websiteId={website.id} show={showSetup ?? false} />
@@ -108,7 +112,9 @@ export const Dashboard = ({
                         "w-full space-y-4 transition-all duration-700 dark:text-white/80 scrollbar-hide",
                     )}
                 >
-                    <Tabs defaultValue="insights" className="space-y-4">
+                    <Tabs defaultValue={defaultValue} className="space-y-4" onValueChange={(val) => {
+                        router.push(`?tab=${val}`)
+                    }}>
                         {!isPublic ? (
                             <div className=" flex items-center justify-between">
                                 <TabsList>
@@ -128,6 +134,9 @@ export const Dashboard = ({
                                         }
                                     >
                                         Events
+                                    </TabsTrigger>
+                                    <TabsTrigger value="speed" className="flex items-center gap-1 dark:data-[state=active]:text-emphasis data-[state=active]:text-emphasis">
+                                        Speed
                                     </TabsTrigger>
                                 </TabsList>
                                 <div>
@@ -454,6 +463,20 @@ export const Dashboard = ({
                                         />
                                     </TabsContent>
                                 </TrackClick>
+                                <TabsContent value="speed">
+                                    <SpeedInsight
+                                        showUpdateDialog={!showSetup}
+                                        website={website}
+                                        timeRange={timeRange}
+                                        setting={{
+                                            timezone: setting.timezone ?? timezone,
+                                            graph: setting.graph
+                                        }}
+                                        filters={filters}
+                                        token={token}
+                                        url={url}
+                                    />
+                                </TabsContent>
                             </motion.div>
                         </AnimatePresence>
                     </Tabs>

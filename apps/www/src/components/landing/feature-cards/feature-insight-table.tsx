@@ -28,7 +28,7 @@ export const InsightTables = () => {
                         r="267.312"
                         transform="matrix(1 0 0 -1 158.643 192.812)"
                         fill="url(#paint1_linear_295_3421)"
-                        fill-opacity="0.9"
+                        fillOpacity="0.9"
                     ></circle>
                     <circle
                         cx="267.312"
@@ -36,7 +36,7 @@ export const InsightTables = () => {
                         r="264.767"
                         transform="matrix(1 0 0 -1 158.643 192.812)"
                         stroke="url(#paint2_linear_295_3421)"
-                        stroke-opacity="0.3"
+                        strokeOpacity="0.3"
                         strokeWidth="5.09167"
                     ></circle>
                 </g>
@@ -48,9 +48,9 @@ export const InsightTables = () => {
                         width="840"
                         height="840"
                         filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB"
+                        colorInterpolationFilters="sRGB"
                     >
-                        <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                        <feFlood floodOpacity="0" result="BackgroundImageFix"></feFlood>
                         <feBlend
                             mode="normal"
                             in="SourceGraphic"
@@ -70,8 +70,8 @@ export const InsightTables = () => {
                         y2="70.2128"
                         gradientUnits="userSpaceOnUse"
                     >
-                        <stop stop-color="#7FBCDB"></stop>
-                        <stop offset="1" stop-color="#3467E9"></stop>
+                        <stop stopColor="#7FBCDB"></stop>
+                        <stop offset="1" stopColor="#3467E9"></stop>
                     </linearGradient>
                     <linearGradient
                         id="paint1_linear_295_3421"
@@ -81,7 +81,7 @@ export const InsightTables = () => {
                         y2="385.812"
                         gradientUnits="userSpaceOnUse"
                     >
-                        <stop stop-opacity="0"></stop>
+                        <stop stopOpacity="0"></stop>
                         <stop offset="1"></stop>
                     </linearGradient>
                     <linearGradient
@@ -92,8 +92,8 @@ export const InsightTables = () => {
                         y2="534.625"
                         gradientUnits="userSpaceOnUse"
                     >
-                        <stop offset="0.605709" stop-color="white" stop-opacity="0"></stop>
-                        <stop offset="0.81137" stop-color="white"></stop>
+                        <stop offset="0.605709" stopColor="white" stopOpacity="0"></stop>
+                        <stop offset="0.81137" stopColor="white"></stop>
                     </linearGradient>
                 </defs>
             </svg>
@@ -158,7 +158,7 @@ export const InsightTables = () => {
                                     width="21.125"
                                     height="21.125"
                                     stroke="white"
-                                    stroke-opacity="0.2"
+                                    strokeOpacity="0.2"
                                     strokeWidth="0.541667"
                                 ></rect>
                                 <path
@@ -179,7 +179,7 @@ export const InsightTables = () => {
                                     width="21.125"
                                     height="21.125"
                                     stroke="white"
-                                    stroke-opacity="0.2"
+                                    strokeOpacity="0.2"
                                     strokeWidth="0.541667"
                                 ></rect>
                                 <path
@@ -209,7 +209,7 @@ export const InsightTables = () => {
                                     width="21.125"
                                     height="21.125"
                                     stroke="white"
-                                    stroke-opacity="0.2"
+                                    strokeOpacity="0.2"
                                     strokeWidth="0.541667"
                                 ></rect>
                                 <path
@@ -230,7 +230,7 @@ export const InsightTables = () => {
                                     width="21.125"
                                     height="21.125"
                                     stroke="white"
-                                    stroke-opacity="0.2"
+                                    strokeOpacity="0.2"
                                     strokeWidth="0.541667"
                                 ></rect>
                             </g>
@@ -264,8 +264,8 @@ export const InsightTables = () => {
                                 y2="25.4481"
                                 gradientUnits="userSpaceOnUse"
                             >
-                                <stop stop-color="#564439"></stop>
-                                <stop offset="1" stop-color="#564439" stop-opacity="0"></stop>
+                                <stop stopColor="#564439"></stop>
+                                <stop offset="1" stopColor="#564439" stopOpacity="0"></stop>
                             </linearGradient>
                             <linearGradient
                                 id="paint1_linear_295_3336"
@@ -275,8 +275,8 @@ export const InsightTables = () => {
                                 y2="64"
                                 gradientUnits="userSpaceOnUse"
                             >
-                                <stop stop-color="#564439"></stop>
-                                <stop offset="1" stop-color="#564439" stop-opacity="0"></stop>
+                                <stop stopColor="#564439"></stop>
+                                <stop offset="1" stopColor="#564439" stopOpacity="0"></stop>
                             </linearGradient>
                         </defs>
                     </svg>

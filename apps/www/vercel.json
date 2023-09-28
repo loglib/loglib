@@ -1,8 +1,8 @@
 {
-    "crons": [
-      {
-        "path": "/api/send-ingest",
-        "schedule": "0 5 * * *"
-      }
-    ]
+  "crons": [
+    {
+      "path": "/api/send-ingest",
+      "schedule": "0 5 * * *"
+    }
+  ]
 }

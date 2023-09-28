@@ -18,11 +18,11 @@ export const LandingGraph = () => {
                         y="-100%"
                         width="350%"
                         height="350%"
-                        color-interpolation-filters="sRGB"
+                        colorInterpolationFilters="sRGB"
                     >
                         <feGaussianBlur stdDeviation="5" result="coloredBlur" />
                         <feOffset dx="0" dy="20" result="offsetblur"></feOffset>
-                        <feFlood id="glowAlpha" flood-color="#000" flood-opacity="0.123"></feFlood>
+                        <feFlood id="glowAlpha" floodColor="#000" floodOpacity="0.123"></feFlood>
                         <feComposite in2="offsetblur" operator="in"></feComposite>
                         <feMerge>
                             <feMergeNode />
@@ -34,15 +34,15 @@ export const LandingGraph = () => {
                 <g id="graphTextGroup" opacity="0.5">
                     <text
                         transform="translate(48.33 473.71)"
-                        font-size="18"
+                        fontSize="18"
                         fill="#fff"
-                        font-weight="700"
+                        fontWeight="700"
                     >
                         0 Visitors
                     </text>
                     <text
                         transform="translate(48.33 301.71)"
-                        font-size="18"
+                        fontSize="18"
                         className=" fill-black dark:fill-white stroke-black dark:stroke-white"
                     >
                         200 Visitors
@@ -50,7 +50,7 @@ export const LandingGraph = () => {
 
                     <text
                         transform="translate(48.33 101.71)"
-                        font-size="18"
+                        fontSize="18"
                         className=" fill-black dark:fill-white stroke-black dark:stroke-white"
                     >
                         400 Visitors

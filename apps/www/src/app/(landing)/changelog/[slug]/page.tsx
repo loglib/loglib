@@ -96,36 +96,6 @@ export default async function ChangelogPost({
                     blurDataURL={await getBlurDataURL(post.image)}
                     className="border border-gray-100 dark:border-stone-800 md:rounded-2xl"
                 />
-                <div className="mx-5 mb-10 flex items-center justify-between md:mx-0">
-                    {/* <Author username={post.author} /> */}
-                    <div className="flex items-center space-x-6">
-                        {/* <Link
-                            href={`https://twitter.com/intent/tweet?text=${post.title}&url=https://loglib.io/changelog/${post.slug}&via=${post.author}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="transition-all hover:scale-110"
-                        >
-                            <Icons.twitter className="h-6 w-6 fill-white" />
-                        </Link> */}
-                        {/* <Link
-                            href={`
-            http://www.linkedin.com/shareArticle?mini=true&url=https://loglib.io/changelog/${post.slug}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="transition-all hover:scale-110"
-                        >
-                            <Linkedin className="h-6 w-6" fill="black" />
-                        </Link>
-                        <Link
-                            href={`https://www.facebook.com/sharer/sharer.php?u=https://loglib.io/changelog/${post.slug}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="transition-all hover:scale-110"
-                        >
-                            <Facebook className="h-6 w-6" fill="black" />
-                        </Link> */}
-                    </div>
-                </div>
                 <MDX code={post.body.code} />
                 <div className="mt-10 flex justify-end border-t border-gray-200 pt-5">
                     <Link

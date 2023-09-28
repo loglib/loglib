@@ -13,6 +13,7 @@ import {
     hook,
     parseHost,
 } from "./utils/util";
+import { flushVitalQueue, recordWebVitals } from "./vitals";
 
 /**
  * Initializes the web analytics tracker with the specified configuration options.
@@ -21,13 +22,17 @@ import {
  */
 export function record(config?: Partial<Config>) {
     //Set Config
-    const defaultConfig: Config = {
+    const defaultConfig: NonNullable<Config> = {
+        id: "",
         debug: false,
         autoTrack: false,
         env: "auto",
         postInterval: 5,
         host: getUrl(),
         consent: "denied",
+        webVitals: true,
+        pageAnalytics: true,
+        customEvents: true
     };
     if (config?.host) {
         if (Array.isArray(config.host)) {
@@ -37,11 +42,13 @@ export function record(config?: Partial<Config>) {
         }
     }
     window.llc = config ? { ...defaultConfig, ...config } : defaultConfig;
+
     //Set Internal
     const now = Date.now();
     const packageJson = require("../package.json") as { version: string };
     window.lli = {
         eventsBank: [],
+        vitalQueue: new Set(),
         startTime: now,
         currentUrl: `${location.pathname}${location.search}`,
         currentRef: document.referrer,
@@ -54,24 +61,43 @@ export function record(config?: Partial<Config>) {
     const logger = Logger(window.llc.debug)
     logger.log("start recording...", window.llc);
 
+    //Set environment
+    if (window.llc.env === "auto") {
+        const env = detectEnvironment();
+        window.llc.env = env;
+    }
+
     //Auto Tracker
     if (window.llc.autoTrack) {
         window.addEventListener("click", clickHandler);
         //TODO: Add more auto trackers for d/t events
     }
-    if (window.llc.env === "auto") {
-        const env = detectEnvironment();
-        window.llc.env = env;
+
+
+    //vitals
+    if (window.llc.webVitals) {
+        recordWebVitals()
+        sessionEndHandler(flushVitalQueue)
     }
-    const eventsInterval = setInterval(() => {
-        sendEvents()
-    }, window.llc.postInterval * 1000);
-    addInterval(eventsInterval);
-    //Navigation Handler
-    history.pushState = hook(history, "pushState", navigationHandler);
-    history.replaceState = hook(history, "replaceState", navigationHandler);
-    //Session End
-    sessionEndHandler();
+
+    //Custom events
+    if (window.llc.customEvents) {
+        const eventsInterval = setInterval(() => {
+            sendEvents()
+        }, window.llc.postInterval * 1000);
+        addInterval(eventsInterval);
+        sessionEndHandler(sendEvents)
+    }
+
+    //page views
+    if (window.llc.pageAnalytics) {
+        //Navigation Handler
+        history.pushState = hook(history, "pushState", navigationHandler);
+        history.replaceState = hook(history, "replaceState", navigationHandler);
+        const currentRef = window.lli.currentRef;
+        const currentUrl = window.lli.currentUrl;
+        sessionEndHandler(() => sendPageView(currentRef, currentUrl));
+    }
 }
 
 export const navigationHandler = (_: string, __: string, url: string) => {
@@ -88,13 +114,11 @@ export const navigationHandler = (_: string, __: string, url: string) => {
     }
 };
 
-const sessionEndHandler = async () => {
+const sessionEndHandler = async (fn: () => void) => {
     document.onvisibilitychange = () => {
         if (document.visibilityState === "hidden") {
+            fn()
             sendEvents();
-            const currentRef = window.lli.currentRef;
-            const currentUrl = window.lli.currentUrl;
-            sendPageView(currentRef, currentUrl);
             clearIntervals();
         } else {
             //there should be already a config
@@ -103,4 +127,4 @@ const sessionEndHandler = async () => {
             }
         }
     };
-};
+}
