@@ -1,13 +1,13 @@
-import { apiResponse } from "../lib/api-response";
+import { browserName, detectOS } from "detect-browser";
+import { z } from "zod";
+import { eventDB } from "../db";
 import { client } from "../db/clickhouse";
+import { apiResponse } from "../lib/api-response";
 import { getDevice } from "../lib/detect/get-device";
 import { getIpAddress } from "../lib/detect/get-ip-address";
 import { getLocation } from "../lib/detect/get-location";
 import { setVisitorId } from "../lib/set-visitor-id";
 import { RouteType } from "./type";
-import { browserName, detectOS } from "detect-browser";
-import { z } from "zod";
-import { eventDB } from "../db";
 
 export const eventSchema = z.object({
     events: z.array(
@@ -33,7 +33,6 @@ export const eventSchema = z.object({
 
 export const createEvents: RouteType = async ({ rawBody, req }) => {
     const body = eventSchema.safeParse(rawBody);
-    console.log(body, rawBody)
     if (body.success) {
         const ipAddress = getIpAddress(req);
         const { visitorId, websiteId, sessionId, language, events, screenWidth } = body.data;
@@ -70,7 +69,7 @@ export const createEvents: RouteType = async ({ rawBody, req }) => {
                     sign: 1,
                 },
                 format: "JSONEachRow",
-            }).then(res => console.log(res));
+            });
             await eventDB.insertEvent({
                 id: event.id,
                 sessionId,
@@ -91,8 +90,8 @@ export const createEvents: RouteType = async ({ rawBody, req }) => {
                 os,
                 device,
                 language: language ?? "en",
-                timestamp: new Date().toISOString().slice(0, 19).replace("T", " ")
-            })
+                timestamp: new Date().toISOString().slice(0, 19).replace("T", " "),
+            });
         });
         return {
             data: {

@@ -170,7 +170,7 @@ export function CelebrateFn({
           Celebrate
         </Button>
         <Dialog>
-          <DialogTrigger asChild>
+          <DialogTrigger asChild className="hidden md:block">
             <Button size="sm" variant="outline">
               <Settings size={15} />
             </Button>
