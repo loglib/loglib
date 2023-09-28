@@ -1,5 +1,11 @@
 # @loglib/tracker
 
+## 0.8.0
+
+### Minor Changes
+
+- 3281f6c: - Send vital request in batch with a given post interval.
+
 ## 0.7.0
 
 ### Minor Changes
