@@ -1,5 +1,12 @@
 # @loglib/tracker
 
+## 0.7.0
+
+### Minor Changes
+
+- dea4dcd: - Speed Insights: Loglib tracker now collects web vital scores.
+  - Options to selectively turn on page analytics, speed insight or custom events.
+
 ## 0.6.2
 
 ### Patch Changes
