@@ -15,7 +15,7 @@ export const track = (name: string, payload: Record<string, any> = {}) => {
         pageId: window.lli.pageId,
         queryParams: getUrlParams(),
     };
-    q(event);
+    window.llc.customEvents && q(event);
 };
 
 export const identify = (payload: Record<string, string>) => {

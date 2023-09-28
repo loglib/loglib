@@ -13,13 +13,13 @@
   user-select: none;
   -webkit-user-select: none;
   pointer-events: none;
-  font-weight: 700;
+  fontweight: 700;
 }
 
 .box {
   opacity: 0;
 }
 
-.svg>circle {
+.svg > circle {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }

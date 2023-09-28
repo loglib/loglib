@@ -30,15 +30,15 @@ export default async function DashboardSideBarLayout({
     lastMonth.setMonth(lastMonth.getMonth() - 1)
     const usage = await getUsage(lastMonth, thisMonth, user.id)
     return (
-        <div className=" space-y-8 px-4 md:px-16 ">
+        <div className=" space-y-8 px-4 md:px-16 bg-background">
             <StoreSetter store="website" data={websites} />
             <StoreSetter store="user" data={user} />
             <StoreSetter store="teamWebsites" data={teamWebsites} />
             <StoreSetter store="userWebsites" data={userWebsites} />
             <StoreSetter store="usage" data={usage} />
             <DashboardHeader user={{ ...user, plan: userWithPlan?.plan ?? "free" }} />
-            <main className="grid  gap-12 md:grid-cols-[200px_1fr] relative">
-                <aside className="hidden w-[200px] flex-col pr-4 md:flex sticky top-0">
+            <main className="grid  gap-12 md:grid-cols-[200px_1fr]">
+                <aside className="hidden w-[200px] flex-col pr-4 md:flex md:sticky md:top-0">
                     <DashboardNav
                         items={[
                             {

@@ -564,6 +564,9 @@ importers:
       utf-8-validate:
         specifier: ^6.0.3
         version: 6.0.3
+      web-vitals:
+        specifier: ^3.4.0
+        version: 3.4.0
       zod:
         specifier: ^3.21.4
         version: 3.21.4
@@ -749,6 +752,10 @@ importers:
         version: 5.1.6
 
   packages/tracker:
+    dependencies:
+      web-vitals:
+        specifier: ^3.4.0
+        version: 3.4.0
     devDependencies:
       '@changesets/changelog-git':
         specifier: ^0.1.14
@@ -759,6 +766,9 @@ importers:
       '@changesets/cli':
         specifier: ^2.26.1
         version: 2.26.1
+      '@loglib/types':
+        specifier: workspace:*
+        version: link:../types
       '@types/jest':
         specifier: ^29.5.1
         version: 29.5.1
@@ -804,6 +814,9 @@ importers:
       '@loglib/db':
         specifier: ^1.0.0
         version: link:../db
+      web-vitals:
+        specifier: ^3.4.0
+        version: 3.4.0
 
 packages:
 
@@ -19138,6 +19151,10 @@ packages:
   /web-streams-polyfill@3.2.1:
     resolution: {integrity: sha512-e0MO3wdXWKrLbL0DgGnUV7WHVuw9OUvL4hjgnPkIeEvESk74gAITi5G606JtZPp39cd8HA9VQzCIvA49LpPN5Q==}
     engines: {node: '>= 8'}
+    dev: false
+
+  /web-vitals@3.4.0:
+    resolution: {integrity: sha512-n9fZ5/bG1oeDkyxLWyep0eahrNcPDF6bFqoyispt7xkW0xhDzpUBTgyDKqWDi1twT0MgH4HvvqzpUyh0ZxZV4A==}
     dev: false
 
   /web-worker@1.2.0:

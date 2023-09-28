@@ -1,7 +1,5 @@
 import { ApiRequest } from "../../routes/type";
-import { HonoRequest } from "hono";
-import { CityResponse, Reader } from "maxmind";
-import maxmind from "maxmind";
+import maxmind, { CityResponse, Reader } from "maxmind";
 import path from "path";
 
 let lookup: Reader<CityResponse> | null;

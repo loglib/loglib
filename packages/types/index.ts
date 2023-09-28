@@ -1,31 +1,21 @@
 import { Website } from "./models";
 
+type Insight = {
+    current: number;
+    change: number;
+};
+
 export type GetInsightResponse = {
     insight: {
-        uniqueVisitors: {
-            current: number;
-            change: number;
-        };
-        totalPageViews: {
-            current: number;
-            change: number;
-        };
+        uniqueVisitors: Insight;
+        totalPageViews: Insight;
         averageTime: {
             current: string;
             change: number;
         };
-        bounceRate: {
-            current: number;
-            change: number;
-        };
-        newVisitors: {
-            current: number;
-            change: number;
-        };
-        returningVisitor: {
-            current: number;
-            change: number;
-        };
+        bounceRate: Insight;
+        newVisitors: Insight;
+        returningVisitor: Insight;
     };
     data: {
         pages: {
@@ -99,9 +89,9 @@ export type LoglibEvent = {
     duration: number;
     os: string;
     visitorId: string;
-    websiteId: string
-    payload?: string,
-    type?: string
+    websiteId: string;
+    payload?: string;
+    type?: string;
 };
 
 export type LoglibCustomEvent = {
@@ -124,7 +114,7 @@ export type LoglibCustomEvent = {
     type: string;
     payload: Record<string, string> | null;
     sessionId: string;
-}
+};
 
 type StringOperator = "is" | "isNot" | "contains" | "notContains";
 type NumberOperator = "lte" | "gte" | "lt" | "gt" | "is" | "isNot";
@@ -141,4 +131,65 @@ export type OperatorType<T> = T extends string
     ? ArrayOperator
     : never;
 
-export type FullWebsite = Website & { visitors: number, plan: string }
+export type FullWebsite = Website & { visitors: number; plan: string };
+
+type Vitals = {
+    TTFB: number;
+    FCP: number;
+    LCP: number;
+    CLS: number;
+};
+
+export type GetVitalsResponse = {
+    CLS: Insight;
+    LCP: Insight;
+    FID: Insight;
+    INP: Insight;
+    FCP: Insight;
+    graph: {
+        mobile: {
+            [x: string]: {
+                originalDate: Date;
+                date: string;
+                value: number;
+            }[];
+        };
+        desktop: {
+            [x: string]: {
+                originalDate: Date;
+                date: string;
+                value: number;
+            }[];
+        };
+    };
+    data: {
+        pages: {
+            page: string;
+            data: Vitals;
+        }[];
+        devices: {
+            device: string;
+            data: Vitals;
+        }[];
+        locations: {
+            byCity: {
+                location: string;
+                country: string;
+                data: Vitals;
+            }[];
+            byCountry: {
+                location: string;
+                country: string;
+                data: Vitals;
+            }[];
+        };
+        browsers: {
+            browser: string;
+            data: Vitals;
+        }[];
+        os: {
+            os: string;
+            data: Vitals;
+        }[];
+    };
+};

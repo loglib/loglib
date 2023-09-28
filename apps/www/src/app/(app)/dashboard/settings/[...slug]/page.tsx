@@ -3,6 +3,7 @@ import { SuccessfulPayment } from "@/components/successful-payment";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
@@ -43,8 +44,8 @@ const Setting = async ({ params }: { params: { slug: string[] } }) => {
             <div className="grid gap-1">
                 <h1 className="font-heading text-3xl md:text-4xl">Setting</h1>
                 <p className="text-muted-foreground text-lg">Manage your account settings</p>
+                <Separator className=" mt-4" />
             </div>
-            <Card></Card>
             <Tabs defaultValue={route}>
                 <TabsList>
                     <TabsTrigger value="billing">

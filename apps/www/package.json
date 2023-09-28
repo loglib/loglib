@@ -152,6 +152,7 @@
         "tailwind-variants": "^0.1.14",
         "tier": "^5.10.0",
         "utf-8-validate": "^6.0.3",
+        "web-vitals": "^3.4.0",
         "zod": "^3.21.4"
     },
     "devDependencies": {

@@ -33,11 +33,7 @@
         "**/*.tsx",
         ".next/types/**/*.ts",
         ".contentlayer/generated",
-        "src/lib/tinybird.js",
-        "drizzle.config.mjs",
-        "drizzle.config.mjs",
-        "src/components/successful-payment",
-        "../api/src/lib/email.ts"
+        "drizzle.config.mjs"
     ],
     "exclude": ["node_modules"]
 }
