@@ -14,3 +14,5 @@ export const apiKey = sqliteTable("apiKey", {
 }, (table) => ({
     userIdx: index("user_idx").on(table.userId)
 }))
+
+

@@ -16,6 +16,7 @@
         "test": "turbo test",
         "typecheck": "turbo typecheck",
         "deploy:api": "turbo --filter api deploy",
+        "generate": "dotenv -- turbo --filter db generate",
         "migrate": "dotenv -- turbo --filter db migrate",
         "clickhouse:migrate": "dotenv -- turbo --filter clickhouse migrate",
         "studio": "pnpm --filter db studio"
@@ -32,6 +33,7 @@
         }
     },
     "dependencies": {
+        "@biomejs/biome": "1.0.0",
         "@changesets/changelog-github": "^0.4.8",
         "@changesets/cli": "^2.26.1",
         "@commitlint/config-conventional": "^17.6.6",
@@ -46,8 +48,5 @@
         "turbo": "^1.9.3",
         "typescript": "^5.1.6",
         "vitest": "^0.31.0"
-    },
-    "devDependencies": {
-        "@biomejs/biome": "1.0.0"
     }
 }

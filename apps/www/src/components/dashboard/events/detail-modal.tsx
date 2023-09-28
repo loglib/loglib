@@ -27,7 +27,7 @@ const renderSubComponent = ({ row }: { row: Row<LoglibCustomEvent> }) => {
         Time: new Date(data.timestamp).toLocaleString(),
     };
     const customProperties = {
-        ...JSON.parse(data.payload as unknown as string),
+        ...JSON.parse(typeof data.payload === "string" ? data.payload : JSON.stringify(data.payload)),
     };
     const allProperties = {
         ...automaticProperties,
@@ -71,7 +71,9 @@ const renderSubComponent = ({ row }: { row: Row<LoglibCustomEvent> }) => {
                                 >
                                     <div className="font-bold">{key}: </div>
                                     <div>
-                                        {automaticProperties[key as keyof typeof allProperties]}
+                                        {JSON.stringify(
+                                            allProperties[key as keyof typeof allProperties],
+                                        )}
                                     </div>
                                 </div>
                             );
