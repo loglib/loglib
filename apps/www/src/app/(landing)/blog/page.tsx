@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import BlurImage from "@/components/ui/blur-image";
 import { getBlurDataURL } from "@/lib/image";
 import { constructMetadata, formatDate } from "@/lib/utils";
-import { ChangelogPost, allBlogPosts } from "contentlayer/generated";
+import { BlogPost, allBlogPosts } from "contentlayer/generated";
 import Link from "next/link";
 
 export const metadata = constructMetadata({
@@ -94,7 +94,7 @@ export default async function Blog() {
     );
 }
 
-async function BlurredImage({ post, idx }: { post: ChangelogPost; idx: number }) {
+async function BlurredImage({ post, idx }: { post: BlogPost; idx: number }) {
     const blurDataURL = await getBlurDataURL(post.image);
     return (
         <BlurImage
