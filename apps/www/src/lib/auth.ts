@@ -10,7 +10,7 @@ import { env } from "../../env.mjs";
 
 export const authOptions: NextAuthOptions = {
     adapter: {
-        ...(DrizzleAdapter(db as any) as any),
+        ...(DrizzleAdapter(db) as any),
         async createUser(user) {
             await db
                 .insert(schema.users)
