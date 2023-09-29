@@ -23,7 +23,7 @@ export const SpeedTables = ({
     activeStat,
 }: InsightTablesProps) => {
     return (
-        <Card className=" md:col-span-3 bg-gradient-to-tr from-stone-950 to-stone-900/50 ">
+        <Card className=" md:col-span-3 col-span-7 bg-gradient-to-tr from-stone-950 to-stone-900/50 ">
             <Tabs defaultValue="pages">
                 <TabsList className="md:w-full space-x-2 md:justify-start grid grid-cols-4">
                     <TabsTrigger value="pages" className=" space-x-2 ">

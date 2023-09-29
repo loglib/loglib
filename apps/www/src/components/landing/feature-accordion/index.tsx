@@ -1,7 +1,7 @@
 "use client";
+import { motion } from "framer-motion";
 import Features from "./features";
 import styles from "./features.module.css";
-import { motion } from "framer-motion";
 
 export const FeatureAccordion = () => {
     return (

@@ -12,9 +12,8 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
-import { Filter, MousePointerClick, Users } from "lucide-react";
-import { BarChart } from "lucide-react";
 import { loglib } from "@loglib/tracker";
+import { BarChart, Filter, MousePointerClick, Users } from "lucide-react";
 
 const featureList = [
     {

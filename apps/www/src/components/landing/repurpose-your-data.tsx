@@ -1,28 +1,10 @@
 "use client";
-import Background from "./grid-background/background";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import Background from "./grid-background/background";
 
 export const RepurposeYourData = () => {
-    const [borderHeight, setBorderHeight] = useState(0);
-    useEffect(() => {
-        window.IntersectionObserver && // check that IntersectionObserver is supported
-            new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            setBorderHeight(0);
-                        } else {
-                            setBorderHeight(2);
-                        }
-                    });
-                },
-                {
-                    rootMargin: "0px",
-                    threshold: 0.5,
-                },
-            ).observe(document.getElementById("border") as HTMLElement);
-    }, []);
+
+
     return (
         <section className=" w-full bg-stone-950 ">
             <Background />
@@ -30,9 +12,7 @@ export const RepurposeYourData = () => {
                 <div
                     className=" bg-[#303a75]  border-t border-stone-800 transition-all duration-500 w-full absolute bottom-0 blur-md"
                     id="border"
-                    style={{
-                        height: borderHeight,
-                    }}
+
                 ></div>
                 <div className="max-w-screen-lg px-6 mx-auto grid md:grid-cols-2 gap-12">
                     <div className="flex flex-col items-center md:items-start text-center md:text-left order-2 md:order-none">

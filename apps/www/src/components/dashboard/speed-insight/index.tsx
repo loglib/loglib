@@ -139,35 +139,35 @@ export const SpeedInsight = ({
                 }
             </div>
             <div className="grid gap-4 min-h-max md:grid-cols-2 lg:grid-cols-7 grid-cols-1">
-                <Card className=" col-span-4">
-                    <CardHeader className=" flex flex-row items-center justify-between">
-                        <div className=" space-y-2">
-                            <CardTitle className="text-base">
-                                <Tabs onValueChange={setChartDevice} value={chartDevice}>
-                                    <TabsList className=" bg-stone-900">
-                                        <TabsTrigger value="desktop">
-                                            <div className=" flex items-center gap-1">
-                                                <Monitor size={14} />
-                                                Desktop
-                                            </div>
-                                        </TabsTrigger>
-                                        <TabsTrigger value="mobile">
-                                            <div className=" flex items-center gap-1">
-                                                <Smartphone size={14} />
-                                                Mobile
-                                            </div>
-                                        </TabsTrigger>
-                                    </TabsList>
-                                </Tabs>
-                            </CardTitle>
-                        </div>
+                <Card className="col-span-7 md:col-span-4">
+                    <CardHeader className="flex flex-row items-center justify-between">
+
+                        <CardTitle className="text-base">
+                            <Tabs onValueChange={setChartDevice} value={chartDevice}>
+                                <TabsList className=" bg-stone-900">
+                                    <TabsTrigger value="desktop">
+                                        <div className=" flex items-center gap-1 text-xs md:text-sm">
+                                            <Monitor size={isMobile ? 10 : 16} />
+                                            Desktop
+                                        </div>
+                                    </TabsTrigger>
+                                    <TabsTrigger value="mobile">
+                                        <div className=" flex items-center gap-1  text-xs md:text-sm">
+                                            <Smartphone size={isMobile ? 10 : 16} />
+                                            Mobile
+                                        </div>
+                                    </TabsTrigger>
+                                </TabsList>
+                            </Tabs>
+                        </CardTitle>
+
                         <Tabs value={chartType} onValueChange={setChartType}>
                             <TabsList className=" bg-stone-900">
                                 <TabsTrigger value="bar-graph">
-                                    <BarChart size={18} />
+                                    <BarChart size={isMobile ? 14 : 18} />
                                 </TabsTrigger>
                                 <TabsTrigger value="line-graph">
-                                    <LineChart size={18} />
+                                    <LineChart size={isMobile ? 14 : 18} />
                                 </TabsTrigger>
                             </TabsList>
                         </Tabs>
