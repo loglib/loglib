@@ -24,7 +24,7 @@
         "@hookform/resolvers": "^3.1.1",
         "@libsql/client": "^0.3.1",
         "@loglib/db": "1.0.0",
-        "@loglib/tracker": "0.6.2",
+        "@loglib/tracker": "0.7.0",
         "@lottiefiles/react-lottie-player": "^3.5.3",
         "@mdx-js/mdx": "^2.3.0",
         "@next-auth/prisma-adapter": "^1.0.7",
