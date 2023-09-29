@@ -25,13 +25,11 @@ const nextConfig = {
         },
     ],
     experimental: {
-        serverComponentsExternalPackages: ["libsql", "@libsql/client"],
         serverActions: true,
     },
     eslint: {
         ignoreDuringBuilds: true,
     },
-    transpilePackages: ["@loglib/tracker", "@loglib/api"],
 };
 export default million.next(withContentlayer(nextConfig), {
     auto: {
