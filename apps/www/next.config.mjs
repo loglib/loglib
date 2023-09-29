@@ -9,7 +9,6 @@ const nextConfig = {
         removeConsole: process.env.NODE_ENV === "production",
     },
     siteUrl: env.NEXTAUTH_URL ?? "https://loglib.io",
-    generateRobotsTxt: true,
     images: {
         remotePatterns: [
             {

@@ -331,8 +331,8 @@ importers:
         specifier: ^0.2.1
         version: 0.2.1(encoding@0.1.13)
       '@vercel/og':
-        specifier: ^0.5.8
-        version: 0.5.8
+        specifier: ^0.5.17
+        version: 0.5.17
       JSONStream:
         specifier: ^1.3.5
         version: 1.3.5
@@ -609,7 +609,7 @@ importers:
         version: 8.0.1
       pretty-quick:
         specifier: ^3.1.3
-        version: 3.1.3(prettier@2.8.8)
+        version: 3.1.3(prettier@3.0.3)
       tailwindcss:
         specifier: ^3.3.2
         version: 3.3.2
@@ -8837,12 +8837,12 @@ packages:
       - encoding
     dev: false
 
-  /@vercel/og@0.5.8:
-    resolution: {integrity: sha512-WlY5q96e2OmQEUsgqKZrCljNHiD05aErsa7u2z2+pkxyoVSWPHXLYFwHPtp7+IubU4gt4JYfgSbzGQg7n6xeAQ==}
+  /@vercel/og@0.5.17:
+    resolution: {integrity: sha512-/GOyUBq3MhB3ygbhTJoZ0cHvwlyKdt0g8f4npuj4mwFlp57S7j4XWwgtqILK3XdFf25esN9i77fInrDkeRJfgA==}
     engines: {node: '>=16'}
     dependencies:
       '@resvg/resvg-wasm': 2.4.1
-      satori: 0.10.1
+      satori: 0.10.8
       yoga-wasm-web: 0.3.3
     dev: false
 
@@ -16526,6 +16526,12 @@ packages:
     engines: {node: '>=10.13.0'}
     hasBin: true
 
+  /prettier@3.0.3:
+    resolution: {integrity: sha512-L/4pUDMxcNa8R/EthV08Zt42WBO4h1rarVtK0K+QJG0X187OLo7l699jWw0GKuwzkPQ//jMFA/8Xm6Fh3J/DAg==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dev: true
+
   /pretty-bytes@5.6.0:
     resolution: {integrity: sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==}
     engines: {node: '>=6'}
@@ -16552,7 +16558,7 @@ packages:
     resolution: {integrity: sha512-WuxUnVtlWL1OfZFQFuqvnvs6MiAGk9UNsBostyBOB0Is9wb5uRESevA6rnl/rkksXaGX3GzZhPup5d6Vp1nFew==}
     dev: false
 
-  /pretty-quick@3.1.3(prettier@2.8.8):
+  /pretty-quick@3.1.3(prettier@3.0.3):
     resolution: {integrity: sha512-kOCi2FJabvuh1as9enxYmrnBC6tVMoVOenMaBqRfsvBHB0cbpYHjdQEpSglpASDFEXVwplpcGR4CLEaisYAFcA==}
     engines: {node: '>=10.13'}
     hasBin: true
@@ -16565,7 +16571,7 @@ packages:
       ignore: 5.2.4
       mri: 1.2.0
       multimatch: 4.0.0
-      prettier: 2.8.8
+      prettier: 3.0.3
     dev: true
 
   /pretty@2.0.0:
@@ -18465,8 +18471,8 @@ packages:
   /safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  /satori@0.10.1:
-    resolution: {integrity: sha512-F4bTCkDp931tLb7+UCNPBuSQwXhikrUkI4fBQo6fA8lF0Evqqgg3nDyUpRktQpR5Ry1DIiIVqLyEwkAms87ykg==}
+  /satori@0.10.8:
+    resolution: {integrity: sha512-WlPLxgpx5kIyMuOO6qi98DhZGIbRk5XJRqENkt6D6gyDBWGyo3M5kcSl0X/oSFHUH+n4unlzwMejoPM47s4zug==}
     engines: {node: '>=16'}
     dependencies:
       '@shuding/opentype.js': 1.4.0-beta.0
