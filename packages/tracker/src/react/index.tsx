@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
+import { loglib } from "../lib";
 import { record } from "../record";
 import { Config, Internal } from "../types";
-import { loglib } from "../lib";
 
 declare global {
     interface Window {

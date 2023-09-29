@@ -13,7 +13,6 @@ import { GitFork, Star } from 'lucide-react';
 
 function ProjectsContents({ gitForks, githubStars, npmSize, npmVersion }: { githubStars: number, gitForks: number, npmVersion: number, npmSize: number }) {
   const [currentState, setCurrentState] = useState<'npm' | 'github'>('github');
-
   return (
     <>
       <main className='w-11/12 m-30'>
@@ -62,7 +61,7 @@ function ProjectsContents({ gitForks, githubStars, npmSize, npmVersion }: { gith
                       </div>
                       <div className=' bg-blue-700 p-1 px-2 rounded-r-sm'>
                         <p className=" text-xs font-bold">
-                          {npmSize} kb
+                          {8} kb
                         </p>
                       </div>
                     </div>

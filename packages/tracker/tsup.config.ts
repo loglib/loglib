@@ -2,10 +2,10 @@ import { Options, defineConfig } from "tsup";
 
 const cfg: Options = {
     splitting: false,
-    sourcemap: true,
-    treeshake: false,
+    sourcemap: false,
+    treeshake: true,
     dts: true,
-    format: ["cjs", "esm"],
+    format: ["esm"],
 };
 
 export default defineConfig([
