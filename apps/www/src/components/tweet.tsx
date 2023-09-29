@@ -2,9 +2,7 @@
 
 import BlurImage from "@/components/ui/blur-image";
 import { cn, nFormatter, truncate } from "@/lib/utils";
-import { Heart } from "lucide-react";
-import { Twitter } from "lucide-react";
-import { MessageSquare } from "lucide-react";
+import { Heart, MessageSquare, Twitter } from "lucide-react";
 import Tilt from "react-parallax-tilt";
 import { enrichTweet } from "react-tweet";
 import { type Tweet as TweetType } from "react-tweet/api";
@@ -54,9 +52,8 @@ export default function Tweet({
 
     const TweetBody = (
         <div
-            className={`${
-                noTilt ? className : ""
-            } break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter`}
+            className={`${noTilt ? className : ""
+                } break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter`}
         >
             {/* User info, verified badge, twitter logo, text, etc. */}
             <div>
@@ -158,8 +155,6 @@ export default function Tweet({
                     })}
                 </div>
             </div>
-
-            {/* Images, Preview images, videos, polls, etc. */}
             <div className="my-3">
                 {video && (
                     <video

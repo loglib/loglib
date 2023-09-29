@@ -3,11 +3,11 @@ import { useMDXComponent } from "next-contentlayer/hooks";
 import Image from "next/image";
 import * as React from "react";
 
-import { MdxTab, MdxTabs } from "./mdx-tab";
 import { Callout } from "@/components/callout";
 import { MdxCard } from "@/components/mdx-card";
 import { cn } from "@/lib/utils";
 import { Steps } from "nextra-theme-docs";
+import { MdxTab, MdxTabs } from "./mdx-tab";
 
 export const components = {
   h1: ({ className, ...props }) => (
@@ -100,6 +100,7 @@ export const components = {
     ...props
   }: React.ImgHTMLAttributes<HTMLImageElement>) => (
     // biome-ignore lint/a11y/useAltText: <explanation>
+    // rome-ignore lint/a11y/useAltText: <explanation>
     <img className={cn("rounded-md border", className)} alt={alt} {...props} />
   ),
   hr: ({ ...props }) => <hr className="my-4 md:my-8" {...props} />,

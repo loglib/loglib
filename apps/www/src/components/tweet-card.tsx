@@ -1,12 +1,12 @@
 import Image from 'next/image'
 
-interface TweetCard {
+interface Card {
   handle: string
   quote: string | React.ReactNode
   img_url: string
 }
 
-function TweetCard(props: TweetCard) {
+function TweetCard(props: Card) {
   return (
     <div
       className="

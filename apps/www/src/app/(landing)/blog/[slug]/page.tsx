@@ -1,180 +1,112 @@
-import { notFound } from "next/navigation"
-import { allBlogPosts , allAuthors } from "contentlayer/generated"
+import { MDX } from "@/components/blog-mdx";
+import BlurImage from "@/components/ui/blur-image";
+import { getBlurDataURL } from "@/lib/image";
+import { formatDate } from "@/lib/utils";
+import { allBlogPosts, allChangelogPosts } from "contentlayer/generated";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
-import { MDX } from "@/components/blog-mdx"
-
-import "@/styles/mdx.css"
-import { Metadata } from "next"
-import Image from "next/image"
-import Link from "next/link"
-
-// import { env } from "@/env.mjs"
-import { absoluteUrl, cn, formatDate } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
-import { Icons } from "@/components/icons"
-
-interface PostPageProps {
-  params: {
-    slug: string[]
-  }
-}
-
-async function getPostFromParams(params) {
-  const {slug} = params
-  // const slug = params?.slug?.join("/")
-  const post = allBlogPosts.find((post) => post.slugAsParams === slug)
-
-  if (!post) {
-    null
-  }
-
-  return post
+export async function generateStaticParams() {
+    return allChangelogPosts.map((post) => ({
+        slug: post.slug,
+    }));
 }
 
 export async function generateMetadata({
-  params,
-}: PostPageProps): Promise<Metadata> {
-  const post = await getPostFromParams(params)
+    params,
+}: {
+    params: { slug: string };
+}): Promise<Metadata | undefined> {
+    const post = allChangelogPosts.find((post) => post.slug === params.slug);
+    if (!post) {
+        return;
+    }
 
-  if (!post) {
-    return {}
-  }
+    const { title, publishedAt: publishedTime, summary: description, image, slug } = post;
 
-  const url = "https://loglib.io"
-
-  const ogUrl = new URL(`${url}/api/og`)
-  ogUrl.searchParams.set("heading", post.title)
-  ogUrl.searchParams.set("type", "Blog Post")
-  ogUrl.searchParams.set("mode", "dark")
-
-  return {
-    title: post.title,
-    description: post.description,
-    authors: post.authors.map((author) => ({
-      name: author,
-    })),
-    openGraph: {
-      title: post.title,
-      description: post.description,
-      type: "article",
-      url: absoluteUrl(post.slug),
-      images: [
-        {
-          url: ogUrl.toString(),
-          width: 1200,
-          height: 630,
-          alt: post.title,
+    return {
+        title: `${title} - Loglib Blog`,
+        description,
+        openGraph: {
+            title: `${title} - Loglib Blog`,
+            description,
+            type: "article",
+            publishedTime,
+            url: `https://loglib.io/blog/${slug}`,
+            images: [
+                {
+                    url: image,
+                },
+            ],
         },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description: post.description,
-      images: [ogUrl.toString()],
-    },
-  }
+        twitter: {
+            card: "summary_large_image",
+            title,
+            description,
+            images: [image],
+        },
+    };
 }
 
-// export async function generateStaticParams(): Promise<
-//   PostPageProps["params"][]
-// > {
-//   console.log("The static params: " ,allBlogPost )
-//   return allBlogPost.map((post) => ({
-//     slug: post.slugAsParams.split("/"),
-//   }))
-// }
-export async function generateStaticParams() {
-  return allBlogPosts.map((post) => ({
-      slug: post.slug,
-  }));
-}
-
-
-export default async function PostPage({ params }: PostPageProps) {
-  // console.log('THe paraams: ' , params)
-  const post = await getPostFromParams(params)
-
-  if (!post) {
-    notFound()
-  }
- 
-
-  const authors = post.authors.map((author) =>
-    allAuthors.find(({ slug }) => slug === `${author}`)
-  )
- 
-
-  return (
-    <article className="container relative max-w-3xl py-6 lg:py-10">
-      <Link
-        href="/blog"
-        className={cn(
-          buttonVariants({ variant: "ghost" }),
-          "absolute left-[-200px] top-14 hidden xl:inline-flex"
-        )}
-      >
-        <Icons.chevronLeft className="mr-2 h-4 w-4" />
-        See all posts
-      </Link>
-      <div>
-        {post.date && (
-          <time
-            dateTime={post.date}
-            className="block text-sm text-muted-foreground"
-          >
-            Posted on {formatDate(post.date)}
-          </time>
-        )}
-        <h1 className="mt-2 inline-block font-heading text-4xl leading-tight lg:text-5xl">
-          {post.title}
-        </h1>
-        {authors?.length ? (
-          <div className="mt-4 flex space-x-4">
-            {authors.map((author) =>
-              author ? (
+export default async function ChangelogPost({
+    params,
+}: {
+    params: { slug: string };
+}) {
+    const post = allBlogPosts.find((post) => post.slug === params.slug);
+    if (!post) {
+        notFound();
+    }
+    return (
+        <div className="mx-auto my-20 grid max-w-screen-xl md:grid-cols-4 md:px-20">
+            <div className="sticky top-10 hidden self-start md:col-span-1 md:block">
                 <Link
-                  key={author._id}
-                  href={`https://twitter.com/${author.twitter}`}
-                  className="flex items-center space-x-2 text-sm"
+                    href="/blog"
+                    className="text-sm text-gray-500 transition-colors hover:text-gray-800"
                 >
-                  <Image
-                    src={author.avatar}
-                    alt={author.title}
-                    width={42}
-                    height={42}
-                    className="rounded-full bg-white"
-                  />
-                  <div className="flex-1 text-left leading-tight">
-                    <p className="font-medium">{author.title}</p>
-                    <p className="text-[12px] text-muted-foreground">
-                      @{author.twitter}
-                    </p>
-                  </div>
+                    ← Back to Blogs
                 </Link>
-              ) : null
-            )}
-          </div>
-        ) : null}
-      </div>
-      {post.image && (
-        <Image
-          src={post.image}
-          alt={post.title}
-          width={720}
-          height={405}
-          className="my-8 rounded-md border bg-muted transition-colors"
-          priority
-        />
-      )}
-      <MDX code={post.body.code} />
-      <hr className="mt-12" />
-      <div className="flex justify-center py-6 lg:py-10">
-        <Link href="/blog" className={cn(buttonVariants({ variant: "ghost" }))}>
-          <Icons.chevronLeft className="mr-2 h-4 w-4" />
-          See all posts
-        </Link>
-      </div>
-    </article>
-  )
+            </div>
+            <div className="flex flex-col space-y-8 md:col-span-3">
+                <div className="mx-5 grid gap-5 md:mx-0">
+                    <div className="flex flex-col">
+                        <Link href="/blog" className="my-5 text-sm text-gray-500 md:hidden">
+                            ← Back to Blogs
+                        </Link>
+                        <time
+                            dateTime={post.publishedAt}
+                            className="flex items-center text-sm text-gray-500 md:text-base"
+                        >
+                            {formatDate(post.publishedAt)}
+                        </time>
+                    </div>
+                    <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
+                        {post.title}
+                    </h1>
+                </div>
+                <BlurImage
+                    src={post.image}
+                    alt={post.title}
+                    width={1200}
+                    height={900}
+                    priority // since it's above the fold
+                    placeholder="blur"
+                    blurDataURL={await getBlurDataURL(post.image)}
+                    className="border border-gray-100 dark:border-stone-800 md:rounded-2xl"
+                />
+                <MDX code={post.body.code} />
+                <div className="mt-10 flex justify-end border-t border-gray-200 pt-5">
+                    <Link
+                        href={`https://github.com/loglib/loglib/apps/www/content/blog/${params.slug}.mdx`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-gray-500 transition-colors hover:text-gray-800"
+                    >
+                        <p>Found a typo? Edit this page →</p>
+                    </Link>
+                </div>
+            </div>
+        </div>
+    );
 }

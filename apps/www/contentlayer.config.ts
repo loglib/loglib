@@ -84,7 +84,7 @@ export const Doc = defineDocumentType(() => ({
         published: {
             type: "boolean",
             default: true,
-        }
+        },
     },
     //@ts-ignore
     computedFields: computedFields("docs"),
@@ -117,76 +117,79 @@ export const ChangelogPost = defineDocumentType(() => ({
         },
         draft: {
             type: "boolean",
-            default: false
-        }
+            default: false,
+        },
     },
     // @ts-ignore
     computedFields: computedFields("changelog"),
 }));
 export const Author = defineDocumentType(() => ({
     name: "Author",
-    filePathPattern: `**/authors/*.mdx`,
+    filePathPattern: "**/authors/*.mdx",
     contentType: "mdx",
     fields: {
-      title: {
-        type: "string",
-        required: true,
-      },
-      description: {
-        type: "string",
-      },
-      avatar: {
-        type: "string",
-        required: true,
-      },
-      twitter: {
-        type: "string",
-        required: true,
-      },
+        title: {
+            type: "string",
+            required: true,
+        },
+        description: {
+            type: "string",
+        },
+        avatar: {
+            type: "string",
+            required: true,
+        },
+        twitter: {
+            type: "string",
+            required: true,
+        },
     },
     // @ts-ignore
     computedFields: computedFields("author"),
-  }))
-
+}));
 
 export const BlogPost = defineDocumentType(() => ({
     name: "BlogPost",
-    filePathPattern: `**/blogs/*.mdx`,
+    filePathPattern: "**/blogs/*.mdx",
     contentType: "mdx",
     fields: {
-      title: {
-        type: "string",
-        required: true,
-      },
-      description: {
-        type: "string",
-      },
-      date: {
-        type: "date",
-        required: true,
-      },
-      published: {
-        type: "boolean",
-        default: true,
-      },
-      image: {
-        type: "string",
-        required: true,
-      },
-      authors: {
-        // Reference types are not embedded.
-        // Until this is fixed, we can use a simple list.
-        // type: "reference",
-        // of: Author,
-        type: "list",
-        of: { type: "string" },
-        required: true,
-      },
+        title: {
+            type: "string",
+            required: true,
+        },
+        description: {
+            type: "string",
+        },
+        publishedAt: {
+            type: "date",
+            required: true,
+        },
+        published: {
+            type: "boolean",
+            default: true,
+        },
+        image: {
+            type: "string",
+            required: true,
+        },
+        snippet: {
+            type: "string",
+            required: true,
+        },
+        tags: {
+            type: "list",
+            of: { type: "string" },
+        },
+        authors: {
+            type: "list",
+            of: { type: "string" },
+            required: true,
+        },
     },
     // @ts-ignore
-    computedFields: computedFields("blogs")
-  }))
-  
+    computedFields: computedFields("blogs"),
+}));
+
 export const LegalPost = defineDocumentType(() => ({
     name: "LegalPost",
     filePathPattern: "**/legal/*.mdx",
@@ -203,12 +206,11 @@ export const LegalPost = defineDocumentType(() => ({
     },
     //@ts-ignore
     computedFields: computedFields("legal"),
-}))
-
+}));
 
 export default makeSource({
     contentDirPath: "src/content",
-    documentTypes: [Doc, ChangelogPost, LegalPost , BlogPost , Author],
+    documentTypes: [Doc, ChangelogPost, LegalPost, BlogPost, Author],
     mdx: {
         remarkPlugins: [remarkGfm],
         rehypePlugins: [

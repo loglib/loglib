@@ -1,5 +1,3 @@
-// import CTA from "../../components/landing/cta/CTA";
-import TwitterTestimonial from "@/components/TwitterTestimonialSection";
 import Changelog from "@/components/changelog";
 import { TwitterXIcons } from "@/components/extra-icons";
 import { FeatureAccordion } from "@/components/landing/feature-accordion";
@@ -10,9 +8,7 @@ import { RepurposeYourData } from "@/components/landing/repurpose-your-data";
 import { Community } from "@/components/marketing/community";
 import { TrackView } from "@loglib/tracker/react";
 import Link from "next/link";
-// import lang from '@/components/code-sample'
-// import CardForCode from "@/components/code-card";
-// import CodeInstallation from "@/components/code-installation";
+
 interface ContributorsProps {
   login: string;
   id: number;
@@ -67,7 +63,6 @@ async function getGitHubContributors() {
     }
     const contributorsData: ContributorsProps = await response.json();
     return contributorsData;
-    // console.log(contributorsData)
   } catch (e) {
     console.log("Error while fetching contributors: ", e);
   }
@@ -126,18 +121,9 @@ export default async function IndexPage() {
           npmVersion={npm?.version ?? "0.6.2"}
         />
       </div>
-      {/* <section>
-        <CTA />
-      </section> */}
-
-
-      <div className="sm:py-18 container relative mx-auto px-6 py-16 md:py-24 lg:px-16 lg:py-24 xl:px-20">
+      {/* <div className="sm:py-18 container relative mx-auto px-6 py-16 md:py-24 lg:px-16 lg:py-24 xl:px-20">
         <TwitterTestimonial />
-      </div>
-      {/* <section className="flex justify-between items-center gap-10">
-        <CodeInstallation />
-        <CardForCode code={lang.jsx} language="jsx" showLineNumbers={false} />
-      </section> */}
+      </div> */}
       <section className="max-w-8xl to-50 flex-col mx-auto mt-10 w-full rounded-3xl flex  md:flex-row md:justify-between justify-center md:items-start items-center  bg-gradient-to-br from-gray-100 px-4 dark:from-stone-950/80 dark:to-[#080812] sm:px-16">
         <div className="flex h-min px-2  flex-col justify-center gap-8 py-12">
           <h1 className="font-heading max-w-3xl text-3xl font-bold sm:text-6xl">

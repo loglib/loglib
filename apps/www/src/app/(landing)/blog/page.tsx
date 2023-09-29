@@ -1,209 +1,111 @@
-import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
+import BlurImage from "@/components/ui/blur-image";
+import { getBlurDataURL } from "@/lib/image";
+import { constructMetadata, formatDate } from "@/lib/utils";
+import { ChangelogPost, allBlogPosts } from "contentlayer/generated";
 import Link from "next/link";
-import { allAuthors, allBlogPosts } from "contentlayer/generated";
-import { compareDesc } from "date-fns";
 
-import { formatDate } from "@/lib/utils";
+export const metadata = constructMetadata({
+    title: "Blog - Loglib",
+    description:
+        "All the latest news, guides, and updates from loglib - the privacy first open source web analytics.",
+    image: "https://loglib.io/api/og/blog",
+});
 
-export const metadata = {
-  title: "Blog",
-};
-
-export default async function BlogPage() {
-  const posts = allBlogPosts
-    .filter((post) => post.published)
-    .sort((a, b) => {
-      return compareDesc(new Date(a.date), new Date(b.date));
-    });
-
-  const getAuthor = (post) => {
-    const authors = post.authors.map((author) =>
-      allAuthors.find(({ slug }) => slug === `${author}`)
-    );
-
-    return authors;
-  };
-  const pinnedPost = posts[0];
-  const nonPinnedPosts = posts.slice(1, posts.length);
-
-  console.log("NOn pinned POst:", nonPinnedPosts);
-
-  return (
-    <div className="container max-w-7xl py-6 lg:py-10">
-      {/* <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
-        <div className="flex-1 space-y-4">
-          <h1 className=" text-white uppercase text-transparent font-heading tracking-tight text-3xl font-bold sm:text-6xl">
-            🚀{"  "}BLOG
-            
-            <span className="from-logo bg-gradient-to-br to-orange-600 bg-clip-text font-black uppercase text-transparent">
-              S
-            </span>
-          </h1>
-    
-
-
-          
-        </div>
-      </div>  */}
-      {/* <hr className="my-8" /> */}
-
-      <div className="">
-        {pinnedPost ? (
-          <div className="w-full mb-10 border-2 rounded-2xl from-purple-500 bg-gradient-to-br to-orange-800   p-[1px] outline-none">
-            <article
-              key={pinnedPost._id}
-              className="group relative flex bg-black space-y-2  rounded-2xl  bg-gradient-to-br from-stone-900 border to-stone-850  p-[20px] text-white"
-            >
-              {pinnedPost.image && (
-                <Image
-                  src={pinnedPost.image}
-                  alt={pinnedPost.title}
-                  width={804}
-                  height={452}
-                  className="rounded-xl border bg-muted transition-colors"
-                  priority={0 <= 1}
-                />
-              )}
-              <div className="ml-5 py-6 flex flex-col gap-2 justify-end  ">
-                {pinnedPost.description && (
-                  <h2 className="text-3xl font-bold space-x-1">
-                    {pinnedPost.title}
-                  </h2>
-                )}
-                <h2 className="text-muted-foreground text-gray-500">
-                  {pinnedPost.description}
-                </h2>
-
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-2">
-                    {getAuthor(pinnedPost)?.length ? (
-                      <div className="mt-4 flex space-x-4">
-                        {getAuthor(pinnedPost).map((author) =>
-                          author ? (
-                            <Link
-                              key={author._id}
-                              href={`https://twitter.com/${author.twitter}`}
-                              className="flex items-center space-x-2 text-sm"
-                            >
-                              <Image
-                                src={author.avatar}
-                                alt={author.title}
-                                width={42}
-                                height={42}
-                                className="rounded-full bg-white"
-                              />
-                              <div className="flex-1 text-left leading-tight">
-                                <p className="font-medium">{author.title}</p>
-                                <p className="text-[12px] text-muted-foreground">
-                                  @{author.twitter}
-                                </p>
-                              </div>
-                            </Link>
-                          ) : null
-                        )}
-                      </div>
-                    ) : null}
-
-                    {/* <Avatar>
-                        <AvatarImage
-                          src="https://github.com/shadcn.png"
-                          sizes="sm"
-                        />
-                        <AvatarFallback>CN</AvatarFallback>
-                      </Avatar>
-                      <p className=" text-sm text-muted-foreground">KINFISH</p> */}
-                  </div>
-
-                  {pinnedPost.date && (
-                    <p className="text-sm text-muted-foreground">
-                      {formatDate(pinnedPost.date)}
+export default async function Blog() {
+    return (
+        <div className="mx-auto max-w-screen-xl md:px-20">
+            <div className="relative grid border-b border-gray-200 py-20 md:grid-cols-4">
+                <div className="md:col-span-1" />
+                <div className="mx-5 flex flex-col space-y-6 md:col-span-3 md:mx-0">
+                    <h1 className="font-display text-4xl font-bold tracking-tight md:text-5xl">
+                        Blog
+                    </h1>
+                    <p className="text-lg text-gray-500 dark:text-gray-200">
+                        All the latest news, guides and updates from Loglib.
                     </p>
-                  )}
                 </div>
-                <Link
-                  href={`/blog/${pinnedPost.slug}`}
-                  className="absolute inset-0"
-                >
-                  <span className="sr-only">View Article</span>
-                </Link>
-              </div>
-            </article>
-          </div>
-        ) : (
-          ""
-        )}
-      </div>
-      {nonPinnedPosts?.length ? (
-        <div className="grid gap-10  sm:grid-cols-3">
-          {nonPinnedPosts.map((post, index) => (
-         
-            <article
-              key={post._id}
-              className="group relative flex flex-col space-y-2  rounded-2xl  bg-gradient-to-br from-stone-900 border to-stone-850   p-6 text-white"
-            >
-              {post.image && (
-                <Image
-                  src={post.image}
-                  alt={post.title}
-                  width={804}
-                  height={452}
-                  className="rounded-lg border bg-muted transition-colors"
-                  priority={index <= 1}
-                />
-              )}
-              <h2 className="text-2xl font-extrabold">{post.title}</h2>
-              {post.description && (
-                <p className="text-muted-foreground">{post.description}</p>
-              )}
+            </div>
 
-              <div className="flex justify-between items-center">
-                <div className="flex items-center gap-2">
-                  {getAuthor(post)?.length ? (
-                    <div className="mt-4 flex space-x-4">
-                      {getAuthor(post).map((author) =>
-                        author ? (
-                          <Link
-                            key={author._id}
-                            href={`https://twitter.com/${author.twitter}`}
-                            className="flex items-center space-x-2 text-sm"
-                          >
-                            <Image
-                              src={author.avatar}
-                              alt={author.title}
-                              width={42}
-                              height={42}
-                              className="rounded-full bg-white"
-                            />
-                            <div className="flex-1 text-left leading-tight">
-                              <p className="font-medium">{author.title}</p>
-                              <p className="text-[12px] text-muted-foreground">
-                                @{author.twitter}
-                              </p>
+            <div className="divide-y divide-gray-200">
+                {allBlogPosts
+                    .filter((post) => post.published)
+                    .sort((a, b) => {
+                        if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
+                            return -1;
+                        }
+                        return 1;
+                    })
+                    .map((post, idx) => (
+                        <div key={post._id} className="grid py-20 md:grid-cols-4 md:px-5 xl:px-0">
+                            <div className="sticky top-10 hidden self-start md:col-span-1 md:block">
+                                <Link href={`/blog/${post.slug}`}>
+                                    <time
+                                        dateTime={post.publishedAt}
+                                        className="text-gray-500 transition-colors hover:"
+                                    >
+                                        {formatDate(post.publishedAt)}
+                                    </time>
+                                </Link>
                             </div>
-                          </Link>
-                        ) : null
-                      )}
-                    </div>
-                  ) : null}
-                </div>
-
-                {post.date && (
-                  <p className="text-sm text-muted-foreground">
-                    {formatDate(post.date)}
-                  </p>
-                )}
-              </div>
-              <Link href={`/blog/${post.slug}`} className="absolute inset-0">
-                <span className="sr-only">View Article</span>
-              </Link>
-            </article>
-          ))}
+                            <div className="md:col-span-3">
+                                <div className="flex flex-col gap-6">
+                                    <Link href={`/blog/${post.slug}`}>
+                                        {/* @ts-ignore */}
+                                        <BlurredImage post={post} idx={idx} />
+                                    </Link>
+                                    <Link
+                                        href={`/blog/${post.slug}`}
+                                        className="group mx-5 flex items-center space-x-3 md:mx-0"
+                                    >
+                                        <time
+                                            dateTime={post.publishedAt}
+                                            className="text-sm text-gray-500 transition-all group-hover: md:hidden"
+                                        >
+                                            {formatDate(post.publishedAt)}
+                                        </time>
+                                    </Link>
+                                    <Link href={`/blog/${post.slug}`} className="mx-5 md:mx-0">
+                                        <h2 className="font-display text-3xl font-bold tracking-tight  hover:underline hover:decoration-1 hover:underline-offset-4 md:text-4xl">
+                                            {post.title}
+                                        </h2>
+                                    </Link>
+                                    <div className=" flex items-center gap-2">
+                                        {post.tags?.map((tag) => (
+                                            <Badge variant="secondary" key={tag}>
+                                                {tag}
+                                            </Badge>
+                                        ))}
+                                    </div>
+                                    <p className="leading-7 [&:not(:first-child)]:mt-6">
+                                        {post.snippet}..
+                                        <Link href={`/blog/${post.slug}`}>
+                                            <span className=" underline mx-2 cursor-pointer ">
+                                                Continue Reading
+                                            </span>
+                                        </Link>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+            </div>
         </div>
-      ) : (
-        // )}
+    );
+}
 
-        <p>No posts published.</p>
-      )}
-    </div>
-  );
+async function BlurredImage({ post, idx }: { post: ChangelogPost; idx: number }) {
+    const blurDataURL = await getBlurDataURL(post.image);
+    return (
+        <BlurImage
+            src={post.image}
+            alt={post.title}
+            width={1200}
+            height={900}
+            priority={idx === 0} // since it's above the fold
+            placeholder="blur"
+            blurDataURL={blurDataURL}
+            className="border border-gray-100 dark:border-stone-800 md:rounded-2xl"
+        />
+    );
 }
