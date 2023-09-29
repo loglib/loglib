@@ -2,13 +2,13 @@ import { MDX } from "@/components/blog-mdx";
 import BlurImage from "@/components/ui/blur-image";
 import { getBlurDataURL } from "@/lib/image";
 import { formatDate } from "@/lib/utils";
-import { allBlogPosts, allChangelogPosts } from "contentlayer/generated";
+import { allBlogPosts } from "contentlayer/generated";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-    return allChangelogPosts.map((post) => ({
+    return allBlogPosts.map((post) => ({
         slug: post.slug,
     }));
 }
@@ -18,7 +18,7 @@ export async function generateMetadata({
 }: {
     params: { slug: string };
 }): Promise<Metadata | undefined> {
-    const post = allChangelogPosts.find((post) => post.slug === params.slug);
+    const post = allBlogPosts.find((post) => post.slug === params.slug);
     if (!post) {
         return;
     }
