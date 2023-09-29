@@ -1,7 +1,6 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
 import * as React from "react";
 
 import { Icons } from "@/components/icons";
@@ -18,7 +17,6 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 export function UserAuthForm({ className, activeStrategy, ...props }: Props) {
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
     const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false);
-    const searchParams = useSearchParams();
     return (
         <div className={cn("grid gap-4 ", className)} {...props}>
             <div className="relative">
