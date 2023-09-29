@@ -13,15 +13,9 @@ export type InsightTablesProps = {
     isLoading: boolean;
     websiteUrl?: string;
     activeStat: typeof stats[0];
-
 };
 
-export const SpeedTables = ({
-    data,
-    websiteUrl,
-    isLoading,
-    activeStat,
-}: InsightTablesProps) => {
+export const SpeedTables = ({ data, websiteUrl, isLoading, activeStat }: InsightTablesProps) => {
     return (
         <Card className=" md:col-span-3 col-span-7 bg-gradient-to-tr from-stone-950 to-stone-900/50 ">
             <Tabs defaultValue="pages">
@@ -58,25 +52,25 @@ export const SpeedTables = ({
                             searchPlaceholder="Search Page..."
                             Row={(d) => (
                                 <TableRow>
-                                    <TableCell
-                                        className=" flex items-center gap-1 cursor-pointer"
-
-                                    >
+                                    <TableCell className=" flex items-center gap-1 cursor-pointer">
                                         <a
                                             href={
                                                 websiteUrl
-                                                    ? `${websiteUrl.endsWith("/")
-                                                        ? websiteUrl
-                                                        : `${websiteUrl}/`
-                                                    }${d.page}`
+                                                    ? `${
+                                                          websiteUrl.endsWith("/")
+                                                              ? websiteUrl
+                                                              : `${websiteUrl}/`
+                                                      }${d.page}`
                                                     : d.page
                                             }
                                             className=" hover:underline"
                                         >
-                                            {d.page}
+                                            {d.page.substring(0, 45)}
                                         </a>
                                     </TableCell>
-                                    <TableCell className="text-right">{activeStat.formatter(d.data[activeStat.short])}</TableCell>
+                                    <TableCell className="text-right">
+                                        {activeStat.formatter(d.data[activeStat.short])}
+                                    </TableCell>
                                 </TableRow>
                             )}
                             tip={`Your pages and their ${activeStat.short} scores in the given time:)`}
@@ -104,15 +98,12 @@ export const SpeedTables = ({
                                         nameLabel: "Country",
                                         valueLabel: "Visits",
                                     }}
-
                                     hideSearchBar={data && data?.locations.byCountry.length < 10}
                                     isLoading={isLoading}
                                     tip="Your visitors country and how many times they are visited :)"
                                     Row={(location) => (
                                         <TableRow>
-                                            <TableCell
-                                                className=" flex items-center gap-1 cursor-pointer"
-                                            >
+                                            <TableCell className=" flex items-center gap-1 cursor-pointer">
                                                 {location.location === "unknown" ? (
                                                     <>
                                                         <Link2Icon />
@@ -133,7 +124,9 @@ export const SpeedTables = ({
                                                 )}
                                             </TableCell>
                                             <TableCell className="text-right">
-                                                {activeStat.formatter(location.values[activeStat.short])}
+                                                {activeStat.formatter(
+                                                    location.values[activeStat.short],
+                                                )}
                                             </TableCell>
                                         </TableRow>
                                     )}
@@ -148,18 +141,14 @@ export const SpeedTables = ({
                                         valueLabel: "Visits",
                                     }}
                                     searchPlaceholder="Search City..."
-
                                     hideSearchBar={data && data?.locations.byCity.length < 10}
                                     isLoading={isLoading}
                                     tip="Your visitors city and how many times they are visited :)"
                                     Row={(location) => (
                                         <TableRow>
-                                            <TableCell
-                                                className=" flex items-center gap-1 cursor-pointer"
-
-                                            >
+                                            <TableCell className=" flex items-center gap-1 cursor-pointer">
                                                 {location.location === "unknown" ||
-                                                    !location.location ? (
+                                                !location.location ? (
                                                     <>
                                                         <Link2Icon />
                                                         Unknown
@@ -179,7 +168,9 @@ export const SpeedTables = ({
                                                 )}
                                             </TableCell>
                                             <TableCell className="text-right">
-                                                {activeStat.formatter(location.data[activeStat.short])}
+                                                {activeStat.formatter(
+                                                    location.data[activeStat.short],
+                                                )}
                                             </TableCell>
                                         </TableRow>
                                     )}
@@ -194,12 +185,8 @@ export const SpeedTables = ({
                     <CardContent>
                         <Tabs defaultValue="os">
                             <TabsList>
-                                <TabsTrigger value="os">
-                                    OS
-                                </TabsTrigger>
-                                <TabsTrigger value="browser" >
-                                    Browser
-                                </TabsTrigger>
+                                <TabsTrigger value="os">OS</TabsTrigger>
+                                <TabsTrigger value="browser">Browser</TabsTrigger>
                             </TabsList>
                             <TabsContent value="os">
                                 <InsightTable
@@ -215,13 +202,12 @@ export const SpeedTables = ({
                                     hideSearchBar={data && data?.os.length < 10}
                                     Row={(d) => (
                                         <TableRow>
-                                            <TableCell
-                                                className=" flex items-center gap-1 cursor-pointer"
-
-                                            >
+                                            <TableCell className=" flex items-center gap-1 cursor-pointer">
                                                 {d.os}
                                             </TableCell>
-                                            <TableCell className="text-right">{activeStat.formatter(d.data[activeStat.short])}</TableCell>
+                                            <TableCell className="text-right">
+                                                {activeStat.formatter(d.data[activeStat.short])}
+                                            </TableCell>
                                         </TableRow>
                                     )}
                                 />
@@ -240,13 +226,12 @@ export const SpeedTables = ({
                                     hideSearchBar={data && data?.browsers.length < 10}
                                     Row={(d) => (
                                         <TableRow>
-                                            <TableCell
-                                                className=" flex items-center gap-1 cursor-pointer"
-
-                                            >
+                                            <TableCell className=" flex items-center gap-1 cursor-pointer">
                                                 {d.browser}
                                             </TableCell>
-                                            <TableCell className="text-right">{activeStat.formatter(d.data[activeStat.short])}</TableCell>
+                                            <TableCell className="text-right">
+                                                {activeStat.formatter(d.data[activeStat.short])}
+                                            </TableCell>
                                         </TableRow>
                                     )}
                                 />
@@ -270,12 +255,12 @@ export const SpeedTables = ({
                             hideSearchBar={data && data?.devices.length < 10}
                             Row={(d) => (
                                 <TableRow>
-                                    <TableCell
-                                        className=" flex items-center gap-1 cursor-pointer"
-                                    >
+                                    <TableCell className=" flex items-center gap-1 cursor-pointer">
                                         {d.device}
                                     </TableCell>
-                                    <TableCell className="text-right">{activeStat.formatter(d.data[activeStat.short])}</TableCell>
+                                    <TableCell className="text-right">
+                                        {activeStat.formatter(d.data[activeStat.short])}
+                                    </TableCell>
                                 </TableRow>
                             )}
                         />
