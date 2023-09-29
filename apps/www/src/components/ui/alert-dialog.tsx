@@ -11,11 +11,10 @@ const AlertDialog = AlertDialogPrimitive.Root;
 const AlertDialogTrigger = AlertDialogPrimitive.Trigger;
 
 const AlertDialogPortal = ({
-  className,
   children,
   ...props
 }: AlertDialogPrimitive.AlertDialogPortalProps) => (
-  <AlertDialogPrimitive.Portal className={cn(className)} {...props}>
+  <AlertDialogPrimitive.Portal  {...props}>
     <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center">
       {children}
     </div>
@@ -26,8 +25,8 @@ AlertDialogPortal.displayName = AlertDialogPrimitive.Portal.displayName;
 const AlertDialogOverlay = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Overlay>
-  // biome-ignore lint/correctness/noUnusedVariables: <explanation>
->(({ className, children, ...props }, ref) => (
+// biome-ignore lint/correctness/noUnusedVariables: <explanation>
+>(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Overlay
     className={cn(
       "fixed inset-0 z-50 bg-background/80 backdrop-blur-sm transition-opacity animate-in fade-in",
@@ -139,13 +138,6 @@ const AlertDialogCancel = React.forwardRef<
 AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName;
 
 export {
-  AlertDialog,
-  AlertDialogTrigger,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogFooter,
-  AlertDialogTitle,
-  AlertDialogDescription,
-  AlertDialogAction,
-  AlertDialogCancel,
+  AlertDialog, AlertDialogAction,
+  AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger
 };

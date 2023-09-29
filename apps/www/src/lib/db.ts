@@ -4,7 +4,7 @@ import { drizzle } from "drizzle-orm/libsql";
 import { env } from "env.mjs";
 
 export const getDbUrl = () => {
-    if (process.env.NODE_ENV === "production" || env.DATABASE_AUTH_TOKEN) {
+    if (process.env.NODE_ENV === "production") {
         if (!env.DATABASE_URL) {
             throw Error("❌ DATABASE URL MISSING");
         }

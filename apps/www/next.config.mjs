@@ -1,6 +1,5 @@
-import { env } from "./env.mjs";
 import { withContentlayer } from "next-contentlayer";
-import million from "million/compiler";
+import { env } from "./env.mjs";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
@@ -26,15 +25,11 @@ const nextConfig = {
     ],
     experimental: {
         serverActions: true,
+        serverComponentsExternalPackages: ["libsql", "@libsql/client", "@loglib/db"],
     },
     eslint: {
         ignoreDuringBuilds: true,
     },
     transpilePackages: ["@loglib/tracker", "@loglib/api"],
 };
-export default million.next(withContentlayer(nextConfig), {
-    auto: {
-        rsc: true,
-        threshold: 0.5,
-    },
-});
+export default withContentlayer(nextConfig)

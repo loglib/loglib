@@ -25,15 +25,14 @@ const portalVariants = cva("fixed inset-0 z-50 flex", {
 
 interface SheetPortalProps
   extends SheetPrimitive.DialogPortalProps,
-    VariantProps<typeof portalVariants> {}
+  VariantProps<typeof portalVariants> { }
 
 const SheetPortal = ({
   position,
-  className,
   children,
   ...props
 }: SheetPortalProps) => (
-  <SheetPrimitive.Portal className={cn(className)} {...props}>
+  <SheetPrimitive.Portal  {...props}>
     <div className={portalVariants({ position })}>{children}</div>
   </SheetPrimitive.Portal>
 );
@@ -42,8 +41,8 @@ SheetPortal.displayName = SheetPrimitive.Portal.displayName;
 const SheetOverlay = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>
-  // biome-ignore lint/correctness/noUnusedVariables: <explanation>
->(({ className, children, ...props }, ref) => (
+// biome-ignore lint/correctness/noUnusedVariables: <explanation>
+>(({ className, ...props }, ref) => (
   <SheetPrimitive.Overlay
     className={cn(
       "bg-background/80 data-[state=closed]:animate-out data-[state=closed]:fade-out data-[state=open]:fade-in fixed inset-0 z-50 backdrop-blur-sm transition-all duration-100",
@@ -145,7 +144,7 @@ const sheetVariants = cva(
 
 export interface DialogContentProps
   extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
-    VariantProps<typeof sheetVariants> {}
+  VariantProps<typeof sheetVariants> { }
 
 const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
@@ -221,11 +220,6 @@ const SheetDescription = React.forwardRef<
 SheetDescription.displayName = SheetPrimitive.Description.displayName;
 
 export {
-  Sheet,
-  SheetTrigger,
-  SheetContent,
-  SheetHeader,
-  SheetFooter,
-  SheetTitle,
-  SheetDescription,
+  Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger
 };
+
