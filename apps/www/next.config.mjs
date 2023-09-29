@@ -25,7 +25,7 @@ const nextConfig = {
         },
     ],
     experimental: {
-        serverComponentsExternalPackages: ["libsql", "@libsql/client", "@loglib/db"],
+        serverComponentsExternalPackages: ["libsql", "@libsql/client"],
         serverActions: true,
     },
     eslint: {
