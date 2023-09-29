@@ -22,8 +22,7 @@ export async function generateMetadata({
     if (!post) {
         return;
     }
-
-    const { title, publishedAt: publishedTime, summary: description, image, slug } = post;
+    const { title, publishedAt: publishedTime, description, image, slug } = post;
 
     return {
         title: `${title} - Loglib Blog`,
