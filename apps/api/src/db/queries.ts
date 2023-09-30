@@ -13,14 +13,14 @@ export const hitsQuery = (startDate: string, endDate: string, websiteId: string)
     } timestamp <= '${endDate}' AND websiteId = '${websiteId}' AND event = 'hits'`;
 
 export const customEventsQuery = (startDate: string, endDate: string, websiteId: string) =>
-    `select * from loglib.event WHERE timestamp >= '${startDate}' AND timestamp <= '${endDate}' AND websiteId = '${websiteId}' AND event != 'hits'`;
+    `select * from loglib.event WHERE timestamp >= '${startDate}' AND timestamp <= '${endDate}' AND websiteId = '${websiteId}' AND event != 'hits' AND event != 'vitals'`;
 
 const getStringJsonExtract = (q: string[]) => {
     return q.map((val) => `JSONExtract(properties, ${val}, "String") as ${val}`).join(",");
 };
 
 export const vitalsQuery = (startDate: string, endDate: string, websiteId: string) => {
-    const json = getStringJsonExtract([
+    getStringJsonExtract([
         "country",
         "city",
         "browser",
