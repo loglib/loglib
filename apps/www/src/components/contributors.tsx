@@ -1,9 +1,8 @@
-'use client'
+"use client";
 import { AvatarGroup } from "@nextui-org/react";
-import Image from "next/image";
 
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 interface ContributorProps {
   login: string;
@@ -25,29 +24,28 @@ interface ContributorProps {
   type: string;
   site_admin: boolean;
   contributions: number;
-};
-interface ContributorsProps {
-  contributors : ContributorProps[]
 }
-const  ContributorsAvatar = ({contributions}) => {
-  const filteredUsers = contributions.filter((user)=> user.login != "github-actions[bot]")
-  const captain = "Bekacru"
-
+interface ContributorsProps {
+  contributors: ContributorProps[];
+}
+const ContributorsAvatar = ({ contributors }: ContributorsProps) => {
+  const filteredUsers = contributors.filter(
+    (user) => user.login !== "github-actions[bot]"
+  );
   return (
     <AvatarGroup isBordered max={9}>
       {filteredUsers.map((image: any) => {
         return (
-          
           <Avatar className="mx-[40px]">
             <Link href={image.html_url} target="_blank">
-            <AvatarImage src={image.avatar_url} />
-            <AvatarFallback>{image.login.slice(0, 2)}</AvatarFallback>
+              <AvatarImage src={image.avatar_url} />
+              <AvatarFallback>{image.login.slice(0, 2)}</AvatarFallback>
             </Link>
           </Avatar>
         );
       })}
     </AvatarGroup>
   );
-}
+};
 
-export default ContributorsAvatar
+export default ContributorsAvatar;

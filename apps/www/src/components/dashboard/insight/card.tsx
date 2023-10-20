@@ -49,8 +49,9 @@ export function InsightCard({
             </CardHeader>
             {!isLoading && data ? (
                 <CardContent className="">
-                    <div className="text-2xl xl:text-3xl font-bold">{`${data.current ? data.current.toLocaleString() : 0
-                        } ${valuePrefix ?? ""}`}</div>
+                    <div className="text-2xl xl:text-3xl font-bold">{`${
+                        data.current ? data.current.toLocaleString() : 0
+                    } ${valuePrefix ?? ""}`}</div>
                     <div className=" flex justify-between items-center">
                         {data.change ? (
                             <div className=" flex text-xs xl:text-sm items-center">
