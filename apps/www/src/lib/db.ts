@@ -2,6 +2,7 @@ import { createClient } from "@libsql/client";
 import { schema } from "@loglib/db";
 import { drizzle } from "drizzle-orm/libsql";
 import { env } from "env.mjs";
+import path from "path";
 
 export const getDbUrl = () => {
     if (process.env.NODE_ENV === "production") {
@@ -10,8 +11,9 @@ export const getDbUrl = () => {
         }
         return env.DATABASE_URL;
     }
-    const workDir = process.cwd();
-    const dir = workDir.split("/");
+    const workDir = path.dirname(process.cwd())
+    const re = /(\\+|\/)/g;
+    const dir = workDir.split(re)
     const dbPath = `file:${dir.slice(0, dir.length - 2).join("/")}/packages/db/db.sqlite`;
     console.log("⌗ [Database]:", dbPath);
     return dbPath;
