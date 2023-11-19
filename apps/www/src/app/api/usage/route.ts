@@ -41,6 +41,15 @@ export const POST = async () => {
           return operator.eq(field.websiteId, website.id);
         },
       });
+      const date = new Date();
+      date.setDate(date.getDate() - 4);
+      if (
+        sentEmail &&
+        (sentEmail.createdAt! < date ||
+          sentEmail?.type === "second_usage_limit")
+      ) {
+        continue;
+      }
       await sendEmail({
         email: website.user.email,
         subject: `Your website ${website.title} is exceeding usage limits`,
