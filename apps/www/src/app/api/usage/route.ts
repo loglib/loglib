@@ -84,5 +84,5 @@ export const POST = async () => {
       });
     }
   }
-  return Response.json(null, { status: 200 });
+  return new Response(JSON.stringify({}), { status: 200 });
 };
