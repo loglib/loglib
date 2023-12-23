@@ -97,7 +97,7 @@ export default async function ChangelogPost({
                 <MDX code={post.body.code} />
                 <div className="mt-10 flex justify-end border-t border-gray-200 pt-5">
                     <Link
-                        href={`https://github.com/loglib/loglib/apps/www/content/blog/${params.slug}.mdx`}
+                        href={`https://github.com/loglib/loglib/blob/main/apps/www/src/content/blogs/${params.slug}.mdx`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-sm text-gray-500 transition-colors hover:text-gray-800"
