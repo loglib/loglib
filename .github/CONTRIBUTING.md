@@ -1,24 +1,24 @@
 # Contributing
 
-We really appreciate any kind of contribution regardless of your coding skills. We believe loglib should be really easy for anyone who wants to get into contributing to open-source projects. So if this is your first-time contribution we'd love to support you in any way to get in there. Read the above instructions to get the project overview better.s
+We really appreciate any kind of contribution regardless of your coding skills. We believe loglib should be really easy for anyone who wants to get into contributing to open-source projects. So if this is your first-time contribution we'd love to support you in any way to get in there. Read the above instructions to get the project overview better.
 
 ## Main Tech Stack Used Currently
 
-- Language - Typescript
-- Metaframework - Next JS App Route (with server actions)
-- Styling - Tailwind, Shadcn, Radix
-- State Management - Jotai, SWR
-- Authentication - Nextauth
-- API Framework - Hono JS
-- Markdown - Contentlayer
-- Databases - Drizzle ORM, Local Sqlite Database For development and turso (libsql on edge) for production, Clickhouse (OLAP Database) for analytics data
-- Emails - Resend
+- Language - [Typescript](https://www.typescriptlang.org)
+- Metaframework - [Next JS App Router](https://nextjs.org) (with [server actions](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations))
+- Styling - [Tailwind](https://tailwindcss.com), [Shadcn](https://ui.shadcn.com), [Radix](https://www.radix-ui.com)
+- State Management - [Jotai](https://jotai.org/), [SWR](https://swr.vercel.app)
+- Authentication - [Next-Auth](https://next-auth.js.org)
+- API Framework - [Hono JS](https://hono.dev)
+- Markdown - [Contentlayer](https://contentlayer.dev)
+- Databases - [Drizzle ORM](https://orm.drizzle.team), Local Sqlite Database For development and [Turso](https://turso.tech) (libsql on edge) for production, [Clickhouse](https://clickhouse.com) (OLAP Database) for analytics data
+- Emails - [Resend](https://resend.com)
 
 ## Folder Structure
 
-We use turborepo to manage the project. If you're not familiar with turbo repo skim through the docs the basic will be enough for most tasks.
+We use [Turbo-repo](https://turbo.build) to manage the project. If you're not familiar with turbo repo skim through the docs the basic will be enough for most tasks.
 
-1. Apps - Contains two other folders: API(hono js API that serves as API for analytics data and to receive data from the tracker) and www/web(next js app route project that serve as the main application framework)
+1. Apps - Contains two other folders: API (Hono js API that serves as API for analytics data and to receive data from the tracker) and www/web (Next js app router project that serves as the main application framework)
 
 2. Packages - Contains shared packages across the two apps and published tracker npm package.
 
@@ -49,7 +49,7 @@ We really want loglib to be easy for everyone who want to contribute and use in 
 pnpm migrate
 ```
 
-this will create a sqlite database in packages/db folder that'll be used across the whole project including as a clickhouse queries if you don't provide clickhouse credentials.
+This will create a sqlite database in packages/db folder that'll be used across the whole project including as a clickhouse queries if you don't provide clickhouse credentials.
 
 > Even though this is viable for development for production you need a turso db instance.
 
@@ -72,4 +72,4 @@ That's it! now you can run loglib for dev environment with
 pnpm dev
 ```
 
-> Please open an issue or a pr if this contribution guide isn't working anymore for your setup or if you think we should update it for some reason.
+> Please open an issue or a PR if this contribution guide isn't working anymore for your setup or if you think we should update it for some reason.

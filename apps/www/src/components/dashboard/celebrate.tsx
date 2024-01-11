@@ -108,6 +108,7 @@ export function CelebrateFn({
         loglib.track("celebrate-animation-shown", {
           uniqVisitor,
           websiteId,
+          
         });
       }
     }
