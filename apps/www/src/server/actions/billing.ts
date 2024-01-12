@@ -74,7 +74,6 @@ export async function getUsage(startDate: Date, endDate: Date, userId: string) {
         }
     }
     const findUsage = await queries.getTotalUsageCount(websites.map(w => w.id), startDate, endDate)
-
     return {
         ...findUsage,
         websites: websites.length,
