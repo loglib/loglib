@@ -31,7 +31,6 @@ export const getTodayVisitorsCount = (websiteId: string) => {
 const getTotalEventsCount = async (websiteIds: string[], startDate: Date, endDate: Date) => {
     return {
         clickhouse: async () => {
-  
             const sessionsCount = await client.query({
                 query: `select * from loglib.event where websiteId IN (${websiteIds.map(w => `'${w}'`)}) AND timestamp >='${startDate.toISOString().slice(0, 19).replace("T", " ")}' AND timestamp <='${endDate.toISOString().slice(0, 19).replace("T", " ")}'`,
                 format: "JSONEachRow"
