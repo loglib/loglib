@@ -6,8 +6,10 @@ import { HeroSection } from "@/components/landing/hero";
 import ProjectsContents from "@/components/landing/project-preview";
 import { RepurposeYourData } from "@/components/landing/repurpose-your-data";
 import { Community } from "@/components/marketing/community";
+import { getCurrentUser } from "@/lib/session";
 import { TrackView } from "@loglib/tracker/react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 interface ContributorsProps {
   login: string;
@@ -100,8 +102,13 @@ async function getGitHubForks() {
 export default async function IndexPage() {
   const stars = await getGitHubStars();
   const forks = await getGitHubForks();
-  const contributors = await getGitHubContributors();
+  const user = await getCurrentUser()
   const npm = await getPackageInfo("@loglib/tracker");
+
+  if (user) {
+    return redirect("/dashboard")
+  }
+
   return (
     <main className="grid place-items-center space-y-10 md:space-y-20">
       <HeroSection />
