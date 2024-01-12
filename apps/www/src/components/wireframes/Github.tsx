@@ -1,8 +1,6 @@
-'use client'
-
 import clsx from "clsx";
-import { ExternalLink, Link } from "lucide-react";
-
+import { ExternalLink } from "lucide-react";
+import Link from "next/link";
 import { SkeletonSm } from "@/components/wireframes/Skeletons";
 
 interface GithubWireframeProps {
@@ -45,14 +43,13 @@ function GitHubWireframe({
             "dark:font-semibold dark:text-blue-500"
           )}
         >
+          <Link href={`https://github.com/loglib/${repository}`} target="_blank"  className="cursor-pointer">
+            <div className="flex gap-1 justify-center items-center cursor-pointer">
+              {repository}
 
-          
-          <div className="flex gap-1 justify-center items-center cursor-pointer" onClick={() => alert("COnsolel")}>
-
-            {repository} 
-
-           <ExternalLink className="w-3 h-4" />
-          </div>
+              <ExternalLink className="w-3 h-4" />
+            </div>
+          </Link>
         </div>
         <div
           className={clsx(

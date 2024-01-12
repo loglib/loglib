@@ -1,5 +1,5 @@
 import clsx from "clsx";
-
+import Link from "next/link";
 import { TypeScriptIcon } from "@/components/extra-icons";
 import { ExternalLink } from "lucide-react";
 import { SkeletonSm } from "@/components/wireframes/Skeletons";
@@ -23,10 +23,12 @@ function NpmWireframe({
       )}
     >
       <div className={clsx("flex items-center gap-2 text-lg font-bold")}>
-        <div className="flex justify-center items-center gap-1">
-          {packageName}
-          <ExternalLink className="w-3 h-4" />
-        </div>
+        <Link href={`https://npmjs.com/package/${packageName}`}>
+          <div className="flex justify-center items-center gap-1">
+            {packageName}
+            <ExternalLink className="w-3 h-4" />
+          </div>
+        </Link>
         {isWithTypeScript && (
           <div className={clsx("")}>
             <TypeScriptIcon className={clsx("ml-1 h-5 w-5")} />
@@ -34,7 +36,7 @@ function NpmWireframe({
         )}
       </div>
       <div
-        className={clsx("mt-2 flex items-center gap-2 text-lg text-slate-400")}
+        className={clsx("mt-2 flex items-center gap-2 text-lg text-slate-400 ")}
       >
         <SkeletonSm w={60} />
         <div className={clsx("-mt-1")}>&middot;</div>
@@ -101,7 +103,7 @@ function NpmWireframe({
         <div
           className={clsx(
             "border-divider-light mt-8 border-l-4 bg-slate-200/40 p-2 px-4",
-            "dark:border-divider-dark dark:bg-slate-100/5"
+            "dark:border-divider-dark dark:bg-slate-100/5 select-none"
           )}
         >
           <p>{description}</p>
