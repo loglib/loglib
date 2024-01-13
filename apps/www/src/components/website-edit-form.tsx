@@ -33,9 +33,7 @@ export const EditWebsiteForm = ({
 }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [, setDeleteAlert] = useAtom(websiteDeleteModalAtom);
-    const form = useForm<z.infer<typeof websiteFormSchema>>({
-        resolver: zodResolver(websiteFormSchema),
-    });
+
     async function onSubmit(values: z.infer<typeof websiteFormSchema>) {
         setIsLoading(true);
         try {
@@ -81,6 +79,15 @@ export const EditWebsiteForm = ({
             scale: 1,
         },
     };
+
+    const form = useForm<z.infer<typeof websiteFormSchema>>({
+        resolver: zodResolver(websiteFormSchema),
+        defaultValues: {
+            title: "",
+            url: "",
+            public: true,
+        }
+    });
     useEffect(() => {
         if (data) {
             const { setValue } = form;
@@ -91,6 +98,8 @@ export const EditWebsiteForm = ({
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data]);
+
+
     return (
         <AnimatePresence>
             {isOpen ? (
@@ -221,12 +230,12 @@ export const EditWebsiteForm = ({
                                             {field.value ? (
                                                 <div className=" flex items-center justify-between">
                                                     <Link
-                                                        href={`${siteConfig.url}/${data?.id}`}
+                                                        href={`${siteConfig.url}/s/${data?.id}`}
                                                         target="_blank"
                                                         className=" flex items-center gap-2 hover:underline decoration-blue-500"
                                                     >
                                                         <p className=" text-blue-600 text-sm">
-                                                            {`${siteConfig.url}/`}
+                                                            {`${siteConfig.url}/s/`}
                                                             <span className="">
                                                                 {data?.id}
                                                             </span>{" "}
@@ -248,7 +257,7 @@ export const EditWebsiteForm = ({
                                                     onValueChange={(e) =>
                                                         field.onChange(e === "on" ? true : false)
                                                     }
-                                                    value={field.value ? "on" : "off"}
+                                                    value={!!field.value ? "on" : "off"}
                                                 >
                                                     <SelectTrigger>
                                                         <SelectValue />
