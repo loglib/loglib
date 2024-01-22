@@ -29,7 +29,7 @@ const TeamInviteEmail = ({
     teamName = "loglib",
     inviteLink = "https://loglib.io/dashbaord/team/invite/token",
 }: TeamInviteEmailProps) => {
-    const previewText = `Join ${invitedByUsername} on Vercel`;
+    const previewText = `Join ${invitedByUsername} on Loglib`;
     return (
         <Html>
             <Head />
