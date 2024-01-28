@@ -1,6 +1,6 @@
 import { formatDate } from "@/lib/utils";
 import { allChangelogPosts } from "contentlayer/generated";
-import { ImageResponse } from "next/server";
+import { ImageResponse } from 'next/og'
 
 export const runtime = "edge";
 
