@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { generateToken } from "@/lib/generate-token";
 import { getCurrentUser } from "@/lib/session";
 import { queries } from "@/server/query/queries";
+import { getWebsite } from "@/server/query/website";
 import { schema } from "@loglib/db";
 import { PLAN } from "@loglib/types/models";
 import { eq } from "drizzle-orm";
@@ -18,40 +19,36 @@ export default async function Page({
     id: user?.id ?? "public",
     website: params.website as string,
   });
-  const websites = await db.query.website.findMany({
+  const { userWebsites, teamWebsites } = await getWebsite();
+  const website = await db.query.website.findFirst({
     with: {
-      teamWebsites: {
-        with: {
-          team: {
-            with: {
-              teamMembers: true,
-            },
-          },
-        },
-      },
       user: {
         columns: {
           plan: true,
         },
       },
     },
+    where: (r, q) => {
+      return q.or(
+        eq(r.id, params.website)
+      );
+    }
   });
-
-  const website = websites.find(
-    (d) =>
-      d.id === params.website ||
-      d.teamWebsites.find((tw) => tw.websiteId === params.website)
-  );
-  const isAuthed = websites.find((d) => d.userId === user?.id);
-  if (!website || (!isAuthed && website.public)) {
+  if (!website) {
     return redirect("/");
   }
-  const isPublic = website.public;
+  const isAuthed = website.userId === user?.id || !!teamWebsites.find(w => w.id === params.website);
+
+  if (!isAuthed || !website.public) {
+    return redirect("/");
+  }
+
+  const isPublic = website.public && !isAuthed;
   const showSetup = isPublic
     ? false
     : website.active
-    ? false
-    : await (async () => {
+      ? false
+      : await (async () => {
         const haveSession = (await queries.getIsWebsiteActive(params.website))
           .length;
         if (haveSession) {

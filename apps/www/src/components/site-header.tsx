@@ -73,23 +73,21 @@ export function SiteHeader({ user }: { user?: User }) {
                         onClick={() => setMobileView(!mobileView)}
                     >
                         <div
-                            className={`${genericHamburgerLine} ${
-                                mobileView
-                                    ? "rotate-45 translate-y-3 opacity-50 group-hover:opacity-100"
-                                    : "opacity-50 group-hover:opacity-100"
-                            }`}
+                            className={`${genericHamburgerLine} ${mobileView
+                                ? "rotate-45 translate-y-3 opacity-50 group-hover:opacity-100"
+                                : "opacity-50 group-hover:opacity-100"
+                                }`}
+                        />
+
+                        <div
+                            className={`${genericHamburgerLine} ${mobileView ? "opacity-0" : "opacity-50 group-hover:opacity-100"
+                                }`}
                         />
                         <div
-                            className={`${genericHamburgerLine} ${
-                                mobileView ? "opacity-0" : "opacity-50 group-hover:opacity-100"
-                            }`}
-                        />
-                        <div
-                            className={`${genericHamburgerLine} ${
-                                mobileView
-                                    ? "-rotate-45 -translate-y-3 opacity-50 group-hover:opacity-100"
-                                    : "opacity-50 group-hover:opacity-100"
-                            }`}
+                            className={`${genericHamburgerLine} ${mobileView
+                                ? "-rotate-45 -translate-y-3 opacity-50 group-hover:opacity-100"
+                                : "opacity-50 group-hover:opacity-100"
+                                }`}
                         />
                     </button>
                 </div>
@@ -117,6 +115,7 @@ export function DashboardHeader({ user }: { user: User & { plan: string } }) {
         </header>
     );
 }
+
 export function PublicDashboardHeader() {
     return (
         <header className="mt-4 flex items-center justify-between border-b pb-4 dark:border-gray-800">
