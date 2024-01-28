@@ -21,8 +21,7 @@ const transformData = (events: LoglibEvent[], pastEvents: LoglibEvent[]) => {
     const uniqueValues = new Set();
     let bounces = 0;
     let duration = 0;
-    for (let i = 0; i < events.length; i++) {
-        const event = events[i];
+    for (const event of events) {
         uniqueValues.add(event.visitorId);
         event.duration < 10 && bounces++;
         duration += event.duration;
@@ -31,8 +30,7 @@ const transformData = (events: LoglibEvent[], pastEvents: LoglibEvent[]) => {
     const pastUniqueValues = new Set();
     let pastBounces = 0;
     let pastDuration = 0;
-    for (let i = 0; i < pastEvents.length; i++) {
-        const event = pastEvents[i];
+    for (const event of pastEvents) {
         pastUniqueValues.add(event.visitorId);
         event.duration < 10 && pastBounces++;
         pastDuration += event.duration;

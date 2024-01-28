@@ -142,6 +142,7 @@ app.get("/", async (c) => {
       3,
       4
     );
+
     const tack = performance.now();
     console.log(tack - tick, "ms taken to query");
     const filters = JSON.parse(queries.data.filter) as Filter<LoglibEvent>[];
@@ -168,6 +169,7 @@ app.get("/", async (c) => {
           .where(f.key, f.operator, f.value)
           .execute();
       });
+
     const insightData = getInsight(
       events as LoglibEvent[],
       lastEvents as LoglibEvent[]
@@ -362,11 +364,11 @@ app.get("/v1/insight", async (c) => {
   const today = new Date();
   const startDateObj = new Date(
     startDate ??
-      new Date(
-        today.getFullYear() - 1,
-        today.getMonth(),
-        today.getDate()
-      ).toISOString()
+    new Date(
+      today.getFullYear() - 1,
+      today.getMonth(),
+      today.getDate()
+    ).toISOString()
   );
   const endDateObj = new Date(endDate ?? today);
   const duration = endDateObj.getTime() - startDateObj.getTime();

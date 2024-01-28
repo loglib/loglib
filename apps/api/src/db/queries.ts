@@ -8,8 +8,7 @@ import { client } from "./clickhouse";
 import { db } from "./drizzle";
 
 export const hitsQuery = (startDate: string, endDate: string, websiteId: string) =>
-    `select id, sessionId, visitorId, JSONExtract(properties, 'city', 'String') as city, JSONExtract(properties, 'country', 'String') as country,JSONExtract(properties, 'browser', 'String') as browser,JSONExtract(properties, 'language', 'String') as locale,JSONExtract(properties, 'referrerPath', 'String') as referrerPath, JSONExtract(properties, 'currentPath', 'String') as currentPath, JSONExtract(properties, 'referrerDomain', 'String') as referrerDomain, JSONExtract(properties, 'queryParams', 'String') as queryParams, JSONExtract(properties, 'device', 'String') as device, JSONExtract(properties, 'duration', 'Float32') as duration, JSONExtract(properties, 'os', 'String') as os, event, timestamp from loglib.event WHERE ${
-        startDate && `timestamp >= '${startDate}' AND`
+    `select id, sessionId, visitorId, JSONExtract(properties, 'city', 'String') as city, JSONExtract(properties, 'country', 'String') as country,JSONExtract(properties, 'browser', 'String') as browser,JSONExtract(properties, 'language', 'String') as locale,JSONExtract(properties, 'referrerPath', 'String') as referrerPath, JSONExtract(properties, 'currentPath', 'String') as currentPath, JSONExtract(properties, 'referrerDomain', 'String') as referrerDomain, JSONExtract(properties, 'queryParams', 'String') as queryParams, JSONExtract(properties, 'device', 'String') as device, JSONExtract(properties, 'duration', 'Float32') as duration, JSONExtract(properties, 'os', 'String') as os, event, timestamp from loglib.event WHERE ${startDate && `timestamp >= '${startDate}' AND`
     } timestamp <= '${endDate}' AND websiteId = '${websiteId}' AND event = 'hits'`;
 
 export const customEventsQuery = (startDate: string, endDate: string, websiteId: string) =>
@@ -177,11 +176,10 @@ async function getHitsData(startDateObj: Date, endDateObj: Date, websiteId: stri
                 .select()
                 .from(event)
                 .where(
-                    sql`${event.websiteId} = ${websiteId} and event = 'hits' and ${
-                        event.timestamp
-                    } >= ${new Date(startDateObj.getTime())} and ${event.timestamp} <= ${new Date(
-                        endDateObj,
-                    ).getTime()}`,
+                    sql`${event.websiteId} = ${websiteId} and event = 'hits' and ${event.timestamp
+                        } >= ${new Date(startDateObj.getTime())} and ${event.timestamp} <= ${new Date(
+                            endDateObj,
+                        ).getTime()}`,
                 )
                 .then((res) =>
                     res.map((event) => {
@@ -195,7 +193,7 @@ async function getHitsData(startDateObj: Date, endDateObj: Date, websiteId: stri
                 );
         },
         clickhouse: async () => {
-            return await client
+            const res = await client
                 .query({
                     query: hitsQuery(
                         convertToUTC(startDateObj),
@@ -205,6 +203,8 @@ async function getHitsData(startDateObj: Date, endDateObj: Date, websiteId: stri
                     format: "JSONEachRow",
                 })
                 .then(async (res) => (await res.json()) as LoglibEvent[]);
+            console.log({ res: res.length, startDateObj, endDateObj })
+            return res
         },
     };
 }
@@ -217,11 +217,10 @@ function getSiteVitals(websiteId: string, startDate: Date, endDate: Date) {
                 .select()
                 .from(event)
                 .where(
-                    sql`${event.websiteId} = ${websiteId} and event = 'vitals' and ${
-                        event.timestamp
-                    } >= ${new Date(startDate.getTime())} and ${event.timestamp} <= ${new Date(
-                        endDate,
-                    ).getTime()}`,
+                    sql`${event.websiteId} = ${websiteId} and event = 'vitals' and ${event.timestamp
+                        } >= ${new Date(startDate.getTime())} and ${event.timestamp} <= ${new Date(
+                            endDate,
+                        ).getTime()}`,
                 )
                 .then((res) =>
                     res.map((r) => ({
@@ -250,11 +249,10 @@ async function getCustomEventData(startDateObj: Date, endDateObj: Date, websiteI
                 .select()
                 .from(event)
                 .where(
-                    sql`${event.websiteId} = ${websiteId} and event != 'hits' and ${
-                        event.timestamp
-                    } >= ${new Date(startDateObj.getTime())} and ${event.timestamp} <= ${new Date(
-                        endDateObj,
-                    ).getTime()}`,
+                    sql`${event.websiteId} = ${websiteId} and event != 'hits' and ${event.timestamp
+                        } >= ${new Date(startDateObj.getTime())} and ${event.timestamp} <= ${new Date(
+                            endDateObj,
+                        ).getTime()}`,
                 )
                 .then((res) =>
                     res.map((event) => {
@@ -321,7 +319,8 @@ export function loglibDb(db: "sqlite" | "clickhouse") {
             websiteId: string,
         ) {
             const query1 = await getHitsData(startDateObj, endDateObj, websiteId);
-            const query2 = await getHitsData(endDateObj, pastEndDateObj, websiteId);
+            const query2 = await getHitsData(pastEndDateObj, startDateObj, websiteId);
+
             return await Promise.all([query1[db](), query2[db]()]);
         },
         async getCustomEvents(startDateObj: Date, endDateObj: Date, websiteId: string) {
