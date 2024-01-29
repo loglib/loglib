@@ -7,7 +7,7 @@ import { getWebsite } from "@/server/query/website";
 import { schema } from "@loglib/db";
 import { PLAN } from "@loglib/types/models";
 import { eq } from "drizzle-orm";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 export default async function Page({
   params,
@@ -19,7 +19,7 @@ export default async function Page({
     id: user?.id ?? "public",
     website: params.website as string,
   });
-  const { userWebsites, teamWebsites } = await getWebsite();
+  const { teamWebsites } = await getWebsite();
   const website = await db.query.website.findFirst({
     with: {
       user: {
@@ -35,11 +35,13 @@ export default async function Page({
     }
   });
   if (!website) {
-    return redirect("/");
+    return notFound()
   }
-  const isAuthed = website.userId === user?.id || !!teamWebsites.find(w => w.id === params.website);
 
-  if (!isAuthed || !website.public) {
+  const isTeamMember = !!teamWebsites.find(w => w.id === params.website);
+  const isAuthed = website.userId === user?.id || isTeamMember
+
+  if (!isAuthed && !website.public) {
     return redirect("/");
   }
 
