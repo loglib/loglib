@@ -19,6 +19,6 @@ export const metadata = {
     },
 };
 
-export const Investment = () => {
+export default function Page() {
     return redirect("https://www.youtube.com/watch?v=oHg5SJYRHA0")
 }
