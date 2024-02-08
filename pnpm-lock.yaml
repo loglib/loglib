@@ -76,7 +76,7 @@ importers:
         version: 1.1.1
       '@libsql/client':
         specifier: ^0.3.1
-        version: 0.3.5
+        version: 0.3.5(bufferutil@4.0.7)(encoding@0.1.13)(utf-8-validate@6.0.3)
       '@loglib/clickhouse':
         specifier: 1.0.0
         version: link:../../packages/clickhouse
@@ -175,8 +175,8 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1(react-hook-form@7.44.3)
       '@libsql/client':
-        specifier: ^0.3.4
-        version: 0.3.4(bufferutil@4.0.7)(encoding@0.1.13)(utf-8-validate@6.0.3)
+        specifier: ^0.3.1
+        version: 0.3.5(bufferutil@4.0.7)(encoding@0.1.13)(utf-8-validate@6.0.3)
       '@loglib/db':
         specifier: 1.0.0
         version: link:../../packages/db
@@ -395,7 +395,7 @@ importers:
         version: 0.19.13
       drizzle-orm:
         specifier: ^0.28.5
-        version: 0.28.5(@libsql/client@0.3.4)(@opentelemetry/api@1.4.1)(@planetscale/database@1.8.0)(better-sqlite3@8.5.2)
+        version: 0.28.5(@libsql/client@0.3.5)(@opentelemetry/api@1.4.1)(@planetscale/database@1.8.0)(better-sqlite3@8.5.2)
       encoding:
         specifier: ^0.1.13
         version: 0.1.13
@@ -651,7 +651,7 @@ importers:
         version: 0.12.0
       '@libsql/client':
         specifier: ^0.3.1
-        version: 0.3.5
+        version: 0.3.5(bufferutil@4.0.7)(encoding@0.1.13)(utf-8-validate@6.0.3)
       '@paralleldrive/cuid2':
         specifier: ^2.2.2
         version: 2.2.2
@@ -3739,19 +3739,7 @@ packages:
   /@jspm/core@2.0.0-beta.24:
     resolution: {integrity: sha512-a4Bo/80Z6CoJNor5ldgs6002utmmbttP4JYd/FJ0Ob2fVdf6O6ha5SORBCqrnDnBvMc1TlrHY7dCfat5+H0a6A==}
 
-  /@libsql/client@0.3.4(bufferutil@4.0.7)(encoding@0.1.13)(utf-8-validate@6.0.3):
-    resolution: {integrity: sha512-b1rpCzm02oQuh1zM1UKdKxhClyMMlgyFagcmsuGTve/AQxubO/FaRgoKXTcGaOqoRjymE1qf0sQM2UoyPvu3lA==}
-    dependencies:
-      '@libsql/hrana-client': 0.5.5(bufferutil@4.0.7)(encoding@0.1.13)(utf-8-validate@6.0.3)
-      better-sqlite3: 8.5.2
-      js-base64: 3.7.5
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - utf-8-validate
-    dev: false
-
-  /@libsql/client@0.3.5:
+  /@libsql/client@0.3.5(bufferutil@4.0.7)(encoding@0.1.13)(utf-8-validate@6.0.3):
     resolution: {integrity: sha512-4fZxGh0qKW5dtp1yuQLRvRAtbt02V4jzjM9sHSmz5k25xZTLg7/GlNudKdqKZrjJXEV5PvDNsczupBtedZZovw==}
     dependencies:
       '@libsql/hrana-client': 0.5.5(bufferutil@4.0.7)(encoding@0.1.13)(utf-8-validate@6.0.3)
@@ -11105,7 +11093,7 @@ packages:
       - supports-color
     dev: false
 
-  /drizzle-orm@0.28.5(@libsql/client@0.3.4)(@opentelemetry/api@1.4.1)(@planetscale/database@1.8.0)(better-sqlite3@8.5.2):
+  /drizzle-orm@0.28.5(@libsql/client@0.3.5)(@opentelemetry/api@1.4.1)(@planetscale/database@1.8.0)(better-sqlite3@8.5.2):
     resolution: {integrity: sha512-6r6Iw4c38NAmW6TiKH3TUpGUQ1YdlEoLJOQptn8XPx3Z63+vFNKfAiANqrIiYZiMjKR9+NYAL219nFrmo1duXA==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
@@ -11167,7 +11155,7 @@ packages:
       sqlite3:
         optional: true
     dependencies:
-      '@libsql/client': 0.3.4(bufferutil@4.0.7)(encoding@0.1.13)(utf-8-validate@6.0.3)
+      '@libsql/client': 0.3.5(bufferutil@4.0.7)(encoding@0.1.13)(utf-8-validate@6.0.3)
       '@opentelemetry/api': 1.4.1
       '@planetscale/database': 1.8.0
       better-sqlite3: 8.5.2
@@ -11235,7 +11223,7 @@ packages:
       sqlite3:
         optional: true
     dependencies:
-      '@libsql/client': 0.3.5
+      '@libsql/client': 0.3.5(bufferutil@4.0.7)(encoding@0.1.13)(utf-8-validate@6.0.3)
       '@planetscale/database': 1.14.0
       kysely: 0.26.1
     dev: false
