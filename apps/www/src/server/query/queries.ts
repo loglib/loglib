@@ -35,10 +35,9 @@ const getTotalEventsCount = async (websiteIds: string[], startDate: Date, endDat
                 query: `select * from loglib.event where websiteId IN (${websiteIds.map(w => `'${w}'`)}) AND timestamp >='${startDate.toISOString().slice(0, 19).replace("T", " ")}' AND timestamp <='${endDate.toISOString().slice(0, 19).replace("T", " ")}'`,
                 format: "JSONEachRow"
             }).then(async (res) => await res.json() as { event: string }[])
-            console.log(sessionsCount.length, websiteIds)
             return {
                 pageViews: sessionsCount.filter(s => s.event === "hits").length,
-                customEvents: sessionsCount.filter(s => s.event !== "hits").length
+                customEvents: sessionsCount.filter(s => s.event !== "hits" && s.event !== "vitals").length
             }
         },
         sqlite: async () => {
