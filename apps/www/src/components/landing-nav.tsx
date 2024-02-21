@@ -151,6 +151,20 @@ export const LandingNav = ({ mobileView }: { mobileView?: boolean }) => {
                         </button>
                     </Link>
                 </li>
+                <li className="">
+                    <Link href="/blog">
+                        <button
+                            type="button"
+                            className={cn(
+                                "px-4 py-1 text-lg font-light text-black/60 transition-[text-shadow,color] duration-200 hover:text-black/80 focus:outline-none dark:text-white/60 dark:hover:text-white/75",
+                                pathname?.includes("/blog") &&
+                                    "text-black/80 dark:text-white/75 font-bold",
+                            )}
+                        >
+                            Blog
+                        </button>
+                    </Link>
+                </li>
 
                 <li className="">
                     <Link href="/changelog">
