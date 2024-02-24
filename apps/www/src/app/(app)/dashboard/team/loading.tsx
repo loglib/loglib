@@ -2,12 +2,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DataTableSkeleton } from "@/components/table-skeleton";
 
-const Page = async ({
-  searchParams,
-}: {
-  params: { slug: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
-}) => {
+const Page = async () => {
   return (
     <section className=" space-y-8">
       <HeaderSkeleton />
