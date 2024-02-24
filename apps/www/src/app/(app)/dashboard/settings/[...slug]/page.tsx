@@ -140,7 +140,7 @@ const Setting = async ({ params }: { params: { slug: string[] } }) => {
                             }
                         </CardFooter>
                     </Card>
-                    <div className=" mt-6 flex-col md:flex-row flex items-center gap-8 pb-4">
+                    <div className=" mt-6 flex-col md:flex-row flex justify-start items-start gap-8 pb-4">
                         <PricingCard tier={PLANS[0]} user={{
                             ...user,
                             portalUrl
