@@ -29,12 +29,3 @@ export const HeaderSkeleton = () => {
     </div>
   );
 };
-
-export const TableSkeleton = () => {
-  return (
-    <div className="flex flex-col gap-10 mt-2">
-      <Skeleton className="h-10 py-2 w-80" />
-      <Skeleton className="rounded-xl p-10 w-full" />
-    </div>
-  );
-};
