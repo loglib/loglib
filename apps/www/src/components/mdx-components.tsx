@@ -8,6 +8,7 @@ import { MdxCard } from "@/components/mdx-card";
 import { cn } from "@/lib/utils";
 import { Steps } from "nextra-theme-docs";
 import { MdxTab, MdxTabs } from "./mdx-tab";
+import { CodeBlock } from "./code-blocks";
 
 export const components = {
     h1: ({ className, ...props }) => (
@@ -100,12 +101,7 @@ export const components = {
             {...props}
         />
     ),
-    pre: ({ className, ...props }) => (
-        <pre
-            className={cn("mb-4 mt-6 overflow-x-auto rounded-lg border bg-black py-4", className)}
-            {...props}
-        />
-    ),
+    pre:CodeBlock,
     code: ({ className, ...props }) => {
         return (
             <div className=" flex items-center justify-between px-4">
