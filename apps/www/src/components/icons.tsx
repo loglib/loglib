@@ -27,6 +27,9 @@ import {
     User,
     Users,
     X,
+    Eye,
+    MousePointerClick,
+    Webhook,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -114,8 +117,12 @@ export const Icons = {
     arrowRight: ArrowRight,
     help: HelpCircle,
     pizza: Pizza,
+    credit: CreditCard,
     sun: SunMedium,
     moon: Moon,
+    events: Webhook,
+    eye: Eye,
+    mousePointerClick: MousePointerClick,
     layout: Layout,
     laptop: Laptop,
     key: KeyIcon,
