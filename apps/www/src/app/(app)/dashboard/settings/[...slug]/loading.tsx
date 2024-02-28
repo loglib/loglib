@@ -61,8 +61,6 @@ const PricingCardSkeleton = () => {
   return (
     <section className="bg-gradient-to-br from-stone-900 border to-stone-900/80 relative flex max-w-sm flex-col overflow-hidden rounded-lg shadow-lg">
       <div className="my-28 flex flex-col gap-3 animate-pulse">
-        {/* <Skeleton className="mx-2 h-4 w-20" />
-                <Skeleton className="mx-2 h-4 w-32" /> */}
       </div>
       <div className="flex flex-1 flex-col justify-between space-y-6 bg-stone-100 px-6 pb-8 pt-6 dark:bg-stone-950/80 sm:p-10 sm:pt-6">
         {Array.from("hahahaha").map((_, i) => {
