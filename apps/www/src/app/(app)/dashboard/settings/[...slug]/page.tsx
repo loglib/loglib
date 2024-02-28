@@ -72,7 +72,6 @@ const Setting = async ({ params }: { params: { slug: string[] } }) => {
         </p>
         <Separator className=" mt-4" />
       </div>
-
       <TabModified defaultValue={route}>
         <TabsList>
           <TabsTrigger value="billing">Billing</TabsTrigger>
@@ -120,7 +119,6 @@ const Setting = async ({ params }: { params: { slug: string[] } }) => {
               icon="users"
             />
           </div>
-
           <div className=" mt-6 flex-col md:flex-row flex justify-start items-start gap-8 pb-4">
             <PricingCard
               tier={PLANS[0]}
