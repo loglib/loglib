@@ -42,10 +42,8 @@ export default function SettingLoading() {
               );
             })}
           </div>
-          {/* TODO: A card for billing content */}
         </TabsContent>
         <TabsContent value="usage">
-          {/* // TODO; Card skeleton for uaage */}
         </TabsContent>
       </TabModified>
       <div className="grid  max-w-[76rem] gap-7 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
