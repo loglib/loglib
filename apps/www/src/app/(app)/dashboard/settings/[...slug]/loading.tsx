@@ -62,7 +62,7 @@ const PricingCardSkeleton = () => {
       </div>
       <div className="flex flex-1 flex-col justify-between space-y-6 bg-stone-100 px-6 pb-8 pt-6 dark:bg-stone-950/80 sm:p-10 sm:pt-6">
         {Array.from("hahahaha").map((_, i) => {
-          return <Skeleton className="h-4 w-32" />;
+          return <Skeleton className="h-4 w-48" />;
         })}
       </div>
     </section>
