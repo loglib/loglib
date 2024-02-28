@@ -27,21 +27,19 @@ export default function SettingLoading() {
         <Separator className="w-full mb-4 mt-[-3px]" />
         <TabsContent value="billing" className="flex flex-col max-w-[76rem] ">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-7">
-            
-            {Array.from('haha').map((_, i) => {
-                return (
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-                <Skeleton className="h-4 w-20" />
-                <Skeleton className="size-4" />
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <Skeleton className="h-6 w-12" />
-                <Skeleton className="h-4 w-40" />
-              </CardContent>
-            </Card>
-                )
+            {Array.from("haha").map((_, i) => {
+              return (
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+                    <Skeleton className="h-4 w-20" />
+                    <Skeleton className="size-4" />
+                  </CardHeader>
+                  <CardContent className="space-y-2">
+                    <Skeleton className="h-6 w-12" />
+                    <Skeleton className="h-4 w-40" />
+                  </CardContent>
+                </Card>
+              );
             })}
           </div>
           {/* TODO: A card for billing content */}
@@ -50,10 +48,27 @@ export default function SettingLoading() {
           {/* // TODO; Card skeleton for uaage */}
         </TabsContent>
       </TabModified>
+      <div className="grid  max-w-[76rem] gap-7 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {Array.from("huh").map((_, i) => {
+          return <PricingCardSkeleton />;
+        })}
+      </div>
     </section>
   );
 }
 
 const PricingCardSkeleton = () => {
-  return <></>;
+  return (
+    <section className="bg-gradient-to-br from-stone-900 border to-stone-900/80 relative flex max-w-sm flex-col overflow-hidden rounded-lg shadow-lg">
+      <div className="my-28 flex flex-col gap-3 animate-pulse">
+        {/* <Skeleton className="mx-2 h-4 w-20" />
+                <Skeleton className="mx-2 h-4 w-32" /> */}
+      </div>
+      <div className="flex flex-1 flex-col justify-between space-y-6 bg-stone-100 px-6 pb-8 pt-6 dark:bg-stone-950/80 sm:p-10 sm:pt-6">
+        {Array.from("hahahaha").map((_, i) => {
+          return <Skeleton className="h-4 w-32" />;
+        })}
+      </div>
+    </section>
+  );
 };
