@@ -12,5 +12,6 @@
     "yxxx"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
-  "liveServer.settings.port": 5501
+  "liveServer.settings.port": 5501,
+  "biome.enabled": true
 }
