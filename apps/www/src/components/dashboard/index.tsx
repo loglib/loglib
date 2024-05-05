@@ -12,7 +12,7 @@ import {
     UserIcon,
     Users2,
 } from "lucide-react";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import useSWR from "swr";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -42,6 +42,7 @@ import { InsightTables } from "./insight/tables";
 import { Graph } from "./insight/visitor-graph";
 import { SpeedInsight } from "./speed-insight";
 import { Filter, FilterProp, TimeRange } from "./type";
+import { useSearchParamsState } from "@/hooks/use-search-params-state";
 
 export const Dashboard = ({
     website,
@@ -63,7 +64,24 @@ export const Dashboard = ({
         stringValue: "24hr",
     });
     const [customTime, setCustomTime] = useState(false);
-    const [filters, setFilters] = useState<Filter[]>([]);
+    const [rawFilters, setFilters] = useSearchParamsState('filters')
+
+    const filters = useMemo(() => {
+        if (typeof rawFilters === 'string') {
+            try {
+                const parsedFilters = JSON.parse(rawFilters)
+                if (Array.isArray(parsedFilters)) {
+                    return parsedFilters as Filter[]
+                }
+            } catch (error) {
+                if (error instanceof SyntaxError) {
+                    console.error(`Filter string in search parameters is malformed. Found: ${rawFilters} `)
+                }
+            }
+            return []
+        }
+        return []
+    }, [rawFilters])
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const [setting] = useAtom(localSettingAtom);
     const url = env.NEXT_PUBLIC_API_URL;
@@ -75,11 +93,11 @@ export const Dashboard = ({
     );
 
     function addFilter(f: Filter) {
-        setFilters([...filters, f]);
+        setFilters(JSON.stringify([...filters, f]));
     }
 
     function clearFilter(key: string) {
-        setFilters((prev) => prev.filter((f) => f.key !== key));
+        setFilters(JSON.stringify(filters.filter((filter) => filter.key !== key)));
     }
 
     const isFilterActive = (key: string) => filters.some((filter) => filter.key === key);
