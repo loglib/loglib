@@ -1,6 +1,5 @@
 {
     "name": "@loglib/root",
-    "packageManager": "pnpm@7.9.5",
     "private": true,
     "type": "module",
     "scripts": {

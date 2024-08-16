@@ -10,7 +10,7 @@
         "./models": "./models.ts"
     },
     "dependencies": {
-        "@loglib/db": "^1.0.0",
+        "@loglib/db": "workspace:*",
         "web-vitals": "^3.4.0"
     }
 }
