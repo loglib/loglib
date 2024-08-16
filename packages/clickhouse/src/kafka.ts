@@ -35,8 +35,8 @@ async function sendMessage(
     message: { [key: string]: string | number },
     topic: string,
 ): Promise<RecordMetadata[]> {
-    await connect();
-    return producer.send({
+    const p = await getProducer();
+    return p.send({
         topic,
         messages: [
             {
