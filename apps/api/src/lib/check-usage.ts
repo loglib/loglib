@@ -8,7 +8,7 @@ export const checkUsage = async (websiteId: string) => {
     });
     const date = new Date();
     date.setDate(date.getDate() - 4);
-    if (sentEmails.type === "second_usage_limit" && sentEmails.createdAt < date) {
+    if (sentEmails?.type === "second_usage_limit" && sentEmails?.createdAt < date) {
         return false;
     }
     return true;
