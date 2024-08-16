@@ -19,7 +19,7 @@ function getClient() {
     const kafka = new Kafka({
         brokers,
         sasl: {
-            mechanism: "scram-sha-256",
+            mechanism: "scram-sha-512",
             username,
             password,
         },
