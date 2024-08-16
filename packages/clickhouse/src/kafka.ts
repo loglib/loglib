@@ -59,7 +59,8 @@ async function sendMessages(messages: { [key: string]: string | number }[], topi
 }
 
 async function getProducer(): Promise<Producer> {
-    const producer = kafka.producer();
+    const k = kafka || getClient();
+    const producer = k.producer();
     await producer.connect();
     console.log("Kafka producer initialized");
     return producer;
