@@ -49,6 +49,7 @@ async function sendMessage(
 
 async function sendMessages(messages: { [key: string]: string | number }[], topic: string) {
     await connect();
+    if (!producer) return;
     await producer.send({
         topic,
         messages: messages.map((a) => {
