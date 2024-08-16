@@ -48,9 +48,8 @@ async function sendMessage(
 }
 
 async function sendMessages(messages: { [key: string]: string | number }[], topic: string) {
-    await connect();
-    if (!producer) return;
-    await producer.send({
+    const p = await getProducer();
+    await p.send({
         topic,
         messages: messages.map((a) => {
             return { value: JSON.stringify(a) };
