@@ -39,8 +39,8 @@ export const setupClickhouseDb = async (client: ClickHouseClient, brokerList: st
                kafka_group_name = 'event_consumer_group',
                kafka_format = 'JSONEachRow',
                kafka_max_block_size = 1048576,
-               kafka_handle_error_mode = 'stream';`
-    })
+               kafka_handle_error_mode = 'stream';`,
+    });
 
     await client.exec({
         query: `CREATE MATERIALIZED VIEW loglib.event_queue_mv TO loglib.event AS
@@ -52,8 +52,8 @@ export const setupClickhouseDb = async (client: ClickHouseClient, brokerList: st
         timestamp,
         websiteId,
         sign
-        FROM loglib.event_queue;`
-    })
+        FROM loglib.event_queue;`,
+    });
 
     await client.exec({
         query: `
@@ -69,16 +69,16 @@ export const setupClickhouseDb = async (client: ClickHouseClient, brokerList: st
             _raw_message AS raw
         FROM loglib.event_queue
         WHERE length(_error) > 0;
-        `
-    })
+        `,
+    });
 };
 
 async function main() {
     const client = createClient({
         host: process.env.CLICKHOUSE_HOST,
-        password: process.env.CLICKHOUSE_PASSWORD
-    })
-    setupClickhouseDb(client, process.env.KAFKA_BROKER)
+        password: process.env.CLICKHOUSE_PASSWORD,
+    });
+    setupClickhouseDb(client, process.env.KAFKA_BROKER);
 }
 
-main()
+main();

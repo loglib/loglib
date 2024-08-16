@@ -64,7 +64,7 @@ const createEvent = () => {
     }) => {
         return {
             clickhouse: async () => {
-                const { enabled, sendMessages, connect } = kafka;
+                const { enabled, sendMessages } = kafka;
                 const value = {
                     id,
                     sessionId,
@@ -91,7 +91,6 @@ const createEvent = () => {
                     sign: 1,
                 };
                 if (enabled) {
-                    await connect();
                     await sendMessages([value], "events");
                 } else {
                     await client
@@ -143,9 +142,8 @@ type InsertEventParams = {
 const createEvents = (data: InsertEventParams[]) => {
     return {
         clickhouse: async () => {
-            const { enabled, sendMessages, connect } = kafka;
+            const { enabled, sendMessages } = kafka;
             if (enabled) {
-                await connect();
                 await sendMessages(data, "events");
             } else {
                 await client
