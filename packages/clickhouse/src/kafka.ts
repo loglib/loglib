@@ -1,4 +1,4 @@
-import { Kafka, Producer, RecordMetadata } from "kafkajs";
+import { Kafka, logLevel, Producer, RecordMetadata } from "kafkajs";
 import { KAFKA, KAFKA_PRODUCER } from "./lib/constants";
 
 let kafka: Kafka;
@@ -19,11 +19,12 @@ function getClient() {
     const kafka = new Kafka({
         brokers,
         sasl: {
-            mechanism: "scram-sha-512",
+            mechanism: "scram-sha-256",
             username,
             password,
         },
         ssl: ssl ?? true,
+        logLevel: logLevel.ERROR,
     });
     if (process.env.NODE_ENV !== "production") {
         global[KAFKA] = kafka;
